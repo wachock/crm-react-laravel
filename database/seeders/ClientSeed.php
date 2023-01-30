@@ -2,13 +2,13 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
+use App\Models\Client;
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Faker\Generator;
 use Illuminate\Support\Facades\Hash;
 
-class UserSeed extends Seeder
+class ClientSeed extends Seeder
 {
     /**
      * Run the database seeds.
@@ -20,13 +20,13 @@ class UserSeed extends Seeder
         $faker = app(Generator::class);
 
         for ($i = 1; $i < 21; $i++) {
-            User::create([
+            Client::create([
                 'firstname'         => $faker->firstname(),
                 'lastname'          => $faker->lastname(),
                 'address'           => $faker->address(),
                 'role'              => 'employer',
                 'phone'             => $faker->numerify('9#########'),
-                'email'             => $i == 1 ? 'worker@worker.com' : $faker->unique()->safeEmail(),
+                'email'             => $i == 1 ? 'client@client.com' : $faker->unique()->safeEmail(),
                 'status'            => 1,
                 'email_verified_at' => Carbon::now(),
                 'password'          => Hash::make('password')
