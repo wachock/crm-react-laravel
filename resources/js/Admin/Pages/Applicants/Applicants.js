@@ -87,14 +87,14 @@ export default function Applicants() {
                 <div className="titleBox customer-title">
                     <div className="row">
                         <div className="col-sm-6">
-                            <h1 className="page-title">Applicants</h1>
+                            <h1 className="page-title">Clients</h1>
                         </div>
                         <div className="col-sm-6">
                             <Link
                                 to="/admin/add-applicant"
                                 className="btn btn-success addButton"
                             >
-                                Add Applicant
+                                Add Client
                             </Link>
                         </div>
                     </div>
@@ -109,7 +109,7 @@ export default function Applicants() {
                                 <thead>
                                     <tr>
                                         <th scope="col">ID</th>
-                                        <th scope="col">Applicant Name</th>
+                                        <th scope="col">Client Name</th>
                                         <th scope="col">Email</th>
                                         <th scope="col">Phone</th>
                                         <th scope="col">Status</th>

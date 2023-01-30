@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useAlert } from "react-alert";
 import { useNavigate } from "react-router-dom";
 import Sidebar from "../../Layouts/Sidebar";
@@ -7,8 +7,9 @@ export default function AddApplicant() {
     const [firstname, setFirstName] = useState("");
     const [lastname, setLastName] = useState("");
     const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const [passcode, setPassCode] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
+    let   [invoiceName,setInvoiceName] = useState("");
     const [phone, setPhone] = useState("");
     const [address, setAddress] = useState("");
     const [status, setStatus] = useState("");
@@ -49,12 +50,22 @@ export default function AddApplicant() {
                 }
             });
     };
+
+    const addPhone = (e) =>{
+      e.preventDefault();
+      var cont = document.querySelectorAll('.phone')[0].innerHTML;
+      document.querySelector('.phone').innerHTML += cont;
+    }
+    const remPhone = (e) =>{
+        e.preventDefault();
+        console.log('remove');
+      }
     return (
         <div id="container">
             <Sidebar />
             <div id="content">
                 <div className="edit-customer">
-                    <h1 className="page-title addEmployer">Add Applicant</h1>
+                    <h1 className="page-title addEmployer">Add Client</h1>
                     <form>
                         <div className="row">
                             <div className="col-sm-6">
@@ -101,6 +112,23 @@ export default function AddApplicant() {
                             <div className="col-sm-6">
                                 <div className="form-group">
                                     <label className="control-label">
+                                        Invoice Name *
+                                    </label>
+                                    <input
+                                        type="text"
+                                        value={lastname}
+                                        onChange={(e) =>
+                                            setInvoiceName(e.target.value)
+                                        }
+                                        className="form-control"
+                                        required
+                                        placeholder="Enter Last Name"
+                                    />
+                                </div>
+                            </div>
+                            <div className="col-sm-6">
+                                <div className="form-group">
+                                    <label className="control-label">
                                         Email *
                                     </label>
                                     <input
@@ -122,7 +150,33 @@ export default function AddApplicant() {
                                     )}
                                 </div>
                             </div>
+                         
                             <div className="col-sm-6">
+                                <div className="form-group">
+                                    <label className="control-label">
+                                        Passcode *
+                                    </label>
+                                    <input
+                                        type="text"
+                                        value={passcode}
+                                        onChange={(e) =>
+                                            setPassCode(e.target.value)
+                                        }
+                                        className="form-control"
+                                        required
+                                        placeholder="Passcode"
+                                    />
+                                    {errors.passcode ? (
+                                        <small className="text-danger mb-1">
+                                            {errors.passcode}
+                                        </small>
+                                    ) : (
+                                        ""
+                                    )}
+                                </div>
+                            </div>
+                           
+                            <div className="col-sm-5 phone">
                                 <div className="form-group">
                                     <label className="control-label">
                                         Phone
@@ -144,49 +198,16 @@ export default function AddApplicant() {
                                         ""
                                     )}
                                 </div>
+                                
                             </div>
-                            <div className="col-sm-6">
-                                <div className="form-group">
-                                    <label className="control-label">
-                                        Password *
-                                    </label>
-                                    <input
-                                        type="password"
-                                        value={password}
-                                        onChange={(e) =>
-                                            setPassword(e.target.value)
-                                        }
-                                        className="form-control"
-                                        required
-                                        placeholder="Password"
-                                    />
-                                    {errors.password ? (
-                                        <small className="text-danger mb-1">
-                                            {errors.password}
-                                        </small>
-                                    ) : (
-                                        ""
-                                    )}
-                                </div>
-                            </div>
-                            <div className="col-sm-6">
-                                <div className="form-group">
-                                    <label className="control-label">
-                                        Confirm Password *
-                                    </label>
-                                    <input
-                                        type="password"
-                                        value={confirmPassword}
-                                        onChange={(e) =>
-                                            setConfirmPassword(e.target.value)
-                                        }
-                                        className="form-control"
-                                        required
-                                        placeholder="Confirm Password"
-                                    />
-                                </div>
-                            </div>
+
+                           <div className="col-sm-1">
+                           <button className="btn btn-success" onClick={addPhone}> + </button>
+                           </div>
+
+                          
                         </div>
+                        
                         <div className="form-group">
                             <label className="control-label">Address</label>
                             <input

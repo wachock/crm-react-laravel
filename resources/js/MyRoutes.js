@@ -86,13 +86,6 @@ import AddSubscription from './Admin/Pages/Subscription/AddSubscription';
 import EditSubscription from './Admin/Pages/Subscription/EditSubscription';
 import Setting from './Admin/Pages/Setting/Setting';
 
-
-
-
-
-
-
-
 TimeAgo.addDefaultLocale(en)
 const options = {
    timeout: 2000,

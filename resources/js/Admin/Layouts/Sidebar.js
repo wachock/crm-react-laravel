@@ -48,7 +48,6 @@ export default function Sidebar() {
                     </li>
                     <li className="list-inline-item">
                         <h5>{name}</h5>
-                        <p>Yeliko</p>
                         <span>Administrator</span>
                     </li>
                     <li className="list-inline-item">
@@ -95,16 +94,17 @@ export default function Sidebar() {
                         Jobs
                     </Link>
                 </li>
-                <li className="list-group-item">
-                    <Link to="/admin/employers">
-                        <i className="fa-solid fa-user-doctor"></i>
-                        Employers
-                    </Link>
-                </li>
+               
                 <li className="list-group-item">
                     <Link to="/admin/applicants">
                         <i className="fa-solid fa-user"></i>
-                        Applicants
+                       Client Panel
+                    </Link>
+                </li>
+                <li className="list-group-item">
+                    <Link to="/admin/employers">
+                        <i className="fa-solid fa-user"></i>
+                        Worker Panel
                     </Link>
                 </li>
                 <li className='list-group-item'>
