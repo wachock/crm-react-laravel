@@ -16,3 +16,7 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
+/composer.lock
+public/js/app.js
+public/js/manifest.js
+public/js/vendor.js

@@ -2,10 +2,11 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\User\Auth\AuthController;
 
 /*
 |--------------------------------------------------------------------------
-| API Routes
+| Employee API Routes
 |--------------------------------------------------------------------------
 |
 | Here is where you can register API routes for your application. These
@@ -14,6 +15,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+// Unauthenticated Routes
+
+Route::post('login', [AuthController::class, 'login']);
+Route::post('register', [AuthController::class, 'register']);
+
+
+// Authenticated Routes
+Route::group( ['middleware' => ['auth:api','scopes:user'] ],function(){
+    Route::get('details',[AuthController::class, 'details']);    
 });

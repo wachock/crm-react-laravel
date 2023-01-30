@@ -1,0 +1,616 @@
+#post-ad{
+    padding: 50px 100px;
+    margin: 0 auto;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    margin-bottom: 50px;
+    background: #fff;
+}
+.EmployerDashboard{
+    background-color: #f3f3f3;
+}
+.setup-profile{
+    background-color: #f3f3f3;
+}
+.email-confirmation{
+    background-color: #f3f3f3;
+}
+.dashboard-applicant{
+    background-color: #f3f3f3;
+}
+#post-ad .free-register{
+    font-size: 24px;
+    font-weight: 600;
+    text-align: center;
+    color: #111;
+    font-family: 'Montserrat';
+}
+#post-ad .nav-tabs{
+    border-bottom: none;
+    margin-top: 50px;
+    justify-content: center;
+    margin-bottom: 60px;
+}
+#post-ad .nav-item a {
+    color: #7A8C9B;
+    display: grid;
+    text-align: center;
+    opacity: 0.5;
+}
+#post-ad .nav-tabs .nav-link span {
+    color: #fff;
+    background: #7A8C9B;
+    width: 50px;
+    padding: 14px;
+    border-radius: 50px;
+    margin: 0 auto 10px auto;
+}
+#post-ad .nav-tabs .active span {
+    background: #F4A583;
+}
+
+#post-ad .nav-tabs .nav-link.active {
+    color: #F4A583;
+    opacity: 1;
+    font-weight: 600;
+    border: none;
+    box-shadow: none;
+}
+#post-ad .form-check .form-check-input{
+    margin-top: 1rem;
+}
+#post-ad .form-check label{
+    border: 1px solid #ccc;
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    font-weight: 500;
+}
+input[type='checkbox'] {
+    accent-color: #F4A583;
+}
+.file-instrution{
+    text-align: center;
+    padding-top: 15px;
+}
+.file-instrution h3 {
+    font-size: 14px;
+    color: #F4A583;
+    line-height: 22px;
+    padding-top: 15px;
+}
+.file-instrution h4 {
+    font-size: 13px;
+    color: #111;
+    opacity: 0.5;
+}
+.file-instrution h5{
+    font-size: 13px;
+    color: #222;
+}
+.custom-radio{
+    margin-right: 30px;
+}
+.custom-radio .forcustom{
+    margin-left: 8px;
+}
+.mail-title{
+    font-size: 18px;
+    color: #F4A583;
+    font-weight: 600;
+    text-align: center;
+    margin-top: 15px;
+    font-family: 'Montserrat';
+}
+.congrat {
+    border: 1px solid #A2D294;
+    background: #EAFFE4;
+    padding: 40px;
+    margin: 20px 0 100px 0;
+}
+.congrat h1{
+    text-align: center;
+    font-size: 16px;
+    color: #2E711B;
+    font-weight: 600;
+    font-family: 'Montserrat';
+}
+.congrat p {
+    text-align: center;
+    font-size: 14px;
+    color: #6E9463;
+    font-weight: 400;
+    max-width: 38%;
+    margin: 0 auto;
+    line-height: 26px;
+}
+
+/* Applicant Dashboard */
+.applicantDash{
+    padding: 30px 0;
+}
+.applicant-sidebar .nav-tabs {
+    display: block;
+    padding: 20px;
+    border-bottom: 0;
+    background: #fff;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    border-radius: 4px;
+}
+.applicant-sidebar .nav-tabs .nav-link {
+    background: #fff;
+    color: #000;
+    font-size: 14px;
+    border: 1px solid transparent;
+    padding: 14px 20px;
+    font-family: 'Montserrat';
+    font-weight: 500;
+}
+
+.applicant-sidebar .nav-tabs .nav-link.active {
+    color: #ffffff;
+    background-color: #f4a583 !important;
+    border-color: transparent !important;
+    font-weight: 500;
+    border-radius: 6px;
+}
+
+.applicant-sidebar .tab-content>.active {
+    display: block;
+    background: #007bff;
+    min-height: 165px;
+}
+.applicant-profile{
+    background: #fff;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    padding: 20px;
+}
+.hello-note{
+    background: #fff;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    padding: 20px;
+}
+.hello-note h2{
+    font-size: 24px;
+    font-weight: 300;
+    line-height: 32px;
+    font-family: 'Montserrat';
+}
+.hello-note h4{
+    font-size: 16px;
+    color: #7A8C9B;
+}
+.hello-note h4 span{
+    color: #F4A583;
+}
+.hello-note p{
+    font-size: 13px;
+    line-height: 13px;
+    padding-left: 6px;
+    font-weight: 500;
+}
+.active-ad{
+    display: inline-flex;
+}
+.active-ad h3 {
+    font-size: 16px;
+    line-height: 27px;
+    font-family: 'Montserrat';
+}
+.active-ad h6 a{
+    font-size: 12px;
+    line-height: 27px;
+    color: #f4a583;
+}
+.active-ad label {
+    font-size: 12px;
+    margin: 0 15px 0 12px;
+    background: #f4a583;
+    color: #fff;
+    padding: 5px 15px;
+    line-height: 14px;
+    border-radius: 4px;
+}
+.applicant-location {
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 12px;
+}
+.applicant-location svg{
+    color: #F4A583;
+}
+.offered-job{
+    padding-top: 30px;
+}
+.offered-job .nav-tabs .nav-link {
+    border: 1px solid #ccc;
+    border-radius: 0;
+    padding: 12px 30px;
+    font-size: 15px;
+    font-weight: 500;
+    color: #7A8C9B;
+    font-family: 'Montserrat';
+}
+.offered-job .nav-tabs .nav-link.active{
+    background-color: #f4a583;
+    color: #fff;
+    border: 1px solid #f4a583;
+}
+.offered-job .nav-tabs .nav-link.active .counter{
+    background-color: #fff;
+    color: #f4a583;
+}
+.offered-job .nav-tabs .nav-link .counter{
+    background-color: #7A8C9B;
+    color: #fff;
+    padding: 2px 7px;
+    border-radius: 50px;
+    font-size: 12px;
+    line-height: 3px;
+}
+.offered-job .nav-tabs {
+    justify-content: center;
+}
+.offered-job .nav-tabs .nav-item {
+    margin-right: 10px;
+}
+.ScheduledJob .nav-tabs .nav-link {
+    border: 1px solid #ccc;
+    border-radius: 0;
+    padding: 12px 30px;
+    font-size: 15px;
+    font-weight: 500;
+    color: #7A8C9B;
+    font-family: 'Montserrat';
+}
+.ScheduledJob .nav-tabs .nav-link.active{
+    background-color: #f4a583;
+    color: #fff;
+    border: 1px solid #f4a583;
+}
+.ScheduledJob .nav-tabs .nav-link.active .counter{
+    background-color: #fff;
+    color: #f4a583;
+}
+.ScheduledJob .nav-tabs .nav-link .counter{
+    background-color: #7A8C9B;
+    color: #fff;
+    padding: 2px 7px;
+    border-radius: 50px;
+    font-size: 12px;
+    line-height: 3px;
+}
+.ScheduledJob .nav-tabs {
+    justify-content: center;
+}
+.ScheduledJob .nav-tabs .nav-item {
+    margin-right: 10px;
+}
+.all-job{
+    background: #fff;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    margin-top: 30px
+}
+.offered-title {
+    padding: 20px 0 20px 20px;
+}
+.offered-title h3{
+    font-size: 22px;
+    color: #F4A583;
+    font-family: 'Montserrat';
+}
+.offered-title p {
+    font-size: 14px;
+    line-height: 22px;
+    padding-bottom: 15px;
+}
+.offered-title span{
+    font-size: 12px;
+    font-style: italic;
+}
+.scheduled-title {
+    padding: 20px 30px 20px 0px;
+}
+.scheduled-title h3{
+    font-size: 22px;
+    color: #F4A583;
+    font-family: 'Montserrat';
+}
+.scheduled-title p {
+    font-size: 14px;
+    line-height: 22px;
+    padding-bottom: 15px;
+    text-align: justify;
+}
+.scheduled-title span {
+    margin-left: 5px;
+    font-size: 14px;
+    font-weight: 600;
+}
+.offer-accept{
+    background-color: #F4A583;
+    padding-bottom: 35px;
+}
+.offer-accept .d-flex{
+    color: #fff;
+    justify-content: center;
+    padding-top: 30px;
+}
+.offer-accept .d-flex p{
+    line-height: 13px;
+    margin-left: 5px;
+}
+.weekly-available {
+    text-align: center;
+    padding-top: 25px;
+}
+.weekly-available ul {
+    display: inline-flex;
+    list-style: none;
+    padding: 0;
+}
+.weekly-available ul li {
+    background-color: #fff;
+    box-shadow: 0 2px 6px #00000036;
+    font-size: 14px;
+    border-radius: 50px;
+    padding: 5px 2px 0 0px;
+    margin-left: 8px;
+    font-weight: 600;
+    color: #222;
+    height: 30px;
+    width: 30px;
+    font-family: 'Montserrat';
+}
+.weekly-available ul .disabled{
+    opacity: 0.5;
+}
+.btn-default{
+    background: #fff;
+    color: #F4A583;
+    border: 2px solid #FFF;
+    font-family: 'Montserrat';
+}
+.btn-default:hover{
+    background: transparent;
+    color: #FFF;
+    border: 2px solid #FFF;
+}
+.btn-white{
+    background: transparent;
+    color: #fff;
+    border: 2px solid #FFF;
+    font-family: 'Montserrat';
+}
+.btn-white:hover{
+    background: #fff;
+    color: #F4A583;
+    border: 2px solid #FFF;
+}
+.button-group .btn-default{
+    border-radius: 0;
+    padding: 7px 25px;
+    margin-left: 15px;
+}
+.button-group .btn-white{
+    border-radius: 0;
+    padding: 7px 25px;
+}
+.all-job .button-group{
+    text-align: center;
+    margin-top: 20px;
+}
+.MyAds{
+    background: #fff;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    padding: 20px;
+}
+.profile-feature .weekly-available{
+    padding-top: 25px;
+}
+.profile-feature .d-flex p {
+    line-height: 13px;
+    margin-left: 5px;
+}
+.profile-feature .d-flex svg {
+    color: #F4A583;
+}
+.profile-feature .d-flex{
+    margin-top: 36px;
+
+}
+.profile-feature .weekly-available ul li {
+    background-color: #f4a583;
+    box-shadow: 0 2px 6px #00000036;
+    font-size: 14px;
+    border-radius: 50px;
+    padding: 5px 2px 0 0px;
+    margin-left: 8px;
+    font-weight: 600;
+    color: #fff;
+    height: 30px;
+    width: 30px;
+    font-family: 'Montserrat';
+}
+.profile-feature .weekly-available ul .disabled {
+    opacity: .3;
+}
+.profile-feature h2{
+    font-size: 16px;
+    font-family: 'Montserrat';
+}
+.profile-feature p{
+    font-size: 14px;
+    line-height: 25px;
+    text-align: justify;
+}
+.profile-feature span a{
+    color: #F4A583;
+    text-decoration: none;
+}
+.MyAccount{
+    background: #fff;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    padding: 20px;
+    margin-bottom: 30px;
+}
+.Accountinfo h2{
+    font-size: 18px;
+    font-family: 'Montserrat';
+}
+.VerifyContact{
+    padding-left: 0;
+}
+.VerifyContact .d-flex{
+    margin-bottom: 5px;
+}
+.VerifyContact svg{
+    color: #F4A583;
+    margin-top: 5px;
+    font-size: 12px;
+}
+.VerifyContact p {
+    font-size: 14px;
+    margin: 0 10px 0 6px;
+    font-weight: 600;
+}
+.VerifyContact span{
+    color: #2E711B;
+    font-size: 12px;
+    font-style: italic;
+    font-weight: 600;
+    margin-top: 2px;
+}
+.MyAccount .mofify{
+    color: #F4A583!important;
+    cursor: pointer;
+}
+.custom-lock svg {
+    font-size: 30px;
+    margin-top: 10px;
+}
+.VerifyMyAccount{
+    background-image: url('../image/Frontend/VerifyAccount.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    padding: 50px;
+    border-radius: 4px;
+}
+.VerifyMyAccount .Vma{
+    text-align: center;
+}
+.btn-close {
+    box-sizing: content-box;
+    width: 1em;
+    height: 1em;
+    padding: 0.25em;
+    color: #000;
+    background: transparent url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23000'%3E%3Cpath d='M.293.293a1 1 0 0 1 1.414 0L8 6.586 14.293.293a1 1 0 1 1 1.414 1.414L9.414 8l6.293 6.293a1 1 0 0 1-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 0 1-1.414-1.414L6.586 8 .293 1.707a1 1 0 0 1 0-1.414z'/%3E%3C/svg%3E") 50%/1em auto no-repeat;
+    border: 0;
+    border-radius: 0.375rem;
+    opacity: .5;
+    cursor: pointer;
+}
+.EditAcoount .modal-body{
+    padding: 1rem 2rem;
+}
+.EditAcoount .modal-title{
+    font-size: 18px;
+    color: #222;
+    font-weight: 600;
+}
+.all-job .profileimg{
+    margin-top: 20px;
+}
+.schedule-details{
+    display: inline-flex;
+    list-style: none;
+    padding: 0;
+    margin-top: 10px;
+}
+.schedule-details li {
+    color: #222;
+    margin-right: 40px;
+}
+.schedule-details svg{
+    color: #F4A583;
+    vertical-align: middle;
+}
+.scheduled-title blockquote{
+    color: #F4A583;
+    font-size: 13px;
+}
+#post-ad .PhoneInputInput{
+    width: 400px;
+}
+#post-ad .input-group{
+    justify-content: space-between;
+}
+.btn-primary-outline{
+    background: transparent;
+    border: 2px solid #F4A583;
+    color: #f4a583;
+}
+.btn-primary-outline:hover{
+    background: #f4a583;
+    border: 2px solid #F4A583;
+    color: #fff;
+}
+.candi-text .btn{
+    border-radius: 0;
+    padding: 7px 25px;
+    font-family: 'Montserrat';
+    font-weight: 500;
+}
+.candi-text .btn-primary{
+    margin-left: 15px;
+}
+.TabUpgradePlan .chooseplan {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+.TabUpgradePlan .plancard .card-body {
+    padding: 20px;
+}
+.TabUpgradePlan .plansprice span.currency-symbol {
+    position: relative;
+    top: -25px;
+    font-size: 14px;
+    font-family: 'Montserrat', sans-serif;
+}
+.TabUpgradePlan .plansprice {
+    margin-top: 25px;
+}
+.TabUpgradePlan .plansprice span.plansamount {
+    font-size: 40px;
+}
+.TabUpgradePlan .plansprice span.plansmonth {
+    font-size: 12px;
+}
+.TabUpgradePlan .plansdetails {
+    padding-top: 30px;
+}
+.TabUpgradePlan .plansdetails p {
+    font-size: 13px;
+}
+.TabUpgradePlan .plansdetails p span img {
+    width: 16px;
+    margin-right: 7px;
+    height: 16px;
+}
+.TabUpgradePlan .selectplan {
+    padding-top: 30px;
+}
+.TabUpgradePlan .btn-primary {
+    padding: 7px 16px !important;
+    font-size: 13px;
+}
+.InboxBody{
+    background-color: #f3f3f3;
+}
+.EmployerInbox{
+    padding: 30px;
+    box-shadow: rgb(50 50 93 / 25%) 0px 2px 5px -1px, rgb(0 0 0 / 30%) 0px 1px 3px -1px;
+    margin-bottom: 50px;
+    background: #fff;
+}

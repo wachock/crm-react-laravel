@@ -13,6 +13,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Auth::routes();
+Route::any( '/{path?}', function(){
+    return view( 'index' );
+} )->where('path', '.*');
+
+Route::any( '/login', function(){
+    return view( 'index' );
+} )->where('path', '.*');
+
+Route::any( '/vendor/login', function(){
+    return view( 'index' );
+} )->where('path', '.*');
+
+
+Route::any( '/register', function(){
+    return view( 'index' );
+} )->where('path', '.*');
+
+

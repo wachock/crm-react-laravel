@@ -1,0 +1,318 @@
+.home-banner{
+    background-image: url('../image/Frontend/banner/main-banner.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+.home-banner .nav-tabs .nav-link{
+    background: #fff;
+    color: #000;
+    border-radius: 0;
+    padding: 10px 30px;
+    font-size: 15px;
+    font-weight: 500;
+    font-family: 'Montserrat', sans-serif;
+}
+.home-banner .nav-tabs .nav-item.show .nav-link, .home-banner .nav-tabs .nav-link.active{
+    color: #fff;
+    background-color: #7A8C9B;
+    border-color: #7A8C9B;
+}
+.home-banner .nav-tabs {
+    border-bottom: none;
+    display: flex;
+    justify-content: center;
+}
+.home-banner .nav-tabs li:first-child a{
+    border-top-left-radius: 100px;
+    border-bottom-left-radius: 100px;
+}
+.home-banner .nav-tabs li:nth-child(2) a{
+    border-top-right-radius: 100px;
+    border-bottom-right-radius: 100px;
+}
+.home-banner .caption{
+    text-align: center;
+    padding: 100px 0;
+}
+.home-banner h1{
+    color: #fff;
+    font-weight: normal;
+    margin-top: 25px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 40px;
+}
+.home-banner p{
+    color: #fff;
+    font-size: 18px;
+    margin-bottom: 25px;
+    margin-top: 10px;
+}
+.home-banner .tab-content .input-group-prepend span.input-group-text{
+    background: #fff;
+    border: none;
+    height: 50px;
+    border-radius: 0;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+}   
+.home-banner .tab-content .input-group input{
+    border-left: none;
+    height: 50px;
+    margin-right: 15px;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    box-shadow: none;
+    border: none;
+}
+.home-banner .tab-content .btn-primary{
+    font-weight: 600 !important;
+    text-transform: uppercase;
+    border-radius: 4px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 15px;
+}
+.professional-text h2{
+    color: #F4A583;
+    font-size: 34px;
+    text-align: center;
+    padding-top: 50px;
+    margin-bottom: 13px;
+    font-family: 'Montserrat', sans-serif;
+}
+.professional-text h5{
+    text-align: center;
+    font-family: Qanelas SemiBold;
+    margin-bottom: 13px;
+}
+.professional-text p{
+    text-align: center;
+    color: #6E6E6E;
+    line-height: 30px;
+    max-width: 70%;
+    margin: 0 auto;
+    margin-bottom: 50px;
+}
+.reach{
+    margin-bottom: 200px;
+}
+.reach h2{
+    letter-spacing: -0.8px;
+    text-align: center;
+    margin-bottom: 30px;
+    font-family: 'Montserrat', sans-serif;
+}
+.reach .col-sm-3.col-xs-6{
+    text-align: center;
+}
+.reach h5{
+    font-size: 22px;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    font-family: 'Montserrat', sans-serif;
+}
+.senior-care{
+    margin-top: 60px;
+    background: #7A8C9B;
+    padding: 40px 0;
+}
+.senior-care h3{
+    color: #fff;
+    font-weight: 600;
+    max-width: 80%;
+    line-height: 42px;
+    font-size: 33px;
+    padding-top: 30px;
+    margin-bottom: 30px;
+    font-family: 'Montserrat', sans-serif;
+}
+.senior-care .info-list{
+    display: inline-flex;
+    width: 100%;
+    margin-bottom: 25px;
+}
+.senior-care .info-list .icons {
+    margin-right: 10px;
+}
+.senior-care .info-list .icons i{
+    color: #7A8C9B;
+    background: #fff;
+    border-radius: 100px;
+    padding: 5px 6px;
+    font-size: 13px;
+}
+.senior-care .info-text p {
+    font-size: 15px;
+    color: #fff;
+    position: relative;
+    top: -5px;
+}
+.senior-care img{
+    position: absolute;
+    margin-top: -155px;
+}
+.hFeatures{
+    margin: 50px 0;
+}
+.hFeatures .col-sm-4{
+    text-align: center;
+}
+.hFeatures h5{
+    color: #F4A583;
+    font-size: 24px;
+    font-weight: 600;
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+.hFeatures i{
+    font-size: 40px;
+    border-radius: 100px;
+    padding: 23px 20px;
+    box-shadow: rgb(0 0 0 / 16%) 0px 1px 4px;
+}
+.hFeatures i.fa-cog{
+    padding: 20px;
+    margin-bottom: 5px;
+}
+.hFeatures p{
+    color: #444;
+    line-height: 26px;
+}
+.homeFAQ{
+    margin: 80px 0;
+}
+.homeFAQ .col-sm-6:nth-child(2){
+    padding-left: 30px;
+}
+.homeFAQ h3{
+    font-size: 32px;
+    letter-spacing: -0.8px;
+    margin-bottom: 30px;
+    margin-top: 50px;
+    font-family: 'Montserrat', sans-serif;
+}
+.homeFAQ ul li{
+    border: none;
+    padding: 0;
+    margin-bottom: 15px;
+}
+.homeFAQ .card-header{
+    background: none;
+    border: none;
+}
+.homeFAQ .card-header .btn-header-link{
+    padding: 0;
+    color: #F4A583;
+    font-weight: 700;
+    font-size: 24px;
+    width: 100%;
+    margin-bottom: 5px;
+}
+.homeFAQ .card-header .btn-header-link i{
+    color: #666;
+    font-size: 26px;
+}
+.homeFAQ .card-body{
+    padding-left: 0 !important;
+    background: #fff !important;
+}
+.homeFAQ .card-body p{
+    line-height: 28px;
+}
+.info-page h1{
+    padding-top: 50px;
+    margin-bottom: 15px;
+}
+.info-page p{
+    line-height: 28px;
+}
+.support-banner {
+    background: #f4a583;
+}
+.support-banner h1 {
+    color: #fff;
+    font-family: Source Sans Pro;
+    letter-spacing: -.5px;
+    padding-top: 50px;
+    margin-bottom: 5px;
+}
+.support-banner p {
+    color: #fff;
+    font-family: Qanelas SemiBold;
+    font-size: 20px;
+    max-width: 700px;
+    padding-bottom: 50px;
+}
+.help {
+    margin-top: 50px;
+}
+.start .sBox {
+    background: #fff;
+    border: 1px solid #f4f4f4;
+    border-radius: 8px;
+    box-shadow: 0 10px 70px hsl(0deg 0% 94% / 50%);
+    box-sizing: border-box;
+    min-height: 325px;
+    padding: 15px;
+    text-align: center;
+}
+.start .sBox i {
+    border-radius: 150px;
+    font-size: 45px;
+    margin-bottom: 15px;
+    margin-top: 15px;
+    padding: 25px;
+}
+.start .sBox h5 {
+    font-size: 21px;
+    font-weight: 600;
+}
+.start .sBox p {
+    color: #000;
+    font-family: Qanelas Regular;
+    font-size: 16px;
+    margin: 10px auto 30px;
+    max-width: 265px;
+}
+.start .sBox .fa-right-to-bracket {
+    background: #d5c9f0;
+    color: #fff;
+}
+.start .sBox .fa-phone {
+    background: #7a8c9b;
+    color: #fff;
+}
+.start .sBox .fa-business-time {
+    background: #345300;
+    color: #fff;
+    font-size: 40px;
+    padding: 29px 25px;
+}
+.touch{
+    margin-top: 50px;
+    margin-bottom: 30px;
+}
+.touch h2 {
+    color: #000;
+    font-family: Source Sans Pro;
+    font-weight: 600;
+    text-align: center;
+}
+.touch form {
+    margin: 0 auto;
+    max-width: 500px;
+}
+.touch form label {
+    font-family: Qanelas SemiBold;
+    font-size: 16px;
+}
+.touch input, .touch textarea {
+    border: 2px solid #e6e8eb;
+}
+.touch button {
+    font-family: Source Sans Pro;
+    font-size: 18px;
+    font-weight: 700;
+    padding: 9px 34px;
+    text-transform: uppercase;
+}
