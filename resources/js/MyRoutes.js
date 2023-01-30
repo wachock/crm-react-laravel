@@ -1,10 +1,7 @@
 import React from 'react';
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { positions, Provider } from "react-alert";
-import AlertTemplate from "react-alert-template-basic";
-import TimeAgo from 'javascript-time-ago'
-import en from 'javascript-time-ago/locale/en.json'
+
 
 import './Assets/css/style.css';
 
@@ -25,15 +22,9 @@ import Error404 from './Error404';
 
 // Admin Routes
 
-TimeAgo.addDefaultLocale(en)
-const options = {
-   timeout: 2000,
-   position: positions.TOP_RIGHT
-};
-
 export default function MyRoutes() {
    return (
-      <Provider template={AlertTemplate} {...options}>
+      <Provider>
          <Router>
             <Routes>
 
