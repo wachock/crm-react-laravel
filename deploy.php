@@ -14,7 +14,7 @@ add('writable_dirs', []);
 
 // Hosts
 
-host('')
+host('216.158.229.197')
     ->set('remote_user', 'root')
     ->set('deploy_path', '/var/www/broom-service');
 
