@@ -20,3 +20,4 @@ yarn-error.log
 public/js/app.js
 public/js/manifest.js
 public/js/vendor.js
+composer.lock
