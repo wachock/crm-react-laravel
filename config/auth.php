@@ -43,7 +43,11 @@ return [
         'admin' => [
             'driver' => 'session',
             'provider' => 'admins',
-        ],        
+        ], 
+        'client' => [
+            'driver' => 'session',
+            'provider' => 'clients',
+        ],         
         'api' => [
             'driver' => 'passport',
             'provider' => 'users',
@@ -51,6 +55,10 @@ return [
         'admin-api' => [
             'driver' => 'passport',
             'provider' => 'admins',
+        ],
+        'client-api' => [
+            'driver' => 'passport',
+            'provider' => 'clients',
         ],       
     ],
 
@@ -79,6 +87,10 @@ return [
         'admins' => [
             'driver' => 'eloquent',
             'model' => App\Models\Admin::class,
+        ], 
+        'clients' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Client::class,
         ],       
 
         // 'users' => [
@@ -114,7 +126,13 @@ return [
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,
-        ],       
+        ],    
+         'clients' => [
+            'provider' => 'clients',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],     
     ],
 
     /*

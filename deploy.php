@@ -6,7 +6,7 @@ require 'contrib/npm.php';
 
 // Config
 
-set('repository', 'git@gitlab.n2rtechnologies.com:nurulhasan/yeliko.git');
+set('repository', 'git@gitlab.n2rtechnologies.com:nurulhasan/broom-service.git');
 
 add('shared_files', []);
 add('shared_dirs', []);
@@ -14,9 +14,9 @@ add('writable_dirs', []);
 
 // Hosts
 
-host('')
+host('216.158.229.197')
     ->set('remote_user', 'root')
-    ->set('deploy_path', '/var/www/yeliko');
+    ->set('deploy_path', '/var/www/broom-service');
 
 // Hooks
 
