@@ -1,10 +1,10 @@
-image: gitlab.n2rtechnologies.com:5050/nurulhasan/yeliko
+image: gitlab.n2rtechnologies.com:5050/nurulhasan/broom-service
 
 services:
   - mysql:5.7
 
 variables:
-  MYSQL_DATABASE: yeliko
+  MYSQL_DATABASE: broom-service
   MYSQL_ROOT_PASSWORD: Temp@@9921
   DB_HOST: mysql
   DB_USERNAME: root
@@ -52,6 +52,6 @@ deploy_production:
     - ~/.composer/vendor/bin/dep deploy
   environment:
     name: production
-    url: http://yeliko.n2rtech.com/
+    url: http://broom-service.n2rtech.com/
   only:
     - main
