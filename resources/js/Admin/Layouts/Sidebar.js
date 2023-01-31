@@ -41,46 +41,8 @@ export default function Sidebar() {
                     <img src={logo} className="img-fluid" alt="Logo" />
                 </Link>
             </div>
-            <div className="sideAdmin">
-                <ul className="list-inline">
-                    <li className="list-inline-item">
-                        <img src={User} className="img-fluid" alt="Logo" />
-                    </li>
-                    <li className="list-inline-item">
-                        <h5>{name}</h5>
-                        <span>Administrator</span>
-                    </li>
-                    <li className="list-inline-item">
-                        <div className="dropdown show">
-                            <Link
-                                className="dropdown-toggle"
-                                href="#!"
-                                role="button"
-                                id="dropdownMenuLink"
-                                data-toggle="dropdown"
-                                aria-haspopup="true"
-                                aria-expanded="false"
-                            >
-                                <i className="fa fa-angle-down"></i>
-                            </Link>
-                            <div
-                                className="dropdown-menu"
-                                aria-labelledby="dropdownMenuLink"
-                            >
-                                <Link className="dropdown-item" to="/admin/settings">
-                                    My Account
-                                </Link>
-                                <Link className="dropdown-item" onClick={HandleLogout}>
-                                    Logout
-                                </Link>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-            </div>
             <ul
                 className="list-group"
-                style={{ borderTop: "1px solid #E6E8EB" }}
             >
                 <li className="list-group-item">
                     <Link to="/admin/dashboard">
@@ -177,7 +139,7 @@ export default function Sidebar() {
             </ul>
             <div className="sideLogout">
                 <div className="logoutBtn">
-                    <button className="btn btn-danger" onClick={HandleLogout}>
+                    <button className="btn btn-white" onClick={HandleLogout}>
                         Logout
                     </button>
                 </div>

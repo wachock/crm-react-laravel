@@ -30,7 +30,7 @@ export default function AdminHeader() {
       <div className="container-fluid">
         <div className="row">
           <div className="col-sm-6">
-            <h1>Hi, Welcome back</h1>
+            <h1>Welcome Administrator</h1>
           </div>
           <div className="col-sm-6">
             <div className="float-right">

@@ -1,9 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700;900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 body{
-    font-family: 'Source Sans Pro', sans-serif !important;
-    font-size: 15px !important;
-    color: #343A40 !important;
+    font-family: 'Roboto', sans-serif;
+    font-size: 15px;
+    color: #343A40;
 }
 .bodyinner{
     min-height: 400px;
@@ -18,7 +17,7 @@ body{
     color: #3f3f3f;
     font-weight: 500;
     padding: 0px 30px;
-    font-family: 'Montserrat', sans-serif;
+    
 }
 .navbar-expand-lg .navbar-nav a.nav-link:hover{
     color: #3f3f3f;
@@ -32,7 +31,7 @@ body{
     border-color: #f4a583;
     color: #fff !important;
     padding: 8px 25px !important;
-    font-family: 'Montserrat', sans-serif;
+    
     font-weight: 500 !important;
     font-family: 'Montserrat';
 }
@@ -79,7 +78,7 @@ body{
 }
 .loginform h1 {
     font-size: 30px;
-    font-family: 'Montserrat', sans-serif;
+    
 
     text-align: center;
     color: #3b3b3b;
@@ -173,7 +172,7 @@ body{
     font-weight: normal;
     padding-top: 40px;
     padding-bottom: 40px;
-    font-family: 'Montserrat', sans-serif;
+    
     letter-spacing: -1px;
 }
 .register h1 b{
@@ -182,7 +181,7 @@ body{
 }
 .register .loginform h2 {
     font-size: 24px;
-    font-family: 'Montserrat', sans-serif;
+    
     text-align: center;
     color: #3b3b3b;
     margin-bottom: 40px;
@@ -205,7 +204,7 @@ body{
     border-top-left-radius: 0.25rem;
     border-top-right-radius: 0.25rem;
     background: #fff;
-    font-family: 'Montserrat', sans-serif;
+    
     font-weight: 500;
     padding: 12px;
 }
@@ -477,7 +476,7 @@ body{
     font-size: 24px;
     text-align: left;
     color: #f4a583;
-    font-family: 'Montserrat', sans-serif;
+    
 }
 .Plansname p {
     font-size: 13px;
@@ -492,7 +491,7 @@ body{
 .plansprice span.plansamount {
     font-size: 56px;
     margin-bottom: 0px;
-    font-family: 'Montserrat', sans-serif;
+    
     font-weight: 800;
 }
 .plansprice span.currency-symbol {
@@ -570,7 +569,7 @@ body{
     font-weight: 700;
     color: #000;
     margin-bottom: 0px;
-    font-family: 'Montserrat', sans-serif;
+    
     line-height: 30px;
 }
 .profileinfo .Grid-Box p {
@@ -617,7 +616,7 @@ body{
     font-size: 16px;
     font-weight: 700;
     margin-bottom: 10px;
-    font-family: 'Montserrat', sans-serif;
+    
 }
 .messagebtn .btn-primary {
     width: 100%;
@@ -868,7 +867,7 @@ body{
     background-color: #fff;
 }
 .employerDash .tab-dash h2{
-    font-family: 'Montserrat', sans-serif;
+    
     font-size: 17px;
     letter-spacing: -0.4px;
     line-height: 24px;
@@ -923,7 +922,7 @@ body{
 }
 .tab-dash ul li h4{
     font-size: 24px;
-    font-family: 'Montserrat', sans-serif;
+    
 }
 .tab-dash ul li p{
     color: #F4A583 !important;
