@@ -17,7 +17,7 @@ export default function Services() {
 
     const getservices = () => {
         axios.get("/api/admin/services", { headers }).then((response) => {
-            console.log(response);
+           
             if (response.data.services.data.length > 0) {
                 setServices(response.data.services.data);
                 setPageCount(response.data.services.last_page);
@@ -39,7 +39,7 @@ export default function Services() {
                     setservices(response.data.services.data);
                     setPageCount(response.data.services.last_page);
                 } else {
-                    setLoading("No client found");
+                    setLoading("No service found");
                 }
             });
     };
@@ -52,7 +52,7 @@ export default function Services() {
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, Delete Client!",
+            confirmButtonText: "Yes, Delete Service!",
         }).then((result) => {
             if (result.isConfirmed) {
                 axios
@@ -60,7 +60,7 @@ export default function Services() {
                     .then((response) => {
                         Swal.fire(
                             "Deleted!",
-                            "Client has been deleted.",
+                            "Service has been deleted.",
                             "success"
                         );
                         setTimeout(() => {
@@ -80,7 +80,18 @@ export default function Services() {
                         <div className="col-sm-6">
                             <h1 className="page-title">Services</h1>
                         </div>
-                        <div className="col-sm-6">
+
+                        <div className="col-sm-3">
+                            <Link
+                                to="/admin/service-schedule"
+                                className="btn btn-warning addButton"
+                            >
+                                Schedules
+                            </Link>
+                        </div>
+
+                        <div className="col-sm-3">
+                            
                             <Link
                                 to="/admin/add-service"
                                 className="btn btn-success addButton"
@@ -88,6 +99,7 @@ export default function Services() {
                                 Add Service
                             </Link>
                         </div>
+                       
                     </div>
                 </div>
 

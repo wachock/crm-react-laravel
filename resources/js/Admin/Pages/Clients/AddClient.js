@@ -365,7 +365,7 @@ export default function AddClient() {
                             <div className="form-group">
                                 <label className="control-label">color</label>
                                 <input
-                                    type="text"
+                                    type="color"
                                     value={color}
                                     onChange={(e) => setColor(e.target.value)}
                                     className="form-control"

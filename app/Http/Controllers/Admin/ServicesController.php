@@ -93,9 +93,21 @@ class ServicesController extends Controller
      * @param  \App\Models\Services  $services
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Services $services)
+    public function update(Request $request,$id)
     {
-        //
+        // 
+        $validator = Validator::make($request->input(),[
+            'name'=>'required',
+            'status' =>'required',
+        ]);
+        if($validator->fails()){
+            return response()->json(['errors'=>$validator->messages()]);
+        }
+        
+        Services::where('id',$id)->update($request->input());
+        return response()->json([
+            'message' => 'service has been updated successfully'
+        ],200);
     }
 
     /**
