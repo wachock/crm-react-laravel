@@ -89,10 +89,10 @@ class ClientController extends Controller
      */
     public function show($id)
     {
-        $applicant                = User::find($id);
+        $client               = User::find($id);
 
         return response()->json([
-            'applicant'        => $applicant,            
+            'client'        => $client,            
         ], 200);
     }
 
@@ -104,10 +104,9 @@ class ClientController extends Controller
      */
     public function edit($id)
     {
-        $applicant                = User::find($id);
-
+        $client                = User::find($id);
         return response()->json([
-            'applicant'        => $applicant,            
+            'client'        => $client,            
         ], 200);
     }
 
@@ -122,7 +121,7 @@ class ClientController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'firstname' => ['required', 'string', 'max:255'],
-            'address'   => ['required', 'string'],
+            'passcode'  => ['required', 'string', 'min:6',],
             'phone'     => ['required'],
             'status'    => ['required'],
             'email'     => ['required', 'string', 'email', 'max:255', 'unique:users,email,'.$id],
@@ -136,7 +135,7 @@ class ClientController extends Controller
         $user                   = User::where('id', $id)->update($input);
 
         return response()->json([
-            'message'       => 'Applicant updated successfully',            
+            'message'       => 'Client updated successfully',            
         ], 200);
     }
 
@@ -150,7 +149,7 @@ class ClientController extends Controller
     {
         User::find($id)->delete();
         return response()->json([
-            'message'     => "Applicant has been deleted"         
+            'message'     => "Client has been deleted"         
         ], 200);
     }
 }

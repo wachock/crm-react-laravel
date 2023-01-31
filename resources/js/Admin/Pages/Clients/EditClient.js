@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useAlert } from "react-alert";
 import { useParams } from "react-router-dom";
 import Sidebar from "../../Layouts/Sidebar";
+import { useNavigate } from "react-router-dom";
 
 export default function EditClient() {
 
@@ -23,10 +24,10 @@ export default function EditClient() {
     const [color, setColor] = useState("");
     const [status, setStatus] = useState("");
     const [errors, setErrors] = useState([]);
-
+    let allPhones = [];
     const alert = useAlert();
     const params = useParams();
-   // const navigate = useNavigate();
+    const navigate = useNavigate();
 
     const headers = {
         Accept: "application/json, text/plain, */*",
@@ -36,39 +37,71 @@ export default function EditClient() {
 
     const handleUpdate = (e) => {
         e.preventDefault();
+        var phoneClc = '';
+        var phones = document.querySelectorAll('input[name="phone[]"]');
+        phones.forEach((p,i)=>{
+            phoneClc += p.value+',';
+        });
+        phoneClc = phoneClc.replace(/,\s*$/, "");
         const data = {
             firstname: firstname,
             lastname: lastname,
+            invoicename:invoiceName,
+            city:city,
+            street_n_no:streetNumber,
+            floor:floor,
+            apt_no:Apt,
+            entrence_code:enterance,
+            zipcode:zip,
+            dob:dob,
+            passcode:passcode,
+            color:color,
             email: email,
-            phone: phone,
-            address: address,
+            phone: phoneClc,
+            password: passcode,
             status: status,
         };
+       
         axios
-            .put(`/api/admin/applicants/${params.id}`, data ,{ headers })
+            .put(`/api/admin/clients/${params.id}`, data ,{ headers })
             .then((response) => {
                 if (response.data.errors) {
                     setErrors(response.data.errors);
                 } else {
-                    alert.success("Applicant has been updated successfully");
+                    alert.success("Client has been updated successfully");
+                    setTimeout(()=>{
+                        navigate('/admin/clients');
+                    },1000);
                 }
             });
     };
-
-    const getApplicant = () => {
+    
+    const getClient = () => {
         axios
-            .get(`/api/admin/applicants/${params.id}/edit`, { headers })
+            .get(`/api/admin/clients/${params.id}/edit`, { headers })
             .then((response) => {
-                setFirstName(response.data.applicant.firstname);
-                setLastName(response.data.applicant.lastname);
-                setEmail(response.data.applicant.email);
-                setPhone(response.data.applicant.phone);
-                setAddress(response.data.applicant.address);
-                setStatus(response.data.applicant.status);
+                
+                setFirstName(response.data.client.firstname);
+                setLastName(response.data.client.lastname);
+                setEmail(response.data.client.email);
+                setPhone(response.data.client.phone);
+                setPassCode(response.data.client.passcode);
+                setCity(response.data.client.city);
+                setFloor(response.data.client.floor);
+                setApt(response.data.client.apt_no);
+                setDob(response.data.client.dob);
+                setEnterance(response.data.client.entrence_code);
+                setColor(response.data.client.color);
+                setInvoiceName(response.data.client.invoicename);
+                setStreetNumber(response.data.client.street_n_no);
+                setZip(response.data.client.zipcode);
+                setStatus(response.data.client.status);
+               
             });
     };
     useEffect(() => {
-        getApplicant();
+        getClient();
+      
     }, []);
 
     const addPhone = (e) =>{
@@ -82,7 +115,7 @@ export default function EditClient() {
         <Sidebar />
         <div id="content">
             <div className="edit-customer">
-                <h1 className="page-title addEmployer">Add Client</h1>
+                <h1 className="page-title addEmployer">Edit Client</h1>
                 <div className="card">
                     <div className="card-body">
                         <form>
@@ -196,28 +229,22 @@ export default function EditClient() {
                             </div>
                         
                             <div className="col-sm-5 phone">
-                                <div className="form-group">
+                            <div className="form-group">
                                     <label className="control-label">
                                         Phone
                                     </label>
                                     <input
                                         type="tel"
                                         value={phone}
-                                        name = {'phone[]'}
+                                        name = 'phone[]'
                                         onChange={(e) =>
                                             setPhone(e.target.value)
                                         }
                                         className="form-control"
                                         placeholder="Phone"
                                     />
-                                    {errors.phone ? (
-                                        <small className="text-danger mb-1">
-                                            {errors.phone}
-                                        </small>
-                                    ) : (
-                                        ""
-                                    )}
-                                </div>
+                                    </div>
+                               
                                 
                             </div>
 
@@ -357,7 +384,7 @@ export default function EditClient() {
                         <div className="form-group">
                             <label className="control-label">color</label>
                             <input
-                                type="text"
+                                type="color"
                                 value={color}
                                 onChange={(e) => setColor(e.target.value)}
                                 className="form-control"

@@ -18,6 +18,7 @@ use App\Http\Controllers\Admin\SkillController;
 use App\Http\Controllers\Admin\SubscriptionController;
 use App\Http\Controllers\Admin\TaskController;
 use App\Http\Controllers\Admin\ServicesController;
+use App\Http\Controllers\Admin\ServiceSchedulesController;
 /*
 |--------------------------------------------------------------------------
 | Admin API Routes
@@ -55,6 +56,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin-api', 'scopes:ad
 
     // Services Api
     Route::resource('services', ServicesController::class);
+
+     // Services Api
+     Route::resource('service-schedule', ServiceSchedulesController::class);
 
     // Reviews Api
     Route::resource('reviews', ReviewController::class);

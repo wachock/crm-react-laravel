@@ -20,20 +20,20 @@ export default function EditService(){
       Authorization: `Bearer ` + localStorage.getItem("admin-token"),
   };
 
-   const handleSubmit = (e) => {
+   const handleUpdate = (e) => {
       e.preventDefault();
       const data = {
           name: service,
           status: status,
       };
-     
+      
       axios
-          .post(`/api/admin/services`, data, { headers })
+          .put(`/api/admin/services/${params.id}`, data, { headers })
           .then((response) => {
               if (response.data.errors) {
                   setErrors(response.data.errors);
               } else {
-                  alert.success("Service has been created successfully");
+                  alert.success("Service has been updated successfully");
                   setTimeout(() => {
                       navigate("/admin/services");
                   }, 1000);
@@ -47,7 +47,6 @@ export default function EditService(){
    .get(`/api/admin/services/${params.id}/edit`,{headers})
    .then((res)=>{
        setService(res.data.service);
-       console.log(res.data.service);
    });
 
   }
@@ -62,7 +61,7 @@ export default function EditService(){
             <Sidebar />
             <div id="content">
                 <div className="edit-customer">
-                    <h1 className="page-title addEmployer">Add Service</h1>
+                    <h1 className="page-title addEmployer">Edit Service</h1>
                     <form>
                         <div className="row">
                             <div className="col-sm-12">
@@ -116,7 +115,7 @@ export default function EditService(){
                             <input
                                 type="submit"
                                 value="SAVE"
-                                onClick={handleSubmit}
+                                onClick={handleUpdate}
                                 className="btn btn-danger saveBtn"
                             />
                         </div>

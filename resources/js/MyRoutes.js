@@ -88,6 +88,9 @@ import Setting from './Admin/Pages/Setting/Setting';
 import Services from './Admin/Pages/Services/Services';
 import AddService from './Admin/Pages/Services/AddService';
 import EditService from './Admin/Pages/Services/EditService';
+import ServiceSchedule from './Admin/Pages/Services/ServiceSchedule';
+import AddServiceSchedule from './Admin/Pages/Services/AddServiceSchedule';
+import EditServiceSchedule from './Admin/Pages/Services/EditServiceSchedule';
 
 TimeAgo.addDefaultLocale(en)
 const options = {
@@ -187,6 +190,9 @@ export default function MyRoutes() {
                      <Route exact path="services" element={<Services />} />
                      <Route exact path="add-service" element={<AddService />} />
                      <Route exact path="edit-service/:id" element={<EditService />} />
+                     <Route exact path="service-schedule" element={<ServiceSchedule />} />
+                     <Route exact path="add-service-schedule" element={<AddServiceSchedule />} />
+                     <Route exact path="edit-service-schedule/:id" element={<EditServiceSchedule />} />
                   </Route>
                </Route>
                {/* Admin Routes End  */}
