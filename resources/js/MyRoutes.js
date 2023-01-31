@@ -52,11 +52,7 @@ import Clients from './Admin/Pages/Clients/Client';
 import AddClient from './Admin/Pages/Clients/AddClient';
 import EditClient from './Admin/Pages/Clients/EditClient';
 import ViewClient from './Admin/Pages/Clients/ViewClient';
-<<<<<<< HEAD
 import Workers from './Admin/Pages/Workers/Worker';
-=======
-import Workers from './Admin/Pages/Workers/Workers';
->>>>>>> 818fc64b601d7c96ca118bafdef899a7b0731aac
 import AddWorker from './Admin/Pages/Workers/AddWorker';
 import EditWorker from './Admin/Pages/Workers/EditWorker';
 import Review from './Admin/Pages/Review/Reviews';
