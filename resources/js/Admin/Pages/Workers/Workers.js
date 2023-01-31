@@ -135,12 +135,14 @@ export default function Worker() {
                                                                     to={`/admin/edit-worker/${item.id}`}
                                                                     className="btn bg-green"
                                                                 >
-                                                                    <i className="fa fa-edit"></i>
+                                                                    <i className="fas fa-edit"></i>
                                                                 </Link>
-                                                                
-                                                                <button className="ml-2 btn bg-yellow">
+                                                                <Link
+                                                                    to={`/admin/view-worker/${item.id}`}
+                                                                    className="ml-2 btn btn-warning"
+                                                                >
                                                                     <i className="fa fa-eye"></i>
-                                                                </button>
+                                                                </Link>
                                                                 <button 
                                                                 className="ml-2 btn bg-red"
                                                                 onClick={() =>

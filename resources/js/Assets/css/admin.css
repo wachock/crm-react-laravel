@@ -71,7 +71,7 @@ body{
 }
 #column-left .list-group-item a:hover{
   text-decoration: none;
-  background-color: #fff;
+  background-color: #f3f3f3;
   color: #172c40;
   border-radius: 4px;
   font-weight: 600

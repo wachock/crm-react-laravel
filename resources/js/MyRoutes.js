@@ -55,6 +55,7 @@ import ViewClient from './Admin/Pages/Clients/ViewClient';
 import Workers from './Admin/Pages/Workers/Worker';
 import AddWorker from './Admin/Pages/Workers/AddWorker';
 import EditWorker from './Admin/Pages/Workers/EditWorker';
+import ViewWorker from './Admin/Pages/Workers/ViewWorker';
 import Review from './Admin/Pages/Review/Reviews';
 import AddReview from './Admin/Pages/Review/AddReview';
 import EditReview from './Admin/Pages/Review/EditReview';
@@ -91,6 +92,7 @@ import EditService from './Admin/Pages/Services/EditService';
 import ServiceSchedule from './Admin/Pages/Services/ServiceSchedule';
 import AddServiceSchedule from './Admin/Pages/Services/AddServiceSchedule';
 import EditServiceSchedule from './Admin/Pages/Services/EditServiceSchedule';
+
 
 TimeAgo.addDefaultLocale(en)
 const options = {
@@ -158,6 +160,7 @@ export default function MyRoutes() {
                      <Route exact path="workers" element={<Workers />} />
                      <Route exact path="add-worker" element={<AddWorker />} />
                      <Route exact path="edit-worker/:id" element={<EditWorker />} />
+                     <Route exact path="view-worker/:id" element={<ViewWorker />} />
                      <Route exact path="reviews" element={<Review />} />
                      <Route exact path="add-review" element={<AddReview />} />
                      <Route exact path="edit-review/:id" element={<EditReview />} />

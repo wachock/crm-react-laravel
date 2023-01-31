@@ -138,9 +138,12 @@ export default function Worker() {
                                                                     <i className="fa fa-edit"></i>
                                                                 </Link>
                                                                 
-                                                                <button className="ml-2 btn bg-yellow">
+                                                                <Link
+                                                                    to={`/admin/view-worker/${item.id}`}
+                                                                    className="ml-2 btn btn-warning"
+                                                                >
                                                                     <i className="fa fa-eye"></i>
-                                                                </button>
+                                                                </Link>
                                                                 <button 
                                                                 className="ml-2 btn bg-red"
                                                                 onClick={() =>

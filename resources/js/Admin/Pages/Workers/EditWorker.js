@@ -60,7 +60,7 @@ export default function EditWorker() {
             <Sidebar />
             <div id="content">
                 <div className="edit-customer">
-                    <h1 className="page-title editEmployer">Edit Employer</h1>
+                    <h1 className="page-title editEmployer">Edit Worker</h1>
                     <form>
                         <div className="form-group">
                             <label className="control-label">
