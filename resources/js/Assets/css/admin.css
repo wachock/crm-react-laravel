@@ -71,7 +71,7 @@ body{
 }
 #column-left .list-group-item a:hover{
   text-decoration: none;
-  background-color: #e3e3e3;
+  background-color: #fff;
   color: #172c40;
   border-radius: 4px;
   font-weight: 600
@@ -218,7 +218,7 @@ table tr td .dropdown-item{
   background: transparent;
 }
 .thisProfile .navbar-nav .nav-item.show{
-  background: #ffc107;
+  background: #F39E53;
 }
 .notFound img{
   padding-top: 100px;
@@ -457,10 +457,10 @@ table tr td .dropdown-item{
   margin-left: 0;
 }
 .view-applicant .nav-tabs .nav-item.show .nav-link, .view-applicant .nav-tabs .nav-link.active, .settings-page .nav-tabs .nav-item.show .nav-link, .settings-page .nav-tabs .nav-link.active {
-  background-color: #b7292d !important;
-  border-color: #b7292d !important;
-  color: #fff !important;
-  font-weight: 600;
+  background-color: #f3f3f3 !important;
+  border-color: #f3f3f3 !important;
+  color: #172c40 !important;
+  font-weight: 500;
 }
 .revTitle:after{
   margin-left: -100px !important;
@@ -547,9 +547,9 @@ table tr td .dropdown-item{
   border: 1px solid #28A745!important;
 }
 .bg-yellow{
-  background-color: #FFC107!important;
+  background-color: #F39E53!important;
   color: #fff;
-  border: 1px solid #ffc107!important;
+  border: 1px solid #F39E53!important;
 }
 .bg-red{
   background-color: #DC3545!important;
@@ -565,6 +565,11 @@ table tr td .dropdown-item{
   background-color: #00C292!important;
   color: #fff;
   border: 1px solid #00C292!important;
+}
+.bg-pink{
+  background: #FA5C7C;
+  color: #fff;
+  border: 1px solid #FA5C7C!important;
 }
 .bg-purple:hover{
   background-color: #8E97FF!important;
@@ -622,4 +627,38 @@ table tr td .dropdown-item{
 .edit-customer .nav-tabs .nav-item{
   margin-left: 15px;
 }
+.ClientHistory .nav-tabs .nav-item{
+  margin-bottom: -2px;
+}
+.ClientHistory .nav-tabs{
+  background: #172c40;
+  padding: 10px 10px 1px 15px;
+  border-top-right-radius: 4px;
+  border-top-left-radius: 4px;
+}
 
+.ClientHistory .nav-tabs .nav-link{
+  font-size: 14px;
+  padding: 10px 25px;
+  color: #fff;
+  background: #172c40;
+  border: none;
+  border-bottom: 1px solid #f3f3f3;
+}
+.ClientHistory .tab-content{
+  background-color: #f3f3f3;
+  border: 1px solid #ccc;
+  border-top: none;
+  border-bottom-right-radius: 4px;
+  border-bottom-left-radius: 4px;
+  padding: 25px 25px 10px 25px;
+}
+.ClientHistory .button-group{
+  text-align: center;
+}
+.ClientHistory .button-group button{
+  font-size: 14px;
+  margin-right: 15px;
+  margin-top: 20px;
+  padding: 8px 20px;
+}

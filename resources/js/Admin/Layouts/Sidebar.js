@@ -49,7 +49,7 @@ export default function Sidebar() {
                     <Link to="/admin/clients"><i class="fa-solid fa-user-tie"></i>Clients</Link>
                 </li>   
                 <li className="list-group-item">
-                    <Link to="/admin/employers"><i class="fa-solid fa-users"></i>Workers</Link>
+                    <Link to="/admin/workers"><i class="fa-solid fa-users"></i>Workers</Link>
                 </li>
                 <li className="list-group-item">
                     <Link to="/admin/jobs-posted"><i class="fa-solid fa-video"></i>Scheduled Meetings</Link>

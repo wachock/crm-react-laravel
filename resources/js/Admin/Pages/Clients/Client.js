@@ -136,9 +136,9 @@ export default function Clients() {
                                                             <div className="d-flex">
                                                                 <Link
                                                                     to={`/admin/edit-client/${item.id}`}
-                                                                    className="btn btn-success"
+                                                                    className="btn bg-green"
                                                                 >
-                                                                    <i className="fa fa-pencil"></i>
+                                                                    <i className="fas fa-edit"></i>
                                                                 </Link>
                                                                 <Link
                                                                     to={`/admin/view-client/${item.id}`}

@@ -52,9 +52,9 @@ import Clients from './Admin/Pages/Clients/Client';
 import AddClient from './Admin/Pages/Clients/AddClient';
 import EditClient from './Admin/Pages/Clients/EditClient';
 import ViewClient from './Admin/Pages/Clients/ViewClient';
-import Employers from './Admin/Pages/Employers/Employers';
-import AddEmployer from './Admin/Pages/Employers/AddEmployer';
-import EditEmployer from './Admin/Pages/Employers/EditEmployer';
+import Workers from './Admin/Pages/Workers/Workers';
+import AddWorker from './Admin/Pages/Workers/AddWorker';
+import EditWorker from './Admin/Pages/Workers/EditWorker';
 import Review from './Admin/Pages/Review/Reviews';
 import AddReview from './Admin/Pages/Review/AddReview';
 import EditReview from './Admin/Pages/Review/EditReview';
@@ -152,9 +152,9 @@ export default function MyRoutes() {
                      <Route exact path="add-client" element={<AddClient />} />
                      <Route exact path="edit-client/:id" element={<EditClient />} />
                      <Route exact path="view-client/:id" element={<ViewClient />} />
-                     <Route exact path="employers" element={<Employers />} />
-                     <Route exact path="add-employer" element={<AddEmployer />} />
-                     <Route exact path="edit-employer/:id" element={<EditEmployer />} />
+                     <Route exact path="workers" element={<Workers />} />
+                     <Route exact path="add-worker" element={<AddWorker />} />
+                     <Route exact path="edit-worker/:id" element={<EditWorker />} />
                      <Route exact path="reviews" element={<Review />} />
                      <Route exact path="add-review" element={<AddReview />} />
                      <Route exact path="edit-review/:id" element={<EditReview />} />
