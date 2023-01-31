@@ -99,7 +99,7 @@ export default function ApplicantFilter({ getFilteredApplicants }) {
                     <label className="control-label">&nbsp;</label>
                     <div className="d-flex">
                         <button
-                            className="btn btn-success filterBtn"
+                            className="btn bg-purple filterBtn"
                             onClick={handleFilter}
                         >
                             <i className="fa fa-search"></i>

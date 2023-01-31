@@ -2,7 +2,8 @@
 body{
   font-family: 'Roboto', sans-serif!important;
   font-size: 15px;
-  color: #343A40;
+  color: #111;
+  background: #eee!important;
 }
 #container {
     min-height: 100%;
@@ -13,7 +14,7 @@ body{
   width: 260px;
   height: 100%;
   overflow: auto;
-  background-color: #343A40;
+  background-color: #172c40;
   position: fixed;
   top: 0px;
   left: 0px;
@@ -26,13 +27,11 @@ body{
   padding-left: 285px;
   position: relative;
   transition: all 0.3s;
-  background: #eee;
   padding-bottom: 30px;
 }
 #content{
   min-height: 650px;
   padding-right: 30px;
-  background: #fbfbfb;
 }
 .sideLogo{
   padding: 10px 0;
@@ -56,7 +55,7 @@ body{
   border: unset;
 }
 #column-left .list-group-item a{
-  color: #e3e3e3;
+  color: #fff;
   padding: 13px 15px;
   display: block;
   font-size: 15px;
@@ -68,12 +67,12 @@ body{
   margin-top: 20px;
 }
 #column-left ul li:hover a i{
-  color: #343A40;
+  color: #172c40;
 }
 #column-left .list-group-item a:hover{
   text-decoration: none;
   background-color: #e3e3e3;
-  color: #343A40;
+  color: #172c40;
   border-radius: 4px;
   font-weight: 600
 }
@@ -92,7 +91,7 @@ body{
 }
 
 .page-title {
-  color: #343a40;
+  color: #172c40;
   font-weight: 400;
   padding-top: 20px;
   margin-bottom: 20px;
@@ -253,6 +252,7 @@ table tr td .dropdown-item{
 .AdminHeader{
   border-bottom: 1px solid #E3e3e3;
   padding: 0;
+  background: #fff;
 }
 .AdminHeader .dropdown{
   padding-right: 20px;
@@ -282,7 +282,7 @@ table tr td .dropdown-item{
   font-size: 16px;
   padding: 5px 20px;
   color: #e3e3e3;
-  background: #343a40;
+  background: #172c40;
   line-height: 30px;
   width: max-content;
   border-radius: 4px;
@@ -344,7 +344,7 @@ table tr td .dropdown-item{
   top: -45px;
 }
 .boxPanel table tr th {
-  background: #343a40;
+  background: #172c40;
   color: #fff;
   font-weight: 400;
 }
@@ -355,8 +355,12 @@ table tr td .dropdown-item{
   float: right;
   margin-top: 27px;
   min-width: 100px;
+  font-size: 15px;
+  font-weight: 400;
 }
-
+.btn-icon {
+  margin-right: 0.4rem!important;
+}
 #loginPage {
   background: #fcfcfc;
 }
@@ -368,29 +372,26 @@ table tr td .dropdown-item{
 }
 #container{
   font-size: 15px;
-  color: #343A40;
+  color: #172c40;
 }
 #container #content .form-group label {
   margin-bottom: 5px;
   font-weight: bold;
   color: #000;
   font-size: 14px;
-  font-family: 'Qanelas SemiBold';
 }
 #container #content .form-group input, #container #content .form-group select{
   height: 45px;
   font-size: 15px;
-  border: 2px solid #E6E8EB;
+  border: 1px solid #ccc;
 }
 .btn-success {
   background: #0c8f25;
   border: 1px solid #0c8f25;
-  font-family: 'Qanelas SemiBold';
 }
 .filterBtn {
   display: block;
   padding: 8px 30px;
-  font-family: 'Qanelas SemiBold';
 }
 .titleBox {
   border-bottom: 1px solid #E6E8EB;
@@ -432,7 +433,6 @@ table tr td .dropdown-item{
   margin-left: -170px !important;
 }
 .saveBtn{
-  font-family: 'Qanelas SemiBold';
   padding: 8px 40px;
 }
 .viewAppli:after{
@@ -515,7 +515,7 @@ table tr td .dropdown-item{
 .addinfoPage:after{
   margin-left: -111px !important;
 }
-.adminDash .card{
+.card{
   box-shadow: 0 0 1px rgb(0 0 0 / 13%), 0 1px 3px rgb(0 0 0 / 20%);
   margin-bottom: 30px;
   position: relative;
@@ -528,7 +528,7 @@ table tr td .dropdown-item{
   border: 0 solid rgba(0,0,0,.125);
   border-radius: 0.25rem;
 }
-.adminDash .card-header {
+.card-header {
   background-color: transparent;
   border-bottom: 1px solid rgba(0,0,0,.125);
   padding: 0.75rem 1.25rem;
@@ -539,26 +539,52 @@ table tr td .dropdown-item{
 .bg-blue {
   background-color: #17a2b8!important;
   color: #fff;
+  border: 1px solid #17a2b8!important;
 }
 .bg-parrot{
   background-color: #28A745!important;
   color: #fff;
+  border: 1px solid #28A745!important;
 }
 .bg-yellow{
   background-color: #FFC107!important;
   color: #fff;
+  border: 1px solid #ffc107!important;
 }
 .bg-red{
   background-color: #DC3545!important;
   color: #fff;
+  border: 1px solid #DC3545!important;
 }
 .bg-purple{
   background-color: #8E97FF!important;
   color: #fff;
+  border: 1px solid #8E97FF!important;
 }
 .bg-green{
   background-color: #00C292!important;
   color: #fff;
+  border: 1px solid #00C292!important;
+}
+.bg-purple:hover{
+  background-color: #8E97FF!important;
+  color: #fff;
+  border: 1px solid #8E97FF!important;
+}
+.bg-green:hover{
+  background-color: #00C292!important;
+  color: #fff;
+  border: 1px solid #00C292!important;
+}
+.btn-pink{
+  background: #FA5C7C;
+  color: #fff;
+  border: 1px solid #FA5C7C!important;
+}
+.btn-pink:hover{
+  background: #d84361;
+  color: #fff;
+  border: 1px solid #d84361;
 }
 .small-box {
   border-radius: 0.25rem;
@@ -589,5 +615,11 @@ table tr td .dropdown-item{
 .bg-blue a, .bg-green a, .bg-red a, .bg-yellow a, .bg-purple a, .bg-parrot a, .bg-blue a:hover, .bg-green a:hover, .bg-red a:hover, .bg-yellow a:hover, .bg-purple a:hover, .bg-parrot a:hover {
   color: #fff!important;
   text-decoration: none;
+}
+.edit-customer .nav-tabs{
+  justify-content: center;
+}
+.edit-customer .nav-tabs .nav-item{
+  margin-left: 15px;
 }
 

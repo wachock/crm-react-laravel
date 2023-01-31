@@ -41,100 +41,33 @@ export default function Sidebar() {
                     <img src={logo} className="img-fluid" alt="Logo" />
                 </Link>
             </div>
-            <ul
-                className="list-group"
-            >
+            <ul className="list-group">
                 <li className="list-group-item">
-                    <Link to="/admin/dashboard">
-                        <i className="fa-solid fa-gauge"></i>
-                        Dashboard
-                    </Link>
+                    <Link to="/admin/dashboard"><i className="fa-solid fa-gauge"></i>Dashboard</Link>
                 </li>
                 <li className="list-group-item">
-                    <Link to="/admin/jobs-posted">
-                        <i className="fa-solid fa-cloud"></i>
-                        Jobs
-                    </Link>
-                </li>
-               
+                    <Link to="/admin/applicants"><i class="fa-solid fa-user-tie"></i>Clients</Link>
+                </li>   
                 <li className="list-group-item">
-                    <Link to="/admin/applicants">
-                        <i className="fa-solid fa-user"></i>
-                       Client Panel
-                    </Link>
+                    <Link to="/admin/employers"><i class="fa-solid fa-users"></i>Workers</Link>
                 </li>
                 <li className="list-group-item">
-                    <Link to="/admin/employers">
-                        <i className="fa-solid fa-user"></i>
-                        Worker Panel
-                    </Link>
-                </li>
-                <li className='list-group-item'>
-                    <div id="fence" className='commonDropdown'>
-                        <div className="card-header" id="fencehead2">
-                            <Link href="#" className="btn btn-header-link" data-toggle="collapse" data-target="#fence2"
-                            aria-expanded="true" aria-controls="job">
-                            <i className="fa-solid fa-briefcase"></i> Catalog <i className="fa-solid fa-angle-down"></i>
-                            </Link>
-                        </div>
-                        <div id="fence2" className="collapse" aria-labelledby="fencehead2" data-parent="#fence">
-                            <div className="card-body">
-                            <ul className='list-group'>
-                                <li className='list-group-item'>
-                                    <Link to="/admin/reviews"><i className="fa fa-angle-right"></i> Reviews</Link>
-                                </li>
-                                <li className='list-group-item'>
-                                    <Link to="/admin/skills"><i className="fa fa-angle-right"></i> Skills</Link>
-                                </li>
-                                <li className='list-group-item'>
-                                    <Link to="/admin/language"><i className="fa fa-angle-right"></i> Language</Link>
-                                </li>
-                                <li className='list-group-item'>
-                                    <Link to="/admin/nationality"><i className="fa fa-angle-right"></i> Nationality</Link>
-                                </li>
-                                <li className='list-group-item'>
-                                    <Link to="/admin/information-pages"><i className="fa fa-angle-right"></i> Information pages</Link>
-                                </li>
-                                <li className='list-group-item'>
-                                    <Link to="/admin/job-profiles"><i className="fa fa-angle-right"></i> Job Profiles</Link>
-                                </li>
-                                <li className='list-group-item'>
-                                    <Link to="/admin/tasks"><i className="fa fa-angle-right"></i> Tasks</Link>
-                                </li>                              
-                            </ul>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li className='list-group-item'>
-                    <div id="fence" className='commonDropdown'>
-                        <div className="card-header" id="fencehead1">
-                            <Link href="#" className="btn btn-header-link" data-toggle="collapse" data-target="#fence1"
-                            aria-expanded="true" aria-controls="fence1">
-                            <i className="fa-solid fa-dollar-sign"></i> Financial <i className="fa-solid fa-angle-down"></i>
-                            </Link>
-                        </div>
-                        <div id="fence1" className="collapse" aria-labelledby="fencehead1" data-parent="#fence">
-                            <div className="card-body">
-                            <ul className='list-group'>
-                                <li className='list-group-item'>
-                                    <Link to="/admin/plans"><i className="fa fa-angle-right"></i> Plans</Link>
-                                </li>
-                                <li className='list-group-item'>
-                                    <Link to="/admin/subscription"><i className="fa fa-angle-right"></i> Subscription</Link>
-                                </li>
-                                <li className='list-group-item'>
-                                    <Link to="/admin/transaction-history"><i className="fa fa-angle-right"></i> Transaction History</Link>
-                                </li>
-                            </ul>
-                            </div>
-                        </div>
-                    </div>
+                    <Link to="/admin/jobs-posted"><i class="fa-solid fa-video"></i>Scheduled Meetings</Link>
                 </li>
                 <li className="list-group-item">
-                    <Link to="/admin/settings">
-                        <i className="fa-solid fa-gear"></i> Settings
-                    </Link>
+                    <Link to="/admin/jobs-posted"><i class="fa-solid fa-tags"></i>Offered Prices</Link>
+                </li>
+                <li className="list-group-item">
+                    <Link to="/admin/jobs-posted"><i class="fa-solid fa-clipboard-list"></i>Contracts</Link>
+                </li>
+                <li className="list-group-item">
+                    <Link to="/admin/jobs-posted"><i class="fa-solid fa-briefcase"></i>Jobs</Link>
+                </li>
+                <li className="list-group-item">
+                    <Link to="/admin/settings"><i class="fa-solid fa-screwdriver-wrench"></i>Services</Link>
+                </li>
+                <li className="list-group-item">
+                    <Link to="/admin/settings"><i className="fa-solid fa-gear"></i>Settings</Link>
                 </li>
             </ul>
             <div className="sideLogout">
