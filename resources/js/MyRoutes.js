@@ -48,10 +48,10 @@ import Admin from './Admin/Admin';
 import AdminDashboard from './Admin/Dashboard';
 import TotalJobs from './Admin/Pages/Jobs/TotalJobs';
 import ViewJob from './Admin/Pages/Jobs/ViewJob';
-import Applicants from './Admin/Pages/Applicants/Applicants';
-import AddApplicant from './Admin/Pages/Applicants/AddApplicant';
-import EditApplicant from './Admin/Pages/Applicants/EditApplicant';
-import ViewApplicant from './Admin/Pages/Applicants/ViewApplicant';
+import Clients from './Admin/Pages/Clients/Client';
+import AddClient from './Admin/Pages/Clients/AddClient';
+import EditClient from './Admin/Pages/Clients/EditClient';
+import ViewClient from './Admin/Pages/Clients/ViewClient';
 import Employers from './Admin/Pages/Employers/Employers';
 import AddEmployer from './Admin/Pages/Employers/AddEmployer';
 import EditEmployer from './Admin/Pages/Employers/EditEmployer';
@@ -85,6 +85,9 @@ import EditPlan from './Admin/Pages/Plans/EditPlan';
 import AddSubscription from './Admin/Pages/Subscription/AddSubscription';
 import EditSubscription from './Admin/Pages/Subscription/EditSubscription';
 import Setting from './Admin/Pages/Setting/Setting';
+import Services from './Admin/Pages/Services/Services';
+import AddService from './Admin/Pages/Services/AddService';
+import EditService from './Admin/Pages/Services/EditService';
 
 TimeAgo.addDefaultLocale(en)
 const options = {
@@ -145,10 +148,10 @@ export default function MyRoutes() {
                      <Route exact path="dashboard" element={<AdminDashboard />} />
                      <Route exact path="jobs-posted" element={<TotalJobs />} />
                      <Route exact path="view-job/:id" element={<ViewJob />} />
-                     <Route exact path="applicants" element={<Applicants />} />
-                     <Route exact path="add-applicant" element={<AddApplicant />} />
-                     <Route exact path="edit-applicant/:id" element={<EditApplicant />} />
-                     <Route exact path="view-applicant/:id" element={<ViewApplicant />} />
+                     <Route exact path="clients" element={<Clients />} />
+                     <Route exact path="add-client" element={<AddClient />} />
+                     <Route exact path="edit-client/:id" element={<EditClient />} />
+                     <Route exact path="view-client/:id" element={<ViewClient />} />
                      <Route exact path="employers" element={<Employers />} />
                      <Route exact path="add-employer" element={<AddEmployer />} />
                      <Route exact path="edit-employer/:id" element={<EditEmployer />} />
@@ -181,6 +184,9 @@ export default function MyRoutes() {
                      <Route exact path="add-plan" element={<AddPlan />} />
                      <Route exact path="edit-plan/:id" element={<EditPlan />} />
                      <Route exact path="settings" element={<Setting />} />
+                     <Route exact path="services" element={<Services />} />
+                     <Route exact path="add-service" element={<AddService />} />
+                     <Route exact path="edit-service/:id" element={<EditService />} />
                   </Route>
                </Route>
                {/* Admin Routes End  */}

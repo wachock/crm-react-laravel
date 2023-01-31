@@ -96,17 +96,40 @@ export default function Sidebar() {
                 </li>
                
                 <li className="list-group-item">
-                    <Link to="/admin/applicants">
+                    <Link to="/admin/clients">
                         <i className="fa-solid fa-user"></i>
-                       Client Panel
+                       Client
                     </Link>
                 </li>
                 <li className="list-group-item">
                     <Link to="/admin/employers">
                         <i className="fa-solid fa-user"></i>
-                        Worker Panel
+                        Worker
                     </Link>
                 </li>
+                <li className='list-group-item'>
+                    <div id="fence" className='commonDropdown'>
+                        <div className="card-header" id="fencehead2">
+                            <Link href="#" className="btn btn-header-link" data-toggle="collapse" data-target="#fence2"
+                            aria-expanded="true" aria-controls="job">
+                            <i className="fa-solid fa-briefcase"></i> Services <i className="fa-solid fa-angle-down"></i>
+                            </Link>
+                        </div>
+                        <div id="fence2" className="collapse" aria-labelledby="fencehead2" data-parent="#fence">
+                            <div className="card-body">
+                            <ul className='list-group'>
+                                <li className='list-group-item'>
+                                    <Link to="/admin/services"><i className="fa fa-angle-right"></i> Services</Link>
+                                </li>
+                                <li className='list-group-item'>
+                                    <Link to="/admin/services-timings"><i className="fa fa-angle-right"></i> Schedules</Link>
+                                </li>                          
+                            </ul>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
                 <li className='list-group-item'>
                     <div id="fence" className='commonDropdown'>
                         <div className="card-header" id="fencehead2">

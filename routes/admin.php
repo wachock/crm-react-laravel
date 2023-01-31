@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Admin\ApplicantController;
+use App\Http\Controllers\Admin\ClientController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\Auth\AuthController;
@@ -17,7 +17,7 @@ use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\SkillController;
 use App\Http\Controllers\Admin\SubscriptionController;
 use App\Http\Controllers\Admin\TaskController;
-
+use App\Http\Controllers\Admin\ServicesController;
 /*
 |--------------------------------------------------------------------------
 | Admin API Routes
@@ -50,8 +50,11 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin-api', 'scopes:ad
     // Employers Api
     Route::resource('employers', EmployerController::class);
 
-    // Applicants Api
-    Route::resource('applicants', ApplicantController::class);
+    // Clients Api
+    Route::resource('clients', ClientController::class);
+
+    // Services Api
+    Route::resource('services', ServicesController::class);
 
     // Reviews Api
     Route::resource('reviews', ReviewController::class);

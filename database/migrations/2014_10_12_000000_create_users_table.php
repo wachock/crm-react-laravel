@@ -30,7 +30,6 @@ class CreateUsersTable extends Migration
             $table->string('color')->nullable();
             $table->string('services')->nullable();
 
-            $table->enum('role', ['worker', 'client'])->default('client');
             $table->string('phone')->nullable();
             $table->string('email')->unique();
             $table->enum('status', [0, 1])->default(0);
