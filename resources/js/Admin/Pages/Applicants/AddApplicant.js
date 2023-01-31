@@ -7,11 +7,20 @@ export default function AddApplicant() {
     const [firstname, setFirstName] = useState("");
     const [lastname, setLastName] = useState("");
     const [email, setEmail] = useState("");
-    const [passcode, setPassCode] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
-    let   [invoiceName,setInvoiceName] = useState("");
+    const [invoiceName,setInvoiceName] = useState("");
     const [phone, setPhone] = useState("");
-    const [address, setAddress] = useState("");
+    
+    const [city,setCity] = useState("");
+    const [streetNumber,setStreetNumber] = useState("");
+    const [floor,setFloor] = useState("");
+    const [Apt,setApt] = useState("");
+    const [enterance,setEnterance] = useState("");
+    const [zip,setZip] = useState("");
+    const [dob,setDob] = useState("");
+    const [passcode, setPassCode] = useState("");
+
+    const [color, setColor] = useState("");
     const [status, setStatus] = useState("");
     const [errors, setErrors] = useState([]);
 
@@ -29,15 +38,23 @@ export default function AddApplicant() {
         const data = {
             firstname: firstname,
             lastname: lastname,
+            invoicename:invoiceName,
+            city:city,
+            street_n_no:streetNumber,
+            floor:floor,
+            apt_no:Apt,
+            entrence_code:enterance,
+            zipcode:zip,
+            dob:dob,
+            passcode:passcode,
+            color:color,
             email: email,
             phone: phone,
-            password: password,
-            password_confirmation: confirmPassword,
-            address: address,
+            password: passcode,
             status: status,
         };
-
-        axios
+        console.log(data);
+       /* axios
             .post(`/api/admin/applicants`, data, { headers })
             .then((response) => {
                 if (response.data.errors) {
@@ -48,18 +65,19 @@ export default function AddApplicant() {
                         navigate("/admin/reviews");
                     }, 1000);
                 }
-            });
+            });*/
     };
-
+   
     const addPhone = (e) =>{
-      e.preventDefault();
-      var cont = document.querySelectorAll('.phone')[0].innerHTML;
-      document.querySelector('.phone').innerHTML += cont;
-    }
-    const remPhone = (e) =>{
         e.preventDefault();
-        console.log('remove');
+        var cont = document.querySelectorAll('.phone')[0].firstChild.innerHTML;
+        var htm  =  "<div class='form-group'>"+cont+"</div>"
+        document.querySelector('.phone').innerHTML += htm;
       }
+
+      useEffect(()=>{
+       
+        });
     return (
         <div id="container">
             <Sidebar />
@@ -116,7 +134,7 @@ export default function AddApplicant() {
                                     </label>
                                     <input
                                         type="text"
-                                        value={lastname}
+                                        value={invoiceName}
                                         onChange={(e) =>
                                             setInvoiceName(e.target.value)
                                         }
@@ -184,6 +202,7 @@ export default function AddApplicant() {
                                     <input
                                         type="tel"
                                         value={phone}
+                                        name = {'phone[]'}
                                         onChange={(e) =>
                                             setPhone(e.target.value)
                                         }
@@ -207,24 +226,153 @@ export default function AddApplicant() {
 
                           
                         </div>
-                        
+                        <h4>Client Full Address</h4>
+
                         <div className="form-group">
-                            <label className="control-label">Address</label>
+                            <label className="control-label">City</label>
                             <input
                                 type="text"
-                                value={address}
-                                onChange={(e) => setAddress(e.target.value)}
+                                value={city}
+                                onChange={(e) => setCity(e.target.value)}
                                 className="form-control"
-                                placeholder="Enter your address"
+                                placeholder="Enter City"
                             />
-                            {errors.address ? (
+                            {errors.city ? (
                                 <small className="text-danger mb-1">
-                                    {errors.address}
+                                    {errors.city}
                                 </small>
                             ) : (
                                 ""
                             )}
                         </div>
+
+                        <div className="form-group">
+                            <label className="control-label">Street and number</label>
+                            <input
+                                type="text"
+                                value={streetNumber}
+                                onChange={(e) => setStreetNumber(e.target.value)}
+                                className="form-control"
+                                placeholder="Enter street and number"
+                            />
+                            {errors.streetNumber ? (
+                                <small className="text-danger mb-1">
+                                    {errors.streetNumber}
+                                </small>
+                            ) : (
+                                ""
+                            )}
+                        </div>
+
+                        <div className="form-group">
+                            <label className="control-label">Floor</label>
+                            <input
+                                type="text"
+                                value={floor}
+                                onChange={(e) => setFloor(e.target.value)}
+                                className="form-control"
+                                placeholder="Enter floor"
+                            />
+                            {errors.floor ? (
+                                <small className="text-danger mb-1">
+                                    {errors.floor}
+                                </small>
+                            ) : (
+                                ""
+                            )}
+                        </div>
+
+                        <div className="form-group">
+                            <label className="control-label">Apt number</label>
+                            <input
+                                type="text"
+                                value={Apt}
+                                onChange={(e) => setApt(e.target.value)}
+                                className="form-control"
+                                placeholder="Enter Apt number"
+                            />
+                            {errors.Apt ? (
+                                <small className="text-danger mb-1">
+                                    {errors.Apt}
+                                </small>
+                            ) : (
+                                ""
+                            )}
+                        </div>
+
+                        <div className="form-group">
+                            <label className="control-label">Enterance code</label>
+                            <input
+                                type="text"
+                                value={enterance}
+                                onChange={(e) => setEnterance(e.target.value)}
+                                className="form-control"
+                                placeholder="Enter enterance"
+                            />
+                            {errors.enterance ? (
+                                <small className="text-danger mb-1">
+                                    {errors.enterance}
+                                </small>
+                            ) : (
+                                ""
+                            )}
+                        </div>
+
+                        <div className="form-group">
+                            <label className="control-label">Zip Code</label>
+                            <input
+                                type="text"
+                                value={zip}
+                                onChange={(e) => setZip(e.target.value)}
+                                className="form-control"
+                                placeholder="Enter zip code"
+                            />
+                            {errors.zip ? (
+                                <small className="text-danger mb-1">
+                                    {errors.zip}
+                                </small>
+                            ) : (
+                                ""
+                            )}
+                        </div>
+
+                        <div className="form-group">
+                            <label className="control-label">Dob</label>
+                            <input
+                                type="text"
+                                value={dob}
+                                onChange={(e) => setDob(e.target.value)}
+                                className="form-control"
+                                placeholder="Enter dob"
+                            />
+                            {errors.dob ? (
+                                <small className="text-danger mb-1">
+                                    {errors.dob}
+                                </small>
+                            ) : (
+                                ""
+                            )}
+                        </div>
+                        <div className="form-group">
+                            <label className="control-label">color</label>
+                            <input
+                                type="text"
+                                value={color}
+                                onChange={(e) => setColor(e.target.value)}
+                                className="form-control"
+                                placeholder="Enter color code"
+                            />
+                            {errors.color ? (
+                                <small className="text-danger mb-1">
+                                    {errors.color}
+                                </small>
+                            ) : (
+                                ""
+                            )}
+                        </div>
+
+ 
+
                         <div className="form-group">
                             <label className="control-label">Status</label>
                             <select
