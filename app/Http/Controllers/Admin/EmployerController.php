@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
+use App\Models\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -23,7 +23,7 @@ class EmployerController extends Controller
         $filter['phone']     = $request->phone;
         $filter['status']    = $request->status;
 
-        $employers   = User::where('role', 'employer');
+        $employers   = Client::query();
         if(isset($filter['name'])){
             $employers            = $employers->where(DB::raw("concat(firstname, ' ', lastname)"), 'LIKE', '%'.$filter['name'].'%');
         }

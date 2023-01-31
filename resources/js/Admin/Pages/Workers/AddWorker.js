@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import Sidebar from '../../Layouts/Sidebar'
 
 
-export default function AddEmployer() {
+export default function AddWorker() {
   const [adTitle, setAdTitle] = useState('');
   const [firstname, setFirstName] = useState('');
   const [lastname, setLastName] = useState('');

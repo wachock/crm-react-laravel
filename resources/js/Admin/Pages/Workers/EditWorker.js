@@ -3,7 +3,7 @@ import { useAlert } from "react-alert";
 import { useParams } from "react-router-dom";
 import Sidebar from "../../Layouts/Sidebar";
 
-export default function EditEmployer() {
+export default function EditWorker() {
     const [firstname, setFirstName] = useState("");
     const [lastname, setLastName] = useState("");
     const [email, setEmail] = useState("");
