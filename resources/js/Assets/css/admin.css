@@ -1,20 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700;900&display=swap');
-@font-face {
-  font-family: Qanelas Regular;
-  src: url('../fonts/QanelasRegular.woff');
-}
-@font-face {
-  font-family: Qanelas SemiBold;
-  src: url('../fonts/QanelasSemiBold.woff');
-}
-@font-face {
-  font-family: Qanelas Bold;
-  src: url('../fonts/QanelasBold.woff');
-}
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 body{
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: 'Roboto', sans-serif!important;
   font-size: 15px;
-  color: #343A40;
+  color: #111;
+  background: #eee!important;
 }
 #container {
     min-height: 100%;
@@ -25,7 +14,7 @@ body{
   width: 260px;
   height: 100%;
   overflow: auto;
-  background-color: #fff;
+  background-color: #172c40;
   position: fixed;
   top: 0px;
   left: 0px;
@@ -35,19 +24,19 @@ body{
 }
 #column-left + #content, #column-left + #content {
   left: 0px;
-  padding-left: 290px;
+  padding-left: 285px;
   position: relative;
   transition: all 0.3s;
+  padding-bottom: 30px;
 }
 #content{
   min-height: 650px;
   padding-right: 30px;
-  background: #fbfbfb;
 }
 .sideLogo{
   padding: 10px 0;
   border-bottom: 1px solid #e6e8eb;
-  margin-bottom: 10px;
+  background: #fff;
 }
 .sideLogo img{
   max-width: 190px;
@@ -56,11 +45,9 @@ body{
 }
 #column-left .list-group-item{
   background: transparent;
-  border-top: none;
-  border-right: none;
   padding: 0;
+  border: none;
   border-radius: 0;
-  border-bottom: 1px dashed #e6e8eb;
 }
 #column-left .list-group-item .card-header{
   background: unset;
@@ -68,51 +55,52 @@ body{
   border: unset;
 }
 #column-left .list-group-item a{
-  color: #343A40;
+  color: #fff;
   padding: 13px 15px;
   display: block;
-  font-size: 16px;
-  font-family: Qanelas SemiBold;
+  font-size: 15px;
+  font-weight: 400;
+  
+}
+#column-left ul{
+  padding: 0 20px;
+  margin-top: 20px;
+}
+#column-left ul li:hover a i{
+  color: #172c40;
 }
 #column-left .list-group-item a:hover{
   text-decoration: none;
+  background-color: #e3e3e3;
+  color: #172c40;
+  border-radius: 4px;
+  font-weight: 600
 }
 #column-left .list-group-item a img{
   margin-right: 6px;
 }
-#column-left ul li a i{
+#column-left ul li a i {
   margin-right: 10px;
-  font-size: 18px;
-  color: #f1966f;
-  min-width: 20px;
+  font-size: 15px;
+  color: #e3e3e3;
 }
 .sideLogout .logoutBtn {
   float: none;
   text-align: center;
   margin-top: 20px;
 }
-.page-title{
-  font-family: "Source Sans Pro", 'sans-serif';
-  letter-spacing: -1.2px;
-  color: #000;
-  font-weight: 700;
+
+.page-title {
+  color: #172c40;
+  font-weight: 400;
   padding-top: 20px;
   margin-bottom: 20px;
-  font-size: 30px;
-  border-bottom: 1px solid #E6E8EB;
+  font-size: 24px;
+  border-bottom: 1px solid #dfdfdf;
   line-height: 45px;
 }
-.page-title::after {
-  background: #f4a583;
-  width: 40px;
-  height: 4px;
-  position: absolute;
-  content: '';
-  margin-left: -134px;
-  margin-top: 45px;
-}
-.latest-users .page-title::after{
-  margin-left: -208px !important;
+.latest-users .page-title{
+  padding-top: 0px;
 }
 .dashBox{
   box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
@@ -132,7 +120,7 @@ body{
   text-align: center;
   font-weight: 700;
   letter-spacing: -1.2px;
-  font-family: "Source Sans Pro", 'sans-serif';
+  
   color: #484343;
   margin-bottom: 0;
 }
@@ -262,23 +250,25 @@ table tr td .dropdown-item{
   height: 30px;
 }
 .AdminHeader{
-  border-bottom: 1px solid #E6E8EB;
-  padding: 8px 0;
+  border-bottom: 1px solid #E3e3e3;
+  padding: 0;
+  background: #fff;
 }
 .AdminHeader .dropdown{
   padding-right: 20px;
 }
 .AdminHeader .dropdown img{
-  max-width: 50px;
+  max-width: 40px;
   border: 3px solid #fff;
   border-radius: 100px;
-  outline: 1px solid #f4a583;
+  outline: 1px solid #ccc;
+  margin-top: 15px;
 }
 .AdminHeader .dropdown-toggle{
   color: #444;
 }
 .AdminHeader .dropdown-toggle:after{
-  top: 5px;
+  top: 12px;
   position: relative;
   left: 4px;
 }
@@ -286,18 +276,23 @@ table tr td .dropdown-item{
   left: -33px !important;
   top: 23px !important;
 }
-.AdminHeader h1{
-  font-weight: 600;
-  padding-left: 270px;
-  font-size: 30px;
-  margin-bottom: 0;
-  padding-top: 8px;
-  color: #000;
+.AdminHeader h1 {
+  margin: 16px 0 16px 270px;
+  font-weight: 400;
+  font-size: 16px;
+  padding: 5px 20px;
+  color: #e3e3e3;
+  background: #172c40;
+  line-height: 30px;
+  width: max-content;
+  border-radius: 4px;
 }
 .sideLogout .logoutBtn button{
-  background-color: #f4a583;
-  color: #fff;
-  border: 1px solid #f4a583;
+  background-color: transparent;
+  color: #e3e3e3;
+  border: 1px solid #e3e3e3;
+  padding: 7px 30px;
+  border-radius: 0;
 }
 .sideAdmin{
   padding-left: 12px;
@@ -321,7 +316,7 @@ table tr td .dropdown-item{
 }
 .sideAdmin ul li p{
   margin-bottom: 0;
-  font-family: Qanelas Bold;
+  
   font-size: 15px;
 }
 .sideAdmin ul li span{
@@ -349,8 +344,9 @@ table tr td .dropdown-item{
   top: -45px;
 }
 .boxPanel table tr th {
-  background: #000;
+  background: #172c40;
   color: #fff;
+  font-weight: 400;
 }
 .boxPanel table{
   background: #fff;
@@ -359,11 +355,11 @@ table tr td .dropdown-item{
   float: right;
   margin-top: 27px;
   min-width: 100px;
+  font-size: 15px;
+  font-weight: 400;
 }
-.btn-danger, .btn-danger:hover {
-  color: #fff;
-  background-color: #f49166;
-  border-color: #f49166 !important;
+.btn-icon {
+  margin-right: 0.4rem!important;
 }
 #loginPage {
   background: #fcfcfc;
@@ -375,31 +371,27 @@ table tr td .dropdown-item{
   min-height: 200px;
 }
 #container{
-  font-family: 'Source Sans Pro', sans-serif;
   font-size: 15px;
-  color: #343A40;
+  color: #172c40;
 }
 #container #content .form-group label {
   margin-bottom: 5px;
   font-weight: bold;
   color: #000;
   font-size: 14px;
-  font-family: 'Qanelas SemiBold';
 }
 #container #content .form-group input, #container #content .form-group select{
   height: 45px;
   font-size: 15px;
-  border: 2px solid #E6E8EB;
+  border: 1px solid #ccc;
 }
 .btn-success {
   background: #0c8f25;
   border: 1px solid #0c8f25;
-  font-family: 'Qanelas SemiBold';
 }
 .filterBtn {
   display: block;
   padding: 8px 30px;
-  font-family: 'Qanelas SemiBold';
 }
 .titleBox {
   border-bottom: 1px solid #E6E8EB;
@@ -441,7 +433,6 @@ table tr td .dropdown-item{
   margin-left: -170px !important;
 }
 .saveBtn{
-  font-family: 'Qanelas SemiBold';
   padding: 8px 40px;
 }
 .viewAppli:after{
@@ -524,3 +515,111 @@ table tr td .dropdown-item{
 .addinfoPage:after{
   margin-left: -111px !important;
 }
+.card{
+  box-shadow: 0 0 1px rgb(0 0 0 / 13%), 0 1px 3px rgb(0 0 0 / 20%);
+  margin-bottom: 30px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 0 solid rgba(0,0,0,.125);
+  border-radius: 0.25rem;
+}
+.card-header {
+  background-color: transparent;
+  border-bottom: 1px solid rgba(0,0,0,.125);
+  padding: 0.75rem 1.25rem;
+  position: relative;
+  border-top-left-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
+}
+.bg-blue {
+  background-color: #17a2b8!important;
+  color: #fff;
+  border: 1px solid #17a2b8!important;
+}
+.bg-parrot{
+  background-color: #28A745!important;
+  color: #fff;
+  border: 1px solid #28A745!important;
+}
+.bg-yellow{
+  background-color: #FFC107!important;
+  color: #fff;
+  border: 1px solid #ffc107!important;
+}
+.bg-red{
+  background-color: #DC3545!important;
+  color: #fff;
+  border: 1px solid #DC3545!important;
+}
+.bg-purple{
+  background-color: #8E97FF!important;
+  color: #fff;
+  border: 1px solid #8E97FF!important;
+}
+.bg-green{
+  background-color: #00C292!important;
+  color: #fff;
+  border: 1px solid #00C292!important;
+}
+.bg-purple:hover{
+  background-color: #8E97FF!important;
+  color: #fff;
+  border: 1px solid #8E97FF!important;
+}
+.bg-green:hover{
+  background-color: #00C292!important;
+  color: #fff;
+  border: 1px solid #00C292!important;
+}
+.btn-pink{
+  background: #FA5C7C;
+  color: #fff;
+  border: 1px solid #FA5C7C!important;
+}
+.btn-pink:hover{
+  background: #d84361;
+  color: #fff;
+  border: 1px solid #d84361;
+}
+.small-box {
+  border-radius: 0.25rem;
+  box-shadow: 0 0 1px rgb(0 0 0 / 13%), 0 1px 3px rgb(0 0 0 / 20%);
+  display: block;
+  position: relative;
+}
+.small-box .inner {
+  padding: 10px;
+  text-align: center;
+}
+.small-box h3{
+  font-size: 2.2rem;
+}
+.small-box p {
+  font-size: 1rem;
+}
+.small-box .small-box-footer {
+  background-color: rgba(0,0,0,.1);
+  color: rgba(255,255,255,.8);
+  display: block;
+  padding: 3px 0;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  z-index: 10;
+}
+.bg-blue a, .bg-green a, .bg-red a, .bg-yellow a, .bg-purple a, .bg-parrot a, .bg-blue a:hover, .bg-green a:hover, .bg-red a:hover, .bg-yellow a:hover, .bg-purple a:hover, .bg-parrot a:hover {
+  color: #fff!important;
+  text-decoration: none;
+}
+.edit-customer .nav-tabs{
+  justify-content: center;
+}
+.edit-customer .nav-tabs .nav-item{
+  margin-left: 15px;
+}
+

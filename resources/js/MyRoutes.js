@@ -7,9 +7,9 @@ import TimeAgo from 'javascript-time-ago'
 import en from 'javascript-time-ago/locale/en.json'
 
 import './Assets/css/admin.css';
-import './Assets/css/yeliko.css';
-import './Assets/css/style.css';
-import './Assets/css/applicant.css';
+// import './Assets/css/yeliko.css';
+// import './Assets/css/style.css';
+// import './Assets/css/applicant.css';
 
 // Protected Routes
 import AdminProtectedRoutes from './Components/Auth/PrivateAdmin';
