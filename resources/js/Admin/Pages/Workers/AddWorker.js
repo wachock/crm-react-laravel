@@ -28,7 +28,7 @@ export default function AddWorker() {
        <Sidebar/>
         <div id="content">
             <div className='edit-customer'>
-                <h1 className="page-title addEmployer">Add Employer</h1>
+                <h1 className="page-title addEmployer">Add Worker</h1>
                 <form>
                     <div className='form-group'>
                         <label className='control-label'>Ad Title</label>

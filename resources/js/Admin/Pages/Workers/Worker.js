@@ -90,7 +90,7 @@ export default function Worker() {
                             <h1 className="page-title">Workers</h1>
                         </div>
                         <div className="col-sm-6">
-                            <Link to="/admin/add-applicant" className="btn btn-pink addButton"><i class="btn-icon fas fa-plus-circle"></i>
+                            <Link to="/admin/add-worker" className="btn btn-pink addButton"><i class="btn-icon fas fa-plus-circle"></i>
                                 Add New
                             </Link>
                         </div>
@@ -132,11 +132,12 @@ export default function Worker() {
                                                         <td>
                                                             <div className="d-flex">
                                                                 <Link
-                                                                    to={`/admin/edit-employer/${item.id}`}
+                                                                    to={`/admin/edit-worker/${item.id}`}
                                                                     className="btn bg-green"
                                                                 >
                                                                     <i className="fa fa-edit"></i>
                                                                 </Link>
+                                                                
                                                                 <button className="ml-2 btn bg-yellow">
                                                                     <i className="fa fa-eye"></i>
                                                                 </button>
