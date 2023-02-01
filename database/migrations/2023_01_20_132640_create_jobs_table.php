@@ -15,19 +15,13 @@ class CreateJobsTable extends Migration
     {
         Schema::create('jobs', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->unsignedBigInteger('job_profile_id');
-            $table->unsignedBigInteger('job_announcement_id');
-            $table->text('title')->nullable();
-            $table->longText('description')->nullable();
-            $table->longText('address')->nullable();
-            $table->string('phone')->nullable();
-            $table->longText('slots')->nullable();
+            $table->unsignedBigInteger('client_id');
+            $table->unsignedBigInteger('job_id');
+            $table->unsignedBigInteger('worker_id');
             $table->date('start_date')->nullable();
-            $table->unsignedBigInteger('applicant_id')->nullable();
+            $table->date('end_date')->nullable();
             $table->unsignedBigInteger('rate')->nullable();
-            $table->enum('status', ['posted', 'booked', 'completed'])->default('posted');
+            $table->enum('status', ['pending', 'processing', 'completed'])->default('processing');
             $table->timestamps();
         });
     }
