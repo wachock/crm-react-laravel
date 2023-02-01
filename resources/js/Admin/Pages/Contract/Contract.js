@@ -1,8 +1,8 @@
 import React from 'react'
 import { Link } from "react-router-dom";
-import Sidebar from '../../Layouts/Sidebar';
 import OfferedPriceFilter from '../../Components/Filter/OfferedPriceFilter';
-export default function OfferPrice() {
+import Sidebar from '../../Layouts/Sidebar';
+export default function Contract() {
     return (
         <div id="container">
             <Sidebar />
@@ -10,10 +10,10 @@ export default function OfferPrice() {
                 <div className="titleBox customer-title">
                     <div className="row">
                         <div className="col-sm-6">
-                            <h1 className="page-title">Offered Prices</h1>
+                            <h1 className="page-title">Contracts</h1>
                         </div>
                         <div className="col-sm-6">
-                            <Link to="/admin/add-offer" className="btn btn-pink addButton"><i class="btn-icon fas fa-plus-circle"></i>
+                            <Link to="/admin/add-contract" className="btn btn-pink addButton"><i class="btn-icon fas fa-plus-circle"></i>
                                 Add New
                             </Link>
                         </div>
@@ -46,8 +46,8 @@ export default function OfferPrice() {
                                             <td>440 NIS</td>
                                             <td>
                                                 <div className="d-flex">
-                                                    <Link to={`/admin/edit-offer`} className="btn bg-green"><i className="fa fa-edit"></i></Link>
-                                                    <Link to={`/admin/view-offer`} className="ml-2 btn btn-warning"><i className="fa fa-eye"></i></Link>
+                                                    <Link to={`/admin/edit-contract`} className="btn bg-green"><i className="fa fa-edit"></i></Link>
+                                                    <Link to={`/admin/view-contract`} className="ml-2 btn btn-warning"><i className="fa fa-eye"></i></Link>
                                                     <button className="ml-2 btn bg-red" onClick={() => handleDelete(item.id)}><i className="fa fa-trash"></i></button>  
                                                 </div>
                                             </td>
@@ -63,3 +63,4 @@ export default function OfferPrice() {
         </div>
     );
 }
+
