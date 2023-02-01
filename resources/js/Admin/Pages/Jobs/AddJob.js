@@ -11,6 +11,9 @@ export default function AddJob() {
     const [rate, setRate] = useState('');
     const [location, setLocation] = useState('');
     const [status, setStatus] = useState('');
+    const [startdate, setStartDate] = useState('');
+    const [starttime, setStartTime] = useState('');
+    const [endtime, setEndTime] = useState('');
     const applicantData = ['Eugenia', 'Bryan', 'Linda', 'Nancy', 'Lloyd', 'Alice', 'Julia', 'Albert'].map(
         item => ({ label: item, value: item })
     );
@@ -30,58 +33,67 @@ export default function AddJob() {
         <div id="content">
             <div className="edit-customer">
                 <h1 className="page-title editJob">Add Job</h1>
-                <form onSubmit={handleSubmit}>
-                    <div className="form-group">
-                        <label className="control-label">Job Title *</label>
-                        <input type="text" value={title} required onChange={(e) => setTitle(e.target.value)} className='form-control' placeholder="Job Title"/>
-                    </div>
-                    <div className="form-group">
-                        <label className="control-label">Applicant Name *</label>
-                        <SelectPicker data={applicantData} size="lg" required/>
-                    </div>
-                    <div className="form-group">
-                        <label className="control-label">Employer Name *</label>
-                        <input type="text" value={employer} onChange={(e) => setEmployer(e.target.value)} className="form-control" placeholder="Employer Name"/>
-                    </div>
-                    <div className="form-group">
-                        <label className="control-label">Rate per hour *</label>
-                        <input type="text" value={rate} onChange={(e) => setRate(e.target.value)} className="form-control" placeholder="Rate per hour"/>
-                    </div>
-                    <div className="form-group">
-                        <label className="control-label">Time Slots</label>
-                        <div className='items-time dashBox'>
-                            <div className='row'>
-                                {workSlot && workSlot.map((item, index) => (
-                                    <div className='col-sm-2' key={index}>
-                                        <div className='defineTime'>
-                                            <h4>{item.day}</h4>
-                                            <ul className='list-inline'>
-                                                <li>
-                                                    <a disabled href='#!' className='btn btn-danger'>{item.time}</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                ))}
+                <div className='card'>
+                    <div className='card-body'>
+                        <form onSubmit={handleSubmit}>
+                            <div className="form-group">
+                                <label className="control-label">Job Title</label>
+                                <input type="text" value={title} required onChange={(e) => setTitle(e.target.value)} className='form-control' placeholder="Job Title"/>
                             </div>
-                        </div>
+                            <div className="form-group">
+                                <label className="control-label">Client Name</label>
+                                <SelectPicker data={applicantData} size="lg" required/>
+                            </div>
+                            <div className="form-group">
+                                <label className="control-label">Worker Name</label>
+                                <SelectPicker data={applicantData} size="lg" required/>
+                            </div>
+                            <div className="form-group">
+                                <label className="control-label">Service Name</label>
+                                <SelectPicker data={applicantData} size="lg" required/>
+                            </div>
+                            <div className="form-group">
+                                <label className="control-label">Instruction</label>
+                                <textarea value={rate} onChange={(e) => setRate(e.target.value)} className="form-control" placeholder="Instruction"/>
+                            </div>
+                            <div className='row'>
+                                <div className='col-sm-4'>
+                                    <div className="form-group">
+                                        <label className="control-label">Start Date</label>
+                                        <input type="date" value={startdate} required onChange={(e) => setStartDate(e.target.value)} className='form-control' placeholder="Job Title"/>
+                                    </div>
+                                </div>
+                                <div className='col-sm-4'>
+                                    <div className="form-group">
+                                        <label className="control-label">Start Time</label>
+                                        <input type="time" value={starttime} required onChange={(e) => setStartTime(e.target.value)} className='form-control' placeholder="Job Title"/>
+                                    </div>
+                                </div>
+                                <div className='col-sm-4'>
+                                    <div className="form-group">
+                                        <label className="control-label">End Time</label>
+                                        <input type="time" value={endtime} required onChange={(e) => setEndTime(e.target.value)} className='form-control' placeholder="Job Title"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="form-group">
+                                <label className="control-label">Area/Location *</label>
+                                <input type="text" value={location} onChange={(e) => setLocation(e.target.value)} className="form-control" placeholder="Complete Address"/>
+                            </div> 
+                            <div className="form-group">
+                                <label className="control-label">Status</label>
+                                <select className="form-control" value={status} onChange={(e) => setStatus(e.target.value)}>
+                                    <option>Please Select</option>
+                                    <option value="1">Enable</option>
+                                    <option value="0">Disable</option>
+                                </select>
+                            </div>
+                            <div className="form-group text-right">
+                                <input type='submit' value='Save and Send' className="btn btn-pink saveBtn"/>
+                            </div>
+                        </form>
                     </div>
-                    <div className="form-group">
-                        <label className="control-label">Area/Location *</label>
-                        <input type="text" value={location} onChange={(e) => setLocation(e.target.value)} className="form-control" placeholder="Complete Address"/>
-                    </div> 
-                    <div className="form-group">
-                        <label className="control-label">Status</label>
-                        <select className="form-control" value={status} onChange={(e) => setStatus(e.target.value)}>
-                            <option>Please Select</option>
-                            <option value="1">Enable</option>
-                            <option value="0">Disable</option>
-                        </select>
-                    </div>
-                    <div className="form-group text-center">
-                        <input type='submit' value='SAVE' className="btn btn-danger saveBtn"/>
-                    </div>
-                </form>
+                </div>
             </div>
         </div>
     </div>
