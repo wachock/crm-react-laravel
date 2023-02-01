@@ -24,66 +24,36 @@ export default function OfferPrice() {
                     <OfferedPriceFilter/>
                         <div className="boxPanel">
                             <div className="table-responsive">
-                                    <table className="table table-bordered">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">Client</th>
-                                                <th scope="col">Address</th>
-                                                <th scope="col">Phone</th>
-                                                <th scope="col">Service Name</th>
-                                                <th scope="col">Status</th>
-                                                <th scope="col">Total</th>
-                                                <th scope="col">Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                         
-                                                    <tr>
-                                                        <td>Clemmie Wolf</td>
-                                                        <td>
-                                                        4 Ashlinn House,College Square
-                                                        </td>
-                                                        <td>9763608409</td>
-                                                        <td>Glass furnishing</td>
-                                                        <td>
-                                                        Inactive
-                                                        </td>
-                                                        <td>440 NIS</td>
-                                                        <td>
-                                                            <div className="d-flex">
-                                                                <Link
-                                                                    to={`/admin/edit-offer`}
-                                                                    className="btn bg-green"
-                                                                >
-                                                                    <i className="fa fa-edit"></i>
-                                                                </Link>
-                                                                
-                                                                <Link
-                                                                    to={`/admin/view-offer`}
-                                                                    className="ml-2 btn btn-warning"
-                                                                >
-                                                                    <i className="fa fa-eye"></i>
-                                                                </Link>
-                                                                <button 
-                                                                className="ml-2 btn bg-red"
-                                                                onClick={() =>
-                                                                    handleDelete(
-                                                                        item.id
-                                                                    )
-                                                                }
-                                                                >
-                                                                    <i className="fa fa-trash"></i>
-                                                                </button>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                              
-                                        </tbody>
-                                    </table>
-                                
-                
-                              
-                                
+                                <table className="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Client</th>
+                                            <th scope="col">Address</th>
+                                            <th scope="col">Phone</th>
+                                            <th scope="col">Service Name</th>
+                                            <th scope="col">Status</th>
+                                            <th scope="col">Total</th>
+                                            <th scope="col">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>  
+                                        <tr>
+                                            <td>Clemmie Wolf</td>
+                                            <td>4 Ashlinn House,College Square</td>
+                                            <td>9763608409</td>
+                                            <td>Glass furnishing</td>
+                                            <td>Inactive</td>
+                                            <td>440 NIS</td>
+                                            <td>
+                                                <div className="d-flex">
+                                                    <Link to={`/admin/edit-offer`} className="btn bg-green"><i className="fa fa-edit"></i></Link>
+                                                    <Link to={`/admin/view-offer`} className="ml-2 btn btn-warning"><i className="fa fa-eye"></i></Link>
+                                                    <button className="ml-2 btn bg-red" onClick={() => handleDelete(item.id)}><i className="fa fa-trash"></i></button>  
+                                                </div>
+                                            </td>
+                                        </tr>     
+                                    </tbody>
+                                </table> 
                             </div>
                         </div>
                     </div>

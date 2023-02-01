@@ -97,6 +97,10 @@ import OfferPrice from './Admin/Pages/OfferPrice/OfferPrice';
 import AddOffer from './Admin/Pages/OfferPrice/AddOffer';
 import EditOffer from './Admin/Pages/OfferPrice/EditOffer';
 import ViewOffer from './Admin/Pages/OfferPrice/ViewOffer';
+import Contract from './Admin/Pages/Contract/Contract';
+import AddContract from './Admin/Pages/Contract/AddContract';
+import EditContract from './Admin/Pages/Contract/EditContract';
+import ViewContract from './Admin/Pages/Contract/ViewContract';
 
 
 TimeAgo.addDefaultLocale(en)
@@ -206,6 +210,10 @@ export default function MyRoutes() {
                      <Route exact path="add-offer" element={<AddOffer />} />
                      <Route exact path="edit-offer" element={<EditOffer />} />
                      <Route exact path="view-offer" element={<ViewOffer />} />
+                     <Route exact path="contracts" element={<Contract />} />
+                     <Route exact path="add-contract" element={<AddContract />} />
+                     <Route exact path="edit-contract" element={<EditContract />} />
+                     <Route exact path="view-contract" element={<ViewContract />} />
                   </Route>
                </Route>
                {/* Admin Routes End  */}

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
+use Illuminate\Support\Facades\Hash;
 
 class User extends Authenticatable
 {
@@ -20,12 +21,15 @@ class User extends Authenticatable
     protected $fillable = [
         'firstname',
         'lastname',
-        'address',
-        'role',
         'phone',
-        'email',
+        'address',
+        'renewal_visa',
+        'gender',
+        'payment_per_hour',
+        'worker_id',
+        'skill',
         'status',
-        'password',
+        'password'
     ];
 
     /**
@@ -33,10 +37,6 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
 
     /**
      * The attributes that should be cast.
@@ -46,6 +46,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    public function setSkillAttribute($value)
+    {
+        $this->attributes['skill'] = json_encode($value);
+    }
+    public function getSkillAttribute($value)
+    {
+        return $this->attributes['skill'] = json_decode($value);
+    }
 
     public function jobs()
     {
