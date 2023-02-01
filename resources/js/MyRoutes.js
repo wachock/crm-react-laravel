@@ -92,6 +92,10 @@ import EditService from './Admin/Pages/Services/EditService';
 import ServiceSchedule from './Admin/Pages/Services/ServiceSchedule';
 import AddServiceSchedule from './Admin/Pages/Services/AddServiceSchedule';
 import EditServiceSchedule from './Admin/Pages/Services/EditServiceSchedule';
+import OfferPrice from './Admin/Pages/OfferPrice/OfferPrice';
+import AddOffer from './Admin/Pages/OfferPrice/AddOffer';
+import EditOffer from './Admin/Pages/OfferPrice/EditOffer';
+import ViewOffer from './Admin/Pages/OfferPrice/ViewOffer';
 
 
 TimeAgo.addDefaultLocale(en)
@@ -196,6 +200,10 @@ export default function MyRoutes() {
                      <Route exact path="service-schedule" element={<ServiceSchedule />} />
                      <Route exact path="add-service-schedule" element={<AddServiceSchedule />} />
                      <Route exact path="edit-service-schedule/:id" element={<EditServiceSchedule />} />
+                     <Route exact path="offered-price" element={<OfferPrice />} />
+                     <Route exact path="add-offer" element={<AddOffer />} />
+                     <Route exact path="edit-offer" element={<EditOffer />} />
+                     <Route exact path="view-offer" element={<ViewOffer />} />
                   </Route>
                </Route>
                {/* Admin Routes End  */}

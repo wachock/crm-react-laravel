@@ -55,7 +55,7 @@ export default function Sidebar() {
                     <Link to="/admin/jobs-posted"><i class="fa-solid fa-video"></i>Scheduled Meetings</Link>
                 </li>
                 <li className="list-group-item">
-                    <Link to="/admin/jobs-posted"><i class="fa-solid fa-tags"></i>Offered Prices</Link>
+                    <Link to="/admin/offered-price"><i class="fa-solid fa-tags"></i>Offered Prices</Link>
                 </li>
                 <li className="list-group-item">
                     <Link to="/admin/jobs-posted"><i class="fa-solid fa-clipboard-list"></i>Contracts</Link>
