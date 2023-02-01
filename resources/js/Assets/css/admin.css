@@ -662,3 +662,37 @@ table tr td .dropdown-item{
   margin-top: 20px;
   padding: 8px 20px;
 }
+.AddOffer .card-black{
+  background: #172c40;
+  padding: 0px 20px;
+}
+.AddOffer .card-black .card-title{
+  color: #fff;
+  font-size: 16px;
+  margin-bottom: 0;
+}
+.ViewOffer{
+  padding: 50px;
+}
+.ViewOffer h2 {
+  padding-top: 55px;
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 0;
+  padding-bottom: 0;
+  line-height: 33px;
+}
+.ViewOffer p{
+  font-size: 13px;
+  color: #777;
+  margin-top: 5px;
+}
+.sent-status p{
+  font-size: 15px;
+  color: #F39E53;
+  padding: 5px 10px;
+  font-weight: 500;
+}
+.ViewOffer img{
+  width: 220px;
+}
