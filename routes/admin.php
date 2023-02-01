@@ -5,7 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\Auth\AuthController;
 use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\Admin\EmployerController;
+use App\Http\Controllers\Admin\WorkerController;
 use App\Http\Controllers\Admin\InformationPageController;
 use App\Http\Controllers\Admin\JobController;
 use App\Http\Controllers\Admin\JobProfileController;
@@ -48,8 +48,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin-api', 'scopes:ad
     // Jobs Api
     Route::resource('jobs', JobController::class);
 
-    // Employers Api
-    Route::resource('employers', EmployerController::class);
+    // workers Api
+    Route::resource('workers', WorkerController::class);
 
     // Clients Api
     Route::resource('clients', ClientController::class);

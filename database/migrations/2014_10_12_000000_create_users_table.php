@@ -17,14 +17,15 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->string('firstname');
             $table->string('lastname')->nullable();
-            $table->longText('address')->nullable();
-            $table->enum('role', ['employer', 'applicant'])->default('employer');
             $table->string('phone')->nullable();
-            $table->string('email')->unique();
+            $table->longText('address')->nullable();
+            $table->date('renewal_visa')->nullable();
+            $table->enum('gender', ['male', 'female'])->default('male');
+            $table->string('payment_per_hour')->nullable();
+            $table->string('worker_id')->nullable();
+            $table->longText('skill')->nullable();
             $table->enum('status', [0, 1])->default(0);
-            $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->rememberToken();
             $table->timestamps();
         });
     }
