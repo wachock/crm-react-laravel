@@ -696,3 +696,13 @@ table tr td .dropdown-item{
 .ViewOffer img{
   width: 220px;
 }
+.ViewOffer .card-dark{
+  margin-top: 30px;
+}
+.table-sm thead th{
+  font-size: 13px;
+}
+.table-sm tbody td{
+  font-size: 14px;
+  padding: 12px 5px;
+}

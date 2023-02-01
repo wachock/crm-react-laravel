@@ -1,6 +1,7 @@
 import React from 'react'
 import Sidebar from '../../Layouts/Sidebar'
 import logo from "../../../Assets/image/logo.png";
+import Dropdown from 'react-bootstrap/Dropdown';
 export default function ViewOffer() {
   return (
     <div id="container">
@@ -37,6 +38,78 @@ export default function ViewOffer() {
                     </div>
                   </div>
                 </div>
+                <div className="card card-dark">
+                  <div className="card-header card-black">
+                    <h3 class="card-title">Line Items</h3>
+                  </div>
+                  <div className="card-body">
+                    <div className="table-responsive">
+                      <table class="table table-sm">
+                        <thead>
+                          <tr>
+                            <th style={{width:"30%"}}>Services</th>
+                            <th className='text-right'>Start Time</th>
+                            <th className='text-right'>End Time</th>
+                            <th className='text-right'>Rate Per Hour</th>
+                            <th className='text-right'>Total Amount</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>Garden grass cutting</td>
+                            <td className='text-right'>10:15 AM</td>
+                            <td className='text-right'>12:45 PM</td>
+                            <td className='text-right'>200 NIS</td>
+                            <td className='text-right'>440 NIS</td>
+                          </tr>
+                          <tr>
+                            <td>Garden grass cutting</td>
+                            <td className='text-right'>10:15 AM</td>
+                            <td className='text-right'>12:45 PM</td>
+                            <td className='text-right'>200 NIS</td>
+                            <td className='text-right'>440 NIS</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <div className='row'>
+                      <div className='col-sm-6'></div>
+                      <div className='col-sm-6'>
+                        <div className="table-responsive">
+                          <table class="table table-sm table-bordered ">
+                            <thead>
+                              <tr>
+                                <td width="65%" class="text-right">Subtotal</td>
+                                <td class="text-right"><span>440.00 </span>NIS</td>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td width="65%" class="text-right">Total Tax</td>
+                                <td class="text-right"><span>0.00 </span>NIS</td> 
+                              </tr>
+                            </tbody>
+                            <tfoot>
+                              <tr>
+                                <td width="65%" class="text-right">Total Tax</td>
+                                <td class="text-right"><span>0.00 </span>NIS</td> 
+                              </tr>
+                            </tfoot>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <Dropdown className='text-right'>
+                  <Dropdown.Toggle className='btn-pink' id="dropdown-basic">Acton</Dropdown.Toggle>
+                  <Dropdown.Menu>
+                    <Dropdown.Item href="#">Edit</Dropdown.Item>
+                    <Dropdown.Item href="#">Download PDF</Dropdown.Item>
+                    <Dropdown.Item href="#">Send as Email</Dropdown.Item>
+                    <Dropdown.Item href="#">Print</Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
               </div>
             </div>
           </div>

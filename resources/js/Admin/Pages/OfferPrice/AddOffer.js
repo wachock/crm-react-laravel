@@ -57,7 +57,7 @@ export default function AddOffer() {
                       </div>
                       <div className="card-body">
                         <div className="table-responsive">
-                          <table class="table table-sm" id="line_items">
+                          <table class="table table-sm">
                             <thead>
                               <tr>
                                 <th style={{width:"50%"}}>Services</th>
@@ -94,6 +94,13 @@ export default function AddOffer() {
                                 <td class="text-right"><button className="ml-2 btn bg-red" onClick={() => handleDelete(item.id)}><i className="fa fa-minus"></i></button></td>
                               </tr>
                             </tbody>
+                            <tfoot>
+                              <tr>
+                                <td class="text-right" colspan="6">
+                                    <button type="button" class="btn bg-green" onclick="addLineItem();"><i class="fa fa-plus"></i></button>
+                                </td>
+                              </tr>
+                            </tfoot>
                           </table>
                         </div>
                       </div>
