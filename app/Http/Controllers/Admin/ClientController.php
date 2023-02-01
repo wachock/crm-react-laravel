@@ -7,6 +7,7 @@ use App\Models\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
 
 class ClientController extends Controller
 {
@@ -73,7 +74,8 @@ class ClientController extends Controller
             return response()->json(['errors' => $validator->messages()]);
         }
 
-        $input                  = $request->all();        
+        $input                  = $request->all();    
+        $input['password']      = Hash::make($request->password);    
         $client                 = Client::create($input);
 
         return response()->json([
@@ -131,7 +133,8 @@ class ClientController extends Controller
             return response()->json(['errors' => $validator->messages()]);
         }
 
-        $input                  = $request->all();        
+        $input                  = $request->all();  
+        $input['password']      = Hash::make($request->password);         
         $client                 = Client::where('id', $id)->update($input);
 
         return response()->json([

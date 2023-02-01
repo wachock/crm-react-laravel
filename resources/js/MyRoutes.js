@@ -13,7 +13,7 @@ import './Assets/css/admin.css';
 
 // Protected Routes
 import AdminProtectedRoutes from './Components/Auth/PrivateAdmin';
-import ApplicantProtectedRoutes from './Components/Auth/PrivateApplicant';
+import ClientProtectedRoutes from './Components/Auth/PrivateClient';
 import EmployerProtectedRoutes from './Components/Auth/PrivateEmployer';
 
 // Website Routes
@@ -25,14 +25,15 @@ import Privacy from './Pages/Privacy';
 import Terms from './Pages/Terms';
 import Contact from './Pages/Contact';
 import Login from './Pages/Login';
+import ClientLogin from './Pages/ClientLogin';
 import Register from './Pages/Register';
 import Error404 from './Error404';
 
 // Applicant Routes
-import Applicant from './Applicant/Applicant';
-import ApplicantDashboard from './Applicant/ApplicantDashboard';
-import ProfileSetup from './Applicant/Auth/ProfileSetup';
-import EmailConfirmation from './Applicant/Auth/EmailConfirmation';
+import Client from './Client/Client';
+import ClientDashboard from './Client/ClientDashboard';
+import ProfileSetup from './Client/Auth/ProfileSetup';
+import EmailConfirmation from './Client/Auth/EmailConfirmation';
 
 // Employer Routes
 import Employer from './Employer/Employer';
@@ -92,6 +93,14 @@ import EditService from './Admin/Pages/Services/EditService';
 import ServiceSchedule from './Admin/Pages/Services/ServiceSchedule';
 import AddServiceSchedule from './Admin/Pages/Services/AddServiceSchedule';
 import EditServiceSchedule from './Admin/Pages/Services/EditServiceSchedule';
+import OfferPrice from './Admin/Pages/OfferPrice/OfferPrice';
+import AddOffer from './Admin/Pages/OfferPrice/AddOffer';
+import EditOffer from './Admin/Pages/OfferPrice/EditOffer';
+import ViewOffer from './Admin/Pages/OfferPrice/ViewOffer';
+import Contract from './Admin/Pages/Contract/Contract';
+import AddContract from './Admin/Pages/Contract/AddContract';
+import EditContract from './Admin/Pages/Contract/EditContract';
+import ViewContract from './Admin/Pages/Contract/ViewContract';
 
 
 TimeAgo.addDefaultLocale(en)
@@ -113,19 +122,20 @@ export default function MyRoutes() {
                <Route exact path='help' element={<Help />} />
                <Route exact path='contact-us' element={<Contact />} />
                <Route exact path="login" element={<Login />} />
+               <Route exact path="client/login" element={<ClientLogin />} />
                <Route exact path="register" element={<Register />} />
                <Route exact path="privacy-policy" element={<Privacy />} />
                <Route exact path="terms-and-conditions" element={<Terms />} />
                {/* Landing Route End*/}
 
                {/* Applicant Routes Start  */}
-               <Route path="applicant" element={<Applicant/>} >
+               <Route path="client" element={<Client/>} >
                   <Route exact path="setup-profile" element={<ProfileSetup />} />
                   <Route exact path="email-confirmation" element={<EmailConfirmation />} />
                </Route>
-               <Route element={<ApplicantProtectedRoutes />}>
-                  <Route path="applicant" element={<Applicant />} >
-                     <Route exact path="dashboard" element={<ApplicantDashboard/>} />
+               <Route element={<ClientProtectedRoutes />}>
+                  <Route path="client" element={<Client />} >
+                     <Route exact path="dashboard" element={<ClientDashboard/>} />
                   </Route>
                </Route>
                {/* Applicant Routes End  */}
@@ -196,6 +206,14 @@ export default function MyRoutes() {
                      <Route exact path="service-schedule" element={<ServiceSchedule />} />
                      <Route exact path="add-service-schedule" element={<AddServiceSchedule />} />
                      <Route exact path="edit-service-schedule/:id" element={<EditServiceSchedule />} />
+                     <Route exact path="offered-price" element={<OfferPrice />} />
+                     <Route exact path="add-offer" element={<AddOffer />} />
+                     <Route exact path="edit-offer" element={<EditOffer />} />
+                     <Route exact path="view-offer" element={<ViewOffer />} />
+                     <Route exact path="contracts" element={<Contract />} />
+                     <Route exact path="add-contract" element={<AddContract />} />
+                     <Route exact path="edit-contract" element={<EditContract />} />
+                     <Route exact path="view-contract" element={<ViewContract />} />
                   </Route>
                </Route>
                {/* Admin Routes End  */}
