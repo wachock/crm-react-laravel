@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
+use App\Models\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -23,7 +23,7 @@ class ClientController extends Controller
         $filter['phone']     = $request->phone;
         $filter['status']    = $request->status;
 
-        $clients   = User::query();
+        $clients   = Client::query();
         if(isset($filter['name'])){
             $clients            = $clients->where(DB::raw("concat(firstname, ' ', lastname)"), 'LIKE', '%'.$filter['name'].'%');
         }
@@ -66,7 +66,7 @@ class ClientController extends Controller
             'phone'     => ['required'],
             'status'    => ['required'],
             'passcode'  => ['required', 'string', 'min:6',],
-            'email'     => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'email'     => ['required', 'string', 'email', 'max:255', 'unique:clients'],
         ]); 
 
         if ($validator->fails()) {
@@ -74,7 +74,7 @@ class ClientController extends Controller
         }
 
         $input                  = $request->all();        
-        $user                   = User::create($input);
+        $client                 = Client::create($input);
 
         return response()->json([
             'message'       => 'Client created successfully',            
@@ -89,7 +89,7 @@ class ClientController extends Controller
      */
     public function show($id)
     {
-        $client               = User::find($id);
+        $client               = Client::find($id);
 
         return response()->json([
             'client'        => $client,            
@@ -104,7 +104,7 @@ class ClientController extends Controller
      */
     public function edit($id)
     {
-        $client                = User::find($id);
+        $client                = Client::find($id);
         return response()->json([
             'client'        => $client,            
         ], 200);
@@ -124,7 +124,7 @@ class ClientController extends Controller
             'passcode'  => ['required', 'string', 'min:6',],
             'phone'     => ['required'],
             'status'    => ['required'],
-            'email'     => ['required', 'string', 'email', 'max:255', 'unique:users,email,'.$id],
+            'email'     => ['required', 'string', 'email', 'max:255', 'unique:clients,email,'.$id],
         ]);
 
         if ($validator->fails()) {
@@ -132,7 +132,7 @@ class ClientController extends Controller
         }
 
         $input                  = $request->all();        
-        $user                   = User::where('id', $id)->update($input);
+        $client                 = Client::where('id', $id)->update($input);
 
         return response()->json([
             'message'       => 'Client updated successfully',            
@@ -147,7 +147,7 @@ class ClientController extends Controller
      */
     public function destroy($id)
     {
-        User::find($id)->delete();
+        Client::find($id)->delete();
         return response()->json([
             'message'     => "Client has been deleted"         
         ], 200);

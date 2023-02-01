@@ -17,19 +17,8 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->string('firstname');
             $table->string('lastname')->nullable();
-            $table->string('invoicename')->nullable();
-
-            $table->string('city')->nullable();
-            $table->string('street_n_no')->nullable();
-            $table->string('floor')->nullable();
-            $table->string('apt_no')->nullable();
-            $table->string('entrence_code')->nullable();
-            $table->string('zipcode')->nullable();
-            $table->string('dob')->nullable();
-            $table->string('passcode')->nullable();
-            $table->string('color')->nullable();
-            $table->string('services')->nullable();
-
+            $table->longText('address')->nullable();
+            $table->enum('role', ['employer', 'applicant'])->default('employer');
             $table->string('phone')->nullable();
             $table->string('email')->unique();
             $table->enum('status', [0, 1])->default(0);

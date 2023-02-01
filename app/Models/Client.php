@@ -17,15 +17,27 @@ class Client extends Authenticatable
      *
      * @var array<int, string>
      */
+    protected $table="clients";
+    
     protected $fillable = [
         'firstname',
         'lastname',
+        'invoicename',
+        'city',
+        'street_n_no',
+        'floor',
+        'apt_no',
+        'entrence_code',
+        'zipcode',
+        'dob',
+        'passcode',
+        'color',
         'address',
-        'role',
         'phone',
         'email',
         'status',
         'password',
+
     ];
 
     /**
