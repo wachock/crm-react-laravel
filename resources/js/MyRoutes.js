@@ -50,7 +50,6 @@ import AdminDashboard from './Admin/Dashboard';
 import TotalJobs from './Admin/Pages/Jobs/TotalJobs';
 import AddJob from './Admin/Pages/Jobs/AddJob';
 import ViewJob from './Admin/Pages/Jobs/ViewJob';
-import AddJob from './Admin/Pages/Jobs/AddJob';
 import Clients from './Admin/Pages/Clients/Client';
 import AddClient from './Admin/Pages/Clients/AddClient';
 import EditClient from './Admin/Pages/Clients/EditClient';
