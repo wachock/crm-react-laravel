@@ -14,20 +14,18 @@ class CreateJobsTable extends Migration
     public function up()
     {
         Schema::create('jobs', function (Blueprint $table) {
+            
             $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->unsignedBigInteger('job_profile_id');
-            $table->unsignedBigInteger('job_announcement_id');
-            $table->text('title')->nullable();
-            $table->longText('description')->nullable();
-            $table->longText('address')->nullable();
-            $table->string('phone')->nullable();
-            $table->longText('slots')->nullable();
+            $table->unsignedBigInteger('client_id');
+            $table->unsignedBigInteger('job_id');
+            $table->unsignedBigInteger('worker_id');
+            $table->string('schedule')->nullable();
             $table->date('start_date')->nullable();
-            $table->unsignedBigInteger('applicant_id')->nullable();
+            $table->date('end_date')->nullable();
+            $table->string('start_time')->nullable();
+            $table->string('end_time')->nullable();
             $table->unsignedBigInteger('rate')->nullable();
-            $table->enum('status', ['posted', 'booked', 'completed'])->default('posted');
+            $table->enum('status', ['not-started', 'progress', 'completed'])->default('progress');
             $table->timestamps();
         });
     }

@@ -1,9 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Sidebar from "./Layouts/Sidebar";
-import suitcase from "../Assets/image/icons/suitcase.png";
-import man from "../Assets/image/icons/man.png";
-import employee from "../Assets/image/icons/employee.png";
-import money from "../Assets/image/icons/earn-money.png";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
@@ -103,42 +99,42 @@ export default function AdminDashboard() {
                                 <div className="col-lg-2 col-6">
                                     <div className="small-box bg-blue">
                                         <div className="inner">
-                                            <a href="#" className="text-center">
+                                            <a href="/admin/jobs-posted" className="text-center">
                                                 <h3>{totalJobs}</h3>
                                                 <p>Jobs posted</p>
                                             </a>
                                         </div> 
-                                        <a href="#" className="small-box-footer">View All</a>     
+                                        <a href="/admin/jobs-posted" className="small-box-footer">View All</a>     
                                     </div>
                                 </div>
                                 <div className="col-lg-2 col-6">
                                     <div className="small-box bg-parrot">
                                         <div className="inner">
-                                            <a href="#" className="text-center">
+                                            <a href="/admin/clients" className="text-center">
                                                 <h3>{totalApplicants}</h3>
-                                                <p>Applicants</p>
+                                                <p>Clients</p>
                                             </a>
                                         </div> 
-                                        <a href="#" className="small-box-footer">View All</a>     
+                                        <a href="/admin/clients" className="small-box-footer">View All</a>     
                                     </div>
                                 </div>
                                 <div className="col-lg-2 col-6">
                                     <div className="small-box bg-yellow">
                                         <div className="inner">
-                                            <a href="#" className="text-center">
+                                            <a href="/admin/workers" className="text-center">
                                                 <h3>{totalEmployers}</h3>
-                                                <p>Employers</p>
+                                                <p>Workers</p>
                                             </a>
                                         </div> 
-                                        <a href="#" className="small-box-footer">View All</a>     
+                                        <a href="/admin/workers" className="small-box-footer">View All</a>     
                                     </div>
                                 </div>
                                 <div className="col-lg-2 col-6">
                                     <div className="small-box bg-red">
                                         <div className="inner">
                                             <a href="#" className="text-center">
-                                                <h3>{totalEarnings}</h3>
-                                                <p>Earning</p>
+                                                <h3>50</h3>
+                                                <p>Meetings</p>
                                             </a>
                                         </div> 
                                         <a href="#" className="small-box-footer">View All</a>     
@@ -147,23 +143,23 @@ export default function AdminDashboard() {
                                 <div className="col-lg-2 col-6">
                                     <div className="small-box bg-purple">
                                         <div className="inner">
-                                            <a href="#" className="text-center">
-                                                <h3>{totalEarnings}</h3>
-                                                <p>Earning</p>
+                                            <a href="/admin/offered-price" className="text-center">
+                                                <h3>100</h3>
+                                                <p>Offered Prices</p>
                                             </a>
                                         </div> 
-                                        <a href="#" className="small-box-footer">View All</a>     
+                                        <a href="/admin/offered-price" className="small-box-footer">View All</a>     
                                     </div>
                                 </div>
                                 <div className="col-lg-2 col-6">
                                     <div className="small-box bg-green">
                                         <div className="inner">
-                                            <a href="#" className="text-center">
-                                                <h3>{totalEarnings}</h3>
-                                                <p>Earning</p>
+                                            <a href="/admin/contracts" className="text-center">
+                                                <h3>100</h3>
+                                                <p>Contracts</p>
                                             </a>
                                         </div> 
-                                        <a href="#" className="small-box-footer">View All</a>     
+                                        <a href="/admin/contracts" className="small-box-footer">View All</a>     
                                     </div>
                                 </div>
                             </div>

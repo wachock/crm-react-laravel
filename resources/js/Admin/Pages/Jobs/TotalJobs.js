@@ -86,108 +86,123 @@ export default function TotalJobs() {
         <div id="container">
             <Sidebar />
             <div id="content">
-                <h1 className="page-title jobTitle">Jobs</h1>
-                <JobFilter getTotalJobs={getTotalJobs} />
-                <div className="boxPanel">
-                    <div className="table-responsive">
-                        {totalJobs.length > 0 ? (
-                            <table className="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Job ID</th>
-                                        <th scope="col">Job Title</th>
-                                        <th scope="col">Applicant</th>
-                                        <th scope="col">Employer</th>
-                                        <th scope="col">Location</th>
-                                        <th scope="col">Status</th>
-                                        <th scope="col">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {totalJobs &&
-                                        totalJobs.map((item, index) => (
-                                            <tr key={index}>
-                                                <td>{item.id}</td>
-                                                <td>{item.title}</td>
-                                                <td>
-                                                    {item.applicant
-                                                        ? item.applicant
-                                                              .firstname +
-                                                          " " +
-                                                          item.applicant
-                                                              .lastname
-                                                        : "N/A"}
-                                                </td>
-                                                <td>
-                                                    {item.employer.firstname}{" "}
-                                                    {item.employer.lastname}
-                                                </td>
-                                                <td>{item.address}</td>
-                                                <td
-                                                    style={{
-                                                        textTransform:
-                                                            "capitalize",
-                                                    }}
-                                                >
-                                                    {item.status}
-                                                </td>
-                                                <td>
-                                                    <div className="d-flex">
-                                                        <Link
-                                                            to={`/admin/view-job/${item.id}`}
-                                                            className="btn btn-success"
-                                                        >
-                                                            <i className="fa fa-eye"></i>
-                                                        </Link>
-                                                        <div className="text-center">
-                                                            <button
-                                                                className="ml-2 btn btn-danger"
-                                                                onClick={() =>
-                                                                    handleDelete(
-                                                                        item.id
-                                                                    )
-                                                                }
-                                                            >
-                                                                <i className="fa fa-trash"></i>
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </td>
+                <div className="titleBox customer-title">
+                    <div className="row">
+                        <div className="col-sm-6">
+                            <h1 className="page-title">Jobs</h1>
+                        </div>
+                        <div className="col-sm-6">
+                            <Link to="/admin/add-job" className="btn btn-pink addButton"><i class="btn-icon fas fa-plus-circle"></i>
+                                Add New
+                            </Link>
+                        </div>
+                    </div>
+                </div>
+                <div className="card">
+                    <div className="card-body">
+                    <JobFilter getTotalJobs={getTotalJobs} />
+                        <div className="boxPanel">
+                            <div className="table-responsive">
+                                {totalJobs.length > 0 ? (
+                                    <table className="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Job ID</th>
+                                                <th scope="col">Job Title</th>
+                                                <th scope="col">Applicant</th>
+                                                <th scope="col">Employer</th>
+                                                <th scope="col">Location</th>
+                                                <th scope="col">Status</th>
+                                                <th scope="col">Action</th>
                                             </tr>
-                                        ))}
-                                </tbody>
-                            </table>
-                        ) : (
-                            <p className="text-center mt-5">{loading}</p>
-                        )}
-                        {totalJobs.length > 0 ? (
-                            <ReactPaginate
-                                previousLabel={"Previous"}
-                                nextLabel={"Next"}
-                                breakLabel={"..."}
-                                pageCount={pageCount}
-                                marginPagesDisplayed={2}
-                                pageRangeDisplayed={3}
-                                onPageChange={handlePageClick}
-                                containerClassName={
-                                    "pagination justify-content-end mt-3"
-                                }
-                                pageClassName={"page-item"}
-                                pageLinkClassName={"page-link"}
-                                previousClassName={"page-item"}
-                                previousLinkClassName={"page-link"}
-                                nextClassName={"page-item"}
-                                nextLinkClassName={"page-link"}
-                                breakClassName={"page-item"}
-                                breakLinkClassName={"page-link"}
-                                activeClassName={"active"}
-                            />
-                        ) : (
-                            <></>
-                        )}
+                                        </thead>
+                                        <tbody>
+                                            {totalJobs &&
+                                                totalJobs.map((item, index) => (
+                                                    <tr key={index}>
+                                                        <td>{item.id}</td>
+                                                        <td>{item.title}</td>
+                                                        <td>
+                                                            {item.applicant
+                                                                ? item.applicant
+                                                                    .firstname +
+                                                                " " +
+                                                                item.applicant
+                                                                    .lastname
+                                                                : "N/A"}
+                                                        </td>
+                                                        <td>
+                                                            {item.employer.firstname}{" "}
+                                                            {item.employer.lastname}
+                                                        </td>
+                                                        <td>{item.address}</td>
+                                                        <td
+                                                            style={{
+                                                                textTransform:
+                                                                    "capitalize",
+                                                            }}
+                                                        >
+                                                            {item.status}
+                                                        </td>
+                                                        <td>
+                                                            <div className="d-flex">
+                                                                <Link
+                                                                    to={`/admin/view-job/${item.id}`}
+                                                                    className="btn btn-success"
+                                                                >
+                                                                    <i className="fa fa-eye"></i>
+                                                                </Link>
+                                                                <div className="text-center">
+                                                                    <button
+                                                                        className="ml-2 btn btn-danger"
+                                                                        onClick={() =>
+                                                                            handleDelete(
+                                                                                item.id
+                                                                            )
+                                                                        }
+                                                                    >
+                                                                        <i className="fa fa-trash"></i>
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                ))}
+                                        </tbody>
+                                    </table>
+                                ) : (
+                                    <p className="text-center mt-5">{loading}</p>
+                                )}
+                                {totalJobs.length > 0 ? (
+                                    <ReactPaginate
+                                        previousLabel={"Previous"}
+                                        nextLabel={"Next"}
+                                        breakLabel={"..."}
+                                        pageCount={pageCount}
+                                        marginPagesDisplayed={2}
+                                        pageRangeDisplayed={3}
+                                        onPageChange={handlePageClick}
+                                        containerClassName={
+                                            "pagination justify-content-end mt-3"
+                                        }
+                                        pageClassName={"page-item"}
+                                        pageLinkClassName={"page-link"}
+                                        previousClassName={"page-item"}
+                                        previousLinkClassName={"page-link"}
+                                        nextClassName={"page-item"}
+                                        nextLinkClassName={"page-link"}
+                                        breakClassName={"page-item"}
+                                        breakLinkClassName={"page-link"}
+                                        activeClassName={"active"}
+                                    />
+                                ) : (
+                                    <></>
+                                )}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </div> 
     );
 }

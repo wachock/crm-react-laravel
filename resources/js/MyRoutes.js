@@ -48,7 +48,9 @@ import Inbox from './Employer/Inbox';
 import Admin from './Admin/Admin';
 import AdminDashboard from './Admin/Dashboard';
 import TotalJobs from './Admin/Pages/Jobs/TotalJobs';
+import AddJob from './Admin/Pages/Jobs/AddJob';
 import ViewJob from './Admin/Pages/Jobs/ViewJob';
+import AddJob from './Admin/Pages/Jobs/AddJob';
 import Clients from './Admin/Pages/Clients/Client';
 import AddClient from './Admin/Pages/Clients/AddClient';
 import EditClient from './Admin/Pages/Clients/EditClient';
@@ -161,8 +163,10 @@ export default function MyRoutes() {
                <Route element={<AdminProtectedRoutes />}>
                   <Route path="admin" element={<Admin />} >
                      <Route exact path="dashboard" element={<AdminDashboard />} />
-                     <Route exact path="jobs-posted" element={<TotalJobs />} />
+                     <Route exact path="jobs" element={<TotalJobs />} />
+                     <Route exact path="add-job" element={<AddJob />} />
                      <Route exact path="view-job/:id" element={<ViewJob />} />
+                     <Route exact path="add-job" element={<AddJob />} />
                      <Route exact path="clients" element={<Clients />} />
                      <Route exact path="add-client" element={<AddClient />} />
                      <Route exact path="edit-client/:id" element={<EditClient />} />

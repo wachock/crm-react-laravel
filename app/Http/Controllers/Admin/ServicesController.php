@@ -26,6 +26,14 @@ class ServicesController extends Controller
 
     }
 
+    public function AllServices(){
+
+        $services = Services::where('status',1)->get();
+        return response()->json([
+            'services'       => $services,            
+        ], 200);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

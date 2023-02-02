@@ -27,17 +27,38 @@ export default function JobFilter({getTotalJobs}) {
     }
   return (
     <>
-        <div className="row">
+        <div className="row colFive">
             <div className="col-sm-3">
                 <div className="form-group">
-                <label className="control-label">Job Title</label>
-                <input className="form-control" name="title" placeholder="Job Title" value={title} onChange={(e) => setTitle(e.target.value)}/>
+                <label className="control-label">Client Name</label>
+                <select className="form-control" name="status" value={status} onChange={(e) => setStatus(e.target.value)}>
+                    <option value="">Please Select</option>
+                    <option value="posted">Clemmie Wolf</option>
+                    <option value="booked">Savanah Blick</option>
+                    <option value="completed">Darryl Turcotte</option>
+                </select>
                 </div>
             </div>
             <div className="col-sm-3">
                 <div className="form-group">
-                <label className="control-label">Applicant</label>
-                <input className="form-control" name="applicant" placeholder="Applicant" value={applicant} onChange={(e) => setApplicant(e.target.value)}/>
+                <label className="control-label">Worker Name</label>
+                <select className="form-control" name="status" value={status} onChange={(e) => setStatus(e.target.value)}>
+                <option value="">Please Select</option>
+                    <option value="posted">Clemmie Wolf</option>
+                    <option value="booked">Savanah Blick</option>
+                    <option value="completed">Darryl Turcotte</option>
+                </select>
+                </div>
+            </div>
+            <div className="col-sm-3">
+                <div className="form-group">
+                <label className="control-label">Service Name</label>
+                <select className="form-control" name="status" value={status} onChange={(e) => setStatus(e.target.value)}>
+                    <option value="">Please Select</option>
+                    <option value="posted">Clemmie Wolf</option>
+                    <option value="booked">Savanah Blick</option>
+                    <option value="completed">Darryl Turcotte</option>
+                </select>
                 </div>
             </div>
             <div className="col-sm-3">
@@ -45,18 +66,18 @@ export default function JobFilter({getTotalJobs}) {
                 <label className="control-label">Status</label>
                 <select className="form-control" name="status" value={status} onChange={(e) => setStatus(e.target.value)}>
                     <option value="">Please Select</option>
-                    <option value="posted">Posted</option>
-                    <option value="booked">Booked</option>
+                    <option value="posted">Not Started</option>
                     <option value="completed">Completed</option>
                 </select>
                 </div>
             </div>
             <div className="col-sm-3">
-                <div className="d-flex mt-4">
-                <button className="btn btn-danger filterBtn" onClick={handleFilter}>
+                <label className="control-label">&nbsp;</label>
+                <div className="d-flex">
+                <button className="btn bg-purple filterBtn" onClick={handleFilter}>
                     <i className="fas fa-search"></i>
                 </button>
-                <button className="btn btn-dark ml-1 filterBtn" onClick={handleReset}>
+                <button className="btn btn-danger ml-1 filterBtn" onClick={handleReset}>
                     <i className="fas fa-undo"></i>
                 </button>
                 </div>

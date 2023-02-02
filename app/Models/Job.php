@@ -10,38 +10,27 @@ class Job extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id',        
-        'job_profile_id',
-        'job_announcement_id',
-        'title',
-        'description',
-        'address',
-        'phone',
-        'slots',
+        'client_id',        
+        'job_id',
+        'worker_id',
         'start_date',
-        'applicant_id',
+        'end_date',
+        'schedule',
+        'start_time',
+        'end_time',
         'rate',
         'status'
     ];
 
-    protected $casts = [
-        'slots' => 'array',
-    ];
-   
-
-    public function employer()
+    public function worker()
     {
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function applicant()
+    public function client()
     {
-        return $this->belongsTo(User::class, 'applicant_id');
+        return $this->belongsTo(Client::class, 'applicant_id');
     }
 
-    public function reviews()
-    {
-        return $this->hasMany(Review::class);
-    }
 
 }
