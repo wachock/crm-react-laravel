@@ -46,25 +46,25 @@ export default function Sidebar() {
                     <Link to="/admin/dashboard"><i className="fa-solid fa-gauge"></i>Dashboard</Link>
                 </li>
                 <li className="list-group-item">
-                    <Link to="/admin/clients"><i class="fa-solid fa-user-tie"></i>Clients</Link>
+                    <Link to="/admin/clients"><i className="fa-solid fa-user-tie"></i>Clients</Link>
                 </li>   
                 <li className="list-group-item">
-                    <Link to="/admin/workers"><i class="fa-solid fa-users"></i>Workers</Link>
+                    <Link to="/admin/workers"><i className="fa-solid fa-users"></i>Workers</Link>
                 </li>
                 <li className="list-group-item">
-                    <Link to="/admin/jobs-posted"><i class="fa-solid fa-video"></i>Scheduled Meetings</Link>
+                    <Link to="/admin/jobs-posted"><i className="fa-solid fa-video"></i>Scheduled Meetings</Link>
                 </li>
                 <li className="list-group-item">
-                    <Link to="/admin/offered-price"><i class="fa-solid fa-tags"></i>Offered Prices</Link>
+                    <Link to="/admin/offered-price"><i className="fa-solid fa-tags"></i>Offered Prices</Link>
                 </li>
                 <li className="list-group-item">
-                    <Link to="/admin/contracts"><i class="fa-solid fa-clipboard-list"></i>Contracts</Link>
+                    <Link to="/admin/contracts"><i className="fa-solid fa-clipboard-list"></i>Contracts</Link>
                 </li>
                 <li className="list-group-item">
-                    <Link to="/admin/jobs"><i class="fa-solid fa-briefcase"></i>Jobs</Link>
+                    <Link to="/admin/jobs"><i className="fa-solid fa-briefcase"></i>Jobs</Link>
                 </li>
                 <li className="list-group-item">
-                    <Link to="/admin/services"><i class="fa-solid fa-screwdriver-wrench"></i>Services</Link>
+                    <Link to="/admin/services"><i className="fa-solid fa-screwdriver-wrench"></i>Services</Link>
                 </li>
                 <li className="list-group-item">
                     <Link to="/admin/settings"><i className="fa-solid fa-gear"></i>Settings</Link>
