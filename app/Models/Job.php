@@ -26,12 +26,16 @@ class Job extends Model
 
     public function worker()
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(User::class, 'worker_id');
     }
 
     public function client()
     {
-        return $this->belongsTo(Client::class, 'applicant_id');
+        return $this->belongsTo(Client::class, 'client_id');
+    }
+    public function service()
+    {
+        return $this->belongsTo(Services::class, 'job_id');
     }
 
 

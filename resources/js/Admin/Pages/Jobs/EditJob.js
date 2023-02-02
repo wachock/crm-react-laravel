@@ -4,9 +4,10 @@ import { SelectPicker } from 'rsuite';
 import 'rsuite/dist/rsuite.min.css';
 import axios from 'axios';
 import { useAlert } from 'react-alert';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,useParams } from 'react-router-dom';
+import { update } from 'lodash';
 
-export default function AddJob() {
+export default function EditJob() {
     const alert                        = useAlert();
     const navigate                     = useNavigate();
     const [service, setService]        = useState('');
@@ -24,14 +25,34 @@ export default function AddJob() {
     const [AllClients,setAllClients]   = useState([]);
     const [AllServices,setAllServices] = useState([]);
     const [AllWorkers,setAllWorkers]   = useState([]);
-    
+    const params = useParams();
     const headers = {
         Accept: "application/json, text/plain, */*",
         "Content-Type": "application/json",
         Authorization: `Bearer ` + localStorage.getItem("admin-token"),
     };
 
-    const handleSubmit = (e) => {
+
+    const getJob = () =>{
+        axios
+        .get(`/api/admin/jobs/${params.id}/edit`,{headers})
+        .then((res)=>{
+            const r = res.data.job;
+            setService(r.service.id);
+            setClient(r.client.id);
+            setWorker(r.worker.id);
+            setRate(r.rate);
+            setStartDate(r.start_date);
+            setStartTime(r.start_time);
+            setEndTime(r.end_time);
+            setAddress(r.address);
+            setInstruction(r.instruction);
+            setStatus(r.status);
+            console.log(res);
+        });
+    }
+
+    const updateJob = (e) =>{
         e.preventDefault();
         const data = {
             job_id:service,
@@ -46,19 +67,18 @@ export default function AddJob() {
             status:status
         };
         axios
-        .post(`/api/admin/jobs`,data,{headers})
+        .put(`/api/admin/jobs/${params.id}`,data,{headers})
         .then((res)=>{
             if(res.data.error){
-                for (let e in res.data.error){
-                    alert.error(res.data.error[e]);
+                for(let e in res.data.error){
+                  alert.error(res.data.error[e]);
                 }
-                } else {
-                alert.success(res.data.message);
+            } else {
+                alert.success(res.data.message)
                 setTimeout(()=>{
                     navigate('/admin/jobs');
                 },1000);
-                
-                }
+            }
         });
     }
 
@@ -88,6 +108,7 @@ export default function AddJob() {
      }
     
     useEffect(()=>{
+        getJob();
         getClients();
         getServices();
         getWorkers();
@@ -108,10 +129,10 @@ export default function AddJob() {
         <Sidebar/>
         <div id="content">
             <div className="edit-customer">
-                <h1 className="page-title editJob">Add Job</h1>
+                <h1 className="page-title editJob">Edit Job</h1>
                 <div className='card'>
                     <div className='card-body'>
-                        <form onSubmit={handleSubmit}>
+                        <form onSubmit={updateJob}>
                         
                             <div className="form-group">
                                 <label className="control-label">Client Name</label>
@@ -123,7 +144,7 @@ export default function AddJob() {
                             </div>
                             <div className="form-group">
                                 <label className="control-label">Service Name</label>
-                                <SelectPicker data={sData} value={service} onChange={(value,event)=>setService(value)} size="lg" required/>
+                                <SelectPicker data={sData} defaultValue={service} value={service} onChange={(value,event)=>setService(value)} size="lg" required/>
                             </div>
                             <div className="form-group">
                                 <label className="control-label">Instruction</label>
@@ -145,7 +166,7 @@ export default function AddJob() {
                                 <div className='col-sm-4'>
                                     <div className="form-group">
                                         <label className="control-label">Start Time</label>
-                                        <input type="time" value={startTime} required onChange={(e) => setStartTime(e.target.value)} className='form-control' />
+                                        <input type="time" value={startTime} required onChange={(e) => setStartTime(e.target.value)} className='form-control'/>
                                     </div>
                                 </div>
                                 <div className='col-sm-4'>
@@ -169,7 +190,7 @@ export default function AddJob() {
                                 </select>
                             </div>
                             <div className="form-group text-right">
-                                <input type='submit' value='Save and Send' onClick={handleSubmit} className="btn btn-pink saveBtn"/>
+                                <input type='submit' value='Save and Send' onClick={updateJob} className="btn btn-pink saveBtn"/>
                             </div>
                         </form>
                     </div>

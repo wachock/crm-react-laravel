@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class JobController extends Controller
 {
@@ -19,22 +20,37 @@ class JobController extends Controller
     public function index(Request $request)
     {   
         $filter              = [];
-        $filter['title']     = $request->title;
-        $filter['applicant'] = $request->applicant;
+        $filter['service']   = $request->service;
+        $filter['worker']    = $request->worker;
+        $filter['client']    = $request->client;
         $filter['status']    = $request->status;
 
         
-        $jobs                = Job::with('employer', 'applicant');
+        $jobs                = Job::with('worker', 'client','service');
 
-        if(isset($filter['title'])){
-            $jobs            = $jobs->where('title', 'LIKE', '%'.$filter['title'].'%');
+        if(isset($filter['worker'])){
+            $worker          = $filter['worker'];
+            $jobs            = $jobs->whereHas('worker', function($q) use ($worker) {
+                $q->where(function($q) use ($worker) {
+                    $q->where(DB::raw('id'), '=',$worker);
+                });
+            });
+
         }
+        if(isset($filter['service'])){
+            $service          = $filter['service'];
+            $jobs            = $jobs->whereHas('service', function($q) use ($service) {
+                $q->where(function($q) use ($service) {
+                    $q->where(DB::raw('id'), '=',$service);
+                });
+            });
 
-        if(isset($filter['applicant'])){
-            $applicant       = $filter['applicant'];
-            $jobs            =  $jobs->whereHas('applicant', function($q) use ($applicant) {
-                $q->where(function($q) use ($applicant) {
-                    $q->where(DB::raw("concat(firstname, ' ', lastname)"), 'LIKE', '%' . $applicant . '%');
+        }
+        if(isset($filter['client'])){
+            $client          = $filter['client'];
+            $jobs            = $jobs->whereHas('client', function($q) use ($client) {
+                $q->where(function($q) use ($client) {
+                    $q->where(DB::raw('id'), '=', $client);
                 });
             });
 
@@ -65,6 +81,18 @@ class JobController extends Controller
     public function store(Request $request)
     {
         //
+        $validator = Validator::make($request->all(),[
+            'client_id' =>['required'],
+            'job_id'    =>['required'],
+            'start_date'=>['required']
+        ]);
+        if($validator->fails()){
+            return response()->json(['error'=>$validator->messages()]);
+        }
+        Job::create($request->input());
+        return response()->json([
+            'message' => 'Job has been created successfully'
+        ],200);
     }
 
     /**
@@ -75,7 +103,7 @@ class JobController extends Controller
      */
     public function show($id)
     {
-        $job                = Job::with('employer', 'applicant')->find($id);
+        $job                = Job::with('client', 'worker')->find($id);
         $slots              = collect([]);
 
         foreach($job->slots as $slot){
@@ -105,6 +133,10 @@ class JobController extends Controller
     public function edit($id)
     {
         //
+        $job = Job::with('client','worker','service')->find($id);
+        return response()->json([
+            'job'=>$job
+        ]);
     }
 
     /**
@@ -117,6 +149,18 @@ class JobController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $validator = Validator::make($request->all(),[
+            'client_id' =>['required'],
+            'job_id' =>['required'],
+            'start_date' =>['required'] 
+        ]);
+        if($validator->fails()){
+            return response()->json(['error'=>$validator->messages()]);
+        }
+        Job::where('id',$id)->update($request->input());
+        return response()->json([
+            'message'=>'Job has been updated successfully'
+        ]);
     }
 
     /**
@@ -131,5 +175,13 @@ class JobController extends Controller
         return response()->json([
             'message'     => "Job has been deleted"         
         ], 200);
+    }
+
+    public function getJobByClient(Request $request){
+      
+       $jobs = Job::where('client_id',$request->cid)->get();
+       return response()->json([
+        'jobs' => $jobs
+    ]);
     }
 }

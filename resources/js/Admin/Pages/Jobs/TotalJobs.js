@@ -9,6 +9,9 @@ export default function TotalJobs() {
     const [totalJobs, setTotalJobs] = useState([]);
     const [pageCount, setPageCount] = useState(0);
     const [loading, setLoading] = useState("Loading...");
+    const [AllClients, setAllClients] = useState([]);
+    const [AllServices, setAllServices] = useState([]);
+    const [AllWorkers, setAllWorkers] = useState([]);
 
     const headers = {
         Accept: "application/json, text/plain, */*",
@@ -26,8 +29,36 @@ export default function TotalJobs() {
             }
         });
     };
+    const getClients = () => {
+        axios
+            .get('/api/admin/all-clients', { headers })
+            .then((res) => {
+                setAllClients(res.data.clients);
+            })
+
+    }
+
+    const getServices = () => {
+        axios
+            .get('/api/admin/all-services', { headers })
+            .then((res) => {
+                setAllServices(res.data.services);
+            })
+    }
+
+    const getWorkers = () => {
+        axios
+            .get('/api/admin/all-workers', { headers })
+            .then((res) => {
+                setAllWorkers(res.data.workers);
+            })
+    }
+
     useEffect(() => {
         getJobs();
+        getClients();
+        getServices();
+        getWorkers();
     }, []);
 
     const handlePageClick = async (data) => {
@@ -100,19 +131,26 @@ export default function TotalJobs() {
                 </div>
                 <div className="card">
                     <div className="card-body">
-                    <JobFilter getTotalJobs={getTotalJobs} />
+                        <JobFilter 
+                        AllServices={AllServices} 
+                        AllClients={AllClients}
+                        AllWorkers={AllWorkers}
+                        getTotalJobs={getTotalJobs}
+                          />
                         <div className="boxPanel">
                             <div className="table-responsive">
                                 {totalJobs.length > 0 ? (
                                     <table className="table table-bordered">
                                         <thead>
                                             <tr>
-                                                <th scope="col">Job ID</th>
-                                                <th scope="col">Job Title</th>
-                                                <th scope="col">Applicant</th>
-                                                <th scope="col">Employer</th>
-                                                <th scope="col">Location</th>
+                                                <th scope="col">Client Name</th>
+                                                <th scope="col">Service Name</th>
+                                                <th scope="col">Date</th>
+                                                <th scope="col">Start Time</th>
+                                                <th scope="col">End Time</th>
+                                                <th scope="col">Assigned Worker</th>
                                                 <th scope="col">Status</th>
+                                                <th scope="col">Total</th>
                                                 <th scope="col">Action</th>
                                             </tr>
                                         </thead>
@@ -120,22 +158,34 @@ export default function TotalJobs() {
                                             {totalJobs &&
                                                 totalJobs.map((item, index) => (
                                                     <tr key={index}>
-                                                        <td>{item.id}</td>
-                                                        <td>{item.title}</td>
+                                                        <td>{
+                                                            item.client
+                                                                ? item.client.firstname +
+                                                                " " + item.client.lastname
+                                                                : "NA"
+                                                        }
+                                                        </td>
+                                                        <td>{
+                                                            item.service
+                                                                ? item.service.name
+                                                                : "NA"
+                                                        }</td>
                                                         <td>
-                                                            {item.applicant
-                                                                ? item.applicant
-                                                                    .firstname +
-                                                                " " +
-                                                                item.applicant
-                                                                    .lastname
-                                                                : "N/A"}
+                                                            {item.start_date}
                                                         </td>
                                                         <td>
-                                                            {item.employer.firstname}{" "}
-                                                            {item.employer.lastname}
+                                                            {item.start_time}
                                                         </td>
-                                                        <td>{item.address}</td>
+                                                        <td>
+                                                            {item.end_time}
+                                                        </td>
+                                                        <td>{
+                                                            item.worker
+                                                                ? item.worker.firstname +
+                                                                " " + item.worker.lastname
+                                                                : "NA"
+                                                        }</td>
+
                                                         <td
                                                             style={{
                                                                 textTransform:
@@ -145,7 +195,16 @@ export default function TotalJobs() {
                                                             {item.status}
                                                         </td>
                                                         <td>
+                                                            {item.rate}
+                                                        </td>
+                                                        <td>
                                                             <div className="d-flex">
+                                                                <Link
+                                                                    to={`/admin/edit-job/${item.id}`}
+                                                                    className="btn bg-purple"
+                                                                >
+                                                                    <i className="fas fa-edit"></i>
+                                                                </Link>
                                                                 <Link
                                                                     to={`/admin/view-job/${item.id}`}
                                                                     className="btn btn-success"
@@ -203,6 +262,6 @@ export default function TotalJobs() {
                     </div>
                 </div>
             </div>
-        </div> 
+        </div>
     );
 }

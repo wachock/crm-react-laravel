@@ -1,6 +1,27 @@
-import React from 'react'
+import axios from 'axios';
+import React,{useState,useEffect} from 'react'
 import { Link } from "react-router-dom";
+import { useParams } from 'react-router-dom';
+
 export default function Jobs() {
+    
+    const [jobs,setJobs] = useState([]);
+    const params = useParams();
+    const headers = {
+        Accept: "application/json, text/plain, */*",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ` + localStorage.getItem("admin-token"),
+    };
+    const getJobs = () =>{
+        axios
+        .post(`/api/admin/get-client-jobs`,{cid:params.id},{headers})
+        .then((res)=>{
+            console.log(res);
+        });
+    }
+    useEffect(()=>{
+       getJobs();
+    },[]);
   return (
     <div className="boxPanel">
         <div className="table-responsive"> 
