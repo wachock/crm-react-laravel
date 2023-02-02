@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
+use App\Models\WorkerAvialibilty;
 
 class WorkerController extends Controller
 {
@@ -180,5 +181,28 @@ class WorkerController extends Controller
         return response()->json([
             'message'     => "Worker has been deleted"         
         ], 200);
+    }
+    public function updateAvailability(Request $request, $id){
+        WorkerAvialibilty::where('user_id',$id)->delete();
+        foreach(json_decode($request->availabilty) as $availabilty){
+           $avl = new WorkerAvialibilty;
+           $avl->user_id=$id;
+           $avl->date=$availabilty->date;
+           $avl->working=$availabilty->working;
+           $avl->status=$availabilty->status;
+           $avl->save();
+        }
+        return response()->json([
+            'message'     => 'Updated Successfully',         
+        ], 200);
+    } 
+    public function getWorkerAvailability($id){
+          $worker_availability = WorkerAvialibilty::where('user_id',$id)
+                             ->orderBy('id', 'asc')
+                             ->get(['date','working','status']);
+
+           return response()->json([
+            'availability'     => json_decode($worker_availability),         
+           ], 200);
     }
 }

@@ -51,6 +51,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin-api', 'scopes:ad
     // workers Api
     Route::resource('workers', WorkerController::class);
     Route::get('all-workers', [WorkerController::class,'AllWorkers']);
+    Route::get('worker_availability/{id}', [WorkerController::class,'getWorkerAvailability']);
+    Route::put('update_availability/{id}', [WorkerController::class,'updateAvailability']);
+
 
     // Clients Api
     Route::resource('clients', ClientController::class);
