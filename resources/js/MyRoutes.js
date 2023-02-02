@@ -86,7 +86,8 @@ export default function MyRoutes() {
       <Provider template={AlertTemplate} {...options}>
          <Router>
             <Routes>
-
+               {/* Home route  */}
+               <Route exact path="/" element={<AdminLogin />} />
 
                {/* Client Routes Start  */}
                <Route path="client" element={<Client/>} >
