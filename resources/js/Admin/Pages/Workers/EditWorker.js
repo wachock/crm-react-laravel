@@ -14,6 +14,7 @@ export default function EditWorker() {
   const [password, setPassword] = useState('00000');
   const [address, setAddress] = useState('');
   const [skill,setSkill] = useState([]);
+  const [avl_skill,setAvlSkill] = useState([]);
   const [itemStatus, setItemStatus] = useState('');
 
   const [errors, setErrors] = useState([]);
@@ -35,6 +36,16 @@ export default function EditWorker() {
         "Content-Type": "application/json",
         Authorization: `Bearer ` + localStorage.getItem("admin-token"),
     };
+    const getAvailableSkill = () => {
+        axios
+            .get(`/api/admin/services/create`, { headers })
+            .then((response) => {
+                setAvlSkill(response.data.services);
+            });
+    };
+    useEffect(() => {
+        getAvailableSkill();
+    }, []);
 
     const handleUpdate = (e) => {
         e.preventDefault();
@@ -177,21 +188,14 @@ export default function EditWorker() {
                             <div className='form-group'>
                                 <label className='control-label'>Skills</label>
                             </div>
-                       <div className="form-check">
+                        {avl_skill && avl_skill.map((item,index)=>(
+                            <div className="form-check" key={index}>
                           <label className="form-check-label">
-                            <input type="checkbox" className="form-check-input" name="skills" value="5" onChange={handleSkills} checked={skill.includes("5")} />5 Star - 5 כוכבים
+                            <input type="checkbox" className="form-check-input" name="skills" value={item.id} onChange={handleSkills} checked={skill.includes((item.id).toString())} />{item.name}
                           </label>
                         </div>
-                        <div className="form-check">
-                          <label className="form-check-label">
-                            <input type="checkbox" className="form-check-input" name="skills" value="4" onChange={handleSkills} checked={skill.includes("4")}/>4 Star - 4 כוכבים
-                          </label>
-                        </div>
-                        <div className="form-check">
-                          <label className="form-check-label">
-                            <input type="checkbox" className="form-check-input" name="skills" value="3" onChange={handleSkills} checked={skill.includes("3")}/>3 Star - 3 כוכבים
-                          </label>
-                        </div>
+
+                            ))}
                     </div>
 
                     <div className='form-group'>

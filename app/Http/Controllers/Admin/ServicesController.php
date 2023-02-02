@@ -41,7 +41,12 @@ class ServicesController extends Controller
      */
     public function create()
     {
-        //
+        $services = Services::query();
+        $services = $services->where('status',1)->orderBy('id', 'desc')->get();
+
+        return response()->json([
+            'services'       => $services,            
+        ], 200);
     }
 
     /**

@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import { useAlert } from "react-alert";
 import { useNavigate } from "react-router-dom";
 import Sidebar from '../../Layouts/Sidebar'
+import * as moment from 'moment';
 
 
 export default function AddWorker() {
@@ -16,6 +17,7 @@ export default function AddWorker() {
   const [password, setPassword] = useState('00000');
   const [address, setAddress] = useState('');
   const [skill,setSkill] = useState([]);
+  const [avl_skill,setAvlSkill] = useState([]);
   const [itemStatus, setItemStatus] = useState('');
 
   const [errors, setErrors] = useState([]);
@@ -37,6 +39,16 @@ export default function AddWorker() {
         "Content-Type": "application/json",
         Authorization: `Bearer ` + localStorage.getItem("admin-token"),
     };
+    const getAvailableSkill = () => {
+        axios
+            .get(`/api/admin/services/create`, { headers })
+            .then((response) => {
+                setAvlSkill(response.data.services);
+            });
+    };
+    useEffect(() => {
+        getAvailableSkill();
+    }, []);
   const handleSubmit = (e) => {
     e.preventDefault();
     const data = {
@@ -65,11 +77,30 @@ export default function AddWorker() {
                 }
             });
   }
+// Date.prototype.getWeek = function(){
+//  return [new Date(this.setDate(this.getDate()-this.getDay()))]
+//           .concat(
+//             String(Array(6)).split(',')
+//                .map ( function(){
+//                        return new Date(this.setDate(this.getDate()+1));
+//                      }, this )
+//           );
+// }
+// // usage
+// const [date,setDate]=useState([]);
+// const current_week = new Date().getWeek();
+//     current_week.map((item,index) =>(
+         
+       
+
+//     ))
+   
+  
   return (
     <div id='container'>
        <Sidebar/>
         <div id="content">
-            <div className='edit-customer'>
+            <div className='edit'>
                 <h1 className="page-title addEmployer">Add Worker</h1>
                 <div className='card'>
                     <div className='card-body'>
@@ -149,27 +180,85 @@ export default function AddWorker() {
                             <label className='control-label'>Address</label>
                             <input type='text' value={address} onChange={(e) => setAddress(e.target.value)} className='form-control' placeholder='Enter your address' />
                         </div>
-                        <div className='col-sm-12'>
-                                <div className='form-group'>
-                                    <label className='control-label'>Skills</label>
-                                </div>
-                        <div className="form-check">
-                            <label className="form-check-label">
-                                <input type="checkbox" className="form-check-input" name="skills" value="5" onChange={handleSkills} />5 Star - 5 כוכבים
-                            </label>
-                            </div>
-                            <div className="form-check">
-                            <label className="form-check-label">
-                                <input type="checkbox" className="form-check-input" name="skills" value="4" onChange={handleSkills}/>4 Star - 4 כוכבים
-                            </label>
-                            </div>
-                            <div className="form-check">
-                            <label className="form-check-label">
-                                <input type="checkbox" className="form-check-input" name="skills" value="3" onChange={handleSkills} />3 Star - 3 כוכבים
-                            </label>
+                        <div className='col-sm-6'>
+                            <div className='form-group'>
+                                <label className='control-label'>Last Name</label>
+                                <input type='text' value={lastname} onChange={(e) => setLastName(e.target.value)} className='form-control' placeholder='Enter Last Name' />
                             </div>
                         </div>
+                        <div className='col-sm-6'>
+                            <div className='form-group'>
+                                <label className='control-label'>Phone</label>
+                                <input type='tel' value={phone} onChange={(e) => setPhone(e.target.value)} className='form-control' placeholder='Phone' />
+                                {errors.phone ? (
+                                    <small className="text-danger mb-1">
+                                        {errors.phone}
+                                    </small>
+                                ) : (
+                                    ""
+                                )}
+                            </div>
+                        </div>
+                        <div className='col-sm-6'>
+                             <div className='form-group'>
+                                <label className='control-label'>Renewal of visa</label>
+                                <input type='date' selected={renewal_date} onChange={(e) => setRenewalDate(e.target.value)} className='form-control' placeholder='Email' />
+                            </div>
+                            
+                        </div>
+                         <div className='col-sm-6'>
+                             <div className='form-group'>
+                                <label className='control-label'>Gender</label>
+                            </div>
+                            <div className="form-check-inline">
+                              <label className="form-check-label">
+                                <input type="radio" className="form-check-input" value="male" onChange={(e) => setGender(e.target.value)} checked={gender === 'male'} />Male
+                              </label>
+                            </div>
+                            <div className="form-check-inline">
+                              <label className="form-check-label">
+                                <input type="radio" className="form-check-input" value="female" onChange={(e) => setGender(e.target.value)} checked={gender === 'female'} />Female
+                              </label>
+                            </div>
+                        </div>
+                        <div className='col-sm-6'>
+                             <div className='form-group'>
+                                <label className='control-label'>Payment Per Hour</label>
+                                <input type='text' value={payment_hour} onChange={(e) => setPaymentHour(e.target.value)} className='form-control' placeholder='Payment Per Hour' />
+                            </div>
+                            
+                        </div>
+                        <div className='col-sm-6'>
+                             <div className='form-group'>
+                                <label className='control-label'>Worker Id</label>
+                                <input type='text' value={worker_id} onChange={(e) => setWorkerId(e.target.value)} className='form-control' placeholder='Payment Per Hour' />
+                            </div>
+                            
+                        </div>
+                        <div className='col-sm-6'>
+                            <div className='form-group'>
+                                <label className='control-label'>Password *</label>
+                                <input type='text' value={password} onChange={(e) => setPassword(e.target.value)} className='form-control' required placeholder='Password' />
+                            </div>
+                        </div>
+                    </div>
+                    <div className='form-group'>
+                        <label className='control-label'>Address</label>
+                        <input type='text' value={address} onChange={(e) => setAddress(e.target.value)} className='form-control' placeholder='Enter your address' />
+                    </div>
+                    <div className='col-sm-12'>
+                            <div className='form-group'>
+                                <label className='control-label'>Skills</label>
+                            </div>
+                        {avl_skill && avl_skill.map((item,index)=>(
+                            <div className="form-check" key={index}>
+                          <label className="form-check-label">
+                            <input type="checkbox" className="form-check-input" name="skills" value={item.id} onChange={handleSkills} />{item.name}
+                          </label>
+                        </div>
 
+                            ))}
+                    </div>
                         <div className='form-group'>
                             <label className='control-label'>Status</label>
                             <select className='form-control' value={itemStatus} onChange={(e) => setItemStatus(e.target.value)}>
@@ -183,7 +272,10 @@ export default function AddWorker() {
                         </div>
                         </form>
                     </div>
-                </div>
+                    <div className="form-group text-center">
+                        <input type='submit' value='SAVE'  onClick={handleSubmit} className="btn btn-danger saveBtn"/>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
