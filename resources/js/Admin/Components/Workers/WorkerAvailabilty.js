@@ -50,7 +50,7 @@ export default function WorkerAvailabilty() {
             });
         // alert(JSON.stringify(formValues));
     }
-     const getAvailableSkill = () => {
+     const getWorkerAvailabilty = () => {
         axios
             .get(`/api/admin/worker_availability/${params.id}`, { headers })
             .then((response) => {
@@ -60,7 +60,7 @@ export default function WorkerAvailabilty() {
             });
     };
     useEffect(() => {
-        getAvailableSkill();
+        getWorkerAvailabilty();
     }, []);
   return (
     <div className="boxPanel">
