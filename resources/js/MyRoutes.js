@@ -14,7 +14,7 @@ import './Assets/css/admin.css';
 // Protected Routes
 import AdminProtectedRoutes from './Components/Auth/PrivateAdmin';
 import ClientProtectedRoutes from './Components/Auth/PrivateClient';
-import EmployerProtectedRoutes from './Components/Auth/PrivateEmployer';
+import WorkerProtectedRoutes from './Components/Auth/PrivateWorker';
 
 // Website Routes
 import Home from './Pages/Home'
@@ -37,13 +37,8 @@ import ProfileSetup from './Client/Auth/ProfileSetup';
 import EmailConfirmation from './Client/Auth/EmailConfirmation';
 
 // Employer Routes
-import Employer from './Employer/Employer';
-import EmployerDashboard from './Employer/Dashboard';
-import LookingForHelp from './Employer/LookingForHelp';
-import ApplicantList from './Employer/ApplicantList';
-import ChoosePlan from './Employer/ChoosePlan';
-import ApplicantDetails from './Employer/ApplicantDetails';
-import Inbox from './Employer/Inbox';
+import Worker from './Worker/Worker';
+import WorkerDashboard from './Worker/Dashboard';
 
 // Admin Routes
 import Admin from './Admin/Admin';
@@ -144,16 +139,11 @@ export default function MyRoutes() {
                {/* Applicant Routes End  */}
 
                {/* Vendor Routes Start  */}
-               <Route path="employer" element={<Employer/>} >
-                  <Route exact path="looking-for-help" element={<LookingForHelp/>} />
-                  <Route exact path="all-applicants" element={<ApplicantList/>} />
-                  <Route exact path="choose-plan" element={<ChoosePlan/>} />
-                  <Route exact path="applicant-details" element={<ApplicantDetails/>} />
-                  <Route exact path="inbox" element={<Inbox/>} />
+               <Route path="worker" element={<Worker/>} >
                </Route>
-               <Route element={<EmployerProtectedRoutes />}>
-                  <Route path="employer" element={<Employer/>} >
-                     <Route exact path="dashboard" element={<EmployerDashboard />} />
+               <Route element={<WorkerProtectedRoutes />}>
+                  <Route path="worker" element={<Worker/>} >
+                     <Route exact path="dashboard" element={<WorkerDashboard />} />
                   </Route>
                </Route>
                {/* Vendor Routes End  */}

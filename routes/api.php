@@ -22,5 +22,6 @@ Route::post('register', [AuthController::class, 'register']);
 
 // Authenticated Routes
 Route::group( ['middleware' => ['auth:api','scopes:user'] ],function(){
+    Route::post('logout', [AuthController::class, 'logout']);
     Route::get('details',[AuthController::class, 'details']);    
 });

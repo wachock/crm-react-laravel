@@ -1,4 +1,4 @@
-<?php
+ <?php
 
 namespace Database\Seeders;
 
@@ -23,12 +23,15 @@ class UserSeed extends Seeder
             User::create([
                 'firstname'         => $faker->firstname(),
                 'lastname'          => $faker->lastname(),
-                'address'           => $faker->address(),
-                'role'              => 'employer',
                 'phone'             => $faker->numerify('9#########'),
-                'email'             => $i == 1 ? 'client@client.com' : $faker->unique()->safeEmail(),
+                'address'           => $faker->address(),
+                'renewal_visa'      =>  Carbon::now(),
+                'gender'            => 'male',
+                'payment_per_hour'  =>  rand(8,16),
+                'worker_id'         => rand(10000,99999),
+                'skill'             => ['1','2','3'],
                 'status'            => 1,
-                'email_verified_at' => Carbon::now(),
+                'passcode'          => 'password',
                 'password'          => Hash::make('password')
             ]);
             

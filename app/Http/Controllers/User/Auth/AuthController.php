@@ -19,7 +19,7 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $validator      = Validator::make($request->all(), [
-            'email'     => ['required', 'string', 'email', 'max:255'],
+            'worker_id'     => ['required'],
             'password'  => ['required', 'string', 'min:6'],
         ]);
 
@@ -28,7 +28,7 @@ class AuthController extends Controller
         }
 
         if (Auth::attempt([
-            'email'     => $request->email,
+            'worker_id'     => $request->worker_id,
             'password'  => $request->password
         ])) {
 
@@ -37,7 +37,7 @@ class AuthController extends Controller
 
             return response()->json($user, 200);
         } else {
-            return response()->json(['errors' => ['email' => 'These credentials do not match our records.']]);
+            return response()->json(['errors' => ['worker' => 'These credentials do not match our records.']]);
         }
     }
     /** 
@@ -76,5 +76,11 @@ class AuthController extends Controller
     {
         $user = Auth::user();
         return response()->json(['success' => $user], 200);
+    }
+     public function logout()
+    {
+        $user = Auth::user()->token();
+        $user->revoke();
+        return response()->json(['success' => 'Logged Out Successfully!'], 200);
     }
 }

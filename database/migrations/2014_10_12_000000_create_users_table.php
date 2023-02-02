@@ -25,6 +25,7 @@ class CreateUsersTable extends Migration
             $table->string('worker_id')->nullable();
             $table->longText('skill')->nullable();
             $table->enum('status', [0, 1])->default(0);
+            $table->string('passcode');
             $table->string('password');
             $table->timestamps();
         });

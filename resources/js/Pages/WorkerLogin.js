@@ -11,26 +11,26 @@ import Header from "../Layouts/Header";
 import ReCAPTCHA from "react-google-recaptcha";
 
 export default function Login() {
-    const [email, setEmail] = useState("");
+    const [worker, setWorker] = useState("");
     const [password, setPassword] = useState("");
     const [errors, setErrors] = useState([]);
 
     const HandleLogin = (e) => {
         e.preventDefault();
         const data = {
-            email: email,
+            worker_id: worker,
             password: password,
         };
-        axios.post(`/api/worker/login`, data).then((result) => {
+        axios.post(`/api/login`, data).then((result) => {
             if (result.data.errors) {
                 setErrors(result.data.errors);
             } else {
-                localStorage.setItem("user-token", result.data.token);
+                localStorage.setItem("worker-token", result.data.token);
                 localStorage.setItem(
-                    "user-name",
+                    "worker-name",
                     result.data.firstname + " " + result.data.lastname
                 );
-                localStorage.setItem("user-id", result.data.id);
+                localStorage.setItem("worker-id", result.data.id);
 
                     window.location = "/worker/dashboard";
             }
@@ -58,17 +58,17 @@ export default function Login() {
                                              Email
                                         </Form.Label>
                                         <Form.Control
-                                            type="email"
+                                            type="text"
                                             name="email"
                                             className="inputstyle"
-                                            placeholder="Enter email"
+                                            placeholder="Enter Worker id"
                                             onChange={(e) =>
-                                                setEmail(e.target.value)
+                                                setWorker(e.target.value)
                                             }
                                         />
-                                        {errors.email ? (
+                                        {errors.worker_id ? (
                                             <small className="text-danger mb-1">
-                                                {errors.email}
+                                                {errors.worker_id}
                                             </small>
                                         ) : (
                                             ""
