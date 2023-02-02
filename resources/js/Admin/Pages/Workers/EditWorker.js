@@ -77,7 +77,7 @@ export default function EditWorker() {
             });
     };
 
-    const getEmployer = () => {
+    const getWorker = () => {
         axios
             .get(`/api/admin/workers/${params.id}/edit`, { headers })
             .then((response) => {
@@ -95,7 +95,7 @@ export default function EditWorker() {
             });
     };
     useEffect(() => {
-        getEmployer();
+        getWorker();
     }, []);
     return (
         <div id="container">

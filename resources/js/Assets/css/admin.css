@@ -1,9 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap');
 body{
-  font-family: 'Roboto', sans-serif!important;
-  font-size: 15px;
-  color: #111;
-  background: #eee!important;
+  font-family: 'Rubik', sans-serif !important;
+  font-size: 14px;
+  color: #2F2F3B !important;
+  background: #f9f9fc !important;
+  font-weight: 400;
 }
 #container {
     min-height: 100%;
@@ -14,7 +15,7 @@ body{
   width: 260px;
   height: 100%;
   overflow: auto;
-  background-color: #172c40;
+  background-color: #fff;
   position: fixed;
   top: 0px;
   left: 0px;
@@ -55,26 +56,30 @@ body{
   border: unset;
 }
 #column-left .list-group-item a{
-  color: #fff;
+  color: #757589;
   padding: 13px 15px;
   display: block;
   font-size: 15px;
-  font-weight: 400;
-  
+  font-weight: 500;
+  letter-spacing: 0.5px;
 }
 #column-left ul{
   padding: 0 20px;
   margin-top: 20px;
 }
 #column-left ul li:hover a i{
-  color: #172c40;
+  color: #757589;
 }
 #column-left .list-group-item a:hover{
   text-decoration: none;
-  background-color: #f3f3f3;
-  color: #172c40;
+  color: #7366ff;
   border-radius: 4px;
-  font-weight: 600
+  font-weight: 600;
+  background: #f1f0ff;
+
+}
+#column-left .list-group-item a:hover i{
+  color: #7366ff;
 }
 #column-left .list-group-item a img{
   margin-right: 6px;
@@ -82,7 +87,8 @@ body{
 #column-left ul li a i {
   margin-right: 10px;
   font-size: 15px;
-  color: #e3e3e3;
+  color: #757589;
+  min-width: 20px;
 }
 .sideLogout .logoutBtn {
   float: none;
@@ -92,7 +98,7 @@ body{
 
 .page-title {
   color: #172c40;
-  font-weight: 400;
+  font-weight: 600;
   padding-top: 20px;
   margin-bottom: 20px;
   font-size: 24px;
@@ -278,21 +284,70 @@ table tr td .dropdown-item{
 }
 .AdminHeader h1 {
   margin: 16px 0 16px 270px;
-  font-weight: 400;
-  font-size: 16px;
-  padding: 5px 20px;
-  color: #e3e3e3;
-  background: #172c40;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: #000;
   line-height: 30px;
-  width: max-content;
-  border-radius: 4px;
+  font-size: 20px;
+}
+.adminDash .dashBox{
+  display: inline-flex;
+  width: 100%;
+  padding: 25px;
+  margin-bottom: 20px;
+  background: url('../image/widget-bg.png');
+  background-size: cover;
+}
+.adminDash .dashBox .dashIcon{
+  min-width: 30%;
+}
+.adminDash .dashBox .dashIcon i{
+  color: #f73164;
+  border: 2px solid #f73164;
+  padding: 18px;
+  border-radius: 100px;
+  font-size: 30px;
+}
+.adminDash .dashBox .dashText a{
+  color: #757589;
+}
+.adminDash .dashBox .dashText a:hover{
+  text-decoration: none;
+}
+.adminDash .dashBox .dashText h3{
+  color: #000;
+}
+.adminDash .row .col-sm-4.col-xs-6:nth-child(2) .dashIcon i{
+  color: #FFAA05;
+  border-color: #FFAA05;
+  padding: 18px 20px;
+}
+.adminDash .row .col-sm-4.col-xs-6:nth-child(3) .dashIcon i{
+  color: #8677f6;
+  border-color: #8677f6;
+  padding: 18px 20px;
+}
+.adminDash .row .col-sm-4.col-xs-6:nth-child(4) .dashIcon i{
+  color: #54BA4A;
+  border-color: #54BA4A;
+  padding: 18px 14px;
+}
+.adminDash .row .col-sm-4.col-xs-6:nth-child(5) .dashIcon i{
+  color: #59cef9;
+  border-color: #59cef9;
+  padding: 18px 23px;
+}
+.adminDash .row .col-sm-4.col-xs-6:nth-child(6) .dashIcon i{
+  color: #ffca61;
+  border-color: #ffca61;
+  padding: 18px 21px;
 }
 .sideLogout .logoutBtn button{
-  background-color: transparent;
-  color: #e3e3e3;
-  border: 1px solid #e3e3e3;
+  background-color: #7366ff;
+  color: #fff;
+  border: 1px solid #7366ff;
   padding: 7px 30px;
-  border-radius: 0;
+  border-radius: 4px;
 }
 .sideAdmin{
   padding-left: 12px;
@@ -362,10 +417,23 @@ table tr td .dropdown-item{
   margin-right: 0.4rem!important;
 }
 #loginPage {
-  background: #fcfcfc;
+  height: 100vh;
 }
 #loginPage .formSide {
-  padding: 150px;
+  background: #fff;
+  max-width: 600px;
+  padding: 50px;
+  margin: 90px auto;
+  box-shadow: 0px 9px 20px rgb(46 35 94 / 7%);
+  border-radius: 15px;
+}
+.formSide input.form-control{
+  height: 45px;
+  border: 1px solid #e6e8eb;
+}
+.formSide .input-group-text{
+  background-color: #fff;
+  border: 1px solid #e6e8eb;
 }
 .ck-editor__editable_inline {
   min-height: 200px;
