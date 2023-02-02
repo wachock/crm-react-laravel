@@ -17,7 +17,7 @@ yarn-error.log
 /.idea
 /.vscode
 /composer.lock
-public/js/app.js
-public/js/manifest.js
-public/js/vendor.js
+/public/js/app.js
+/public/js/manifest.js
+/public/js/vendor.js
 composer.lock
