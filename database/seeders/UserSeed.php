@@ -1,4 +1,4 @@
-<?php
+ <?php
 
 namespace Database\Seeders;
 
@@ -27,8 +27,8 @@ class UserSeed extends Seeder
                 'address'           => $faker->address(),
                 'renewal_visa'      =>  Carbon::now(),
                 'gender'            => 'male',
-                'payment_per_hour'  =>  rand(2,4),
-                'worker_id'         => rand(1,5),
+                'payment_per_hour'  =>  rand(8,16),
+                'worker_id'         => rand(10000,99999),
                 'skill'             => ['1','2','3'],
                 'status'            => 1,
                 'passcode'          => 'password',
