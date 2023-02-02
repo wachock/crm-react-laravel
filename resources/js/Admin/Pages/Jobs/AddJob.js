@@ -14,6 +14,7 @@ export default function AddJob() {
     const [startTime, setStartTime] = useState('');
     const [endTime, setEndTime] = useState('');
     const [rate, setRate] = useState('');
+    const [instruction,setInstruction] = useState('');
     const [address, setAddress] = useState('');
     const [status, setStatus] = useState('');
 
@@ -32,7 +33,19 @@ export default function AddJob() {
     );
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(title, applicant, employer, rate, location);
+        const data = {
+            job_id:service,
+            client_id:client,
+            worker_id:worker,
+            start_date:startDate,
+            start_time:startTime,
+            end_time:endTime,
+            rate:rate,
+            instruction:instruction,
+            address:address,
+            status:status
+        };
+        console.log(data);
     }
 
     const getClients = () =>{
@@ -41,6 +54,7 @@ export default function AddJob() {
        .then((res)=>{
          setAllClients(res.data.clients);
        })
+       
     }
 
     const getServices = () =>{
@@ -64,10 +78,17 @@ export default function AddJob() {
         getServices();
         getWorkers();
     },[]);
-    const aData = [
-        {value:12,label:"op1"},
-        {value:13,label:"op2"}
-    ]; 
+    
+    const cData = AllClients.map((c,i)=>{
+       return {value:c.id,label:(c.firstname+' '+c.lastname)}; 
+    });
+    const sData = AllServices.map((s,i)=>{
+        return {value:s.id,label:(s.name)}; 
+    });
+    const wData = AllWorkers.map((w,i)=>{
+        return {value:w.id,label:(w.firstname+' '+w.lastname)}; 
+    });
+
   return (
     <div id="container">
         <Sidebar/>
@@ -77,49 +98,46 @@ export default function AddJob() {
                 <div className='card'>
                     <div className='card-body'>
                         <form onSubmit={handleSubmit}>
-                            <div className="form-group">
-                                <label className="control-label">Job Title</label>
-                                <input type="text" value={title} required onChange={(e) => setTitle(e.target.value)} className='form-control' placeholder="Job Title"/>
-                            </div>
+                        
                             <div className="form-group">
                                 <label className="control-label">Client Name</label>
-                                <SelectPicker data={applicantData} size="lg" required/>
+                                <SelectPicker data={cData} size="lg" required/>
                             </div>
                             <div className="form-group">
                                 <label className="control-label">Worker Name</label>
-                                <SelectPicker data={applicantData} size="lg" required/>
+                                <SelectPicker data={wData} size="lg" required/>
                             </div>
                             <div className="form-group">
                                 <label className="control-label">Service Name</label>
-                                <SelectPicker data={applicantData} size="lg" required/>
+                                <SelectPicker data={sData} size="lg" required/>
                             </div>
                             <div className="form-group">
                                 <label className="control-label">Instruction</label>
-                                <textarea value={rate} onChange={(e) => setRate(e.target.value)} className="form-control" placeholder="Instruction"/>
+                                <textarea value={instruction} onChange={(e) => setInstruction(e.target.value)} className="form-control" placeholder="Instruction"/>
                             </div>
                             <div className='row'>
                                 <div className='col-sm-4'>
                                     <div className="form-group">
                                         <label className="control-label">Start Date</label>
-                                        <input type="date" value={startdate} required onChange={(e) => setStartDate(e.target.value)} className='form-control' placeholder="Job Title"/>
+                                        <input type="date" value={startDate} required onChange={(e) => setStartDate(e.target.value)} className='form-control' placeholder="Job Title"/>
                                     </div>
                                 </div>
                                 <div className='col-sm-4'>
                                     <div className="form-group">
                                         <label className="control-label">Start Time</label>
-                                        <input type="time" value={starttime} required onChange={(e) => setStartTime(e.target.value)} className='form-control' placeholder="Job Title"/>
+                                        <input type="time" value={startTime} required onChange={(e) => setStartTime(e.target.value)} className='form-control' placeholder="Job Title"/>
                                     </div>
                                 </div>
                                 <div className='col-sm-4'>
                                     <div className="form-group">
                                         <label className="control-label">End Time</label>
-                                        <input type="time" value={endtime} required onChange={(e) => setEndTime(e.target.value)} className='form-control' placeholder="Job Title"/>
+                                        <input type="time" value={endTime} required onChange={(e) => setEndTime(e.target.value)} className='form-control' placeholder="Job Title"/>
                                     </div>
                                 </div>
                             </div>
                             <div className="form-group">
                                 <label className="control-label">Area/Location *</label>
-                                <input type="text" value={location} onChange={(e) => setLocation(e.target.value)} className="form-control" placeholder="Complete Address"/>
+                                <input type="text" value={address} onChange={(e) => setAddress(e.target.value)} className="form-control" placeholder="Complete Address"/>
                             </div> 
                             <div className="form-group">
                                 <label className="control-label">Status</label>
@@ -130,7 +148,7 @@ export default function AddJob() {
                                 </select>
                             </div>
                             <div className="form-group text-right">
-                                <input type='submit' value='Save and Send' className="btn btn-pink saveBtn"/>
+                                <input type='submit' value='Save and Send' onClick={handleSubmit} className="btn btn-pink saveBtn"/>
                             </div>
                         </form>
                     </div>
