@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Sidebar from "./Layouts/Sidebar";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { BrowserRouter as Link } from "react-router-dom";
 
 export default function AdminDashboard() {
     const [totalJobs, setTotalJobs] = useState([0]);

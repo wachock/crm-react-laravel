@@ -73,7 +73,7 @@ import Contract from './Admin/Pages/Contract/Contract';
 import AddContract from './Admin/Pages/Contract/AddContract';
 import EditContract from './Admin/Pages/Contract/EditContract';
 import ViewContract from './Admin/Pages/Contract/ViewContract';
-
+import Error404 from './Error404';
 
 TimeAgo.addDefaultLocale(en)
 const options = {

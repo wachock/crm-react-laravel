@@ -44,5 +44,5 @@ function getWithExpiry(key) {
   } catch(err) {
       localStorage.removeItem('tokenkey');
   }
-
-export default WorkerProtectedRoutes
+}
+export default WorkerProtectedRoutes;

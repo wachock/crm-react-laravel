@@ -1,8 +1,8 @@
 import React from 'react'
 import User from '../../Assets/image/user.png';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useAlert } from 'react-alert';
-
+import { useNavigate } from 'react-router-dom';
 export default function AdminHeader() {
   const alert = useAlert();
     const navigate = useNavigate();

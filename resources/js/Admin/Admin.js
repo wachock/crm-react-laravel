@@ -6,7 +6,7 @@ import AdminHeader from "./Layouts/Header";
 export default function Admin(props) {
     return (
         <div>
-            <AdminHeader />
+            
             <Outlet />
         </div>
     );
