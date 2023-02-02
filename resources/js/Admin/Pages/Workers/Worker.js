@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Sidebar from "../../Layouts/Sidebar";
 import { Link } from "react-router-dom";
-import UserFilter from "../../Components/Filter/UserFilter";
+import WorkerFilter from "../../Components/Filter/WorkerFilter";
 import ReactPaginate from "react-paginate";
 
 export default function Worker() {
@@ -42,7 +42,7 @@ export default function Worker() {
             });
     };
 
-    const getFilteredEmployers = (response) => {
+    const getWorkerFilter = (response) => {
         if (response.data.workers.data.length > 0) {
             setWorkers(response.data.workers.data);
             setPageCount(response.data.workers.last_page);
@@ -98,7 +98,7 @@ export default function Worker() {
                 </div>
                 <div className="card">
                     <div className="card-body">
-                    <UserFilter getFilteredEmployers={getFilteredEmployers}/>
+                    <WorkerFilter getWorkerFilter={getWorkerFilter}/>
                         <div className="boxPanel">
                             <div className="table-responsive">
                                 {workers.length > 0 ? (

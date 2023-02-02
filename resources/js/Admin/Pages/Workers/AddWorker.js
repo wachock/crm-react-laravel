@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import { useAlert } from "react-alert";
 import { useNavigate } from "react-router-dom";
 import Sidebar from '../../Layouts/Sidebar'
+import * as moment from 'moment';
 
 
 export default function AddWorker() {
@@ -16,6 +17,7 @@ export default function AddWorker() {
   const [password, setPassword] = useState('00000');
   const [address, setAddress] = useState('');
   const [skill,setSkill] = useState([]);
+  const [avl_skill,setAvlSkill] = useState([]);
   const [itemStatus, setItemStatus] = useState('');
 
   const [errors, setErrors] = useState([]);
@@ -37,6 +39,16 @@ export default function AddWorker() {
         "Content-Type": "application/json",
         Authorization: `Bearer ` + localStorage.getItem("admin-token"),
     };
+    const getAvailableSkill = () => {
+        axios
+            .get(`/api/admin/services/create`, { headers })
+            .then((response) => {
+                setAvlSkill(response.data.services);
+            });
+    };
+    useEffect(() => {
+        getAvailableSkill();
+    }, []);
   const handleSubmit = (e) => {
     e.preventDefault();
     const data = {
@@ -65,11 +77,30 @@ export default function AddWorker() {
                 }
             });
   }
+// Date.prototype.getWeek = function(){
+//  return [new Date(this.setDate(this.getDate()-this.getDay()))]
+//           .concat(
+//             String(Array(6)).split(',')
+//                .map ( function(){
+//                        return new Date(this.setDate(this.getDate()+1));
+//                      }, this )
+//           );
+// }
+// // usage
+// const [date,setDate]=useState([]);
+// const current_week = new Date().getWeek();
+//     current_week.map((item,index) =>(
+         
+       
+
+//     ))
+   
+  
   return (
     <div id='container'>
        <Sidebar/>
         <div id="content">
-            <div className='edit-customer'>
+            <div className='edit'>
                 <h1 className="page-title addEmployer">Add Worker</h1>
                 <form>
                     <div className='row'>
@@ -156,21 +187,14 @@ export default function AddWorker() {
                             <div className='form-group'>
                                 <label className='control-label'>Skills</label>
                             </div>
-                       <div className="form-check">
+                        {avl_skill && avl_skill.map((item,index)=>(
+                            <div className="form-check" key={index}>
                           <label className="form-check-label">
-                            <input type="checkbox" className="form-check-input" name="skills" value="5" onChange={handleSkills} />5 Star - 5 כוכבים
+                            <input type="checkbox" className="form-check-input" name="skills" value={item.id} onChange={handleSkills} />{item.name}
                           </label>
                         </div>
-                        <div className="form-check">
-                          <label className="form-check-label">
-                            <input type="checkbox" className="form-check-input" name="skills" value="4" onChange={handleSkills}/>4 Star - 4 כוכבים
-                          </label>
-                        </div>
-                        <div className="form-check">
-                          <label className="form-check-label">
-                            <input type="checkbox" className="form-check-input" name="skills" value="3" onChange={handleSkills} />3 Star - 3 כוכבים
-                          </label>
-                        </div>
+
+                            ))}
                     </div>
 
                     <div className='form-group'>
@@ -180,6 +204,30 @@ export default function AddWorker() {
                             <option value="1">Enable</option>
                             <option value="0">Disable</option>
                         </select>
+                    </div>
+                    <div className='col-sm-12'>
+                     <ul className="nav nav-tabs mb-2" role="tablist">
+                        <li className="nav-item" role="presentation">
+                            <a id="general-tab" className="nav-link active" data-toggle="tab" href="#tab-general" aria-selected="true" role="tab">General Settings</a>
+                        </li>
+                        <li className="nav-item" role="presentation">
+                            <a id="account-tab" className="nav-link" data-toggle="tab" href="#tab-account" aria-selected="false" role="tab">My Account</a>
+                        </li>
+                        <li className="nav-item" role="presentation">
+                            <a id="password-tab" className="nav-link" data-toggle="tab" href="#tab-password" aria-selected="false" role="tab">Change Password</a>
+                        </li>
+                      </ul>
+                      <div className="tab-content">
+                            <div id="tab-general" className="tab-pane active show" role="tab-panel" aria-labelledby="general-tab">
+                               
+                            </div>
+                            <div id="tab-account" className="tab-pane" role="tab-panel" aria-labelledby="account-tab">
+                                
+                            </div>
+                            <div id="tab-password" className="tab-pane" role="tab-panel" aria-labelledby="password-tab">
+                                
+                            </div>
+                        </div>
                     </div>
                     <div className="form-group text-center">
                         <input type='submit' value='SAVE'  onClick={handleSubmit} className="btn btn-danger saveBtn"/>
