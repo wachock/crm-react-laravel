@@ -18,7 +18,7 @@ const useAdminAuth = () => {
 
 const AdminProtectedRoutes = () => {
   const isAuth = useAdminAuth();
-  return isAuth ? <Outlet /> : <Navigate replace to="/admin/login" />
+  return isAuth ? <Outlet /> : <Navigate replace to="/" />
 }
 
 function getWithExpiry(key) {
