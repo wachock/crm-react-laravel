@@ -115,14 +115,19 @@ export default function AddWorker() {
                                     
                                 </div>
                                 <div className='col-sm-6'>
-                                    <div className='form-group'>
-                                        <label className='control-label'>Gender</label>
-                                        <select className='form-control' value={gender} onChange={(e) => setGender(e.target.value)}>
-                                            <option>Please select</option>
-                                            <option value="1">Male</option>
-                                            <option value="0">Female</option>
-                                        </select>
-                                    </div>
+                                      <div className='form-group'>
+                                            <label className='control-label'>Gender</label>
+                                        </div>
+                                        <div className="form-check-inline">
+                                          <label className="form-check-label">
+                                            <input type="radio" className="form-check-input" value="male" onChange={(e) => setGender(e.target.value)} checked={gender === 'male'} />Male
+                                          </label>
+                                        </div>
+                                        <div className="form-check-inline">
+                                          <label className="form-check-label">
+                                            <input type="radio" className="form-check-input" value="female" onChange={(e) => setGender(e.target.value)} checked={gender === 'female'} />Female
+                                          </label>
+                                        </div>
                                 </div>
                                 <div className='col-sm-6'>
                                     <div className='form-group'>
