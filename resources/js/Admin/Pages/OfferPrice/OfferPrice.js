@@ -58,7 +58,6 @@ export default function OfferPrice() {
                         </div>
                     </div>
                 </div>
-                
             </div>
         </div>
     );

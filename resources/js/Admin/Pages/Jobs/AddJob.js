@@ -74,63 +74,67 @@ export default function AddJob() {
         <div id="content">
             <div className="edit-customer">
                 <h1 className="page-title editJob">Add Job</h1>
-                <form onSubmit={handleSubmit}>
-                    <div className="form-group">
-                        <label className="control-label">Service *</label>
-                        <SelectPicker data={applicantData} size="lg" required/>
+                <div className='card'>
+                    <div className='card-body'>
+                        <form onSubmit={handleSubmit}>
+                            <div className="form-group">
+                                <label className="control-label">Job Title</label>
+                                <input type="text" value={title} required onChange={(e) => setTitle(e.target.value)} className='form-control' placeholder="Job Title"/>
+                            </div>
+                            <div className="form-group">
+                                <label className="control-label">Client Name</label>
+                                <SelectPicker data={applicantData} size="lg" required/>
+                            </div>
+                            <div className="form-group">
+                                <label className="control-label">Worker Name</label>
+                                <SelectPicker data={applicantData} size="lg" required/>
+                            </div>
+                            <div className="form-group">
+                                <label className="control-label">Service Name</label>
+                                <SelectPicker data={applicantData} size="lg" required/>
+                            </div>
+                            <div className="form-group">
+                                <label className="control-label">Instruction</label>
+                                <textarea value={rate} onChange={(e) => setRate(e.target.value)} className="form-control" placeholder="Instruction"/>
+                            </div>
+                            <div className='row'>
+                                <div className='col-sm-4'>
+                                    <div className="form-group">
+                                        <label className="control-label">Start Date</label>
+                                        <input type="date" value={startdate} required onChange={(e) => setStartDate(e.target.value)} className='form-control' placeholder="Job Title"/>
+                                    </div>
+                                </div>
+                                <div className='col-sm-4'>
+                                    <div className="form-group">
+                                        <label className="control-label">Start Time</label>
+                                        <input type="time" value={starttime} required onChange={(e) => setStartTime(e.target.value)} className='form-control' placeholder="Job Title"/>
+                                    </div>
+                                </div>
+                                <div className='col-sm-4'>
+                                    <div className="form-group">
+                                        <label className="control-label">End Time</label>
+                                        <input type="time" value={endtime} required onChange={(e) => setEndTime(e.target.value)} className='form-control' placeholder="Job Title"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="form-group">
+                                <label className="control-label">Area/Location *</label>
+                                <input type="text" value={location} onChange={(e) => setLocation(e.target.value)} className="form-control" placeholder="Complete Address"/>
+                            </div> 
+                            <div className="form-group">
+                                <label className="control-label">Status</label>
+                                <select className="form-control" value={status} onChange={(e) => setStatus(e.target.value)}>
+                                    <option>Please Select</option>
+                                    <option value="1">Enable</option>
+                                    <option value="0">Disable</option>
+                                </select>
+                            </div>
+                            <div className="form-group text-right">
+                                <input type='submit' value='Save and Send' className="btn btn-pink saveBtn"/>
+                            </div>
+                        </form>
                     </div>
-                    <div className="form-group">
-                        <label className="control-label">Client Name *</label>
-                        <SelectPicker data={aData} size="lg" required/>
-                    </div>
-                   
-                    <div className="form-group">
-                        <label className="control-label">Total Cost *</label>
-                        <input type="number" step="0.1" value={rate} onChange={(e) => setRate(e.target.value)} className="form-control" placeholder="Total cost"/>
-                    </div>
-
-                    <div className="form-group">
-                        <label className="control-label">Start Date *</label>
-                        <input type="date" value={startDate} onChange={(e) => setStartDate(e.target.value)} className="form-control" placeholder="Start date"/>
-                    </div>
-
-                    <div className="form-group">
-                        <label className="control-label">End Date</label>
-                        <input type="date" value={endDate} onChange={(e) => setEndDate(e.target.value)} className="form-control" placeholder="End date"/>
-                    </div>
-
-                    <div className="form-group">
-                        <label className="control-label">Start Time *</label>
-                        <input type="time" value={startTime} onChange={(e) => setStartTime(e.target.value)} className="form-control" placeholder="Start time"/>
-                    </div>
-
-                    <div className="form-group">
-                        <label className="control-label">End Time *</label>
-                        <input type="time" value={endTime} onChange={(e) => setEndTime(e.target.value)} className="form-control" placeholder="End time"/>
-                    </div>
-
-                    <div className="form-group">
-                        <label className="control-label">Address *</label>
-                        <textarea value={address} onChange={(e) => setAddress(e.target.value)} className="form-control" placeholder="Address"></textarea>
-                    </div>
-
-                    <div className="form-group">
-                        <label className="control-label">Worker Name *</label>
-                        <SelectPicker data={applicantData} size="lg" required/>
-                    </div>
-
-                    <div className="form-group">
-                        <label className="control-label">Status</label>
-                        <select className="form-control" value={status} onChange={(e) => setStatus(e.target.value)}>
-                            <option>Please Select</option>
-                            <option value="1">Enable</option>
-                            <option value="0">Disable</option>
-                        </select>
-                    </div>
-                    <div className="form-group text-center">
-                        <input type='submit' value='SAVE' className="btn btn-danger saveBtn"/>
-                    </div>
-                </form>
+                </div>
             </div>
         </div>
     </div>
