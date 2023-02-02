@@ -50,12 +50,15 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin-api', 'scopes:ad
 
     // workers Api
     Route::resource('workers', WorkerController::class);
+    Route::get('all-workers', [WorkerController::class,'AllWorkers']);
 
     // Clients Api
     Route::resource('clients', ClientController::class);
+    Route::get('all-clients', [ClientController::class,'AllClients']);
 
     // Services Api
     Route::resource('services', ServicesController::class);
+    Route::get('all-services', [ServicesController::class,'AllServices']);
 
      // Services Api
      Route::resource('service-schedule', ServiceSchedulesController::class);

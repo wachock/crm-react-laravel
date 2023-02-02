@@ -15,6 +15,9 @@ class Job extends Model
         'worker_id',
         'start_date',
         'end_date',
+        'schedule',
+        'start_time',
+        'end_time',
         'rate',
         'status'
     ];

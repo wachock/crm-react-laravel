@@ -61,7 +61,7 @@ export default function Sidebar() {
                     <Link to="/admin/contracts"><i class="fa-solid fa-clipboard-list"></i>Contracts</Link>
                 </li>
                 <li className="list-group-item">
-                    <Link to="/admin/jobs-posted"><i class="fa-solid fa-briefcase"></i>Jobs</Link>
+                    <Link to="/admin/jobs"><i class="fa-solid fa-briefcase"></i>Jobs</Link>
                 </li>
                 <li className="list-group-item">
                     <Link to="/admin/services"><i class="fa-solid fa-screwdriver-wrench"></i>Services</Link>

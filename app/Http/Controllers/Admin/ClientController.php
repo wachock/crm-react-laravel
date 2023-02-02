@@ -44,6 +44,15 @@ class ClientController extends Controller
         ], 200);
     }
 
+    public function AllClients(){
+        
+        $clients = Client::where('status',1)->get();
+        return response()->json([
+            'clients'       => $clients,            
+        ], 200);
+
+    }
+
     /**
      * Show the form for creating a new resource.
      *

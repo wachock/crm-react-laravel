@@ -14,14 +14,18 @@ class CreateJobsTable extends Migration
     public function up()
     {
         Schema::create('jobs', function (Blueprint $table) {
+            
             $table->id();
             $table->unsignedBigInteger('client_id');
             $table->unsignedBigInteger('job_id');
             $table->unsignedBigInteger('worker_id');
+            $table->string('schedule')->nullable();
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
+            $table->string('start_time')->nullable();
+            $table->string('end_time')->nullable();
             $table->unsignedBigInteger('rate')->nullable();
-            $table->enum('status', ['pending', 'processing', 'completed'])->default('processing');
+            $table->enum('status', ['not-started', 'progress', 'completed'])->default('progress');
             $table->timestamps();
         });
     }

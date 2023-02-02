@@ -43,6 +43,14 @@ class WorkerController extends Controller
         ], 200);
     }
 
+    public function AllWorkers(){
+        
+        $workers = User::where('status',1)->get();
+        return response()->json([
+            'workers'       => $workers,            
+        ], 200);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

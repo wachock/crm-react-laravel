@@ -84,7 +84,7 @@ export default function Clients() {
     };
     return (
         <div id="container">
-            <Sidebar />
+            <Sidebar /> 
             <div id="content">
                 <div className="titleBox customer-title">
                     <div className="row">

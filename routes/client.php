@@ -27,4 +27,3 @@ Route::group(['prefix' => 'client', 'middleware' => ['auth:client-api', 'scopes:
      // Admin Logout Api
     Route::post('logout', [AuthController::class, 'logout']);
 });
-

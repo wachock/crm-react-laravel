@@ -1,29 +1,73 @@
-import React, { useState } from 'react'
+import React, { useState , useEffect} from 'react'
 import Sidebar from '../../Layouts/Sidebar'
 import { SelectPicker } from 'rsuite';
 import 'rsuite/dist/rsuite.min.css';
+import axios from 'axios';
 
 
 export default function AddJob() {
-    const [title, setTitle] = useState('');
-    const [applicant, setApplicant] = useState('');
-    const [employer, setEmployer] = useState('');
+    const [service, setService] = useState('');
+    const [client, setClient] = useState('');
+    const [worker, setWorker] = useState('');
+    const [startDate, setStartDate] = useState('');
+    const [endDate, setEndDate] = useState('');
+    const [startTime, setStartTime] = useState('');
+    const [endTime, setEndTime] = useState('');
     const [rate, setRate] = useState('');
-    const [location, setLocation] = useState('');
+    const [address, setAddress] = useState('');
     const [status, setStatus] = useState('');
+
+    const [AllClients,setAllClients] = useState([]);
+    const [AllServices,setAllServices] = useState([]);
+    const [AllWorkers,setAllWorkers] = useState([]);
+
+    const headers = {
+        Accept: "application/json, text/plain, */*",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ` + localStorage.getItem("admin-token"),
+    };
+
     const applicantData = ['Eugenia', 'Bryan', 'Linda', 'Nancy', 'Lloyd', 'Alice', 'Julia', 'Albert'].map(
         item => ({ label: item, value: item })
     );
-    const [workSlot, setWorkSlot] = useState([
-        {day: "Monday", time: "8 AM - 10 AM"},
-        {day: "Tuesday", time: "3 PM - 4 PM"},
-        {day: "Wednesday", time: "6 PM - 7 PM"}
-        
-    ])
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log(title, applicant, employer, rate, location);
     }
+
+    const getClients = () =>{
+       axios
+       .get('/api/admin/all-clients',{headers})
+       .then((res)=>{
+         setAllClients(res.data.clients);
+       })
+    }
+
+    const getServices = () =>{
+        axios
+        .get('/api/admin/all-services',{headers})
+        .then((res)=>{
+          setAllServices(res.data.services);
+        })
+     }
+
+     const getWorkers = () =>{
+        axios
+        .get('/api/admin/all-workers',{headers})
+        .then((res)=>{
+          setAllWorkers(res.data.workers);
+        })
+     }
+    
+    useEffect(()=>{
+        getClients();
+        getServices();
+        getWorkers();
+    },[]);
+    const aData = [
+        {value:12,label:"op1"},
+        {value:13,label:"op2"}
+    ]; 
   return (
     <div id="container">
         <Sidebar/>
@@ -32,44 +76,49 @@ export default function AddJob() {
                 <h1 className="page-title editJob">Add Job</h1>
                 <form onSubmit={handleSubmit}>
                     <div className="form-group">
-                        <label className="control-label">Job Title *</label>
-                        <input type="text" value={title} required onChange={(e) => setTitle(e.target.value)} className='form-control' placeholder="Job Title"/>
-                    </div>
-                    <div className="form-group">
-                        <label className="control-label">Applicant Name *</label>
+                        <label className="control-label">Service *</label>
                         <SelectPicker data={applicantData} size="lg" required/>
                     </div>
                     <div className="form-group">
-                        <label className="control-label">Employer Name *</label>
-                        <input type="text" value={employer} onChange={(e) => setEmployer(e.target.value)} className="form-control" placeholder="Employer Name"/>
+                        <label className="control-label">Client Name *</label>
+                        <SelectPicker data={aData} size="lg" required/>
                     </div>
+                   
                     <div className="form-group">
-                        <label className="control-label">Rate per hour *</label>
-                        <input type="text" value={rate} onChange={(e) => setRate(e.target.value)} className="form-control" placeholder="Rate per hour"/>
+                        <label className="control-label">Total Cost *</label>
+                        <input type="number" step="0.1" value={rate} onChange={(e) => setRate(e.target.value)} className="form-control" placeholder="Total cost"/>
                     </div>
+
                     <div className="form-group">
-                        <label className="control-label">Time Slots</label>
-                        <div className='items-time dashBox'>
-                            <div className='row'>
-                                {workSlot && workSlot.map((item, index) => (
-                                    <div className='col-sm-2' key={index}>
-                                        <div className='defineTime'>
-                                            <h4>{item.day}</h4>
-                                            <ul className='list-inline'>
-                                                <li>
-                                                    <a disabled href='#!' className='btn btn-danger'>{item.time}</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
+                        <label className="control-label">Start Date *</label>
+                        <input type="date" value={startDate} onChange={(e) => setStartDate(e.target.value)} className="form-control" placeholder="Start date"/>
                     </div>
+
                     <div className="form-group">
-                        <label className="control-label">Area/Location *</label>
-                        <input type="text" value={location} onChange={(e) => setLocation(e.target.value)} className="form-control" placeholder="Complete Address"/>
-                    </div> 
+                        <label className="control-label">End Date</label>
+                        <input type="date" value={endDate} onChange={(e) => setEndDate(e.target.value)} className="form-control" placeholder="End date"/>
+                    </div>
+
+                    <div className="form-group">
+                        <label className="control-label">Start Time *</label>
+                        <input type="time" value={startTime} onChange={(e) => setStartTime(e.target.value)} className="form-control" placeholder="Start time"/>
+                    </div>
+
+                    <div className="form-group">
+                        <label className="control-label">End Time *</label>
+                        <input type="time" value={endTime} onChange={(e) => setEndTime(e.target.value)} className="form-control" placeholder="End time"/>
+                    </div>
+
+                    <div className="form-group">
+                        <label className="control-label">Address *</label>
+                        <textarea value={address} onChange={(e) => setAddress(e.target.value)} className="form-control" placeholder="Address"></textarea>
+                    </div>
+
+                    <div className="form-group">
+                        <label className="control-label">Worker Name *</label>
+                        <SelectPicker data={applicantData} size="lg" required/>
+                    </div>
+
                     <div className="form-group">
                         <label className="control-label">Status</label>
                         <select className="form-control" value={status} onChange={(e) => setStatus(e.target.value)}>

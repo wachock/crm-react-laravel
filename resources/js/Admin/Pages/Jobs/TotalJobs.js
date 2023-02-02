@@ -85,10 +85,21 @@ export default function TotalJobs() {
     return (
         <div id="container">
             <Sidebar />
-            <div id="content">
-                <h1 className="page-title jobTitle">Jobs</h1>
-                <JobFilter getTotalJobs={getTotalJobs} />
+            <div id="content">      
+                <div className="titleBox customer-title">
+                    <div className="row">
+                        <div className="col-sm-6">
+                            <h1 className="page-title">Jobs</h1>
+                        </div>
+                        <div className="col-sm-6">
+                            <Link to="/admin/add-job" className="btn btn-pink addButton"><i class="btn-icon fas fa-plus-circle"></i>
+                                Add New
+                            </Link>
+                        </div>
+                    </div>
+                </div>  
                 <div className="boxPanel">
+                <JobFilter getTotalJobs={getTotalJobs} />
                     <div className="table-responsive">
                         {totalJobs.length > 0 ? (
                             <table className="table table-bordered">
