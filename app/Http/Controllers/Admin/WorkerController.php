@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
 
 class WorkerController extends Controller
 {
@@ -89,7 +90,8 @@ class WorkerController extends Controller
         $worker->gender        = $request->gender;
         $worker->payment_per_hour  = $request->payment_hour;
         $worker->worker_id     = $request->worker_id;
-        $worker->password      = $request->password;
+        $worker->passcode      = $request->password;
+        $worker->password      = Hash::make($request->password);
         $worker->skill         = $request->skill;
         $worker->status        = $request->status;
         $worker->save();
@@ -153,7 +155,8 @@ class WorkerController extends Controller
         $worker->gender        = $request->gender;
         $worker->payment_per_hour  = $request->payment_hour;
         $worker->worker_id     = $request->worker_id;
-        $worker->password      = $request->password;
+         $worker->passcode     = $request->password;
+        $worker->password      = Hash::make($request->password);
         $worker->skill         = $request->skill;
         $worker->status        = $request->status;
         $worker->save();

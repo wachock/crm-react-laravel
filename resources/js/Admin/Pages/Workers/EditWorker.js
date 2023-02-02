@@ -88,7 +88,7 @@ export default function EditWorker() {
                 setGender(response.data.worker.gender);
                 setPaymentHour(response.data.worker.payment_per_hour);
                 setWorkerId(response.data.worker.worker_id);
-                setPassword(response.data.worker.password);
+                setPassword(response.data.worker.passcode);
                 setSkill(response.data.worker.skill);
                 setAddress(response.data.worker.address);
                 setItemStatus(response.data.worker.status);

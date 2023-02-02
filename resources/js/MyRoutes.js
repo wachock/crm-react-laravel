@@ -12,7 +12,6 @@ import './Assets/css/admin.css';
 import AdminProtectedRoutes from './Components/Auth/PrivateAdmin';
 import ClientProtectedRoutes from './Components/Auth/PrivateClient';
 import WorkerProtectedRoutes from './Components/Auth/PrivateWorker';
-import Error404 from './Error404';
 
 // Client Routes
 import Client from './Client/Client';
@@ -88,6 +87,7 @@ export default function MyRoutes() {
          <Router>
             <Routes>
 
+
                {/* Client Routes Start  */}
                <Route path="client" element={<Client/>} >
 
@@ -99,9 +99,10 @@ export default function MyRoutes() {
                </Route>
                {/* Client Routes End  */}
 
+                  
                {/* Worker Routes Start  */}
                <Route path="worker" element={<Worker/>} >
-                  
+
                </Route>
                <Route element={<WorkerProtectedRoutes />}>
                   <Route path="worker" element={<Worker/>} >

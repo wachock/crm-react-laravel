@@ -1,6 +1,3 @@
-
-
-
 import { Outlet } from "react-router"; 
 import { Navigate } from 'react-router-dom';
 
@@ -48,12 +45,4 @@ function getWithExpiry(key) {
       localStorage.removeItem('tokenkey');
   }
 
-
-
-
-
-}
-
 export default WorkerProtectedRoutes
-
-

@@ -1,8 +1,26 @@
 import React from 'react'
-
+import { useNavigate } from 'react-router-dom';
 export default function WorkerSidebar() {
-    function handleLogout(){
+    const navigate  = useNavigate();
+    function handleLogout(e){
         e.preventDefault();
+        fetch("/api/logout", {
+            method: "POST",
+            headers: {
+                "Accept": "application/json, text/plain, */*",
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ` + localStorage.getItem("worker-token"),
+            },
+        }).then((res) => {
+            console.log(res);
+            if (res.status === 200) {
+                localStorage.removeItem("worker-token");
+                localStorage.removeItem("worker-name");
+                localStorage.removeItem("worker-id");
+                navigate("/worker/login");
+                alert.success("Logged Out Successfully");
+            }
+        });
     }
   return (
     <div className='applicant-sidebar'>
@@ -23,7 +41,7 @@ export default function WorkerSidebar() {
                 <a className="nav-link" data-toggle="tab" href="#plan" role="tab" aria-controls="plan">Upgrade my plan</a>
             </li>
             <li className="nav-item">
-                <a className="nav-link" onClick={handleLogout}>Logout</a>
+                <a className="nav-link btn" onClick={handleLogout}>Logout</a>
             </li>
         </ul>
     </div>
