@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import WorkerFilter from "../../Components/Filter/WorkerFilter";
 import ReactPaginate from "react-paginate";
 
-export default function Worker() {
+export default function AllWorkers() {
     const [workers, setWorkers] = useState([]);
     const [pageCount, setPageCount] = useState(0);
     const [loading, setLoading] = useState("Loading...");

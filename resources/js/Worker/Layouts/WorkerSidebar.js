@@ -1,6 +1,6 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
-export default function ClientSidebar() {
+export default function WorkerSidebar() {
     const navigate  = useNavigate();
     function handleLogout(e){
         e.preventDefault();
