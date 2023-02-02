@@ -26,6 +26,7 @@ import Terms from './Pages/Terms';
 import Contact from './Pages/Contact';
 import Login from './Pages/Login';
 import ClientLogin from './Pages/ClientLogin';
+import WorkerLogin from './Pages/WorkerLogin';
 import Register from './Pages/Register';
 import Error404 from './Error404';
 
@@ -124,6 +125,7 @@ export default function MyRoutes() {
                <Route exact path='contact-us' element={<Contact />} />
                <Route exact path="login" element={<Login />} />
                <Route exact path="client/login" element={<ClientLogin />} />
+               <Route exact path="worker/login" element={<WorkerLogin />} />
                <Route exact path="register" element={<Register />} />
                <Route exact path="privacy-policy" element={<Privacy />} />
                <Route exact path="terms-and-conditions" element={<Terms />} />
