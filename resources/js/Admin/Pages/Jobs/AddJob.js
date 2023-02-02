@@ -101,15 +101,15 @@ export default function AddJob() {
                         
                             <div className="form-group">
                                 <label className="control-label">Client Name</label>
-                                <SelectPicker data={cData} size="lg" required/>
+                                <SelectPicker data={cData} value={client} onChange={(value,event)=>setClient(value)} size="lg" required/>
                             </div>
                             <div className="form-group">
                                 <label className="control-label">Worker Name</label>
-                                <SelectPicker data={wData} size="lg" required/>
+                                <SelectPicker data={wData} value={worker} onChange={(value,event)=>setWorker(value)} size="lg" required/>
                             </div>
                             <div className="form-group">
                                 <label className="control-label">Service Name</label>
-                                <SelectPicker data={sData} size="lg" required/>
+                                <SelectPicker data={sData} value={service} onChange={(value,event)=>setService(value)} size="lg" required/>
                             </div>
                             <div className="form-group">
                                 <label className="control-label">Instruction</label>

@@ -16,6 +16,8 @@ class Job extends Model
         'start_date',
         'end_date',
         'schedule',
+        'instruction',
+        'address',
         'start_time',
         'end_time',
         'rate',
