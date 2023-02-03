@@ -19,6 +19,8 @@ use App\Http\Controllers\Admin\SubscriptionController;
 use App\Http\Controllers\Admin\TaskController;
 use App\Http\Controllers\Admin\ServicesController;
 use App\Http\Controllers\Admin\ServiceSchedulesController;
+use App\Http\Controllers\Admin\OfferController;
+
 /*
 |--------------------------------------------------------------------------
 | Admin API Routes
@@ -49,6 +51,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin-api', 'scopes:ad
     Route::resource('jobs', JobController::class);
     Route::post('get-client-jobs',[JobController::class,'getJobByClient'])->name('get-client-jobs');
     Route::post('get-worker-jobs',[JobController::class,'getJobWorker']);
+
     // workers Api
     Route::resource('workers', WorkerController::class);
     Route::get('all-workers', [WorkerController::class,'AllWorkers']);
@@ -68,6 +71,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin-api', 'scopes:ad
      Route::resource('service-schedule', ServiceSchedulesController::class);
      Route::get('all-service-schedule', [ServiceSchedulesController::class,'allSchedules'])->name('all-service-schedule');
     
+    //Offer Api
+    Route::resource('offers',OfferController::class);
+
     // Reviews Api
     Route::resource('reviews', ReviewController::class);
 

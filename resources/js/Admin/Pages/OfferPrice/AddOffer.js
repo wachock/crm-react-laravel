@@ -7,6 +7,7 @@ import { useAlert } from 'react-alert';
 import { useNavigate } from 'react-router-dom';
 
 export default function AddOffer() {
+
   const alert               = useAlert();
   const navigate            = useNavigate();
   const [client, setClient] = useState("");
@@ -22,7 +23,7 @@ export default function AddOffer() {
   const [AllServices,setAllServices] = useState([]);
 
   let handleChange = (i, e) => {
-        console.log(e)
+        
         let newFormValues = [...formValues];
         newFormValues[i][e.target.name] = e.target.value;
         setFormValues(newFormValues);
@@ -75,22 +76,24 @@ export default function AddOffer() {
          const data = {
             client_id  :client,
             job_id     :service,
-            instruction:instruction,
-            services   : JSON.stringify(formValues),
+            instructions:instructions,
+            services   : (formValues),
          }
           console.log(data);
-        // axios
-        //     .put(`/api/admin/update_availability/${params.id}`, data, { headers })
-        //     .then((response) => {
-        //         if (response.data.errors) {
-        //             setErrors(response.data.errors);
-        //         } else {
-        //             alert.success("Worker Availabilty Updated Successfully");
-        //             setTimeout(() => {
-        //                 navigate(`/admin/view-worker/${params.id}`);
-        //             }, 1000);
-        //         }
-        //     });
+         axios
+             .post(`/api/admin/offers`, data, { headers })
+             .then((response) => {
+                 if (response.data.errors) {
+                   for( let e in response.data.errors){
+                     alert.error(response.data.errors[e]);
+                   }
+                 } else {
+                     alert.success(response.data.message);
+                     setTimeout(() => {
+                         navigate(`/admin/offered-price`);
+                     }, 1000);
+                 }
+             });
     }
 
   return (
@@ -139,19 +142,19 @@ export default function AddOffer() {
                               {formValues.map((element, index) => (
                               <tr key={index}>
                                 <td>
-                                  <textarea value={element.description || "" } onChange={e => handleChange(index, e)} className="form-control" required placeholder="Description"/>
+                                  <textarea name="description" value={element.description || "" } onChange={e => handleChange(index, e)} className="form-control" required placeholder="Description"/>
                                 </td>
                                 <td>
-                                  <input type="time" value={element.starttime || "" } onChange={e => handleChange(index, e)} className="form-control" required />
+                                  <input type="time" name="starttime" value={element.starttime || "" } onChange={e => handleChange(index, e)} className="form-control" required />
                                 </td>
                                 <td>
-                                  <input type="time" value={element.endtime || "" } onChange={e => handleChange(index, e)} className="form-control" required />
+                                  <input type="time"  name="endtime" value={element.endtime || "" } onChange={e => handleChange(index, e)} className="form-control" required />
                                 </td>
                                 <td>
-                                  <input type="text" value={element.rateperhour || ""} onChange={e => handleChange(index, e)} className="form-control" required placeholder="Enter rate per hour"/>
+                                  <input type="text" name="rateperhour" value={element.rateperhour || ""} onChange={e => handleChange(index, e)} className="form-control" required placeholder="Enter rate per hour"/>
                                 </td>
                                 <td>
-                                  <input type="text" value={element.totalamount || "" } onChange={e => handleChange(index, e)} className="form-control" required placeholder="Enter total amount"/>
+                                  <input type="text" name="totalamount" value={element.totalamount || "" } onChange={e => handleChange(index, e)} className="form-control" required placeholder="Enter total amount"/>
                                 </td>
                                 <td class="text-right"><button className="ml-2 btn bg-red" onClick={() => removeFormFields(index)}><i className="fa fa-minus"></i></button></td>
                               </tr>
