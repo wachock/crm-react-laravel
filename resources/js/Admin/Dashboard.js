@@ -99,82 +99,82 @@ export default function AdminDashboard() {
                     </div>
                     <div className="row">
                         <div className="col-sm-4 col-xs-6">
-                            <div className="dashBox">
-                                <div className="dashIcon">
-                                    <i class="fa-solid fa-suitcase"></i>
-                                </div>
-                                <div className="dashText">
-                                    <a href="/admin/jobs-posted">
+                            <a href="/admin/jobs-posted">
+                                <div className="dashBox">
+                                    <div className="dashIcon">
+                                        <i class="fa-solid fa-suitcase"></i>
+                                    </div>
+                                    <div className="dashText">
                                         <h3>{totalJobs}</h3>
                                         <p>Jobs posted</p>
-                                    </a>  
-                                </div>   
-                            </div>
+                                    </div>   
+                                </div>
+                            </a>
                         </div>
                         <div className="col-sm-4 col-xs-6">
-                            <div className="dashBox">
-                                <div className="dashIcon">
-                                    <i className="fa-regular fa-user"></i>
-                                </div>
-                                <div className="dashText">
-                                    <a href="/admin/clients">
+                            <a href="/admin/clients">
+                                <div className="dashBox">
+                                    <div className="dashIcon">
+                                        <i className="fa-regular fa-user"></i>
+                                    </div>
+                                    <div className="dashText">
                                         <h3>{totalClients}</h3>
                                         <p>Clients</p>
-                                    </a>  
-                                </div>   
-                            </div>
+                                    </div>
+                                </div>
+                            </a>
                         </div>
                         <div className="col-sm-4 col-xs-6">
-                            <div className="dashBox">
-                                <div className="dashIcon">
-                                    <i className="fa-solid fa-user"></i>
-                                </div>
-                                <div className="dashText">
-                                    <a href="/admin/workers">
+                            <a href="/admin/workers">
+                                <div className="dashBox">
+                                    <div className="dashIcon">
+                                        <i className="fa-solid fa-user"></i>
+                                    </div>
+                                    <div className="dashText">
                                         <h3>{totalWorkers}</h3>
                                         <p>Workers</p>
-                                    </a>  
-                                </div>   
-                            </div>
+                                    </div>   
+                                </div>
+                            </a>  
                         </div>
                         <div className="col-sm-4 col-xs-6">
-                            <div className="dashBox">
-                                <div className="dashIcon">
-                                    <i className="fa-solid fa-handshake"></i>
-                                </div>
-                                <div className="dashText">
-                                    <a href="#">
+                            <a href="#">
+                                <div className="dashBox">
+                                    <div className="dashIcon">
+                                        <i className="fa-solid fa-handshake"></i>
+                                    </div>
+                                    <div className="dashText">
                                         <h3>50</h3>
-                                        <p>Meetings</p>
-                                    </a>  
-                                </div>   
-                            </div>
+                                        <p>Meetings</p>    
+                                    </div>   
+                                </div>
+                            </a>
                         </div>
                         <div className="col-sm-4 col-xs-6">
-                            <div className="dashBox">
-                                <div className="dashIcon">
-                                    <i className="fa-solid fa-dollar-sign"></i>
-                                </div>
-                                <div className="dashText">
-                                    <a href="/admin/offered-price">
+                            <a href="/admin/offered-price">
+                                <div className="dashBox">
+                                    <div className="dashIcon">
+                                        <i className="fa-solid fa-dollar-sign"></i>
+                                    </div>
+                                    <div className="dashText"> 
                                         <h3>100</h3>
-                                        <p>Offered Prices</p>
-                                    </a>  
-                                </div>   
-                            </div>
+                                        <p>Offered Prices</p>  
+                                    </div>   
+                                </div>
+                            </a>
                         </div>
                         <div className="col-sm-4 col-xs-6">
-                            <div className="dashBox">
-                                <div className="dashIcon">
-                                    <i className="fa-solid fa-file-contract"></i>
-                                </div>
-                                <div className="dashText">
-                                    <a href="/admin/contracts">
+                            <a href="/admin/contracts">
+                                <div className="dashBox">
+                                    <div className="dashIcon">
+                                        <i className="fa-solid fa-file-contract"></i>
+                                    </div>
+                                    <div className="dashText">
                                         <h3>100</h3>
-                                        <p>Contracts</p>
-                                    </a>  
-                                </div>   
-                            </div>
+                                        <p>Contracts</p>   
+                                    </div>   
+                                </div>
+                            </a>
                         </div>
                     </div>
                     <div className="latest-users">

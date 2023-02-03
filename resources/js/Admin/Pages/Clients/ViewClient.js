@@ -10,12 +10,8 @@ export default function ViewApplicant() {
         <div id="content">
             <div className='view-applicant'>
                 <h1 className="page-title viewAppli">View Client</h1>
-                <div className='card'>
-                    <div className='card-body'>
-                        <ProfileDetails/>
-                    </div>
-                </div>
-                <div className='card'>
+                <ProfileDetails/>
+                <div className='card mt-3'>
                     <div className='card-body'>
                         <ClientHistory/>
                     </div>
