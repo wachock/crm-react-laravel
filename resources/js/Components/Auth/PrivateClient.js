@@ -4,18 +4,20 @@ import { Navigate } from 'react-router-dom';
 const useAuth = () => {
   var user = { loggedIn: true };
 
-  if(localStorage.getItem('token')) {
+  if(localStorage.getItem('client-token')) {
      user = { loggedIn: true };
-  }
-
-  console.log(localStorage.getItem('token'));
+  } else {
+    user = { loggedIn: false };
+ }
+ 
+  console.log(localStorage.getItem('client-token'));
 
   return user && user.loggedIn;
 }
 
 const clientProtectedRoutes = () => {
   const isAuth = useAuth(); 
-  return isAuth ? <Outlet /> : <Navigate replace to="/login" />
+  return isAuth ? <Outlet /> : <Navigate replace to="client/login" />
 }
 
 export default clientProtectedRoutes

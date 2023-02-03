@@ -7,7 +7,9 @@ import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import Footer from "../Layouts/Footer";
 import Header from "../Layouts/Header";
-export default function WorkerLogin() {
+import ReCAPTCHA from "react-google-recaptcha";
+
+export default function Login() {
     const [worker, setWorker] = useState("");
     const [password, setPassword] = useState("");
     const [errors, setErrors] = useState([]);
@@ -33,6 +35,9 @@ export default function WorkerLogin() {
             }
         });
     };
+    const onChange = (value) => {
+        console.log("Captcha value:", value);
+    };
 
     return (
         <div>
@@ -49,7 +54,7 @@ export default function WorkerLogin() {
                                         controlId="exampleUForm.ControlInput1"
                                     >
                                         <Form.Label>
-                                             Worker Id
+                                             Email
                                         </Form.Label>
                                         <Form.Control
                                             type="text"
@@ -89,12 +94,19 @@ export default function WorkerLogin() {
                                         ) : (
                                             ""
                                         )}
+                                        <Link to="/" className="forgotpsw">
+                                            Forget Password
+                                        </Link>
                                     </Form.Group>
                                     <Form.Group>
                                         {/* <img
                                             src={Recaptcha}
                                             className="img-fluid mb-4"
                                         /> */}
+                                        <ReCAPTCHA
+                                            sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
+                                            onChange={onChange}
+                                        />
                                     </Form.Group>
                                     <Form.Group>
                                         <Button
@@ -105,6 +117,15 @@ export default function WorkerLogin() {
                                             onClick={HandleLogin}
                                         />
                                     </Form.Group>
+                                   {/* <div className="donthaveaccount text-center">
+                                        <p>
+                                            Vous n'avez pas encore de compte ?
+                                            <Link to="/register">
+                                                {" "}
+                                                Créer un compte
+                                            </Link>
+                                        </p>
+                                    </div>*/}
                                 </Form>
                             </div>
                         </Col>

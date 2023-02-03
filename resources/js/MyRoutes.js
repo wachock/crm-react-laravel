@@ -18,7 +18,7 @@ import Client from './Client/Client';
 import ClientDashboard from './Client/ClientDashboard';
 
 // Worker Routes
-import WorkerLogin from './Worker/Auth/WorkerLogin';
+
 import Worker from './Worker/Worker';
 import WorkerDashboard from './Worker/Dashboard';
 
@@ -76,6 +76,8 @@ import AddContract from './Admin/Pages/Contract/AddContract';
 import EditContract from './Admin/Pages/Contract/EditContract';
 import ViewContract from './Admin/Pages/Contract/ViewContract';
 import Error404 from './Error404';
+import WorkerLogin from './Worker/Auth/WorkerLogin';
+import ClientLogin from './Client/Auth/ClientLogin';
 
 TimeAgo.addDefaultLocale(en)
 const options = {
@@ -90,11 +92,11 @@ export default function MyRoutes() {
             <Routes>
                {/* Home route  */}
                <Route exact path="/" element={<AdminLogin />} />
+               <Route exact path="client/login" element={<ClientLogin />} />
+               <Route exact path="worker/login" element={<WorkerLogin />} />
 
                {/* Client Routes Start  */}
-               <Route path="client" element={<Client/>} >
-
-               </Route>
+               
                <Route element={<ClientProtectedRoutes />}>
                   <Route path="client" element={<Client />} >
                      <Route exact path="dashboard" element={<ClientDashboard/>} />
@@ -104,7 +106,7 @@ export default function MyRoutes() {
 
                   
                {/* Worker Routes Start  */}
-               <Route exact path="/worker/login" element={<WorkerLogin />} />
+               <Route exact path="worker/login" element={<WorkerLogin />} />
                
                <Route path="worker" element={<Worker/>} >
 
