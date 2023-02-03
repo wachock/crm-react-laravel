@@ -53,7 +53,7 @@ export default function Sidebar() {
                     <NavLink to="/admin/workers"><i className="fa-solid fa-users"></i>Workers</NavLink>
                 </li>
                 <li className="list-group-item">
-                    <NavLink to="/admin/jobs-posted"><i className="fa-solid fa-video"></i>Scheduled Meetings</NavLink>
+                    <NavLink to="/admin/schedule"><i className="fa-solid fa-video"></i>Scheduled Meetings</NavLink>
                 </li>
                 <li className="list-group-item">
                     <NavLink to="/admin/offered-price"><i className="fa-solid fa-tags"></i>Offered Prices</NavLink>

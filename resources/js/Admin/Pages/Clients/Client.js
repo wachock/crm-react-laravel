@@ -92,7 +92,7 @@ export default function Clients() {
                             <h1 className="page-title">Clients</h1>
                         </div>
                         <div className="col-sm-6">
-                            <Link to="/admin/add-client" className="btn btn-pink addButton"><i class="btn-icon fas fa-plus-circle"></i>
+                            <Link to="/admin/add-client" className="btn btn-pink addButton"><i className="btn-icon fas fa-plus-circle"></i>
                                 Add New
                             </Link>
                         </div>
