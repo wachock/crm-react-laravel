@@ -179,7 +179,7 @@ class JobController extends Controller
 
     public function getJobByClient(Request $request){
       
-       $jobs = Job::where('client_id',$request->cid)->get();
+       $jobs = Job::with('service','worker')->where('client_id',$request->cid)->get();
        return response()->json([
         'jobs' => $jobs
     ]);

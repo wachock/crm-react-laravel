@@ -3,8 +3,10 @@ import Contract from './Contract'
 import Jobs from './Jobs'
 import OfferedPrice from './OfferedPrice'
 import ScheduledMeeting from './ScheduledMeeting'
-
+import { Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom'
 export default function ClientHistory() {
+  const params = useParams();
   return (
     <div className='ClientHistory'>
         <ul className="nav nav-tabs" role="tablist">
@@ -19,9 +21,20 @@ export default function ClientHistory() {
             <div id="tab-contract" className="tab-pane" role="tab-panel" aria-labelledby="rejected-tab"><Contract/></div>
             <div id="tab-jobs" className="tab-pane" role="tab-panel" aria-labelledby="rejected-tab"><Jobs/></div>
         </div>
-        <div className='button-group'>
-            <button className="btn bg-pink">Edit Client</button>
-            <button className="btn bg-yellow">New Job</button>
+        <div className='d-flex button-group1'>
+          
+          <Link 
+          to={`/admin/edit-client/${params.id}`}
+          className = "btn bg-pink" 
+           >Edit Client
+          </Link>
+
+          <Link 
+          to={`/admin/add-job`}
+          className = "btn bg-yellow" 
+           >New Job
+          </Link>
+  
             <button className="btn bg-green">Price Offered</button>
             <button className="btn bg-red">Contract</button>
             <button className="btn bg-purple">Send Email</button>

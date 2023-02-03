@@ -16,7 +16,7 @@ export default function Jobs() {
         axios
         .post(`/api/admin/get-client-jobs`,{cid:params.id},{headers})
         .then((res)=>{
-            console.log(res);
+            setJobs(res.data.jobs);
         });
     }
     useEffect(()=>{
@@ -38,21 +38,36 @@ export default function Jobs() {
                     </tr>
                 </thead>
                 <tbody>       
-                    <tr>
-                        <td>#001</td>
-                        <td>Lorem Ipsum Doler</td>
-                        <td>Elwyn VonRueden</td>
-                        <td>440 NIS</td>
-                        <td>October 5, 2022 </td>
-                        <td>Completed</td>
-                        <td>
-                            <div className="d-flex">
-                                <Link to={`#`} className="btn bg-purple"><i className="fa fa-edit"></i></Link>
-                                <button className="ml-2 btn bg-yellow"><i className="fa fa-eye"></i></button>
-                                <button className="ml-2 btn bg-red" onClick={() => handleDelete( item.id )}><i className="fa fa-trash"></i></button>                            
-                            </div>
-                        </td>
-                    </tr>      
+                    { jobs && jobs.map((j,i)=>{
+                        return(
+                        <tr>
+                            <td>#{j.job_id}</td>
+                            <td>{
+                            j.service 
+                             ? j.service.name
+                             : "NA"
+                            }
+                            </td>
+                            <td>{
+                               j.worker 
+                                ? j.worker.firstname 
+                                +" "+ j.worker.lastname
+                                :"NA" 
+                             }</td>
+                            <td>{j.rate}</td>
+                            <td>{j.start_date}</td>
+                            <td>{j.status}</td>
+                            <td>
+                                <div className="d-flex">
+                                    <Link to={`/admin/edit-job/${j.id}`} className="btn bg-purple"><i className="fa fa-edit"></i></Link>
+                                    <Link to={`/admin/view-job/${j.id}`} className="ml-2 btn bg-yellow"><i className="fa fa-eye"></i></Link>
+                                    <button className="ml-2 btn bg-red" onClick={() => handleDelete( j.id )}><i className="fa fa-trash"></i></button>                            
+                                </div>
+                            </td>
+                        </tr>    
+                        )
+                    })}
+                      
                 </tbody>
             </table>
         </div>

@@ -250,7 +250,7 @@ export default function AdminDashboard() {
                                                                     </Link>
                                                                     <Link
                                                                         to={`/admin/view-job/${item.id}`}
-                                                                        className="btn bg-yellow"
+                                                                        className="ml-2 btn bg-yellow"
                                                                     >
                                                                         <i className="fa fa-eye"></i>
                                                                     </Link>

@@ -207,7 +207,7 @@ export default function TotalJobs() {
                                                                 </Link>
                                                                 <Link
                                                                     to={`/admin/view-job/${item.id}`}
-                                                                    className="btn btn-success"
+                                                                    className="ml-2 btn btn-success"
                                                                 >
                                                                     <i className="fa fa-eye"></i>
                                                                 </Link>

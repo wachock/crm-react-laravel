@@ -20,10 +20,13 @@ export default function AddJob() {
     const [instruction,setInstruction] = useState('');
     const [address, setAddress]        = useState('');
     const [status, setStatus]          = useState('');
+    const [schedule, setSchedule]   = useState('');
 
     const [AllClients,setAllClients]   = useState([]);
     const [AllServices,setAllServices] = useState([]);
     const [AllWorkers,setAllWorkers]   = useState([]);
+    const [AllSchedules,setAllSchedules]   = useState([]);
+    
     
     const headers = {
         Accept: "application/json, text/plain, */*",
@@ -40,6 +43,7 @@ export default function AddJob() {
             start_date:startDate,
             start_time:startTime,
             end_time:endTime,
+            schedule:schedule,
             rate:rate,
             instruction:instruction,
             address:address,
@@ -87,10 +91,18 @@ export default function AddJob() {
         })
      }
     
+     const getSchedule = () =>{
+        axios
+        .get('/api/admin/all-service-schedule',{headers})
+        .then((res)=>{
+            setAllSchedules(res.data.schedules);
+        })
+     }
     useEffect(()=>{
         getClients();
         getServices();
         getWorkers();
+        getSchedule();
     },[]);
     
     const cData = AllClients.map((c,i)=>{
@@ -101,6 +113,9 @@ export default function AddJob() {
     });
     const wData = AllWorkers.map((w,i)=>{
         return {value:w.id,label:(w.firstname+' '+w.lastname)}; 
+    });
+    const scData = AllSchedules.map((sc,i)=>{
+        return {value:sc.id,label:sc.name}; 
     });
 
   return (
@@ -124,6 +139,10 @@ export default function AddJob() {
                             <div className="form-group">
                                 <label className="control-label">Service Name</label>
                                 <SelectPicker data={sData} value={service} onChange={(value,event)=>setService(value)} size="lg" required/>
+                            </div>
+                            <div className="form-group">
+                                <label className="control-label">Job Schedule</label>
+                                <SelectPicker data={scData} value={schedule} onChange={(value,event)=>setSchedule(value)} size="lg" required/>
                             </div>
                             <div className="form-group">
                                 <label className="control-label">Instruction</label>
