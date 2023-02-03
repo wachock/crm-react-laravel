@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import Sidebar from "./Layouts/Sidebar";
 import axios from "axios";
-import { BrowserRouter as Link } from "react-router-dom";
+import {  Link } from "react-router-dom";
 
 export default function AdminDashboard() {
     const [totalJobs, setTotalJobs] = useState([0]);
-    const [totalApplicants, setTotalApplicants] = useState([0]);
-    const [totalEmployers, setTotalEmployers] = useState([0]);
+    const [totalClients, setTotalClients] = useState([0]);
+    const [totalWorkers, setTotalWorkers] = useState([0]);
     const [totalEarnings, setTotalEarnings] = useState(["$0"]);
-    const [latestEmployers, setlatestEmployers] = useState([]);
+    const [latestJobs, setlatestJobs] = useState([]);
     const [loading, setLoading] = useState("Loading...");
 
     const headers = {
@@ -20,20 +20,20 @@ export default function AdminDashboard() {
     const GetDashboardData = () => {
         axios.get("/api/admin/dashboard", { headers }).then((response) => {
             setTotalJobs(response.data.total_jobs);
-            setTotalApplicants(response.data.total_applicants);
-            setTotalEmployers(response.data.total_employees);
-            if (response.data.latest_employers.length > 0) {
-                setlatestEmployers(response.data.latest_employers);
+            setTotalClients(response.data.total_clients);
+            setTotalWorkers(response.data.total_workers);
+            if (response.data.latest_jobs.length > 0) {
+                setlatestJobs(response.data.latest_jobs);
             } else {
                 setLoading("No employer found");
             }
         });
     };
-
+    
     useEffect(() => {
         GetDashboardData();
     }, []);
-
+    console.log(latestJobs);
     const handleDelete = (id) => {
         Swal.fire({
             title: "Are you sure?",
@@ -42,15 +42,15 @@ export default function AdminDashboard() {
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, Delete Employer!",
+            confirmButtonText: "Yes, Delete Job!",
         }).then((result) => {
             if (result.isConfirmed) {
                 axios
-                    .delete(`/api/admin/employers/${id}`, { headers })
+                    .delete(`/api/admin/jobs/${id}`, { headers })
                     .then((response) => {
                         Swal.fire(
                             "Deleted!",
-                            "Employer has been deleted.",
+                            "Job has been deleted.",
                             "success"
                         );
                         setTimeout(() => {
@@ -118,7 +118,7 @@ export default function AdminDashboard() {
                                 </div>
                                 <div className="dashText">
                                     <a href="/admin/clients">
-                                        <h3>{totalApplicants}</h3>
+                                        <h3>{totalClients}</h3>
                                         <p>Clients</p>
                                     </a>  
                                 </div>   
@@ -131,7 +131,7 @@ export default function AdminDashboard() {
                                 </div>
                                 <div className="dashText">
                                     <a href="/admin/workers">
-                                        <h3>{totalEmployers}</h3>
+                                        <h3>{totalWorkers}</h3>
                                         <p>Workers</p>
                                     </a>  
                                 </div>   
@@ -181,53 +181,81 @@ export default function AdminDashboard() {
                         <h2 className="page-title">Recent Completed Jobs</h2>
                         <div className="boxPanel">
                             <div className="table-responsive">
-                                {latestEmployers.length > 0 ? (
+                                {latestJobs.length > 0 ? (
                                     <table className="table table-bordered">
                                         <thead>
                                             <tr>
-                                                <th>ID</th>
-                                                <th>Name</th>
-                                                <th>Phone</th>
-                                                <th>Email</th>
+                                                <th>Client Name</th>
+                                                <th>Service Name</th>
+                                                <th>Date</th>
+                                                <th>Start Time</th>
+                                                <th>End Time</th>
+                                                <th>Assigned Worker</th>
                                                 <th>Status</th>
+                                                <th>Total</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {latestEmployers &&
-                                                latestEmployers.map(
+                                            {latestJobs &&
+                                                latestJobs.map(
                                                     (item, index) => (
                                                         <tr key={index}>
-                                                            <td>{item.id}</td>
-                                                            <td>
-                                                                {item.firstname}{" "}
-                                                                {item.lastname}
-                                                            </td>
-                                                            <td>
-                                                                {item.phone}
-                                                            </td>
-                                                            <td>
-                                                                {item.email}
-                                                            </td>
-                                                            <td>
-                                                                {item.status ===
-                                                                0
-                                                                    ? "Inactive"
-                                                                    : "Active"}
-                                                            </td>
+                                                                <td>{
+                                                            item.client
+                                                                ? item.client.firstname +
+                                                                " " + item.client.lastname
+                                                                : "NA"
+                                                        }
+                                                        </td>
+                                                        <td>{
+                                                            item.service
+                                                                ? item.service.name
+                                                                : "NA"
+                                                        }</td>
+                                                        <td>
+                                                            {item.start_date}
+                                                        </td>
+                                                        <td>
+                                                            {item.start_time}
+                                                        </td>
+                                                        <td>
+                                                            {item.end_time}
+                                                        </td>
+                                                        <td>{
+                                                            item.worker
+                                                                ? item.worker.firstname +
+                                                                " " + item.worker.lastname
+                                                                : "NA"
+                                                        }</td>
+
+                                                        <td
+                                                            style={{
+                                                                textTransform:
+                                                                    "capitalize",
+                                                            }}
+                                                        >
+                                                            {item.status}
+                                                        </td>
+                                                        <td>
+                                                            {item.rate}
+                                                        </td>
                                                             <td>
                                                                 <div className="d-flex">
                                                                     <Link
-                                                                        to={`/admin/edit-employer/${item.id}`}
+                                                                        to={`/admin/edit-job/${item.id}`}
                                                                         className="btn bg-purple"
                                                                     >
                                                                         <i className="fa fa-edit"></i>
                                                                     </Link>
-                                                                    <button
-                                                                        className="ml-2 btn bg-yellow"
+                                                                    <Link
+                                                                        to={`/admin/view-job/${item.id}`}
+                                                                        className="btn bg-yellow"
                                                                     >
                                                                         <i className="fa fa-eye"></i>
-                                                                    </button>
+                                                                    </Link>
+
+                                                                   
                                                                     <button
                                                                         className="ml-2 btn bg-red"
                                                                         onClick={() =>
@@ -239,10 +267,10 @@ export default function AdminDashboard() {
                                                                         <i className="fa fa-trash"></i>
                                                                     </button>
                                                                 </div>
-                                                            </td>
+                                                                    </td>
                                                         </tr>
                                                     )
-                                                )}
+                                                                    )}
                                         </tbody>
                                     </table>
                                 ) : (
