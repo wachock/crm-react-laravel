@@ -8,8 +8,7 @@ import Button from "react-bootstrap/Button";
 //import Footer from "../client/Layouts/Footer";
 //import Header from "../client/Layouts/Header";
 import ReCAPTCHA from "react-google-recaptcha";
-import loginbg from ".././Assets/image/loginbg.jpeg";
-import logo from ".././Assets/image/logo.png";
+import logo from "../../Assets/image/logo.png";
 
 
 export default function ClientLogin() {
