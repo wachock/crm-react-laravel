@@ -19,13 +19,6 @@ export default function ClientHistory() {
             <div id="tab-contract" className="tab-pane" role="tab-panel" aria-labelledby="rejected-tab"><Contract/></div>
             <div id="tab-jobs" className="tab-pane" role="tab-panel" aria-labelledby="rejected-tab"><Jobs/></div>
         </div>
-        <div className='button-group'>
-            <button className="btn bg-pink">Edit Client</button>
-            <button className="btn bg-yellow">New Job</button>
-            <button className="btn bg-green">Price Offered</button>
-            <button className="btn bg-red">Contract</button>
-            <button className="btn bg-purple">Send Email</button>
-        </div>
     </div>
   )
 }

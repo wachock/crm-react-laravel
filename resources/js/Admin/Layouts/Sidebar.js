@@ -3,9 +3,10 @@ import { Link } from "react-router-dom";
 import { useAlert } from "react-alert";
 import { useNavigate } from "react-router-dom";
 import logo from "../../Assets/image/logo.png";
-import User from "../../Assets/image/user.png";
+import { NavLink } from 'react-router-dom';
 
 export default function Sidebar() {
+
     const alert = useAlert();
     const name = localStorage.getItem("admin-name");
     const navigate = useNavigate();
@@ -43,31 +44,31 @@ export default function Sidebar() {
             </div>
             <ul className="list-group">
                 <li className="list-group-item">
-                    <Link to="/admin/dashboard"><i className="fa-solid fa-gauge"></i>Dashboard</Link>
+                    <NavLink to="/admin/dashboard"><i className="fa-solid fa-gauge"></i>Dashboard</NavLink>
                 </li>
                 <li className="list-group-item">
-                    <Link to="/admin/clients"><i className="fa-solid fa-user-tie"></i>Clients</Link>
+                    <NavLink to="/admin/clients"><i className="fa-solid fa-user-tie"></i>Clients</NavLink>
                 </li>   
                 <li className="list-group-item">
-                    <Link to="/admin/workers"><i className="fa-solid fa-users"></i>Workers</Link>
+                    <NavLink to="/admin/workers"><i className="fa-solid fa-users"></i>Workers</NavLink>
                 </li>
                 <li className="list-group-item">
-                    <Link to="/admin/jobs-posted"><i className="fa-solid fa-video"></i>Scheduled Meetings</Link>
+                    <NavLink to="/admin/jobs-posted"><i className="fa-solid fa-video"></i>Scheduled Meetings</NavLink>
                 </li>
                 <li className="list-group-item">
-                    <Link to="/admin/offered-price"><i className="fa-solid fa-tags"></i>Offered Prices</Link>
+                    <NavLink to="/admin/offered-price"><i className="fa-solid fa-tags"></i>Offered Prices</NavLink>
                 </li>
                 <li className="list-group-item">
-                    <Link to="/admin/contracts"><i className="fa-solid fa-clipboard-list"></i>Contracts</Link>
+                    <NavLink to="/admin/contracts"><i className="fa-solid fa-clipboard-list"></i>Contracts</NavLink>
                 </li>
                 <li className="list-group-item">
-                    <Link to="/admin/jobs"><i className="fa-solid fa-briefcase"></i>Jobs</Link>
+                    <NavLink to="/admin/jobs"><i className="fa-solid fa-briefcase"></i>Jobs</NavLink>
                 </li>
                 <li className="list-group-item">
-                    <Link to="/admin/services"><i className="fa-solid fa-screwdriver-wrench"></i>Services</Link>
+                    <NavLink to="/admin/services"><i className="fa-solid fa-screwdriver-wrench"></i>Services</NavLink>
                 </li>
                 <li className="list-group-item">
-                    <Link to="/admin/settings"><i className="fa-solid fa-gear"></i>Settings</Link>
+                    <NavLink to="/admin/settings"><i className="fa-solid fa-gear"></i>Settings</NavLink>
                 </li>
             </ul>
             <div className="sideLogout">

@@ -149,7 +149,7 @@ export default function AddClient() {
                                             }
                                             className="form-control"
                                             required
-                                            placeholder="Enter Last Name"
+                                            placeholder="Invoice Name"
                                         />
                                     </div>
                                 </div>
@@ -181,7 +181,7 @@ export default function AddClient() {
                                 <div className="col-sm-6">
                                     <div className="form-group">
                                         <label className="control-label">
-                                            Passcode *
+                                            Password *
                                         </label>
                                         <input
                                             type="text"
@@ -191,7 +191,7 @@ export default function AddClient() {
                                             }
                                             className="form-control"
                                             required
-                                            placeholder="Passcode"
+                                            placeholder="Password"
                                         />
                                         {errors.passcode ? (
                                             <small className="text-danger mb-1">
@@ -228,14 +228,9 @@ export default function AddClient() {
                                     </div>
                                     
                                 </div>
-
-                            <div className="col-sm-1">
-                            <button className="btn btn-success" onClick={addPhone}> + </button>
-                            </div>
-
                             
                             </div>
-                            <h4>Client Full Address</h4>
+                            <h4 className="mt-2 mb-3">Client Full Address</h4>
 
                             <div className="form-group">
                                 <label className="control-label">City</label>
@@ -363,7 +358,7 @@ export default function AddClient() {
                                 )}
                             </div>
                             <div className="form-group">
-                                <label className="control-label">color</label>
+                                <label className="control-label">Color</label>
                                 <input
                                     type="color"
                                     value={color}
@@ -401,10 +396,13 @@ export default function AddClient() {
                                     ""
                                 )}
                             </div>
-                            <ul className="nav nav-tabs text-center">
+                            <div className="form-group text-center">
+                                <input type="submit" value="SAVE" onClick={handleSubmit} className="btn btn-pink saveBtn"/>
+                            </div>
+                            {/* <ul className="nav nav-tabs text-center">
                                 <li className="nav-item"><div className="form-group text-center"><input type="submit" value="Schedule Meeting" onClick={handleSubmit} className="btn bg-purple saveBtn"/></div></li>
                                 <li className="nav-item"><div className="form-group text-center"><input type="submit" value="SAVE" onClick={handleSubmit} className="btn btn-pink saveBtn"/></div></li> 
-                            </ul>
+                            </ul> */}
                             </form>
                         </div>
                     </div>

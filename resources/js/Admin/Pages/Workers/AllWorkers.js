@@ -20,7 +20,7 @@ export default function AllWorkers() {
                 setWorkers(response.data.workers.data);
                 setPageCount(response.data.workers.last_page);
             } else {
-                setLoading("No Employer found");
+                setLoading("No Workers found");
             }
         });
     };
@@ -37,7 +37,7 @@ export default function AllWorkers() {
                     setWorkers(response.data.workers.data);
                     setPageCount(response.data.workers.last_page);
                 } else {
-                    setLoading("No Employer found");
+                    setLoading("No Workers found");
                 }
             });
     };
@@ -49,7 +49,7 @@ export default function AllWorkers() {
         } else {
             setWorkers([]);
             setPageCount(response.data.workers.last_page);
-            setLoading("No Employer found");
+            setLoading("No Workers found");
         }
     };
 

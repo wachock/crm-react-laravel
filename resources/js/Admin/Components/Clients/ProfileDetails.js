@@ -1,122 +1,117 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom';
 
 export default function ProfileDetails() {
   
-  const [firstname, setFirstName] = useState('Alex');
-  const [lastname, setLastName] = useState('Adams');
-  const [invoiceName, setInvoiceName] = useState('Adams');
-  const [email, setEmail] = useState('alex999@gmail.com'); 
-  const [phone, setPhone] = useState('9088781234');
-
-  const [city,setCity] = useState("Netanya");
-  const [streetNumber,setStreetNumber] = useState("13, Pirhei Hen");
-  const [floor,setFloor] = useState("Fourth");
-  const [Apt,setApt] = useState("Heaven");
-  const [enterance,setEnterance] = useState("5");
-  const [zip,setZip] = useState("1231400");
-  const [dob,setDob] = useState("19/03/1985");
-  const [passcode, setPassCode] = useState("1380600");
-  const [color, setColor] = useState("#000000");
-  const [status, setStatus] = useState("Inactive");
+  const [firstname] = useState('Alex');
+  const [lastname] = useState('Adams');
+  const [email] = useState('alex999@gmail.com'); 
+  const [phone] = useState('9088781234');
+  const [city] = useState("Netanya");
+  const [streetNumber] = useState("Saket");
+  const [floor] = useState("Fourth floor");
+  const [Apt] = useState("Galaxy Apartment");
+  const [enterance] = useState("5");
+  const [zip] = useState("1231400");
+  const [passcode] = useState("1380600");
+  const [meeting] = useState("Scheduled");
+  const [priceOffer] = useState("Sent");
+  const [cardType] = useState("MasterCard");
+  const [cardNumber] = useState("3452789012346781");
+  const [cardValidity] = useState("10/24");
+  const [nameOnCard] = useState("Alex Adams");
+  const [signature] = useState("Alex");
   
   return (
-    <form>
+    <>
+    
+    <div className='client-view'>
+        <h1><span>#20</span> {firstname} {lastname}</h1>
         <div className='row'>
-            <div className='col-sm-4'>
-                <div className='form-group'>
-                    <label className='control-label'>First Name</label>
-                    <input disabled type='text' value={firstname} onChange={(e) => setFirstName(e.target.value)} className='form-control' placeholder='Enter First Name' />
+            <div className='col-sm-8'>
+                <div className='dashBox p-4'>
+                    <div className='row'>
+                        <div className='col-sm-4'>
+                            <div className='form-group'>
+                                <label>Color</label>
+                                <span style={{background: "#ff0000", height: "24px", width: "34px", display: "block", borderRadius: "4px"}}>&nbsp;</span>
+                            </div>
+                        </div>
+                        <div className='col-sm-4'>
+                            <div className='form-group'>
+                                <label>Email</label>
+                                <p>{email}</p>
+                            </div>
+                        </div>
+                        <div className='col-sm-4'>
+                            <div className='form-group'>
+                                <label>Phone</label>
+                                <p>{phone}</p>
+                            </div>
+                        </div>
+                        <div className='col-sm-4'>
+                            <div className='form-group'>
+                                <label>Address</label>
+                                <p>{floor}, {Apt}, {streetNumber}</p>
+                            </div>
+                        </div>
+                        <div className='col-sm-4'>
+                            <div className='form-group'>
+                                <label>City</label>
+                                <p>{city} - {zip}</p>
+                            </div>
+                        </div>
+                        <div className='col-sm-4'>
+                            <div className='form-group'>
+                                <label>Enterance code</label>
+                                <p>{enterance}</p>
+                            </div>
+                        </div>
+                        <div className='col-sm-4'>
+                            <div className='form-group'>
+                                <label>Meeting Status</label>
+                                <p>{meeting}</p>
+                            </div>
+                        </div>
+                        <div className='col-sm-4'>
+                            <div className='form-group'>
+                                <label>Price Offer</label>
+                                <p>{priceOffer}</p>
+                            </div>
+                        </div>
+                        <div className='col-sm-4'>
+                            <div className='form-group'>
+                                <label>Login details</label>
+                                <p><span>Email:</span> {email}</p>
+                                <p><span>Password:</span> {passcode}</p>
+                            </div>
+                        </div>
+                        <div className='col-sm-12'>
+                            <div className='form-group'>
+                                <label>Card details</label>
+                                <ul className='list-inline'>
+                                    <li className='list-inline-item'><strong>Card Type: </strong>{cardType},</li>
+                                    <li className='list-inline-item'><strong>Card No: </strong>{cardNumber},</li>
+                                    <li className='list-inline-item'><strong>Card Validity: </strong>{cardValidity},</li>
+                                    <li className='list-inline-item'><strong>Name on card: </strong>{nameOnCard},</li>
+                                    <li className='list-inline-item'><strong>Signature: </strong>{signature}</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div className='col-sm-4'>
-                <div className='form-group'>
-                    <label className='control-label'>Last Name</label>
-                    <input disabled type='text' value={lastname} onChange={(e) => setLastName(e.target.value)} className='form-control' placeholder='Enter Last Name' />
-                </div>
-            </div>
-            <div className='col-sm-4'>
-                <div className='form-group'>
-                    <label className='control-label'>Invoice Name</label>
-                    <input disabled type='text' value={invoiceName} onChange={(e) => setInvoiceName(e.target.value)} className='form-control' placeholder='Enter Invoice name' />
-                </div>
-            </div>
-            <div className='col-sm-4'>
-                <div className='form-group'>
-                    <label className='control-label'>Email</label>
-                    <input disabled type='email' value={email} onChange={(e) => setEmail(e.target.value)} className='form-control' placeholder='Email' />
-                </div>
-            </div>
-            <div className='col-sm-4'>
-                <div className='form-group'>
-                    <label className='control-label'>Passcode</label>
-                    <input type='text' value={passcode} onChange={(e) => setPassCode(e.target.value)} className='form-control' disabled />
-                </div>
-            </div>
-            <div className='col-sm-4'>
-                <div className='form-group'>
-                    <label className='control-label'>Phone</label>
-                    <input type='tel' name = {'phone[]'} value={phone} onChange={(e) => setPhone(e.target.value)} className='form-control' disabled />
-                </div>
-            </div>
-            <div className='col-sm-4'>
-                <div className='form-group'>
-                    <label className='control-label'>City</label>
-                    <input type='text' value={city} onChange={(e) => setCity(e.target.value)} className='form-control' disabled />
-                </div>
-            </div>
-            <div className='col-sm-4'>
-                <div className='form-group'>
-                    <label className='control-label'>Street and numbe</label>
-                    <input type='text' value={streetNumber} onChange={(e) => setStreetNumber(e.target.value)} className='form-control' disabled />
-                </div>
-            </div>
-            <div className='col-sm-4'>
-                <div className='form-group'>
-                    <label className='control-label'>Floor</label>
-                    <input type='text' value={floor} onChange={(e) => setFloor(e.target.value)} className='form-control' disabled />
-                </div>
-            </div>
-            <div className='col-sm-4'>
-                <div className='form-group'>
-                    <label className='control-label'>Apt number</label>
-                    <input type='text' value={Apt} onChange={(e) => setApt(e.target.value)} className='form-control' disabled />
-                </div>
-            </div>
-            <div className='col-sm-4'>
-                <div className='form-group'>
-                    <label className='control-label'>Enterance code</label>
-                    <input type='text' value={enterance} onChange={(e) => setEnterance(e.target.value)} className='form-control' disabled />
-                </div>
-            </div>
-            <div className='col-sm-4'>
-                <div className='form-group'>
-                    <label className='control-label'>Zip Code</label>
-                    <input type='text' value={zip} onChange={(e) => setZip(e.target.value)} className='form-control' disabled />
-                </div>
-            </div>
-            <div className='col-sm-4'>
-                <div className='form-group'>
-                    <label className='control-label'>Dob</label>
-                    <input type='text' value={dob} onChange={(e) => setDob(e.target.value)} className='form-control' disabled />
-                </div>
-            </div>
-            <div className='col-sm-4'>
-                <div className='form-group'>
-                    <label className='control-label'>Color</label>
-                    <input type='text' value={color} onChange={(e) => setColor(e.target.value)} className='form-control' disabled />
-                </div>
-            </div>
-            <div className='col-sm-4'>
-                <div className='form-group'>
-                    <label className='control-label'>Status</label>
-                    <select className="form-control" value={status} onChange={(e) => setStatus(e.target.value)}>
-                        <option>Please select</option>
-                        <option value="1">Active</option>
-                        <option value="0">Inactive</option>
-                    </select>
+                <div className='buttonBlocks dashBox p-4'>
+                    <Link to='#!'><i className="fas fa-hand-point-right"></i> Schedule Meeting</Link>
+                    <Link to='#!'><i className="fas fa-hand-point-right"></i> Create Contract</Link>
+                    <Link to='#!'><i className="fas fa-hand-point-right"></i> Add Job</Link>
+                    <Link to='#!'><i className="fas fa-hand-point-right"></i> Send Offer</Link>
+                    <Link to='#!'><i className="fas fa-hand-point-right"></i> Send Email</Link>
                 </div>
             </div>
         </div>
-    </form>
+    </div>
+    </>
   )
 }
