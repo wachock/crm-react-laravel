@@ -184,4 +184,22 @@ class JobController extends Controller
         'jobs' => $jobs
     ]);
     }
+    public function getJobWorker(Request $request){
+        $filter              = [];
+        $filter['status']    = $request->status;
+        $jobs = Job::with('client', 'worker','service')->where('worker_id',$request->wid);
+        
+          if(isset($filter['status']) && $filter['status']){
+            $jobs            = $jobs->where('status', 'completed');
+          }else{
+            $jobs            = $jobs->where('status', '!=','completed');
+          }
+
+        $jobs = $jobs->orderBy('id', 'desc')->paginate(20);
+
+        return response()->json([
+            'jobs' => $jobs
+        ]);
+
+    }
 }
