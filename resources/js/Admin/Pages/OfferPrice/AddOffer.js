@@ -1,13 +1,97 @@
-import React, { useState } from "react";
+import React, { useState , useEffect} from 'react'
 import Sidebar from '../../Layouts/Sidebar'
+import { SelectPicker } from 'rsuite';
+import 'rsuite/dist/rsuite.min.css';
+import axios from 'axios';
+import { useAlert } from 'react-alert';
+import { useNavigate } from 'react-router-dom';
+
 export default function AddOffer() {
+  const alert               = useAlert();
+  const navigate            = useNavigate();
   const [client, setClient] = useState("");
   const [service, setService] = useState("");
   const [instructions, setInstructions] = useState("");
+  const [formValues, setFormValues] = useState([{ description: "",starttime:"",endtime:'',rateperhour:'',totalamount:''}])
   const [starttime, setStartTime] = useState("");
   const [endtime, setEndTime] = useState("");
   const [rateperhour, setRatePerHour] = useState("");
   const [totalamount, setTotalAmout] = useState("");
+
+  const [AllClients,setAllClients]   = useState([]);
+  const [AllServices,setAllServices] = useState([]);
+
+  let handleChange = (i, e) => {
+        console.log(e)
+        let newFormValues = [...formValues];
+        newFormValues[i][e.target.name] = e.target.value;
+        setFormValues(newFormValues);
+      }
+  let addFormFields = () => {
+        setFormValues([...formValues, { description: "",starttime:"",endtime:'',rateperhour:'',totalamount:''}])
+      }
+    
+  let removeFormFields = (i) => {
+        let newFormValues = [...formValues];
+        newFormValues.splice(i, 1);
+        setFormValues(newFormValues)
+    }
+
+  const headers = {
+        Accept: "application/json, text/plain, */*",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ` + localStorage.getItem("admin-token"),
+    };
+
+  const getClients = () =>{
+       axios
+       .get('/api/admin/all-clients',{headers})
+       .then((res)=>{
+         setAllClients(res.data.clients);
+       })
+       
+    }
+    const getServices = () =>{
+        axios
+        .get('/api/admin/all-services',{headers})
+        .then((res)=>{
+          setAllServices(res.data.services);
+        })
+     }
+     useEffect(()=>{
+        getClients();
+        getServices();
+    },[]);
+
+     const cData = AllClients.map((c,i)=>{
+       return {value:c.id,label:(c.firstname+' '+c.lastname)}; 
+    });
+     const sData = AllServices.map((s,i)=>{
+        return {value:s.id,label:(s.name)}; 
+    });
+
+  let handleSubmit = (event) => {
+        event.preventDefault();
+         const data = {
+            client_id  :client,
+            job_id     :service,
+            instruction:instruction,
+            services   : JSON.stringify(formValues),
+         }
+          console.log(data);
+        // axios
+        //     .put(`/api/admin/update_availability/${params.id}`, data, { headers })
+        //     .then((response) => {
+        //         if (response.data.errors) {
+        //             setErrors(response.data.errors);
+        //         } else {
+        //             alert.success("Worker Availabilty Updated Successfully");
+        //             setTimeout(() => {
+        //                 navigate(`/admin/view-worker/${params.id}`);
+        //             }, 1000);
+        //         }
+        //     });
+    }
 
   return (
     <div id="container">
@@ -21,31 +105,14 @@ export default function AddOffer() {
                 <div className='row'>
                   <div className='col-sm-12'>
                     <div className="form-group">
-                      <label className="control-label">Client</label>
-                      <select
-                          className="form-control"
-                          value={client}
-                          onChange={(e) => setClient(e.target.value)}>
-                          <option>Please select</option>
-                          <option value="1">Clemmie Wolf</option>
-                          <option value="2">Savanah Blick</option>
-                          <option value="3">Darryl Turcotte</option>
-                          <option value="4">Vivien Funk</option>
-                      </select>
+                      <div className="form-group">
+                                <label className="control-label">Client Name</label>
+                                <SelectPicker data={cData} value={client} onChange={(value,event)=>setClient(value)} size="lg" required/>
+                            </div>
                     </div>
                     <div className="form-group">
-                      <label className="control-label">Service For</label>
-                      <select
-                          className="form-control"
-                          value={service}
-                          onChange={(e) => setService(e.target.value)}
-                      >
-                          <option>Please select</option>
-                          <option value="1">Planting</option>
-                          <option value="2">Garden grass cutting</option>
-                          <option value="3">Glass furnishing</option>
-                          <option value="4">Door Mattings</option>
-                      </select>
+                      <label className="control-label">Service Name</label>
+                                <SelectPicker data={sData} value={service} onChange={(value,event)=>setService(value)} size="lg" required/>
                     </div>
                     <div className="form-group">
                       <label className="control-label">Instructions</label>
@@ -60,7 +127,7 @@ export default function AddOffer() {
                           <table class="table table-sm">
                             <thead>
                               <tr>
-                                <th style={{width:"50%"}}>Services</th>
+                                <th style={{width:"50%"}}>Description</th>
                                 <th style={{width:"6%"}}>Start Time</th>
                                 <th style={{width:"6%"}}>End Time</th>
                                 <th style={{width:"16%"}}>Rate Per Hour</th>
@@ -69,35 +136,31 @@ export default function AddOffer() {
                               </tr>
                             </thead>
                             <tbody>
-                              <tr>
+                              {formValues.map((element, index) => (
+                              <tr key={index}>
                                 <td>
-                                  <select className="form-control"  value={service} onChange={(e) => setService(e.target.value)}>
-                                    <option>Please select</option>
-                                    <option value="1">Planting</option>
-                                    <option value="2">Garden grass cutting</option>
-                                    <option value="3">Glass furnishing</option>
-                                    <option value="4">Door Mattings</option>
-                                  </select>
+                                  <textarea value={element.description || "" } onChange={e => handleChange(index, e)} className="form-control" required placeholder="Description"/>
                                 </td>
                                 <td>
-                                  <input type="time" value={starttime} onChange={(e) => setStartTime(e.target.value)} className="form-control" required />
+                                  <input type="time" value={element.starttime || "" } onChange={e => handleChange(index, e)} className="form-control" required />
                                 </td>
                                 <td>
-                                  <input type="time" value={endtime} onChange={(e) => setEndTime(e.target.value)} className="form-control" required />
+                                  <input type="time" value={element.endtime || "" } onChange={e => handleChange(index, e)} className="form-control" required />
                                 </td>
                                 <td>
-                                  <input type="text" value={rateperhour} onChange={(e) => setRatePerHour(e.target.value)} className="form-control" required placeholder="Enter rate per hour"/>
+                                  <input type="text" value={element.rateperhour || ""} onChange={e => handleChange(index, e)} className="form-control" required placeholder="Enter rate per hour"/>
                                 </td>
                                 <td>
-                                  <input type="text" value={totalamount} onChange={(e) => setTotalAmout(e.target.value)} className="form-control" required placeholder="Enter total amount"/>
+                                  <input type="text" value={element.totalamount || "" } onChange={e => handleChange(index, e)} className="form-control" required placeholder="Enter total amount"/>
                                 </td>
-                                <td class="text-right"><button className="ml-2 btn bg-red" onClick={() => handleDelete(item.id)}><i className="fa fa-minus"></i></button></td>
+                                <td class="text-right"><button className="ml-2 btn bg-red" onClick={() => removeFormFields(index)}><i className="fa fa-minus"></i></button></td>
                               </tr>
+                              ))}
                             </tbody>
                             <tfoot>
                               <tr>
-                                <td class="text-right" colspan="6">
-                                    <button type="button" class="btn bg-green" onclick="addLineItem();"><i class="fa fa-plus"></i></button>
+                                <td class="text-right" colSpan="6">
+                                    <button type="button" class="btn bg-green" onClick={() => addFormFields()}><i class="fa fa-plus"></i></button>
                                 </td>
                               </tr>
                             </tfoot>
@@ -108,7 +171,7 @@ export default function AddOffer() {
                   </div>
                 </div>
                 <div className="text-right">
-                    <input type="submit" value="Save and Send" className="btn btn-pink saveBtn"/>
+                    <input type="submit" value="Save and Send" className="btn btn-pink saveBtn" onClick={handleSubmit}/>
                 </div>
               </form>
             </div>
