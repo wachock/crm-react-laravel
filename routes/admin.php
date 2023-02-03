@@ -48,6 +48,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin-api', 'scopes:ad
     // Jobs Api
     Route::resource('jobs', JobController::class);
     Route::post('get-client-jobs',[JobController::class,'getJobByClient'])->name('get-client-jobs');
+    Route::post('get-worker-jobs',[JobController::class,'getJobWorker']);
     // workers Api
     Route::resource('workers', WorkerController::class);
     Route::get('all-workers', [WorkerController::class,'AllWorkers']);
