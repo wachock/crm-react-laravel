@@ -1,12 +1,12 @@
-import React from 'react'
+import React from "react";
+import { Link } from "react-router-link";
+import { useNavigate} from "react-router-dom";
 import User from '../../Assets/image/user.png';
-import { useAlert } from 'react-alert';
-import { useNavigate } from 'react-router-dom';
-import {Link} from 'react-router-link';
+import { useAlert } from "react-alert";
 
 export default function AdminHeader() {
   const alert = useAlert();
-    const navigate = useNavigate();
+   const navigate = useNavigate();
 
     const HandleLogout = (e) => {
         fetch("/api/admin/logout", {

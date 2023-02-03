@@ -18,6 +18,7 @@ import Client from './Client/Client';
 import ClientDashboard from './Client/ClientDashboard';
 
 // Worker Routes
+
 import Worker from './Worker/Worker';
 import WorkerDashboard from './Worker/Dashboard';
 
@@ -27,6 +28,7 @@ import AdminDashboard from './Admin/Dashboard';
 import TotalJobs from './Admin/Pages/Jobs/TotalJobs';
 import AddJob from './Admin/Pages/Jobs/AddJob';
 import ViewJob from './Admin/Pages/Jobs/ViewJob';
+import EditJob from './Admin/Pages/Jobs/EditJob'
 import Clients from './Admin/Pages/Clients/Client';
 import AddClient from './Admin/Pages/Clients/AddClient';
 import EditClient from './Admin/Pages/Clients/EditClient';
@@ -74,6 +76,8 @@ import AddContract from './Admin/Pages/Contract/AddContract';
 import EditContract from './Admin/Pages/Contract/EditContract';
 import ViewContract from './Admin/Pages/Contract/ViewContract';
 import Error404 from './Error404';
+import WorkerLogin from './Worker/Auth/WorkerLogin';
+import ClientLogin from './Client/Auth/ClientLogin';
 
 TimeAgo.addDefaultLocale(en)
 const options = {
@@ -88,11 +92,11 @@ export default function MyRoutes() {
             <Routes>
                {/* Home route  */}
                <Route exact path="/" element={<AdminLogin />} />
+               <Route exact path="client/login" element={<ClientLogin />} />
+               <Route exact path="worker/login" element={<WorkerLogin />} />
 
                {/* Client Routes Start  */}
-               <Route path="client" element={<Client/>} >
-
-               </Route>
+               
                <Route element={<ClientProtectedRoutes />}>
                   <Route path="client" element={<Client />} >
                      <Route exact path="dashboard" element={<ClientDashboard/>} />
@@ -102,6 +106,8 @@ export default function MyRoutes() {
 
                   
                {/* Worker Routes Start  */}
+               <Route exact path="worker/login" element={<WorkerLogin />} />
+               
                <Route path="worker" element={<Worker/>} >
 
                </Route>
@@ -122,6 +128,7 @@ export default function MyRoutes() {
                      <Route exact path="add-job" element={<AddJob />} />
                      <Route exact path="view-job/:id" element={<ViewJob />} />
                      <Route exact path="add-job" element={<AddJob />} />
+                     <Route exact path="edit-job/:id" element={<EditJob />} />
                      <Route exact path="clients" element={<Clients />} />
                      <Route exact path="add-client" element={<AddClient />} />
                      <Route exact path="edit-client/:id" element={<EditClient />} />

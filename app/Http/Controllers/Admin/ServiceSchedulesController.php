@@ -26,6 +26,13 @@ class ServiceSchedulesController extends Controller
 
         
     }
+    public function allSchedules(){
+
+        $schedule = serviceSchedules::where('status',1)->get();
+        return response()->json([
+            'schedules'       => $schedule,            
+        ], 200);
+    }
 
     /**
      * Show the form for creating a new resource.

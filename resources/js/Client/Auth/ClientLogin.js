@@ -5,34 +5,35 @@ import { Container } from "react-bootstrap";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
-//import Footer from "../Worker/Layouts/Footer";
-//import Header from "../Worker/Layouts/Header";
+//import Footer from "../client/Layouts/Footer";
+//import Header from "../client/Layouts/Header";
 import ReCAPTCHA from "react-google-recaptcha";
-import logo from ".././Assets/image/logo.png";
+import logo from "../../Assets/image/logo.png";
 
-export default function Login() {
-    const [worker, setWorker] = useState("");
+
+export default function ClientLogin() {
+    const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [errors, setErrors] = useState([]);
 
     const HandleLogin = (e) => {
         e.preventDefault();
         const data = {
-            worker_id: worker,
+            email: email,
             password: password,
         };
-        axios.post(`/api/login`, data).then((result) => {
+        axios.post(`/api/client/login`, data).then((result) => {
             if (result.data.errors) {
                 setErrors(result.data.errors);
             } else {
-                localStorage.setItem("worker-token", result.data.token);
+                localStorage.setItem("client-token", result.data.token);
                 localStorage.setItem(
-                    "worker-name",
+                    "client-name",
                     result.data.firstname + " " + result.data.lastname
                 );
-                localStorage.setItem("worker-id", result.data.id);
+                localStorage.setItem("client-id", result.data.id);
 
-                    window.location = "/worker/dashboard";
+                    window.location = "/client/dashboard";
             }
         });
     };
@@ -41,12 +42,11 @@ export default function Login() {
     };
 
     return (
-       
            <div id="loginPage">
             <div className="container adminLogin">
                 <div className="formSide"> 
                     <img src={logo} className="img-fluid" />
-                    <h1 className="page-title">Worker Login</h1>
+                    <h1 className="page-title">Client Login</h1>
                     <form>
                         <div className="form-group">
                             <div className="input-group mt-2">
@@ -62,7 +62,7 @@ export default function Login() {
                                     type="email"
                                     className="form-control"
                                     onChange={(e) =>
-                                        setWorker(e.target.value)
+                                        setEmail(e.target.value)
                                     }
                                     placeholder="Username"
                                     name="username"

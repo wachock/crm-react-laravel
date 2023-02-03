@@ -1,9 +1,11 @@
 import React from 'react'
+import { useParams,Link } from "react-router-dom";
 import CurrentJob from './CurrentJob'
 import PastJob from './PastJob'
 import WorkerAvailabilty from './WorkerAvailabilty'
 
 export default function WorkerHistory() {
+    const params = useParams();
   return (
     <div className='ClientHistory'>
         <ul className="nav nav-tabs" role="tablist">
@@ -17,8 +19,8 @@ export default function WorkerHistory() {
             <div id="tab-past-job" className="tab-pane" role="tab-panel" aria-labelledby="past-job"><PastJob/></div>
         </div>
         <div className='button-group'>
-            <button className="btn bg-pink">Edit Worker</button>
-            <button className="btn bg-yellow">New Job</button>
+            <Link to={`/admin/edit-worker/${params.id}`} className="btn bg-pink">Edit Worker</Link>
+            <Link to="/admin/add-job" className="btn bg-yellow">New Job</Link>
             <button className="btn bg-purple">Send Email</button>
         </div>
     </div>

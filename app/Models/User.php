@@ -52,7 +52,7 @@ class User extends Authenticatable
     }
     public function getSkillAttribute($value)
     {
-        return $this->attributes['skill'] = json_decode($value);
+        return $this->attributes['skill'] = $value;
     }
 
     public function jobs()
