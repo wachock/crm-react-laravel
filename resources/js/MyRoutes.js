@@ -75,7 +75,8 @@ import AddContract from './Admin/Pages/Contract/AddContract';
 import EditContract from './Admin/Pages/Contract/EditContract';
 import ViewContract from './Admin/Pages/Contract/ViewContract';
 import Error404 from './Error404';
-
+import WorkerLogin from './Pages/WorkerLogin';
+import ClientLogin from './Pages/ClientLogin';
 TimeAgo.addDefaultLocale(en)
 const options = {
    timeout: 2000,
@@ -89,11 +90,11 @@ export default function MyRoutes() {
             <Routes>
                {/* Home route  */}
                <Route exact path="/" element={<AdminLogin />} />
+               <Route exact path="client/login" element={<ClientLogin />} />
+               <Route exact path="worker/login" element={<WorkerLogin />} />
 
                {/* Client Routes Start  */}
-               <Route path="client" element={<Client/>} >
-
-               </Route>
+               
                <Route element={<ClientProtectedRoutes />}>
                   <Route path="client" element={<Client />} >
                      <Route exact path="dashboard" element={<ClientDashboard/>} />
