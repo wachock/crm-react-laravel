@@ -18,6 +18,7 @@ import Client from './Client/Client';
 import ClientDashboard from './Client/ClientDashboard';
 
 // Worker Routes
+import WorkerLogin from './Worker/Auth/WorkerLogin';
 import Worker from './Worker/Worker';
 import WorkerDashboard from './Worker/Dashboard';
 
@@ -103,6 +104,8 @@ export default function MyRoutes() {
 
                   
                {/* Worker Routes Start  */}
+               <Route exact path="/worker/login" element={<WorkerLogin />} />
+               
                <Route path="worker" element={<Worker/>} >
 
                </Route>
