@@ -117,6 +117,9 @@ export default function ViewSchedule() {
                             </div>
                         </div>
                     </div>
+                    <div className='text-center mt-3'>
+                        <button className='btn btn-pink'>Send meeting</button>
+                    </div>
                     <div className='worker-avail'>
                         <h4 className='text-center'>Worker Availability</h4>
                         <FullCalendar
