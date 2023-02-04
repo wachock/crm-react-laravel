@@ -445,7 +445,7 @@ table tr td .dropdown-item{
   min-height: 200px;
 }
 #container{
-  font-size: 15px;
+  font-size: 14px;
   color: #172c40;
 }
 #container #content .form-group label {
@@ -723,7 +723,7 @@ table tr td .dropdown-item{
   color: #000;
 }
 .ClientHistory .tab-content{
-  border: 1px solid #ccc;
+  border: 1px solid #dfe2e6;
   border-top: none;
   border-bottom-right-radius: 4px;
   border-bottom-left-radius: 4px;
@@ -812,6 +812,90 @@ table tr td .dropdown-item{
   background: #b389ff;
   color: #fff;
 }
-.client-view .dashBox{
-  min-height: 400px;
+.min-414{
+  min-height: 414px;
+}
+.client-view .dashStatus{
+  color: rgb(255, 255, 255);
+  padding: 5px 10px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+}
+h1 {
+  font-size: 30px !important;
+  line-height: 45px !important;
+}
+.maxWidthControl{
+  max-width: 770px;
+  margin: 0 auto;
+}
+.sch-meet h1{
+  color: #dc3545;
+  font-size: 21px !important;
+}
+.sch-meet ul li i{
+  min-width: 20px;
+}
+.sch-meet ul li{
+  line-height: 24px;
+}
+.sch-meet label{
+  font-size: 16px !important;
+}
+.sch-meet select{
+  border-radius: 6px;
+  background: #e8f4ff !important;
+  border: 1px solid #b4ddff;
+}
+.mSchedule h4{
+  font-weight: 500;
+  margin-top: 15px;
+  margin-bottom: 20px;
+}
+.mSchedule label{
+  color: darkred !important;
+  font-size: 15px !important;
+}
+.react-datepicker{
+  width: 400px;
+  background: #fff;
+  box-shadow: 0 1px 6px 0 rgb(0 0 0 / 20%);
+}
+.react-datepicker__month-container{
+  width: 100% !important;
+}
+.react-datepicker__header{
+  background: #fff !important;
+  border-bottom: none !important;
+}
+.react-datepicker__header .react-datepicker__current-month{
+  font-size: 21px !important;
+}
+.react-datepicker__day-name, .react-datepicker__day, .react-datepicker__time-name{
+  width: 3rem !important;
+  border: 1px solid #e6e8eb !important;
+}
+.react-datepicker__day-name {
+  background: #e8f4fe !important;
+  color: #222 !important;
+  font-weight: 600 !important;
+  border: 1px solid #e6e8eb !important;
+  letter-spacing: 0.8px !important;
+}
+.react-datepicker__day--selected, .react-datepicker__day--in-selecting-range, .react-datepicker__day--in-range, .react-datepicker__month-text--selected, .react-datepicker__month-text--in-selecting-range, .react-datepicker__month-text--in-range, .react-datepicker__quarter-text--selected, .react-datepicker__quarter-text--in-selecting-range, .react-datepicker__quarter-text--in-range, .react-datepicker__year-text--selected, .react-datepicker__year-text--in-selecting-range, .react-datepicker__year-text--in-range{
+  background-color: #dc3545 !important;
+  border-color: #dc3545 !important;
+}
+.react-datepicker__year-read-view--down-arrow, .react-datepicker__month-read-view--down-arrow, .react-datepicker__month-year-read-view--down-arrow, .react-datepicker__navigation-icon::before{
+  height: 11px !important;
+  top: 10px !important;
+  width: 11px !important;
+  border-color: #000 !important;
+}
+.react-datepicker__input-container input{
+  padding-left: 10px;
+  background: #e8f4fe;
+  width: 100%;
+  border-radius: 4px;
 }

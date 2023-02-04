@@ -79,6 +79,7 @@ import Error404 from './Error404';
 import WorkerLogin from './Worker/Auth/WorkerLogin';
 import ClientLogin from './Client/Auth/ClientLogin';
 import Schedule from './Admin/Pages/Schedule/Schedule';
+import ViewSchedule from './Admin/Pages/Schedule/ViewSchedule';
 
 TimeAgo.addDefaultLocale(en)
 const options = {
@@ -176,6 +177,7 @@ export default function MyRoutes() {
                      <Route exact path="edit-contract" element={<EditContract />} />
                      <Route exact path="view-contract" element={<ViewContract />} />
                      <Route exact path="schedule" element={<Schedule />} />
+                     <Route exact path="view-schedule" element={<ViewSchedule />} />
                   </Route>
                </Route>
                {/* Admin Routes End  */}
