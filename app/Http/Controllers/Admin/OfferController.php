@@ -17,6 +17,11 @@ class OfferController extends Controller
     public function index()
     {
         //
+        $offers = Offer::with('client','service');
+        $offers = $offers->orderBy('id', 'desc')->paginate(20);
+        return response()->json([
+            'offers'=>$offers
+        ]);
     }
 
     /**
@@ -42,17 +47,18 @@ class OfferController extends Controller
             'client_id'    => ['required'],
             'job_id'       => ['required'],
             'instructions' => ['required'],
-            'services'     => ['required']
+            'status'       => ['required'],
+            'total'        => ['required'],
         ]);
         if($validator->fails()){
             return response()->json(['errors'=>$validator->messages()]);
         }
-        $services = '';
-        if(isset($request->services)){
-             $services = serialize($request->services);
+        $items = '';
+        if(isset($request->items)){
+             $items = ($request->items);
         }
         $input             = $request->input(); 
-        $input['services'] = $services;
+        $input['items'] = $items;
         Offer::create($input);
         
         return response()->json([
@@ -101,8 +107,12 @@ class OfferController extends Controller
      * @param  \App\Models\Offer  $offer
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Offer $offer)
+    public function destroy($id)
     {
         //
+        Offer::find($id)->delete();
+        return response()->json([
+            'message'=>'Offer has been deleted successfully'
+        ],200);
     }
 }

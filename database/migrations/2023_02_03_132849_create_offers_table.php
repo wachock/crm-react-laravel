@@ -18,7 +18,9 @@ class CreateOffersTable extends Migration
             $table->unsignedBigInteger('client_id');
             $table->unsignedBigInteger('job_id');
             $table->string('instructions');
-            $table->longText('services');
+            $table->longText('items');
+            $table->floatval('total');
+            $table->integer('status');
             $table->timestamps();
         });
     }

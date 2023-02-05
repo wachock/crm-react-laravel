@@ -17,8 +17,7 @@ export default function AddOffer() {
   const [starttime, setStartTime] = useState("");
   const [endtime, setEndTime] = useState("");
   const [rateperhour, setRatePerHour] = useState("");
-  const [totalamount, setTotalAmout] = useState("");
-
+  const [status,setStatus]= useState("generated");
   const [AllClients,setAllClients]   = useState([]);
   const [AllServices,setAllServices] = useState([]);
 
@@ -70,16 +69,27 @@ export default function AddOffer() {
      const sData = AllServices.map((s,i)=>{
         return {value:s.id,label:(s.name)}; 
     });
+    const stData = ['generated','sent','accepted','declined'].map((s,i)=>{
+      return {value:s,label:s};
+    }); 
 
-  let handleSubmit = (event) => {
+  let handleSubmit = (event) => { 
+       
         event.preventDefault();
+        let to = 0;
+        for( let t in formValues){
+           to += parseInt(formValues[t].totalamount);
+        }
+
          const data = {
             client_id  :client,
             job_id     :service,
             instructions:instructions,
-            services   : (formValues),
+            status:status,
+            total:to,
+            items   : JSON.stringify(formValues),
          }
-          console.log(data);
+        
          axios
              .post(`/api/admin/offers`, data, { headers })
              .then((response) => {
@@ -121,6 +131,15 @@ export default function AddOffer() {
                       <label className="control-label">Instructions</label>
                       <textarea value={instructions} onChange={(e) => setInstructions(e.target.value)} className="form-control" required placeholder="Instructions"/>
                     </div>
+                    <div className="form-group">
+                      <label className="control-label">Status</label>
+                        <select name="status" className='form-control' value={status} onChange={e=>setStatus(e.target.value)}>
+                          <option value='generated'>Generated</option>
+                          <option value='sent'>Sent</option>
+                          <option value='accepted'>Accepted</option>
+                          <option value='declined'>Declined</option>
+                        </select>
+                    </div>
                     <div className="card card-dark">
                       <div className="card-header card-black">
                         <h3 class="card-title">Line Items</h3>
@@ -159,7 +178,9 @@ export default function AddOffer() {
                                 <td class="text-right"><button className="ml-2 btn bg-red" onClick={() => removeFormFields(index)}><i className="fa fa-minus"></i></button></td>
                               </tr>
                               ))}
+                             
                             </tbody>
+                           
                             <tfoot>
                               <tr>
                                 <td class="text-right" colSpan="6">
