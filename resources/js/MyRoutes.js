@@ -61,6 +61,9 @@ import Plans from './Admin/Pages/Plans/Plans';
 import AddPlan from './Admin/Pages/Plans/AddPlan';
 import EditPlan from './Admin/Pages/Plans/EditPlan';
 import Setting from './Admin/Pages/Setting/Setting';
+import ManageTeam from './Admin/Pages/Setting/ManageTeam';
+import AddTeam from './Admin/Pages/Setting/AddTeam';
+import EditTeam from './Admin/Pages/Setting/EditTeam';
 import Services from './Admin/Pages/Services/Services';
 import AddService from './Admin/Pages/Services/AddService';
 import EditService from './Admin/Pages/Services/EditService';
@@ -80,6 +83,7 @@ import WorkerLogin from './Worker/Auth/WorkerLogin';
 import ClientLogin from './Client/Auth/ClientLogin';
 import Schedule from './Admin/Pages/Schedule/Schedule';
 import ViewSchedule from './Admin/Pages/Schedule/ViewSchedule';
+
 
 TimeAgo.addDefaultLocale(en)
 const options = {
@@ -162,6 +166,9 @@ export default function MyRoutes() {
                      <Route exact path="add-plan" element={<AddPlan />} />
                      <Route exact path="edit-plan/:id" element={<EditPlan />} />
                      <Route exact path="settings" element={<Setting />} />
+                     <Route exact path="manage-team" element={<ManageTeam />} />
+                     <Route exact path="add-team" element={<AddTeam />} />
+                     <Route exact path="edit-team/:id" element={<EditTeam />} />
                      <Route exact path="services" element={<Services />} />
                      <Route exact path="add-service" element={<AddService />} />
                      <Route exact path="edit-service/:id" element={<EditService />} />
@@ -177,7 +184,7 @@ export default function MyRoutes() {
                      <Route exact path="edit-contract" element={<EditContract />} />
                      <Route exact path="view-contract" element={<ViewContract />} />
                      <Route exact path="schedule" element={<Schedule />} />
-                     <Route exact path="view-schedule" element={<ViewSchedule />} />
+                     <Route exact path="view-schedule/:id" element={<ViewSchedule />} />
                   </Route>
                </Route>
                {/* Admin Routes End  */}

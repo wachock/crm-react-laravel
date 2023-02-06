@@ -72,7 +72,7 @@ body{
 }
 #column-left ul{
   padding: 0 20px;
-  margin-top: 20px;
+  margin-top: 10px;
 }
 #column-left ul li:hover a i{
   color: #757589;
@@ -108,7 +108,7 @@ body{
   font-weight: 600;
   padding-top: 20px;
   margin-bottom: 20px;
-  font-size: 24px;
+  font-size: 24px !important;
   border-bottom: 1px solid #dfdfdf;
   line-height: 45px;
 }
@@ -191,14 +191,16 @@ body{
 }
 #fence .card-body{
   padding: 0;
-  background: #f4a583;
-  padding-left: 30px;
+  background: #f9f9fd;
+}
+#fence .card-body ul{
+  padding-left: 10px;
 }
 #fence .card-body li{
   border: none;
 }
 #fence .card-body li a{
-  color: #fff;
+  color: #757589;
 }
 #fence .btn.focus, #fence .btn:focus{
   box-shadow: none;
@@ -293,8 +295,8 @@ table tr td .dropdown-item{
   margin: 16px 0 16px 270px;
   font-weight: 700;
   color: #172c40;
-  line-height: 30px;
-  font-size: 24px;
+  line-height: 30px !important;
+  font-size: 24px !important;
 }
 .adminDash .dashBox{
   display: inline-flex;
@@ -546,7 +548,7 @@ table tr td .dropdown-item{
   margin-left: -234px !important;
 }
 .commonDropdown ul li a i{
-  color: #fff !important;
+  color: #757589 !important;
   margin-right: 0 !important;
 }
 .skill-search{
