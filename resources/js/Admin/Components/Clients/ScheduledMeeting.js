@@ -9,7 +9,6 @@ export default function ScheduledMeeting() {
                     <tr>
                         <th>ID</th>
                         <th>Meeting Attender</th>
-                        <th>Service Name</th>
                         <th>Scheduled</th>
                         <th>Status</th>
                         <th>Action</th>
@@ -19,7 +18,6 @@ export default function ScheduledMeeting() {
                     <tr>
                         <td>#001</td>
                         <td>Alice Jacobs</td>
-                        <td>Lorem Ipsum Doler</td>
                         <td>24/01/2023, Tue 10:00AM </td>
                         <td>Sent</td>
                         <td>
