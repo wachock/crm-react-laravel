@@ -19,7 +19,7 @@ class CreateOffersTable extends Migration
             $table->unsignedBigInteger('job_id');
             $table->string('instructions');
             $table->longText('items');
-            $table->floatval('total');
+            $table->integer('total');
             $table->integer('status');
             $table->timestamps();
         });
