@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700;800&display=swap');
 body{
   font-family: 'Rubik', sans-serif !important;
   font-size: 14px;
@@ -900,4 +901,105 @@ h1 {
   background: #e8f4fe;
   width: 100%;
   border-radius: 4px;
+}
+.boiler-heading{
+  background: #000;
+  padding-top: 10px;
+}
+.boiler-heading h2{
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: 400;
+  font-size: 28px;
+  line-height: 38px;
+}
+.boiler-heading ul{
+  float: right;
+}
+.boiler-heading .btn-default{
+  background: #fff;
+  margin-right: 10px;
+}
+.send-offer{
+  margin-top: 30px;
+  font-family: 'Open Sans', sans-serif;
+}
+.send-offer img.offer-logo{
+  margin: 0 auto;
+  display: block;
+  margin-bottom: 40px;
+}
+.send-offer h1{
+  letter-spacing: -0.8px;
+  font-weight: 700;
+  color: #000;
+  margin-bottom: 10px;
+}
+.send-offer .date{
+  float: right;
+    margin-top: 15px;
+    font-weight: 600;
+    font-size: 18px;
+}
+.send-offer p{
+  font-size: 15px;
+  color: #000;
+  font-weight: 500;
+}
+.grey-bd{
+  border-bottom: 2px solid #777;
+  padding-bottom: 30px;
+}
+.send-offer .abt h2, .send-offer h3{
+  color: #1b3f79;
+  font-size: 22px;
+  line-height: 34px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+.send-offer .abt p{
+  font-size: 14px;
+  line-height: 22px;
+}
+.send-offer .table td, .send-offer .table th{
+  border-bottom: none;
+  border-top: none;
+}
+.send-offer .table th{
+  border-bottom: 1px solid #ccc !important;
+}
+.send-offer .shift-20{
+  padding-left: 30px;
+}
+.shift-20 h4{
+  color: #1b3f79;
+  font-size: 18px;
+  line-height: 26px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.shift-20 ul li{
+  font-size: 14px;
+  color: #000;
+  font-weight: 500;
+  line-height: 34px;
+}
+.shift-20 ul li img{
+  margin-right: 5px;
+}
+.send-offer .dashBox{
+  padding: 20px;
+  padding-bottom: 0 !important;
+}
+.send-offer .total-amount{
+  background: #1b3f7a;
+  padding: 8px 15px;
+}
+.send-offer .total-amount h5{
+  color: #fff;
+}
+.send-offer .total-amount p{
+  color: #fff;
+  font-weight: 700;
+  font-size: 18px;
 }
