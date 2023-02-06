@@ -116,8 +116,8 @@ export default function ProfileDetails() {
                 </div>
                 <div className='buttonBlocks dashBox mt-3 p-4'>
                     <Link to='/admin/view-schedule'><i className="fas fa-hand-point-right"></i> Schedule Meeting</Link>
-                    <Link to='#!'><i className="fas fa-hand-point-right"></i> Create Contract</Link>
                     <Link to='#!'><i className="fas fa-hand-point-right"></i> Send Offer</Link>
+                    <Link to='/create-contract'><i className="fas fa-hand-point-right"></i> Create Contract</Link> 
                 </div>
             </div>
         </div>
