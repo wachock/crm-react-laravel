@@ -11,24 +11,25 @@ export default function AddOffer() {
   const alert               = useAlert();
   const navigate            = useNavigate();
   const [client, setClient] = useState("");
-  const [service, setService] = useState("");
-  const [instructions, setInstructions] = useState("");
-  const [formValues, setFormValues] = useState([{ description: "",starttime:"",endtime:'',rateperhour:'',totalamount:''}])
-  const [starttime, setStartTime] = useState("");
-  const [endtime, setEndTime] = useState("");
-  const [rateperhour, setRatePerHour] = useState("");
-  const [status,setStatus]= useState("generated");
+  const [formValues, setFormValues] = useState([{ service: "",jobHours:"",rateperhour:'',totalamount:''}])
+  const [description, setDescription] = useState("");
   const [AllClients,setAllClients]   = useState([]);
   const [AllServices,setAllServices] = useState([]);
 
   let handleChange = (i, e) => {
         
         let newFormValues = [...formValues];
+         
+          var h = e.target.parentNode.parentNode.childNodes[1].childNodes[0].value;
+          var rh = e.target.parentNode.parentNode.childNodes[2].childNodes[0].value;
+          if(rh != '' && h != '')
+          e.target.parentNode.parentNode.childNodes[3].childNodes[0].setAttribute('value',h*rh);
+  
         newFormValues[i][e.target.name] = e.target.value;
         setFormValues(newFormValues);
       }
   let addFormFields = () => {
-        setFormValues([...formValues, { description: "",starttime:"",endtime:'',rateperhour:'',totalamount:''}])
+        setFormValues([...formValues, { service: "",jobHours:"",rateperhour:'',totalamount:''}])
       }
     
   let removeFormFields = (i) => {
@@ -67,29 +68,26 @@ export default function AddOffer() {
        return {value:c.id,label:(c.firstname+' '+c.lastname)}; 
     });
      const sData = AllServices.map((s,i)=>{
-        return {value:s.id,label:(s.name)}; 
+       return {value:s.id,label:(s.name)}; 
     });
-    const stData = ['generated','sent','accepted','declined'].map((s,i)=>{
-      return {value:s,label:s};
-    }); 
-
+   
   let handleSubmit = (event) => { 
        
         event.preventDefault();
         let to = 0;
         for( let t in formValues){
+          formValues[t].totalamount = ( formValues[t].jobHours * formValues[t].rateperhour);
            to += parseInt(formValues[t].totalamount);
         }
 
          const data = {
             client_id  :client,
-            job_id     :service,
-            instructions:instructions,
-            status:status,
+            description:description,
+            status:'sent',
             total:to,
-            items   : JSON.stringify(formValues),
+            services : JSON.stringify(formValues),
          }
-        
+        console.log(data);
          axios
              .post(`/api/admin/offers`, data, { headers })
              .then((response) => {
@@ -104,6 +102,7 @@ export default function AddOffer() {
                      }, 1000);
                  }
              });
+             
     }
 
   return (
@@ -123,35 +122,26 @@ export default function AddOffer() {
                                 <SelectPicker data={cData} value={client} onChange={(value,event)=>setClient(value)} size="lg" required/>
                             </div>
                     </div>
-                    <div className="form-group">
+                   {/* <div className="form-group">
                       <label className="control-label">Service Name</label>
                                 <SelectPicker data={sData} value={service} onChange={(value,event)=>setService(value)} size="lg" required/>
-                    </div>
+                   </div>*/}
                     <div className="form-group">
-                      <label className="control-label">Instructions</label>
-                      <textarea value={instructions} onChange={(e) => setInstructions(e.target.value)} className="form-control" required placeholder="Instructions"/>
+                      <label className="control-label">Description</label>
+                      <textarea value={description} onChange={(e) => setDescription(e.target.value)} className="form-control" required placeholder="Description"/>
                     </div>
-                    <div className="form-group">
-                      <label className="control-label">Status</label>
-                        <select name="status" className='form-control' value={status} onChange={e=>setStatus(e.target.value)}>
-                          <option value='generated'>Generated</option>
-                          <option value='sent'>Sent</option>
-                          <option value='accepted'>Accepted</option>
-                          <option value='declined'>Declined</option>
-                        </select>
-                    </div>
+                   
                     <div className="card card-dark">
                       <div className="card-header card-black">
-                        <h3 class="card-title">Line Items</h3>
+                        <h3 class="card-title">Services</h3>
                       </div>
                       <div className="card-body">
                         <div className="table-responsive">
                           <table class="table table-sm">
                             <thead>
                               <tr>
-                                <th style={{width:"50%"}}>Description</th>
-                                <th style={{width:"6%"}}>Start Time</th>
-                                <th style={{width:"6%"}}>End Time</th>
+                                <th style={{width:"50%"}}>service</th>
+                                <th style={{width:"16%"}}>Job Hours</th>
                                 <th style={{width:"16%"}}>Rate Per Hour</th>
                                 <th style={{width:"16%"}}>Total Amount</th>
                                 <th style={{width:"6%"}}></th>
@@ -160,20 +150,25 @@ export default function AddOffer() {
                             <tbody>
                               {formValues.map((element, index) => (
                               <tr key={index}>
+                                
                                 <td>
-                                  <textarea name="description" value={element.description || "" } onChange={e => handleChange(index, e)} className="form-control" required placeholder="Description"/>
+                                  <select name="service" className="form-control" value={element.service || "" } onChange={e => handleChange(index, e)} >
+                                    <option selected> -- select --</option>
+                                   { AllServices && AllServices.map((s,i)=>{
+                                     return (
+                                        <option value={s.id}> {s.name} </option>
+                                     )
+                                   })}
+                                  </select>
                                 </td>
                                 <td>
-                                  <input type="time" name="starttime" value={element.starttime || "" } onChange={e => handleChange(index, e)} className="form-control" required />
+                                  <input type="number" name="jobHours" value={element.jobHours || "" } onChange={e => handleChange(index, e)} className="form-control" required placeholder="Enter job Hrs" />
                                 </td>
                                 <td>
-                                  <input type="time"  name="endtime" value={element.endtime || "" } onChange={e => handleChange(index, e)} className="form-control" required />
+                                  <input type="text" name="rateperhour" value={element.rateperhour || ""} onChange={e => handleChange(index, e)} className="form-control" required placeholder="Enter rate P/Hr"/>
                                 </td>
                                 <td>
-                                  <input type="text" name="rateperhour" value={element.rateperhour || ""} onChange={e => handleChange(index, e)} className="form-control" required placeholder="Enter rate per hour"/>
-                                </td>
-                                <td>
-                                  <input type="text" name="totalamount" value={element.totalamount || "" } onChange={e => handleChange(index, e)} className="form-control" required placeholder="Enter total amount"/>
+                                  <input type="text" name="totalamount" readonly disabled className="form-control" required  placeholder="Total"/>
                                 </td>
                                 <td class="text-right"><button className="ml-2 btn bg-red" onClick={() => removeFormFields(index)}><i className="fa fa-minus"></i></button></td>
                               </tr>

@@ -17,7 +17,7 @@ class OfferController extends Controller
     public function index()
     {
         //
-        $offers = Offer::with('client','service');
+        $offers = Offer::with('client');
         $offers = $offers->orderBy('id', 'desc')->paginate(20);
         return response()->json([
             'offers'=>$offers
@@ -42,22 +42,17 @@ class OfferController extends Controller
      */
     public function store(Request $request)
     {
+       
         $validator  = Validator::make($request->all(),[
 
             'client_id'    => ['required'],
-            'job_id'       => ['required'],
-            'instructions' => ['required'],
             'status'       => ['required'],
         ]);
         if($validator->fails()){
             return response()->json(['errors'=>$validator->messages()]);
         }
-        $items = '';
-        if(isset($request->items)){
-             $items = ($request->items);
-        }
+       
         $input             = $request->input(); 
-        $input['items'] = $items;
         Offer::create($input);
         
         return response()->json([
