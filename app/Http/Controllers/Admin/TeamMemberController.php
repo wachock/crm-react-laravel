@@ -43,9 +43,9 @@ class TeamMemberController extends Controller
     {
         $validator = Validator::make($request->all(),[
             'name' =>['required'],
-            'email'=>['required'],
+            'email'     => ['required', 'string', 'email', 'max:255', 'unique:team_members'],
             'phone'=>['required'],
-            'password'=>['required','min:6','confirm'],
+            'password'=>['required','min:6','required_with:confirmation','same:confirmation'],
             'status' =>['required'],
         ]);
         if($validator->fails()){
@@ -76,7 +76,7 @@ class TeamMemberController extends Controller
      */
     public function edit($id)
     {
-        $member = TeamMember::find($id)->get();
+        $member = TeamMember::where('id',$id)->get();
         return response()->json([
             'member'=>$member
         ]);
@@ -93,15 +93,16 @@ class TeamMemberController extends Controller
     {
          $validator = Validator::make($request->all(),[
             'name' =>['required'],
-            'email'=>['required'],
+            'email'     => ['required', 'string', 'email', 'max:255', 'unique:team_members,email,'.$id],
             'phone'=>['required'],
-            'password'=>['required','min:6','confirm'],
+            'password'=>['required','min:6','required_with:confirmation','same:confirmation'],
             'status' =>['required'],
         ]);
         if($validator->fails()){
             return response()->json(['errors'=>$validator->messages()]);
         }
-        TeamMember::where('id',$id)->update($request->input());
+        $request = $request->except(['confirmation']);
+        TeamMember::where('id',$id)->update($request);
         return response()->json([
             'message'=>'Team member updated successfully'
         ]);

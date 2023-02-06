@@ -5,11 +5,7 @@ import axios from 'axios';
 
 export default function ManageTeam() {
 
-  const [item, setitem] = useState([
-    {id: 1, name: "Sohrab Khan", phone: 8090895865, email: "test123@gmail.com", status: "Enabled"},
-    {id: 2, name: "Nurul Hasan", phone: 234123413, email: "test123@gmail.com", status: "Disabled"},
-    {id: 3, name: "Prashant", phone: 91382644312, email: "test123@gmail.com", status: "Enabled"},
-  ])
+  const [item, setitem] = useState([])
   const headers = {
     Accept: "application/json, text/plain, */*",
     "Content-Type": "application/json",
@@ -20,7 +16,7 @@ export default function ManageTeam() {
      axios
      .get('/api/admin/team',{headers})
      .then((res)=>{
-        console.log(res);
+        setitem(res.data.team.data);
      });
   };
 
@@ -61,7 +57,12 @@ export default function ManageTeam() {
                                     <td>{item.name}</td>
                                     <td>{item.email}</td>
                                     <td>{item.phone}</td>
-                                    <td>{item.status}</td>
+                                    <td>
+                                    {
+                                    (item.status == 1) 
+                                    ? 'Active'
+                                    :'Inactive'
+                                    }</td>
                                     <td>
                                       <div className="d-flex">
                                         <Link to={`/admin/edit-team/${item.id}`} className="ml-2 btn btn-success">
