@@ -89,7 +89,7 @@ export default function AddOffer() {
             services : JSON.stringify(formValues),
          }
         console.log(data);
-         /*axios
+         axios
              .post(`/api/admin/offers`, data, { headers })
              .then((response) => {
                  if (response.data.errors) {
@@ -103,7 +103,7 @@ export default function AddOffer() {
                      }, 1000);
                  }
              });
-             */
+             
     }
 
   return (

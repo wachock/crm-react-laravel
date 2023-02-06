@@ -11,8 +11,8 @@ class Offer extends Model
     protected $fillable = [
         'client_id',
         'job_id',
-        'instructions',
-        'items',
+        'description',
+        'services',
         'total',
         'status'
     ];

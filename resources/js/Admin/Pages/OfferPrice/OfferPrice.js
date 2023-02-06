@@ -78,7 +78,6 @@ export default function OfferPrice() {
                                             <th scope="col">Client</th>
                                             <th scope="col">Address</th>
                                             <th scope="col">Phone</th>
-                                            <th scope="col">Service Name</th>
                                             <th scope="col">Status</th>
                                             <th scope="col">Total</th>
                                             <th scope="col">Action</th>
@@ -114,14 +113,6 @@ export default function OfferPrice() {
                                             
                                             </td>
                                             <td>{ ofr.client.phone }</td>
-                                            <td>
-                                                
-                                                {
-                                                  ofr.service
-                                                  ? ofr.service.name
-                                                  :"NA"
-                                                }
-                                            </td>
                                             <td>{ofr.status}</td>
                                             <td>{ofr.total} NIS</td>
                                             <td>
