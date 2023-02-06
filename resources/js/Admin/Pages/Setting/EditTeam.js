@@ -1,15 +1,78 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Sidebar from '../../Layouts/Sidebar'
+import { useParams,useNavigate } from 'react-router-dom';
+import { useAlert } from 'react-alert';
+import axios from 'axios';
 
 export default function EditTeam() {
-  const [ name, setName ] = useState([]);
-  const [ email, setEmail ] = useState([]);
-  const [ phone, setPhone ] = useState([]);
-  const [ address, setAddress ] = useState([]);
-  const [ color, setColor ] = useState([]);
-  const [ password, setPassword ] = useState([]);
-  const [ confirmPassword, setConfirmPassword ] = useState([]);
-  const [ status, setStatus ] = useState([]);
+
+    const [ name, setName ] = useState([]);
+    const [ email, setEmail ] = useState([]);
+    const [ phone, setPhone ] = useState([]);
+    const [ address, setAddress ] = useState([]);
+    const [ password, setPassword ] = useState([]);
+    const [ confirmPassword, setConfirmPassword ] = useState([]);
+    const [ status, setStatus ] = useState([]);
+    const [ color, setColor ] = useState([]);
+    const [ permission, setPermission ] = useState([]);
+
+    const alert = useAlert();
+    const param = useParams();
+    const navigate = useNavigate();
+    const headers = {
+      Accept: "application/json, text/plain, */*",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ` + localStorage.getItem("admin-token"),
+    };
+    
+    const handleUpdate =() =>{
+       let perm = document.querySelector('input[name="role"]:checked').value; 
+          const data = {
+             name:name,
+             email:email,
+             phone:phone,
+             address,address,
+             color:color,
+             password:password,
+             confirmation:confirmPassword,
+             status:status,
+             permission:perm
+          }
+          
+          axios
+          .put(`/api/admin/team/${param.id}`,data,{headers})
+          .then((res)=>{
+              if(res.data.errors){
+                  for(let e in res.data.errors){
+                      alert.error(res.data.errors[e]);
+                  } 
+              } else {
+                  alert.success(res.data.message)
+                  setTimeout(()=>{
+                     navigate("/admin/manage-team");
+                  },1000)
+              }
+          });
+          
+    };
+    
+    const getMember = () => {
+        axios
+        .get(`/api/admin/team/${param.id}/edit`,{ headers })
+        .then((res)=>{
+            const d = res.data.member[0];
+            setName(d.name);
+            setEmail(d.email);
+            setPhone(d.phone);
+            setAddress(d.address);
+            setColor(d.color);
+            setStatus(d.status);
+            setPermission(d.permission);
+        })
+    };
+    useEffect(()=>{
+      getMember();
+    },[]);
   return (
     <div id='container'>
         <Sidebar/>
@@ -40,7 +103,7 @@ export default function EditTeam() {
                     <div className='dashBox p-4'> 
                         <div className='form-group'>
                             <label className='control-label'>Color</label>
-                            <input type='color' className='form-control' onChange={(e) => setColor(e.target.value)} value={color} placeholder='Color' />
+                            <input type='color' className='form-control' value={color} onChange={(e)=>setColor(e.target.value)} placeholder='Color' />
                         </div>
                         <div className='form-group'>
                             <label className='control-label'>Password</label>
@@ -52,9 +115,9 @@ export default function EditTeam() {
                         </div>
                         <div className='form-group'>
                             <label className='control-label'>Status</label>
-                            <select className='form-control' onChange={(e) => setStatus(e.target.value)}>
-                                <option value='1'>Enable</option>
-                                <option value='0'>Disable</option>
+                            <select className='form-control'   onChange={(e) => setStatus(e.target.value)}>
+                                <option value='1' selected={status == 1} >Enable</option>
+                                <option value='0' selected={status == 0}>Disable</option>
                             </select>
                         </div>
                     </div>
@@ -63,11 +126,20 @@ export default function EditTeam() {
                     <div className='dashBox p-4 mt-3'>
                         <h4 className='mb-2'>Preset permissions</h4>
                         <div className='form-group'>
-                            <input type='radio' id='worker' name='role' checked style={{height: "unset"}} /> Make Worker
-                            <input type='radio' id='administrator' name='role' style={{height: "unset", marginLeft: "10px"}} /> Make Administrator
+                            { 
+                            permission == 'member'
+                            ? <input type='radio' value='member' name='role' checked style={{height: "unset"}} />
+                            : <input type='radio' value='member' name='role' style={{height: "unset"}} />                    
+                            } Make Member &nbsp;
+
+                            { 
+                            permission == 'administrator'
+                            ? <input type='radio' value='administrator' name='role' checked style={{height: "unset"}} />
+                            : <input type='radio' value='administrator' name='role' style={{height: "unset"}} />                    
+                            } Make Administrator
                         </div>
                         <div className='form-group'>
-                            <input type="submit" class="btn btn-pink saveBtn" value="SAVE" />
+                            <input type="submit" onClick={handleUpdate} class="btn btn-pink saveBtn" value="SAVE" />
                         </div>
                     </div> 
                 </div>

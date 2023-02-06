@@ -1,15 +1,59 @@
+import axios from 'axios';
 import React, { useState } from 'react'
 import Sidebar from '../../Layouts/Sidebar'
+import { useNavigate } from 'react-router-dom';
+import { useAlert } from 'react-alert';
 
 export default function AddTeam() {
+
   const [ name, setName ] = useState([]);
   const [ email, setEmail ] = useState([]);
   const [ phone, setPhone ] = useState([]);
   const [ address, setAddress ] = useState([]);
-  const [ color, setColor ] = useState([]);
   const [ password, setPassword ] = useState([]);
   const [ confirmPassword, setConfirmPassword ] = useState([]);
   const [ status, setStatus ] = useState([]);
+  
+  const alert = useAlert();
+  const navigate = useNavigate();
+  const headers = {
+    Accept: "application/json, text/plain, */*",
+    "Content-Type": "application/json",
+    Authorization: `Bearer ` + localStorage.getItem("admin-token"),
+  };
+  
+  const handleSubmit =() =>{
+     let perm = document.querySelector('input[name="role"]:checked').value; 
+     let clr  = document.querySelector('input[name="color"]').value
+        const data = {
+           name:name,
+           email:email,
+           phone:phone,
+           address,address,
+           color:clr,
+           password:password,
+           confirmation:confirmPassword,
+           status:status,
+           permission:perm
+        }
+        
+        axios
+        .post(`/api/admin/team`,data,{headers})
+        .then((res)=>{
+            if(res.data.errors){
+                for(let e in res.data.errors){
+                    alert.error(res.data.errors[e]);
+                } 
+            } else {
+                alert.success(res.data.message)
+                setTimeout(()=>{
+                   navigate("/admin/manage-team");
+                },1000)
+            }
+        });
+        
+  };
+  
   return (
     <div id='container'>
         <Sidebar/>
@@ -40,7 +84,7 @@ export default function AddTeam() {
                     <div className='dashBox p-4'> 
                         <div className='form-group'>
                             <label className='control-label'>Color</label>
-                            <input type='color' className='form-control' onChange={(e) => setColor(e.target.value)} placeholder='Color' />
+                            <input type='color' name='color' className='form-control' placeholder='Color' />
                         </div>
                         <div className='form-group'>
                             <label className='control-label'>Password</label>
@@ -64,11 +108,11 @@ export default function AddTeam() {
                     <div className='dashBox p-4 mt-3'>
                         <h4 className='mb-2'>Preset permissions</h4>
                         <div className='form-group'>
-                            <input type='radio' id='worker' name='role' checked style={{height: "unset"}} /> Make Worker
-                            <input type='radio' id='administrator' name='role' style={{height: "unset", marginLeft: "10px"}} /> Make Administrator
+                            <input type='radio'  name='role' value='member' style={{height: "unset"}}  checked /> Make Member
+                            <input type='radio'  name='role' value='administrator'  style={{height: "unset", marginLeft: "10px"}} /> Make Administrator
                         </div>
                         <div className='form-group'>
-                            <input type="submit" class="btn btn-pink saveBtn" value="SAVE" />
+                            <input type="submit" onClick={handleSubmit} class="btn btn-pink saveBtn" value="SAVE" />
                         </div>
                     </div> 
                 </div>

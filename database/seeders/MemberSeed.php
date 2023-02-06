@@ -20,11 +20,11 @@ class MemberSeed extends Seeder
         $faker = app(Generator::class);
         for( $i = 0; $i <= 7; $i++){
         TeamMember::create([
-            'name'              => $faker->fullname(),
+            'name'              => $faker->name(),
             'address'           => $faker->address(),
-            'email'             => 'admin@admin.com',
+            'email'             => $faker->unique()->safeEmail(),
             'phone'             => $faker->numerify('9#########'),
-            'color'             => ('#').random_str(6),
+            'color'             => ('#eef').$i,
             'status'            => 1,
             'permission'        => 'member',
             'password'          => Hash::make('password')
