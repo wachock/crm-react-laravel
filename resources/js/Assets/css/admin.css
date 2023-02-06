@@ -108,7 +108,7 @@ body{
   font-weight: 600;
   padding-top: 20px;
   margin-bottom: 20px;
-  font-size: 24px;
+  font-size: 24px !important;
   border-bottom: 1px solid #dfdfdf;
   line-height: 45px;
 }
@@ -293,8 +293,8 @@ table tr td .dropdown-item{
   margin: 16px 0 16px 270px;
   font-weight: 700;
   color: #172c40;
-  line-height: 30px;
-  font-size: 24px;
+  line-height: 30px !important;
+  font-size: 24px !important;
 }
 .adminDash .dashBox{
   display: inline-flex;
