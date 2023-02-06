@@ -48,7 +48,6 @@ class OfferController extends Controller
             'job_id'       => ['required'],
             'instructions' => ['required'],
             'status'       => ['required'],
-            'total'        => ['required'],
         ]);
         if($validator->fails()){
             return response()->json(['errors'=>$validator->messages()]);
