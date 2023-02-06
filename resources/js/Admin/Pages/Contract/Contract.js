@@ -8,16 +8,7 @@ export default function Contract() {
             <Sidebar />
             <div id="content">
                 <div className="titleBox customer-title">
-                    <div className="row">
-                        <div className="col-sm-6">
-                            <h1 className="page-title">Contracts</h1>
-                        </div>
-                        <div className="col-sm-6">
-                            <Link to="/admin/add-contract" className="btn btn-pink addButton"><i class="btn-icon fas fa-plus-circle"></i>
-                                Add New
-                            </Link>
-                        </div>
-                    </div>
+                    <h1 className="page-title">Contracts</h1>
                 </div>
                 <div className="card">
                     <div className="card-body">
@@ -46,7 +37,6 @@ export default function Contract() {
                                             <td>440 NIS</td>
                                             <td>
                                                 <div className="d-flex">
-                                                    <Link to={`/admin/edit-contract`} className="btn bg-green"><i className="fa fa-edit"></i></Link>
                                                     <Link to={`/admin/view-contract`} className="ml-2 btn btn-warning"><i className="fa fa-eye"></i></Link>
                                                     <button className="ml-2 btn bg-red" onClick={() => handleDelete(item.id)}><i className="fa fa-trash"></i></button>  
                                                 </div>
