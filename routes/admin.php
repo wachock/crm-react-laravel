@@ -20,6 +20,7 @@ use App\Http\Controllers\Admin\TaskController;
 use App\Http\Controllers\Admin\ServicesController;
 use App\Http\Controllers\Admin\ServiceSchedulesController;
 use App\Http\Controllers\Admin\OfferController;
+use App\Http\Controllers\Admin\TeamMemberController;
 
 /*
 |--------------------------------------------------------------------------
@@ -73,6 +74,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin-api', 'scopes:ad
     
     //Offer Api
     Route::resource('offers',OfferController::class);
+
+    //TeamMembers
+    Route::resource('team',TeamMemberController::class);
 
     // Reviews Api
     Route::resource('reviews', ReviewController::class);

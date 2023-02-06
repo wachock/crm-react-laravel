@@ -67,9 +67,7 @@ export default function AddOffer() {
      const cData = AllClients.map((c,i)=>{
        return {value:c.id,label:(c.firstname+' '+c.lastname)}; 
     });
-     const sData = AllServices.map((s,i)=>{
-       return {value:s.id,label:(s.name)}; 
-    });
+   
    
   let handleSubmit = (event) => { 
        
@@ -87,7 +85,7 @@ export default function AddOffer() {
             total:to,
             services : JSON.stringify(formValues),
          }
-        console.log(data);
+       
          axios
              .post(`/api/admin/offers`, data, { headers })
              .then((response) => {
@@ -119,7 +117,7 @@ export default function AddOffer() {
                     <div className="form-group">
                       <div className="form-group">
                                 <label className="control-label">Client Name</label>
-                                <SelectPicker data={cData} value={client} onChange={(value,event)=>setClient(value)} size="lg" required/>
+                                <SelectPicker data={cData}  value={client} onChange={(value,event)=>setClient(value)} size="lg" required/>
                             </div>
                     </div>
                    {/* <div className="form-group">

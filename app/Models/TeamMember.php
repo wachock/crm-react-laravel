@@ -8,4 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class TeamMember extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'name',
+        'email',
+        'phone',
+        'address',
+        'password',
+        'confirm_password',
+        'color',
+        'status',
+        'permission'
+    ];
 }

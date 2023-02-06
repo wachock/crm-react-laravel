@@ -15,6 +15,14 @@ class CreateTeamMembersTable extends Migration
     {
         Schema::create('team_members', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('email');
+            $table->string('phone');
+            $table->string('address')->nullable();
+            $table->string('password');
+            $table->string('color')->nullable();
+            $table->enum('status',[0,1])->default(1);
+            $table->enum('permission',['administrator','member'])->default('member');
             $table->timestamps();
         });
     }

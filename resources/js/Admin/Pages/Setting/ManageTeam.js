@@ -1,14 +1,32 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import Sidebar from '../../Layouts/Sidebar'
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 export default function ManageTeam() {
+
   const [item, setitem] = useState([
     {id: 1, name: "Sohrab Khan", phone: 8090895865, email: "test123@gmail.com", status: "Enabled"},
     {id: 2, name: "Nurul Hasan", phone: 234123413, email: "test123@gmail.com", status: "Disabled"},
     {id: 3, name: "Prashant", phone: 91382644312, email: "test123@gmail.com", status: "Enabled"},
   ])
+  const headers = {
+    Accept: "application/json, text/plain, */*",
+    "Content-Type": "application/json",
+    Authorization: `Bearer ` + localStorage.getItem("admin-token"),
+  };
 
+  const getMembers = () =>{
+     axios
+     .get('/api/admin/team',{headers})
+     .then((res)=>{
+        console.log(res);
+     });
+  };
+
+  useEffect(()=>{
+    getMembers();
+  },[]);
   return (
     <div id='container'>
         <Sidebar/>

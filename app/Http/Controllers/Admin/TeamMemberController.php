@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Offer;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\TeamMember;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class OfferController extends Controller
+class TeamMemberController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,11 +16,10 @@ class OfferController extends Controller
      */
     public function index()
     {
-        //
-        $offers = Offer::with('client');
-        $offers = $offers->orderBy('id', 'desc')->paginate(20);
+        $team = TeamMember::query();
+        $team = $team->orderBy('id','desc')->paginate(10);
         return response()->json([
-            'offers'=>$offers
+            'team' => $team
         ]);
     }
 
@@ -42,32 +41,29 @@ class OfferController extends Controller
      */
     public function store(Request $request)
     {
-       
-        $validator  = Validator::make($request->all(),[
-
-            'client_id'    => ['required'],
-            'status'       => ['required'],
+        $validator = Validator::make($request->all(),[
+            'name' =>['required'],
+            'email'=>['required'],
+            'phone'=>['required'],
+            'password'=>['required','min:6','confirm'],
+            'status' =>['required'],
         ]);
         if($validator->fails()){
             return response()->json(['errors'=>$validator->messages()]);
         }
-       
-        $input             = $request->input(); 
-        Offer::create($input);
-        
+        TeamMember::create($request->input());
         return response()->json([
-            'message' => 'Offer created successfully'
+            'message'=>'Team member added successfully'
         ]);
-
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Offer  $offer
+     * @param  \App\Models\TeamMember  $teamMember
      * @return \Illuminate\Http\Response
      */
-    public function show(Offer $offer)
+    public function show(TeamMember $teamMember)
     {
         //
     }
@@ -75,14 +71,14 @@ class OfferController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Offer  $offer
+     * @param  \App\Models\TeamMember  $teamMember
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        $offer = Offer::find($id)->get();
+        $member = TeamMember::find($id)->get();
         return response()->json([
-            'offer' => $offer
+            'member'=>$member
         ]);
     }
 
@@ -90,41 +86,38 @@ class OfferController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Offer  $offer
+     * @param  \App\Models\TeamMember  $teamMember
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,$id)
+    public function update(Request $request, $id)
     {
-        $validator  = Validator::make($request->all(),[
-
-            'client_id'    => ['required'],
-            'status'       => ['required'],
+         $validator = Validator::make($request->all(),[
+            'name' =>['required'],
+            'email'=>['required'],
+            'phone'=>['required'],
+            'password'=>['required','min:6','confirm'],
+            'status' =>['required'],
         ]);
         if($validator->fails()){
             return response()->json(['errors'=>$validator->messages()]);
         }
-       
-        $input = $request->input(); 
-        Offer::where('id',$id)->update($input);
-        
+        TeamMember::where('id',$id)->update($request->input());
         return response()->json([
-            'message' => 'Offer updated successfully'
+            'message'=>'Team member updated successfully'
         ]);
-        
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Offer  $offer
+     * @param  \App\Models\TeamMember  $teamMember
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        //
-        Offer::find($id)->delete();
+        TeamMember::find($id)->delete();
         return response()->json([
-            'message'=>'Offer has been deleted successfully'
-        ],200);
+            'message'=>'Team member deleted successfully'
+        ]);
     }
 }
