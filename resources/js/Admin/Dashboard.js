@@ -67,35 +67,7 @@ export default function AdminDashboard() {
             <div id="content">
                 <div className="adminDash">
                     <div className="titleBox">
-                        <div className="row">
-                            <div className="col-sm-6">
-                                <h1 className="page-title">Dashboard</h1>
-                            </div>
-                            <div className="col-sm-6">
-                                <div className="float-right">
-                                    <div className="input-group">
-                                        <div className="input-group-prepend">
-                                            <a href="#" className="btn btn-dark">All Dates</a>
-                                            <button type="button" className="btn btn-dark dropdown-toggle filter-date-after dropdown-icon" data-toggle="dropdown" aria-expanded="false">
-                                                <span className="sr-only">Toggle Dropdown</span>
-                                            </button>
-                                            <div className="dropdown-menu" role="menu">
-                                                <a className="dropdown-item" href="#">Custom</a>
-                                                <a className="dropdown-item" href="#">Today</a>
-                                                <a className="dropdown-item" href="#">Yesterday</a>
-                                                <a className="dropdown-item" href="#">This
-                                                    Week</a>
-                                                <a className="dropdown-item" href="#">This
-                                                    Month</a>
-                                                <a className="dropdown-item" href="#">This
-                                                    Year</a>
-                                            </div>
-                                        </div>
-                                        {/* <input type="date" className="form-control" name="date" id="filter_date" /> */}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <h1 className="page-title">Dashboard</h1>
                     </div>
                     <div className="row">
                         <div className="col-sm-4 col-xs-6">

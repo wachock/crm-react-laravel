@@ -65,10 +65,31 @@ export default function Sidebar() {
                     <NavLink to="/admin/jobs"><i className="fa-solid fa-briefcase"></i>Jobs</NavLink>
                 </li>
                 <li className="list-group-item">
-                    <NavLink to="/admin/services"><i className="fa-solid fa-screwdriver-wrench"></i>Services</NavLink>
-                </li>
-                <li className="list-group-item">
-                    <NavLink to="/admin/settings"><i className="fa-solid fa-gear"></i>Settings</NavLink>
+                    <div id="fence" className='commonDropdown'>
+                        <div id="fencehead1">
+                            <a href="#" className="text-left btn btn-header-link" data-toggle="collapse" data-target="#fence1" aria-expanded="true" aria-controls="fence1">
+                                <i className="fa-solid fa-gear"></i> Settings <i className="fa-solid fa-angle-down"></i>
+                            </a>
+                        </div>
+                        <div id="fence1" className="collapse" aria-labelledby="fencehead1" data-parent="#fence">
+                            <div className="card-body">
+                                <ul className='list-group'>
+                                    <li className='list-group-item'>
+                                        <Link to="/admin/manage-team"><i className="fa fa-angle-right"></i> Manage team</Link>
+                                    </li>
+                                    <li className='list-group-item'>
+                                        <Link to="/admin/services"><i className="fa fa-angle-right"></i> Services</Link>
+                                    </li>
+                                    <li className='list-group-item'>
+                                        <Link to="#!"><i className="fa fa-angle-right"></i> Manage Time</Link>
+                                    </li>
+                                    <li className='list-group-item'>
+                                        <Link to="/admin/settings"><i className="fa fa-angle-right"></i> My Account</Link>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </li>
             </ul>
             <div className="sideLogout">

@@ -72,7 +72,7 @@ body{
 }
 #column-left ul{
   padding: 0 20px;
-  margin-top: 20px;
+  margin-top: 10px;
 }
 #column-left ul li:hover a i{
   color: #757589;
@@ -191,14 +191,16 @@ body{
 }
 #fence .card-body{
   padding: 0;
-  background: #f4a583;
-  padding-left: 30px;
+  background: #f9f9fd;
+}
+#fence .card-body ul{
+  padding-left: 10px;
 }
 #fence .card-body li{
   border: none;
 }
 #fence .card-body li a{
-  color: #fff;
+  color: #757589;
 }
 #fence .btn.focus, #fence .btn:focus{
   box-shadow: none;
@@ -546,7 +548,7 @@ table tr td .dropdown-item{
   margin-left: -234px !important;
 }
 .commonDropdown ul li a i{
-  color: #fff !important;
+  color: #757589 !important;
   margin-right: 0 !important;
 }
 .skill-search{
