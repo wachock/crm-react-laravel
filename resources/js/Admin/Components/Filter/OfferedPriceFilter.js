@@ -1,46 +1,61 @@
-import React, { useState } from "react";
-export default function OfferedPriceFilter() {
-    const [name, setName] = useState("");
+import axios from "axios";
+import React, { useState, useEffect } from "react";
+import { SelectPicker } from "rsuite";
+
+export default function OfferedPriceFilter( {getFilteredOffers} ) {
+
+    const [clients, setClients] = useState([]);
+    const [client, setClient]  =  useState([]);
     const [phone, setPhone] = useState("");
-    const [email, setEmail] = useState("");
     const [status, setStatus] = useState("");
+    const headers = {
+        Accept: "application/json, text/plain, */*",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ` + localStorage.getItem("admin-token"),
+    };
     const handleFilter = () => {
         axios
             .get(
-                "/api/admin/languages?language=" +
-                language,
+                "/api/admin/offers?client_id=" +
+                client+"&&phone="+phone+"&&status="+status,
                 { headers }
             )
             .then((response) => {
-                getFilteredLanguage(response);
+                getFilteredOffers(response);
             });
     };
     const handleReset = () => {
-        setLanguage("");        
-        axios.get("/api/admin/languages", { headers }).then((response) => {
-            getFilteredLanguage(response);
+        setOffers("");
+        axios.get("/api/admin/offers", { headers }).then((response) => {
+            getFilteredOffers(response);
         });
     };
+
+    const getClients = () => {
+        axios
+            .get('/api/admin/all-clients', { headers })
+            .then((res) => {
+                setClients(res.data.clients);
+            });
+    };
+    useEffect(() => {
+        getClients();
+    }, []);
+
+    const cData = clients.map((c,i)=>{
+      return { value:c.id, label:c.firstname+" "+c.lastname};
+    }); 
+
     return (
         <div className="row colFive">
-            <div className="col-sm-3">
+
+            <div className="col-sm-4">
                 <div className="form-group">
-                    <label className="control-label">Service Name</label>
-                    <select
-                        className="form-control"
-                        name="status"
-                        value={status}
-                        onChange={(e) => setStatus(e.target.value)}
-                    >
-                        <option>Please Select</option>
-                        <option value="0">Planting</option>
-                        <option value="1">Garden grass cutting</option>
-                        <option value="2">Glass furnishing</option>
-                        <option value="3">Door Mattings</option>
-                        <option value="4">Windows Cleaning</option>
-                    </select>
+                    <label className="control-label">Client Name</label>
+                    <SelectPicker data={cData} value={client} onChange={(value,event)=>setClient(value)}/>
                 </div>
             </div>
+
             <div className="col-sm-3">
                 <div className="form-group">
                     <label className="control-label">Phone</label>
@@ -54,19 +69,7 @@ export default function OfferedPriceFilter() {
                     />
                 </div>
             </div>
-            <div className="col-sm-3">
-                <div className="form-group">
-                    <label className="control-label">Client Name</label>
-                    <input
-                        type="text"
-                        className="form-control"
-                        name="email"
-                        placeholder="Client Name"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                    />
-                </div>
-            </div>
+
             <div className="col-sm-3">
                 <div className="form-group">
                     <label className="control-label">Status</label>
@@ -77,15 +80,16 @@ export default function OfferedPriceFilter() {
                         onChange={(e) => setStatus(e.target.value)}
                     >
                         <option>Please Select</option>
-                        <option value="0">Enable</option>
-                        <option value="1">Disable</option>
+                        <option value="sent">Sent</option>
+                        <option value="accepted">Accepted</option>
+                        <option value="declined">Declined</option>
                     </select>
                 </div>
-            </div>           
- 
-            <div className="col-sm-3">
-                <div className="form-group"> 
-                <label className="control-label">&nbsp;</label>                 
+            </div>
+
+            <div className="col-sm-2">
+                <div className="form-group">
+                    <label className="control-label">&nbsp;</label>
                     <div className="d-flex">
                         <button
                             className="btn bg-purple filterBtn"
@@ -103,5 +107,5 @@ export default function OfferedPriceFilter() {
                 </div>
             </div>
         </div>
-  )
+    )
 }

@@ -43,12 +43,12 @@ export default function ClientFilter({ getFilteredclients }) {
         <div className="row colFive">
             <div className="col-sm-3">
                 <div className="form-group">
-                    <label className="control-label">Name</label>
+                    <label className="control-label">Client Name</label>
                     <input
                         type="text"
                         className="form-control"
                         name="name"
-                        placeholder="Name"
+                        placeholder="Client Name"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                     />
@@ -90,8 +90,8 @@ export default function ClientFilter({ getFilteredclients }) {
                         onChange={(e) => setStatus(e.target.value)}
                     >
                         <option>Please Select</option>
-                        <option value="0">Enable</option>
-                        <option value="1">Disable</option>
+                        <option value="1">Active</option>
+                        <option value="0">Inactive</option>
                     </select>
                 </div>
             </div>

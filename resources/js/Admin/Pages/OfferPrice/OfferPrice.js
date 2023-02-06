@@ -1,4 +1,5 @@
 import React,{ useState,useEffect} from 'react'
+import ReactPaginate from "react-paginate";
 import { Link } from "react-router-dom";
 import Sidebar from '../../Layouts/Sidebar';
 import axios from 'axios';
@@ -7,6 +8,10 @@ import OfferedPriceFilter from '../../Components/Filter/OfferedPriceFilter';
 export default function OfferPrice() {
 
     const [offers,setOffers] = useState();
+    const [totalOffers, setTotalOffers] = useState([]);
+    const [loading, setLoading] = useState("Loading...");
+    const [pageCount, setPageCount] = useState(0);
+
     const headers = {
         Accept: "application/json, text/plain, */*",
         "Content-Type": "application/json",
@@ -16,10 +21,46 @@ export default function OfferPrice() {
     const getOffers = () =>{
         axios
           .get('/api/admin/offers',{headers})
-          .then((res)=>{
-            setOffers(res.data.offers.data);
+          .then((response)=>{
+            if (response.data.offers.data.length > 0) {
+                setTotalOffers(response.data.offers.data);
+                setOffers(response.data.offers.data);
+                setPageCount(response.data.offers.last_page);
+            } else {
+                setLoading("No offer found");
+            }
+            
           });
     }
+
+    const handlePageClick = async (data) => {
+        let currentPage = data.selected + 1;
+        axios
+            .get("/api/admin/offers?page=" + currentPage, { headers })
+            .then((response) => {
+                if (response.data.offers.data.length > 0) {
+                    setTotalOffers(response.data.offers.data);
+                    setOffers(response.data.offers.data);
+                    setPageCount(response.data.offers.last_page);
+                } else {
+                    setLoading("No offer found");
+                }
+            });
+    };
+
+    const getFilteredOffers = (response) => {
+        if (response.data.offers.data.length > 0) {
+            setTotalOffers(response.data.offers.data);
+            setOffers(response.data.offers.data);
+            setPageCount(response.data.offers.last_page);
+        } else {
+            setTotalOffers([]);
+            setPageCount(response.data.offers.last_page);
+            setLoading("No offer found");
+        }
+    };
+
+
     const handleDelete = (id) => {
         Swal.fire({
             title: "Are you sure?",
@@ -47,6 +88,7 @@ export default function OfferPrice() {
         });
     };
 
+    
     useEffect(()=>{
         getOffers();
     },[]);
@@ -69,9 +111,12 @@ export default function OfferPrice() {
                 </div>
                 <div className="card">
                     <div className="card-body">
-                    <OfferedPriceFilter/>
+                    <OfferedPriceFilter getFilteredOffers={getFilteredOffers}/>
                         <div className="boxPanel">
                             <div className="table-responsive">
+
+                                {totalOffers.length > 0 ? (
+
                                 <table className="table table-bordered">
                                     <thead>
                                         <tr>
@@ -125,10 +170,39 @@ export default function OfferPrice() {
                                         </tr>     
                                         )
                                         })}
+
+                                        
                                        
                                     </tbody>
                                 </table> 
+                             ): (
+                                <p className="text-center mt-5">{loading}</p>
+                            )}
                             </div>
+
+                            { totalOffers.length > 0 ?(
+                            <ReactPaginate
+                                        previousLabel={"Previous"}
+                                        nextLabel={"Next"}
+                                        breakLabel={"..."}
+                                        pageCount={pageCount}
+                                        marginPagesDisplayed={2}
+                                        pageRangeDisplayed={3}
+                                        onPageChange={handlePageClick}
+                                        containerClassName={
+                                            "pagination justify-content-end mt-3"
+                                        }
+                                        pageClassName={"page-item"}
+                                        pageLinkClassName={"page-link"}
+                                        previousClassName={"page-item"}
+                                        previousLinkClassName={"page-link"}
+                                        nextClassName={"page-item"}
+                                        nextLinkClassName={"page-link"}
+                                        breakClassName={"page-item"}
+                                        breakLinkClassName={"page-link"}
+                                        activeClassName={"active"}
+                                    />
+                                ): '' }
                         </div>
                     </div>
                 </div>

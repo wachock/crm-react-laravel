@@ -6,6 +6,7 @@ use App\Models\Offer;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 
 class OfferController extends Controller
 {
@@ -14,14 +15,41 @@ class OfferController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         //
+        
+        $filter              = [];
+        $filter['phone']    = $request->phone;
+        $filter['client']    = $request->client_id;
+        $filter['status']    = $request->status;
         $offers = Offer::with('client');
+
+        if(isset($filter['client'])){
+            $client            = $filter['client'];
+            $offers            = $offers->whereHas('client', function($q) use ($client) {
+                $q->where(function($q) use ($client) {
+                    $q->where(DB::raw('id'), '=', $client);
+                });
+            });
+        }
+        
+        if(isset($filter['phone'])){
+            $phone             = $filter['phone'];
+            $offers            = $offers->whereHas('client', function($q) use ($phone) {
+                $q->where(function($q) use ($phone ) {
+                    $q->where(DB::raw('phone'), '=', $phone);
+                });
+            });
+        }
+        if(isset($filter['status'])){
+            $offers            = $offers->where('status', $filter['status']);
+        }
+        
         $offers = $offers->orderBy('id', 'desc')->paginate(20);
         return response()->json([
             'offers'=>$offers
-        ]);
+        ],200);
     }
 
     /**
