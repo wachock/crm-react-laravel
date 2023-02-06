@@ -12,6 +12,15 @@ class Offer extends Model
         'client_id',
         'job_id',
         'instructions',
-        'services'
+        'items',
+        'total',
+        'status'
     ];
+
+    public function client(){
+        return $this->belongsTo(Client::class,'client_id');
+    }
+    public function service(){
+        return $this->belongsTo(Services::class,'job_id');
+    }
 }

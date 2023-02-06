@@ -170,8 +170,8 @@ export default function MyRoutes() {
                      <Route exact path="edit-service-schedule/:id" element={<EditServiceSchedule />} />
                      <Route exact path="offered-price" element={<OfferPrice />} />
                      <Route exact path="add-offer" element={<AddOffer />} />
-                     <Route exact path="edit-offer" element={<EditOffer />} />
-                     <Route exact path="view-offer" element={<ViewOffer />} />
+                     <Route exact path="edit-offer/:id" element={<EditOffer />} />
+                     <Route exact path="view-offer/:id" element={<ViewOffer />} />
                      <Route exact path="contracts" element={<Contract />} />
                      <Route exact path="add-contract" element={<AddContract />} />
                      <Route exact path="edit-contract" element={<EditContract />} />
