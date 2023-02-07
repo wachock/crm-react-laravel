@@ -21,6 +21,8 @@ use App\Http\Controllers\Admin\ServicesController;
 use App\Http\Controllers\Admin\ServiceSchedulesController;
 use App\Http\Controllers\Admin\OfferController;
 use App\Http\Controllers\Admin\TeamMemberController;
+use App\Http\Controllers\Admin\ScheduleController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -78,6 +80,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin-api', 'scopes:ad
 
     //TeamMembers
     Route::resource('team',TeamMemberController::class);
+
+    //Meeting Schedules
+    Route::resource('schedule',ScheduleController::class);
+    Route::post('client-schedules',[ScheduleController::class,'ClientSchedules']);
 
     // Reviews Api
     Route::resource('reviews', ReviewController::class);
