@@ -84,7 +84,9 @@ import ClientLogin from './Client/Auth/ClientLogin';
 import Schedule from './Admin/Pages/Schedule/Schedule';
 import ViewSchedule from './Admin/Pages/Schedule/ViewSchedule';
 import CreateContract from './Admin/Pages/Contract/CreateContract';
-import SendOffer from './Admin/Pages/OfferPrice/SendOffer';
+import PriceOffer from './Pages/PriceOffer';
+import WorkContract from './Pages/WorkContract';
+
 
 
 TimeAgo.addDefaultLocale(en)
@@ -102,6 +104,8 @@ export default function MyRoutes() {
                <Route exact path="/" element={<AdminLogin />} />
                <Route exact path="client/login" element={<ClientLogin />} />
                <Route exact path="worker/login" element={<WorkerLogin />} />
+               <Route exact path="price-offer" element={<PriceOffer />} />
+               <Route exact path="work-contract" element={<WorkContract />} />
 
                {/* Client Routes Start  */}
                
@@ -130,7 +134,6 @@ export default function MyRoutes() {
                {/* Admin Routes Start  */}
                <Route exact path="/admin/login" element={<AdminLogin />} />
                <Route exact path="create-contract" element={<CreateContract />} />
-               <Route exact path="send-offer" element={<SendOffer />} />
                <Route element={<AdminProtectedRoutes />}>
                   <Route path="admin" element={<Admin />} >
                      <Route exact path="dashboard" element={<AdminDashboard />} />
