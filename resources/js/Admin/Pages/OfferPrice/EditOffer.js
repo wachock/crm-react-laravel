@@ -107,6 +107,7 @@ export default function EditOffer() {
      .get(`/api/admin/offers/${param.id}/edit`,{headers})
      .then((res)=>{
         const d = res.data.offer[0];
+        console.log(d);
         setClient(d.client_id);
         setDescription(d.description);
         setStatus(d.status);

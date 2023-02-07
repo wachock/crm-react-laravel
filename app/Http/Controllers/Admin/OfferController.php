@@ -108,7 +108,7 @@ class OfferController extends Controller
      */
     public function edit($id)
     {
-        $offer = Offer::find($id)->get();
+        $offer = Offer::where('id',$id)->get();
         return response()->json([
             'offer' => $offer
         ]);
@@ -154,5 +154,13 @@ class OfferController extends Controller
         return response()->json([
             'message'=>'Offer has been deleted successfully'
         ],200);
+    }
+
+    public function ClientOffers(Request $request){
+         
+        $offers = Offer::where('client_id',$request->id)->get();
+        return response()->json([
+            'offers' => $offers
+        ]);
     }
 }

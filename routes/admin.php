@@ -74,6 +74,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin-api', 'scopes:ad
     
     //Offer Api
     Route::resource('offers',OfferController::class);
+    Route::post('client-offers',[OfferController::class,'ClientOffers'])->name('client-offers');
 
     //TeamMembers
     Route::resource('team',TeamMemberController::class);
