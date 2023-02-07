@@ -43,7 +43,6 @@ export default function WorkerProfile() {
     useEffect(() => {
         getWorker();
     }, []);
-    
     return (
         <>
         <div className='worker-profile'>
@@ -51,12 +50,12 @@ export default function WorkerProfile() {
             <div className='dashBox p-4 mb-3'>
                 <form>
                     <div className='row'>
-                        <div className='col-sm-4'>
+                       {/* <div className='col-sm-4'>
                             <div className='form-group'>
                                 <label className='control-label'>Email</label>
                                 <input disabled type='email' value={email} onChange={(e) => setEmail(e.target.value)} className='form-control' placeholder='Enter Email' />
                             </div>
-                        </div>
+                        </div> */}
                         <div className='col-sm-4'>
                             <div className='form-group'>
                                 <label className='control-label'>Phone</label>
@@ -94,7 +93,7 @@ export default function WorkerProfile() {
                             </div>
                         </div>
                         
-                        <div className='col-sm-4'>
+                        <div className='col-sm-8'>
                             <div className='form-group'>
                                 <label className='control-label'>Address</label>
                                 <input type='text' value={address} onChange={(e) => setAddress(e.target.value)} className='form-control' disabled />
@@ -103,7 +102,7 @@ export default function WorkerProfile() {
                         <div className='col-sm-4'>
                             <div className='form-group'>
                                 <label className='control-label'>Status</label>
-                                <p>Inactive</p>
+                                <p>{itemStatus?'Active':'Inactive'}</p>
                             </div>
                         </div>
                     </div>
