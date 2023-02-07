@@ -114,6 +114,81 @@ export default function WorkContract() {
                                 <td>The location in which the service will be provided and/or work will be performed</td>
                                 <td>Saurabh Vihar, Jaitpur, New Delhi, Delhi, India A-278 New Delhi <br/> <span style={{fontWeight: "600"}} className='d-block mt-2'>Other address if any?</span> <br/><input type='text' value='' placeholder='Any other address?' className='form-control'/></td>
                             </tr>
+                            <tr>
+                                <td>Date on which the service delivery and/or work will begin, and the date on which the service delivery and/or work will end</td>
+                                <td>As agreed between the parties</td>
+                            </tr>
+                            <tr>
+                                <td>Frequency of the service and/or work</td>
+                                <td>Once in a Week<br/>Four Times in a Week</td>
+                            </tr>
+                            <tr>
+                                <td>Consideration the Tenant will pay the Company, including the payment method and/or payment date<br/>Prices does not include vat**</td>
+                                <td>50 ILS + VAT for 3 Star, Once in a Week<br/>100 ILS + VAT for BNB , Four Times in a Week</td>
+                            </tr>
+                            <tr>
+                                <td>Payment method:</td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td>I the undersigned hereby permit Broom Service L.M. Ltd to charge my credit card account (the details of which are listed below) for the services I will receive from the Company, in the amounts and on the dates specified in this agreement between Broom Service L.M. Ltd and me.</td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td>Card Type:</td>
+                                <td>
+                                    <select className='form-control'>
+                                        <option>Please Select</option>
+                                        <option>Visa</option>
+                                        <option>Master Card</option>
+                                        <option>American Express</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Card Number</td>
+                                <td><input type='text' className='form-control' placeholder='Enter Card number' /></td>
+                            </tr>
+                            <tr>
+                                <td>Valid Through:</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                            </tr>
                         </table>
                     </div>
                 </div>
