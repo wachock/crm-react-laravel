@@ -13,15 +13,13 @@ export default function WorkerHistory() {
             <li className="nav-item" role="presentation"><a id="current-job" className="nav-link" data-toggle="tab" href="#tab-current-job" aria-selected="true" role="tab">Current Job</a></li>
             <li className="nav-item" role="presentation"><a id="past-job" className="nav-link" data-toggle="tab" href="#tab-past-job" aria-selected="false" role="tab">Past Job</a></li>
         </ul>
-        <div className='tab-content'>
+        <div className='tab-content' style={{background: "#fff"}}>
              <div id="tab-worker-availability" className="tab-pane active show" role="tab-panel" aria-labelledby="current-job"><WorkerAvailabilty/></div>
             <div id="tab-current-job" className="tab-pane" role="tab-panel" aria-labelledby="current-job"><CurrentJob/></div>
             <div id="tab-past-job" className="tab-pane" role="tab-panel" aria-labelledby="past-job"><PastJob/></div>
         </div>
-        <div className='button-group'>
-            <Link to={`/admin/edit-worker/${params.id}`} className="btn bg-pink">Edit Worker</Link>
-            <Link to="/admin/add-job" className="btn bg-yellow">New Job</Link>
-            <button className="btn bg-purple">Send Email</button>
+        <div className='text-center mt-3'>
+            <Link to="/admin/add-job" className="btn bg-purple">Update</Link>
         </div>
     </div>
   )

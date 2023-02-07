@@ -10,16 +10,8 @@ export default function ViewWorker() {
         <div id="content">
             <div className='view-applicant'>
                 <h1 className="page-title viewAppli">View Worker</h1>
-                <div className='card'>
-                    <div className='card-body'>
-                        <WorkerProfile/>
-                    </div>
-                </div>
-                <div className='card'>
-                    <div className='card-body'>
-                        <WorkerHistory/>
-                    </div>
-                </div>     
+                <WorkerProfile/>
+                <WorkerHistory/>     
             </div>
         </div>
     </div>
