@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Schedule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Carbon\Carbon;
 
 class ScheduleController extends Controller
 {
@@ -73,6 +74,26 @@ class ScheduleController extends Controller
         $schedule = Schedule::where('id',$id)->get();
         return response()->json([
             'schedule' => $schedule
+        ]);
+    }
+
+    public function getEvents(Request $request){
+        $events = Schedule::where('team_id',$request->tid)->get();
+        $evn = [];
+        if(isset($events)):
+        foreach($events as $event):
+
+            $ar = [];
+            $ar["id"]    = $event['id'];
+            $ar["title"] = 'Busy';
+            $ar["start"] = Carbon::parse($event['start_date'])->format('Y-m-d');
+            array_push($evn,$ar);
+
+        endforeach;
+        endif;
+
+        return response()->json([
+            'events' => $evn
         ]);
     }
 

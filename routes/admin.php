@@ -84,6 +84,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin-api', 'scopes:ad
     //Meeting Schedules
     Route::resource('schedule',ScheduleController::class);
     Route::post('client-schedules',[ScheduleController::class,'ClientSchedules']);
+    Route::post('schedule-events', [ScheduleController::class,'getEvents']);
 
     // Reviews Api
     Route::resource('reviews', ReviewController::class);

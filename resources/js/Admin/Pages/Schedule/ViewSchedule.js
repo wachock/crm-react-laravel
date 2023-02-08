@@ -6,7 +6,7 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
-import events from './events'
+//import events from './events'
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Moment from 'moment';
@@ -21,6 +21,7 @@ export default function ViewSchedule() {
     const [bstatus, setBstatus] = useState("");
     const [startTime, setStartTime] = useState("");
     const [endTime, setEndTime] = useState("");
+    const [events ,setEvents] = useState([]);
 
     const param = useParams();
     const alert = useAlert();
@@ -76,6 +77,7 @@ export default function ViewSchedule() {
                 setTotalTeam(res.data.team.data);
             });
     }
+
     
     const  getSchedule = () =>{
       axios
@@ -88,25 +90,36 @@ export default function ViewSchedule() {
         setStartDate(Moment(d.start_date).toDate());
         setStartTime(d.start_time);
         setEndTime(d.end_ime);
-        
-        let t = document.querySelectorAll('#team option');
-        console.log(t);
-        (t.value == d.team_id) ? t.setAttribute('selectAed') : '';
-
+       
       });
     }
 
+
+    const getEvents = () =>{
+       
+        const tm = document.querySelector('#team').value;
+        axios
+        .post(`/api/admin/schedule-events`,{tid:tm},{ headers })
+        .then((res)=>{
+           setEvents(res.data.events);
+        })
+        
+    }
+    
     useEffect(() => {
         getClient();
         getTeam();
         if(sid != ''&& sid != null){
             setTimeout(()=>{
                 getSchedule();
+            },500)
+            setTimeout(()=>{
+                getEvents();
             },1000)
         }
         
     }, []);
-   
+  
     return (
         <div id="container">
             <Sidebar />
@@ -218,6 +231,7 @@ export default function ViewSchedule() {
                         <div className='text-center mt-3'>
                             <button className='btn btn-pink' onClick={sendMeeting}>Send meeting</button>
                         </div>
+                       
                         <div className='worker-avail'>
                             <h4 className='text-center'>Worker Availability</h4>
                             <FullCalendar
