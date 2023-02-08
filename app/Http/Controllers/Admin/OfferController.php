@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Offer;
+use App\Models\Client;
+use App\Models\Services;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
+use Mail;
 
 class OfferController extends Controller
 {
@@ -75,18 +78,52 @@ class OfferController extends Controller
 
             'client_id'    => ['required'],
             'status'       => ['required'],
+            'services'     => ['required']
         ]);
         if($validator->fails()){
             return response()->json(['errors'=>$validator->messages()]);
         }
        
         $input             = $request->input(); 
-        Offer::create($input);
-        
+        $ofr = Offer::create($input);
+        $offer = Offer::where('id',$ofr->id)->with('client','service')->get()->first();
+        $this->sendOfferMail($offer);
         return response()->json([
             'message' => 'Offer created successfully'
         ]);
 
+    }
+
+    public function sendOfferMail($offer)
+    {
+    if(isset($offer)):
+        $offer = $offer->toArray();
+        $services = ($offer['services'] != '')? json_decode($offer['services']) : [];
+        if(isset($services)){
+            $serv = [];
+            $s_names  = '';
+            foreach($services as $service){
+                $ar = Services::where('id',$service->service)->get('name')->toArray();
+                array_push($serv,$ar);
+            }
+            
+            if(isset($serv)){
+                foreach($serv as $k => $s){
+                    if($k != count($serv)-1)  
+                    $s_names .= $s[0]['name'].", ";
+                    else
+                    $s_names .= $s[0]['name'];
+                }
+            }
+            $offer['service_names'] = $s_names;
+        }
+    
+        Mail::send('/Mails/OfferMail',$offer,function($messages) use ($offer){
+            $messages->to($offer['client']['email']);
+            $messages->subject('Offer recieved from Broom Services');
+        });
+
+    endif;
     }
 
     /**
@@ -95,9 +132,21 @@ class OfferController extends Controller
      * @param  \App\Models\Offer  $offer
      * @return \Illuminate\Http\Response
      */
-    public function show(Offer $offer)
+    public function show($id)
     {
-        //
+        $offer = Offer::where('id',$id)->with('client')->get()->first();
+        $services = ($offer->services != '') ? json_decode($offer->services) : [];
+        if(isset($services)){
+            foreach( $services as $service){
+               $name = Services::where('id',$service->service)->get('name')->first()->toArray(); 
+               $service->name = $name['name'];
+            }
+            $offer->services = json_encode($services);
+        }
+       
+        return response()->json([
+            'offer' => $offer
+        ]);
     }
 
     /**

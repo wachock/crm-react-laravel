@@ -84,9 +84,10 @@ class ScheduleController extends Controller
         foreach($events as $event):
 
             $ar = [];
-            $ar["id"]    = $event['id'];
-            $ar["title"] = 'Busy';
-            $ar["start"] = Carbon::parse($event['start_date'])->format('Y-m-d');
+            $ar["id"]         = $event['id'];
+            $ar["title"]      = 'Busy';
+            $ar["start"]      = Carbon::parse($event['start_date'])->format('Y-m-d');
+            $ar["timePeriod"] = "10:00 - 11:00" ;
             array_push($evn,$ar);
 
         endforeach;

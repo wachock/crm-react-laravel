@@ -31,7 +31,7 @@ class CreateClientsTable extends Migration
 
             $table->string('phone')->nullable();
             $table->string('email')->unique();
-            $table->enum('status', [0, 1])->default(0);
+            $table->integer('status')->default(1);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
