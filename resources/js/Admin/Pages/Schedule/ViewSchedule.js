@@ -238,6 +238,11 @@ export default function ViewSchedule() {
                                 defaultView='basicWeek'
                                 initialView='timeGridWeek'
                                 themeSystem="Simplex"
+                                allDay= {false}
+                                droppable={true}
+                                selectable={true}
+                                selectMirror={true}
+                                dayMaxEvents={true}
                                 plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
                                 events={events}
                             />

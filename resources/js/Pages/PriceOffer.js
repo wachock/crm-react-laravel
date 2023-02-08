@@ -1,11 +1,36 @@
-import React from 'react'
+import React ,{ useState, useEffect} from 'react'
 import logo from "../Assets/image/logo.png";
 import star from "../Assets/image/icons/blue-star.png";
 import packageEn from "../Assets/image/packageEn.jpg";
 import footer from "../Assets/image/bg-bottom-footer.png";
-
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
 
 export default function PriceOffer() {
+
+    const param = useParams();
+    const [offer, setOffer] = useState([]);
+    const [services,setServices] = useState([]);
+    const [client,setClient]    = useState([]);
+    const headers = {
+        Accept: "application/json, text/plain, */*",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ` + localStorage.getItem("admin-token"),
+    };
+    
+    const getOffer = () =>{
+        axios
+        .get(`/api/admin/offers/${param.id}`,{ headers })
+        .then((res)=>{
+            setOffer(res.data.offer);
+            setServices(JSON.parse(res.data.offer.services));
+            setClient(res.data.offer.client);
+        })
+    }
+    useEffect(()=>{
+        getOffer();
+    },[])
+
   return (
     <>
     

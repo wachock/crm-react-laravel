@@ -120,7 +120,7 @@ export default function ProfileDetails({ client }) {
                         </div>
                         <div className='buttonBlocks dashBox mt-3 p-4'>
                             <Link to={`/admin/view-schedule/${param.id}`}><i className="fas fa-hand-point-right"></i> Schedule Meeting</Link>
-                            <Link to='/admin/add-offer'><i className="fas fa-hand-point-right"></i> Send Offer</Link>
+                            <Link to={`/admin/add-offer?c=${param.id}`}><i className="fas fa-hand-point-right"></i> Send Offer</Link>
                         </div>
                     </div>
                 </div>

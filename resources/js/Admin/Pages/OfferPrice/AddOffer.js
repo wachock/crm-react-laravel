@@ -10,11 +10,13 @@ export default function AddOffer() {
 
   const alert               = useAlert();
   const navigate            = useNavigate();
-  const [client, setClient] = useState("");
+  const queryParams = new URLSearchParams(window.location.search);
+  const cid = parseInt(queryParams.get("c"));
+  const [client, setClient] = useState((cid != null) ? cid : "");
   const [formValues, setFormValues] = useState([{ service: "",jobHours:"",rateperhour:'',totalamount:''}])
-  const [description, setDescription] = useState("");
   const [AllClients,setAllClients]   = useState([]);
   const [AllServices,setAllServices] = useState([]);
+  
 
   let handleChange = (i, e) => {
         
@@ -74,6 +76,18 @@ export default function AddOffer() {
         event.preventDefault();
         let to = 0;
         for( let t in formValues){
+          if(formValues[t].service == '' || formValues[t].service == '-- select --'){
+             alert.error("One of the service is not selected");
+             return false;
+          }
+          if(formValues[t].jobHours == ''){
+            alert.error("One of the job hours value is missing");
+            return false;
+         }
+         if(formValues[t].service == ''){
+          alert.error("One of the rate per hour value is missing");
+          return false;
+          }
           formValues[t].totalamount = ( formValues[t].jobHours * formValues[t].rateperhour);
            to += parseInt(formValues[t].totalamount);
         }
@@ -84,7 +98,9 @@ export default function AddOffer() {
             total:to,
             services : JSON.stringify(formValues),
          }
-       
+        
+         event.target.setAttribute('disabled',true);
+         event.target.value = ('Sending..');
          axios
              .post(`/api/admin/offers`, data, { headers })
              .then((response) => {
@@ -92,6 +108,8 @@ export default function AddOffer() {
                    for( let e in response.data.errors){
                      alert.error(response.data.errors[e]);
                    }
+                   document.querySelector('.saveBtn').removeAttribute('disabled');
+                   document.querySelector('.saveBtn').value = ('Save and Send');
                  } else {
                      alert.success(response.data.message);
                      setTimeout(() => {
@@ -101,7 +119,7 @@ export default function AddOffer() {
              });
              
     }
-
+  
   return (
     <div id="container">
       <Sidebar/>
@@ -116,18 +134,10 @@ export default function AddOffer() {
                     <div className="form-group">
                       <div className="form-group">
                                 <label className="control-label">Client Name</label>
-                                <SelectPicker data={cData}  value={client} onChange={(value,event)=>setClient(value)} size="lg" required/>
+                                <SelectPicker data={cData}   value={client}  onChange={(value,event)=>setClient(value)} size="lg" required/>
                             </div>
                     </div>
-                   {/* <div className="form-group">
-                      <label className="control-label">Service Name</label>
-                                <SelectPicker data={sData} value={service} onChange={(value,event)=>setService(value)} size="lg" required/>
-                   </div>
-                    <div className="form-group">
-                      <label className="control-label">Description</label>
-                      <textarea value={description} onChange={(e) => setDescription(e.target.value)} className="form-control" required placeholder="Description"/>
-  </div>*/}
-                   
+                
                     <div className="card card-dark">
                       <div className="card-header card-black">
                         <h3 class="card-title">Services</h3>
