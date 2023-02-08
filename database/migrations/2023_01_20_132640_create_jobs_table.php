@@ -26,6 +26,8 @@ class CreateJobsTable extends Migration
             $table->date('end_date')->nullable();
             $table->string('start_time')->nullable();
             $table->string('end_time')->nullable();
+            $table->text('shifts')->nullable();
+            $table->text('comment')->nullable();
             $table->unsignedBigInteger('rate')->nullable();
             $table->enum('status', ['not-started', 'progress', 'completed'])->default('progress');
             $table->timestamps();

@@ -3,6 +3,9 @@ import ReactPaginate from "react-paginate";
 import axios from "axios";
 import Sidebar from "../../Layouts/Sidebar";
 import { Link } from "react-router-dom";
+import JobFilter from "../../Components/Filter/JobFilter";
+import { useAlert } from "react-alert";
+import Select from 'react-select';
 
 export default function TotalJobs() {
     const [totalJobs, setTotalJobs] = useState([]);
@@ -11,6 +14,7 @@ export default function TotalJobs() {
     const [AllClients, setAllClients] = useState([]);
     const [AllServices, setAllServices] = useState([]);
     const [AllWorkers, setAllWorkers] = useState([]);
+    const alert = useAlert();
 
     const headers = {
         Accept: "application/json, text/plain, */*",
@@ -111,7 +115,77 @@ export default function TotalJobs() {
             }
         });
     };
+    const handleDate = (e,index) => {
+          let newTotalJobs = [...totalJobs];
+          newTotalJobs[index][e.target.name]=e.target.value;
+           setTotalJobs(newTotalJobs);    
+    }
+    const [workers, setWorkers] = useState([]);
+    const handleChange= (e,index) => {
+          let newWorkers = [...workers];
+          newWorkers[e.target.name]=e.target.value;
+          setWorkers(newWorkers);
+    }
 
+ const handleform = (job_id,e) => {
+      let date = getSelectedDate(job_id);
+      let worker = getSelectedWorkers(job_id);
+      let shifts = getSelectedShift(job_id,e);
+      let data ={
+        date:date,
+        worker:(worker!=undefined)?worker:'',
+        shifts:(shifts!=null)?shifts:''
+      }
+      axios
+            .post(`/api/admin/upldate-job/${job_id}`, data, { headers })
+            .then((response) => {
+                if (response.data.errors) {
+                    setErrors(response.data.errors);
+                } else {
+                    alert.success("Job Updated Successfully");
+                    setTimeout(() => {
+                            getJobs();
+                        }, 1000);
+                }
+            });
+
+    }
+  const getSelectedDate = (job_id) => {
+      const filteredDate = totalJobs.filter(
+        (job) => job.id === job_id
+      );
+      return filteredDate['0']['start_date'];
+  };
+   const getSelectedWorkers = (job_id) => {
+      if(workers[job_id] !== 'undefined'){
+          return workers[job_id];
+      }else{
+          return '';
+      }
+      
+  };
+   const [selected_values,setSelectedValue]=useState([]);
+   const getSelectedShift = (job_id,e) => {
+     return document.getElementById('job-shift-'+job_id).getAttribute('value');
+  };
+const colourOptions = [
+  { value: 0, label: 'full day - 8am-16pm' },
+  { value: 1, label: 'morning - 8-12pm' },
+  { value: 2, label: 'morning1 - 8-10am' },
+  { value: 3, label: 'noon - 12pm-16pm' },
+  { value: 4, label: 'noon - 12pm-16pm' }
+]
+
+const changeShift = (job_id,e) =>{
+      
+      let data='';
+      {e.map((user,index) => (
+
+          data += (index)?','+user['value']:user['value']
+      ))}
+     document.getElementById('job-shift-'+job_id).setAttribute('value',data);
+};
+console.log(totalJobs);
     return (
         <div id="container">
             <Sidebar />
@@ -122,35 +196,36 @@ export default function TotalJobs() {
                             <h1 className="page-title">Jobs</h1>
                         </div>
                         <div className="col-sm-6">
-                            <div className="search-data">
-                                <input type='text' className="form-control" placeholder="Search" />
-                                <Link to="/admin/add-job" className="btn btn-pink addButton"><i class="btn-icon fas fa-plus-circle"></i>
-                                    Add New
-                                </Link>
-                            </div>
+                            <Link to="/admin/add-job" className="btn btn-pink addButton"><i class="btn-icon fas fa-plus-circle"></i>
+                                Add New
+                            </Link>
                         </div>
                     </div>
                 </div>
                 <div className="card">
                     <div className="card-body">
-                        {/* <JobFilter 
+                        <JobFilter 
                         AllServices={AllServices} 
                         AllClients={AllClients}
                         AllWorkers={AllWorkers}
                         getTotalJobs={getTotalJobs}
-                        /> */}
+                          />
                         <div className="boxPanel">
                             <div className="table-responsive">
                                 {totalJobs.length > 0 ? (
                                     <table className="table table-bordered">
                                         <thead>
                                             <tr>
+                                                <th scope="col">Worker Availability</th>
+                                                <th scope="col">Date</th>
+                                                <th scope="col">Worker Name</th>
                                                 <th scope="col">Client Name</th>
                                                 <th scope="col">Service Name</th>
-                                                <th scope="col">Date</th>
-                                                <th scope="col">Start Time</th>
-                                                <th scope="col">End Time</th>
+                                                {/* <th scope="col">Start Time</th>
+                                                 <th scope="col">End Time</th> 
                                                 <th scope="col">Assigned Worker</th>
+                                                */} 
+                                                <th scope="col">Shift</th>
                                                 <th scope="col">Status</th>
                                                 <th scope="col">Total</th>
                                                 <th scope="col">Action</th>
@@ -160,41 +235,75 @@ export default function TotalJobs() {
                                             {totalJobs &&
                                                 totalJobs.map((item, index) => (
                                                     <tr key={index}>
+                                                        <td>Available</td>
+                                                         <td>
+                                                            <input name='start_date' type="date" value={item.start_date} onChange={(e) =>
+                                                                            handleDate(
+                                                                                e,
+                                                                                index
+                                                                            )
+                                                                        } />
+                                                        </td>
                                                         <td>
-                                                            <Link to='#'>
-                                                            {
+                                                        {
+                                                            item.worker
+                                                                ? item.worker.firstname +
+                                                                " " + item.worker.lastname
+                                                                : "NA"
+                                                        }
+                                                        <div>Change Worker</div>
+                                                        <select name={item.id}  className="form-control" value={(workers[`${item.id}`])?workers[`${item.id}`] : "" } onChange={e => handleChange(e,index)} >
+                                                        <option selected>select</option>
+                                                       { AllWorkers && AllWorkers.map((w,i)=>{
+                                                         return (
+                                                            <option value={w.id} key={i}> {w.firstname}  {w.lastname}</option>
+                                                         )
+                                                       })}
+                                                      </select>
+
+                                                        </td>
+                                                        <td>{
                                                             item.client
-                                                            ? item.client.firstname +
-                                                            " " + item.client.lastname
-                                                            : "NA"
-                                                            }
-                                                            </Link>
+                                                                ? item.client.firstname +
+                                                                " " + item.client.lastname
+                                                                : "NA"
+                                                        }
                                                         </td>
                                                         <td>{
                                                             item.service
                                                                 ? item.service.name
                                                                 : "NA"
                                                         }</td>
-                                                        <td>
-                                                            {item.start_date}
-                                                        </td>
-                                                        <td>
+                                                         {/*<td>
                                                             {item.start_time}
                                                         </td>
                                                         <td>
                                                             {item.end_time}
                                                         </td>
-                                                        <td>
-                                                            <Link to='#'>
-                                                            {
+                                                        <td>{
                                                             item.worker
-                                                            ? item.worker.firstname +
-                                                            " " + item.worker.lastname
-                                                            : "NA"
-                                                            }
-                                                            </Link> 
-                                                            </td>
-
+                                                                ? item.worker.firstname +
+                                                                " " + item.worker.lastname
+                                                                : "NA"
+                                                        }</td>
+                                                         */}
+                                                        <td>
+                                                        
+                                                    <Select
+                                                        defaultValue={colourOptions.filter(colour => {
+                                                                          if (`${item.shifts}`.includes(colour.value)) {
+                                                                            return colour
+                                                                          }
+                                                                      })}
+                                                        isMulti
+                                                        name="colors"
+                                                        id={`job-shift-${item.id}`}
+                                                        options={colourOptions}
+                                                        className="basic-multi-select"
+                                                        classNamePrefix="select"
+                                                        onChange={(e)=>changeShift(item.id,e)}
+                                                      />
+                                                        </td>
                                                         <td
                                                             style={{
                                                                 textTransform:
@@ -207,18 +316,46 @@ export default function TotalJobs() {
                                                             {item.rate}
                                                         </td>
                                                         <td>
-                                                            <div className="action-dropdown dropdown">
-                                                                <button type="button" className="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                                                    <i className="fa fa-ellipsis-vertical"></i>
-                                                                </button>
-                                                                <div className="dropdown-menu">
-                                                                    <Link to={`/admin/edit-job/${item.id}`} className="dropdown-item">Edit</Link>
-                                                                    <Link to={`/admin/view-job/${item.id}`} className="dropdown-item">View</Link>
-                                                                    <button className="dropdown-item" onClick={() => handleDelete(item.id)}
-                                                                    >Delete</button>
+                                                            <div className="d-flex">
+                                                                 <button
+                                                                        className="ml-2 btn btn-danger"
+                                                                        onClick={(e) =>
+                                                                            handleform(
+                                                                                item.id,
+                                                                                e
+                                                                            )
+                                                                        }
+                                                                    >
+                                                                        <i className="fa fa-edit"></i>
+                                                                    </button>
+                                                                {/*
+                                                                <Link
+                                                                    to={`/admin/edit-job/${item.id}`}
+                                                                    className="btn bg-purple"
+                                                                >
+                                                                    <i className="fas fa-edit"></i>
+                                                                </Link>
+                                                                */}
+                                                                <Link
+                                                                    to={`/admin/view-job/${item.id}`}
+                                                                    className="ml-2 btn btn-success"
+                                                                >
+                                                                    <i className="fa fa-eye"></i>
+                                                                </Link>
+                                                                <div className="text-center">
+                                                                    <button
+                                                                        className="ml-2 btn btn-danger"
+                                                                        onClick={() =>
+                                                                            handleDelete(
+                                                                                item.id
+                                                                            )
+                                                                        }
+                                                                    >
+                                                                        <i className="fa fa-trash"></i>
+                                                                    </button>
                                                                 </div>
                                                             </div>
-                                                        </td> 
+                                                        </td>
                                                     </tr>
                                                 ))}
                                         </tbody>
