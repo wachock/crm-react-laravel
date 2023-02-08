@@ -48,7 +48,7 @@ export default function ViewSchedule() {
        axios
         .post(`/api/admin/schedule`,data,{ headers })
         .then((res)=>{
-            console.log(res);
+
             if(res.data.errors){
                 for(let e in res.data.errors){
                     alert.error(res.data.errors[e]);
