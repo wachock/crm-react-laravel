@@ -228,6 +228,9 @@ export default function AddClient() {
                                     </div>
                                     
                                 </div>
+                                <div className="col-sm-1">
+                                    <button className="mt-25 btn btn-success" onClick={addPhone}> + </button>
+                                </div>
                             
                             </div>
                             <h4 className="mt-2 mb-3">Client Full Address</h4>

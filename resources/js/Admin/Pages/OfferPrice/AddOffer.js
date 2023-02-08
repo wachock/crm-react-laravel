@@ -80,7 +80,6 @@ export default function AddOffer() {
 
          const data = {
             client_id  :client,
-            description:description,
             status:'sent',
             total:to,
             services : JSON.stringify(formValues),
@@ -123,11 +122,11 @@ export default function AddOffer() {
                    {/* <div className="form-group">
                       <label className="control-label">Service Name</label>
                                 <SelectPicker data={sData} value={service} onChange={(value,event)=>setService(value)} size="lg" required/>
-                   </div>*/}
+                   </div>
                     <div className="form-group">
                       <label className="control-label">Description</label>
                       <textarea value={description} onChange={(e) => setDescription(e.target.value)} className="form-control" required placeholder="Description"/>
-                    </div>
+  </div>*/}
                    
                     <div className="card card-dark">
                       <div className="card-header card-black">
@@ -138,7 +137,7 @@ export default function AddOffer() {
                           <table class="table table-sm">
                             <thead>
                               <tr>
-                                <th style={{width:"50%"}}>service</th>
+                                <th style={{width:"50%"}}>Service</th>
                                 <th style={{width:"16%"}}>Job Hours</th>
                                 <th style={{width:"16%"}}>Rate Per Hour</th>
                                 <th style={{width:"16%"}}>Total Amount</th>
@@ -151,7 +150,7 @@ export default function AddOffer() {
                                 
                                 <td>
                                   <select name="service" className="form-control" value={element.service || "" } onChange={e => handleChange(index, e)} >
-                                    <option selected> -- select --</option>
+                                    <option selected> -- Please select --</option>
                                    { AllServices && AllServices.map((s,i)=>{
                                      return (
                                         <option value={s.id}> {s.name} </option>

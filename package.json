@@ -36,6 +36,7 @@
         "i-am-not-a-robot": "^0.7.2",
         "javascript-time-ago": "^2.5.9",
         "jwt-decode": "^3.1.2",
+        "moment": "^2.29.4",
         "react-alert": "^7.0.3",
         "react-alert-template-basic": "^1.0.2",
         "react-bootstrap": "^2.7.0",
@@ -46,7 +47,11 @@
         "react-phone-number-input": "^3.2.16",
         "react-router-dom": "^6.4.5",
         "react-router-link": "^2.0.2",
+<<<<<<< HEAD
         "react-select": "^5.7.0",
+=======
+        "react-signature-canvas": "^1.0.6",
+>>>>>>> 85761360afadce3496fc28a7fc4cba54a27ffc6f
         "react-star-ratings": "^2.3.0",
         "reactstrap": "^9.1.5",
         "rsuite": "^5.25.0",

@@ -79,7 +79,6 @@ export default function EditOffer() {
 
          const data = {
             client_id  :client,
-            description:description,
             status:status,
             total:to,
             services : JSON.stringify(formValues),
@@ -137,10 +136,6 @@ export default function EditOffer() {
                               <label className="control-label">Client Name</label>
                               <SelectPicker data={cData} defaultValue={client} value={client} onChange={(value,event)=>setClient(value)} size="lg" required/>
                           </div>
-                  </div>
-                  <div className="form-group">
-                    <label className="control-label">Description</label>
-                    <textarea value={description} onChange={(e) => setDescription(e.target.value)} className="form-control" required placeholder="Description"/>
                   </div>
                  
                   <div className="card card-dark">

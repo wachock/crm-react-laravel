@@ -101,7 +101,6 @@ class ClientController extends Controller
     public function show($id)
     {
         $client               = Client::find($id);
-
         return response()->json([
             'client'        => $client,            
         ], 200);

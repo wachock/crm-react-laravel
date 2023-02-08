@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import Sidebar from '../../Layouts/Sidebar';
 import axios from 'axios';
 import OfferedPriceFilter from '../../Components/Filter/OfferedPriceFilter';
+import Swal from 'sweetalert2';
 
 export default function OfferPrice() {
 

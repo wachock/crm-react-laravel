@@ -4,9 +4,9 @@ import Jobs from './Jobs'
 import OfferedPrice from './OfferedPrice'
 import ScheduledMeeting from './ScheduledMeeting'
 import { Link } from 'react-router-dom';
-import { useParams } from 'react-router-dom'
+
 export default function ClientHistory() {
-  const params = useParams();
+  
   return (
     <div className='ClientHistory'>
         <ul className="nav nav-tabs" role="tablist">

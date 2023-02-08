@@ -1,39 +1,33 @@
 import React from 'react'
-import { Link } from 'react-router-dom';
-import logo from "../../../Assets/image/logo.png";
-import star from "../../../Assets/image/icons/blue-star.png";
-import packageEn from "../../../Assets/image/packageEn.jpg";
-import footer from "../../../Assets/image/bg-bottom-footer.png";
+import logo from "../Assets/image/logo.png";
+import star from "../Assets/image/icons/blue-star.png";
+import packageEn from "../Assets/image/packageEn.jpg";
+import footer from "../Assets/image/bg-bottom-footer.png";
 
 
-export default function SendOffer() {
+export default function PriceOffer() {
   return (
     <>
-    <div className='boiler-heading'>
-        <div className='container'>
-            <div className='row'>
-                <div className='col-sm-6'><h2>Price Offer</h2></div>
-                <div className='col-sm-6'>
-                    <ul className='list-inline'>
-                        <li className='list-inline-item'>
-                            <Link className='btn btn-default' to='/admin/offered-price'>Back to Admin</Link>
-                            <button className='btn btn-pink'>Send to client</button>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
+    
     <div className='container'>
         <div className='send-offer'>
             <div className='maxWidthControl dashBox mb-4'>
-                <img src={logo} className='img-fluid offer-logo' alt='Broom Service' />
+                <div className='row'>
+                    <div className='col-sm-6'>
+                        <img src={logo} className='img-fluid offer-logo' alt='Broom Service' />
+                    </div>
+                    <div className='col-sm-6'>
+                        <div className='mt-2 float-right'>
+                            <input className='btn btn-pink' value='Accept Offer' />
+                        </div>
+                    </div>
+                </div> 
                 <div className='row'>
                     <div className='col-sm-6'>
                         <h1>Price Offer No. <span style={{color: "#16a6ef"}}>#1</span></h1>
                     </div>
                     <div className='col-sm-6'>
-                        <p className='date'>Date: <span style={{color: "#16a6ef"}}>2023-02-06</span></p>
+                        <p className='date'>Date: <span style={{color: "#16a6ef"}}>2023-02-06</span></p>  
                     </div>
                 </div>
                 
@@ -55,52 +49,27 @@ The company is registered as a legal cleaning company in the Ministry of Industr
                                 <tr>
                                 <th style={{width:"30%"}}>Service</th>
                                 <th style={{width:"22%"}}>Frequency of Services</th>
-                                <th style={{width:"14%"}}>Job Hours</th>
-                                <th style={{width:"14%"}}>Hourly Rate</th>
-                                <th style={{width:"14%"}}>Amount</th>
-                                <th style={{width:"6%"}}></th>
+                                <th style={{width:"16%"}}>Job Hours</th>
+                                <th style={{width:"16%"}}>Hourly Rate</th>
+                                <th style={{width:"16%"}}>Amount</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>   
-                                    <td>
-                                        <select name="service" className="form-control">
-                                        <option>Window Cleaning</option>
-                                        <option>Door Matting</option>
-                                        <option>Glass Furnishing</option>
-                                        </select>
-                                    </td>
-                                    <td>
-                                        <select name="service" className="form-control">
-                                        <option>Once</option>
-                                        <option>Everyday</option>
-                                        <option>Once in a week</option>
-                                        <option>Twice in a week</option>
-                                        <option>Once in a month</option>
-                                        <option>Twice in a month</option>
-                                        </select>
-                                    </td>
-                                    <td>
-                                        <input type="number" name="jobHours" className="form-control" required placeholder="Job Hrs" />
-                                    </td>
-                                    <td>
-                                        <input type="text" name="rateperhour" className="form-control" required placeholder="Rate/Hr"/>
-                                    </td>
-                                    <td>
-                                        <input type="text" name="totalamount" readonly disabled className="form-control" required  placeholder="Total"/>
-                                    </td>
-                                    <td class="text-right">
-                                        <button className="ml-2 btn bg-red"><i className="fa fa-minus"></i></button>
-                                    </td>
+                                    <td>Window Cleaning</td>
+                                    <td>Once</td>
+                                    <td>2 hours</td>
+                                    <td>$20</td>
+                                    <td>$40</td>
+                                </tr>
+                                <tr>   
+                                    <td>Glass Furnishing</td>
+                                    <td>Once in a month</td>
+                                    <td>5 hours</td>
+                                    <td>$20</td>
+                                    <td>$100</td>
                                 </tr>
                             </tbody>
-                            <tfoot>
-                                <tr>
-                                    <td class="text-right" colSpan="6">
-                                        <button type="button" class="btn bg-green"><i class="fa fa-plus"></i></button>
-                                    </td>
-                                </tr>
-                            </tfoot>
                         </table>
                     </div>
                     <div className='total-amount'>
@@ -109,7 +78,7 @@ The company is registered as a legal cleaning company in the Ministry of Industr
                                     <h5>Total Amount</h5>
                                 </div>
                                 <div className='col-sm-6'>
-                                    <p className='float-right'>$120.00</p>
+                                    <p className='float-right'>$140.00</p>
                                 </div>
                             </div>
                         </div>
@@ -201,7 +170,7 @@ The company is registered as a legal cleaning company in the Ministry of Industr
                     </div>
                 </div>
                 <div className='text-center mt-3 mb-3'>
-                    <input className='btn btn-pink' value='Send to client' />
+                    <input className='btn btn-pink' value='Accept Offer' />
                 </div>
                 <footer className='mt-4'>
                     <img src={footer} className='img-fluid' alt='Footer' />
