@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 import Moment from 'moment';
-import swal from 'sweetalert2';
+import Swal from 'sweetalert2';
 
 export default function ScheduledMeeting() {
 

@@ -22,7 +22,7 @@ export default function ViewSchedule() {
     const [startTime, setStartTime] = useState("");
     const [endTime, setEndTime] = useState("");
     const [events ,setEvents] = useState([]);
-
+    
     const param = useParams();
     const alert = useAlert();
     const navigate = useNavigate();
@@ -36,16 +36,19 @@ export default function ViewSchedule() {
     };
 
     const sendMeeting = () =>{
+        let st = document.querySelector('#status').value;
+
         const data = {
             client_id:param.id,
             team_id  :team,
             start_date:startDate,
             start_time:startTime,
             end_time:endTime,
-            booking_status:bstatus,
+            booking_status:st,
             
         }
-       axios
+       
+        axios
         .post(`/api/admin/schedule`,data,{ headers })
         .then((res)=>{
 
@@ -119,6 +122,32 @@ export default function ViewSchedule() {
         }
         
     }, []);
+
+    const handleUpdate = (e) =>{
+        if(sid != ''&& sid != null){
+            let data = {};
+            
+            if(e.target == undefined){
+                data.name  = "start_date";
+                data.value = e;
+            } else {
+               data.name  = e.target.name;
+               data.value = e.target.value; 
+            }
+           axios
+           .put(`/api/admin/schedule/${sid}`,data,{ headers })
+           .then((res)=>{
+             alert.success(res.data.message);
+             if(res.data.change == 'date'){
+                setTimeout(()=>{
+                    window.location.reload(true);
+                },2000);
+             }
+           })
+
+        }
+        
+    }
   
     return (
         <div id="container">
@@ -146,9 +175,8 @@ export default function ViewSchedule() {
                         <div className='col-sm-6'>
                             <div className='form-group'>
                                 <label className='control-label'>Booking Status</label>
-                                <select className='form-control'  onChange={(e)=>setBstatus(e.target.value)}>
-                                    <option>Please Select</option>
-                                    <option value='pending' selected={bstatus == 'pending'}>Pending</option>
+                                <select className='form-control' name="booking_status" id="status"  onChange={(e)=>{setBstatus(e.target.value);handleUpdate(e)}}>
+                                    <option value='pending'   selected={bstatus == 'pending'}>Pending</option>
                                     <option value='confirmed' selected={bstatus == 'confirmed'}>Confirmed</option>
                                     <option value='completed' selected={bstatus == 'completed'}>Completed</option>
                                 </select>
@@ -157,7 +185,7 @@ export default function ViewSchedule() {
                         <div className='col-sm-6'>
                             <div className='form-group'>
                                 <label className='control-label'>Team</label>
-                                <select className='form-control' id="team" onChange={(e) => setTeam(e.target.value)}>
+                                <select className='form-control' name="team_id" id="team" onChange={(e) => {setTeam(e.target.value);handleUpdate(e)}}>
                                     <option>Please Select</option>
                                     {totalTeam && totalTeam.map((t, i) => {
                                         return <option value={t.id} selected={team == t.id}> {t.name} </option>
@@ -172,13 +200,13 @@ export default function ViewSchedule() {
                             <div className='col-sm-4'>
                                 <div className='form-group'>
                                     <label>Date</label>
-                                    <DatePicker dateFormat="dd/MM/Y" selected={startDate} onChange={(date) => setStartDate(date)} />
+                                    <DatePicker dateFormat="dd/MM/Y" selected={startDate} onChange={(date) => {setStartDate(date);handleUpdate(date)}} />
                                 </div>
                             </div>
                             <div className='col-sm-4'>
                                 <div className='form-group'>
                                     <label>Start Time</label>
-                                    <select name="start_time" id="start_time"  onChange={(e)=>setStartTime(e.target.value)} className="form-control">
+                                    <select name="start_time" id="start_time"  onChange={(e)=>{setStartTime(e.target.value);handleUpdate(e)}} className="form-control">
                                         <option>Choose start time</option>
                                         <option value="09:00:00" selected="">09:00:00</option>
                                         <option value="09:30:00">09:30:00</option>
@@ -204,7 +232,7 @@ export default function ViewSchedule() {
                             <div className='col-sm-4'>
                                 <div className='form-group'>
                                     <label>End Time</label>
-                                    <select name="end_time" id="end_time" selected={endTime} onChange={(e)=>setEndTime(e.target.value)} className="form-control">
+                                    <select name="end_time" id="end_time" selected={endTime} onChange={(e)=>{setEndTime(e.target.value);handleUpdate(e)}} className="form-control">
                                         <option>Choose start time</option>
                                         <option value="09:30:00">09:30:00</option>
                                         <option value="10:00:00">10:00:00</option>

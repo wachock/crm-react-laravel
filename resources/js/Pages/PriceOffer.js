@@ -3,12 +3,15 @@ import logo from "../Assets/image/logo.png";
 import star from "../Assets/image/icons/blue-star.png";
 import packageEn from "../Assets/image/packageEn.jpg";
 import footer from "../Assets/image/bg-bottom-footer.png";
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
+import Moment from 'moment';
+import swal from 'sweetalert'
 import axios from 'axios';
 
 export default function PriceOffer() {
 
     const param = useParams();
+    const navigate = useNavigate();
     const [offer, setOffer] = useState([]);
     const [services,setServices] = useState([]);
     const [client,setClient]    = useState([]);
@@ -31,6 +34,25 @@ export default function PriceOffer() {
         getOffer();
     },[])
 
+    const handleOffer = (e,id) => {
+        e.preventDefault();
+        axios
+         .post(`/api/admin/accept-offer`,{id:id},{ headers })
+         .then((res)=>{
+            if(res.data.errors){
+                for(let e in res.data.errors){
+                     alert.error(res.data.errors[e]);
+                }
+            } else {
+                swal(res.data.message,'','success');
+                setTimeout(()=>{
+                   navigate('/client/login');
+                },1000)
+            }
+         })
+        
+    };
+
   return (
     <>
     
@@ -43,21 +65,21 @@ export default function PriceOffer() {
                     </div>
                     <div className='col-sm-6'>
                         <div className='mt-2 float-right'>
-                            <input className='btn btn-pink' value='Accept Offer' />
+                            <input className='btn btn-pink'  onClick={(e)=>handleOffer(e,offer.id)} value='Accept Offer' />
                         </div>
                     </div>
                 </div> 
                 <div className='row'>
                     <div className='col-sm-6'>
-                        <h1>Price Offer No. <span style={{color: "#16a6ef"}}>#1</span></h1>
+                        <h1>Price Offer No. <span style={{color: "#16a6ef"}}>#{ offer.id }</span></h1>
                     </div>
                     <div className='col-sm-6'>
-                        <p className='date'>Date: <span style={{color: "#16a6ef"}}>2023-02-06</span></p>  
+                        <p className='date'>Date: <span style={{color: "#16a6ef"}}>{Moment(offer.created_at).format('Y-MM--DD')}</span></p>  
                     </div>
                 </div>
                 
                 <div className='grey-bd'>
-                    <p>In Honor Of: <span style={{color: "#3da7ef", fontWeight: "700"}}>Sohrab Khan</span> </p>
+                    <p>In Honor Of: <span style={{color: "#3da7ef", fontWeight: "700"}}>{client.firstname+" "+client.lastname}</span> </p>
                     <p>Company Name: <span>Broom Service</span> </p>
                     <p>Address: <span>Saurabh Vihar, Jaitpur, New Delhi, Delhi, India , 2nd , 12, New Delhi</span></p>
                 </div>
@@ -80,20 +102,17 @@ The company is registered as a legal cleaning company in the Ministry of Industr
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>   
-                                    <td>Window Cleaning</td>
+                                { services && services.map((s,i)=>{
+                                    return( <tr>   
+                                    <td>{s.name}</td>
                                     <td>Once</td>
-                                    <td>2 hours</td>
-                                    <td>$20</td>
-                                    <td>$40</td>
+                                    <td>{s.jobHours} hours</td>
+                                    <td>${s.rateperhour}</td>
+                                    <td>${s.totalamount}</td>
                                 </tr>
-                                <tr>   
-                                    <td>Glass Furnishing</td>
-                                    <td>Once in a month</td>
-                                    <td>5 hours</td>
-                                    <td>$20</td>
-                                    <td>$100</td>
-                                </tr>
+                                )
+                                })}
+                              
                             </tbody>
                         </table>
                     </div>
@@ -103,7 +122,7 @@ The company is registered as a legal cleaning company in the Ministry of Industr
                                     <h5>Total Amount</h5>
                                 </div>
                                 <div className='col-sm-6'>
-                                    <p className='float-right'>$140.00</p>
+                                    <p className='float-right'>${offer.total}</p>
                                 </div>
                             </div>
                         </div>
@@ -195,7 +214,7 @@ The company is registered as a legal cleaning company in the Ministry of Industr
                     </div>
                 </div>
                 <div className='text-center mt-3 mb-3'>
-                    <input className='btn btn-pink' value='Accept Offer' />
+                    <input className='btn btn-pink' onClick={(e)=>handleOffer(e,offer.id)} value='Accept Offer' />
                 </div>
                 <footer className='mt-4'>
                     <img src={footer} className='img-fluid' alt='Footer' />

@@ -19,8 +19,8 @@ class CreateSchedulesTable extends Migration
             $table->integer('team_id');
             $table->enum('booking_status',['pending','completed','confirmed'])->default('pending');
             $table->string('start_date');
-            $table->string('start_time');
-            $table->string('end_time');
+            $table->string('start_time')->nullable();
+            $table->string('end_time')->nullable();
             $table->timestamps();
         });
     }

@@ -212,4 +212,13 @@ class OfferController extends Controller
             'offers' => $offers
         ]);
     }
+
+    public function AcceptOffer(Request $request){
+       Offer::where('id',$request->id)->update([
+         'status' =>'accepted'
+       ]);
+       return response()->json([
+        'message' => 'Offer is accepted'
+       ]);
+    }
 }

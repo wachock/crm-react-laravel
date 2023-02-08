@@ -116,9 +116,29 @@ class ScheduleController extends Controller
      * @param  \App\Models\Schedule  $schedule
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Schedule $schedule)
+    public function update(Request $request,$id)
     {
-        //
+        $change  = '';
+        if($request->name == 'start_date'){
+            Schedule::where('id',$id)->update([
+                'booking_status' => 'pending',
+                'start_date'     => $request->value,
+                'start_time'     => '',
+                'end_time'       => ''
+            ]);
+            $change = 'date';
+        } else {
+
+            Schedule::where('id',$id)->update([
+                $request->name => $request->value
+            ]);
+            $change = "other";
+        }
+        return response()->json([
+            'message' => str_replace('_',' ',$request->name)." has been updated",
+            'change'  =>$change
+        ]);
+        
     }
 
     /**
