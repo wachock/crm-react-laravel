@@ -3,7 +3,6 @@ import ReactPaginate from "react-paginate";
 import axios from "axios";
 import Sidebar from "../../Layouts/Sidebar";
 import { Link } from "react-router-dom";
-import JobFilter from "../../Components/Filter/JobFilter";
 
 export default function TotalJobs() {
     const [totalJobs, setTotalJobs] = useState([]);
@@ -123,20 +122,23 @@ export default function TotalJobs() {
                             <h1 className="page-title">Jobs</h1>
                         </div>
                         <div className="col-sm-6">
-                            <Link to="/admin/add-job" className="btn btn-pink addButton"><i class="btn-icon fas fa-plus-circle"></i>
-                                Add New
-                            </Link>
+                            <div className="search-data">
+                                <input type='text' className="form-control" placeholder="Search" />
+                                <Link to="/admin/add-job" className="btn btn-pink addButton"><i class="btn-icon fas fa-plus-circle"></i>
+                                    Add New
+                                </Link>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div className="card">
                     <div className="card-body">
-                        <JobFilter 
+                        {/* <JobFilter 
                         AllServices={AllServices} 
                         AllClients={AllClients}
                         AllWorkers={AllWorkers}
                         getTotalJobs={getTotalJobs}
-                          />
+                        /> */}
                         <div className="boxPanel">
                             <div className="table-responsive">
                                 {totalJobs.length > 0 ? (
@@ -158,12 +160,15 @@ export default function TotalJobs() {
                                             {totalJobs &&
                                                 totalJobs.map((item, index) => (
                                                     <tr key={index}>
-                                                        <td>{
+                                                        <td>
+                                                            <Link to='#'>
+                                                            {
                                                             item.client
-                                                                ? item.client.firstname +
-                                                                " " + item.client.lastname
-                                                                : "NA"
-                                                        }
+                                                            ? item.client.firstname +
+                                                            " " + item.client.lastname
+                                                            : "NA"
+                                                            }
+                                                            </Link>
                                                         </td>
                                                         <td>{
                                                             item.service
@@ -179,12 +184,16 @@ export default function TotalJobs() {
                                                         <td>
                                                             {item.end_time}
                                                         </td>
-                                                        <td>{
+                                                        <td>
+                                                            <Link to='#'>
+                                                            {
                                                             item.worker
-                                                                ? item.worker.firstname +
-                                                                " " + item.worker.lastname
-                                                                : "NA"
-                                                        }</td>
+                                                            ? item.worker.firstname +
+                                                            " " + item.worker.lastname
+                                                            : "NA"
+                                                            }
+                                                            </Link> 
+                                                            </td>
 
                                                         <td
                                                             style={{
@@ -198,33 +207,18 @@ export default function TotalJobs() {
                                                             {item.rate}
                                                         </td>
                                                         <td>
-                                                            <div className="d-flex">
-                                                                <Link
-                                                                    to={`/admin/edit-job/${item.id}`}
-                                                                    className="btn bg-purple"
-                                                                >
-                                                                    <i className="fas fa-edit"></i>
-                                                                </Link>
-                                                                <Link
-                                                                    to={`/admin/view-job/${item.id}`}
-                                                                    className="ml-2 btn btn-success"
-                                                                >
-                                                                    <i className="fa fa-eye"></i>
-                                                                </Link>
-                                                                <div className="text-center">
-                                                                    <button
-                                                                        className="ml-2 btn btn-danger"
-                                                                        onClick={() =>
-                                                                            handleDelete(
-                                                                                item.id
-                                                                            )
-                                                                        }
-                                                                    >
-                                                                        <i className="fa fa-trash"></i>
-                                                                    </button>
+                                                            <div className="action-dropdown dropdown">
+                                                                <button type="button" className="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                                                    <i className="fa fa-ellipsis-vertical"></i>
+                                                                </button>
+                                                                <div className="dropdown-menu">
+                                                                    <Link to={`/admin/edit-job/${item.id}`} className="dropdown-item">Edit</Link>
+                                                                    <Link to={`/admin/view-job/${item.id}`} className="dropdown-item">View</Link>
+                                                                    <button className="dropdown-item" onClick={() => handleDelete(item.id)}
+                                                                    >Delete</button>
                                                                 </div>
                                                             </div>
-                                                        </td>
+                                                        </td> 
                                                     </tr>
                                                 ))}
                                         </tbody>
