@@ -1133,6 +1133,19 @@ h1 {
 .text-underline{
   text-decoration: underline;
 }
-.service-table .table-bordered {
+.client-contract .service-table .table-bordered {
   border: 1px solid #dee2e6 !important;
+}
+.client-contract  .service-table table tr td{
+  font-weight: 500;
+}
+.client-contract  .service-table table tr td input, .client-contract  .service-table table tr td select{
+  border: 2px solid #007bff;
+  color: #000;
+}
+.client-contract  .service-table table tr td input::placeholder, .client-contract  .service-table table tr td select::placeholder{
+  color: #000;
+}
+.client-contract .sigCanvas{
+  border: 1px solid #ccc;
 }
