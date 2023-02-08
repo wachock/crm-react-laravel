@@ -1,6 +1,8 @@
 import React from 'react'
 import logo from "../Assets/image/logo.png";
 import star from "../Assets/image/icons/blue-star.png";
+import SignatureCanvas from 'react-signature-canvas'
+import companySign from "../Assets/image/company-sign.png";
 
 export default function WorkContract() {
   return (
@@ -107,35 +109,35 @@ export default function WorkContract() {
                     <div className='service-table table-responsive'>
                         <table className='table table-bordered'>
                             <tr>
-                                <td>The service and/or work requested by the Tenant</td>
+                                <td style={{width: "60%"}}>The service and/or work requested by the Tenant</td>
                                 <td>Windows Cleaning</td>
                             </tr>
                             <tr>
-                                <td>The location in which the service will be provided and/or work will be performed</td>
+                                <td style={{width: "60%"}}>The location in which the service will be provided and/or work will be performed</td>
                                 <td>Saurabh Vihar, Jaitpur, New Delhi, Delhi, India A-278 New Delhi <br/> <span style={{fontWeight: "600"}} className='d-block mt-2'>Other address if any?</span> <br/><input type='text' value='' placeholder='Any other address?' className='form-control'/></td>
                             </tr>
                             <tr>
-                                <td>Date on which the service delivery and/or work will begin, and the date on which the service delivery and/or work will end</td>
+                                <td style={{width: "60%"}}>Date on which the service delivery and/or work will begin, and the date on which the service delivery and/or work will end</td>
                                 <td>As agreed between the parties</td>
                             </tr>
                             <tr>
-                                <td>Frequency of the service and/or work</td>
+                                <td style={{width: "60%"}}>Frequency of the service and/or work</td>
                                 <td>Once in a Week<br/>Four Times in a Week</td>
                             </tr>
                             <tr>
-                                <td>Consideration the Tenant will pay the Company, including the payment method and/or payment date<br/>Prices does not include vat**</td>
+                                <td style={{width: "60%"}}>Consideration the Tenant will pay the Company, including the payment method and/or payment date<br/>Prices does not include vat**</td>
                                 <td>50 ILS + VAT for 3 Star, Once in a Week<br/>100 ILS + VAT for BNB , Four Times in a Week</td>
                             </tr>
                             <tr>
-                                <td>Payment method:</td>
+                                <td style={{width: "60%"}}>Payment method:</td>
                                 <td>&nbsp;</td>
                             </tr>
                             <tr>
-                                <td>I the undersigned hereby permit Broom Service L.M. Ltd to charge my credit card account (the details of which are listed below) for the services I will receive from the Company, in the amounts and on the dates specified in this agreement between Broom Service L.M. Ltd and me.</td>
+                                <td style={{width: "60%"}}>I the undersigned hereby permit Broom Service L.M. Ltd to charge my credit card account (the details of which are listed below) for the services I will receive from the Company, in the amounts and on the dates specified in this agreement between Broom Service L.M. Ltd and me.</td>
                                 <td>&nbsp;</td>
                             </tr>
                             <tr>
-                                <td>Card Type:</td>
+                                <td style={{width: "60%"}}>Card Type:</td>
                                 <td>
                                     <select className='form-control'>
                                         <option>Please Select</option>
@@ -146,51 +148,160 @@ export default function WorkContract() {
                                 </td>
                             </tr>
                             <tr>
-                                <td>Card Number</td>
+                                <td style={{width: "60%"}}>Card Number</td>
                                 <td><input type='text' className='form-control' placeholder='Enter Card number' /></td>
                             </tr>
                             <tr>
-                                <td>Valid Through:</td>
-                                <td></td>
+                                <td style={{width: "60%"}}>Valid Through:</td>
+                                <td>
+                                    <div className='d-flex'>
+                                        <input type='number' className='form-control' placeholder='MM' />
+                                        <input type='number' className='ml-2 form-control' placeholder='YY' />
+                                    </div>
+                                </td>
                             </tr>
                             <tr>
-                                <td></td>
-                                <td></td>
+                                <td style={{width: "60%"}}>Name on the Card</td>
+                                <td><input type='text' className='form-control' placeholder='Name on the Card' /></td>
                             </tr>
                             <tr>
-                                <td></td>
-                                <td></td>
+                                <td style={{width: "60%"}}>CVV</td>
+                                <td><input type='text' className='form-control' placeholder='CVV' /></td>
                             </tr>
                             <tr>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
+                                <td style={{width: "60%"}}>Miscellaneous</td>
+                                <td>All the employees of the Company are employed in compliance with the law and the Company provides them with all the benefits to which they are entitled; the Client has no employee-employer relationship with the employees of the Company.</td>
                             </tr>
                         </table>
                     </div>
+                    <h6 className='text-underline'>Obligations and Statements of the Tenant</h6>
+                    <div className='agg-list'>
+                        <div className='icons'><img src={star} /></div>
+                        <div className='agg-text'>
+                            <p>By signing this agreement, the Tenant declares that he/she fully and voluntarily accepts all the terms and conditions specified in this agreement and may not have any claim and/or demand and/or complaint against the Company in connection with any promise and/or representation and/or correspondence and/or draft and/or presentation, whether done in writing or orally, prior to the signature of this agreement.</p>
+                        </div>
+                    </div>
+                    <div className='agg-list'>
+                        <div className='icons'><img src={star} /></div>
+                        <div className='agg-text'>
+                            <p>The right to use this document is personal and non-transferable. Note that it is prohibited to distribute and/or duplicate and/or copy and/or publish this document without prior express permission in writing from the management of the Company.</p>
+                        </div>
+                    </div>
+                    <div className='agg-list'>
+                        <div className='icons'><img src={star} /></div>
+                        <div className='agg-text'>
+                            <p>The Tenant states that he/she will fully cooperate with the Company for the performance of the work and/or service the Company should provide, as detailed above in this agreement.</p>
+                        </div>
+                    </div>
+                    <div className='agg-list'>
+                        <div className='icons'><img src={star} /></div>
+                        <div className='agg-text'>
+                            <p>The Tenant hereby undertakes not to directly or indirectly (through another company or person) hire the employees of the Company, even if they are no longer employees of the Company and/or after the termination of the agreement between the Parties.</p>
+                        </div>
+                    </div>
+                    <div className='agg-list'>
+                        <div className='icons'><img src={star} /></div>
+                        <div className='agg-text'>
+                            <p>All the orders placed by the Tenant in connection with any service and/or work he/she requests shall be governed by the order terms and conditions listed on the website of the Company; the website address is as follows: www.broomservice.co.il</p>
+                        </div>
+                    </div>
+                    <div className='agg-list'>
+                        <div className='icons'><img src={star} /></div>
+                        <div className='agg-text'>
+                            <p>This agreement is valid until the notice of a change or cancellation or freeze of any of the parties and in accordance with the company service cancellation procedures.</p>
+                        </div>
+                    </div>
+                    <div className='agg-list'>
+                        <div className='icons'><img src={star} /></div>
+                        <div className='agg-text'>
+                            <p>In case of cancellation of a work order after closing the weekly arrangement and up to 24 hours before the date, the tenant undertakes to pay the company 50 percent of the cost of the visit.</p>
+                        </div>
+                    </div>
+                    <div className='agg-list'>
+                        <div className='icons'><img src={star} /></div>
+                        <div className='agg-text'>
+                            <p>In case of cancellation of a work order less than 24 hours before the date, the tenant undertakes to pay the company 100 percent of the cost of the visit.</p>
+                        </div>
+                    </div>
+                    <h6 className='text-underline'>Obligations and Statements of the Company</h6>
+                    <div className='agg-list'>
+                        <div className='icons'><img src={star} /></div>
+                        <div className='agg-text'>
+                            <p>The Company agrees to perform the work and/or provide the service and/or products devotedly, in a reliable and timely manner and maintain a high standard of service, all pursuant to the dates determined by the Tenant, through suppliers and/or employees and/or sub-contractors working on its behalf. The Company hereby declares that it has the ability and skills to perform the work and/or provide the service and/or products specified in this agreement.</p>
+                        </div>
+                    </div>
+                    <div className='agg-list'>
+                        <div className='icons'><img src={star} /></div>
+                        <div className='agg-text'>
+                            <p>The company undertakes to pay its employees a salary according to law.</p>
+                        </div>
+                    </div>
+                    <div className='agg-list'>
+                        <div className='icons'><img src={star} /></div>
+                        <div className='agg-text'>
+                            <p>The Company undertakes to timely perform the work and/or provide the service, pursuant to the dates determined in this agreement and/or any dates determined by the Tenant in the orders he/she may place through the website of the Company. Reasonable delay in the performance of the work and/or the arrival of any employee of the Company to the Tenant&lsquos address, given the relevant circumstances, may not be deemed breach of this agreement on part of the Company. </p>
+                        </div>
+                    </div>
+                    <div className='agg-list'>
+                        <div className='icons'><img src={star} /></div>
+                        <div className='agg-text'>
+                            <p>The Company hereby states and notifies the Tenant that it may not be held responsible to any cancelation and/or postponement of the work and/or service and/or any delay in the performance of the work and/or service resulting from extraordinary circumstances it cannot control and/or such that derive from force majeure. For the purpose of this section, force majeure is defined as follows: wars, protests, emergencies, conscription (whether partial or full), including conscription of reserve duty forces, including conscription of employees and/or suppliers and/or contractors and/or any representatives of the Company and/or its suppliers, strikes, diseases and/or epidemics, mourning (including national days of mourning), natural disasters, inability to move on the roads, fire, state of preparedness to emergency, and any situation of any kind that the Company cannot control. In any of the aforementioned situations, the Tenant may not have any claim and/or demand and/or complaint against the Company and/or any of its representatives, and the Parties shall schedule the performance of the work and/or service on a later date that would be agreed upon between the Parties. </p>
+                        </div>
+                    </div>
+                    <div className='agg-list'>
+                        <div className='icons'><img src={star} /></div>
+                        <div className='agg-text'>
+                            <p>The Parties hereby agree that this agreement is a framework agreement and that the Tenant will submit to the Company, from time to time, written work orders that shall be deemed integral part of this agreement. </p>
+                        </div>
+                    </div>
+                    <div className='agg-list'>
+                        <div className='icons'><img src={star} /></div>
+                        <div className='agg-text'>
+                            <p>The company is not responsible for any direct or indirect damage, consequential or special, of any kind, that will be caused to the customer and / or any third party as a result of receiving service by the company and its employees or anyone on its behalf. </p>
+                        </div>
+                    </div>
+                    <div className='agg-list'>
+                        <div className='icons'><img src={star} /></div>
+                        <div className='agg-text'>
+                            <p>This agreement is valid for 1 year.</p>
+                        </div>
+                    </div>
+                    <h6 className='text-underline'>General</h6>
+                    <div className='agg-list'>
+                        <div className='icons'><img src={star} /></div>
+                        <div className='agg-text'>
+                            <p>This agreement summarizes and establishes any and all understandings between the Parties; upon signature, no other agreement that was made between the Parties will be in force, and no amendment and/or agreement and/or alteration and/or addition and/or reduction and/or extension and/or waiver in connection with anything related to this agreement may be in force, unless done in writing and signed by the Parties. In case any section, provision or obligation in this agreement is null or unenforceable, all the other provisions of this agreement shall remain in force. No failure or delay by either party in exercising any of its rights under this agreement may be deemed waiver of such rights.</p>
+                        </div>
+                    </div>
+                    <div className='agg-list'>
+                        <div className='icons'><img src={star} /></div>
+                        <div className='agg-text'>
+                            <p>By signing this agreement, the customer agrees to register his details in a database for the purpose of receiving direct mailing of everything. </p>
+                        </div>
+                    </div>
+                    <div className='agg-list'>
+                        <div className='icons'><img src={star} /></div>
+                        <div className='agg-text'>
+                            <p>Addresses of the Parties for the purpose of this agreement are as specified in the introduction of this agreement. Any notice sent by either party to the other, to the aforementioned addresses, shall be deemed effective within 72 hours from its delivery to a post office branch in Israel for registered mail shipment and upon its delivery to the addressee, if it is delivered by hand, or upon receipt of transmission certificate, if it is sent by fax.</p>
+                        </div>
+                    </div>
+                    <h6 className='text-center text-underline mt-3 mb-4'>In witness whereof the Parties have signed:</h6>
+                    <div className='row'>
+                        <div className='col-sm-6'>
+                            <h5 className='mt-2 mb-4'>The Tenant</h5>
+                            <h6>Draw Signature with mouse or touch</h6>
+                            <SignatureCanvas penColor='black' canvasProps={{className: 'sigCanvas'}} />
+                        </div>
+                        <div className='col-sm-6'>
+                            <div className='float-right'>
+                                <h5 className='mt-2 mb-4'>The Company</h5>
+                            </div>
+                            <div className='float-right'>
+                                <img src={companySign} className='img-fluid' alt='Company' />
+                            </div>
+                        </div>
+                    </div>
+                    <div className='mb-4'>&nbsp;</div>
                 </div>
             </div>
         </div>
