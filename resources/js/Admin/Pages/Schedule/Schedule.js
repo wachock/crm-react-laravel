@@ -117,7 +117,7 @@ export default function Schedule() {
                         <td>{item.booking_status}</td>
                         <td>
                           <div className="d-flex">
-                            <Link to={`/admin/view-schedule/${item.client.id}`} className="ml-2 btn btn-warning">
+                            <Link to={`/admin/view-schedule/${item.client.id}?sid=${item.id}`} className="ml-2 btn btn-warning">
                                 <i className="fa fa-eye"></i>
                             </Link>
                             <div className="text-center">
