@@ -62,6 +62,32 @@ export default function WorkerAvailabilty() {
     useEffect(() => {
         getWorkerAvailabilty();
     }, []);
+    let curr = new Date 
+    let week = []
+    let nextweek = []
+
+    for (let i = 1; i <= 7; i++) {
+      let first = curr.getDate() - curr.getDay() + i 
+      if(first>=curr.getDate()){
+      let day = new Date(curr.setDate(first)).toISOString().slice(0, 10)
+      week.push(day)
+      }
+    }
+    
+    for (let i = 0; i < 7; i++) {
+      var today = new Date;
+       var first = today.getDate() - today.getDay() + 1 + 7+i;
+       var firstday = new Date(today.setDate(first)).toISOString().slice(0, 10)
+        nextweek.push(firstday)
+    }
+   const slot = [
+     '6 AM - 10 AM',
+     '10 AM - 2 PM',
+     '2 PM - 6 PM',
+     '6 PM - 10 PM',
+     '10 PM - 2 AM',
+     '2 AM - 6 AM'
+    ]
   return (
     <div className="boxPanel">
         {/* <button className="btn btn-success button add slotBtn" type="button" onClick={() => addFormFields()}>Add Availabilty</button>
@@ -132,371 +158,70 @@ export default function WorkerAvailabilty() {
                         <button className="btn btn-danger button submit saveBtn" type="submit">SAVE</button>
                     </div>
         </form> */}
-        <div className="table-responsive">
-          <table className="timeslots table">
-            <thead>
-              <tr>
-                <th>07-02-2023</th>
-                <th>08-02-2023</th>
-                <th>09-02-2023</th>
-                <th>10-02-2023</th>
-                <th>11-02-2023</th>
-                <th>12-02-2023</th>
-                <th>13-02-2023</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>
-                  <div className="radio">
-                    <label>
-                      <input type="checkbox" data-day="Sunday" className="btn-check" id="bordered-radio-1" name="timeslot" value="6 AM - 8 AM Day Sunday"/>
-                      <span className="forcustom">6 AM - 8 AM</span>
-                    </label>
-                  </div>
-                </td>
-                <td>
-                  <div className="radio">
-                    <label>
-                      <input type="checkbox" data-day="Monday" className="btn-check" id="bordered-radio-1" name="timeslot" value="6 AM - 8 AM Day Monday"/>
-                      <span className="forcustom">6 AM - 8 AM</span>
-                    </label>
-                  </div>
-                </td>
-                <td>
-                  <div className="radio">
-                    <label>
-                      <input type="checkbox" data-day="Tuesday" className="btn-check" id="bordered-radio-1" name="timeslot" value="6 AM - 8 AM Day Tuesday"/>
-                      <span className="forcustom">6 AM - 8 AM</span>
-                    </label>
-                  </div>
-                </td>
-                <td>
-                  <div className="radio">
-                    <label>
-                      <input checked type="checkbox" data-day="Wednesday" className="btn-check" id="bordered-radio-1" name="timeslot" value="6 AM - 8 AM Day Wednesday"/>
-                      <span className="forcustom">6 AM - 8 AM</span>
-                    </label>
-                  </div>
-                </td>
-                <td>
-                  <div className="radio">
-                    <label>
-                      <input type="checkbox" data-day="Thursday" className="btn-check" id="bordered-radio-1" name="timeslot" value="6 AM - 8 AM Day Thursday"/>
-                      <span className="forcustom">6 AM - 8 AM</span>
-                    </label>
-                  </div>
-                </td>
-                <td>
-                  <div className="radio">
-                    <label>
-                      <input type="checkbox" data-day="Friday" className="btn-check" id="bordered-radio-1" name="timeslot" value="6 AM - 8 AM Day Friday"/>
-                      <span className="forcustom">6 AM - 8 AM</span>
-                    </label>
-                  </div>
-                </td>
-                <td>
-                  <div className="radio">
-                    <label>
-                      <input type="checkbox" data-day="Saturday" className="btn-check" id="bordered-radio-1" name="timeslot" value="6 AM - 8 AM Day Saturday"/>
-                      <span className="forcustom">6 AM - 8 AM</span>
-                    </label>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <div className="radio">
-                    <label>
-                      <input type="checkbox" data-day="Sunday" className="btn-check" id="bordered-radio-1" name="timeslot" value="8 AM - 12 PM Day Sunday"/>
-                      <span className="forcustom">8 AM - 12 PM</span>
-                    </label>
-                  </div>
-                </td>
-                <td>
-                  <div className="radio">
-                    <label>
-                      <input type="checkbox" data-day="Monday" className="btn-check" id="bordered-radio-1" name="timeslot" value="8 AM - 12 PM Day Monday"/>
-                      <span className="forcustom">8 AM - 12 PM</span>
-                    </label>
-                  </div>
-                </td>
-                <td>
-                  <div className="radio">
-                    <label>
-                      <input type="checkbox" data-day="Tuesday" className="btn-check" id="bordered-radio-1" name="timeslot" value="8 AM - 12 PM Day Tuesday"/>
-                      <span className="forcustom">8 AM - 12 PM</span>
-                    </label>
-                  </div>
-                </td>
-                <td>
-                  <div className="radio">
-                    <label>
-                      <input type="checkbox" data-day="Wednesday" className="btn-check" id="bordered-radio-1" name="timeslot" value="8 AM - 12 PM Day Wednesday"/>
-                      <span className="forcustom">8 AM - 12 PM</span>
-                    </label>
-                  </div>
-                </td>
-                <td>
-                  <div className="radio">
-                    <label>
-                      <input checked type="checkbox" data-day="Thursday" className="btn-check" id="bordered-radio-1" name="timeslot" value="8 AM - 12 PM Day Thursday"/>
-                      <span className="forcustom">8 AM - 12 PM</span>
-                    </label>
-                  </div>
-                </td>
-                <td>
-                  <div className="radio">
-                    <label>
-                      <input type="checkbox" data-day="Friday" className="btn-check" id="bordered-radio-1" name="timeslot" value="8 AM - 12 PM Day Friday"/>
-                      <span className="forcustom">8 AM - 12 PM</span>
-                    </label>
-                  </div>
-                </td>
-                <td>
-                  <div className="radio">
-                    <label>
-                      <input type="checkbox" data-day="Saturday" className="btn-check" id="bordered-radio-1" name="timeslot" value="8 AM - 12 PM Day Saturday"/>
-                      <span className="forcustom">8 AM - 12 PM</span>
-                    </label>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <div className="radio">
-                    <label>
-                      <input type="checkbox" data-day="Sunday" className="btn-check" id="bordered-radio-1" name="timeslot" value="12 PM - 2 PM Day Sunday"/>
-                      <span className="forcustom">12 PM - 2 PM</span>
-                    </label>
-                  </div>
-                </td>
-                <td>
-                  <div className="radio">
-                    <label>
-                      <input type="checkbox" data-day="Monday" className="btn-check" id="bordered-radio-1" name="timeslot" value="12 PM - 2 PM Day Monday"/>
-                      <span className="forcustom">12 PM - 2 PM</span>
-                    </label>
-                  </div>
-                </td>
-                <td>
-                  <div className="radio">
-                    <label>
-                      <input type="checkbox" data-day="Tuesday" className="btn-check" id="bordered-radio-1" name="timeslot" value="12 PM - 2 PM Day Tuesday"/>
-                      <span className="forcustom">12 PM - 2 PM</span>
-                    </label>
-                  </div>
-                </td>
-                <td>
-                  <div className="radio">
-                    <label>
-                      <input type="checkbox" data-day="Wednesday" className="btn-check" id="bordered-radio-1" name="timeslot" value="12 PM - 2 PM Day Wednesday"/>
-                      <span className="forcustom">12 PM - 2 PM</span>
-                    </label>
-                  </div>
-                </td>
-                <td>
-                  <div className="radio">
-                    <label>
-                      <input type="checkbox" data-day="Thursday" className="btn-check" id="bordered-radio-1" name="timeslot" value="12 PM - 2 PM Day Thursday"/>
-                      <span className="forcustom">12 PM - 2 PM</span>
-                    </label>
-                  </div>
-                </td>
-                <td>
-                  <div className="radio">
-                    <label>
-                      <input type="checkbox" data-day="Friday" className="btn-check" id="bordered-radio-1" name="timeslot" value="12 PM - 2 PM Day Friday"/>
-                      <span className="forcustom">12 PM - 2 PM</span>
-                    </label>
-                  </div>
-                </td>
-                <td>
-                  <div className="radio">
-                    <label>
-                      <input type="checkbox" data-day="Saturday" className="btn-check" id="bordered-radio-1" name="timeslot" value="12 PM - 2 PM Day Saturday"/>
-                      <span className="forcustom">12 PM - 2 PM</span>
-                    </label>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <div className="radio">
-                    <label>
-                      <input checked type="checkbox" data-day="Sunday" className="btn-check" id="bordered-radio-1" name="timeslot" value="2 PM - 4 PM Day Sunday"/>
-                      <span className="forcustom">2 PM - 4 PM</span>
-                    </label>
-                  </div>
-                </td>
-                <td>
-                  <div className="radio">
-                    <label>
-                      <input type="checkbox" data-day="Monday" className="btn-check" id="bordered-radio-1" name="timeslot" value="2 PM - 4 PM Day Monday"/>
-                      <span className="forcustom">2 PM - 4 PM</span>
-                    </label>
-                  </div>
-                </td>
-                <td>
-                  <div className="radio">
-                    <label>
-                      <input type="checkbox" data-day="Tuesday" className="btn-check" id="bordered-radio-1" name="timeslot" value="2 PM - 4 PM Day Tuesday"/>
-                      <span className="forcustom">2 PM - 4 PM</span>
-                    </label>
-                  </div>
-                </td>
-                <td>
-                  <div className="radio">
-                    <label>
-                      <input type="checkbox" data-day="Wednesday" className="btn-check" id="bordered-radio-1" name="timeslot" value="2 PM - 4 PM Day Wednesday"/>
-                      <span className="forcustom">2 PM - 4 PM</span>
-                    </label>
-                  </div>
-                </td>
-                <td>
-                  <div className="radio">
-                    <label>
-                      <input type="checkbox" data-day="Thursday" className="btn-check" id="bordered-radio-1" name="timeslot" value="2 PM - 4 PM Day Thursday"/>
-                      <span className="forcustom">2 PM - 4 PM</span>
-                    </label>
-                  </div>
-                </td>
-                <td>
-                  <div className="radio">
-                    <label>
-                      <input type="checkbox" data-day="Friday" className="btn-check" id="bordered-radio-1" name="timeslot" value="2 PM - 4 PM Day Friday"/>
-                      <span className="forcustom">2 PM - 4 PM</span>
-                    </label>
-                  </div>
-                </td>
-                <td>
-                  <div className="radio">
-                    <label>
-                      <input type="checkbox" data-day="Saturday" className="btn-check" id="bordered-radio-1" name="timeslot" value="2 PM - 4 PM Day Saturday"/>
-                      <span className="forcustom">2 PM - 4 PM</span>
-                    </label>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <div className="radio">
-                    <label>
-                      <input type="checkbox" data-day="Sunday" className="btn-check" id="bordered-radio-1" name="timeslot" value="4 PM - 8 PM Day Sunday"/>
-                      <span className="forcustom">4 PM - 8 PM</span>
-                    </label>
-                  </div>
-                </td>
-                <td>
-                  <div className="radio">
-                    <label>
-                      <input type="checkbox" data-day="Monday" className="btn-check" id="bordered-radio-1" name="timeslot" value="4 PM - 8 PM Day Monday"/>
-                      <span className="forcustom">4 PM - 8 PM</span>
-                    </label>
-                  </div>
-                </td>
-                <td>
-                  <div className="radio">
-                    <label>
-                      <input type="checkbox" data-day="Tuesday" className="btn-check" id="bordered-radio-1" name="timeslot" value="4 PM - 8 PM Day Tuesday"/>
-                      <span className="forcustom">4 PM - 8 PM</span>
-                    </label>
-                  </div>
-                </td>
-                <td>
-                  <div className="radio">
-                    <label>
-                      <input type="checkbox" data-day="Wednesday" className="btn-check" id="bordered-radio-1" name="timeslot" value="4 PM - 8 PM Day Wednesday"/>
-                      <span className="forcustom">4 PM - 8 PM</span>
-                    </label>
-                  </div>
-                </td>
-                <td>
-                  <div className="radio">
-                    <label>
-                      <input type="checkbox" data-day="Thursday" className="btn-check" id="bordered-radio-1" name="timeslot" value="4 PM - 8 PM Day Thursday"/>
-                      <span className="forcustom">4 PM - 8 PM</span>
-                    </label>
-                  </div>
-                </td>
-                <td>
-                  <div className="radio">
-                    <label>
-                      <input type="checkbox" data-day="Friday" className="btn-check" id="bordered-radio-1" name="timeslot" value="4 PM - 8 PM Day Friday"/>
-                      <span className="forcustom">4 PM - 8 PM</span>
-                    </label>
-                  </div>
-                </td>
-                <td>
-                  <div className="radio">
-                    <label>
-                      <input type="checkbox" data-day="Saturday" className="btn-check" id="bordered-radio-1" name="timeslot" value="4 PM - 8 PM Day Saturday"/>
-                      <span className="forcustom">4 PM - 8 PM</span>
-                    </label>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <div className="radio">
-                    <label>
-                      <input type="checkbox" data-day="Sunday" className="btn-check" id="bordered-radio-1" name="timeslot" value="8 PM - 12 AM Day Sunday"/>
-                      <span className="forcustom">8 PM - 12 AM</span>
-                    </label>
-                  </div>
-                </td>
-                <td>
-                  <div className="radio">
-                    <label>
-                      <input type="checkbox" data-day="Monday" className="btn-check" id="bordered-radio-1" name="timeslot" value="8 PM - 12 AM Day Monday"/>
-                      <span className="forcustom">8 PM - 12 AM</span>
-                    </label>
-                  </div>
-                </td>
-                <td>
-                  <div className="radio">
-                    <label>
-                      <input type="checkbox" data-day="Tuesday" className="btn-check" id="bordered-radio-1" name="timeslot" value="8 PM - 12 AM Day Tuesday"/>
-                      <span className="forcustom">8 PM - 12 AM</span>
-                    </label>
-                  </div>
-                </td>
-                <td>
-                  <div className="radio">
-                    <label>
-                      <input type="checkbox" data-day="Wednesday" className="btn-check" id="bordered-radio-1" name="timeslot" value="8 PM - 12 AM Day Wednesday"/>
-                      <span className="forcustom">8 PM - 12 AM</span>
-                    </label>
-                  </div>
-                </td>
-                <td>
-                  <div className="radio">
-                    <label>
-                      <input type="checkbox" data-day="Thursday" className="btn-check" id="bordered-radio-1" name="timeslot" value="8 PM - 12 AM Day Thursday"/>
-                      <span className="forcustom">8 PM - 12 AM</span>
-                    </label>
-                  </div>
-                </td>
-                <td>
-                  <div className="radio">
-                    <label>
-                      <input type="checkbox" data-day="Friday" className="btn-check" id="bordered-radio-1" name="timeslot" value="8 PM - 12 AM Day Friday"/>
-                      <span className="forcustom">8 PM - 12 AM</span>
-                    </label>
-                  </div>
-                </td>
-                <td>
-                  <div className="radio">
-                    <label>
-                      <input type="checkbox" data-day="Saturday" className="btn-check" id="bordered-radio-1" name="timeslot" value="8 PM - 12 AM Day Saturday"/>
-                      <span className="forcustom">8 PM - 12 AM</span>
-                    </label>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+        <ul className="nav nav-tabs" role="tablist">
+            <li className="nav-item" role="presentation"><a id="current-week" className="nav-link active" data-toggle="tab" href="#tab-current-week" aria-selected="true" role="tab">Current Week</a></li>
+            <li className="nav-item" role="presentation"><a id="first-next-week" className="nav-link" data-toggle="tab" href="#tab-first-next-week" aria-selected="true" role="tab">Next Week</a></li>
+        </ul>
+         <div className='tab-content' style={{background: "#fff"}}>
+         <div id="tab-current-week" className="tab-pane active show" role="tab-panel" aria-labelledby="current-week">
+            <div className="table-responsive">
+              <table className="timeslots table">
+                <thead>
+                  <tr>
+                    {week.map((element, index) => (
+                       <th>{element}</th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                {slot.map((s, index) => (
+                  <tr>
+                    {week.map((w, index) => (
+                    <td>
+                      <div className="radio">
+                        <label>
+                          <input type="checkbox" data-day="Sunday" className="btn-check" id="bordered-radio-1" name="timeslot" data-value={w} value={s}/>
+                          <span className="forcustom">{s}</span>
+                        </label>
+                      </div>
+                    </td>
+                    ))}
+                  </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+       </div>
+       <div id="tab-first-next-week" className="tab-pane" role="tab-panel" aria-labelledby="first-next-week">
+            <div className="table-responsive">
+              <table className="timeslots table">
+                <thead>
+                  <tr>
+                    {nextweek.map((element, index) => (
+                       <th>{element}</th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                {slot.map((s, index) => (
+                  <tr>
+                    {nextweek.map((w, index) => (
+                    <td>
+                      <div className="radio">
+                        <label>
+                          <input type="checkbox" data-day="Sunday" className="btn-check" id="bordered-radio-1" name="timeslot" data-value={w} value={s}/>
+                          <span className="forcustom">{s}</span>
+                        </label>
+                      </div>
+                    </td>
+                    ))}
+                  </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+       </div>
+      </div>
     </div>
   )
 }
