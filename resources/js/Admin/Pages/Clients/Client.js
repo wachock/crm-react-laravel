@@ -6,7 +6,7 @@ import axios from "axios";
 import ReactPaginate from "react-paginate";
 
 export default function Clients() {
-
+    const [address, setAddress] = useState('58 The Avenue, The Weir View, Kilkenny, R95E8E2')
     const [clients, setClients] = useState([]);
     const [pageCount, setPageCount] = useState(0);
     const [loading, setLoading] = useState("Loading...");
@@ -92,16 +92,17 @@ export default function Clients() {
                             <h1 className="page-title">Clients</h1>
                         </div>
                         <div className="col-sm-6">
-                            <Link to="/admin/add-client" className="btn btn-pink addButton"><i className="btn-icon fas fa-plus-circle"></i>
-                                Add New
-                            </Link>
+                            <div className="search-data">
+                                <input type='text' className="form-control" placeholder="Search" />
+                                <Link to="/admin/add-client" className="btn btn-pink addButton"><i className="btn-icon fas fa-plus-circle"></i>Add New</Link>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div className="card">
                     <div className="card-body">
-                        <ClientFilter
-                        getFilteredclients={getFilteredclients}/>
+                        {/* <ClientFilter
+                        getFilteredclients={getFilteredclients}/> */}
                         <div className="boxPanel">
                             <div className="table-responsive">
                                 {clients.length > 0 ? (
@@ -111,6 +112,7 @@ export default function Clients() {
                                                 <th scope="col">ID</th>
                                                 <th scope="col">Client Name</th>
                                                 <th scope="col">Email</th>
+                                                <th scope="col">Address</th>
                                                 <th scope="col">Phone</th>
                                                 <th scope="col">Status</th>
                                                 <th scope="col">Action</th>
@@ -122,10 +124,10 @@ export default function Clients() {
                                                     <tr key={index}>
                                                         <td>{item.id}</td>
                                                         <td>
-                                                            {item.firstname}{" "}
-                                                            {item.lastname}
+                                                            <Link to={`/admin/view-client/${item.id}`}>{item.firstname}{" "}{item.lastname}</Link>  
                                                         </td>
                                                         <td>{item.email}</td>
+                                                        <td><a href='https://goo.gl/maps/ChjqELMU9oNhxQm27' target='_blank'>{address}</a></td>
                                                         <td>{item.phone}</td>
                                                         <td>
                                                             {item.status == 0
@@ -133,29 +135,16 @@ export default function Clients() {
                                                                 : "Active"}
                                                         </td>
                                                         <td>
-                                                            <div className="d-flex">
-                                                                <Link
-                                                                    to={`/admin/edit-client/${item.id}`}
-                                                                    className="btn bg-green"
-                                                                >
-                                                                    <i className="fas fa-edit"></i>
-                                                                </Link>
-                                                                <Link
-                                                                    to={`/admin/view-client/${item.id}`}
-                                                                    className="ml-2 btn btn-warning"
-                                                                >
-                                                                    <i className="fa fa-eye"></i>
-                                                                </Link>
-                                                                <button
-                                                                    className="ml-2 btn btn-danger"
-                                                                    onClick={() =>
-                                                                        handleDelete(
-                                                                            item.id
-                                                                        )
-                                                                    }
-                                                                >
-                                                                    <i className="fa fa-trash"></i>
+                                                            <div className="action-dropdown dropdown">
+                                                                <button type="button" className="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                                                    <i className="fa fa-ellipsis-vertical"></i>
                                                                 </button>
+                                                                <div className="dropdown-menu">
+                                                                    <Link to={`/admin/edit-client/${item.id}`} className="dropdown-item">Edit</Link>
+                                                                    <Link to={`/admin/view-client/${item.id}`} className="dropdown-item">View</Link>
+                                                                    <button className="dropdown-item" onClick={() => handleDelete(item.id)}
+                                                                    >Delete</button>
+                                                                </div>
                                                             </div>
                                                         </td>
                                                     </tr>
