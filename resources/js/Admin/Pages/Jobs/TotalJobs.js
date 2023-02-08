@@ -299,7 +299,7 @@ console.log(totalJobs);
                                                             {item.status}
                                                         </td>
                                                         <td>
-                                                            {item.rate}
+                                                            {item.rate} NIS
                                                         </td>
                                                         <td>
                                                             <div className="action-dropdown dropdown">
