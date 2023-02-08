@@ -61,7 +61,6 @@ class JobController extends Controller
         }
 
         $jobs                = $jobs->orderBy('id', 'desc')->paginate(20);
-
         return response()->json([
             'jobs'       => $jobs,        
         ], 200);
@@ -201,5 +200,23 @@ class JobController extends Controller
             'jobs' => $jobs
         ]);
 
+    }
+    public function updateJob(Request $request, $id)
+    {
+        //
+        $job = Job::find($id);
+        if($request->date != ''){
+            $job->start_date=$request->date;
+        }
+        if($request->worker != ''){
+            $job->worker_id=$request->worker;
+        }
+        if($request->shifts != ''){
+            $job->shifts=$request->shifts;
+        }
+        $job->save();
+        return response()->json([
+            'message'=>'Job has been updated successfully'
+        ],200);
     }
 }

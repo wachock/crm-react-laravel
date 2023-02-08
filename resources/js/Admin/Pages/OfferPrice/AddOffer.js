@@ -147,7 +147,7 @@ export default function AddOffer() {
                           <table class="table table-sm">
                             <thead>
                               <tr>
-                                <th style={{width:"50%"}}>service</th>
+                                <th style={{width:"50%"}}>Service</th>
                                 <th style={{width:"16%"}}>Job Hours</th>
                                 <th style={{width:"16%"}}>Rate Per Hour</th>
                                 <th style={{width:"16%"}}>Total Amount</th>
@@ -160,7 +160,7 @@ export default function AddOffer() {
                                 
                                 <td>
                                   <select name="service" className="form-control" value={element.service || "" } onChange={e => handleChange(index, e)} >
-                                    <option selected> -- select --</option>
+                                    <option selected> -- Please select --</option>
                                    { AllServices && AllServices.map((s,i)=>{
                                      return (
                                         <option value={s.id}> {s.name} </option>

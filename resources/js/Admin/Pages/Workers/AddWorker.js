@@ -11,9 +11,9 @@ export default function AddWorker() {
   const [phone, setPhone] = useState('');
   const [renewal_date, setRenewalDate] = useState('');
   const [gender, setGender] = useState('');
-  const [payment_hour, setPaymentHour] = useState(0);
+  const [payment_hour, setPaymentHour] = useState();
   const [worker_id, setWorkerId] = useState(Math.random().toString().concat("0".repeat(3)).substr(2,5));
-  const [password, setPassword] = useState('00000');
+  const [password, setPassword] = useState('');
   const [address, setAddress] = useState('');
   const [skill,setSkill] = useState([]);
   const [itemStatus, setItemStatus] = useState('');
@@ -150,32 +150,31 @@ export default function AddWorker() {
                                     </div>
                                 </div>
                             </div>
-                        <div className='form-group'>
-                            <label className='control-label'>Address</label>
-                            <input type='text' value={address} onChange={(e) => setAddress(e.target.value)} className='form-control' placeholder='Enter your address' />
-                        </div>
-                        <div className='col-sm-12'>
+                            <div className='form-group'>
+                                <label className='control-label'>Address</label>
+                                <input type='text' value={address} onChange={(e) => setAddress(e.target.value)} className='form-control' placeholder='Enter your address' />
+                            </div>
+                            <div className='col-sm-12'>
                                 <div className='form-group'>
                                     <label className='control-label'>Skills</label>
                                 </div>
-                        <div className="form-check">
-                            <label className="form-check-label">
-                                <input type="checkbox" className="form-check-input" name="skills" value="5" onChange={handleSkills} />5 Star - 5 כוכבים
-                            </label>
+                                <div className="form-check">
+                                    <label className="form-check-label">
+                                        <input type="checkbox" className="form-check-input" name="skills" value="5" onChange={handleSkills} />5 Star - 5 כוכבים
+                                    </label>
+                                </div>
+                                <div className="form-check">
+                                    <label className="form-check-label">
+                                        <input type="checkbox" className="form-check-input" name="skills" value="4" onChange={handleSkills}/>4 Star - 4 כוכבים
+                                    </label>
+                                </div>
+                                <div className="form-check">
+                                    <label className="form-check-label">
+                                        <input type="checkbox" className="form-check-input" name="skills" value="3" onChange={handleSkills} />3 Star - 3 כוכבים
+                                    </label>
+                                </div>
                             </div>
-                            <div className="form-check">
-                            <label className="form-check-label">
-                                <input type="checkbox" className="form-check-input" name="skills" value="4" onChange={handleSkills}/>4 Star - 4 כוכבים
-                            </label>
-                            </div>
-                            <div className="form-check">
-                            <label className="form-check-label">
-                                <input type="checkbox" className="form-check-input" name="skills" value="3" onChange={handleSkills} />3 Star - 3 כוכבים
-                            </label>
-                            </div>
-                        </div>
-
-                        <div className='form-group'>
+                        <div className='form-group mt-4'>
                             <label className='control-label'>Status</label>
                             <select className='form-control' value={itemStatus} onChange={(e) => setItemStatus(e.target.value)}>
                                 <option>Please select</option>
@@ -184,7 +183,7 @@ export default function AddWorker() {
                             </select>
                         </div>
                         <div className="form-group text-center">
-                            <input type='submit' value='SAVE'  onClick={handleSubmit} className="btn btn-danger saveBtn"/>
+                            <input type='submit' value='SAVE'  onClick={handleSubmit} className="btn btn-pink saveBtn"/>
                         </div>
                         </form>
                     </div>

@@ -247,6 +247,9 @@ export default function EditClient() {
                                
                                 
                             </div>
+                            <div className="col-sm-1">
+                                <button className="mt-25 btn btn-success" onClick={addPhone}> + </button>
+                            </div>
 
                         
                         </div>

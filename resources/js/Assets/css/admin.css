@@ -7,6 +7,9 @@ body{
   background: #f9f9fc !important;
   font-weight: 400;
 }
+a:hover{
+  text-decoration: none !important;
+}
 #container {
     min-height: 100%;
     width: 100%;
@@ -1148,4 +1151,20 @@ h1 {
 }
 .client-contract .sigCanvas{
   border: 1px solid #ccc;
+}
+.search-data{
+  display: flex;
+  float: right;
+}
+.search-data input{
+  height: 40px;
+  margin-top: 25px;
+  margin-right: 20px;
+  width: 220px;
+}
+.action-dropdown .dropdown-toggle::after{
+  display: none;
+}
+.mt-25{
+  margin-top: 25px;
 }

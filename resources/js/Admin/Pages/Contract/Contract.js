@@ -1,6 +1,5 @@
 import React from 'react'
 import { Link } from "react-router-dom";
-import OfferedPriceFilter from '../../Components/Filter/OfferedPriceFilter';
 import Sidebar from '../../Layouts/Sidebar';
 export default function Contract() {
     return (
@@ -8,17 +7,27 @@ export default function Contract() {
             <Sidebar />
             <div id="content">
                 <div className="titleBox customer-title">
-                    <h1 className="page-title">Contracts</h1>
+                    <div className="row">
+                        <div className="col-sm-6">
+                            <h1 className="page-title">Contracts</h1>
+                        </div>
+                        <div className="col-sm-6">
+                            <div className="search-data">
+                                <input type='text' className="mr-0 form-control" placeholder="Search" />
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div className="card">
                     <div className="card-body">
-                    <OfferedPriceFilter/>
+                    {/* <OfferedPriceFilter/> */}
                         <div className="boxPanel">
                             <div className="table-responsive">
                                 <table className="table table-bordered">
                                     <thead>
                                         <tr>
                                             <th scope="col">Client</th>
+                                            <th scope="col">Email</th>
                                             <th scope="col">Address</th>
                                             <th scope="col">Phone</th>
                                             <th scope="col">Service Name</th>
@@ -29,16 +38,23 @@ export default function Contract() {
                                     </thead>
                                     <tbody>  
                                         <tr>
-                                            <td>Clemmie Wolf</td>
-                                            <td>4 Ashlinn House,College Square</td>
+                                            <td><Link to='#!'>Clemmie Wolf</Link></td>
+                                            <td>test123@gmail.com</td>
+                                            <td><Link to='#!'>4 Ashlinn House,College Square</Link></td>
                                             <td>9763608409</td>
                                             <td>Glass furnishing</td>
-                                            <td>Inactive</td>
+                                            <td>Signed</td>
                                             <td>440 NIS</td>
                                             <td>
-                                                <div className="d-flex">
-                                                    <Link to={`/admin/view-contract`} className="ml-2 btn btn-warning"><i className="fa fa-eye"></i></Link>
-                                                    <button className="ml-2 btn bg-red" onClick={() => handleDelete(item.id)}><i className="fa fa-trash"></i></button>  
+                                                <div className="action-dropdown dropdown">
+                                                    <button type="button" className="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                                        <i className="fa fa-ellipsis-vertical"></i>
+                                                    </button>
+                                                    <div className="dropdown-menu">
+                                                        <Link to={`/admin/view-contract`} className="dropdown-item">View</Link>
+                                                        <button className="dropdown-item" onClick={() => handleDelete(item.id)}
+                                                        >Delete</button>
+                                                    </div>
                                                 </div>
                                             </td>
                                         </tr>     
