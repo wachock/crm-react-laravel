@@ -196,20 +196,23 @@ console.log(totalJobs);
                             <h1 className="page-title">Jobs</h1>
                         </div>
                         <div className="col-sm-6">
-                            <Link to="/admin/add-job" className="btn btn-pink addButton"><i class="btn-icon fas fa-plus-circle"></i>
-                                Add New
-                            </Link>
+                            <div className="search-data">
+                                <input type='text' className="form-control" placeholder="Search" />
+                                <Link to="/admin/add-job" className="btn btn-pink addButton"><i class="btn-icon fas fa-plus-circle"></i>
+                                    Add New
+                                </Link>
+                            </div> 
                         </div>
                     </div>
                 </div>
                 <div className="card">
                     <div className="card-body">
-                        <JobFilter 
+                        {/* <JobFilter 
                         AllServices={AllServices} 
                         AllClients={AllClients}
                         AllWorkers={AllWorkers}
                         getTotalJobs={getTotalJobs}
-                          />
+                          /> */}
                         <div className="boxPanel">
                             <div className="table-responsive">
                                 {totalJobs.length > 0 ? (
@@ -221,10 +224,6 @@ console.log(totalJobs);
                                                 <th scope="col">Worker Name</th>
                                                 <th scope="col">Client Name</th>
                                                 <th scope="col">Service Name</th>
-                                                {/* <th scope="col">Start Time</th>
-                                                 <th scope="col">End Time</th> 
-                                                <th scope="col">Assigned Worker</th>
-                                                */} 
                                                 <th scope="col">Shift</th>
                                                 <th scope="col">Status</th>
                                                 <th scope="col">Total</th>
@@ -274,19 +273,6 @@ console.log(totalJobs);
                                                                 ? item.service.name
                                                                 : "NA"
                                                         }</td>
-                                                         {/*<td>
-                                                            {item.start_time}
-                                                        </td>
-                                                        <td>
-                                                            {item.end_time}
-                                                        </td>
-                                                        <td>{
-                                                            item.worker
-                                                                ? item.worker.firstname +
-                                                                " " + item.worker.lastname
-                                                                : "NA"
-                                                        }</td>
-                                                         */}
                                                         <td>
                                                         
                                                     <Select
@@ -316,43 +302,14 @@ console.log(totalJobs);
                                                             {item.rate}
                                                         </td>
                                                         <td>
-                                                            <div className="d-flex">
-                                                                 <button
-                                                                        className="ml-2 btn btn-danger"
-                                                                        onClick={(e) =>
-                                                                            handleform(
-                                                                                item.id,
-                                                                                e
-                                                                            )
-                                                                        }
-                                                                    >
-                                                                        <i className="fa fa-edit"></i>
-                                                                    </button>
-                                                                {/*
-                                                                <Link
-                                                                    to={`/admin/edit-job/${item.id}`}
-                                                                    className="btn bg-purple"
-                                                                >
-                                                                    <i className="fas fa-edit"></i>
-                                                                </Link>
-                                                                */}
-                                                                <Link
-                                                                    to={`/admin/view-job/${item.id}`}
-                                                                    className="ml-2 btn btn-success"
-                                                                >
-                                                                    <i className="fa fa-eye"></i>
-                                                                </Link>
-                                                                <div className="text-center">
-                                                                    <button
-                                                                        className="ml-2 btn btn-danger"
-                                                                        onClick={() =>
-                                                                            handleDelete(
-                                                                                item.id
-                                                                            )
-                                                                        }
-                                                                    >
-                                                                        <i className="fa fa-trash"></i>
-                                                                    </button>
+                                                            <div className="action-dropdown dropdown">
+                                                                <button type="button" className="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                                                    <i className="fa fa-ellipsis-vertical"></i>
+                                                                </button>
+                                                                <div className="dropdown-menu">
+                                                                    <button className="dropdown-item" onClick={(e) => handleform(item.id,e)}>Edit</button>
+                                                                    <Link to={`/admin/view-job/${item.id}`} className="dropdown-item">View</Link>
+                                                                    <button className="dropdown-item" onClick={() => handleDelete(item.id)}>Delete</button>
                                                                 </div>
                                                             </div>
                                                         </td>
