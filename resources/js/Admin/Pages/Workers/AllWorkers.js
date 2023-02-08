@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Sidebar from "../../Layouts/Sidebar";
 import { Link } from "react-router-dom";
-import WorkerFilter from "../../Components/Filter/WorkerFilter";
 import ReactPaginate from "react-paginate";
 
 export default function AllWorkers() {
@@ -90,15 +89,16 @@ export default function AllWorkers() {
                             <h1 className="page-title">Workers</h1>
                         </div>
                         <div className="col-sm-6">
-                            <Link to="/admin/add-worker" className="btn btn-pink addButton"><i className="btn-icon fas fa-plus-circle"></i>
-                                Add New
-                            </Link>
+                            <div className="search-data">
+                                <input type='text' className="form-control" placeholder="Search" />
+                                <Link to="/admin/add-worker" className="btn btn-pink addButton"><i className="btn-icon fas fa-plus-circle"></i>Add New</Link>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div className="card">
                     <div className="card-body">
-                    <WorkerFilter getWorkerFilter={getWorkerFilter}/>
+                    {/* <WorkerFilter getWorkerFilter={getWorkerFilter}/> */}
                         <div className="boxPanel">
                             <div className="table-responsive">
                                 {workers.length > 0 ? (
@@ -107,6 +107,8 @@ export default function AllWorkers() {
                                             <tr>
                                                 <th scope="col">ID</th>
                                                 <th scope="col">Worker Name</th>
+                                                <th scope="col">Email</th>
+                                                <th scope="col">Address</th>
                                                 <th scope="col">Phone</th>
                                                 <th scope="col">Status</th>
                                                 <th scope="col">Action</th>
@@ -118,9 +120,10 @@ export default function AllWorkers() {
                                                     <tr key={index}>
                                                         <td>{item.id}</td>
                                                         <td>
-                                                            {item.firstname}{" "}
-                                                            {item.lastname}
+                                                            <Link to={`/admin/view-worker/${item.id}`}>{item.firstname}{" "}{item.lastname}</Link> 
                                                         </td>
+                                                        <td>test123@gmail.com</td>
+                                                        <td><a href='https://goo.gl/maps/W18q1mczZ13TVbVZA'>C-6, Sector 7, Noida</a></td>
                                                         <td>{item.phone}</td>
                                                         <td>
                                                         {item.status == 0
@@ -128,30 +131,16 @@ export default function AllWorkers() {
                                                                 : "Active"}
                                                         </td>
                                                         <td>
-                                                            <div className="d-flex">
-                                                                <Link
-                                                                    to={`/admin/edit-worker/${item.id}`}
-                                                                    className="btn bg-green"
-                                                                >
-                                                                    <i className="fa fa-edit"></i>
-                                                                </Link>
-                                                                
-                                                                <Link
-                                                                    to={`/admin/view-worker/${item.id}`}
-                                                                    className="ml-2 btn btn-warning"
-                                                                >
-                                                                    <i className="fa fa-eye"></i>
-                                                                </Link>
-                                                                <button 
-                                                                className="ml-2 btn bg-red"
-                                                                onClick={() =>
-                                                                    handleDelete(
-                                                                        item.id
-                                                                    )
-                                                                }
-                                                                >
-                                                                    <i className="fa fa-trash"></i>
+                                                            <div className="action-dropdown dropdown">
+                                                                <button type="button" className="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                                                    <i className="fa fa-ellipsis-vertical"></i>
                                                                 </button>
+                                                                <div className="dropdown-menu">
+                                                                    <Link to={`/admin/edit-worker/${item.id}`} className="dropdown-item">Edit</Link>
+                                                                    <Link to={`/admin/view-worker/${item.id}`} className="dropdown-item">View</Link>
+                                                                    <button className="dropdown-item" onClick={() => handleDelete(item.id)}
+                                                                    >Delete</button>
+                                                                </div>
                                                             </div>
                                                         </td>
                                                     </tr>

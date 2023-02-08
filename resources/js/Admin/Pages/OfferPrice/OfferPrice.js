@@ -3,7 +3,6 @@ import ReactPaginate from "react-paginate";
 import { Link } from "react-router-dom";
 import Sidebar from '../../Layouts/Sidebar';
 import axios from 'axios';
-import OfferedPriceFilter from '../../Components/Filter/OfferedPriceFilter';
 import Swal from 'sweetalert2';
 
 export default function OfferPrice() {
@@ -104,15 +103,16 @@ export default function OfferPrice() {
                             <h1 className="page-title">Offered Prices</h1>
                         </div>
                         <div className="col-sm-6">
-                            <Link to="/admin/add-offer" className="btn btn-pink addButton"><i class="btn-icon fas fa-plus-circle"></i>
-                                Add New
-                            </Link>
+                            <div className="search-data">
+                                <input type='text' className="form-control" placeholder="Search" />
+                                <Link to="/admin/add-offer" className="btn btn-pink addButton"><i class="btn-icon fas fa-plus-circle"></i>Add New</Link>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div className="card">
                     <div className="card-body">
-                    <OfferedPriceFilter getFilteredOffers={getFilteredOffers}/>
+                    {/* <OfferedPriceFilter getFilteredOffers={getFilteredOffers}/> */}
                         <div className="boxPanel">
                             <div className="table-responsive">
 
@@ -122,6 +122,7 @@ export default function OfferPrice() {
                                     <thead>
                                         <tr>
                                             <th scope="col">Client</th>
+                                            <th scope="col">Email</th>
                                             <th scope="col">Address</th>
                                             <th scope="col">Phone</th>
                                             <th scope="col">Status</th>
@@ -144,28 +145,31 @@ export default function OfferPrice() {
 
                                            return ( 
                                            <tr>
-                                            <td>
+                                            <td><Link to={`/admin/view-client/${ofr.client.id}`}>
                                                 {
                                                   ofr.client 
                                                   ? ofr.client.firstname
                                                   + " "+ofr.client.lastname
                                                   :"NA"
                                                 }
+                                                </Link>
                                             </td>
-                                            <td>
-                                                {
-                                                    city+sn+zc
-                                                }
-                                            
-                                            </td>
+                                            <td>{ofr.client.email}</td>
+                                            <td><Link to='#!'>{city+sn+zc}</Link></td>
                                             <td>{ ofr.client.phone }</td>
                                             <td>{ofr.status}</td>
                                             <td>{ofr.total} NIS</td>
                                             <td>
-                                                <div className="d-flex">
-                                                    <Link to={`/admin/edit-offer/${ofr.id}`} className="btn bg-green"><i className="fa fa-edit"></i></Link>
-                                                    <Link to={`/admin/view-offer/${ofr.id}`} className="ml-2 btn btn-warning"><i className="fa fa-eye"></i></Link>
-                                                    <button className="ml-2 btn bg-red" onClick={() => handleDelete(ofr.id)}><i className="fa fa-trash"></i></button>  
+                                                <div className="action-dropdown dropdown">
+                                                    <button type="button" className="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                                        <i className="fa fa-ellipsis-vertical"></i>
+                                                    </button>
+                                                    <div className="dropdown-menu">
+                                                        <Link to={`/admin/edit-offer/${ofr.id}`} className="dropdown-item">Edit</Link>
+                                                        <Link to={`/admin/view-offer/${ofr.id}`} className="dropdown-item">View</Link>
+                                                        <button className="dropdown-item" onClick={() => handleDelete(ofr.id)}
+                                                        >Delete</button>
+                                                    </div>
                                                 </div>
                                             </td>
                                         </tr>     

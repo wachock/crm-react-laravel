@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Sidebar from "../../Layouts/Sidebar";
 import { Link } from "react-router-dom";
-import ClientFilter from "../../Components/Filter/ClientFilter";
 import axios from "axios";
 import ReactPaginate from "react-paginate";
 
