@@ -47,7 +47,7 @@ export default function Schedule() {
 
   const filterSchedules = (e) => {
     axios
-    .post(`/api/admin/search-schedule`,{q:e.target.value}, { headers })
+    .get(`/api/admin/schedule?q=${e.target.value}`, { headers })
     .then((response) => {
       if (response.data.schedules.data.length > 0) {
         setSchedules(response.data.schedules.data);

@@ -86,7 +86,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin-api', 'scopes:ad
 
     //Meeting Schedules
     Route::resource('schedule',ScheduleController::class);
-    Route::post('search-schedule',[ScheduleController::class,'searchSchedule']);
     Route::post('client-schedules',[ScheduleController::class,'ClientSchedules']);
     Route::post('schedule-events', [ScheduleController::class,'getEvents']);
     Route::post('latest-client-schedule', [ScheduleController::class,'getLatestClientSchedule']);

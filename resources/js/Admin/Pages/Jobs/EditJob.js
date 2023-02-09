@@ -59,15 +59,11 @@ export default function EditJob() {
     const updateJob = (e) =>{
         e.preventDefault();
         const data = {
-            job_id:service,
             client_id:client,
             worker_id:worker,
             start_date:startDate,
             start_time:startTime,
             end_time:endTime,
-            rate:rate,
-            instruction:instruction,
-            address:address,
             status:status
         };
         axios

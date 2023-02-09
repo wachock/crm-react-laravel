@@ -18,18 +18,8 @@ class ScheduleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-
-            $result = Schedule::with('client','team');
-            $result = $result->orderBy('id', 'desc')->paginate(20);
-            return response()->json([
-                'schedules' => $result
-            ]);
-
-        
-    }
-    public function searchSchedule(Request $request) {
 
         $q = $request->q;
         $result = Schedule::query()->with('client','team');
@@ -60,7 +50,11 @@ class ScheduleController extends Controller
          return response()->json([
              'schedules' => $result
          ]);
+ 
+
+        
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -103,6 +97,7 @@ class ScheduleController extends Controller
     }
 
     public function sendMeetingMail($sch){
+        
        $sch = $sch->toArray();
        $services = Offer::where('client_id',$sch['client']['id'])->get()->last();
        $str = '';
@@ -119,10 +114,11 @@ class ScheduleController extends Controller
 
        } 
         $sch['service_names'] = $str; 
-    Mail::send('/Mails/MeetingMail',$sch,function($messages) use ($sch){
-        $messages->to($sch['client']['email']);
-        $messages->subject('Meeting schedule from Broom Services');
-    });
+        
+        Mail::send('/Mails/MeetingMail',$sch,function($messages) use ($sch){
+            $messages->to($sch['client']['email']);
+            $messages->subject('Meeting schedule from Broom Services');
+        });
     }
 
     /**

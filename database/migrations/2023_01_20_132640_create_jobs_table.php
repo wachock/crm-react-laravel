@@ -17,11 +17,8 @@ class CreateJobsTable extends Migration
             
             $table->id();
             $table->unsignedBigInteger('client_id');
-            $table->unsignedBigInteger('job_id');
             $table->unsignedBigInteger('worker_id');
             $table->string('schedule')->nullable();
-            $table->string('instruction')->nullable();
-            $table->string('address')->nullable();
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
             $table->string('start_time')->nullable();

@@ -38,16 +38,12 @@ export default function AddJob() {
     const handleSubmit = (e) => {
         e.preventDefault();
         const data = {
-            job_id:service,
             client_id:client,
             worker_id:worker,
             start_date:startDate,
             start_time:startTime,
             end_time:endTime,
             schedule:schedule,
-            rate:rate,
-            instruction:instruction,
-            address:address,
             status:status
         };
         axios

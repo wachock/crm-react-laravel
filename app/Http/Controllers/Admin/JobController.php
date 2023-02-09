@@ -82,7 +82,7 @@ class JobController extends Controller
         //
         $validator = Validator::make($request->all(),[
             'client_id' =>['required'],
-            'job_id'    =>['required'],
+            'worker_id' =>['required'],
             'start_date'=>['required']
         ]);
         if($validator->fails()){
@@ -150,7 +150,7 @@ class JobController extends Controller
         //
         $validator = Validator::make($request->all(),[
             'client_id' =>['required'],
-            'job_id' =>['required'],
+            'worker_id' =>['required'],
             'start_date' =>['required'] 
         ]);
         if($validator->fails()){

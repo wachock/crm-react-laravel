@@ -7,7 +7,7 @@ use App\Models\Client;
 use App\Models\Schedule;
 use App\Models\Offer;
 use App\Models\Services;
-
+use Mail;
 
 class ClientEmailController extends Controller
 {
@@ -58,9 +58,16 @@ class ClientEmailController extends Controller
      public function AcceptOffer(Request $request)
      {
 
-      Offer::where('id',$request->id)->update([
+       Offer::where('id',$request->id)->update([
         'status' =>'accepted'
       ]);
+      $ofr = Offer::with('client')->where('id',$request->id)->get()->first()->toArray();
+    
+      Mail::send('/Mails/ContractMail',$ofr,function($messages) use ($ofr){
+        $messages->to($ofr['client']['email']);
+        $messages->subject('Contract with Broom Services');
+      });
+      
       return response()->json([
        'message' => 'Offer is accepted'
       ],200);

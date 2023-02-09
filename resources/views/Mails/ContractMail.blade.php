@@ -6,7 +6,7 @@
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-	<title>Schedule meeting</title>
+	<title>Work Contract</title>
 </head>
 <body style="font-family: 'Open Sans', sans-serif;color: #212529;background: #fcfcfc;">
 	<div style="max-width: 650px;margin: 0 auto;margin-top: 30px;margin-bottom: 20px;background: #fff;border: 1px solid #e6e8eb;border-radius: 6px;padding: 20px;">
@@ -18,16 +18,12 @@
 			</tr>
 		</table>
 		<h1 style="text-align: center;">Hi, {{$client['firstname']}} {{$client['lastname']}}</h1>
-		<p style="text-align: center;">Greeting from Broom Services. Just a friendly reminder that you have an upcoming appointement with <span style="color:#0130c6;font-weight:700;">{{$team['name']}}</span>
-		 on     <span style="color:#0130c6;font-weight:700;">{{ \Carbon\Carbon::parse($start_date)->format('d-m-Y')}}</span>
-		 between <span style="color:#0130c6;font-weight:700;">{{$start_time}}</span>
-		 to      <span style="color:#0130c6;font-weight:700;">{{$end_time}}</span>
-		 for    <span style="color:#0130c6;font-weight:700;">{{$service_names}}</span> service.</p>
-		<p style="text-align: center;">Click the below button to accept the request.</p>
+		<p style="text-align: center;line-height: 30px">Greeting from Broom Services. A work agreement for digital signature is attached. Please fill in the necessary details and sign on the last page for payment details you must fill in the details of each ID number and the signature of the card holder without the CVV details which you will give us over the phone in order to save and secure your payment details and with your signature below for any questions please contact us: 03- 525-70-60 or reply to this email.</p>
+		<p style="text-align: center;">Click the below button to check the contract.</p>
 		<div style="text-align: center;">
-		<a href='{{ url("meeting-status/".$id)}}' target="_blank" style="text-decoration:none;background: #ef6c6b;color: #fff;border: 1px solid #ef6c6b;font-size: 16px;padding: 10px 24px;border-radius: 4px;cursor: pointer">Update meeting status</a> 
+			<a href="http://127.0.0.1:8000/work-contract" style="background: #ef6c6b;color: #fff;border: 1px solid #ef6c6b;font-size: 16px;padding: 10px 24px;border-radius: 4px;cursor: pointer;text-decoration: none;margin-top: 25px;margin-bottom: 25px">Check contract</a> 
 		</div>
-		<p style="margin-top: 20px">If you have any questions or concerns please don't hesitate to get in touch with us by replying to this email.</p>
+		<p style="margin-top: 40px">If you have any questions or concerns please don't hesitate to get in touch with us by replying to this email.</p>
 		<p style="font-weight: 700;margin-bottom: 0;">Best Regards</p>
 		<p style="margin-top: 3px;font-size: 14px;margin-bottom: 3px;">Broom services</p>
 		<p style="margin-top: 3px;font-size: 14px;margin-bottom: 3px">Telephone: 03-525-70-60</p>
