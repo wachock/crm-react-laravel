@@ -88,6 +88,9 @@ export default function Schedule() {
                   <thead>
                     <tr>
                       <th scope="col">ID</th>
+                      <th scope="col">Client</th>
+                      <th scope="col">Contact</th>
+                      <th scope="col">Address</th>
                       <th scope="col">Meeting Attender</th>
                       <th scope="col">Scheduled</th>
                       <th scope="col">Booking Status</th>
@@ -98,6 +101,9 @@ export default function Schedule() {
                     {schedules && schedules.map((item, index) => (
                       <tr key={index}>
                         <td>{item.id}</td>
+                        <td><Link to='#!'>Client name</Link></td>
+                        <td>7860123456</td>
+                        <td><Link to='#'>C-6, Sector 7, Noida</Link></td>
                         <td>
                           {
                           item.team
@@ -105,25 +111,26 @@ export default function Schedule() {
                           :"NA"
                           }  
                           </td>
+                        
                         <td>
-                          {Moment(item.start_date).format('DD/MM/Y')+'\n'}
+                          <span style={{color: "blue"}}>{Moment(item.start_date).format('DD/MM/Y')+'\n'}</span>
                           <br/>
-                          {Moment(item.start_date).format('dddd')}
+                          <span style={{color: "blue"}}>{Moment(item.start_date).format('dddd')}</span>
                           <br/>
-                          { "Start :"+item.start_time}
+                          <span style={{color: "green"}}>{ "Start :"+item.start_time}</span>
                           <br/>
-                          { "End   :"+item.end_time}
-                          </td>
+                          <span style={{color: "red"}}>{ "End   :"+item.end_time}</span>
+                        </td>
                         <td>{item.booking_status}</td>
                         <td>
-                          <div className="d-flex">
-                            <Link to={`/admin/view-schedule/${item.client.id}?sid=${item.id}`} className="ml-2 btn btn-warning">
-                                <i className="fa fa-eye"></i>
-                            </Link>
-                            <div className="text-center">
-                                <button className="ml-2 btn btn-danger" onClick={()=>handleDelete(item.id)}>
-                                    <i className="fa fa-trash"></i>
-                                </button>
+                          <div className="action-dropdown dropdown">
+                            <button type="button" className="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                <i className="fa fa-ellipsis-vertical"></i>
+                            </button>
+                            <div className="dropdown-menu">
+                              <Link to={`/admin/view-schedule/${item.client.id}?sid=${item.id}`} className="dropdown-item">View</Link>
+                              <button className="dropdown-item" onClick={() => handleDelete(item.id)}
+                              >Delete</button>
                             </div>
                           </div>
                         </td>

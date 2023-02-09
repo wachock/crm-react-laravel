@@ -1,13 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import Form from "react-bootstrap/Form";
-import { Container } from "react-bootstrap";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Button from "react-bootstrap/Button";
-import Footer from "../Layouts/Footer";
-import Header from "../Layouts/Header";
-import ReCAPTCHA from "react-google-recaptcha";
+import logo from "../../Assets/image/logo.png";
 
 export default function Login() {
     const [worker, setWorker] = useState("");
@@ -41,98 +33,92 @@ export default function Login() {
 
     return (
         <div>
-            <Header />
-            <div className="login">
-                <Container>
-                    <Row>
-                        <Col sm="12" xs="12">
-                            <div className="loginform">
-                                <h1>Worker Login</h1>
-                                <Form>
-                                    <Form.Group
-                                        className="mb-3"
-                                        controlId="exampleUForm.ControlInput1"
-                                    >
-                                        <Form.Label>
-                                             Email
-                                        </Form.Label>
-                                        <Form.Control
-                                            type="text"
-                                            name="email"
-                                            className="inputstyle"
-                                            placeholder="Enter Worker id"
-                                            onChange={(e) =>
-                                                setWorker(e.target.value)
-                                            }
-                                        />
-                                        {errors.worker_id ? (
-                                            <small className="text-danger mb-1">
-                                                {errors.worker_id}
-                                            </small>
-                                        ) : (
-                                            ""
-                                        )}
-                                    </Form.Group>
-                                    <Form.Group
-                                        className="mb-3"
-                                        controlId="exampleForm.ControlInput2"
-                                    >
-                                        <Form.Label>Password</Form.Label>
-                                        <Form.Control
-                                            type="password"
-                                            name="password"
-                                            className="inputstyle"
-                                            placeholder="Enter password"
-                                            onChange={(e) =>
-                                                setPassword(e.target.value)
-                                            }
-                                        />
-                                        {errors.password ? (
-                                            <small className="text-danger mb-1">
-                                                {errors.password}
-                                            </small>
-                                        ) : (
-                                            ""
-                                        )}
-                                        <Link to="/" className="forgotpsw">
-                                            Forget Password
-                                        </Link>
-                                    </Form.Group>
-                                    <Form.Group>
-                                        {/* <img
-                                            src={Recaptcha}
-                                            className="img-fluid mb-4"
-                                        /> */}
-                                        <ReCAPTCHA
-                                            sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
-                                            onChange={onChange}
-                                        />
-                                    </Form.Group>
-                                    <Form.Group>
-                                        <Button
-                                            as="input"
-                                            type="submit"
-                                            value="LOGIN"
-                                            className="btn btn-primary"
-                                            onClick={HandleLogin}
-                                        />
-                                    </Form.Group>
-                                   {/* <div className="donthaveaccount text-center">
-                                        <p>
-                                            Vous n'avez pas encore de compte ?
-                                            <Link to="/register">
-                                                {" "}
-                                                Créer un compte
-                                            </Link>
-                                        </p>
-                                    </div>*/}
-                                </Form>
+            <div id="loginPage">
+                <div className="container adminLogin">
+                    <div className="formSide">
+                        <img src={logo} className="img-fluid" />
+                        <h1 className="page-title">Worker Login</h1>
+                        <form>
+                            <div className="form-group">
+                                <div className="input-group mt-2">
+                                    <div className="input-group-prepend">
+                                        <span
+                                            className="input-group-text"
+                                            id="basic-addon1"
+                                        >
+                                            <i className="fa-solid fa-user"></i>
+                                        </span>
+                                    </div>
+                                    <input
+                                        type="text"
+                                        name="email"
+                                        className="form-control"
+                                        placeholder="Enter Worker id"
+                                        onChange={(e) =>
+                                            setWorker(e.target.value)
+                                        }
+                                    />
+                                </div>
+                                {errors.worker_id ? (
+                                    <small className="text-danger mb-1">
+                                        {errors.worker_id}
+                                    </small>
+                                ) : (
+                                    ""
+                                )}
                             </div>
-                        </Col>
-                    </Row>
-                </Container>
+                            <div className="form-group">
+                                <div className="input-group">
+                                    <div className="input-group-prepend">
+                                        <span
+                                            className="input-group-text"
+                                            id="basic-addon1"
+                                        >
+                                            <i className="fa-solid fa-key"></i>
+                                        </span>
+                                    </div>
+                                    <input
+                                        type="password"
+                                        name="password"
+                                        className="form-control"
+                                        placeholder="Enter password"
+                                        onChange={(e) =>
+                                            setPassword(e.target.value)
+                                        }
+                                    />
+                                </div>
+                                {errors.password ? (
+                                    <small className="text-danger mb-1">
+                                        {errors.password}
+                                    </small>
+                                ) : (
+                                    ""
+                                )}
+                            </div>
+                            <div className="form-group">
+                                <ul className="list-inline">
+                                    <li>
+                                        <label>
+                                            <input type="checkbox" />{" "}
+                                            Remember me{" "} 
+                                        </label>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div className="form-group mt-4">
+                                <button
+                                    as="input"
+                                    type="submit"
+                                    className="btn btn-danger btn-block"
+                                    onClick={HandleLogin}
+                                    Login
+                                > Login
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
-            <Footer />
         </div>
     );
 }
