@@ -5,7 +5,7 @@ import axios from "axios";
 import ReactPaginate from "react-paginate";
 
 export default function Clients() {
-    const [address, setAddress] = useState('58 The Avenue, The Weir View, Kilkenny, R95E8E2')
+    
     const [clients, setClients] = useState([]);
     const [pageCount, setPageCount] = useState(0);
     const [loading, setLoading] = useState("Loading...");
@@ -81,6 +81,8 @@ export default function Clients() {
             }
         });
     };
+
+
     return (
         <div id="container">
             <Sidebar /> 
@@ -119,14 +121,20 @@ export default function Clients() {
                                         </thead>
                                         <tbody>
                                             {clients &&
-                                                clients.map((item, index) => (
+                                                clients.map((item, index) => {
+                                                    
+                                                    let address = (item.city) ? item.city+", " : '';
+                                                    address+= (item.street_n_no) ? item.street_n_no+", " : '';
+                                                    address+= (item.zipcode) ? item.zipcode+", " : '';
+
+                                                    return(
                                                     <tr key={index}>
                                                         <td>{item.id}</td>
                                                         <td>
                                                             <Link to={`/admin/view-client/${item.id}`}>{item.firstname}{" "}{item.lastname}</Link>  
                                                         </td>
                                                         <td>{item.email}</td>
-                                                        <td><a href='https://goo.gl/maps/ChjqELMU9oNhxQm27' target='_blank'>{address}</a></td>
+                                                        <td><a href={`https://maps.google.com?q=${address}`} target='_blank'>{address}</a></td>
                                                         <td>{item.phone}</td>
                                                         <td>
                                                             {item.status == 0
@@ -146,8 +154,8 @@ export default function Clients() {
                                                                 </div>
                                                             </div>
                                                         </td>
-                                                    </tr>
-                                                ))}
+                                                    </tr>)
+                                                })}
                                         </tbody>
                                     </table>
                                 ) : (

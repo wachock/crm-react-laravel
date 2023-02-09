@@ -47,7 +47,9 @@ export default function ViewSchedule() {
             booking_status:st,
             
         }
-       
+        let btn = document.querySelector('.sendBtn');
+        btn.setAttribute('disabled',true);
+        btn.innerHTML = "Sending..";
         axios
         .post(`/api/admin/schedule`,data,{ headers })
         .then((res)=>{
@@ -56,6 +58,8 @@ export default function ViewSchedule() {
                 for(let e in res.data.errors){
                     alert.error(res.data.errors[e]);
                 } 
+                btn.removeAttribute('disabled');
+                btn.innerHTML = "Send meeting";
             } else {
                 alert.success(res.data.message);
                 setTimeout(()=>{
@@ -257,7 +261,7 @@ export default function ViewSchedule() {
                             </div>
                         </div>
                         <div className='text-center mt-3'>
-                            <button className='btn btn-pink' onClick={sendMeeting}>Send meeting</button>
+                            <button className='btn btn-pink sendBtn' onClick={sendMeeting}>Send meeting</button>
                         </div>
                        
                         <div className='worker-avail'>

@@ -116,14 +116,16 @@ export default function AllWorkers() {
                                         </thead>
                                         <tbody>
                                             {workers &&
-                                                workers.map((item, index) => (
+                                                workers.map((item, index) => {
+                                                    
+                                                    return(
                                                     <tr key={index}>
                                                         <td>{item.id}</td>
                                                         <td>
                                                             <Link to={`/admin/view-worker/${item.id}`}>{item.firstname}{" "}{item.lastname}</Link> 
                                                         </td>
                                                         <td>test123@gmail.com</td>
-                                                        <td><a href='https://goo.gl/maps/W18q1mczZ13TVbVZA'>C-6, Sector 7, Noida</a></td>
+                                                        <td><a href={`https://maps.google.com?q=${item.address}`}>{ item.address }</a></td>
                                                         <td>{item.phone}</td>
                                                         <td>
                                                         {item.status == 0
@@ -144,7 +146,7 @@ export default function AllWorkers() {
                                                             </div>
                                                         </td>
                                                     </tr>
-                                                ))}
+                                                )})}
                                         </tbody>
                                     </table>
                                 ) : (
