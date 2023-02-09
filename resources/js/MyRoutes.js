@@ -102,7 +102,7 @@ export default function MyRoutes() {
          <Router>
             <Routes>
                {/* Home route  */}
-               <Route exact path="/" element={<AdminLogin />} />
+               <Route exact path="/" element={<ClientLogin />} />
                <Route exact path="client/login" element={<ClientLogin />} />
                <Route exact path="worker/login" element={<WorkerLogin />} />
                <Route exact path="meeting-status" element={<MeetingStatus />} />
