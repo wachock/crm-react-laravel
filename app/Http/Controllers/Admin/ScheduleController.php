@@ -7,7 +7,7 @@ use App\Models\Schedule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Carbon\Carbon;
-
+use Mail;
 class ScheduleController extends Controller
 {
     /**
@@ -56,11 +56,20 @@ class ScheduleController extends Controller
         }
        
         $input  = $request->input(); 
-        Schedule::create($input);
-        
+        $sch = Schedule::create($input);
+        $schedule = Schedule::where('id',$sch->id)->with('client','team')->get()->first();
+        $this->sendMeetingMail($schedule);
         return response()->json([
             'message' => 'Metting scheduled  successfully'
         ]);
+    }
+
+    public function sendMeetingMail($sch){
+       $sch = $sch->toArray();
+       Mail::send('/Mails/MeetingMail',$sch,function($messages) use ($sch){
+        $messages->to($sch['client']['email']);
+        $messages->subject('Meeting schedule from Broom Services');
+    });
     }
 
     /**

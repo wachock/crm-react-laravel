@@ -17,8 +17,8 @@
 				</td>
 			</tr>
 		</table>
-		<h1 style="text-align: center;">Hi Jacob</h1>
-		<p style="text-align: center;">Greeting from Broom Services. Just a friendly reminder that you have an upcoming appointement with <span style="color:#0130c6;font-weight:700;">Steve</span> on <span style="color:#0130c6;font-weight:700;">26-02-2023</span> for <span style="color:#0130c6;font-weight:700;">Glass Cleaning</span> service.</p>
+		<h1 style="text-align: center;">Hi, {{$client['firstname']}} {{$client['lastname']}}</h1>
+		<p style="text-align: center;">Greeting from Broom Services. Just a friendly reminder that you have an upcoming appointement with <span style="color:#0130c6;font-weight:700;">{{$team['name']}}</span> on <span style="color:#0130c6;font-weight:700;">{{ \Carbon\Carbon::parse($start_date)->format('Y-m-d')}}</span> for <span style="color:#0130c6;font-weight:700;">Glass Cleaning</span> service.</p>
 		<p style="text-align: center;">Click the below button to accept the request.</p>
 		<div style="text-align: center;">
 			<button type="button" style="background: #ef6c6b;color: #fff;border: 1px solid #ef6c6b;font-size: 16px;padding: 10px 24px;border-radius: 4px;cursor: pointer">Accept Meeting</button> 
