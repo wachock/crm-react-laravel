@@ -86,6 +86,7 @@ import ViewSchedule from './Admin/Pages/Schedule/ViewSchedule';
 import CreateContract from './Admin/Pages/Contract/CreateContract';
 import PriceOffer from './Pages/PriceOffer';
 import WorkContract from './Pages/WorkContract';
+import MeetingStatus from './Pages/MeetingStatus';
 
 
 
@@ -104,6 +105,7 @@ export default function MyRoutes() {
                <Route exact path="/" element={<AdminLogin />} />
                <Route exact path="client/login" element={<ClientLogin />} />
                <Route exact path="worker/login" element={<WorkerLogin />} />
+               <Route exact path="meeting-status" element={<MeetingStatus />} />
                <Route exact path="price-offer/:id" element={<PriceOffer />} />
                <Route exact path="work-contract" element={<WorkContract />} />
 
