@@ -9,12 +9,12 @@ export default function CalendarTeam() {
   return (
     <FullCalendar
         plugins={[timeGridPlugin]}
-        resources = {[
+        /*resources = {[
             { id: 'a', title: 'Room A' },
             { id: 'b', title: 'Room B'},
             { id: 'c', title: 'Room C' },
             { id: 'd', title: 'Room D' }
-        ]}
+        ]}*/
         events={'https://fullcalendar.io/api/demo-feeds/events.json?with-resources=4&single-day'}
     />
   )
