@@ -28,6 +28,25 @@ export default function ViewSchedule() {
     const navigate = useNavigate();
     const queryParams = new URLSearchParams(window.location.search);
     const sid = queryParams.get("sid");
+    const time =[
+                "09:30 AM",
+                "10:00 AM",
+                "10:30 AM",
+                "11:00 AM",
+                "11:30 AM",
+                "12:00 PM",
+                "12:30 PM",
+                "01:00 PM",
+                "01:30 PM",
+                "02:00 PM",
+                "02:30 PM",
+                "03:00 PM",
+                "03:30 PM",
+                "04:00 PM",
+                "04:30 PM",
+                "05:00 PM",
+                "05:30 PM"
+            ];
 
     const headers = {
         Accept: "application/json, text/plain, */*",
@@ -96,7 +115,7 @@ export default function ViewSchedule() {
         setBstatus(d.booking_status);
         setStartDate(Moment(d.start_date).toDate());
         setStartTime(d.start_time);
-        setEndTime(d.end_ime);
+        setEndTime(d.end_time);
        
       });
     }
@@ -212,24 +231,10 @@ export default function ViewSchedule() {
                                     <label>Start Time</label>
                                     <select name="start_time" id="start_time"  onChange={(e)=>{setStartTime(e.target.value);handleUpdate(e)}} className="form-control">
                                         <option>Choose start time</option>
-                                        <option value="09:00:00" selected="">09:00:00</option>
-                                        <option value="09:30:00">09:30:00</option>
-                                        <option value="10:00:00">10:00:00</option>
-                                        <option value="10:30:00">10:30:00</option>
-                                        <option value="11:00:00">11:00:00</option>
-                                        <option value="11:30:00">11:30:00</option>
-                                        <option value="12:00:00">12:00:00</option>
-                                        <option value="12:30:00">12:30:00</option>
-                                        <option value="13:00:00">13:00:00</option>
-                                        <option value="13:30:00">13:30:00</option>
-                                        <option value="14:00:00">14:00:00</option>
-                                        <option value="14:30:00">14:30:00</option>
-                                        <option value="15:00:00">15:00:00</option>
-                                        <option value="15:30:00">15:30:00</option>
-                                        <option value="16:00:00">16:00:00</option>
-                                        <option value="16:30:00">16:30:00</option>
-                                        <option value="17:00:00">17:00:00</option>
-                                        <option value="17:30:00">17:30:00</option>
+                                        {time && time.map((t,i)=>{
+                                            return (<option value={t} selected={t == startTime}>{t}</option>);
+                                        })}
+                                       
                                     </select>
                                 </div>
                             </div>
@@ -238,24 +243,9 @@ export default function ViewSchedule() {
                                     <label>End Time</label>
                                     <select name="end_time" id="end_time" selected={endTime} onChange={(e)=>{setEndTime(e.target.value);handleUpdate(e)}} className="form-control">
                                         <option>Choose start time</option>
-                                        <option value="09:30:00">09:30:00</option>
-                                        <option value="10:00:00">10:00:00</option>
-                                        <option value="10:30:00">10:30:00</option>
-                                        <option value="11:00:00">11:00:00</option>
-                                        <option value="11:30:00">11:30:00</option>
-                                        <option value="12:00:00">12:00:00</option>
-                                        <option value="12:30:00">12:30:00</option>
-                                        <option value="13:00:00">13:00:00</option>
-                                        <option value="13:30:00">13:30:00</option>
-                                        <option value="14:00:00">14:00:00</option>
-                                        <option value="14:30:00">14:30:00</option>
-                                        <option value="15:00:00">15:00:00</option>
-                                        <option value="15:30:00">15:30:00</option>
-                                        <option value="16:00:00">16:00:00</option>
-                                        <option value="16:30:00">16:30:00</option>
-                                        <option value="17:00:00">17:00:00</option>
-                                        <option value="17:30:00">17:30:00</option>
-                                        <option value="18:00:00">18:00:00</option>
+                                        {time && time.map((t,i)=>{
+                                            return (<option value={t} selected={t == endTime}>{t}</option>);
+                                        })}
                                     </select>
                                 </div>
                             </div>

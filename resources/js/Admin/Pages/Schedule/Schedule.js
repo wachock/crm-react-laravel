@@ -110,9 +110,9 @@ export default function Schedule() {
                           <br/>
                           {Moment(item.start_date).format('dddd')}
                           <br/>
-                          { "Start "+ item.start_time}
+                          { "Start :"+item.start_time}
                           <br/>
-                          { "End "+ item.end_time}
+                          { "End   :"+item.end_time}
                           </td>
                         <td>{item.booking_status}</td>
                         <td>
