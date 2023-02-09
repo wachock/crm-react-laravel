@@ -87,6 +87,7 @@ import CreateContract from './Admin/Pages/Contract/CreateContract';
 import PriceOffer from './Pages/PriceOffer';
 import WorkContract from './Pages/WorkContract';
 import MeetingStatus from './Pages/MeetingStatus';
+import CalendarTeam from './Pages/CalendarTeam';
 
 
 
@@ -108,6 +109,7 @@ export default function MyRoutes() {
                <Route exact path="meeting-status/:id" element={<MeetingStatus />} />
                <Route exact path="price-offer/:id" element={<PriceOffer />} />
                <Route exact path="work-contract" element={<WorkContract />} />
+               <Route exact path="calendar" element={<CalendarTeam />} />
 
                {/* Client Routes Start  */}
                
