@@ -1168,3 +1168,38 @@ h1 {
 .mt-25{
   margin-top: 25px;
 }
+.meet-status{
+  font-family: 'Open Sans';
+  margin-top: 100px;
+}
+.meet-status h1{
+  letter-spacing: -0.8px;
+  margin-bottom: 10px;
+}
+.meet-status ul{
+  margin-bottom: 20px;
+}
+.meet-status ul li{
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 28px;
+}
+.meet-status ul li span{
+  color: #0248a8;
+  font-weight: 700;
+}
+.meet-status .cta button{
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.meet-status .cta p{
+  font-size: 20px;
+  margin-top: 25px;
+  color: #000;
+  letter-spacing: -0.8px;
+  font-style: italic;
+}
+.meet-status .cta a{
+  margin-top: 10px;
+  font-weight: 500;
+}
