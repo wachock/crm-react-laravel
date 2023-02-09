@@ -1,13 +1,41 @@
-import React from 'react'
+import axios from 'axios';
+import React,{useEffect, useState} from 'react'
+import { useParams,useNavigate } from 'react-router-dom';
+import Moment from 'moment';
 
 export default function MeetingStatus() {
+
+  const [meeting,setMeeting] = useState([]);
+  const [teamName,setTeamName] = useState("");
+  const param    = useParams();
+  const navigate = useNavigate();
+  const headers = {
+    Accept: "application/json, text/plain, */*",
+    "Content-Type": "application/json",
+    Authorization: `Bearer ` + localStorage.getItem("admin-token"),
+  };
+  const getMeeting = () =>{
+    axios
+    .get(`/api/admin/schedule/${param.id}`,{ headers})
+    .then((res)=>{
+       setMeeting(res.data.schedule);
+       setTeamName(res.data.schedule.team.name);
+    })
+  }
+  useEffect(()=>{
+   getMeeting();
+   setTimeout(()=>{
+    document.querySelector(".meeting").style.display= "block";
+   },2000)
+  },[]);
+  
   return (
-    <div className='container'>
+    <div className='container meeting' style={{display:"none"}}>
         <div className='meet-status dashBox maxWidthControl p-4'>
-            <h1>Meeting with Jenny</h1>
+            <h1>Meeting with {teamName}</h1>
             <ul className='list-unstyled'>
-                <li>Date: <span>22-02-2023</span></li>
-                <li>Time: <span>09:00 am to 09:30 am</span></li>
+                <li>Date: <span>{Moment(meeting.start_date).format('D-M-Y')}</span></li>
+                <li>Time: <span>{meeting.start_time} to {meeting.end_time}</span></li>
                 <li>Service: <span>Glass Cleaning</span></li>
             </ul>
             <div className='cta'>

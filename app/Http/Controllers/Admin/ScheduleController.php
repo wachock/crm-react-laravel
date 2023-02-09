@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Schedule;
+use App\Models\Offer;
+use App\Models\Services;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Carbon\Carbon;
@@ -66,6 +68,21 @@ class ScheduleController extends Controller
 
     public function sendMeetingMail($sch){
        $sch = $sch->toArray();
+       $services = Offer::where('client_id',$sch['client']['id'])->get()->last();
+       $str = '';
+       if(!empty($services->services)){
+         
+         $allServices = json_decode($services->services);
+         foreach($allServices as $k=> $serv){
+            $s = Services::where('id',$serv->service)->get('name')->first()->toArray();
+            if($k != count($s))
+            $str .= $s['name'].", ";
+            else
+            $str .= $s['name'];
+         }
+
+       } 
+        $sch['service_names'] = $str; 
        Mail::send('/Mails/MeetingMail',$sch,function($messages) use ($sch){
         $messages->to($sch['client']['email']);
         $messages->subject('Meeting schedule from Broom Services');
@@ -80,7 +97,7 @@ class ScheduleController extends Controller
      */
     public function show($id)
     {
-        $schedule = Schedule::where('id',$id)->get();
+        $schedule = Schedule::where('id',$id)->with('client','team')->get()->first();
         return response()->json([
             'schedule' => $schedule
         ]);

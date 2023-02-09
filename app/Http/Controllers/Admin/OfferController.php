@@ -207,7 +207,7 @@ class OfferController extends Controller
 
     public function ClientOffers(Request $request){
          
-        $offers = Offer::with('client')->where('client_id',$request->id)->get();
+        $offers = Offer::with('client')->where('client_id',$request->id)->orderBy('id','desc')->get();
         return response()->json([
             'offers' => $offers
         ]);

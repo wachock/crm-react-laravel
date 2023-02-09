@@ -110,7 +110,7 @@ export default function ViewSchedule() {
       .get(`/api/admin/schedule/${sid}`,{ headers })
       .then((res)=>{
 
-        const d = res.data.schedule[0];
+        const d = res.data.schedule;
         setTeam((d.team_id).toString());
         setBstatus(d.booking_status);
         setStartDate(Moment(d.start_date).toDate());
