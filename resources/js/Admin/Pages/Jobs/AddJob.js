@@ -6,6 +6,7 @@ import axios from 'axios';
 import { useAlert } from 'react-alert';
 import { useNavigate } from 'react-router-dom';
 
+
 export default function AddJob() {
     const alert                        = useAlert();
     const navigate                     = useNavigate();
@@ -117,77 +118,61 @@ export default function AddJob() {
     const scData = AllSchedules.map((sc,i)=>{
         return {value:sc.id,label:sc.name}; 
     });
-
+    
   return (
     <div id="container">
         <Sidebar/>
         <div id="content">
             <div className="edit-customer">
                 <h1 className="page-title editJob">Add Job</h1>
+                <div id='calendar'></div>
                 <div className='card'>
                     <div className='card-body'>
-                        <form onSubmit={handleSubmit}>
-                        
-                            <div className="form-group">
-                                <label className="control-label">Client Name</label>
-                                <SelectPicker data={cData} value={client} onChange={(value,event)=>setClient(value)} size="lg" required/>
-                            </div>
-                            <div className="form-group">
-                                <label className="control-label">Worker Name</label>
-                                <SelectPicker data={wData} value={worker} onChange={(value,event)=>setWorker(value)} size="lg" required/>
-                            </div>
-                            <div className="form-group">
-                                <label className="control-label">Service Name</label>
-                                <SelectPicker data={sData} value={service} onChange={(value,event)=>setService(value)} size="lg" required/>
-                            </div>
-                            <div className="form-group">
-                                <label className="control-label">Job Schedule</label>
-                                <SelectPicker data={scData} value={schedule} onChange={(value,event)=>setSchedule(value)} size="lg" required/>
-                            </div>
-                            <div className="form-group">
-                                <label className="control-label">Instruction</label>
-                                <textarea value={instruction} onChange={(e) => setInstruction(e.target.value)} className="form-control" placeholder="Instruction"/>
-                            </div>
-                         
-                            <div className="form-group">
-                                <label className="control-label">Total Cost</label>
-                                <input type="number" step="0.1" value={rate} required onChange={(e) => setRate(e.target.value)} className='form-control' placeholder="Total Cost"/>
-                            </div>
-                                
+                        <form onSubmit={handleSubmit}>     
                             <div className='row'>
-                                <div className='col-sm-4'>
+                                <div className='col-sm-6'>
+                                    <div className="form-group">
+                                        <label className="control-label">Client Name</label>
+                                        <SelectPicker data={cData} value={client} onChange={(value,event)=>setClient(value)} size="lg" required/>
+                                    </div>
+                                </div>
+                                <div className='col-sm-6'>
+                                    <div className="form-group">
+                                        <label className="control-label">Worker Name</label>
+                                        <SelectPicker data={wData} value={worker} onChange={(value,event)=>setWorker(value)} size="lg" required/>
+                                    </div>
+                                </div>
+                                <div className='col-sm-3'>
                                     <div className="form-group">
                                         <label className="control-label">Start Date</label>
                                         <input type="date" value={startDate} required onChange={(e) => setStartDate(e.target.value)} className='form-control' />
                                     </div>
                                 </div>
-                                <div className='col-sm-4'>
+                                <div className='col-sm-3'>
                                     <div className="form-group">
                                         <label className="control-label">Start Time</label>
                                         <input type="time" value={startTime} required onChange={(e) => setStartTime(e.target.value)} className='form-control' />
                                     </div>
                                 </div>
-                                <div className='col-sm-4'>
+                                <div className='col-sm-3'>
                                     <div className="form-group">
                                         <label className="control-label">End Time</label>
                                         <input type="time" value={endTime} required onChange={(e) => setEndTime(e.target.value)} className='form-control' />
                                     </div>
                                 </div>
+                                <div className='col-sm-3'>
+                                    <div className="form-group">
+                                        <label className="control-label">Status</label>
+                                        <select className="form-control" value={status} onChange={(e) => setStatus(e.target.value)}>
+                                            <option>Please Select</option>
+                                            <option value="not-started">Not Started</option>
+                                            <option value="progress">Progress</option>
+                                            <option value="completed">Completed</option>
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
-                            <div className="form-group">
-                                <label className="control-label">Area/Location *</label>
-                                <input type="text" value={address} onChange={(e) => setAddress(e.target.value)} className="form-control" placeholder="Complete Address"/>
-                            </div> 
-                            <div className="form-group">
-                                <label className="control-label">Status</label>
-                                <select className="form-control" value={status} onChange={(e) => setStatus(e.target.value)}>
-                                    <option>Please Select</option>
-                                    <option value="not-started">Not Started</option>
-                                    <option value="progress">Progress</option>
-                                    <option value="completed">Completed</option>
-                                </select>
-                            </div>
-                            <div className="form-group text-right">
+                            <div className="form-group text-center">
                                 <input type='submit' value='Save and Send' onClick={handleSubmit} className="btn btn-pink saveBtn"/>
                             </div>
                         </form>
