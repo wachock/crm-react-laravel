@@ -3,8 +3,7 @@ import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import Moment from 'moment';
 
-export default function ProfileDetails({ client }) {
-
+export default function ProfileDetails({ client, offerStatus , scheduleStatus }) {
 
     const firstname = client.firstname;
     const lastname = client.lastname;
@@ -18,15 +17,22 @@ export default function ProfileDetails({ client }) {
     const zip = client.zipcode;
     const passcode = client.passcode;
     const joined = Moment(client.created_at).format('DD/MM/Y')+" "+Moment(client.created_at).format('dddd');
-    const [meeting] = useState("Scheduled");
-    const [priceOffer] = useState("Not Sent");
+    
     const [cardType] = useState("MasterCard");
     const [cardNumber] = useState("3452789012346781");
     const [cardValidity] = useState("10/24");
     const [nameOnCard] = useState("Alex Adams");
     const [signature] = useState("Alex");
     const param = useParams();
+    
+    let scolor = '', ocolor = '';
+     if(scheduleStatus == 'pending') {scolor = '#7e7e56'} 
+     if(scheduleStatus == 'confirmed') {scolor = 'green'} 
+     if(scheduleStatus == 'completed') {scolor = 'lightblue'} 
 
+     if(offerStatus == 'sent') {ocolor = '#7e7e56'} 
+     if(offerStatus == 'accepted') {ocolor = 'green'} 
+     if(offerStatus == 'declined') {ocolor = 'red'}   
     return (
         <>
 
@@ -111,11 +117,12 @@ export default function ProfileDetails({ client }) {
                         <div className='dashBox p-4'>
                             <div className='form-group'>
                                 <label className='d-block'>Meeting Status</label>
-                                <span className='dashStatus' style={{ background: "green" }}>{meeting}</span>
+                            
+                                <span className='dashStatus' style={{ background: scolor }}>{scheduleStatus}</span>
                             </div>
                             <div className='form-group mb-0'>
                                 <label className='d-block'>Price Offer</label>
-                                <span className='dashStatus' style={{ background: "red" }}>{priceOffer}</span>
+                                <span className='dashStatus' style={{ background: ocolor }}>{offerStatus}</span>
                             </div>
                         </div>
                         <div className='buttonBlocks dashBox mt-3 p-4'>

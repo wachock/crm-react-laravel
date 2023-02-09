@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Client\Auth\AuthController;
+use App\Http\Controllers\Client\ClientEmailController;
 /*
 |--------------------------------------------------------------------------
 | Admin API Routes
@@ -19,6 +20,16 @@ use App\Http\Controllers\Client\Auth\AuthController;
 Route::group(['prefix' => 'client'], function () {
     Route::post('login', [AuthController::class, 'login']);
     Route::post('register', [AuthController::class, 'register']);
+});
+
+
+// Emails webpages Routes
+
+Route::group(['prefix' => 'client'], function () {
+    Route::post('meeting', [ClientEmailController::class, 'ShowMeeting'])->name('meeting');
+    Route::post('get-offer',[ClientEmailController::class,'GetOffer'])->name('get-offer');
+    Route::post('accept-offer',[ClientEmailController::class,'AcceptOffer'])->name('accept-offer');
+    Route::post('accept-meeting',[ClientEmailController::class,'AcceptMeeting'])->name('accept-meeting');
 });
 
 

@@ -12,11 +12,10 @@ export default function MeetingStatus() {
   const headers = {
     Accept: "application/json, text/plain, */*",
     "Content-Type": "application/json",
-    Authorization: `Bearer ` + localStorage.getItem("admin-token"),
   };
   const getMeeting = () =>{
     axios
-    .get(`/api/admin/schedule/${param.id}`,{ headers})
+    .post(`/api/client/meeting`,{id:param.id})
     .then((res)=>{
        setMeeting(res.data.schedule);
        setTeamName(res.data.schedule.team.name);
@@ -26,8 +25,20 @@ export default function MeetingStatus() {
    getMeeting();
    setTimeout(()=>{
     document.querySelector(".meeting").style.display= "block";
-   },2000)
+   },1000)
   },[]);
+
+  const updateMeeting = (e) =>{
+    e.preventDefault();
+    axios
+    .post(`/api/client/accept-meeting`,{id:param.id})
+    .then((res)=>{
+      swal(res.data.message,'','success');
+      setTimeout(()=>{
+          window.location.href=('/client/login');
+      },1000)
+    })
+  }
   
   return (
     <div className='container meeting' style={{display:"none"}}>
@@ -36,12 +47,17 @@ export default function MeetingStatus() {
             <ul className='list-unstyled'>
                 <li>Date: <span>{Moment(meeting.start_date).format('D-M-Y')}</span></li>
                 <li>Time: <span>{meeting.start_time} to {meeting.end_time}</span></li>
-                <li>Service: <span>Glass Cleaning</span></li>
+                {
+                  meeting.service_names
+                  ? <li>Service: <span>{ meeting.service_names }</span></li>
+                  :''
+                }
+                
             </ul>
             <div className='cta'>
-                <button className='btn btn-danger'>Accept</button>
+                <button className='btn btn-danger' onClick={updateMeeting}>Accept</button>
                 <p>If you are not available for this date, please email us and let us know so that we can schedule another date.</p>
-                <a className='btn btn-primary' href='mailto:office@broomservice.co.il'>Schedule another date</a>
+                <a className='btn btn-primary' href='mailto:office@broomservice.co.il' >Schedule another date</a>
             </div>
         </div>
     </div>

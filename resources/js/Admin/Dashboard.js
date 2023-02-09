@@ -7,6 +7,8 @@ export default function AdminDashboard() {
     const [totalJobs, setTotalJobs] = useState([0]);
     const [totalClients, setTotalClients] = useState([0]);
     const [totalWorkers, setTotalWorkers] = useState([0]);
+    const [totalOffers, setTotalOffers] = useState([0]);
+    const [totalSchedules, setTotalSchedules] = useState([0]);
     const [totalEarnings, setTotalEarnings] = useState(["$0"]);
     const [latestJobs, setlatestJobs] = useState([]);
     const [loading, setLoading] = useState("Loading...");
@@ -22,10 +24,12 @@ export default function AdminDashboard() {
             setTotalJobs(response.data.total_jobs);
             setTotalClients(response.data.total_clients);
             setTotalWorkers(response.data.total_workers);
+            setTotalOffers(response.data.total_offers);
+            setTotalSchedules(response.data.total_schedules);
             if (response.data.latest_jobs.length > 0) {
                 setlatestJobs(response.data.latest_jobs);
             } else {
-                setLoading("No employer found");
+                setLoading("No job found");
             }
         });
     };
@@ -33,7 +37,7 @@ export default function AdminDashboard() {
     useEffect(() => {
         GetDashboardData();
     }, []);
-    console.log(latestJobs);
+    
     const handleDelete = (id) => {
         Swal.fire({
             title: "Are you sure?",
@@ -116,7 +120,7 @@ export default function AdminDashboard() {
                                         <i className="fa-solid fa-handshake"></i>
                                     </div>
                                     <div className="dashText">
-                                        <h3>50</h3>
+                                        <h3>{ totalSchedules }</h3>
                                         <p>Meetings</p>    
                                     </div>   
                                 </div>
@@ -129,7 +133,7 @@ export default function AdminDashboard() {
                                         <i className="fa-solid fa-dollar-sign"></i>
                                     </div>
                                     <div className="dashText"> 
-                                        <h3>100</h3>
+                                        <h3>{ totalOffers }</h3>
                                         <p>Offered Prices</p>  
                                     </div>   
                                 </div>

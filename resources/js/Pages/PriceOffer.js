@@ -15,15 +15,11 @@ export default function PriceOffer() {
     const [offer, setOffer] = useState([]);
     const [services,setServices] = useState([]);
     const [client,setClient]    = useState([]);
-    const headers = {
-        Accept: "application/json, text/plain, */*",
-        "Content-Type": "application/json",
-        Authorization: `Bearer ` + localStorage.getItem("admin-token"),
-    };
+   
     
     const getOffer = () =>{
         axios
-        .get(`/api/admin/offers/${param.id}`,{ headers })
+        .post(`/api/client/get-offer`,{ id:param.id })
         .then((res)=>{
             setOffer(res.data.offer);
             setServices(JSON.parse(res.data.offer.services));
@@ -37,7 +33,7 @@ export default function PriceOffer() {
     const handleOffer = (e,id) => {
         e.preventDefault();
         axios
-         .post(`/api/admin/accept-offer`,{id:id},{ headers })
+         .post(`/api/client/accept-offer`,{id:id})
          .then((res)=>{
             if(res.data.errors){
                 for(let e in res.data.errors){
@@ -46,7 +42,7 @@ export default function PriceOffer() {
             } else {
                 swal(res.data.message,'','success');
                 setTimeout(()=>{
-                   navigate('/client/login');
+                   window.location.href=('/client/login');
                 },1000)
             }
          })

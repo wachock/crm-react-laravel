@@ -23,6 +23,7 @@ class UserSeed extends Seeder
             User::create([
                 'firstname'         => $faker->firstname(),
                 'lastname'          => $faker->lastname(),
+                'email'             => $faker->unique()->safeEmail(),
                 'phone'             => $faker->numerify('9#########'),
                 'address'           => $faker->address(),
                 'renewal_visa'      =>  Carbon::now(),

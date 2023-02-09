@@ -30,16 +30,21 @@ export default function Clients() {
         getclients();
     }, []);
 
-    const getFilteredclients = (response) => {
-        if (response.data.clients.data.length > 0) {
-            setClients(response.data.clients.data);
-            setPageCount(response.data.clients.last_page);
-        } else {
-            setClients([]);
-            setPageCount(response.data.clients.last_page);
-            setLoading("No client found");
-        }
-    };
+   
+    const filterClients = (e) =>{
+        axios
+        .get(`/api/admin/clients?q=${e.target.value}`,{ headers })
+        .then((response)=>{
+            if (response.data.clients.data.length > 0) {
+                setClients(response.data.clients.data);
+                setPageCount(response.data.clients.last_page);
+            } else {
+                setClients([]);
+                setPageCount(response.data.clients.last_page);
+                setLoading("No client found");
+            }
+        })
+    }
 
     const handlePageClick = async (data) => {
         let currentPage = data.selected + 1;
@@ -94,7 +99,7 @@ export default function Clients() {
                         </div>
                         <div className="col-sm-6">
                             <div className="search-data">
-                                <input type='text' className="form-control" placeholder="Search" />
+                                <input type='text' className="form-control" onChange={filterClients} placeholder="Search" />
                                 <Link to="/admin/add-client" className="btn btn-pink addButton"><i className="btn-icon fas fa-plus-circle"></i>Add New</Link>
                             </div>
                         </div>
@@ -102,8 +107,6 @@ export default function Clients() {
                 </div>
                 <div className="card">
                     <div className="card-body">
-                        {/* <ClientFilter
-                        getFilteredclients={getFilteredclients}/> */}
                         <div className="boxPanel">
                             <div className="table-responsive">
                                 {clients.length > 0 ? (

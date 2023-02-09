@@ -20,38 +20,28 @@ class OfferController extends Controller
      */
     public function index(Request $request)
     {
-        //
+        $q = $request->q;
+        $result = Offer::query()->with('client');  
         
-        $filter              = [];
-        $filter['phone']    = $request->phone;
-        $filter['client']    = $request->client_id;
-        $filter['status']    = $request->status;
-        $offers = Offer::with('client');
+        $result->orWhere('status','like','%'.$q.'%');
+        $result->orWhere('total', 'like','%'.$q.'%');
 
-        if(isset($filter['client'])){
-            $client            = $filter['client'];
-            $offers            = $offers->whereHas('client', function($q) use ($client) {
-                $q->where(function($q) use ($client) {
-                    $q->where(DB::raw('id'), '=', $client);
-                });
-            });
-        }
-        
-        if(isset($filter['phone'])){
-            $phone             = $filter['phone'];
-            $offers            = $offers->whereHas('client', function($q) use ($phone) {
-                $q->where(function($q) use ($phone ) {
-                    $q->where(DB::raw('phone'), '=', $phone);
-                });
-            });
-        }
-        if(isset($filter['status'])){
-            $offers            = $offers->where('status', $filter['status']);
-        }
-        
-        $offers = $offers->orderBy('id', 'desc')->paginate(20);
+        $result = $result->orWhereHas('client',function ($qr) use ($q){
+             $qr->where(function($qr) use ($q) {
+                 $qr->where(DB::raw('firstname'), 'like','%'.$q.'%');
+                 $qr->orWhere(DB::raw('lastname'), 'like','%'.$q.'%');
+                 $qr->orWhere(DB::raw('email'), 'like','%'.$q.'%');
+                 $qr->orWhere(DB::raw('city'), 'like','%'.$q.'%');
+                 $qr->orWhere(DB::raw('street_n_no'), 'like','%'.$q.'%');
+                 $qr->orWhere(DB::raw('zipcode'), 'like','%'.$q.'%');
+                 $qr->orWhere(DB::raw('phone'), 'like','%'.$q.'%');
+             });
+         });
+ 
+         $result = $result->orderBy('id', 'desc')->paginate(20);
+ 
         return response()->json([
-            'offers'=>$offers
+            'offers'=>$result
         ],200);
     }
 
@@ -135,15 +125,6 @@ class OfferController extends Controller
     public function show($id)
     {
         $offer = Offer::where('id',$id)->with('client')->get()->first();
-        $services = ($offer->services != '') ? json_decode($offer->services) : [];
-        if(isset($services)){
-            foreach( $services as $service){
-               $name = Services::where('id',$service->service)->get('name')->first()->toArray(); 
-               $service->name = $name['name'];
-            }
-            $offer->services = json_encode($services);
-        }
-       
         return response()->json([
             'offer' => $offer
         ]);
@@ -212,13 +193,11 @@ class OfferController extends Controller
             'offers' => $offers
         ]);
     }
-
-    public function AcceptOffer(Request $request){
-       Offer::where('id',$request->id)->update([
-         'status' =>'accepted'
-       ]);
-       return response()->json([
-        'message' => 'Offer is accepted'
-       ]);
+    public function getLatestClientOffer(Request $request){
+        $latestOffer = Offer::where('client_id',$request->id)->get()->last();
+        return response()->json([
+            'latestOffer'=>$latestOffer
+        ]); 
     }
+
 }

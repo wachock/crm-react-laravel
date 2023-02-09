@@ -18,29 +18,22 @@ class ClientController extends Controller
      */
     public function index(Request $request)
     {
-        $filter              = [];
-        $filter['name']      = $request->name;
-        $filter['email']     = $request->email;
-        $filter['phone']     = $request->phone;
-        $filter['status']    = $request->status;
+       
+        $q = $request->q;
+        $result = Client::query();
+        $result->where('firstname',    'like','%'.$q.'%');
+        $result->orWhere('lastname',   'like','%'.$q.'%');
+        $result->orWhere('phone',      'like','%'.$q.'%');
+        $result->orWhere('city',       'like','%'.$q.'%');
+        $result->orWhere('street_n_no','like','%'.$q.'%');
+        $result->orWhere('zipcode',    'like','%'.$q.'%');
+        $result->orWhere('status',     'like','%'.$q.'%');
+        $result->orWhere('email',      'like','%'.$q.'%');
 
-        $clients   = Client::query();
-        if(isset($filter['name'])){
-            $clients            = $clients->where(DB::raw("concat(firstname, ' ', lastname)"), 'LIKE', '%'.$filter['name'].'%');
-        }
-        if(isset($filter['email'])){
-            $clients            = $clients->where('email', $filter['email']);
-        }
-        if(isset($filter['phone'])){
-            $clients            = $clients->where('phone', $filter['phone']);
-        }
-        if(isset($filter['status'])){
-            $clients            = $clients->where('status', $filter['status']);
-        }
-        $clients   = $clients->orderBy('id', 'desc')->paginate(20);
+        $result = $result->orderBy('id', 'desc')->paginate(20);
 
         return response()->json([
-            'clients'       => $clients,            
+            'clients'       => $result,            
         ], 200);
     }
 

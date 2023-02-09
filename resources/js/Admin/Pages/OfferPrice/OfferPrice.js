@@ -48,17 +48,21 @@ export default function OfferPrice() {
             });
     };
 
-    const getFilteredOffers = (response) => {
-        if (response.data.offers.data.length > 0) {
-            setTotalOffers(response.data.offers.data);
-            setOffers(response.data.offers.data);
-            setPageCount(response.data.offers.last_page);
-        } else {
-            setTotalOffers([]);
-            setPageCount(response.data.offers.last_page);
-            setLoading("No offer found");
-        }
-    };
+    const filterOffers = (e) =>{
+        axios
+        .get(`/api/admin/offers?q=${e.target.value}`,{ headers })
+        .then((response)=>{
+            if (response.data.offers.data.length > 0) {
+                setTotalOffers(response.data.offers.data);
+                setOffers(response.data.offers.data);
+                setPageCount(response.data.offers.last_page);
+            } else {
+                setTotalOffers([]);
+                setPageCount(response.data.offers.last_page);
+                setLoading("No offer found");
+            }
+        });
+    }
 
 
     const handleDelete = (id) => {
@@ -104,7 +108,7 @@ export default function OfferPrice() {
                         </div>
                         <div className="col-sm-6">
                             <div className="search-data">
-                                <input type='text' className="form-control" placeholder="Search" />
+                                <input type='text' className="form-control" onChange={filterOffers} placeholder="Search" />
                                 <Link to="/admin/add-offer" className="btn btn-pink addButton"><i class="btn-icon fas fa-plus-circle"></i>Add New</Link>
                             </div>
                         </div>
@@ -112,7 +116,6 @@ export default function OfferPrice() {
                 </div>
                 <div className="card">
                     <div className="card-body">
-                    {/* <OfferedPriceFilter getFilteredOffers={getFilteredOffers}/> */}
                         <div className="boxPanel">
                             <div className="table-responsive">
 
@@ -158,7 +161,7 @@ export default function OfferPrice() {
                                             <td><Link to='#!'>{city+sn+zc}</Link></td>
                                             <td>{ ofr.client.phone }</td>
                                             <td>{ofr.status}</td>
-                                            <td>{ofr.total} NIS</td>
+                                            <td>{ofr.total}</td>
                                             <td>
                                                 <div className="action-dropdown dropdown">
                                                     <button type="button" className="btn btn-default dropdown-toggle" data-toggle="dropdown">

@@ -101,7 +101,7 @@ export default function ScheduledMeeting() {
                                 "Start" + item.end_time
                             }
                         </td>
-                        <td>Sent</td>
+                        <td>{ item.booking_status}</td>
                         <td>
                             <div className="d-flex">   
                                 <Link to={`/admin/view-schedule/${param.id}?sid=${item.id}`} className="btn bg-yellow"><i className="fa fa-eye"></i></Link>

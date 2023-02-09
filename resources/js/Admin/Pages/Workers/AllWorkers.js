@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Sidebar from "../../Layouts/Sidebar";
 import { Link } from "react-router-dom";
 import ReactPaginate from "react-paginate";
+import axios from "axios";
 
 export default function AllWorkers() {
     const [workers, setWorkers] = useState([]);
@@ -41,16 +42,22 @@ export default function AllWorkers() {
             });
     };
 
-    const getWorkerFilter = (response) => {
-        if (response.data.workers.data.length > 0) {
-            setWorkers(response.data.workers.data);
-            setPageCount(response.data.workers.last_page);
-        } else {
-            setWorkers([]);
-            setPageCount(response.data.workers.last_page);
-            setLoading("No Workers found");
-        }
-    };
+   
+
+    const filterWorker = (e) =>{
+        axios
+        .get(`/api/admin/workers?q=${e.target.value}`,{ headers })
+        .then((response)=>{
+            if (response.data.workers.data.length > 0) {
+                setWorkers(response.data.workers.data);
+                setPageCount(response.data.workers.last_page);
+            } else {
+                setWorkers([]);
+                setPageCount(response.data.workers.last_page);
+                setLoading("No Workers found");
+            }
+        });
+    }
 
     const handleDelete = (id) => {
         Swal.fire({
@@ -90,7 +97,7 @@ export default function AllWorkers() {
                         </div>
                         <div className="col-sm-6">
                             <div className="search-data">
-                                <input type='text' className="form-control" placeholder="Search" />
+                                <input type='text' className="form-control" onChange={filterWorker} placeholder="Search" />
                                 <Link to="/admin/add-worker" className="btn btn-pink addButton"><i className="btn-icon fas fa-plus-circle"></i>Add New</Link>
                             </div>
                         </div>
@@ -124,7 +131,7 @@ export default function AllWorkers() {
                                                         <td>
                                                             <Link to={`/admin/view-worker/${item.id}`}>{item.firstname}{" "}{item.lastname}</Link> 
                                                         </td>
-                                                        <td>test123@gmail.com</td>
+                                                        <td>{item.email}</td>
                                                         <td><a href={`https://maps.google.com?q=${item.address}`}>{ item.address }</a></td>
                                                         <td>{item.phone}</td>
                                                         <td>

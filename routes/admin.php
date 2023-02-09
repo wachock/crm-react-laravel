@@ -78,15 +78,19 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin-api', 'scopes:ad
     //Offer Api
     Route::resource('offers',OfferController::class);
     Route::post('client-offers',[OfferController::class,'ClientOffers'])->name('client-offers');
-    Route::post('accept-offer',[OfferController::class,'AcceptOffer'])->name('accept-offer');
+    Route::post('latest-client-offer', [OfferController::class,'getLatestClientOffer']);
+    
 
     //TeamMembers
     Route::resource('team',TeamMemberController::class);
 
     //Meeting Schedules
     Route::resource('schedule',ScheduleController::class);
+    Route::post('search-schedule',[ScheduleController::class,'searchSchedule']);
     Route::post('client-schedules',[ScheduleController::class,'ClientSchedules']);
     Route::post('schedule-events', [ScheduleController::class,'getEvents']);
+    Route::post('latest-client-schedule', [ScheduleController::class,'getLatestClientSchedule']);
+    
 
     // Reviews Api
     Route::resource('reviews', ReviewController::class);

@@ -8,6 +8,7 @@ use App\Models\Offer;
 use App\Models\Services;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use Mail;
 class ScheduleController extends Controller
@@ -19,11 +20,46 @@ class ScheduleController extends Controller
      */
     public function index()
     {
-        $schedule = Schedule::with('team','client');
-        $schedule = $schedule->orderBy('id','desc')->paginate(10);
-        return response()->json([
-            'schedules' => $schedule
-        ]);
+
+            $result = Schedule::with('client','team');
+            $result = $result->orderBy('id', 'desc')->paginate(20);
+            return response()->json([
+                'schedules' => $result
+            ]);
+
+        
+    }
+    public function searchSchedule(Request $request) {
+
+        $q = $request->q;
+        $result = Schedule::query()->with('client','team');
+        $result->orWhere('booking_status','like','%'.$q.'%');
+        $result->orWhere('end_time',       'like','%'.$q.'%');
+        $result->orWhere('start_date',     'like','%'.$q.'%');
+        $result->orWhere('start_time', 'like','%'.$q.'%');
+
+        $result = $result->orWhereHas('client',function ($qr) use ($q){
+             $qr->where(function($qr) use ($q) {
+                 $qr->where(DB::raw('firstname'), 'like','%'.$q.'%');
+                 $qr->orWhere(DB::raw('lastname'), 'like','%'.$q.'%');
+                 $qr->orWhere(DB::raw('city'), 'like','%'.$q.'%');
+                 $qr->orWhere(DB::raw('street_n_no'), 'like','%'.$q.'%');
+                 $qr->orWhere(DB::raw('zipcode'), 'like','%'.$q.'%');
+                 $qr->orWhere(DB::raw('phone'), 'like','%'.$q.'%');
+             });
+         });
+
+         $result = $result->orWhereHas('team',function ($qr) use ($q){
+            $qr->where(function($qr) use ($q) {
+                $qr->where(DB::raw('name'), 'like','%'.$q.'%');
+            });
+        });
+ 
+         $result = $result->orderBy('id', 'desc')->paginate(20);
+ 
+         return response()->json([
+             'schedules' => $result
+         ]);
     }
 
     /**
@@ -83,7 +119,7 @@ class ScheduleController extends Controller
 
        } 
         $sch['service_names'] = $str; 
-       Mail::send('/Mails/MeetingMail',$sch,function($messages) use ($sch){
+    Mail::send('/Mails/MeetingMail',$sch,function($messages) use ($sch){
         $messages->to($sch['client']['email']);
         $messages->subject('Meeting schedule from Broom Services');
     });
@@ -182,9 +218,15 @@ class ScheduleController extends Controller
     }
     public function ClientSchedules(Request $request){
         
-        $schedules = Schedule::with('team')->where('client_id',$request->id)->get();
+        $schedules = Schedule::with('team')->where('client_id',$request->id)->orderBy('id','desc')->get();
         return response()->json([
             'schedules'=>$schedules
+        ]); 
+    }
+    public function getLatestClientSchedule(Request $request){
+        $latestSchedule = Schedule::where('client_id',$request->id)->get()->last();
+        return response()->json([
+            'latestSchedule'=>$latestSchedule
         ]); 
     }
 }

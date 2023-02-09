@@ -19,29 +19,20 @@ class WorkerController extends Controller
      */
     public function index(Request $request)
     {
-        $filter              = [];
-        $filter['name']      = $request->name;
-        $filter['email']     = $request->email;
-        $filter['phone']     = $request->phone;
-        $filter['status']    = $request->status;
+   
+        $q = $request->q;
+        $result = User::query();
+        $result->where('firstname',  'like','%'.$q.'%');
+        $result->orWhere('lastname', 'like','%'.$q.'%');
+        $result->orWhere('phone',    'like','%'.$q.'%');
+        $result->orWhere('address',  'like','%'.$q.'%');
+        $result->orWhere('status',   'like','%'.$q.'%');
+        $result->orWhere('email',    'like','%'.$q.'%');
 
-        $workers   = User::query();
-        if(isset($filter['name'])){
-            $workers            = $workers->where(DB::raw("concat(firstname, ' ', lastname)"), 'LIKE', '%'.$filter['name'].'%');
-        }
-        if(isset($filter['email'])){
-            $workers            = $workers->where('email', $filter['email']);
-        }
-        if(isset($filter['phone'])){
-            $workers            = $workers->where('phone', $filter['phone']);
-        }
-        if(isset($filter['status'])){
-            $workers            = $workers->where('status', $filter['status']);
-        }
-        $workers   = $workers->orderBy('id', 'desc')->paginate(20);
+        $result = $result->orderBy('id', 'desc')->paginate(20);
 
         return response()->json([
-            'workers'       => $workers,            
+            'workers'       => $result,            
         ], 200);
     }
 
