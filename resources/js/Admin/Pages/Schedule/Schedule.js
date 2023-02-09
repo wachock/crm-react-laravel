@@ -117,9 +117,9 @@ export default function Schedule() {
                           <br/>
                           <span style={{color: "blue"}}>{Moment(item.start_date).format('dddd')}</span>
                           <br/>
-                          <span style={{color: "green"}}>{ "Start "+ item.start_time}</span>
+                          <span style={{color: "green"}}>{ "Start :"+item.start_time}</span>
                           <br/>
-                          <span style={{color: "red"}}>{ "End "+ item.end_time}</span>
+                          <span style={{color: "red"}}>{ "End   :"+item.end_time}</span>
                         </td>
                         <td>{item.booking_status}</td>
                         <td>
