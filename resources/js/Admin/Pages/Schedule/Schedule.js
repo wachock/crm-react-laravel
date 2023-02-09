@@ -98,12 +98,29 @@ export default function Schedule() {
                     </tr>
                   </thead>
                   <tbody>
-                    {schedules && schedules.map((item, index) => (
+                    {schedules && schedules.map((item, index) => {
+                      
+                      let address = (item.client.city) ? item.client.city+", ":'';
+                          address = (item.client.street_n_no) ? item.client.street_n_no+", ":'';
+                          address = (item.client.zipcode) ? item.client.zipcode :'';
+                      return(
                       <tr key={index}>
                         <td>{item.id}</td>
-                        <td><Link to='#!'>Client name</Link></td>
-                        <td>7860123456</td>
-                        <td><Link to='#'>C-6, Sector 7, Noida</Link></td>
+                        <td><Link to={`/admin/view-client/${item.client.id}`}>
+                          {
+                            item.client
+                            ? item.client.firstname+" "+item.client.lastname
+                            :'NA'
+                          }
+                        </Link></td>
+                        <td>
+                        {
+                            item.client
+                            ? item.client.phone
+                            :'NA'
+                          }
+                        </td>
+                        <td><Link to={`https://maps.google.com?q=${address}`} target="_blank">{address}</Link></td>
                         <td>
                           {
                           item.team
@@ -135,7 +152,7 @@ export default function Schedule() {
                           </div>
                         </td>
                       </tr>
-                    ))}
+                   )})}
                   </tbody>
                 </table>
               ):(
