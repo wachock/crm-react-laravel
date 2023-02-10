@@ -1,8 +1,34 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Sidebar from '../../Layouts/Sidebar'
 import logo from "../../../Assets/image/logo.png";
 import Dropdown from 'react-bootstrap/Dropdown';
+import { useParams } from 'react-router-dom';
+import Moment from 'moment';
+
 export default function ViewOffer() {
+
+  const [offer,setOffer] = useState([]);
+  const param            = useParams();
+  const headers = {
+    Accept: "application/json, text/plain, */*",
+    "Content-Type": "application/json",
+    Authorization: `Bearer ` + localStorage.getItem("admin-token"),
+  };
+ 
+  const getOffer = () =>{
+    axios
+    .get(`/api/admin/offers/${param.id}`,{headers})
+    .then((res)=>{
+      let ar =[];
+      ar.push(res.data.offer);
+      setOffer(ar);
+    });
+ }
+ 
+  useEffect(()=>{
+    getOffer();
+  },[]);
+ 
   return (
     <div id="container">
       <Sidebar/>
@@ -11,6 +37,11 @@ export default function ViewOffer() {
           <h1 className="page-title addEmployer">View Offer</h1>
           <div className='card'>
             <div className='card-body'>
+              { offer && offer.map((ofr,i)=>{
+                let cl = ofr.client;
+                let services = (ofr.services) ? JSON.parse(ofr.services) : '';
+                console.log(services);
+             return(
               <div className='ViewOffer'>
                 <img src={logo} className="img-fluid" alt="Logo" />
                 <div className='row'>
@@ -23,52 +54,48 @@ export default function ViewOffer() {
                   </div>
                   <div className='col-sm-4'>
                     <h2>To</h2>
-                    <p>Martin Doe</p>
-                    <p>15A Hebron Business Park</p>
-                    <p>New York, Florida</p>
-                    <p>Phone: <span>353872992300</span></p>
-                    <p>Email: <span>martindoe@gmail.com</span></p>
+                    <p>{ cl.firstname+" "+cl.lastname }</p>
+                    <p>{ cl.street_n_no }</p>
+                    <p>{ cl.city+", "+cl.zipcode }</p>
+                    <p>Phone: <span>{ cl.phone }</span></p>
+                    <p>Email: <span>{ cl.email }</span></p>
                   </div>
                   <div className='col-sm-3 text-right'>
                     <h2>Offer Price</h2>
-                    <p><b>Offer Id: </b><span> 0001</span></p>
-                    <p><b>Date: </b><span> October 5, 2022</span></p>
+                    <p><b>Offer Id: </b><span> { ofr.id }</span></p>
+                    <p><b>Date: </b><span> { Moment(ofr.created_at).format('MMMM DD,Y') }</span></p>
                     <div className='sent-status'>
-                      <p>Sent</p>
+                      <p>{ ofr.status }</p>
                     </div>
                   </div>
                 </div>
                 <div className="card card-dark">
                   <div className="card-header card-black">
-                    <h3 class="card-title">Line Items</h3>
+                    <h3 class="card-title">Services</h3>
                   </div>
                   <div className="card-body">
                     <div className="table-responsive">
                       <table class="table table-sm">
                         <thead>
                           <tr>
-                            <th style={{width:"30%"}}>Services</th>
-                            <th className='text-right'>Start Time</th>
-                            <th className='text-right'>End Time</th>
+                            <th style={{width:"30%"}}>Service</th>
+                            <th className='text-right'>Job Hours</th>
                             <th className='text-right'>Rate Per Hour</th>
                             <th className='text-right'>Total Amount</th>
                           </tr>
                         </thead>
                         <tbody>
-                          <tr>
-                            <td>Garden grass cutting</td>
-                            <td className='text-right'>10:15 AM</td>
-                            <td className='text-right'>12:45 PM</td>
-                            <td className='text-right'>200 NIS</td>
-                            <td className='text-right'>440 NIS</td>
-                          </tr>
-                          <tr>
-                            <td>Garden grass cutting</td>
-                            <td className='text-right'>10:15 AM</td>
-                            <td className='text-right'>12:45 PM</td>
-                            <td className='text-right'>200 NIS</td>
-                            <td className='text-right'>440 NIS</td>
-                          </tr>
+                          { services && services.map((s,i)=>{
+                            return(
+                            <tr>
+                              <td>{s.name}</td>
+                              <td className='text-right'>{ s.jobHours } hour(s)</td>
+                              <td className='text-right'>{ s.rateperhour }$</td>
+                              <td className='text-right'>{ s.totalamount}$</td>
+                            </tr>
+                            )
+                          })}
+                         
                         </tbody>
                       </table>
                     </div>
@@ -80,19 +107,19 @@ export default function ViewOffer() {
                             <thead>
                               <tr>
                                 <td width="65%" class="text-right">Subtotal</td>
-                                <td class="text-right"><span>440.00 </span>NIS</td>
+                                <td class="text-right"><span>{ ofr.total }</span>$</td>
                               </tr>
                             </thead>
                             <tbody>
                               <tr>
                                 <td width="65%" class="text-right">Total Tax</td>
-                                <td class="text-right"><span>0.00 </span>NIS</td> 
+                                <td class="text-right"><span>0.00 </span>$</td> 
                               </tr>
                             </tbody>
                             <tfoot>
                               <tr>
                                 <td width="65%" class="text-right">Total Tax</td>
-                                <td class="text-right"><span>0.00 </span>NIS</td> 
+                                <td class="text-right"><span>0.00 </span>$</td> 
                               </tr>
                             </tfoot>
                           </table>
@@ -104,14 +131,15 @@ export default function ViewOffer() {
                 <Dropdown className='text-right'>
                   <Dropdown.Toggle className='btn-pink' id="dropdown-basic">Acton</Dropdown.Toggle>
                   <Dropdown.Menu>
-                    <Dropdown.Item href="#">Edit</Dropdown.Item>
-                    <Dropdown.Item href="#">Download PDF</Dropdown.Item>
+                    <Dropdown.Item href={`/admin/edit-offer/${ofr.id}`}>Edit</Dropdown.Item>
                     <Dropdown.Item href="#">Send as Email</Dropdown.Item>
-                    <Dropdown.Item href="#">Print</Dropdown.Item>
+                    <Dropdown.Item href={`/admin/offered-price`}>Back</Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
-              </div>
-            </div>
+              </div>  
+           )
+          })}
+          </div>
           </div>
         </div>
       </div>
