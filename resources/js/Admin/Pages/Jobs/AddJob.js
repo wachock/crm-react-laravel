@@ -5,6 +5,7 @@ import 'rsuite/dist/rsuite.min.css';
 import axios from 'axios';
 import { useAlert } from 'react-alert';
 import { useNavigate } from 'react-router-dom';
+import TeamAvailability from '../../Components/TeamAvailability/TeamAvailability';
 
 
 export default function AddJob() {
@@ -137,6 +138,15 @@ export default function AddJob() {
                                         <label className="control-label">Worker Name</label>
                                         <SelectPicker data={wData} value={worker} onChange={(value,event)=>setWorker(value)} size="lg" required/>
                                     </div>
+                                </div>
+                                <div className='col-sm-12'>
+                                    <div className='mt-3 mb-3'>
+                                        <h3 className='text-center'>Worker Availability</h3>
+                                    </div>
+                                </div> 
+                                <div className='col-sm-12'>
+                                    <TeamAvailability/>
+                                    <div className='mb-3'>&nbsp;</div>
                                 </div>
                                 <div className='col-sm-3'>
                                     <div className="form-group">

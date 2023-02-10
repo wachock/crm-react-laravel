@@ -65,6 +65,12 @@ class JobController extends Controller
             'jobs'       => $jobs,        
         ], 200);
     }
+    public function getAllJob(){
+        $jobs = Job::where('status',1)->get();;
+        return response()->json([
+            'jobs'       => $jobs,        
+        ], 200);
+    }
 
     public function create()
     {

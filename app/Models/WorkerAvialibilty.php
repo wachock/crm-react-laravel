@@ -15,4 +15,7 @@ class WorkerAvialibilty extends Model
         'working',
         'status',        
     ];
+    protected $casts = [
+        'working' => 'array',
+    ];
 }

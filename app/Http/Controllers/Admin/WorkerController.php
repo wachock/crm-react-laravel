@@ -27,7 +27,7 @@ class WorkerController extends Controller
         $result->orWhere('phone',    'like','%'.$q.'%');
         $result->orWhere('address',  'like','%'.$q.'%');
         $result->orWhere('status',   'like','%'.$q.'%');
-        $result->orWhere('email',    'like','%'.$q.'%');
+        // $result->orWhere('email',    'like','%'.$q.'%');
 
         $result = $result->orderBy('id', 'desc')->paginate(20);
 
@@ -66,6 +66,7 @@ class WorkerController extends Controller
             'firstname' => ['required', 'string', 'max:255'],
             'address'   => ['required', 'string'],
             'phone'     => ['required'],
+            'worker_id' => ['required','unique:users'],
             'status'    => ['required'],
         ]);
 
@@ -77,6 +78,7 @@ class WorkerController extends Controller
         $worker->firstname     = $request->firstname;
         $worker->lastname      = $request->lastname;
         $worker->phone         = $request->phone;
+        $worker->email         = $request->email;
         $worker->address       = $request->address;
         $worker->renewal_visa  = $request->renewal_visa;
         $worker->gender        = $request->gender;
@@ -131,6 +133,7 @@ class WorkerController extends Controller
             'firstname' => ['required', 'string', 'max:255'],
             'address'   => ['required', 'string'],
             'phone'     => ['required'],
+            'worker_id' => ['required','unique:users,worker_id,'.$id],
             'status'    => ['required'],
         ]);
 
@@ -142,6 +145,7 @@ class WorkerController extends Controller
         $worker->firstname     = $request->firstname;
         $worker->lastname      = $request->lastname;
         $worker->phone         = $request->phone;
+        $worker->email         = $request->email;
         $worker->address       = $request->address;
         $worker->renewal_visa  = $request->renewal_visa;
         $worker->gender        = $request->gender;
@@ -174,26 +178,53 @@ class WorkerController extends Controller
         ], 200);
     }
     public function updateAvailability(Request $request, $id){
-        WorkerAvialibilty::where('user_id',$id)->delete();
-        foreach(json_decode($request->availabilty) as $availabilty){
+        // WorkerAvialibilty::where('user_id',$id)->delete();
+        // foreach(json_decode($request->availabilty) as $availabilty){
+        //    $avl = new WorkerAvialibilty;
+        //    $avl->user_id=$id;
+        //    $avl->date=$availabilty->date;
+        //    $avl->working=$availabilty->working;
+        //    $avl->status=$availabilty->status;
+        //    $avl->save();
+        // }
+        // return $request->all();
+        $worker_data=WorkerAvialibilty::where('user_id',$id)
+                                       ->where('date',$request->w_date)->first();
+        if(!empty($worker_data)){
+             $arr = $worker_data->working;
+              if($request->checked){
+                array_push($arr,trim($request->slot));
+             }else{
+                $arr = array_diff($arr, array($request->slot));
+             }
+        }else{
+             $arr=array();
+             array_push($arr,trim($request->slot));
+        }
+       
+          $worker_data=WorkerAvialibilty::where('user_id',$id)
+                                       ->where('date',$request->w_date)->delete();
            $avl = new WorkerAvialibilty;
            $avl->user_id=$id;
-           $avl->date=$availabilty->date;
-           $avl->working=$availabilty->working;
-           $avl->status=$availabilty->status;
+           $avl->date=$request->w_date;
+           $avl->working=$arr;
+           $avl->status='1';
            $avl->save();
-        }
         return response()->json([
             'message'     => 'Updated Successfully',         
         ], 200);
     } 
     public function getWorkerAvailability($id){
-          $worker_availability = WorkerAvialibilty::where('user_id',$id)
+          $worker_availabilities = WorkerAvialibilty::where('user_id',$id)
                              ->orderBy('id', 'asc')
-                             ->get(['date','working','status']);
+                             ->get();
+            $new_array=array();
+            foreach($worker_availabilities as $w_a){
+                 $new_array[$w_a->date]=$w_a->working;
+            }
 
            return response()->json([
-            'availability'     => json_decode($worker_availability),         
+            'availability'     => $new_array,         
            ], 200);
     }
 }

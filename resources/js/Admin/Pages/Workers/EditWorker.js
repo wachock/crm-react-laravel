@@ -7,6 +7,7 @@ export default function EditWorker() {
   const [firstname, setFirstName] = useState('');
   const [lastname, setLastName] = useState('');
   const [phone, setPhone] = useState('');
+  const [email, setEmail] = useState('');
   const [renewal_date, setRenewalDate] = useState('');
   const [gender, setGender] = useState('male');
   const [payment_hour, setPaymentHour] = useState(0);
@@ -53,6 +54,7 @@ export default function EditWorker() {
         "firstname": firstname,
         "lastname": lastname,
         "phone": phone,
+        "email":email,
         "address": address,
         "renewal_visa": renewal_date,
         "gender": gender,
@@ -83,6 +85,7 @@ export default function EditWorker() {
             .then((response) => {
                 setFirstName(response.data.worker.firstname);
                 setLastName(response.data.worker.lastname);
+                setEmail(response.data.worker.email);
                 setPhone(response.data.worker.phone);
                 setRenewalDate(response.data.worker.renewal_visa);
                 setGender(response.data.worker.gender);
@@ -123,6 +126,19 @@ export default function EditWorker() {
                                     <div className='form-group'>
                                         <label className='control-label'>Last Name</label>
                                         <input type='text' value={lastname} onChange={(e) => setLastName(e.target.value)} className='form-control' placeholder='Enter Last Name' />
+                                    </div>
+                                </div>
+                                 <div className='col-sm-6'>
+                                    <div className='form-group'>
+                                        <label className='control-label'>Email</label>
+                                        <input type='tyoe' value={email} onChange={(e) => setEmail(e.target.value)} className='form-control' placeholder='Email' />
+                                        {errors.email ? (
+                                            <small className="text-danger mb-1">
+                                                {errors.email}
+                                            </small>
+                                        ) : (
+                                            ""
+                                        )}
                                     </div>
                                 </div>
                                 <div className='col-sm-6'>
@@ -171,6 +187,13 @@ export default function EditWorker() {
                                     <div className='form-group'>
                                         <label className='control-label'>Worker Id</label>
                                         <input type='text' value={worker_id} onChange={(e) => setWorkerId(e.target.value)} className='form-control' placeholder='Payment Per Hour' />
+                                    {errors.worker_id ? (
+                                            <small className="text-danger mb-1">
+                                                {errors.worker_id}
+                                            </small>
+                                        ) : (
+                                            ""
+                                        )}
                                     </div>
                                     
                                 </div>
@@ -184,6 +207,13 @@ export default function EditWorker() {
                             <div className='form-group'>
                                 <label className='control-label'>Address</label>
                                 <input type='text' value={address} onChange={(e) => setAddress(e.target.value)} className='form-control' placeholder='Enter your address' />
+                                {errors.address ? (
+                                            <small className="text-danger mb-1">
+                                                {errors.address}
+                                            </small>
+                                        ) : (
+                                            ""
+                                        )}
                             </div>
                             <div className='col-sm-12'>
                                     <div className='form-group'>
@@ -205,6 +235,13 @@ export default function EditWorker() {
                                     <option value="1">Enable</option>
                                     <option value="0">Disable</option>
                                 </select>
+                                {errors.status ? (
+                                            <small className="text-danger mb-1">
+                                                {errors.status}
+                                            </small>
+                                        ) : (
+                                            ""
+                                        )}
                             </div>
                             <div className="form-group text-center">
                                 <input type='submit' value='Update'  onClick={handleUpdate} className="btn btn-danger saveBtn"/>
