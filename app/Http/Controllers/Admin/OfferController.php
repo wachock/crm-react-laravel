@@ -164,7 +164,8 @@ class OfferController extends Controller
        
         $input = $request->input(); 
         Offer::where('id',$id)->update($input);
-        
+        $offer =  Offer::where('id',$id)->with('client','service')->get()->first();
+        $this->sendOfferMail($offer);
         return response()->json([
             'message' => 'Offer updated successfully'
         ]);
@@ -179,8 +180,7 @@ class OfferController extends Controller
      */
     public function destroy($id)
     {
-        //
-        Offer::find($id)->delete();
+        Offer::where('id',$id)->delete();
         return response()->json([
             'message'=>'Offer has been deleted successfully'
         ],200);

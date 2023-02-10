@@ -30,6 +30,8 @@ Route::group(['prefix' => 'client'], function () {
     Route::post('get-offer',[ClientEmailController::class,'GetOffer'])->name('get-offer');
     Route::post('accept-offer',[ClientEmailController::class,'AcceptOffer'])->name('accept-offer');
     Route::post('accept-meeting',[ClientEmailController::class,'AcceptMeeting'])->name('accept-meeting');
+    Route::post('get-offer-token',[ClientEmailController::class,'GetOfferFromHash'])->name('get-offer-token');
+    Route::post('accept-contract',[ClientEmailController::class,'AcceptContract'])->name('accept-contract');
 });
 
 

@@ -1,10 +1,86 @@
-import React from 'react'
+import React,{ useRef, useState, useEffect } from 'react'
 import logo from "../Assets/image/logo.png";
 import star from "../Assets/image/icons/blue-star.png";
 import SignatureCanvas from 'react-signature-canvas'
 import companySign from "../Assets/image/company-sign.png";
+import axios from 'axios';
+import { useParams } from 'react-router-dom';
+import swal from 'sweetalert';
 
 export default function WorkContract() {
+
+    const [offer,setoffer]   = useState([]);
+    const param = useParams();
+    const sigRef = useRef();
+
+    const [signature, setSignature] = useState(null);
+    const [Aaddress, setAaddress]   = useState(null);
+    const [ctype,setCtype]          = useState("");
+    const [cno,setCno]              = useState("");
+    const [cname,setCname]          = useState("");
+    const [cm,setCm]                = useState("");
+    const [cy,setCy]                = useState("");
+    const [cvv,setCvv]              = useState("");
+
+    
+   
+    const handleAccept = (e) =>{
+
+        if(!ctype){ swal('Please select card type','','error'); return false;}
+        if(!cno)  { swal('Please enter card number','','error'); return false;}
+        if(!cm)   { swal('Please enter card month','','error'); return false;}
+        if(!cy)   { swal('Please select card year','','error'); return false;}
+        if(!cname){ swal('Please enter card holder name','','error'); return false;}
+        if(!cvv)  { swal('Please select card cvv','','error'); return false;}
+        if(!signature){ swal('Please sign the contract','','error'); return false;}
+        
+        if(cno.length < 16) { swal('Invalid card number','','error'); return false;}
+        if(cm.length  < 2)  { swal('Invalid Month','please insert MM format','error'); return false;}
+        if(cy.length  < 2)  { swal('Invalid year','','error'); return false;}
+        if(cvv.length < 3)  { swal('Invalid cvv','','error'); return false;}
+
+        const data = {
+            unique_hash:param.id,
+            offer_id:offer[0].id,
+            client_id:offer[0].client.id,
+            additional_address:Aaddress,
+            card_type:ctype,
+            card_number:cno.substring(0,16),
+            name_on_card:cname,
+            valid:cm.substring(0,2)+"/"+cy.substring(0,2),
+            cvv:cvv.substring(0,3),
+            status:'Signed',
+            signature:signature
+        }
+
+        axios
+        .post(`/api/client/accept-contract`,data)
+        .then((res)=>{
+            swal(res.data.message,'','success')
+            setTimeout(()=>{
+                window.location.href="/client/login";
+            },1000)
+        })
+    }
+
+    const handleSignatureEnd = () => {
+        setSignature(sigRef.current.toDataURL());
+    }
+
+    
+    const getOffer = () =>{
+        axios
+        .post(`/api/client/get-offer-token`,{token:param.id})
+        .then((res)=>{
+            setoffer(res.data.offer);
+        })
+    }
+
+    useEffect(()=>{
+        getOffer();
+    },[])
+
+
   return (
     <div className='container'>
         <div className='send-offer client-contract'>
@@ -15,7 +91,7 @@ export default function WorkContract() {
                     </div>
                     <div className='col-sm-6'>
                         <div className='mt-2 float-right'>
-                            <input className='btn btn-pink' value='Accept Contract' />
+                            <input className='btn btn-pink' onClick={handleAccept} value='Accept Contract' />
                         </div>
                     </div>
                 </div>
@@ -30,26 +106,35 @@ export default function WorkContract() {
                 </div>
                 <div className='first'>
                     <h2 className='mb-4'>Of the First Party</h2>
+                    {offer && offer.map((ofr,i)=>{
+                    let cl = ofr.client;
+
+                    return (
+                        <>
                     <ul className='list-inline'>
-                        <li className='list-inline-item'>Full Name: <span>Sohrab Khan</span></li>
-                        <li className='list-inline-item'>City: <span>New Delhi</span></li>
+                        <li className='list-inline-item'>Full Name: <span>{ cl.firstname+" "+cl.lastname }</span></li>
+                        <li className='list-inline-item'>City: <span>{ cl.city }</span></li>
                     </ul>
                     <ul className='list-inline'>
-                        <li className='list-inline-item'>Street and Number: <span>Saurabh Vihar, Jaitpur, New Delhi, Delhi, India</span></li>
-                        <li className='list-inline-item'>Floor: <span>2nd</span></li>
+                        <li className='list-inline-item'>Street and Number: <span>{ cl.street_n_no }</span></li>
+                        <li className='list-inline-item'>Floor: <span>{ cl.floor }</span></li>
                     </ul>
                     <ul className='list-inline'>
-                        <li className='list-inline-item'>Apt Number: <span>A-278</span></li>
-                        <li className='list-inline-item'>Enterance Code: <span>1008</span></li>
+                        <li className='list-inline-item'>Apt Number: <span>{ cl.apt_no }</span></li>
+                        <li className='list-inline-item'>Enterance Code: <span>{ cl.entrence_code }</span></li>
                     </ul>
                     <ul className='list-inline'>
-                        <li className='list-inline-item'>Zip code: <span>110044</span></li>
-                        <li className='list-inline-item'>DOB: <span>02-06-1994</span></li>
+                        <li className='list-inline-item'>Zip code: <span>{ cl.zipcode }</span></li>
+                        <li className='list-inline-item'>DOB: <span>{ cl.dob }</span></li>
                     </ul>
                     <ul className='list-inline'>
-                        <li className='list-inline-item'>Telephone: <span>8090895865</span></li>
-                        <li className='list-inline-item'>Email: <span>website.design1008@gmail.com</span></li>
+                        <li className='list-inline-item'>Telephone: <span>{ cl.phone }</span></li>
+                        <li className='list-inline-item'>Email: <span>{ cl.email }</span></li>
                     </ul>
+                    </>
+                    )
+
+                    })}
                     <h2 className='mb-4'>Of the Second Party</h2>
                     <div className='whereas'>
                         <div className='info-list'>
@@ -114,7 +199,7 @@ export default function WorkContract() {
                             </tr>
                             <tr>
                                 <td style={{width: "60%"}}>The location in which the service will be provided and/or work will be performed</td>
-                                <td>Saurabh Vihar, Jaitpur, New Delhi, Delhi, India A-278 New Delhi <br/> <span style={{fontWeight: "600"}} className='d-block mt-2'>Other address if any?</span> <br/><input type='text' value='' placeholder='Any other address?' className='form-control'/></td>
+                                <td>Saurabh Vihar, Jaitpur, New Delhi, Delhi, India A-278 New Delhi <br/> <span style={{fontWeight: "600"}} className='d-block mt-2'>Other address if any?</span> <br/><input type='text' name="additional_address" onChange={(e)=>setAaddress(e.target.value)} placeholder='Any other address?' className='form-control'/></td>
                             </tr>
                             <tr>
                                 <td style={{width: "60%"}}>Date on which the service delivery and/or work will begin, and the date on which the service delivery and/or work will end</td>
@@ -139,34 +224,42 @@ export default function WorkContract() {
                             <tr>
                                 <td style={{width: "60%"}}>Card Type:</td>
                                 <td>
-                                    <select className='form-control'>
+                                    <select className='form-control'  onChange={(e)=>setCtype(e.target.value)}>
                                         <option>Please Select</option>
-                                        <option>Visa</option>
-                                        <option>Master Card</option>
-                                        <option>American Express</option>
+                                        <option value='Visa'>Visa</option>
+                                        <option value='Master Card'>Master Card</option>
+                                        <option value='American Express'>American Express</option>
                                     </select>
                                 </td>
                             </tr>
                             <tr>
                                 <td style={{width: "60%"}}>Card Number</td>
-                                <td><input type='text' className='form-control' placeholder='Enter Card number' /></td>
+                                <td><input type='number' className='form-control' name="card_number" onKeyUp={
+
+                                    (e)=>{
+                                        //if((e.target.value.length%4)==0 && e.target.value.length <= 4) e.target.value = e.target.value+" ";
+                                        //if((e.target.value.length%5)==0 && e.target.value.length > 4) e.target.value = e.target.value+" ";
+                                        if(e.target.value.length >= 16)  e.target.value = e.target.value.slice(0, 16); 
+                                    }
+                                    
+                                    } onChange={(e)=>setCno(e.target.value)} placeholder='Enter Card number' /></td>
                             </tr>
                             <tr>
                                 <td style={{width: "60%"}}>Valid Through:</td>
                                 <td>
                                     <div className='d-flex'>
-                                        <input type='number' className='form-control' placeholder='MM' />
-                                        <input type='number' className='ml-2 form-control' placeholder='YY' />
+                                        <input type='number' name="month"  onChange={(e)=>setCm(e.target.value)} onKeyUp={(e)=>{if(e.target.value.length >= 2) e.target.value = e.target.value.slice(0, 2); }} className='form-control' placeholder='MM' />
+                                        <input type='number' name="year"   onChange={(e)=>setCy(e.target.value)} onKeyUp={(e)=>{if(e.target.value.length >= 2) e.target.value = e.target.value.slice(0, 2); }} className='ml-2 form-control' placeholder='YY' />
                                     </div>
                                 </td>
                             </tr>
                             <tr>
                                 <td style={{width: "60%"}}>Name on the Card</td>
-                                <td><input type='text' className='form-control' placeholder='Name on the Card' /></td>
+                                <td><input type='text' name="name_on_card"  onChange={(e)=>setCname(e.target.value)} className='form-control' placeholder='Name on the Card' /></td>
                             </tr>
                             <tr>
                                 <td style={{width: "60%"}}>CVV</td>
-                                <td><input type='text' className='form-control' placeholder='CVV' /></td>
+                                <td><input type='text' name="cvv"  onChange={(e)=>setCvv(e.target.value)} onKeyUp={(e)=>{if(e.target.value.length >= 3) e.target.value = e.target.value.slice(0, 3); }} className='form-control' placeholder='CVV' /></td>
                             </tr>
                             <tr>
                                 <td style={{width: "60%"}}>Miscellaneous</td>
@@ -290,7 +383,12 @@ export default function WorkContract() {
                         <div className='col-sm-6'>
                             <h5 className='mt-2 mb-4'>The Tenant</h5>
                             <h6>Draw Signature with mouse or touch</h6>
-                            <SignatureCanvas penColor='black' canvasProps={{className: 'sigCanvas'}} />
+                            <SignatureCanvas
+                              penColor='black' 
+                              canvasProps={{className: 'sigCanvas'}} 
+                              ref={sigRef}
+                              onEnd={handleSignatureEnd}
+                              />
                         </div>
                         <div className='col-sm-6'>
                             <div className='float-right'>
@@ -300,11 +398,17 @@ export default function WorkContract() {
                                 <img src={companySign} className='img-fluid' alt='Company' />
                             </div>
                         </div>
+                        <div className=' col-sm-12 mt-2 float-right'>
+                            <input className='btn btn-pink' onClick={handleAccept} value='Accept Contract' />
+                        </div>
+                        
                     </div>
+                    
                     <div className='mb-4'>&nbsp;</div>
                 </div>
             </div>
         </div>
     </div>
+     
   )
 }

@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from "react-router-dom";
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useParams,useNavigate } from 'react-router-dom';
 
 export default function OfferedPrice() {
     const [offers,setOffers]          = useState([]);
     const [loading,setLoading]        = useState("Loading..");
     const param = useParams();
+    const navigate = useNavigate();
 
     const headers = {
         Accept: "application/json, text/plain, */*",
@@ -26,6 +27,34 @@ export default function OfferedPrice() {
         }
     });
     }
+
+
+    const handleDelete = (id) => {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, Delete Offer!",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                axios
+                    .delete(`/api/admin/offers/${id}`, { headers })
+                    .then((response) => {
+                        Swal.fire(
+                            "Deleted!",
+                            "Offer has been deleted.",
+                            "success"
+                        );
+                        setTimeout(() => {
+                            getOffers();
+                        }, 1000);
+                    });
+            }
+        });
+    };
 
     useEffect(()=>{
         getOffers();

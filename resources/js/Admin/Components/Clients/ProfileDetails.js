@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import Moment from 'moment';
 
-export default function ProfileDetails({ client, offerStatus , scheduleStatus }) {
-
+export default function ProfileDetails({ client, offerStatus , scheduleStatus , latestContract }) {
+    //console.log(latestContract.card_type);
     const firstname = client.firstname;
     const lastname = client.lastname;
     const email = client.email;
@@ -18,11 +18,12 @@ export default function ProfileDetails({ client, offerStatus , scheduleStatus })
     const passcode = client.passcode;
     const joined = Moment(client.created_at).format('DD/MM/Y')+" "+Moment(client.created_at).format('dddd');
     
-    const [cardType] = useState("MasterCard");
-    const [cardNumber] = useState("3452789012346781");
-    const [cardValidity] = useState("10/24");
-    const [nameOnCard] = useState("Alex Adams");
-    const [signature] = useState("Alex");
+    const  cardType    = (latestContract) ? latestContract.card_type : '';
+    const cardNumber   = (latestContract) ? latestContract.card_number : '';
+    const cardValidity = (latestContract) ? latestContract.valid : '';
+    const nameOnCard   = (latestContract) ? latestContract.name_on_card : '';
+    const cvv          = (latestContract) ? latestContract.cvv: '';
+    const signature    = (latestContract) ? <a href={latestContract.signature} target="_blank">view</a>  : '';
     const param = useParams();
     
     let scolor = '', ocolor = '';
@@ -106,6 +107,7 @@ export default function ProfileDetails({ client, offerStatus , scheduleStatus })
                                             <li><strong>Card No: </strong>{cardNumber}</li>
                                             <li><strong>Card Validity: </strong>{cardValidity}</li>
                                             <li><strong>Name on card: </strong>{nameOnCard}</li>
+                                            <li><strong>Name on card: </strong>{cvv}</li>
                                             <li><strong>Signature: </strong>{signature}</li>
                                         </ul>
                                     </div>
@@ -115,16 +117,24 @@ export default function ProfileDetails({ client, offerStatus , scheduleStatus })
                     </div>
                     <div className='col-sm-4'>
                         <div className='dashBox p-4'>
+
                             <div className='form-group'>
                                 <label className='d-block'>Meeting Status</label>
-                            
                                 <span className='dashStatus' style={{ background: scolor }}>{scheduleStatus}</span>
                             </div>
-                            <div className='form-group mb-0'>
+
+                            <div className='form-group'>
                                 <label className='d-block'>Price Offer</label>
                                 <span className='dashStatus' style={{ background: ocolor }}>{offerStatus}</span>
                             </div>
+
+                            <div className='form-group mb-0'>
+                                <label className='d-block'>Contract</label>
+                                <span className='dashStatus' style={{ background: (latestContract && latestContract.status == 'Signed') ? 'green' : '#7e7e56' }}>{(latestContract) ? latestContract.status : 'Not Sent'}</span>
+                         </div>
+                           
                         </div>
+                        
                         <div className='buttonBlocks dashBox mt-3 p-4'>
                             <Link to={`/admin/view-schedule/${param.id}`}><i className="fas fa-hand-point-right"></i> Schedule Meeting</Link>
                             <Link to={`/admin/add-offer?c=${param.id}`}><i className="fas fa-hand-point-right"></i> Send Offer</Link>

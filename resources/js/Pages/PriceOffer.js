@@ -21,15 +21,15 @@ export default function PriceOffer() {
         axios
         .post(`/api/client/get-offer`,{ id:param.id })
         .then((res)=>{
-            setOffer(res.data.offer);
-            setServices(JSON.parse(res.data.offer.services));
-            setClient(res.data.offer.client);
+            setOffer(res.data.offer[0]);
+            setServices(JSON.parse(res.data.offer[0].services));
+            setClient(res.data.offer[0].client);
         })
     }
     useEffect(()=>{
         getOffer();
     },[])
-
+    console.log(services);
     const handleOffer = (e,id) => {
         e.preventDefault();
         axios

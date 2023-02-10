@@ -7,6 +7,7 @@ use App\Models\Client;
 use App\Models\Schedule;
 use App\Models\Offer;
 use App\Models\Services;
+use App\Models\Contract;
 use Mail;
 
 class ClientEmailController extends Controller
@@ -40,14 +41,15 @@ class ClientEmailController extends Controller
      public function GetOffer(Request $request){
 
       $id = $request->id;
-      $offer = Offer::where('id',$id)->with('client')->get()->first();
-      $services = ($offer->services != '') ? json_decode($offer->services) : [];
+      $offer = Offer::where('id',$id)->with('client')->get();
+      $services = ($offer[0]->services != '') ? json_decode($offer[0]->services) : [];
       if(isset($services)){
+
           foreach( $services as $service){
              $name = Services::where('id',$service->service)->get('name')->first()->toArray(); 
              $service->name = $name['name'];
           }
-          $offer->services = json_encode($services);
+          $offer[0]->services = json_encode($services);
       }
      
       return response()->json([
@@ -61,8 +63,17 @@ class ClientEmailController extends Controller
        Offer::where('id',$request->id)->update([
         'status' =>'accepted'
       ]);
-      $ofr = Offer::with('client')->where('id',$request->id)->get()->first()->toArray();
-    
+      $ofr  = Offer::with('client')->where('id',$request->id)->get()->first()->toArray();
+      $hash = md5($ofr['client']['email']); 
+      
+      $contract = Contract::create([
+         'offer_id'   =>$request->id,
+         'client_id'  =>$ofr['client']['id'],
+         'unique_hash'=>$hash,
+         'status'     =>'Not Signed'
+      ]);
+          $ofr['contract_id'] = $hash;
+      
       Mail::send('/Mails/ContractMail',$ofr,function($messages) use ($ofr){
         $messages->to($ofr['client']['email']);
         $messages->subject('Contract with Broom Services');
@@ -90,7 +101,32 @@ class ClientEmailController extends Controller
     return $e->getMessage();
    }
    }
+   
+   public function AcceptContract(Request $request){
+     
+    try{
+      Contract::where('unique_hash',$request->unique_hash)->update($request->input());
+      return response()->json([
+        'message'=>"Thanks, for accepting contract"
+       ],200);
 
+    } catch(\Exception $e){
+      
+       return response()->json([
+        'error'=>$e->getMessage()
+       ],200);
+    }
+    
+  }
+
+  public function GetOfferFromHash(Request $request){
+
+      $offer = Contract::where('unique_hash',$request->token)->get()->last();
+      $goffer = Offer::where('id',$offer->offer_id)->with('client')->get();
+      return response()->json([
+        'offer' => $goffer
+      ]);
+  }
 
 }
 

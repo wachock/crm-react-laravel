@@ -108,7 +108,7 @@ export default function MyRoutes() {
                <Route exact path="worker/login" element={<WorkerLogin />} />
                <Route exact path="meeting-status/:id" element={<MeetingStatus />} />
                <Route exact path="price-offer/:id" element={<PriceOffer />} />
-               <Route exact path="work-contract" element={<WorkContract />} />
+               <Route exact path="work-contract/:id" element={<WorkContract />} />
                <Route exact path="calendar" element={<CalendarTeam />} />
 
                {/* Client Routes Start  */}
@@ -193,7 +193,7 @@ export default function MyRoutes() {
                      <Route exact path="contracts" element={<Contract />} />
                      <Route exact path="add-contract" element={<AddContract />} />
                      <Route exact path="edit-contract" element={<EditContract />} />
-                     <Route exact path="view-contract" element={<ViewContract />} />
+                     <Route exact path="view-contract/:id" element={<ViewContract />} />
                      <Route exact path="schedule" element={<Schedule />} />
                      <Route exact path="view-schedule/:id" element={<ViewSchedule />} />
                   </Route>

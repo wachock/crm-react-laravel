@@ -22,6 +22,8 @@ use App\Http\Controllers\Admin\ServiceSchedulesController;
 use App\Http\Controllers\Admin\OfferController;
 use App\Http\Controllers\Admin\TeamMemberController;
 use App\Http\Controllers\Admin\ScheduleController;
+use App\Http\Controllers\Admin\ContractController;
+
 
 
 /*
@@ -79,6 +81,11 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin-api', 'scopes:ad
     Route::resource('offers',OfferController::class);
     Route::post('client-offers',[OfferController::class,'ClientOffers'])->name('client-offers');
     Route::post('latest-client-offer', [OfferController::class,'getLatestClientOffer']);
+
+    //Contract Api
+    Route::resource('contract',ContractController::class);
+    Route::post('client-contracts',[ContractController::class,'clientContracts'])->name('client-contracts');
+    
     
 
     //TeamMembers

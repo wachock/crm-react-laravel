@@ -11,7 +11,7 @@ export default function EditOffer() {
   const navigate            = useNavigate();
   const param               = useParams();
   const [client, setClient] = useState("");
-  const [formValues, setFormValues] = useState([{ service: "",jobHours:"",rateperhour:'',totalamount:''}])
+  const [formValues, setFormValues] = useState([{ service: "",name:"",jobHours:"",rateperhour:'',totalamount:''}])
   const [description, setDescription] = useState("");
   const [status,setStatus] = useState("");
   const [AllClients,setAllClients]   = useState([]);
@@ -30,10 +30,13 @@ export default function EditOffer() {
           }
   
         newFormValues[i][e.target.name] = e.target.value;
+        if(e.target.name == 'service'){
+          newFormValues[i]['name'] = e.target.options[e.target.selectedIndex].getAttribute('name');
+        }
         setFormValues(newFormValues);
       }
   let addFormFields = () => {
-        setFormValues([...formValues, { service: "",jobHours:"",rateperhour:'',totalamount:''}])
+        setFormValues([...formValues, { service: "",name:"",jobHours:"",rateperhour:'',totalamount:''}])
       }
     
   let removeFormFields = (i) => {
@@ -73,17 +76,33 @@ export default function EditOffer() {
         event.preventDefault();
         let to = 0;
         for( let t in formValues){
+          if(formValues[t].service == '' || formValues[t].service == '-- select --'){
+             alert.error("One of the service is not selected");
+             return false;
+          }
+          if(formValues[t].jobHours == ''){
+            alert.error("One of the job hours value is missing");
+            return false;
+         }
+         if(formValues[t].service == ''){
+          alert.error("One of the rate per hour value is missing");
+          return false;
+          }
           formValues[t].totalamount = ( formValues[t].jobHours * formValues[t].rateperhour);
            to += parseInt(formValues[t].totalamount);
+
         }
 
+        
          const data = {
             client_id  :client,
             status:status,
             total:to,
             services : JSON.stringify(formValues),
          }
-       
+         
+         event.target.setAttribute('disabled',true);
+         event.target.value = ('Sending..');
          axios
              .put(`/api/admin/offers/${param.id}`, data, { headers })
              .then((response) => {
@@ -91,6 +110,8 @@ export default function EditOffer() {
                    for( let e in response.data.errors){
                      alert.error(response.data.errors[e]);
                    }
+                   document.querySelector('.saveBtn').removeAttribute('disabled');
+                   document.querySelector('.saveBtn').value = ('Save and Send');
                  } else {
                      alert.success(response.data.message);
                      setTimeout(() => {
@@ -162,7 +183,7 @@ export default function EditOffer() {
                                   <option selected> -- select --</option>
                                  { AllServices && AllServices.map((s,i)=>{
                                    return (
-                                      <option value={s.id}> {s.name} </option>
+                                      <option name={s.name} value={s.id}> {s.name} </option>
                                    )
                                  })}
                                 </select>

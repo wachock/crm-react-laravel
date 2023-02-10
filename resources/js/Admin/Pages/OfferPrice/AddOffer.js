@@ -13,7 +13,7 @@ export default function AddOffer() {
   const queryParams = new URLSearchParams(window.location.search);
   const cid = parseInt(queryParams.get("c"));
   const [client, setClient] = useState((cid != null) ? cid : "");
-  const [formValues, setFormValues] = useState([{ service: "",jobHours:"",rateperhour:'',totalamount:''}])
+  const [formValues, setFormValues] = useState([{ service: "",name:"",jobHours:"",rateperhour:'',totalamount:''}])
   const [AllClients,setAllClients]   = useState([]);
   const [AllServices,setAllServices] = useState([]);
   
@@ -28,10 +28,13 @@ export default function AddOffer() {
           e.target.parentNode.parentNode.childNodes[3].childNodes[0].setAttribute('value',h*rh);
   
         newFormValues[i][e.target.name] = e.target.value;
+        if(e.target.name == 'service'){
+          newFormValues[i]['name'] = e.target.options[e.target.selectedIndex].getAttribute('name');
+        }
         setFormValues(newFormValues);
       }
   let addFormFields = () => {
-        setFormValues([...formValues, { service: "",jobHours:"",rateperhour:'',totalamount:''}])
+        setFormValues([...formValues, { service: "",name:"",jobHours:"",rateperhour:'',totalamount:''}])
       }
     
   let removeFormFields = (i) => {
@@ -90,6 +93,7 @@ export default function AddOffer() {
           }
           formValues[t].totalamount = ( formValues[t].jobHours * formValues[t].rateperhour);
            to += parseInt(formValues[t].totalamount);
+
         }
 
          const data = {
@@ -117,6 +121,7 @@ export default function AddOffer() {
                      }, 1000);
                  }
              });
+             
              
     }
   
@@ -163,7 +168,7 @@ export default function AddOffer() {
                                     <option selected> -- Please select --</option>
                                    { AllServices && AllServices.map((s,i)=>{
                                      return (
-                                        <option value={s.id}> {s.name} </option>
+                                        <option name={s.name} value={s.id}> {s.name} </option>
                                      )
                                    })}
                                   </select>
