@@ -141,6 +141,7 @@ export default function AddJob() {
                                 </div>
                                 <div className='col-sm-12'>
                                     <TeamAvailability/>
+                                    <div className='mb-3'>&nbsp;</div>
                                 </div>
                                 <div className='col-sm-3'>
                                     <div className="form-group">
