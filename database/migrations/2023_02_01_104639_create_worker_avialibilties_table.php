@@ -19,7 +19,7 @@ class CreateWorkerAvialibiltiesTable extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('day')->nullable();
             $table->date('date')->nullable();
-            $table->enum('working', ['day', 'night','full'])->default('full');
+            $table->text('working')->default('full');
             $table->enum('status', ['0', '1'])->default('0');
             $table->timestamps();
         });
