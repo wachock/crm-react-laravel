@@ -18,9 +18,6 @@ export default function WorkerHistory() {
             <div id="tab-current-job" className="tab-pane" role="tab-panel" aria-labelledby="current-job"><CurrentJob/></div>
             <div id="tab-past-job" className="tab-pane" role="tab-panel" aria-labelledby="past-job"><PastJob/></div>
         </div>
-        <div className='text-center mt-3'>
-            <Link to="/admin/add-job" className="btn bg-purple">Update</Link>
-        </div>
     </div>
   )
 }
