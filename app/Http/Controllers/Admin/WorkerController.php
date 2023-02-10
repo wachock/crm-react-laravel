@@ -27,7 +27,7 @@ class WorkerController extends Controller
         $result->orWhere('phone',    'like','%'.$q.'%');
         $result->orWhere('address',  'like','%'.$q.'%');
         $result->orWhere('status',   'like','%'.$q.'%');
-        $result->orWhere('email',    'like','%'.$q.'%');
+        // $result->orWhere('email',    'like','%'.$q.'%');
 
         $result = $result->orderBy('id', 'desc')->paginate(20);
 
@@ -66,6 +66,7 @@ class WorkerController extends Controller
             'firstname' => ['required', 'string', 'max:255'],
             'address'   => ['required', 'string'],
             'phone'     => ['required'],
+            'worker_id' => ['required','unique:users'],
             'status'    => ['required'],
         ]);
 
@@ -77,6 +78,7 @@ class WorkerController extends Controller
         $worker->firstname     = $request->firstname;
         $worker->lastname      = $request->lastname;
         $worker->phone         = $request->phone;
+        $worker->email         = $request->email;
         $worker->address       = $request->address;
         $worker->renewal_visa  = $request->renewal_visa;
         $worker->gender        = $request->gender;
@@ -131,6 +133,7 @@ class WorkerController extends Controller
             'firstname' => ['required', 'string', 'max:255'],
             'address'   => ['required', 'string'],
             'phone'     => ['required'],
+            'worker_id' => ['required','unique:users,worker_id,'.$id],
             'status'    => ['required'],
         ]);
 
@@ -142,6 +145,7 @@ class WorkerController extends Controller
         $worker->firstname     = $request->firstname;
         $worker->lastname      = $request->lastname;
         $worker->phone         = $request->phone;
+        $worker->email         = $request->email;
         $worker->address       = $request->address;
         $worker->renewal_visa  = $request->renewal_visa;
         $worker->gender        = $request->gender;
