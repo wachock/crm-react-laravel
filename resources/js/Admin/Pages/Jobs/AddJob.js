@@ -140,6 +140,11 @@ export default function AddJob() {
                                     </div>
                                 </div>
                                 <div className='col-sm-12'>
+                                    <div className='mt-3 mb-3'>
+                                        <h3 className='text-center'>Worker Availability</h3>
+                                    </div>
+                                </div> 
+                                <div className='col-sm-12'>
                                     <TeamAvailability/>
                                     <div className='mb-3'>&nbsp;</div>
                                 </div>
