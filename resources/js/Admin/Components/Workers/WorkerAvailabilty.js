@@ -73,7 +73,6 @@ export default function WorkerAvailabilty() {
     useEffect(() => {
         getWorkerAvailabilty();
     }, []);
-    console.log(worker_aval)
   return (
     <div className="boxPanel">
         <ul className="nav nav-tabs" role="tablist">

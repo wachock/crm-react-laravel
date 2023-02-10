@@ -40,6 +40,7 @@
         "javascript-time-ago": "^2.5.9",
         "jwt-decode": "^3.1.2",
         "moment": "^2.29.4",
+        "moment-timezone": "^0.5.40",
         "react-alert": "^7.0.3",
         "react-alert-template-basic": "^1.0.2",
         "react-bootstrap": "^2.7.0",
