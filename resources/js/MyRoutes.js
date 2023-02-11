@@ -16,7 +16,11 @@ import WorkerProtectedRoutes from './Components/Auth/PrivateWorker';
 // Client Routes
 import Client from './Client/Client';
 import ClientDashboard from './Client/ClientDashboard';
-
+import ClientSchedules from './Client/Pages/Schedule/Schedule';
+import ClientOffers from './Client/Pages/OfferPrice/OfferPrice';
+import ClientViewOffer from './Client/Pages/OfferPrice/ViewOffer';
+import ClientContracts from './Client/Pages/Contract/Contract';
+import ClientViewContract from './Client/Pages/Contract/ViewContract';
 // Worker Routes
 
 import Worker from './Worker/Worker';
@@ -38,28 +42,6 @@ import AddWorker from './Admin/Pages/Workers/AddWorker';
 import EditWorker from './Admin/Pages/Workers/EditWorker';
 import ViewWorker from './Admin/Pages/Workers/ViewWorker';
 import AdminLogin from './Admin/Pages/Auth/AdminLogin';
-import TransactionHistory from './Admin/Pages/Transaction/TransactionHistory';
-import Information from './Admin/Pages/Information/Information';
-import AddPage from './Admin/Pages/Information/AddPage';
-import EditPage from './Admin/Pages/Information/EditPage';
-import Skills from './Admin/Pages/JobAssets/Skills';
-import AddSkill from './Admin/Pages/JobAssets/AddSkill';
-import EditSkill from './Admin/Pages/JobAssets/EditSkill';
-import Tasks from './Admin/Pages/JobAssets/Tasks';
-import AddTask from './Admin/Pages/JobAssets/AddTask';
-import EditTask from './Admin/Pages/JobAssets/EditTask';
-import JobProfile from './Admin/Pages/JobAssets/JobProfile';
-import AddJobProfile from './Admin/Pages/JobAssets/AddJobProfile';
-import EditJobProfile from './Admin/Pages/JobAssets/EditJobProfile';
-import Language from './Admin/Pages/JobAssets/Language';
-import Addlanguage from './Admin/Pages/JobAssets/AddLanguage';
-import Editlanguage from './Admin/Pages/JobAssets/EditLanguage';
-import Nationality from './Admin/Pages/JobAssets/Nationality';
-import AddNationality from './Admin/Pages/JobAssets/AddNationality';
-import EditNationality from './Admin/Pages/JobAssets/EditNationality';
-import Plans from './Admin/Pages/Plans/Plans';
-import AddPlan from './Admin/Pages/Plans/AddPlan';
-import EditPlan from './Admin/Pages/Plans/EditPlan';
 import Setting from './Admin/Pages/Setting/Setting';
 import ManageTeam from './Admin/Pages/Setting/ManageTeam';
 import AddTeam from './Admin/Pages/Setting/AddTeam';
@@ -90,7 +72,6 @@ import MeetingStatus from './Pages/MeetingStatus';
 import CalendarTeam from './Pages/CalendarTeam';
 
 
-
 TimeAgo.addDefaultLocale(en)
 const options = {
    timeout: 2000,
@@ -116,6 +97,11 @@ export default function MyRoutes() {
                <Route element={<ClientProtectedRoutes />}>
                   <Route path="client" element={<Client />} >
                      <Route exact path="dashboard" element={<ClientDashboard/>} />
+                     <Route exact path="/client/schedule" element={<ClientSchedules/>} />
+                     <Route exact path="/client/offered-price" element={<ClientOffers/>} />
+                     <Route exact path="/client/view-offer/:id" element={<ClientViewOffer/>} />
+                     <Route exact path="/client/contracts" element={<ClientContracts/>} />
+                     <Route exact path="/client/view-contract/:id/:hash" element={<ClientViewContract/>} />
                   </Route>
                </Route>
                {/* Client Routes End  */}
@@ -154,28 +140,8 @@ export default function MyRoutes() {
                      <Route exact path="add-worker" element={<AddWorker />} />
                      <Route exact path="edit-worker/:id" element={<EditWorker />} />
                      <Route exact path="view-worker/:id" element={<ViewWorker />} />
-                     <Route exact path="transaction-history" element={<TransactionHistory />} />
-                     <Route exact path="information-pages" element={<Information />} />
-                     <Route exact path="add-page" element={<AddPage />} />
-                     <Route exact path="edit-page/:id" element={<EditPage />} />
-                     <Route exact path="skills" element={<Skills />} />
-                     <Route exact path="add-skill" element={<AddSkill />} />
-                     <Route exact path="edit-skill/:id" element={<EditSkill />} />
-                     <Route exact path="tasks" element={<Tasks />} />
-                     <Route exact path="add-task" element={<AddTask />} />
-                     <Route exact path="edit-task/:id" element={<EditTask />} />
-                     <Route exact path="job-profiles" element={<JobProfile />} />
-                     <Route exact path="add-profile" element={<AddJobProfile />} />
-                     <Route exact path="edit-profile/:id" element={<EditJobProfile />} />
-                     <Route exact path="language" element={<Language />} />
-                     <Route exact path="add-language" element={<Addlanguage />} />
-                     <Route exact path="edit-language/:id" element={<Editlanguage />} />
-                     <Route exact path="nationality" element={<Nationality />} />
-                     <Route exact path="add-nationality" element={<AddNationality />} />
-                     <Route exact path="edit-nationality/:id" element={<EditNationality />} />
-                     <Route exact path="plans" element={<Plans />} />
-                     <Route exact path="add-plan" element={<AddPlan />} />
-                     <Route exact path="edit-plan/:id" element={<EditPlan />} />
+                     
+               
                      <Route exact path="settings" element={<Setting />} />
                      <Route exact path="manage-team" element={<ManageTeam />} />
                      <Route exact path="add-team" element={<AddTeam />} />

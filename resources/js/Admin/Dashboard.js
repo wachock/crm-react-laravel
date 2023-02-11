@@ -9,7 +9,7 @@ export default function AdminDashboard() {
     const [totalWorkers, setTotalWorkers] = useState([0]);
     const [totalOffers, setTotalOffers] = useState([0]);
     const [totalSchedules, setTotalSchedules] = useState([0]);
-    const [totalEarnings, setTotalEarnings] = useState(["$0"]);
+    const [contracts, setContracts] = useState([0]);
     const [latestJobs, setlatestJobs] = useState([]);
     const [loading, setLoading] = useState("Loading...");
 
@@ -25,6 +25,7 @@ export default function AdminDashboard() {
             setTotalClients(response.data.total_clients);
             setTotalWorkers(response.data.total_workers);
             setTotalOffers(response.data.total_offers);
+            setContracts(response.data.total_contracts);
             setTotalSchedules(response.data.total_schedules);
             if (response.data.latest_jobs.length > 0) {
                 setlatestJobs(response.data.latest_jobs);
@@ -146,7 +147,7 @@ export default function AdminDashboard() {
                                         <i className="fa-solid fa-file-contract"></i>
                                     </div>
                                     <div className="dashText">
-                                        <h3>100</h3>
+                                        <h3>{ contracts }</h3>
                                         <p>Contracts</p>   
                                     </div>   
                                 </div>

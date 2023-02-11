@@ -1,15 +1,15 @@
 import React from 'react'
 import ClientProtectedRoutes from '../Components/Auth/PrivateClient'
-// import Header from '../Layouts/Header'
-// import Footer from '../Layouts/Footer'
-
+import ClientHeader from './Layouts/ClientHeader'
+import { Outlet } from "react-router-dom";
 
 export default function Employee() {
   return (
     <div>
-        {/* <Header/> */}
-            <ClientProtectedRoutes />
-        {/* <Footer/> */}
+        <ClientHeader/>
+            <ClientProtectedRoutes>
+              <Outlet/>
+          </ClientProtectedRoutes>
     </div>
   )
 }

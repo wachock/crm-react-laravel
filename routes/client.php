@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Client\Auth\AuthController;
 use App\Http\Controllers\Client\ClientEmailController;
+use App\Http\Controllers\Client\DashboardController;
 /*
 |--------------------------------------------------------------------------
 | Admin API Routes
@@ -15,28 +16,36 @@ use App\Http\Controllers\Client\ClientEmailController;
 |
 */
 
-// Unauthenticated Routes
-
-Route::group(['prefix' => 'client'], function () {
-    Route::post('login', [AuthController::class, 'login']);
-    Route::post('register', [AuthController::class, 'register']);
-});
-
-
-// Emails webpages Routes
-
-Route::group(['prefix' => 'client'], function () {
-    Route::post('meeting', [ClientEmailController::class, 'ShowMeeting'])->name('meeting');
-    Route::post('get-offer',[ClientEmailController::class,'GetOffer'])->name('get-offer');
-    Route::post('accept-offer',[ClientEmailController::class,'AcceptOffer'])->name('accept-offer');
-    Route::post('accept-meeting',[ClientEmailController::class,'AcceptMeeting'])->name('accept-meeting');
-    Route::post('get-offer-token',[ClientEmailController::class,'GetOfferFromHash'])->name('get-offer-token');
-    Route::post('accept-contract',[ClientEmailController::class,'AcceptContract'])->name('accept-contract');
-});
-
-
-// Authenticated Routes
 Route::group(['prefix' => 'client', 'middleware' => ['auth:client-api', 'scopes:client']], function () {
-     // Admin Logout Api
+
     Route::post('logout', [AuthController::class, 'logout']);
+
+   // Dashboard Routes
+   Route::post('dashboard', [DashboardController::class, 'dashboard']);
+   Route::post('schedule', [DashboardController::class, 'meetings'])->name('schedule');
+   Route::post('offers', [DashboardController::class, 'offers'])->name('offers');
+   Route::post('view-offer', [DashboardController::class, 'viewOffer'])->name('view-offer');
+   Route::post('contracts', [DashboardController::class, 'contracts'])->name('contracts');
+   Route::post('view-contract', [DashboardController::class, 'viewContract'])->name('view-contract');
+   Route::post('get-contract', [DashboardController::class, 'getContract'])->name('get-contract');
+  
 });
+
+Route::group(['prefix' => 'client'], function () {
+
+    Route::post('login', [AuthController::class, 'login']);
+
+     // Emails Routes
+     Route::post('meeting', [ClientEmailController::class, 'ShowMeeting'])->name('meeting');
+     Route::post('get-offer',[ClientEmailController::class,'GetOffer'])->name('get-offer');
+     Route::post('accept-offer',[ClientEmailController::class,'AcceptOffer'])->name('accept-offer');
+     Route::post('accept-meeting',[ClientEmailController::class,'AcceptMeeting'])->name('accept-meeting');
+     Route::post('get-offer-token',[ClientEmailController::class,'GetOfferFromHash'])->name('get-offer-token');
+     Route::post('accept-contract',[ClientEmailController::class,'AcceptContract'])->name('accept-contract');
+ 
+});
+
+
+
+
+

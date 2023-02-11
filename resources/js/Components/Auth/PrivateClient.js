@@ -10,8 +10,6 @@ const useAuth = () => {
     user = { loggedIn: false };
  }
  
-  console.log(localStorage.getItem('client-token'));
-
   return user && user.loggedIn;
 }
 
