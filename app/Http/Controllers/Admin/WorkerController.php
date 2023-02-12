@@ -177,39 +177,39 @@ class WorkerController extends Controller
             'message'     => "Worker has been deleted"         
         ], 200);
     }
-    public function updateAvailability(Request $request, $id){
-        // WorkerAvialibilty::where('user_id',$id)->delete();
-        // foreach(json_decode($request->availabilty) as $availabilty){
-        //    $avl = new WorkerAvialibilty;
-        //    $avl->user_id=$id;
-        //    $avl->date=$availabilty->date;
-        //    $avl->working=$availabilty->working;
-        //    $avl->status=$availabilty->status;
-        //    $avl->save();
-        // }
-        // return $request->all();
-        $worker_data=WorkerAvialibilty::where('user_id',$id)
-                                       ->where('date',$request->w_date)->first();
-        if(!empty($worker_data)){
-             $arr = $worker_data->working;
-              if($request->checked){
-                array_push($arr,trim($request->slot));
-             }else{
-                $arr = array_diff($arr, array($request->slot));
-             }
-        }else{
-             $arr=array();
-             array_push($arr,trim($request->slot));
-        }
-       
-          $worker_data=WorkerAvialibilty::where('user_id',$id)
-                                       ->where('date',$request->w_date)->delete();
+    public function updateAvailability(Request $request,$id){
+        WorkerAvialibilty::where('user_id',$id)->delete();
+        foreach($request->data as $key=>$availabilty){
            $avl = new WorkerAvialibilty;
            $avl->user_id=$id;
-           $avl->date=$request->w_date;
-           $avl->working=$arr;
+           $avl->date=trim($key);
+           $avl->working=$availabilty;
            $avl->status='1';
            $avl->save();
+        }
+        // // return $request->all();
+        // $worker_data=WorkerAvialibilty::where('user_id',$id)
+        //                                ->where('date',$request->w_date)->first();
+        // if(!empty($worker_data)){
+        //      $arr = $worker_data->working;
+        //       if($request->checked){
+        //         array_push($arr,trim($request->slot));
+        //      }else{
+        //         $arr = array_diff($arr, array($request->slot));
+        //      }
+        // }else{
+        //      $arr=array();
+        //      array_push($arr,trim($request->slot));
+        // }
+       
+        //   $worker_data=WorkerAvialibilty::where('user_id',$id)
+        //                                ->where('date',$request->w_date)->delete();
+        //    $avl = new WorkerAvialibilty;
+        //    $avl->user_id=$id;
+        //    $avl->date=$request->w_date;
+        //    $avl->working=$arr;
+        //    $avl->status='1';
+        //    $avl->save();
         return response()->json([
             'message'     => 'Updated Successfully',         
         ], 200);
