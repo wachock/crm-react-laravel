@@ -88,11 +88,11 @@ export default function MyRoutes() {
                <Route exact path="/" element={<ClientLogin />} />
                <Route exact path="client/login" element={<ClientLogin />} />
                <Route exact path="worker/login" element={<WorkerLogin />} />
-               <Route exact path="meeting-status/:id" element={<MeetingStatus />} />
+               <Route exact path="meeting-status/:id/:lang" element={<MeetingStatus />} />
                <Route exact path="price-offer/:id" element={<PriceOffer />} />
                <Route exact path="work-contract/:id" element={<WorkContract />} />
                <Route exact path="calendar" element={<CalendarTeam />} />
-               <Route exact path="thankyou" element={<Thankyou />} />
+               <Route exact path="thankyou/:lang/:id/:response" element={<Thankyou />} />
 
                {/* Client Routes Start  */}
                

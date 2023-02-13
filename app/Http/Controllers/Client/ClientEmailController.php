@@ -90,10 +90,10 @@ class ClientEmailController extends Controller
     try{
       
     Schedule::where('id',$request->id)->update([
-      'booking_status' =>'confirmed'
+      'booking_status' => $request->response
     ]);
     return response()->json([
-     'message' => 'Thanks, your meeting is confirmed'
+     'message' => 'Thanks, your meeting is '.$request->response
     ],200);
 
    } catch (\Exception $e) {

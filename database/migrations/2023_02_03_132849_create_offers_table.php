@@ -16,7 +16,7 @@ class CreateOffersTable extends Migration
         Schema::create('offers', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('client_id');
-            $table->string('services');
+            $table->longText('services');
             $table->integer('total');
             $table->enum('status',['sent','accepted','declined'])->default('sent');
             $table->timestamps();
