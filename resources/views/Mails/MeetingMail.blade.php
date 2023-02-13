@@ -23,9 +23,11 @@
 		 between <span style="color:#0130c6;font-weight:700;">{{$start_time}}</span>
 		 to      <span style="color:#0130c6;font-weight:700;">{{$end_time}}</span>
 		 for    <span style="color:#0130c6;font-weight:700;">{{$service_names}}</span> service.</p>
-		<p style="text-align: center;">Click the below button to accept the request.</p>
-		<div style="text-align: center;">
-		<a href='{{ url("meeting-status/".$id)}}' target="_blank" style="text-decoration:none;background: #ef6c6b;color: #fff;border: 1px solid #ef6c6b;font-size: 16px;padding: 10px 24px;border-radius: 4px;cursor: pointer">Update meeting status</a> 
+		<div style="display:flex;justify-content: center">
+			<a href='#' target='_blank' style="background: green;color: #fff;border: 1px solid green;font-size: 16px;padding: 10px 24px;border-radius: 4px;cursor: pointer;text-decoration: none;min-width:135px;text-align: center">Accept</a>
+			<a href='#' target='_blank' style="background: red;color: #fff;border: 1px solid red;font-size: 16px;padding: 10px 24px;border-radius: 4px;cursor: pointer;text-decoration: none;min-width:135px;margin: 0 15px;text-align: center">Reject</a>
+			<a href='{{ url("meeting-status/".$id)}}' target='_blank' style="background: #4385f5;color: #fff;border: 1px solid #4385f5;font-size: 16px;padding: 10px 24px;border-radius: 4px;cursor: pointer;text-decoration: none;text-align: center">Reschedule</a>
+		<!-- <a href='{{ url("meeting-status/".$id)}}' target="_blank" style="text-decoration:none;background: #ef6c6b;color: #fff;border: 1px solid #ef6c6b;font-size: 16px;padding: 10px 24px;border-radius: 4px;cursor: pointer">Update meeting status</a>  -->
 		</div>
 		<p style="margin-top: 20px">If you have any questions or concerns please don't hesitate to get in touch with us by replying to this email.</p>
 		<p style="font-weight: 700;margin-bottom: 0;">Best Regards</p>

@@ -1203,3 +1203,15 @@ h1 {
   margin-top: 10px;
   font-weight: 500;
 }
+.fc-license-message{
+  display: none;
+}
+.fc-timegrid-slots tr{
+  height: 60px;
+}
+.thankyou{
+  margin-top: 40px;
+}
+.thankyou img{
+  margin-bottom: 20px;
+}

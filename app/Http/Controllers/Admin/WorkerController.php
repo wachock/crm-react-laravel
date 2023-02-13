@@ -187,29 +187,6 @@ class WorkerController extends Controller
            $avl->status='1';
            $avl->save();
         }
-        // // return $request->all();
-        // $worker_data=WorkerAvialibilty::where('user_id',$id)
-        //                                ->where('date',$request->w_date)->first();
-        // if(!empty($worker_data)){
-        //      $arr = $worker_data->working;
-        //       if($request->checked){
-        //         array_push($arr,trim($request->slot));
-        //      }else{
-        //         $arr = array_diff($arr, array($request->slot));
-        //      }
-        // }else{
-        //      $arr=array();
-        //      array_push($arr,trim($request->slot));
-        // }
-       
-        //   $worker_data=WorkerAvialibilty::where('user_id',$id)
-        //                                ->where('date',$request->w_date)->delete();
-        //    $avl = new WorkerAvialibilty;
-        //    $avl->user_id=$id;
-        //    $avl->date=$request->w_date;
-        //    $avl->working=$arr;
-        //    $avl->status='1';
-        //    $avl->save();
         return response()->json([
             'message'     => 'Updated Successfully',         
         ], 200);
@@ -221,6 +198,35 @@ class WorkerController extends Controller
             $new_array=array();
             foreach($worker_availabilities as $w_a){
                  $new_array[$w_a->date]=$w_a->working;
+            }
+
+           return response()->json([
+            'availability'     => $new_array,         
+           ], 200);
+    }
+     public function getALLWorkerAvailability(){
+           $allslot =  [
+                 '4 AM - 8 AM'=>array('04:00','08:00'),
+                 '8 AM - 12 PM'=>array('08:00','12:00'),
+                 '12 PM - 4 PM'=>array('12:00','16:00'),
+                 '4 PM - 8 PM'=>array('16:00','20:00'),
+                 '8 PM - 12 AM'=>array('20:00','24:00'),
+                 '12 AM - 4 AM'=>array('24:00','04:00'),
+                ];
+          $worker_availabilities = WorkerAvialibilty::orderBy('id', 'asc')->get();
+            $new_array=array();
+            foreach($worker_availabilities as $w_a){
+                 foreach($w_a->working as $key=>$slot){
+                       $new_array[]=array(
+                          'id'=>$w_a->id.'_'.$key,
+                          'worker_id'=>$w_a->user_id,
+                          'date'=>$w_a->date,
+                          'start_time'=>$allslot[$slot][0],
+                          'end_time'=>$allslot[$slot][1],
+
+
+                       );
+                 }
             }
 
            return response()->json([

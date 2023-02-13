@@ -55,7 +55,7 @@ export default function MeetingStatus() {
                 
             </ul>
             <div className='cta'>
-                <button className='btn btn-danger' onClick={updateMeeting}>Accept</button>
+                {/* <button className='btn btn-danger' onClick={updateMeeting}>Accept</button> */}
                 <p>If you are not available for this date, please email us and let us know so that we can schedule another date.</p>
                 <a className='btn btn-primary' href='mailto:office@broomservice.co.il' >Schedule another date</a>
             </div>

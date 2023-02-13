@@ -70,6 +70,7 @@ import PriceOffer from './Pages/PriceOffer';
 import WorkContract from './Pages/WorkContract';
 import MeetingStatus from './Pages/MeetingStatus';
 import CalendarTeam from './Pages/CalendarTeam';
+import Thankyou from './Pages/Thankyou';
 
 
 TimeAgo.addDefaultLocale(en)
@@ -91,6 +92,7 @@ export default function MyRoutes() {
                <Route exact path="price-offer/:id" element={<PriceOffer />} />
                <Route exact path="work-contract/:id" element={<WorkContract />} />
                <Route exact path="calendar" element={<CalendarTeam />} />
+               <Route exact path="thankyou" element={<Thankyou />} />
 
                {/* Client Routes Start  */}
                
