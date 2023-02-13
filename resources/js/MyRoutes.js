@@ -159,7 +159,7 @@ export default function MyRoutes() {
                      <Route exact path="contracts" element={<Contract />} />
                      <Route exact path="add-contract" element={<AddContract />} />
                      <Route exact path="edit-contract" element={<EditContract />} />
-                     <Route exact path="view-contract/:id" element={<ViewContract />} />
+                     <Route exact path="view-contract/:id/:hash" element={<ViewContract />} />
                      <Route exact path="schedule" element={<Schedule />} />
                      <Route exact path="view-schedule/:id" element={<ViewSchedule />} />
                   </Route>

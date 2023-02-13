@@ -121,4 +121,11 @@ class ContractController extends Controller
             'message'     => "Client has been deleted"         
         ], 200);
     }
+    public function getContract(Request $request){
+       
+        $contract = Contract::where('id',$request->id)->get();
+        return response()->json([
+            'contract'=>$contract
+        ],200);
+    }
 }

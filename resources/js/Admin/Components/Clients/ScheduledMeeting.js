@@ -94,11 +94,11 @@ export default function ScheduledMeeting() {
                             }
                             <br/>
                             {
-                                "Start" + item.start_time
+                                "Start : " + item.start_time
                             }
                             <br/>
                             {
-                                "Start" + item.end_time
+                                "End : " + item.end_time
                             }
                         </td>
                         <td>{ item.booking_status}</td>
