@@ -2,10 +2,11 @@ import axios from 'axios';
 import React,{useEffect, useState} from 'react'
 import { useParams,useNavigate } from 'react-router-dom';
 import Moment from 'moment';
-import locale from '../locale';
+import { useTranslation } from "react-i18next";
 
 export default function MeetingStatus() {
 
+  const { t } = useTranslation();
   const [meeting,setMeeting] = useState([]);
   const [teamName,setTeamName] = useState("");
   const param    = useParams();
@@ -33,7 +34,7 @@ export default function MeetingStatus() {
   return (
     <div className='container meeting' style={{display:"none"}}>
         <div className='meet-status dashBox maxWidthControl p-4'>
-          <h1>{trans('stream.counter')}</h1>
+
             <h1>Meeting with {teamName}</h1>
             <ul className='list-unstyled'>
                 <li>Date: <span>{Moment(meeting.start_date).format('D-M-Y')}</span></li>
