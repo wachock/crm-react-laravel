@@ -14,31 +14,54 @@ export default function WorkerAvailabilty() {
         Authorization: `Bearer ` + localStorage.getItem("admin-token"),
     };
     let handleChange = (event,w_date, slot) => {
-      let worker_id = params.id;
-
-       const data = {
-        'checked': event.target.checked,
-        'w_date':w_date,
-        'slot':slot
-         }
-
-        axios
-            .put(`/api/admin/update_availability/${params.id}`, data, { headers })
+     
+         let newworker = worker_aval;
+         if((event.target.name).toString()==='true'){
+            document.getElementById(event.target.id).setAttribute('name',!event.target.checked);
+            document.getElementById(event.target.id).parentNode.childNodes[1].classList.add("checked_forcustom");
+            if(newworker[w_date]===undefined){
+              newworker[w_date]=[slot];
+            }else{
+              if(!newworker[w_date].includes(slot)){
+                newworker[w_date].push(slot);
+              }
+            }
+        }else{
+           document.getElementById(event.target.id).setAttribute('name',!event.target.checked);
+            document.getElementById(event.target.id).parentNode.childNodes[1].classList.remove("checked_forcustom");
+            let newarray =[]
+             newworker[`${w_date}`].filter( (e) => { 
+                    if(e !== slot){
+                      newarray.push(e)
+                    }
+               })
+             newworker[w_date]=newarray;
+        }
+        setWorkerAval(newworker);
+        // console.log(worker_aval);
+    }
+    let handleSubmit = () =>{
+        let worker_id = params.id;
+        let newworker = Object.assign({}, worker_aval);
+        let newworker1=Object.assign({}, {'data':newworker});
+       axios
+            .post(`/api/admin/update_availability/${worker_id}`, newworker1, { headers })
             .then((response) => {
                 if (response.data.errors) {
                     setErrors(response.data.errors);
                 } else {
-                    // alert.success("Worker Availabilty Updated Successfully");
+                    alert.success("Worker Availabilty Updated Successfully");
                     getWorkerAvailabilty();
                 }
             });
+
+
     }
 
     let curr = new Date 
     let week = []
     let nextweek = []
-
-    for (let i = 1; i <= 7; i++) {
+    for (let i = 0; i <= 7; i++) {
       let first = curr.getDate() - curr.getDay() + i 
       if(first>=curr.getDate()){
       let day = new Date(curr.setDate(first)).toISOString().slice(0, 10)
@@ -97,8 +120,8 @@ export default function WorkerAvailabilty() {
                     <td key={index}>
                       <div className="radio">
                         <label>
-                          <input type="checkbox" data-day="Sunday" className="btn-check" id="bordered-radio-1" name="timeslot" data-value={w} value={s} onClick={(e)=>handleChange(e,w,s)} checked={(worker_aval[`${w}`] !== undefined)?worker_aval[`${w}`].includes(s):false} />
-                          <span className="forcustom">{s}</span>
+                          <input type="checkbox" data-day="Sunday" className="btn-check" id={w+'-'+s} data-value={w} value={s} onChange={(e)=>handleChange(e,w,s)} name={((worker_aval[`${w}`] !== undefined)?!worker_aval[`${w}`].includes(s):true).toString()} />
+                          <span className={(worker_aval[`${w}`] !== undefined)?((worker_aval[`${w}`].includes(s))?'forcustom checked_forcustom':'forcustom'):'forcustom'}>{s}</span>
                         </label>
                       </div>
                     </td>
@@ -126,8 +149,8 @@ export default function WorkerAvailabilty() {
                     <td key={index}>
                       <div className="radio">
                         <label>
-                          <input type="checkbox" data-day="Sunday" className="btn-check" id="bordered-radio-1" name="timeslot" data-value={w} value={s} onClick={(e)=>handleChange(e,w,s)} checked={(worker_aval[`${w}`] !== undefined)?worker_aval[`${w}`].includes(s):false}/>
-                          <span className="forcustom">{s}</span>
+                         <input type="checkbox" data-day="Sunday" className="btn-check" id={w+'-'+s} data-value={w} value={s} onChange={(e)=>handleChange(e,w,s)} name={((worker_aval[`${w}`] !== undefined)?!worker_aval[`${w}`].includes(s):true).toString()} />
+                          <span className={(worker_aval[`${w}`] !== undefined)?((worker_aval[`${w}`].includes(s))?'forcustom checked_forcustom':'forcustom'):'forcustom'}>{s}</span>
                         </label>
                       </div>
                     </td>
@@ -139,6 +162,9 @@ export default function WorkerAvailabilty() {
             </div>
        </div>
       </div>
+      <div className="text-center">
+                    <input type="button" value="Update availabilities" className="btn btn-pink" onClick={handleSubmit}/>
+                </div>
     </div>
   )
 }
