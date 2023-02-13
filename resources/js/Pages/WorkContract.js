@@ -41,7 +41,7 @@ export default function WorkContract() {
             cvv:cvv.substring(0,3),
             status:'Signed',
             signature:signature,
-            signature2:signature2
+            card_sign:signature2
         }
 
         axios
@@ -58,20 +58,18 @@ export default function WorkContract() {
         setSignature(sigRef.current.toDataURL());
     }
     const clearSignature = () => {
-    sigRef.current.clear();
-    setSignature(null);
+        sigRef.current.clear();
+        setSignature(null);
     }
 
     const handleSignatureEnd2 = () => {
         setSignature2(sigRef2.current.toDataURL());
     }
     const clearSignature2 = () => {
-    sigRef2.current.clear();
-    setSignature2(null);
+        sigRef2.current.clear();
+        setSignature2(null);
     }
      
-
-    
     const getOffer = () =>{
         axios
         .post(`/api/client/get-offer-token`,{token:param.id})
@@ -82,15 +80,8 @@ export default function WorkContract() {
 
     useEffect(()=>{
         getOffer();
-    },[])
-    useEffect(() => {
-        console.log(signature);
-    }, [signature]);
-    useEffect(() => {
-        console.log(signature2);
-    }, [signature2]);
-
-
+    },[]);
+    
   return (
     <div className='container'>
         <div className='send-offer client-contract'>

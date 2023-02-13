@@ -77,14 +77,18 @@ export default function Contract() {
         axios
           .get(`/api/admin/contract`, { headers })
           .then((res) => {
+            if (res.data.contracts.data.length > 0) {
             setContracts(res.data.contracts.data);
-          })
+        } else {
+            setLoading("No contract found");
+        }
+
+        })
       }
     useEffect(()=>{
         getContract();
     },[]);
 
-    console.log(contracts);
     return (
         <div id="container">
             <Sidebar />
