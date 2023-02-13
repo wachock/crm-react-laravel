@@ -76,6 +76,8 @@ export default function TeamAvailability() {
         height={'auto'} // sets height to height of resources.
         slotDuration={'02:00:00'}
         events={events}
+        slotMinTime={'08:00'} // start timeline at this time, must be in format '08:00'
+        slotMaxTime={'24:00'}
     />
   )
 }
