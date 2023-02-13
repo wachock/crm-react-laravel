@@ -163,7 +163,7 @@ export default function Contract() {
                                                         <i className="fa fa-ellipsis-vertical"></i>
                                                     </button>
                                                     <div className="dropdown-menu">
-                                                        <Link to={`/admin/view-contract/${c.id}`} className="dropdown-item">View</Link>
+                                                        <Link to={`/admin/view-contract/${c.id}/${c.hash}`} className="dropdown-item">View</Link>
                                                         <button className="dropdown-item" onClick={() => handleDelete(c.id)}
                                                         >Delete</button>
                                                     </div>

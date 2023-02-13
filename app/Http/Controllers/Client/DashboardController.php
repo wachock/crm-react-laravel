@@ -131,9 +131,6 @@ class DashboardController extends Controller
 
     }
 
-    public function viewContract(Request $request){
-        dd($request->all());
-    }
 
     public function getContract(Request $request){
        

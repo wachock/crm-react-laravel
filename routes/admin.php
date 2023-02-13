@@ -86,7 +86,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin-api', 'scopes:ad
     //Contract Api
     Route::resource('contract',ContractController::class);
     Route::post('client-contracts',[ContractController::class,'clientContracts'])->name('client-contracts');
-    
+    Route::post('get-contract', [ContractController::class, 'getContract'])->name('get-contract');
     
 
     //TeamMembers
