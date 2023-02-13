@@ -12,14 +12,12 @@ export default function WorkContract() {
     const [offer,setoffer]   = useState([]);
     const param = useParams();
     const sigRef = useRef();
-
+    const sigRef2 = useRef();
     const [signature, setSignature] = useState(null);
+    const [signature2, setSignature2] = useState(null);
     const [Aaddress, setAaddress]   = useState(null);
     const [ctype,setCtype]          = useState("");
-    const [cno,setCno]              = useState("");
     const [cname,setCname]          = useState("");
-    const [cm,setCm]                = useState("");
-    const [cy,setCy]                = useState("");
     const [cvv,setCvv]              = useState("");
 
     
@@ -27,16 +25,10 @@ export default function WorkContract() {
     const handleAccept = (e) =>{
 
         if(!ctype){ swal('Please select card type','','error'); return false;}
-        if(!cno)  { swal('Please enter card number','','error'); return false;}
-        if(!cm)   { swal('Please enter card month','','error'); return false;}
-        if(!cy)   { swal('Please select card year','','error'); return false;}
         if(!cname){ swal('Please enter card holder name','','error'); return false;}
         if(!cvv)  { swal('Please select card cvv','','error'); return false;}
         if(!signature){ swal('Please sign the contract','','error'); return false;}
-        
-        if(cno.length < 16) { swal('Invalid card number','','error'); return false;}
-        if(cm.length  < 2)  { swal('Invalid Month','please insert MM format','error'); return false;}
-        if(cy.length  < 2)  { swal('Invalid year','','error'); return false;}
+        if(!signature2){ swal('Please enter signature on the card','','error'); return false;}
         if(cvv.length < 3)  { swal('Invalid cvv','','error'); return false;}
 
         const data = {
@@ -45,12 +37,11 @@ export default function WorkContract() {
             client_id:offer[0].client.id,
             additional_address:Aaddress,
             card_type:ctype,
-            card_number:cno.substring(0,16),
             name_on_card:cname,
-            valid:cm.substring(0,2)+"/"+cy.substring(0,2),
             cvv:cvv.substring(0,3),
             status:'Signed',
-            signature:signature
+            signature:signature,
+            card_sign:signature2
         }
 
         axios
@@ -66,8 +57,19 @@ export default function WorkContract() {
     const handleSignatureEnd = () => {
         setSignature(sigRef.current.toDataURL());
     }
+    const clearSignature = () => {
+        sigRef.current.clear();
+        setSignature(null);
+    }
 
-    
+    const handleSignatureEnd2 = () => {
+        setSignature2(sigRef2.current.toDataURL());
+    }
+    const clearSignature2 = () => {
+        sigRef2.current.clear();
+        setSignature2(null);
+    }
+     
     const getOffer = () =>{
         axios
         .post(`/api/client/get-offer-token`,{token:param.id})
@@ -78,9 +80,8 @@ export default function WorkContract() {
 
     useEffect(()=>{
         getOffer();
-    },[])
-
-
+    },[]);
+    
   return (
     <div className='container'>
         <div className='send-offer client-contract'>
@@ -233,33 +234,24 @@ export default function WorkContract() {
                                 </td>
                             </tr>
                             <tr>
-                                <td style={{width: "60%"}}>Card Number</td>
-                                <td><input type='number' className='form-control' name="card_number" onKeyUp={
-
-                                    (e)=>{
-                                        //if((e.target.value.length%4)==0 && e.target.value.length <= 4) e.target.value = e.target.value+" ";
-                                        //if((e.target.value.length%5)==0 && e.target.value.length > 4) e.target.value = e.target.value+" ";
-                                        if(e.target.value.length >= 16)  e.target.value = e.target.value.slice(0, 16); 
-                                    }
-                                    
-                                    } onChange={(e)=>setCno(e.target.value)} placeholder='Enter Card number' /></td>
-                            </tr>
-                            <tr>
-                                <td style={{width: "60%"}}>Valid Through:</td>
-                                <td>
-                                    <div className='d-flex'>
-                                        <input type='number' name="month"  onChange={(e)=>setCm(e.target.value)} onKeyUp={(e)=>{if(e.target.value.length >= 2) e.target.value = e.target.value.slice(0, 2); }} className='form-control' placeholder='MM' />
-                                        <input type='number' name="year"   onChange={(e)=>setCy(e.target.value)} onKeyUp={(e)=>{if(e.target.value.length >= 2) e.target.value = e.target.value.slice(0, 2); }} className='ml-2 form-control' placeholder='YY' />
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
                                 <td style={{width: "60%"}}>Name on the Card</td>
                                 <td><input type='text' name="name_on_card"  onChange={(e)=>setCname(e.target.value)} className='form-control' placeholder='Name on the Card' /></td>
                             </tr>
                             <tr>
                                 <td style={{width: "60%"}}>CVV</td>
                                 <td><input type='text' name="cvv"  onChange={(e)=>setCvv(e.target.value)} onKeyUp={(e)=>{if(e.target.value.length >= 3) e.target.value = e.target.value.slice(0, 3); }} className='form-control' placeholder='CVV' /></td>
+                            </tr>
+                            <tr>
+                                <td style={{width: "60%"}}>Signature on the Card</td>
+                                <td>
+                                <SignatureCanvas 
+                                    penColor="black"
+                                    canvasProps={{className: 'sigCanvas'}}
+                                    ref={sigRef2}
+                                    onEnd={handleSignatureEnd2}
+                                />
+                                <button className='btn btn-warning' onClick={clearSignature2}>Clear</button>
+                                </td>
                             </tr>
                             <tr>
                                 <td style={{width: "60%"}}>Miscellaneous</td>
@@ -383,12 +375,13 @@ export default function WorkContract() {
                         <div className='col-sm-6'>
                             <h5 className='mt-2 mb-4'>The Tenant</h5>
                             <h6>Draw Signature with mouse or touch</h6>
-                            <SignatureCanvas
-                              penColor='black' 
-                              canvasProps={{className: 'sigCanvas'}} 
-                              ref={sigRef}
-                              onEnd={handleSignatureEnd}
-                              />
+                              <SignatureCanvas 
+                                    penColor="black"
+                                    canvasProps={{className: 'sigCanvas'}}
+                                    ref={sigRef}
+                                    onEnd={handleSignatureEnd}
+                                />
+                                <button className='btn btn-warning' onClick={clearSignature}>Clear</button>
                         </div>
                         <div className='col-sm-6'>
                             <div className='float-right'>

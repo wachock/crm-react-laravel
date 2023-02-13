@@ -54,8 +54,7 @@ export default function Contract({ contracts }) {
                 </thead>
                 <tbody>
                     { contracts && contracts.map((c,i)=>{
-                        let services = JSON.parse(c.offer.services);
-                        
+                          let services = c.offer ? JSON.parse(c.offer.services) : [];
                         return (
                     <tr>
                         <td>#{c.id}</td>
@@ -69,7 +68,7 @@ export default function Contract({ contracts }) {
                                 )
                             })}
                         </td>
-                        <td>{ c.offer.total }</td>
+                        <td>{ c.offer? c.offer.total : 'NA' }</td>
                         <td>{Moment(c.created_at).format('MMMM DD, Y')}</td>
                         <td>{ c.status }</td>
                         <td>

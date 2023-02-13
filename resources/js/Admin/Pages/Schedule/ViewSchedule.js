@@ -257,8 +257,8 @@ export default function ViewSchedule() {
                             <div className='col-sm-4'>
                                 <h4 class="mb-2">Language</h4>
                                 <div class="form-group">
-                                    <input type="radio" name="lang"  value="heb" onChange={(e)=>setLang(e.target.value)} style={{'height':'unset'}}/>Heb
-                                    <input type="radio" name="lang"  value="en"  onChange={(e)=>setLang(e.target.value)} style={{'height':'unset'}}/>Eng
+                                    <input type="radio" name="lang"  value="heb" onChange={(e)=>setLang(e.target.value)} style={{'height':'unset'}}/>Hebrew &nbsp;
+                                    <input type="radio" name="lang"  value="en"  onChange={(e)=>setLang(e.target.value)} style={{'height':'unset'}}/>English
                                 </div>
                             </div>
                         </div>

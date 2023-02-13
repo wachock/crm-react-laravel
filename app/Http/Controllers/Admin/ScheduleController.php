@@ -89,7 +89,10 @@ class ScheduleController extends Controller
         $input  = $request->input(); 
         $sch = Schedule::create($input);
         $schedule = Schedule::where('id',$sch->id)->with('client','team')->get()->first();
-        if(!empty($request->lang)) \App::setLocale($request->lang);
+        if(!empty($request->lang)) {
+            \App::setLocale($request->lang);
+            $schedule->lang = $request->lang;
+        }
         $this->sendMeetingMail($schedule);
         return response()->json([
             'message' => 'Metting scheduled  successfully'
@@ -101,23 +104,24 @@ class ScheduleController extends Controller
        $sch = $sch->toArray();
        $services = Offer::where('client_id',$sch['client']['id'])->get()->last();
        $str = '';
+      
        if(!empty($services->services)){
-         
+
          $allServices = json_decode($services->services);
          foreach($allServices as $k=> $serv){
-            $s = Services::where('id',$serv->service)->get('name')->first()->toArray();
-            if($k != count($s))
-            $str .= $s['name'].", ";
+
+            if($k != count($allServices)-1)
+            $str .= $serv->name.", ";
             else
-            $str .= $s['name'];
+            $str .= $serv->name;
          }
 
        } 
         $sch['service_names'] = $str; 
-        
         Mail::send('/Mails/MeetingMail',$sch,function($messages) use ($sch){
             $messages->to($sch['client']['email']);
-            $messages->subject('Meeting schedule from Broom Services');
+            $sub = __('mail.meeting.subject')." ".__('mail.meeting.from')." ".__('mail.meeting.company');
+            $messages->subject($sub);
         });
     }
 

@@ -2,6 +2,7 @@ import axios from 'axios';
 import React,{useEffect, useState} from 'react'
 import { useParams,useNavigate } from 'react-router-dom';
 import Moment from 'moment';
+import locale from '../locale';
 
 export default function MeetingStatus() {
 
@@ -28,21 +29,11 @@ export default function MeetingStatus() {
    },1000)
   },[]);
 
-  const updateMeeting = (e) =>{
-    e.preventDefault();
-    axios
-    .post(`/api/client/accept-meeting`,{id:param.id})
-    .then((res)=>{
-      swal(res.data.message,'','success');
-      setTimeout(()=>{
-          window.location.href=('/client/login');
-      },1000)
-    })
-  }
   
   return (
     <div className='container meeting' style={{display:"none"}}>
         <div className='meet-status dashBox maxWidthControl p-4'>
+          <h1>{trans('stream.counter')}</h1>
             <h1>Meeting with {teamName}</h1>
             <ul className='list-unstyled'>
                 <li>Date: <span>{Moment(meeting.start_date).format('D-M-Y')}</span></li>

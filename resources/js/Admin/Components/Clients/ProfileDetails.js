@@ -30,6 +30,7 @@ export default function ProfileDetails({ client, offerStatus , scheduleStatus , 
      if(scheduleStatus == 'pending') {scolor = '#7e7e56'} 
      if(scheduleStatus == 'confirmed') {scolor = 'green'} 
      if(scheduleStatus == 'completed') {scolor = 'lightblue'} 
+     if(scheduleStatus == 'declined') {scolor = 'red'} 
 
      if(offerStatus == 'sent') {ocolor = '#7e7e56'} 
      if(offerStatus == 'accepted') {ocolor = 'green'} 
@@ -95,7 +96,8 @@ export default function ProfileDetails({ client, offerStatus , scheduleStatus , 
                                         <div className='col-sm-4'>
                                             <div className='form-group'>
                                                 <label>Google address</label>
-                                                <p><a href='#' target='_blank'>{Apt}, {streetNumber}, {city}, {zip}</a></p>
+                                                <p><a href={`https://maps.google.com?q=${ city+","+streetNumber+","+zip}`} target='_blank'>
+                                                    {Apt}, {streetNumber}, {city}, {zip}</a></p>
                                             </div>
                                         </div>
                                     </div>
