@@ -98,7 +98,7 @@ export default function AddService(){
                                 type="submit"
                                 value="SAVE"
                                 onClick={handleSubmit}
-                                className="btn btn-danger saveBtn"
+                                className="btn btn-pink saveBtn"
                             />
                         </div>
                         </div>

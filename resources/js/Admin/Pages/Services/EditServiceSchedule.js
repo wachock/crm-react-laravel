@@ -116,7 +116,7 @@ export default function EditServiceSchedule(){
                                 type="submit"
                                 value="SAVE"
                                 onClick={handleUpdate}
-                                className="btn btn-danger saveBtn"
+                                className="btn btn-pink saveBtn"
                             />
                         </div>
                         </div>

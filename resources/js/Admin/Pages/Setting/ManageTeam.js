@@ -23,9 +23,35 @@ export default function ManageTeam() {
   useEffect(()=>{
     getMembers();
   },[]);
+  const handleDelete = (id) => {
+    Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, Delete Team member!",
+    }).then((result) => {
+        if (result.isConfirmed) {
+            axios
+                .delete(`/api/admin/team/${id}`, { headers })
+                .then((response) => {
+                    Swal.fire(
+                        "Deleted!",
+                        "Team member has been deleted.",
+                        "success"
+                    );
+                    setTimeout(() => {
+                        getMembers();
+                    }, 1000);
+                });
+        }
+    });
+};
   return (
     <div id='container'>
-        <Sidebar/>
+        <Sidebar/> 
         <div id='content'>
             <div className="titleBox customer-title">
                 <div className="row">
@@ -64,16 +90,16 @@ export default function ManageTeam() {
                                     :'Inactive'
                                     }</td>
                                     <td>
-                                      <div className="d-flex">
-                                        <Link to={`/admin/edit-team/${item.id}`} className="ml-2 btn btn-success">
-                                            <i className="fa fa-pencil"></i>
-                                        </Link>
-                                        <div className="text-center">
-                                            <button className="ml-2 btn btn-danger">
-                                                <i className="fa fa-trash"></i>
+                                        <div className="action-dropdown dropdown">
+                                            <button type="button" className="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                                <i className="fa fa-ellipsis-vertical"></i>
                                             </button>
+                                            <div className="dropdown-menu">
+                                                <Link to={`/admin/edit-team/${item.id}`} className="dropdown-item">Edit</Link>
+                                                <button className="dropdown-item" onClick={() => handleDelete(item.id)}
+                                                >Delete</button>
+                                            </div>
                                         </div>
-                                      </div>
                                     </td>
                                 </tr>
                             ))}

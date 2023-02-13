@@ -115,24 +115,15 @@ export default function ServiceSchedule() {
                                                         : "Active"}
                                                 </td>
                                                 <td>
-                                                    <div className="d-flex">
-                                                        <Link
-                                                            to={`/admin/edit-service-schedule/${item.id}`}
-                                                            className="btn btn-success"
-                                                        >
-                                                            <i className="fa fa-pencil"></i>
-                                                        </Link>
-
-                                                        <button
-                                                            className="ml-2 btn btn-danger"
-                                                            onClick={() =>
-                                                                handleDelete(
-                                                                    item.id
-                                                                )
-                                                            }
-                                                        >
-                                                            <i className="fa fa-trash"></i>
+                                                    <div className="action-dropdown dropdown">
+                                                        <button type="button" className="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                                            <i className="fa fa-ellipsis-vertical"></i>
                                                         </button>
+                                                        <div className="dropdown-menu">
+                                                            <Link to={`/admin/edit-service-schedule/${item.id}`} className="dropdown-item">Edit</Link>
+                                                            <button className="dropdown-item" onClick={() => handleDelete(item.id)}
+                                                            >Delete</button>
+                                                        </div>
                                                     </div>
                                                 </td>
                                             </tr>
