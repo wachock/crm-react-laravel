@@ -11,6 +11,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Moment from 'moment';
 import { useAlert } from 'react-alert';
+import swal from 'sweetalert';
 
 export default function ViewSchedule() {
 
@@ -22,7 +23,7 @@ export default function ViewSchedule() {
     const [startTime, setStartTime] = useState("");
     const [endTime, setEndTime] = useState("");
     const [events ,setEvents] = useState([]);
-    
+    const [lang,setLang]      =useState("");
     const param = useParams();
     const alert = useAlert();
     const navigate = useNavigate();
@@ -55,20 +56,24 @@ export default function ViewSchedule() {
     };
 
     const sendMeeting = () =>{
-        let st = document.querySelector('#status').value;
 
+        if(!lang) { swal('Please choose language','','');return}
+        let st = document.querySelector('#status').value;
         const data = {
             client_id:param.id,
-            team_id  :team,
+            team_id  : team.length>0 ? team: (team == 0)? '' : '',
             start_date:startDate,
             start_time:startTime,
             end_time:endTime,
             booking_status:st,
+            lang:lang
             
         }
+
         let btn = document.querySelector('.sendBtn');
         btn.setAttribute('disabled',true);
         btn.innerHTML = "Sending..";
+        
         axios
         .post(`/api/admin/schedule`,data,{ headers })
         .then((res)=>{
@@ -111,7 +116,7 @@ export default function ViewSchedule() {
       .then((res)=>{
 
         const d = res.data.schedule;
-        setTeam((d.team_id).toString());
+        setTeam( d.team_id ? (d.team_id).toString() : "0");
         setBstatus(d.booking_status);
         setStartDate(Moment(d.start_date).toDate());
         setStartTime(d.start_time);
@@ -209,7 +214,7 @@ export default function ViewSchedule() {
                             <div className='form-group'>
                                 <label className='control-label'>Team</label>
                                 <select className='form-control' name="team_id" id="team" onChange={(e) => {setTeam(e.target.value);handleUpdate(e)}}>
-                                    <option>Please Select</option>
+                                    <option value="0">Please Select</option>
                                     {totalTeam && totalTeam.map((t, i) => {
                                         return <option value={t.id} selected={team == t.id}> {t.name} </option>
                                     })}
@@ -247,6 +252,13 @@ export default function ViewSchedule() {
                                             return (<option value={t} selected={t == endTime}>{t}</option>);
                                         })}
                                     </select>
+                                </div>
+                            </div>
+                            <div className='col-sm-4'>
+                                <h4 class="mb-2">Language</h4>
+                                <div class="form-group">
+                                    <input type="radio" name="lang"  value="heb" onChange={(e)=>setLang(e.target.value)} style={{'height':'unset'}}/>Heb
+                                    <input type="radio" name="lang"  value="en"  onChange={(e)=>setLang(e.target.value)} style={{'height':'unset'}}/>Eng
                                 </div>
                             </div>
                         </div>

@@ -77,7 +77,6 @@ class ScheduleController extends Controller
         $validator  = Validator::make($request->all(),[
 
             'client_id'      => ['required'],
-            'team_id'        => ['required'],
             'start_date'     => ['required'],
             'start_time'     => ['required'],
             'end_time'       => ['required'],
@@ -90,6 +89,7 @@ class ScheduleController extends Controller
         $input  = $request->input(); 
         $sch = Schedule::create($input);
         $schedule = Schedule::where('id',$sch->id)->with('client','team')->get()->first();
+        if(!empty($request->lang)) \App::setLocale($request->lang);
         $this->sendMeetingMail($schedule);
         return response()->json([
             'message' => 'Metting scheduled  successfully'

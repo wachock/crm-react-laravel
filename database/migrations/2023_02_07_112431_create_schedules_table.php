@@ -16,7 +16,7 @@ class CreateSchedulesTable extends Migration
         Schema::create('schedules', function (Blueprint $table) {
             $table->id();
             $table->integer('client_id');
-            $table->integer('team_id');
+            $table->integer('team_id')->nullable();
             $table->enum('booking_status',['pending','completed','confirmed'])->default('pending');
             $table->string('start_date');
             $table->string('start_time')->nullable();
