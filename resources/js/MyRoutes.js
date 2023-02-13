@@ -71,6 +71,9 @@ import WorkContract from './Pages/WorkContract';
 import MeetingStatus from './Pages/MeetingStatus';
 import CalendarTeam from './Pages/CalendarTeam';
 import Thankyou from './Pages/Thankyou';
+import ManageTime from './Admin/Pages/Setting/Time/ManageTime';
+import AddTime from './Admin/Pages/Setting/Time/AddTime';
+import EditTime from './Admin/Pages/Setting/Time/EditTime';
 
 
 TimeAgo.addDefaultLocale(en)
@@ -164,6 +167,9 @@ export default function MyRoutes() {
                      <Route exact path="view-contract/:id/:hash" element={<ViewContract />} />
                      <Route exact path="schedule" element={<Schedule />} />
                      <Route exact path="view-schedule/:id" element={<ViewSchedule />} />
+                     <Route exact path="manage-time" element={<ManageTime />} />
+                     <Route exact path="add-time" element={<AddTime />} />
+                     <Route exact path="edit-time/:id" element={<EditTime />} />
                   </Route>
                </Route>
                {/* Admin Routes End  */}
