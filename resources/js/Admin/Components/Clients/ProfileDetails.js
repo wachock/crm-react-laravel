@@ -33,7 +33,7 @@ export default function ProfileDetails({ client, offerStatus , scheduleStatus , 
 
      if(offerStatus == 'sent') {ocolor = '#7e7e56'} 
      if(offerStatus == 'accepted') {ocolor = 'green'} 
-     if(offerStatus == 'declined') {ocolor = 'red'}   
+     if(offerStatus == 'declined') {ocolor = 'red'}  
     return (
         <>
 
@@ -69,12 +69,6 @@ export default function ProfileDetails({ client, offerStatus , scheduleStatus , 
                                         </div>
                                         <div className='col-sm-4'>
                                             <div className='form-group'>
-                                                <label>Address</label>
-                                                <p>{floor}, {Apt}, {streetNumber}</p>
-                                            </div>
-                                        </div>
-                                        <div className='col-sm-4'>
-                                            <div className='form-group'>
                                                 <label>City</label>
                                                 <p>{city} - {zip}</p>
                                             </div>
@@ -96,6 +90,12 @@ export default function ProfileDetails({ client, offerStatus , scheduleStatus , 
                                             <div className='form-group'>
                                                 <label>Joined on</label>
                                                 <p>{joined}</p>
+                                            </div>
+                                        </div>
+                                        <div className='col-sm-4'>
+                                            <div className='form-group'>
+                                                <label>Google address</label>
+                                                <p><a href='#' target='_blank'>{Apt}, {streetNumber}, {city}, {zip}</a></p>
                                             </div>
                                         </div>
                                     </div>

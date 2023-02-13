@@ -1209,3 +1209,9 @@ h1 {
 .fc-timegrid-slots tr{
   height: 60px;
 }
+.thankyou{
+  margin-top: 40px;
+}
+.thankyou img{
+  margin-bottom: 20px;
+}

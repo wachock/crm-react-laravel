@@ -254,7 +254,7 @@ export default function AddClient() {
                             </div>
 
                             <div className="form-group">
-                                <label className="control-label">Street and number</label>
+                                <label className="control-label">Street number and Street name</label>
                                 <input
                                     type="text"
                                     value={streetNumber}
@@ -290,7 +290,7 @@ export default function AddClient() {
                             </div>
 
                             <div className="form-group">
-                                <label className="control-label">Apt number</label>
+                                <label className="control-label">Apt number and Apt name</label>
                                 <input
                                     type="text"
                                     value={Apt}
@@ -344,9 +344,9 @@ export default function AddClient() {
                             </div>
 
                             <div className="form-group">
-                                <label className="control-label">Dob</label>
+                                <label className="control-label">Date of Birth</label>
                                 <input
-                                    type="text"
+                                    type="date"
                                     value={dob}
                                     onChange={(e) => setDob(e.target.value)}
                                     className="form-control"

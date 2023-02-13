@@ -274,7 +274,7 @@ export default function EditClient() {
                         </div>
 
                         <div className="form-group">
-                            <label className="control-label">Street and number</label>
+                            <label className="control-label">Street number and Street name </label>
                             <input
                                 type="text"
                                 value={streetNumber}
@@ -310,7 +310,7 @@ export default function EditClient() {
                         </div>
 
                         <div className="form-group">
-                            <label className="control-label">Apt number</label>
+                            <label className="control-label">Apt number and Apt name</label>
                             <input
                                 type="text"
                                 value={Apt}
