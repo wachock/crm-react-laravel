@@ -16,15 +16,22 @@ export default function WorkerAvailabilty() {
     let handleChange = (event,w_date, slot) => {
      
          let newworker = worker_aval;
+         
+         Array.from(document.getElementsByClassName(w_date)).forEach(
+              function(element, index, array) {
+                  element.childNodes[0].childNodes[1].classList.remove("checked_forcustom")
+              }
+          );
          if((event.target.name).toString()==='true'){
             document.getElementById(event.target.id).setAttribute('name',!event.target.checked);
             document.getElementById(event.target.id).parentNode.childNodes[1].classList.add("checked_forcustom");
             if(newworker[w_date]===undefined){
               newworker[w_date]=[slot];
             }else{
-              if(!newworker[w_date].includes(slot)){
-                newworker[w_date].push(slot);
-              }
+              // if(!newworker[w_date].includes(slot)){
+              //   newworker[w_date].push(slot);
+              // }
+              newworker[w_date]=[slot];
             }
         }else{
            document.getElementById(event.target.id).setAttribute('name',!event.target.checked);
@@ -38,7 +45,7 @@ export default function WorkerAvailabilty() {
              newworker[w_date]=newarray;
         }
         setWorkerAval(newworker);
-        // console.log(worker_aval);
+        console.log(worker_aval);
     }
     let handleSubmit = () =>{
         let worker_id = params.id;
@@ -76,12 +83,18 @@ export default function WorkerAvailabilty() {
         nextweek.push(firstday)
     }
    const slot = [
-     '4 AM - 8 AM',
-     '8 AM - 12 PM',
-     '12 PM - 4 PM',
-     '4 PM - 8 PM',
-     '8 PM - 12 AM',
-     '12 AM - 4 AM'
+     ['8am-16pm','full day- 8am-16pm'],
+     ['8am-10am','morning1 - 8am-10am'],
+     ['10am-12pm','morning 2 - 10am-12pm'],
+     ['12pm-14pm','noon1 -12pm-14pm'],
+     ['14pm-16pm','noon2 14pm-16pm'],
+     ['12pm-16pm','noon 12pm-16pm'],
+     ['16pm-18pm','af1 16pm-18pm'],
+     ['18pm-20pm','af2 18pm-20pm'],
+     ['16pm-20pm','afternoon 16pm-20pm'],
+     ['20pm-22pm','ev1 20pm-22pm'],
+     ['22pm-24am','ev2 22pm-24pm'],
+     ['20pm-24am','evening 20pm-24am']
     ]
 
      const getWorkerAvailabilty = () => {
@@ -118,10 +131,10 @@ export default function WorkerAvailabilty() {
                   <tr key={index}>
                     {week.map((w, index) => (
                     <td key={index}>
-                      <div className="radio">
+                      <div className={w} >
                         <label>
-                          <input type="checkbox" data-day="Sunday" className="btn-check" id={w+'-'+s} data-value={w} value={s} onChange={(e)=>handleChange(e,w,s)} name={((worker_aval[`${w}`] !== undefined)?!worker_aval[`${w}`].includes(s):true).toString()} />
-                          <span className={(worker_aval[`${w}`] !== undefined)?((worker_aval[`${w}`].includes(s))?'forcustom checked_forcustom':'forcustom'):'forcustom'}>{s}</span>
+                          <input type="checkbox" data-day="Sunday" className="btn-check" id={w+'-'+s['0']} data-value={w} value={s['0']} onChange={(e)=>handleChange(e,w,s['0'])} name={((worker_aval[`${w}`] !== undefined)?!worker_aval[`${w}`].includes(s['0']):true).toString()} />
+                          <span className={(worker_aval[`${w}`] !== undefined)?((worker_aval[`${w}`].includes(s['0']))?'forcustom checked_forcustom':'forcustom'):'forcustom'}>{s['1']}</span>
                         </label>
                       </div>
                     </td>
@@ -144,13 +157,13 @@ export default function WorkerAvailabilty() {
                 </thead>
                 <tbody>
                 {slot.map((s, index) => (
-                  <tr key={index}>
-                    {nextweek.map((w, index) => (
+                 <tr key={index}>
+                    {week.map((w, index) => (
                     <td key={index}>
-                      <div className="radio">
+                      <div className={w} >
                         <label>
-                         <input type="checkbox" data-day="Sunday" className="btn-check" id={w+'-'+s} data-value={w} value={s} onChange={(e)=>handleChange(e,w,s)} name={((worker_aval[`${w}`] !== undefined)?!worker_aval[`${w}`].includes(s):true).toString()} />
-                          <span className={(worker_aval[`${w}`] !== undefined)?((worker_aval[`${w}`].includes(s))?'forcustom checked_forcustom':'forcustom'):'forcustom'}>{s}</span>
+                          <input type="checkbox" data-day="Sunday" className="btn-check" id={w+'-'+s['0']} data-value={w} value={s['0']} onChange={(e)=>handleChange(e,w,s['0'])} name={((worker_aval[`${w}`] !== undefined)?!worker_aval[`${w}`].includes(s['0']):true).toString()} />
+                          <span className={(worker_aval[`${w}`] !== undefined)?((worker_aval[`${w}`].includes(s['0']))?'forcustom checked_forcustom':'forcustom'):'forcustom'}>{s['1']}</span>
                         </label>
                       </div>
                     </td>
@@ -165,6 +178,7 @@ export default function WorkerAvailabilty() {
       <div className="text-center">
                     <input type="button" value="Update availabilities" className="btn btn-pink" onClick={handleSubmit}/>
                 </div>
+     
     </div>
   )
 }
