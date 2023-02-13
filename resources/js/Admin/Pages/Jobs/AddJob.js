@@ -115,6 +115,41 @@ export default function AddJob() {
     const scData = AllSchedules.map((sc,i)=>{
         return {value:sc.id,label:sc.name}; 
     });
+    const time =[
+                ["08:00","08:00 AM"],
+                ["08:30","08:30 AM"],
+                ["09:00","09:00 AM"],
+                ["09:30","09:30 AM"],
+                ["10:00","10:00 AM"],
+                ["10:30","10:30 AM"],
+                ["11:00","11:00 AM"],
+                ["11:30","11:30 AM"],
+                ["12:00","12:00 PM"],
+                ["12:30","12:30 PM"],
+                ["13:00","01:00 PM"],
+                ["13:30","01:30 PM"],
+                ["14:00","02:00 PM"],
+                ["14:30","02:30 PM"],
+                ["15:00","03:00 PM"],
+                ["15:30","03:30 PM"],
+                ["16:00","04:00 PM"],
+                ["16:30","04:30 PM"],
+                ["17:00","05:00 PM"],
+                ["17:30","05:30 PM"],
+                ["18:00","06:00 PM"],
+                ["18:30","06:30 PM"],
+                ["19:00","07:00 PM"],
+                ["19:30","07:30 PM"],
+                ["20:00","08:00 PM"],
+                ["20:30","08:30 PM"],
+                ["21:00","09:00 PM"],
+                ["21:30","09:30 PM"],
+                ["22:00","10:00 PM"],
+                ["22:30","10:30 PM"],
+                ["23:00","11:00 PM"],
+                ["23:30","11:30 PM"],
+                ["00:00","12:00 AM"],
+            ];
     
   return (
     <div id="container">
@@ -155,16 +190,27 @@ export default function AddJob() {
                                     </div>
                                 </div>
                                 <div className='col-sm-3'>
-                                    <div className="form-group">
-                                        <label className="control-label">Start Time</label>
-                                        <input type="time" value={startTime} required onChange={(e) => setStartTime(e.target.value)} className='form-control' />
-                                    </div>
+                                     <div className='form-group'>
+                                    <label>Start Time</label>
+                                    <select name="start_time" id="start_time"  onChange={(e)=>{setStartTime(e.target.value)}} className="form-control">
+                                        <option>Choose start time</option>
+                                        {time && time.map((t,i)=>{
+                                            return (<option value={t[0]} selected={t[0] == startTime}>{t[1]}</option>);
+                                        })}
+                                       
+                                    </select>
+                                </div>
                                 </div>
                                 <div className='col-sm-3'>
-                                    <div className="form-group">
-                                        <label className="control-label">End Time</label>
-                                        <input type="time" value={endTime} required onChange={(e) => setEndTime(e.target.value)} className='form-control' />
-                                    </div>
+                                    <div className='form-group'>
+                                    <label>End Time</label>
+                                    <select name="end_time" id="end_time" selected={endTime} onChange={(e)=>{setEndTime(e.target.value)}} className="form-control">
+                                        <option>Choose end time</option>
+                                        {time && time.map((t,i)=>{
+                                            return (<option value={t[0]} selected={t[0] == endTime}>{t[1]}</option>);
+                                        })}
+                                    </select>
+                                </div>
                                 </div>
                                 <div className='col-sm-3'>
                                     <div className="form-group">

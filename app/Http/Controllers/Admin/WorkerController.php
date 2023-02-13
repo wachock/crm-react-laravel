@@ -206,12 +206,19 @@ class WorkerController extends Controller
     }
      public function getALLWorkerAvailability(){
            $allslot =  [
-                 '4 AM - 8 AM'=>array('04:00','08:00'),
-                 '8 AM - 12 PM'=>array('08:00','12:00'),
-                 '12 PM - 4 PM'=>array('12:00','16:00'),
-                 '4 PM - 8 PM'=>array('16:00','20:00'),
-                 '8 PM - 12 AM'=>array('20:00','24:00'),
-                 '12 AM - 4 AM'=>array('24:00','04:00'),
+                 '8am-16pm'=>array('08:00','16:00'),
+                 '8am-10am'=>array('08:00','10:00'),
+                 '10am-12pm'=>array('10:00','12:00'),
+                 '12pm-14pm'=>array('12:00','14:00'),
+                 '14pm-16pm'=>array('14:00','16:00'),
+                 '12pm-16pm'=>array('12:00','16:00'),
+                 '16pm-18pm'=>array('16:00','18:00'),
+                 '18pm-20pm'=>array('18:00','20:00'),
+                 '16pm-20pm'=>array('16:00','20:00'),
+                 '20pm-22pm'=>array('20:00','22:00'),
+                 '22pm-24am'=>array('22:00','00:00'),
+                 '20pm-24am'=>array('20:00','00:00'),
+
                 ];
           $worker_availabilities = WorkerAvialibilty::orderBy('id', 'asc')->get();
             $new_array=array();
