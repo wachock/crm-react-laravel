@@ -76,12 +76,12 @@ export default function WorkerAvailabilty() {
         nextweek.push(firstday)
     }
    const slot = [
-     '6 AM - 10 AM',
-     '10 AM - 2 PM',
-     '2 PM - 6 PM',
-     '6 PM - 10 PM',
-     '10 PM - 2 AM',
-     '2 AM - 6 AM'
+     '4 AM - 8 AM',
+     '8 AM - 12 PM',
+     '12 PM - 4 PM',
+     '4 PM - 8 PM',
+     '8 PM - 12 AM',
+     '12 AM - 4 AM'
     ]
 
      const getWorkerAvailabilty = () => {

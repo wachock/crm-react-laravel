@@ -9,6 +9,7 @@ import moment from 'moment-timezone';
 export default function TeamAvailability() { 
    const [AllWorkers,setAllWorkers]   = useState([]);
    const [AllJobs,setAllJobs]   = useState([]);
+   const [AllWorkerAvailability,setAllWorkerAvailability]   = useState([]);
     const headers = {
         Accept: "application/json, text/plain, */*",
         "Content-Type": "application/json",
@@ -28,9 +29,17 @@ export default function TeamAvailability() {
           setAllJobs(res.data.jobs);
         })
      }
+     const getWorkerAvailabilty = () =>{
+        axios
+        .get('/api/admin/all-workers/availability',{headers})
+        .then((res)=>{
+          setAllWorkerAvailability(res.data.availability);
+        })
+     }
       useEffect(()=>{
         getWorkers();
         getJobs();
+        getWorkerAvailabilty();
     },[]);
       
       const resources = AllWorkers.map((w,i)=>{
@@ -46,13 +55,26 @@ export default function TeamAvailability() {
           backgroundColor: '#ff0000',
           borderColor: '#ff0000',
         }; 
-    });    
+    });
+     const events1 = AllWorkerAvailability.map((wa,i)=>{
+        return {
+          id:wa.id,
+          title: '',
+          start:moment(wa.date+' '+wa.start_time).toISOString(),
+          end:moment(wa.date+' '+wa.end_time).toISOString(),
+          resourceId: wa.worker_id,
+          backgroundColor: '#00FF00',
+          borderColor: '#00FF00',
+        }; 
+    });  
+     Array.prototype.push.apply(events,events1);
   return (
     <FullCalendar
         plugins={[dayGridPlugin, timeGridPlugin, resourceTimeGridPlugin ]}
         initialView = 'resourceTimeGridDay'
         resources =  {resources}
-        
+        height={'auto'} // sets height to height of resources.
+        slotDuration={'02:00:00'}
         events={events}
     />
   )
