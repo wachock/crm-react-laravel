@@ -24,7 +24,7 @@ import ClientViewContract from './Client/Pages/Contract/ViewContract';
 // Worker Routes
 
 import Worker from './Worker/Worker';
-import WorkerDashboard from './Worker/Dashboard';
+import WorkerDashboard from './Worker/WorkerDashboard';
 
 // Admin Routes
 import Admin from './Admin/Admin';
