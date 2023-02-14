@@ -1,64 +1,52 @@
-import React, { useEffect } from 'react'
+import React, { useState,useEffect } from 'react'
 import logo from "../Assets/image/logo.png";
 import { useParams } from 'react-router-dom';
+import { useSSR, useTranslation } from "react-i18next";
+import i18next from 'i18next';
 
 export default function Thankyou() {
+
+  const [lng,setLng] = useState([]);
   const param = useParams();
-  
+  const { t } = useTranslation();
   const updateMeeting = () =>{
     let res = (param.response=="accept") ? 'confirmed' : 'declined';
     axios
     .post(`/api/client/accept-meeting`,{id:param.id,response:res})
-    .then((res)=>{
-    // swal(res.data.message,'','success',);
-      /*setTimeout(()=>{
-          window.location.href=('/client/login');
-      },1000)*/
-    })
+    .then((res)=>{ })
   }
-
+  const getMeeting = () => {
+    axios
+      .post(`/api/client/meeting`, { id: param.id })
+      .then((res) => {
+        i18next.changeLanguage(res.data.schedule.client.lng);
+      })
+  }
+  
   useEffect(()=>{
     updateMeeting();
+    getMeeting();
   },[]);
-
+ 
   return (
     <div className='container'>
+     
         <div className='thankyou dashBox maxWidthControl p-4'>
             <img src={logo} alt='Broom Service' />
+            <h3>{t('res_txt')}</h3>
+          {
+          (param.response == "accept") ? 
+            <>
+              <p> {t('meet_accept.cnct_txt')}</p>
+            </>
+              :
+            <>
+              <p className='mb-3'>{t('meet_reject.txt')}</p>
+              <a className='btn btn-pink' href='mailto:office@broomservice.co.il'>{t('meet_reject.btn_txt')}</a>
+             </>
+          } 
 
-      {
-        (param.response == "accept")? 
-      
-            (param.lang =="heb") ?
-             
-             (<>
-              <h3>תודה עבור תגובתך</h3>
-              <p>הצוות שלנו ייצור איתך קשר בהקדם</p>
-            </>)
-             :       
-            (<>
-              <h3>Thankyou for your response</h3>
-              <p>Our team will contact you shortly</p>
-            </>)
-      :
-            (param.lang =="heb")?
-             (
-              <>
-            <h3>תודה עבור תגובתך</h3>
-            <p className='mb-3'>האם אוכל לדעת את סיבת הדחייה? אם יש לך שאלה/הצעות או אם תרצה לקבוע מחדש את הפגישה, אנא כתוב לנו באימייל. נחזור אליך בהקדם.</p>
-            <a className='btn btn-pink' href='mailto:office@broomservice.co.il'>כתוב מייל</a>
-             </>
-             )
-             :
-             (<>
-              <h3>Thankyou for your response</h3>
-              <p className='mb-3'>May I know the reason for rejection? If you have any query / suggestions or you would like to reschedule the meeting, please write us on email. We will get back to you shortly.</p>
-              <a className='btn btn-pink' href='mailto:office@broomservice.co.il'>Write email</a>
-             </>
-             )
-        
-      }
-        </div>
+              </div>
     </div>
   )
 }

@@ -19,7 +19,7 @@ export default function AddClient() {
     const [zip,setZip] = useState("");
     const [dob,setDob] = useState("");
     const [passcode, setPassCode] = useState("");
-
+    const [lng,setLng]     = useState("");
     const [color, setColor] = useState("");
     const [status, setStatus] = useState("");
     const [errors, setErrors] = useState([]);
@@ -54,6 +54,7 @@ export default function AddClient() {
             zipcode:zip,
             dob:dob,
             passcode:passcode,
+            lng:(lng != 0) ? lng :'heb',
             color:color,
             email: email,
             phone: phoneClc,
@@ -359,6 +360,19 @@ export default function AddClient() {
                                 ) : (
                                     ""
                                 )}
+                            </div>
+                            <div className="form-group">
+                                <label className="control-label">Language</label>
+                                
+                                <select
+                                    className="form-control"
+                                    value={lng}
+                                    onChange={(e) => setLng(e.target.value)}
+                                >
+                                    <option value={0}>Please select language</option>
+                                    <option value="heb">Hebrew</option>
+                                    <option value="en">English</option>
+                                </select>
                             </div>
                             <div className="form-group">
                                 <label className="control-label">Color</label>

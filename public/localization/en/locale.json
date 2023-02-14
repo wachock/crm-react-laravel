@@ -1,0 +1,19 @@
+{
+    "res_txt":"Thankyou for your response",
+    "meet_accept":{
+        "cnct_txt":"Our team will contact you shortly"
+    },
+    "meet_reject":{
+        "txt":"May I know the reason for rejection? If you have any query / suggestions or you would like to reschedule the meeting, please write us on email. We will get back to you shortly.",
+        "btn_txt":"Write email"
+    },
+    "meet_stat":{
+        "with":"Meeting with",
+        "date":"Date",
+        "time":"Time",
+        "to":"to",
+        "service":"Service",
+        "txt":"If you are not available for this date, please email us and let us know so that we can schedule another date.",
+        "btn":"Schedule another date"
+    }
+}

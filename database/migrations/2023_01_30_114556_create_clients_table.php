@@ -26,6 +26,7 @@ class CreateClientsTable extends Migration
             $table->string('entrence_code')->nullable();
             $table->string('zipcode')->nullable();
             $table->string('dob')->nullable();
+            $table->enum('lng',['heb','en'])->default('heb');
             $table->string('passcode')->nullable();
             $table->string('color')->nullable();
 

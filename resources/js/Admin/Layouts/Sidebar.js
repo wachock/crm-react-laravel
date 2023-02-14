@@ -81,7 +81,7 @@ export default function Sidebar() {
                                         <Link to="/admin/services"><i className="fa fa-angle-right"></i> Services</Link>
                                     </li>
                                     <li className='list-group-item'>
-                                        <Link to="#!"><i className="fa fa-angle-right"></i> Manage Time</Link>
+                                        <Link to="/admin/manage-time"><i className="fa fa-angle-right"></i> Manage Time</Link>
                                     </li>
                                     <li className='list-group-item'>
                                         <Link to="/admin/settings"><i className="fa fa-angle-right"></i> My Account</Link>

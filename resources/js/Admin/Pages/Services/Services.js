@@ -77,27 +77,23 @@ export default function Services() {
             <div id="content">
                 <div className="titleBox customer-title">
                     <div className="row">
-                        <div className="col-sm-6">
+                        <div className="col-sm-8">
                             <h1 className="page-title">Services</h1>
                         </div>
 
-                        <div className="col-sm-3">
-                            <Link
-                                to="/admin/service-schedule"
-                                className="btn btn-warning addButton"
-                            >
-                                Schedules
-                            </Link>
-                        </div>
-
-                        <div className="col-sm-3">
-                            
-                            <Link
-                                to="/admin/add-service"
-                                className="btn btn-success addButton"
-                            >
-                                Add Service
-                            </Link>
+                        <div className="col-sm-4">
+                            <div className="d-flex float-right">
+                                <Link
+                                    to="/admin/service-schedule"
+                                    className="btn btn-warning addButton">
+                                    Schedules
+                                </Link>
+                                <Link
+                                    to="/admin/add-service"
+                                    className="ml-2 btn btn-success addButton">
+                                    Add Service
+                                </Link>
+                            </div>  
                         </div>
                        
                     </div>
@@ -125,26 +121,17 @@ export default function Services() {
                                                     {item.status == 0
                                                         ? "Inactive"
                                                         : "Active"}
-                                                </td>
+                                                </td>   
                                                 <td>
-                                                    <div className="d-flex">
-                                                        <Link
-                                                            to={`/admin/edit-service/${item.id}`}
-                                                            className="btn btn-success"
-                                                        >
-                                                            <i className="fa fa-pencil"></i>
-                                                        </Link>
-
-                                                        <button
-                                                            className="ml-2 btn btn-danger"
-                                                            onClick={() =>
-                                                                handleDelete(
-                                                                    item.id
-                                                                )
-                                                            }
-                                                        >
-                                                            <i className="fa fa-trash"></i>
+                                                    <div className="action-dropdown dropdown">
+                                                        <button type="button" className="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                                            <i className="fa fa-ellipsis-vertical"></i>
                                                         </button>
+                                                        <div className="dropdown-menu">
+                                                            <Link to={`/admin/edit-service/${item.id}`} className="dropdown-item">Edit</Link>
+                                                            <button className="dropdown-item" onClick={() => handleDelete(item.id)}
+                                                            >Delete</button>
+                                                        </div>
                                                     </div>
                                                 </td>
                                             </tr>

@@ -57,7 +57,6 @@ export default function ViewSchedule() {
 
     const sendMeeting = () =>{
 
-        if(!lang) { swal('Please choose language','','');return}
         let st = document.querySelector('#status').value;
         const data = {
             client_id:param.id,
@@ -252,13 +251,6 @@ export default function ViewSchedule() {
                                             return (<option value={t} selected={t == endTime}>{t}</option>);
                                         })}
                                     </select>
-                                </div>
-                            </div>
-                            <div className='col-sm-4'>
-                                <h4 class="mb-2">Language</h4>
-                                <div class="form-group">
-                                    <input type="radio" name="lang"  value="heb" onChange={(e)=>setLang(e.target.value)} style={{'height':'unset'}}/>Hebrew &nbsp;
-                                    <input type="radio" name="lang"  value="en"  onChange={(e)=>setLang(e.target.value)} style={{'height':'unset'}}/>English
                                 </div>
                             </div>
                         </div>

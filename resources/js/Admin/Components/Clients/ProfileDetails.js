@@ -19,11 +19,9 @@ export default function ProfileDetails({ client, offerStatus , scheduleStatus , 
     const joined = Moment(client.created_at).format('DD/MM/Y')+" "+Moment(client.created_at).format('dddd');
     
     const  cardType    = (latestContract) ? latestContract.card_type : '';
-    const cardNumber   = (latestContract) ? latestContract.card_number : '';
-    const cardValidity = (latestContract) ? latestContract.valid : '';
     const nameOnCard   = (latestContract) ? latestContract.name_on_card : '';
     const cvv          = (latestContract) ? latestContract.cvv: '';
-    const signature    = (latestContract) ? <a href={latestContract.signature} target="_blank">view</a>  : '';
+    const signature    = (latestContract) ? <a href={latestContract.card_sign} target="_blank">view</a>  : '';
     const param = useParams();
     
     let scolor = '', ocolor = '';
@@ -106,10 +104,8 @@ export default function ProfileDetails({ client, offerStatus , scheduleStatus , 
                                     <div className='form-group'>
                                         <ul className='list-unstyled'>
                                             <li><strong>Card Type: </strong>{cardType}</li>
-                                            <li><strong>Card No: </strong>{cardNumber}</li>
-                                            <li><strong>Card Validity: </strong>{cardValidity}</li>
                                             <li><strong>Name on card: </strong>{nameOnCard}</li>
-                                            <li><strong>Name on card: </strong>{cvv}</li>
+                                            <li><strong>Cvv: </strong>{cvv}</li>
                                             <li><strong>Signature: </strong>{signature}</li>
                                         </ul>
                                     </div>
