@@ -18,10 +18,7 @@ export default function WorkContract() {
     const [signature, setSignature] = useState(null);
     const [Aaddress, setAaddress]   = useState(null);
     const [ctype,setCtype]          = useState("");
-    const [cno,setCno]              = useState("");
     const [cname,setCname]          = useState("");
-    const [cm,setCm]                = useState("");
-    const [cy,setCy]                = useState("");
     const [cvv,setCvv]              = useState("");
 
     const headers = {
@@ -33,9 +30,6 @@ export default function WorkContract() {
     const handleAccept = (e) =>{
 
         if(!ctype){ swal('Please select card type','','error'); return false;}
-        if(!cno)  { swal('Please enter card number','','error'); return false;}
-        if(!cm)   { swal('Please enter card month','','error'); return false;}
-        if(!cy)   { swal('Please select card year','','error'); return false;}
         if(!cname){ swal('Please enter card holder name','','error'); return false;}
         if(!cvv)  { swal('Please select card cvv','','error'); return false;}
         if(!signature){ swal('Please sign the contract','','error'); return false;}
@@ -51,9 +45,7 @@ export default function WorkContract() {
             client_id:offer[0].client.id,
             additional_address:Aaddress,
             card_type:ctype,
-            card_number:cno.substring(0,16),
             name_on_card:cname,
-            valid:cm.substring(0,2)+"/"+cy.substring(0,2),
             cvv:cvv.substring(0,3),
             status:'Signed',
             signature:signature
@@ -325,24 +317,21 @@ export default function WorkContract() {
                                 <td><span className='form-control'>{ c.card_type }</span></td>
                             </tr>
                             <tr>
-                                <td style={{width: "60%"}}>Card Number</td>
-                                <td><span className='form-control'>{ c.card_number }</span></td>                            </tr>
-                            <tr>
-                                <td style={{width: "60%"}}>Valid Through:</td>
-                                <td><span className='form-control'>{ c.valid }</span></td>                            </tr>
-                            <tr>
                                 <td style={{width: "60%"}}>Name on the Card</td>
                                 <td><span className='form-control'>{ c.name_on_card }</span></td>                            </tr>
                             <tr>
                                 <td style={{width: "60%"}}>CVV</td>
                                 <td ><span className='form-control'>{ c.cvv }</span></td>        
                             </tr>
+                            <tr>
+                                <td style={{width: "60%"}}>Signature on the Card</td>
+                                <img src={c.card_sign} className='img-fluid' alt='Company' />
+                            </tr>
                             </>
                             
                             )
                             })}
                             
-
                             <tr>
                                 <td style={{width: "60%"}}>Miscellaneous</td>
                                 <td>All the employees of the Company are employed in compliance with the law and the Company provides them with all the benefits to which they are entitled; the Client has no employee-employer relationship with the employees of the Company.</td>
