@@ -1,10 +1,12 @@
-import React, { useEffect } from 'react'
+import React, { useState,useEffect } from 'react'
 import logo from "../Assets/image/logo.png";
 import { useParams } from 'react-router-dom';
-import { useTranslation } from "react-i18next";
+import { useSSR, useTranslation } from "react-i18next";
+import i18next from 'i18next';
 
 export default function Thankyou() {
-  
+
+  const [lng,setLng] = useState([]);
   const param = useParams();
   const { t } = useTranslation();
   const updateMeeting = () =>{
@@ -13,13 +15,22 @@ export default function Thankyou() {
     .post(`/api/client/accept-meeting`,{id:param.id,response:res})
     .then((res)=>{ })
   }
-
+  const getMeeting = () => {
+    axios
+      .post(`/api/client/meeting`, { id: param.id })
+      .then((res) => {
+        i18next.changeLanguage(res.data.schedule.client.lng);
+      })
+  }
+  
   useEffect(()=>{
     updateMeeting();
+    getMeeting();
   },[]);
-
+ 
   return (
     <div className='container'>
+     
         <div className='thankyou dashBox maxWidthControl p-4'>
             <img src={logo} alt='Broom Service' />
             <h3>{t('res_txt')}</h3>

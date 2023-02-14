@@ -20,7 +20,7 @@ export default function EditClient() {
     const [zip,setZip] = useState("");
     const [dob,setDob] = useState("");
     const [passcode, setPassCode] = useState("");
-
+    const [lng,setLng]     = useState("");
     const [color, setColor] = useState("");
     const [status, setStatus] = useState("");
     const [errors, setErrors] = useState([]);
@@ -53,6 +53,7 @@ export default function EditClient() {
             apt_no:Apt,
             entrence_code:enterance,
             zipcode:zip,
+            lng:(lng != 0) ? lng :'heb',
             dob:dob,
             passcode:passcode,
             color:color,
@@ -91,6 +92,7 @@ export default function EditClient() {
                 setApt(response.data.client.apt_no);
                 setDob(response.data.client.dob);
                 setEnterance(response.data.client.entrence_code);
+                setLng(response.data.client.lng);
                 setColor(response.data.client.color);
                 setInvoiceName(response.data.client.invoicename);
                 setStreetNumber(response.data.client.street_n_no);
@@ -380,6 +382,19 @@ export default function EditClient() {
                                 ""
                             )}
                         </div>
+                        <div className="form-group">
+                                <label className="control-label">Language</label>
+                                
+                                <select
+                                    className="form-control"
+                                    value={lng}
+                                    onChange={(e) => setLng(e.target.value)}
+                                >
+                                    <option value={0}>Please select language</option>
+                                    <option value="heb" selected={lng == "heb"}>Hebrew</option>
+                                    <option value="en" selected={lng == "en"}>English</option>
+                                </select>
+                            </div>
                         <div className="form-group">
                             <label className="control-label">Color</label>
                             <input

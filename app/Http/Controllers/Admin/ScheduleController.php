@@ -89,10 +89,6 @@ class ScheduleController extends Controller
         $input  = $request->input(); 
         $sch = Schedule::create($input);
         $schedule = Schedule::where('id',$sch->id)->with('client','team')->get()->first();
-        if(!empty($request->lang)) {
-            \App::setLocale($request->lang);
-            $schedule->lang = $request->lang;
-        }
         $this->sendMeetingMail($schedule);
         return response()->json([
             'message' => 'Metting scheduled  successfully'
@@ -118,6 +114,7 @@ class ScheduleController extends Controller
 
        } 
         $sch['service_names'] = $str; 
+        \App::setLocale($sch['client']['lng']);
         Mail::send('/Mails/MeetingMail',$sch,function($messages) use ($sch){
             $messages->to($sch['client']['email']);
             $sub = __('mail.meeting.subject')." ".__('mail.meeting.from')." ".__('mail.meeting.company');
