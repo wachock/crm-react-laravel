@@ -19,6 +19,21 @@ return [
        'best_regards'=>'Best Regards',
        'company'     =>'Broom Services',
        'tel'         =>'Telephone',
-    ]
+    ],
+    'offer'=>[
+        'subject'     =>'Offer recieved',
+        'hi'          =>'Hi',
+        'greetings'   =>'Greetings',
+        'from'        =>'from',
+        'company'     =>'Broom Services',
+        'price_offer' =>'Please check the price offer for the',
+        'service_s'   =>'service(s)',
+        'approve_txt' =>'After your approval, an engagement agreement will be sent to you which you will need to fill out and sign below then we will be ready to start the work.',
+        'below_txt'   =>'Click the below button to see the price offer.',
+        'btn_txt'     =>'Price Offer',
+        'reply_txt'   =>'If you have any questions or concerns please don\'t hesitate to get in touch with us by replying to this email.',
+        'regards'     =>'Best Regards',
+        'tel'         =>'Telephone',
+    ],
 ];
 ?>

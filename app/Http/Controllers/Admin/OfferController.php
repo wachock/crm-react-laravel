@@ -90,24 +90,18 @@ class OfferController extends Controller
         $offer = $offer->toArray();
         $services = ($offer['services'] != '')? json_decode($offer['services']) : [];
         if(isset($services)){
-            $serv = [];
             $s_names  = '';
-            foreach($services as $service){
-                $ar = Services::where('id',$service->service)->get('name')->toArray();
-                array_push($serv,$ar);
-            }
-            
-            if(isset($serv)){
-                foreach($serv as $k => $s){
-                    if($k != count($serv)-1)  
-                    $s_names .= $s[0]['name'].", ";
+            foreach($services as $k=> $service){
+                    
+                    if($k != count($services)-1)  
+                    $s_names .= $service->name.", ";
                     else
-                    $s_names .= $s[0]['name'];
+                    $s_names .= $service->name;
                 }
             }
             $offer['service_names'] = $s_names;
-        }
-    
+            
+        \App::setLocale($offer['client']['lng']);
         Mail::send('/Mails/OfferMail',$offer,function($messages) use ($offer){
             $messages->to($offer['client']['email']);
             $messages->subject('Offer recieved from Broom Services');
