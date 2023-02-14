@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use App\Models\WorkerAvialibilty;
+use App\Models\Job;
 
 class WorkerController extends Controller
 {
@@ -223,21 +224,76 @@ class WorkerController extends Controller
           $worker_availabilities = WorkerAvialibilty::orderBy('id', 'asc')->get();
             $new_array=array();
             foreach($worker_availabilities as $w_a){
-                 foreach($w_a->working as $key=>$slot){
+                 $working=$this->Slot($w_a->user_id,$w_a->date,$w_a->working[0]);
+                 foreach($working as $key=>$slot){
+                    if($allslot[$w_a->working[0]][1]!=$slot){
                        $new_array[]=array(
                           'id'=>$w_a->id.'_'.$key,
                           'worker_id'=>$w_a->user_id,
                           'date'=>$w_a->date,
-                          'start_time'=>$allslot[$slot][0],
-                          'end_time'=>$allslot[$slot][1],
+                          'start_time'=>$slot,
+                          'end_time'=>$this->covertTime($slot),
 
 
                        );
+                    }
                  }
             }
 
            return response()->json([
             'availability'     => $new_array,         
            ], 200);
+    }
+    public function covertTime($slot){
+        $time = str_replace(".",":",((float)str_replace(":",".",$slot)+0.30)).'0';
+        $time1=explode(':', $time);
+        if($time1[1]=='60'){
+            $time = ((int)$time1[0]+1).':00';
+        }
+        return $time;
+
+    }
+    public function Slot($w_id,$w_date,$slot){
+        $allslot =  [
+                 '8am-16pm'=>array('08:00','08:30','09:00','09:30','10:00','10:30','11:00','11:30','12:00','12:30','13:00','13:30','14:00','14:30','15:00','15:30','16:00'),
+                 '8am-10am'=>array('08:00','08:30','09:00','09:30','10:00'),
+                 '10am-12pm'=>array('10:00','10:30','11:00','11:30','12:00'),
+                 '12pm-14pm'=>array('12:00','12:30','13:00','13:30','14:00'),
+                 '14pm-16pm'=>array('14:00','14:30','15:00','15:30','16:00'),
+                 '12pm-16pm'=>array('12:00','12:30','13:00','13:30','14:00','14:30','15:00','15:30','16:00'),
+                 '16pm-18pm'=>array('16:00','16:30','17:00','17:30','18:00'),
+                 '18pm-20pm'=>array('18:00','18:30','19:00','19:30','20:00'),
+                 '16pm-20pm'=>array('16:00','16:30','17:00','17:30','18:00','18:30','19:00','19:30','20:00'),
+                 '20pm-22pm'=>array('20:00','20:30','21:00','21:30','22:00'),
+                 '22pm-24am'=>array('22:00','22:30','23:00','23:30','00:00'),
+                 '20pm-24am'=>array('20:00','20:30','21:00','21:30','22:00','22:30','23:00','23:30','00:00'),
+
+                ];
+                $jobs=Job::Where('worker_id',$w_id)
+                    ->where('start_date',$w_date)
+                    ->get();
+                if(count($jobs)){
+                       $data=$allslot[$slot];
+                      foreach($jobs as $job){
+                          $unset=false;
+                          foreach($allslot[$slot] as $key=>$item){
+                                  
+                                   
+                                    if($job->start_time==$item){
+                                     $unset=true;
+                                   }
+                                   if($job->end_time==$item){
+                                     $unset=false;
+                                   }
+                                   if($unset){
+                                     unset($data[$key]);
+                                   }
+                          }
+                      }
+                      return $data;
+                }else{
+                    return $allslot[$slot];
+                }
+
     }
 }

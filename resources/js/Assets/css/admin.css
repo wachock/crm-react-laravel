@@ -1207,11 +1207,13 @@ h1 {
   display: none;
 }
 .fc-timegrid-slots tr{
-  height: 60px;
+  height: 90px;
 }
 .thankyou{
   margin-top: 40px;
 }
 .thankyou img{
   margin-bottom: 20px;
+}
+.fc-timegrid-event-harness-inset{
 }

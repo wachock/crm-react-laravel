@@ -48,7 +48,7 @@ export default function TeamAvailability() {
     const events = AllJobs.map((j,i)=>{
         return {
           id:j.id,
-          title: j.schedule,
+          title: 'Busy',
           start:moment(j.start_date+' '+j.start_time).toISOString(),
           end:moment(j.start_date+' '+j.end_time).toISOString(),
           resourceId: j.worker_id,
@@ -59,7 +59,7 @@ export default function TeamAvailability() {
      const events1 = AllWorkerAvailability.map((wa,i)=>{
         return {
           id:wa.id,
-          title: '',
+          title: 'Available',
           start:moment(wa.date+' '+wa.start_time).toISOString(),
           end:moment(wa.date+' '+wa.end_time).toISOString(),
           resourceId: wa.worker_id,
