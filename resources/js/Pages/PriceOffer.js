@@ -29,7 +29,7 @@ export default function PriceOffer() {
     useEffect(()=>{
         getOffer();
     },[])
-    console.log(services);
+   
     const handleOffer = (e,id) => {
         e.preventDefault();
         axios
@@ -92,19 +92,29 @@ The company is registered as a legal cleaning company in the Ministry of Industr
                                 <tr>
                                 <th style={{width:"30%"}}>Service</th>
                                 <th style={{width:"22%"}}>Frequency of Services</th>
-                                <th style={{width:"16%"}}>Job Hours</th>
-                                <th style={{width:"16%"}}>Hourly Rate</th>
-                                <th style={{width:"16%"}}>Amount</th>
+                                <th style={ offer.type != 'hourly' ? {width:"16%"}: {display:"none"} }>Job Price</th>
+                                <th style={ offer.type == 'hourly' ? {width:"16%"}: {display:"none"} }>Job Hours</th>
+                                <th style={ offer.type == 'hourly' ? {width:"16%"}: {display:"none"} }>Hourly Rate</th>
+                                <th style={ offer.type == 'hourly' ? {width:"16%"}: {display:"none"}}>Amount</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 { services && services.map((s,i)=>{
                                     return( <tr>   
                                     <td>{s.name}</td>
-                                    <td>Once</td>
+                                    <td>{s.freq_name}</td>
+                                     {(offer.type == 'hourly') ?
+                                     <>
                                     <td>{s.jobHours} hours</td>
                                     <td>${s.rateperhour}</td>
                                     <td>${s.totalamount}</td>
+                                    </>
+                                    :
+                                    <>
+                                    <td>${s.fixed_price}</td>
+                                    </>
+                                    }
+                                    
                                 </tr>
                                 )
                                 })}

@@ -33,11 +33,13 @@ class ClientSeed extends Seeder
                 'zipcode'           => $faker->postcode(),
                 'dob'               => $faker->dateTimeBetween('1990-01-01', '2012-12-31')->format('m/d/Y'),
                 'passcode'          => rand(1,6),
+                'geo_address'       => $faker->address(),
+                'latitude'          => $faker->latitude(),
+                'longitude'         => $faker->longitude(),
                 'color'             => ('#ffee'.rand(2,4)),
                 'phone'             => $faker->numerify('9#########'),
                 'email'             => $i == 1 ? 'client@admin.com' : $faker->unique()->safeEmail(),
                 'status'            => 1,
-                'email_verified_at' => Carbon::now(),
                 'password'          => Hash::make('password')
             ]);
         }

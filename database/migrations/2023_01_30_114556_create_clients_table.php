@@ -29,11 +29,12 @@ class CreateClientsTable extends Migration
             $table->enum('lng',['heb','en'])->default('heb');
             $table->string('passcode')->nullable();
             $table->string('color')->nullable();
-
+            $table->string('geo_address')->nullable();
+            $table->string('latitude')->nullable();
+            $table->string('longitude')->nullable();
             $table->string('phone')->nullable();
             $table->string('email')->unique();
             $table->integer('status')->default(1);
-            $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();

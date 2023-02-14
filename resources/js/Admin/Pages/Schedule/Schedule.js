@@ -128,9 +128,9 @@ export default function Schedule() {
                     <tbody>
                       {schedules && schedules.map((item, index) => {
 
-                        let address = (item.client.city) ? item.client.city + ", " : '';
-                        address = (item.client.street_n_no) ? item.client.street_n_no + ", " : '';
-                        address = (item.client.zipcode) ? item.client.zipcode : '';
+                        let address = (item.client.geo_address) ? item.client.geo_address : 'NA';
+                        let cords  = (item.client.latitude && item.client.longitude) ?
+                                     item.client.latitude +","+ item.client.longitude:"NA";
                         return (
                           <tr key={index}>
                             <td>{item.id}</td>
@@ -148,7 +148,7 @@ export default function Schedule() {
                                   : 'NA'
                               }
                             </td>
-                            <td><Link to={`https://maps.google.com?q=${address}`} target="_blank">{address}</Link></td>
+                            <td><Link to={`https://maps.google.com?q=${cords}`} target="_blank">{address}</Link></td>
                             <td>
                               {
                                 item.team

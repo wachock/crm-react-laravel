@@ -78,7 +78,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin-api', 'scopes:ad
      // Services Api
      Route::resource('service-schedule', ServiceSchedulesController::class);
      Route::get('all-service-schedule', [ServiceSchedulesController::class,'allSchedules'])->name('all-service-schedule');
-    
+
+
     //Offer Api
     Route::resource('offers',OfferController::class);
     Route::post('client-offers',[OfferController::class,'ClientOffers'])->name('client-offers');

@@ -14,6 +14,9 @@ export default function ProfileDetails({ client, offerStatus , scheduleStatus , 
     const floor = client.floor;
     const Apt = client.apt_no;
     const enterance = client.entrence_code;
+    let address = (client.geo_address) ? client.geo_address : "NA";
+    let cords   = (client.latitude && client.longitude) ? client.latitude +","+ client.longitude :"";
+
     const zip = client.zipcode;
     const passcode = client.passcode;
     const joined = Moment(client.created_at).format('DD/MM/Y')+" "+Moment(client.created_at).format('dddd');
@@ -94,8 +97,8 @@ export default function ProfileDetails({ client, offerStatus , scheduleStatus , 
                                         <div className='col-sm-4'>
                                             <div className='form-group'>
                                                 <label>Google address</label>
-                                                <p><a href={`https://maps.google.com?q=${ city+","+streetNumber+","+zip}`} target='_blank'>
-                                                    {Apt}, {streetNumber}, {city}, {zip}</a></p>
+                                                <p><a href={`https://maps.google.com?q=${ cords}`} target='_blank'>
+                                                    {address}</a></p>
                                             </div>
                                         </div>
                                     </div>

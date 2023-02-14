@@ -9,7 +9,8 @@ import swal from 'sweetalert';
 
 export default function WorkContract() {
 
-    const [offer,setoffer]   = useState([]);
+    const [offer,setoffer]         = useState([]);
+    const [services,setServices]   = useState([]);
     const param = useParams();
     const sigRef = useRef();
     const sigRef2 = useRef();
@@ -75,6 +76,9 @@ export default function WorkContract() {
         .post(`/api/client/get-offer-token`,{token:param.id})
         .then((res)=>{
             setoffer(res.data.offer);
+            (res.data.offer[0].services)
+             ? setServices(JSON.parse(res.data.offer[0].services))
+             :[];
         })
     }
 
@@ -196,7 +200,15 @@ export default function WorkContract() {
                         <table className='table table-bordered'>
                             <tr>
                                 <td style={{width: "60%"}}>The service and/or work requested by the Tenant</td>
-                                <td>Windows Cleaning</td>
+                                <td>
+                                {services && services.map((s,i)=>{
+                                    return (
+                                        (services.length -1) != i
+                                        ? s.name +", "
+                                        :s.name
+                                    )
+                                })}
+                                </td>
                             </tr>
                             <tr>
                                 <td style={{width: "60%"}}>The location in which the service will be provided and/or work will be performed</td>
@@ -208,7 +220,15 @@ export default function WorkContract() {
                             </tr>
                             <tr>
                                 <td style={{width: "60%"}}>Frequency of the service and/or work</td>
-                                <td>Once in a Week<br/>Four Times in a Week</td>
+                                <td>
+                                {services && services.map((s,i)=>{
+                                    return (
+                                        (services.length -1) != i
+                                        ? s.freq_name +", "
+                                        :s.freq_name
+                                    )
+                                })}
+                                </td>
                             </tr>
                             <tr>
                                 <td style={{width: "60%"}}>Consideration the Tenant will pay the Company, including the payment method and/or payment date<br/>Prices does not include vat**</td>

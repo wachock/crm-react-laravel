@@ -126,9 +126,8 @@ export default function Clients() {
                                             {clients &&
                                                 clients.map((item, index) => {
                                                     
-                                                    let address = (item.city) ? item.city+", " : '';
-                                                    address+= (item.street_n_no) ? item.street_n_no+", " : '';
-                                                    address+= (item.zipcode) ? item.zipcode+", " : '';
+                                                    let address = (item.geo_address) ? item.geo_address : "NA";
+                                                    let cords   = (item.latitude && item.longitude) ? item.latitude +","+ item.longitude :"";
 
                                                     return(
                                                     <tr key={index}>
@@ -137,7 +136,7 @@ export default function Clients() {
                                                             <Link to={`/admin/view-client/${item.id}`}>{item.firstname}{" "}{item.lastname}</Link>  
                                                         </td>
                                                         <td>{item.email}</td>
-                                                        <td><a href={`https://maps.google.com?q=${address}`} target='_blank'>{address}</a></td>
+                                                        <td><a href={`https://maps.google.com?q=${cords}`} target='_blank'>{address}</a></td>
                                                         <td>{item.phone}</td>
                                                         <td>
                                                             {item.status == 0

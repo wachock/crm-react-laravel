@@ -10,8 +10,7 @@ class Offer extends Model
     use HasFactory;
     protected $fillable = [
         'client_id',
-        'job_id',
-        'description',
+        'type',
         'services',
         'total',
         'status'

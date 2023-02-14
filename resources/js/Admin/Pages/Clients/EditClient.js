@@ -3,6 +3,14 @@ import { useAlert } from "react-alert";
 import { useParams } from "react-router-dom";
 import Sidebar from "../../Layouts/Sidebar";
 import { useNavigate } from "react-router-dom";
+import {
+    GoogleMap,
+    LoadScript,
+    InfoWindow,
+    Marker,
+    Autocomplete,
+} from "@react-google-maps/api";
+import Geocode from "react-geocode";
 
 export default function EditClient() {
 
@@ -29,6 +37,33 @@ export default function EditClient() {
     const params = useParams();
     const navigate = useNavigate();
 
+    const [libraries] = useState(["places", "geometry"]);
+    const [latitude, setLatitude] = useState(-33.865143);
+    const [longitude, setLongitude] = useState(151.2099);
+    const [address, setAddress] = useState("");
+    const [place, setPlace] = useState();
+    Geocode.setApiKey("AIzaSyDVR2fXPoEVoCNLIqagX5GQzna3feez4lI");
+    const containerStyle = {
+        width: "100%",
+        height: "300px",
+    };
+    const center = {
+        lat: latitude,
+        lng: longitude,
+    };
+    
+    const handlePlaceChanged = () => {
+        if (place) {
+           
+            setAddress(place.getPlace().formatted_address);
+            setLatitude(place.getPlace().geometry.location.lat());
+            setLongitude(place.getPlace().geometry.location.lng());
+            //const addressArray = place.getPlace().address_components;
+            //setCity(getCity(addressArray) ? getCity(addressArray) : "");
+            //setLocation(getArea(addressArray) ? getArea(addressArray) : "");
+        }
+    };
+    
     const headers = {
         Accept: "application/json, text/plain, */*",
         "Content-Type": "application/json",
@@ -56,6 +91,9 @@ export default function EditClient() {
             lng:(lng != 0) ? lng :'heb',
             dob:dob,
             passcode:passcode,
+            geo_address:address,
+            latitude:latitude,
+            longitude:longitude,
             color:color,
             email: email,
             phone: phoneClc,
@@ -98,6 +136,9 @@ export default function EditClient() {
                 setStreetNumber(response.data.client.street_n_no);
                 setZip(response.data.client.zipcode);
                 setStatus(response.data.client.status);
+                setAddress(response.data.client.geo_address);
+                //setLatitude(response.data.client.latitude);
+                //setLongitude(response.data.client.longitude);
                
             });
     };
@@ -255,6 +296,56 @@ export default function EditClient() {
 
                         
                         </div>
+                        <div className="form-group">
+                                <label className="control-label">Enter a location</label>
+                                <LoadScript
+                                    googleMapsApiKey="AIzaSyDVR2fXPoEVoCNLIqagX5GQzna3feez4lI"
+                                    libraries={libraries}
+                                >
+                                    <GoogleMap
+                                        mapContainerStyle={containerStyle}
+                                        center={center}
+                                        zoom={15}
+                                    >
+                                        <Marker
+                                            draggable={true}
+                                            onDragEnd={(e) => onMarkerDragEnd(e)}
+                                            position={{
+                                                lat: latitude,
+                                                lng: longitude,
+                                            }}
+                                        />
+                                        {address ? (
+                                            <InfoWindow
+                                                onClose={(e) => onInfoWindowClose(e)}
+                                                position={{
+                                                    lat: latitude + 0.0018,
+                                                    lng: longitude,
+                                                }}
+                                            >
+                                                <div>
+                                                    <span style={{ padding: 0, margin: 0 }}>
+                                                        {address}
+                                                    </span>
+                                                </div>
+                                            </InfoWindow>
+                                        ) : (
+                                            <></>
+                                        )}
+                                        <Marker />
+                                    </GoogleMap>
+                                    <Autocomplete
+                                        onLoad={(e) => setPlace(e)}
+                                        onPlaceChanged={handlePlaceChanged}
+                                    >
+                                        <input
+                                            type="text"
+                                            placeholder="Search Your Address"
+                                            className="form-control mt-1"
+                                        />
+                                    </Autocomplete>
+                                </LoadScript>
+                            </div>
                         <h4 className="mt-2 mb-3">Client Full Address</h4>
 
                         <div className="form-group">
