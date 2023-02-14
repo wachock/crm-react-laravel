@@ -13,6 +13,7 @@ export default function EditWorker() {
   const [payment_hour, setPaymentHour] = useState(0);
   const [worker_id, setWorkerId] = useState(Math.random().toString().concat("0".repeat(3)).substr(2,5));
   const [password, setPassword] = useState('');
+  const [lng,setLng]     = useState("");
   const [address, setAddress] = useState('');
   const [skill,setSkill] = useState([]);
   const [avl_skill,setAvlSkill] = useState([]);
@@ -59,6 +60,7 @@ export default function EditWorker() {
         "renewal_visa": renewal_date,
         "gender": gender,
         "payment_hour": payment_hour,
+        "lng":(lng != 0) ? lng :'heb',
         "worker_id": worker_id,
         "password": password,
         "skill": skill,
@@ -95,6 +97,7 @@ export default function EditWorker() {
                 setSkill(response.data.worker.skill);
                 setAddress(response.data.worker.address);
                 setItemStatus(response.data.worker.status);
+                setLng(response.data.worker.lng);
             });
     };
     useEffect(() => {
@@ -203,6 +206,21 @@ export default function EditWorker() {
                                         <input type='text' value={password} onChange={(e) => setPassword(e.target.value)} className='form-control' required placeholder='Password' />
                                     </div>
                                 </div>
+                                <div className='col-sm-6'>
+                                    <div className="form-group">
+                                    <label className="control-label">Language</label>
+                                    
+                                    <select
+                                        className="form-control"
+                                        value={lng}
+                                        onChange={(e) => setLng(e.target.value)}
+                                    >
+                                        <option value={0}>Please select language</option>
+                                        <option value="heb" selected={lng == "heb"}>Hebrew</option>
+                                        <option value="en" selected={lng == "en"}>English</option>
+                                    </select>
+                                </div>
+                            </div>
                             </div>
                             <div className='form-group'>
                                 <label className='control-label'>Address</label>
