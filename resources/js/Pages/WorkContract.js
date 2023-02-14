@@ -390,7 +390,7 @@ export default function WorkContract() {
                             <p>Addresses of the Parties for the purpose of this agreement are as specified in the introduction of this agreement. Any notice sent by either party to the other, to the aforementioned addresses, shall be deemed effective within 72 hours from its delivery to a post office branch in Israel for registered mail shipment and upon its delivery to the addressee, if it is delivered by hand, or upon receipt of transmission certificate, if it is sent by fax.</p>
                         </div>
                     </div>
-                    <h6 className='text-center text-underline mt-3 mb-4'>In witness whereof the Parties have signed:</h6>
+                    <h6 className='text-center text-underline mt-3 mb-4'>In witness whereas the Parties have signed:</h6>
                     <div className='row'>
                         <div className='col-sm-6'>
                             <h5 className='mt-2 mb-4'>The Tenant</h5>

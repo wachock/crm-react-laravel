@@ -15,6 +15,7 @@ export default function AddWorker() {
   const [payment_hour, setPaymentHour] = useState();
   const [worker_id, setWorkerId] = useState(Math.random().toString().concat("0".repeat(3)).substr(2,5));
   const [password, setPassword] = useState('');
+   const [lng,setLng]     = useState("");
   const [address, setAddress] = useState('');
   const [skill,setSkill] = useState([]);
   const [avl_skill,setAvlSkill] = useState([]);
@@ -51,6 +52,7 @@ export default function AddWorker() {
         "gender": gender,
         "payment_hour": payment_hour,
         "worker_id": worker_id,
+        "lng":(lng != 0) ? lng :'heb',
         "password": password,
         "skill": skill,
         "status": itemStatus,
@@ -182,7 +184,24 @@ export default function AddWorker() {
                                         <input type='text' value={password} onChange={(e) => setPassword(e.target.value)} className='form-control' required placeholder='Password' />
                                     </div>
                                 </div>
+                                <div className='col-sm-6'>
+                                        <div className="form-group">
+                                        <label className="control-label">Language</label>
+                                        
+                                        <select
+                                            className="form-control"
+                                            value={lng}
+                                            onChange={(e) => setLng(e.target.value)}
+                                        >
+                                            <option value={0}>Please select language</option>
+                                            <option value="heb">Hebrew</option>
+                                            <option value="en">English</option>
+                                        </select>
+                                    </div>
+                               </div>
+
                             </div>
+                             
                             <div className='form-group'>
                                 <label className='control-label'>Address</label>
                                 <input type='text' value={address} onChange={(e) => setAddress(e.target.value)} className='form-control' placeholder='Enter your address' />

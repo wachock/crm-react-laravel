@@ -23,6 +23,7 @@ class CreateUsersTable extends Migration
             $table->date('renewal_visa')->nullable();
             $table->enum('gender', ['male', 'female'])->default('male');
             $table->string('payment_per_hour')->nullable();
+            $table->enum('lng',['heb','en'])->default('heb');
             $table->string('worker_id')->nullable();
             $table->longText('skill')->nullable();
             $table->enum('status', [0, 1])->default(0);

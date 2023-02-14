@@ -211,7 +211,7 @@ export default function ViewSchedule() {
                         </div>
                         <div className='col-sm-6'>
                             <div className='form-group'>
-                                <label className='control-label'>Team</label>
+                                <label className='control-label'>Meeting Attender</label>
                                 <select className='form-control' name="team_id" id="team" onChange={(e) => {setTeam(e.target.value);handleUpdate(e)}}>
                                     <option value="0">Please Select</option>
                                     {totalTeam && totalTeam.map((t, i) => {

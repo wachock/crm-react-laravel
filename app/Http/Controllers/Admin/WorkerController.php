@@ -85,6 +85,7 @@ class WorkerController extends Controller
         $worker->gender        = $request->gender;
         $worker->payment_per_hour  = $request->payment_hour;
         $worker->worker_id     = $request->worker_id;
+        $worker->lng           = $request->lng;
         $worker->passcode      = $request->password;
         $worker->password      = Hash::make($request->password);
         $worker->skill         = $request->skill;
@@ -152,7 +153,8 @@ class WorkerController extends Controller
         $worker->gender        = $request->gender;
         $worker->payment_per_hour  = $request->payment_hour;
         $worker->worker_id     = $request->worker_id;
-         $worker->passcode     = $request->password;
+        $worker->lng           = $request->lng;
+        $worker->passcode     = $request->password;
         $worker->password      = Hash::make($request->password);
         $worker->skill         = $request->skill;
         $worker->status        = $request->status;
