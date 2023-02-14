@@ -105,7 +105,7 @@ export default function ProfileDetails({ client, offerStatus , scheduleStatus , 
                                         <ul className='list-unstyled'>
                                             <li><strong>Card Type: </strong>{cardType}</li>
                                             <li><strong>Name on card: </strong>{nameOnCard}</li>
-                                            <li><strong>Name on card: </strong>{cvv}</li>
+                                            <li><strong>Cvv: </strong>{cvv}</li>
                                             <li><strong>Signature: </strong>{signature}</li>
                                         </ul>
                                     </div>
