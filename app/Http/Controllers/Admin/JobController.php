@@ -220,6 +220,9 @@ class JobController extends Controller
         if($request->shifts != ''){
             $job->shifts=$request->shifts;
         }
+        if($request->comment != ''){
+            $job->comment=$request->comment;
+        }
         $job->save();
         return response()->json([
             'message'=>'Job has been updated successfully'
