@@ -136,16 +136,9 @@ export default function OfferPrice() {
                                     <tbody>  
                                         { offers && offers.map((ofr,i)=>{
 
-                                            var city =  ofr.client.city
-                                            ? ofr.client.city + ", "
-                                            :"";
-                                            var sn = ofr.client.street_n_no
-                                            ? ofr.client.street_n_no+ ", "
-                                            :"";
-                                            var zc = ofr.client.zipcode
-                                            ? ofr.client.zipcode
-                                            :"";
-
+                                            var address = (ofr.client.geo_address) ? ofr.client.geo_address : 'NA';
+                                            var cords   = (ofr.client.latitude && ofr.client.longitude)
+                                                           ? ofr.client.latitude+","+ofr.client.longitude : 'NA';
                                            return ( 
                                            <tr>
                                             <td><Link to={`/admin/view-client/${ofr.client.id}`}>
@@ -158,10 +151,10 @@ export default function OfferPrice() {
                                                 </Link>
                                             </td>
                                             <td>{ofr.client.email}</td>
-                                            <td><Link to='#!'>{city+sn+zc}</Link></td>
+                                            <td><Link to={`https://maps.google.com?q=${cords}`}>{address}</Link></td>
                                             <td>{ ofr.client.phone }</td>
-                                            <td>{ofr.status}</td>
-                                            <td>{ofr.total}</td>
+                                            <td>{ ofr.status }</td>
+                                            <td>{ ofr.total }</td>
                                             <td>
                                                 <div className="action-dropdown dropdown">
                                                     <button type="button" className="btn btn-default dropdown-toggle" data-toggle="dropdown">
