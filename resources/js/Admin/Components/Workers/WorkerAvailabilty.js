@@ -158,7 +158,7 @@ export default function WorkerAvailabilty() {
                 <tbody>
                 {slot.map((s, index) => (
                  <tr key={index}>
-                    {week.map((w, index) => (
+                    {nextweek.map((w, index) => (
                     <td key={index}>
                       <div className={w} >
                         <label>
