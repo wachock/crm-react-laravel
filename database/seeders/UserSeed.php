@@ -18,6 +18,23 @@ class UserSeed extends Seeder
     public function run()
     {
         $faker = app(Generator::class);
+
+        User::create([
+            'firstname'         => 'לידור',
+            'lastname'          => 'ממו',
+            'email'             => 'brommservice@gmail.com',
+            'phone'             => '0525264264',
+            'address'           => $faker->address(),
+            'renewal_visa'      =>  Carbon::now(),
+            'gender'            => 'male',
+            'payment_per_hour'  =>  '0',
+            'worker_id'         => '67254',
+            'lng'               => 'heb',
+            'skill'             => ['1','2','3'],
+            'status'            => 1,
+            'passcode'          => '123456',
+            'password'          => Hash::make('123456')
+        ]);
         
         for ($i = 1; $i < 10 ; $i++) {
             User::create([
@@ -30,6 +47,7 @@ class UserSeed extends Seeder
                 'gender'            => 'male',
                 'payment_per_hour'  =>  rand(8,16),
                 'worker_id'         => rand(10000,99999),
+                'lng'               => 'heb',
                 'skill'             => ['1','2','3'],
                 'status'            => 1,
                 'passcode'          => 'password',
