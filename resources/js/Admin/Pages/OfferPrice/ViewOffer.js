@@ -80,8 +80,8 @@ export default function ViewOffer() {
                           <tr>
                             <th style={{width:"30%"}}>Service</th>
                             <th className='text-right'>Frequency</th>
+                            <th className='text-right'>Job Hours</th>
                             <th style={ ofr.type != 'fixed'? {display:"none"} : {}} className='text-right'>Job Price</th>
-                            <th style={ ofr.type == 'fixed'? {display:"none"} : {}} className='text-right'>Job Hours</th>
                             <th style={ ofr.type == 'fixed'? {display:"none"} : {}} className='text-right'>Rate Per Hour</th>
                             <th style={ ofr.type == 'fixed'? {display:"none"} : {}} className='text-right'>Total Amount</th>
                           </tr>
@@ -92,10 +92,10 @@ export default function ViewOffer() {
                             <tr>
                               <td>{s.name}</td>
                               <td className='text-right'>{ s.freq_name }</td>
+                              <td className='text-right'>{ s.jobHours } hour(s)</td>
                               {
                                 (ofr.type != 'fixed' ) ?
                                 <>
-                                  <td className='text-right'>{ s.jobHours } hour(s)</td>
                                   <td className='text-right'>{ s.rateperhour }$</td>
                                   <td className='text-right'>{ s.totalamount}$</td>
                                 </>

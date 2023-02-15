@@ -121,15 +121,13 @@ export default function AddOffer() {
     let v = e.target.value;
     let th = document.querySelectorAll('.table th');
     if(v == 'hourly'){
-      th[0].style.width  = "30%";
-      th[2].style.display = "none";
-      th[3].style.display = "table-cell";
+      
+      th[3].style.display = "none";
       th[4].style.display = "table-cell";
       
     } else {
-      th[0].style.width  = "50%";
-      th[2].style.display = "table-cell";
-      th[3].style.display = "none";
+      
+      th[3].style.display = "table-cell";
       th[4].style.display = "none";
     }
   }
@@ -153,14 +151,14 @@ export default function AddOffer() {
         alert.error("One of the frequency is not selected");
         return false;
       }
+      if (formValues[t].jobHours == '') {
+        alert.error("One of the job hours value is missing");
+        return false;
+      }
       formValues[t].type = ty;
       if (ty == "hourly") {
 
-        if (formValues[t].jobHours == '') {
-          alert.error("One of the job hours value is missing");
-          return false;
-        }
-        if (formValues[t].service == '') {
+        if (formValues[t].rateperhour == '') {
           alert.error("One of the rate per hour value is missing");
           return false;
         }
@@ -244,10 +242,10 @@ export default function AddOffer() {
                           <table class="table table-sm">
                             <thead>
                               <tr>
-                                <th style={{ width: "50%" }}>Service</th>
+                                <th style={{ width: "30%" }}>Service</th>
                                 <th style={{ width: "30%" }}>Frequency</th>
+                                <th style={{ width: "16%" }}>Job Hours</th>
                                 <th style={{ width: "25%" }}>Job Price</th>
-                                <th style={{ width: "16%", display: "none" }}>Job Hours</th>
                                 <th style={{ width: "16%", display: "none" }}>Rate Per Hour</th>
                               </tr>
                             </thead>
@@ -275,11 +273,11 @@ export default function AddOffer() {
                                       })}
                                     </select>
                                   </td>
+                                  <td>
+                                    <input type="number" name="jobHours" value={element.jobHours || ""} onChange={e => handleChange(index, e)} className="form-control jobhr"  required placeholder="Enter job Hrs" />
+                                  </td>
                                   <td style={ (type == 'hourly') ? { "display": "none" } : {} }>
                                     <input type="number" name="fixed_price" value={element.fixed_price || ""} onChange={e => handleChange(index, e)} className="form-control jobprice" required placeholder="Enter job price" />
-                                  </td>
-                                  <td style={ (type != 'hourly') ? { "display": "none" } : {} }>
-                                    <input type="number" name="jobHours" value={element.jobHours || ""} onChange={e => handleChange(index, e)} className="form-control jobhr"  required placeholder="Enter job Hrs" />
                                   </td>
                                   <td style={ (type != 'hourly') ? { "display": "none" } : {} }>
                                     <input type="text" name="rateperhour" value={element.rateperhour || ""} onChange={e => handleChange(index, e)} className="form-control jobrate" required placeholder="Enter rate P/Hr" />

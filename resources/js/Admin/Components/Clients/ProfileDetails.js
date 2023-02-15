@@ -28,12 +28,12 @@ export default function ProfileDetails({ client, offerStatus , scheduleStatus , 
     const param = useParams();
     
     let scolor = '', ocolor = '';
-     if(scheduleStatus == 'pending') {scolor = '#7e7e56'} 
+     if(scheduleStatus == 'pending' || scheduleStatus == 'Not Sent') {scolor = '#7e7e56'} 
      if(scheduleStatus == 'confirmed') {scolor = 'green'} 
      if(scheduleStatus == 'completed') {scolor = 'lightblue'} 
      if(scheduleStatus == 'declined') {scolor = 'red'} 
 
-     if(offerStatus == 'sent') {ocolor = '#7e7e56'} 
+     if(offerStatus == 'sent' || offerStatus == 'Not Sent') {ocolor = '#7e7e56'} 
      if(offerStatus == 'accepted') {ocolor = 'green'} 
      if(offerStatus == 'declined') {ocolor = 'red'}  
     return (

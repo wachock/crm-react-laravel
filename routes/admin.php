@@ -100,7 +100,11 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin-api', 'scopes:ad
     Route::post('schedule-events', [ScheduleController::class,'getEvents']);
     Route::post('latest-client-schedule', [ScheduleController::class,'getLatestClientSchedule']);
     
-
+    //client files
+    Route::post('add-file',[ClientController::class,'addfile'])->name('add-file');
+    Route::post('get-files',[ClientController::class,'getfiles'])->name('get-files');
+    Route::post('delete-file',[ClientController::class,'deletefile'])->name('delete-file');
+    
     // Reviews Api
     Route::resource('reviews', ReviewController::class);
 

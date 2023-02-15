@@ -256,10 +256,10 @@ export default function EditOffer() {
                           <table class="table table-sm">
                             <thead>
                             <tr>
-                                <th style={ type =='fixed' ? { width: "50%" }: { width:"30%"}}>Service</th>
+                                <th style={ { width: "30%" }}>Service</th>
                                 <th style={ { width: "30%" }}>Frequency</th>
+                                <th style={ { width: "16%" }}>Job Hours</th>
                                 <th style={ type =='fixed' ? { width: "25%" } :{ display: "none" } }>Job Price</th>
-                                <th style={ type =='fixed' ? { width: "16%", display: "none" } : { width: "16%"}}>Job Hours</th>
                                 <th style={ type =='fixed' ? { width: "16%", display: "none" } : { width: "16%"} }>Rate Per Hour</th>
                             </tr>
                             </thead>
@@ -287,11 +287,11 @@ export default function EditOffer() {
                                       })}
                                     </select>
                                   </td>
+                                  <td>
+                                    <input type="number" name="jobHours" value={element.jobHours || ""} onChange={e => handleChange(index, e)} className="form-control jobhr"  required placeholder="Enter job Hrs" />
+                                  </td>
                                   <td style={ (type == 'hourly') ? { "display": "none" } : {} }>
                                     <input type="number" name="fixed_price" value={element.fixed_price || ""} onChange={e => handleChange(index, e)} className="form-control jobprice" required placeholder="Enter job price" />
-                                  </td>
-                                  <td style={ (type != 'hourly') ? { "display": "none" } : {} }>
-                                    <input type="number" name="jobHours" value={element.jobHours || ""} onChange={e => handleChange(index, e)} className="form-control jobhr"  required placeholder="Enter job Hrs" />
                                   </td>
                                   <td style={ (type != 'hourly') ? { "display": "none" } : {} }>
                                     <input type="text" name="rateperhour" value={element.rateperhour || ""} onChange={e => handleChange(index, e)} className="form-control jobrate" required placeholder="Enter rate P/Hr" />

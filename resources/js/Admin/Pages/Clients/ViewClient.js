@@ -24,7 +24,9 @@ export default function ViewClient() {
     axios
       .post(`/api/admin/latest-client-schedule`, { id: param.id }, { headers })
       .then((res) => {
-        setSchedulesStatus(res.data.latestSchedule.booking_status);
+        (res.data.latestSchedule)?
+        setSchedulesStatus(res.data.latestSchedule.booking_status)
+        :setSchedulesStatus('Not Sent');
       });
   }
 
@@ -32,7 +34,9 @@ export default function ViewClient() {
     axios
       .post(`/api/admin/latest-client-offer`, { id: param.id }, { headers })
       .then((res) => {
-        setOfferStatus(res.data.latestOffer.status);
+        (res.data.latestOffer) ?
+        setOfferStatus(res.data.latestOffer.status)
+        :setOfferStatus('Not Sent');
       });
   }
 

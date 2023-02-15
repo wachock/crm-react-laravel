@@ -32,6 +32,11 @@ export default function PriceOffer() {
    
     const handleOffer = (e,id) => {
         e.preventDefault();
+        let btn =  document.querySelectorAll('.acpt');
+            btn[0].setAttribute('disabled',true);
+            btn[0].value = ('Please Wait..');
+            btn[1].setAttribute('disabled',true);
+            btn[1].value = ('Please Wait..');
         axios
          .post(`/api/client/accept-offer`,{id:id})
          .then((res)=>{
@@ -39,6 +44,10 @@ export default function PriceOffer() {
                 for(let e in res.data.errors){
                      alert.error(res.data.errors[e]);
                 }
+                btn[0].removeAttribute('disabled');
+                btn[0].value = ('Accept Offer');
+                btn[1].removeAttribute('disabled');
+                btn[1].value = ('Accept Offer');
             } else {
                 swal(res.data.message,'','success');
                 setTimeout(()=>{
@@ -61,7 +70,7 @@ export default function PriceOffer() {
                     </div>
                     <div className='col-sm-6'>
                         <div className='mt-2 float-right'>
-                            <input className='btn btn-pink'  onClick={(e)=>handleOffer(e,offer.id)} value='Accept Offer' />
+                            <input className='btn btn-pink acpt'  onClick={(e)=>handleOffer(e,offer.id)} value='Accept Offer' />
                         </div>
                     </div>
                 </div> 
@@ -92,8 +101,8 @@ The company is registered as a legal cleaning company in the Ministry of Industr
                                 <tr>
                                 <th style={{width:"30%"}}>Service</th>
                                 <th style={{width:"22%"}}>Frequency of Services</th>
+                                <th style={{width:"16%"}}>Job Hours</th>
                                 <th style={ offer.type != 'hourly' ? {width:"16%"}: {display:"none"} }>Job Price</th>
-                                <th style={ offer.type == 'hourly' ? {width:"16%"}: {display:"none"} }>Job Hours</th>
                                 <th style={ offer.type == 'hourly' ? {width:"16%"}: {display:"none"} }>Hourly Rate</th>
                                 <th style={ offer.type == 'hourly' ? {width:"16%"}: {display:"none"}}>Amount</th>
                                 </tr>
@@ -103,9 +112,9 @@ The company is registered as a legal cleaning company in the Ministry of Industr
                                     return( <tr>   
                                     <td>{s.name}</td>
                                     <td>{s.freq_name}</td>
+                                    <td>{s.jobHours} hours</td>
                                      {(offer.type == 'hourly') ?
                                      <>
-                                    <td>{s.jobHours} hours</td>
                                     <td>${s.rateperhour}</td>
                                     <td>${s.totalamount}</td>
                                     </>
@@ -220,7 +229,7 @@ The company is registered as a legal cleaning company in the Ministry of Industr
                     </div>
                 </div>
                 <div className='text-center mt-3 mb-3'>
-                    <input className='btn btn-pink' onClick={(e)=>handleOffer(e,offer.id)} value='Accept Offer' />
+                    <input className='btn btn-pink acpt' onClick={(e)=>handleOffer(e,offer.id)} value='Accept Offer' />
                 </div>
                 <footer className='mt-4'>
                     <img src={footer} className='img-fluid' alt='Footer' />

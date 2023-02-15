@@ -15,7 +15,7 @@ export default function AddWorker() {
   const [payment_hour, setPaymentHour] = useState();
   const [worker_id, setWorkerId] = useState(Math.random().toString().concat("0".repeat(3)).substr(2,5));
   const [password, setPassword] = useState('');
-   const [lng,setLng]     = useState("");
+  const [lng,setLng]     = useState("");
   const [address, setAddress] = useState('');
   const [skill,setSkill] = useState([]);
   const [avl_skill,setAvlSkill] = useState([]);

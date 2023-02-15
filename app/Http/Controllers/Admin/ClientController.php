@@ -4,11 +4,13 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Client;
+use App\Models\CustomerFiles;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
-
+use Image;
+use File;
 class ClientController extends Controller
 {
     /**
@@ -155,5 +157,58 @@ class ClientController extends Controller
         return response()->json([
             'message'     => "Client has been deleted"         
         ], 200);
+    }
+
+    public function addfile(Request $request){
+        
+        try{
+            $image_nm = '';
+            if($request->hasfile('file')){
+
+                $image = $request->file('file');
+                $name = $image->getClientOriginalName();
+                $img = Image::make($image)->resize(350, 227);
+                $destinationPath=storage_path().'/app/public/uploads/ClientFiles/';
+                $fname = 'file_'.$request->client_id.'_'.date('s').'_'.$name;
+                $path=storage_path().'/app/public/uploads/ClientFiles/'. $fname;
+                File::exists($destinationPath) or File::makeDirectory($destinationPath,0777,true,true);
+                $img->save($path, 90);
+                $image_nm  = $fname; 
+            }
+           
+            CustomerFiles::create([
+                'client_id' => $request->client_id,
+                'note'      => $request->note,
+                'file'      => $image_nm
+            ]);
+
+            return response()->json([
+                'message'=>'File uploaded',
+            ],200);
+
+        } catch(\Exception $e){
+            return response()->json([
+                'error'=>$e->getMessage()
+            ],200);
+        }
+    }
+    public function getfiles(Request $request){
+         $files = CustomerFiles::where('client_id',$request->id)->get();
+         if(isset($files)){
+            foreach($files as $k => $file){
+                
+                $files[$k]->path =  asset('storage/uploads/ClientFiles')."/".$file->file;
+                
+            }
+         }
+         return response()->json([
+            'files'=>$files
+        ],200);
+    }
+    public function deletefile(Request $request){
+        CustomerFiles::where('id',$request->id)->delete();
+        return response()->json([
+            'message'=>'File deleted',
+        ],200);
     }
 }

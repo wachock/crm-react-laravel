@@ -170,6 +170,7 @@ export default function MyRoutes() {
                      <Route exact path="manage-time" element={<ManageTime />} />
                      <Route exact path="add-time" element={<AddTime />} />
                      <Route exact path="edit-time/:id" element={<EditTime />} />
+                     
                   </Route>
                </Route>
                {/* Admin Routes End  */}

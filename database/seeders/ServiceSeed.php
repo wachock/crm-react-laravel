@@ -16,15 +16,15 @@ class ServiceSeed extends Seeder
     {
         
         Services::create([
-            'name'         => 'Windows Cleaning',   
+            'name'         => 'Regular Room Service',   
             'status'       => 1             
         ]);
         Services::create([
-            'name'         => 'Door Mattings',  
+            'name'         => 'Office Cleaning',  
             'status'       => 1                
         ]);
         Services::create([
-            'name'         => 'Glass furnishing', 
+            'name'         => 'Cleaning After Renovation', 
             'status'       => 1                 
         ]);
         Services::create([
@@ -32,8 +32,8 @@ class ServiceSeed extends Seeder
             'status'       => 1                  
         ]);
         Services::create([
-            'name'         => 'planting',      
-            'status'       => 0            
+            'name'         => 'Thorough Cleaning',      
+            'status'       => 1           
         ]);
 
     }
