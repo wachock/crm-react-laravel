@@ -27,6 +27,7 @@ class User extends Authenticatable
         'gender',
         'payment_per_hour',
         'worker_id',
+        'lng',
         'skill',
         'status',
         'password'

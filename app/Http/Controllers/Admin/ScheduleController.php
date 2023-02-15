@@ -141,14 +141,14 @@ class ScheduleController extends Controller
         $evn = [];
         if(isset($events)):
         foreach($events as $event):
-
+          
             $ar = [];
             $ar["id"]         = $event['id'];
             $ar["title"]      = 'Busy';
-            $ar["start"]      = Carbon::parse($event['start_date'])->format('Y-m-d'). Carbon::parse($event['start_time'])->format('h:i:sa');
-            //$ar['start_time']    = '07:30:00';
-            //$ar['end_time']    = '08:30:00';
-            $ar["timePeriod"] = "10:00 - 11:00" ;
+            $ar["start"]      = date_format(date_create($sd.$event['start_time']) ,'Y-m-d H:i:s');
+            $ar["end"]        = date_format(date_create($sd.$event['end_time']) ,'Y-m-d H:i:s');
+            $ar["start_time"] = $event['start_time'];
+        
             array_push($evn,$ar);
 
         endforeach;
