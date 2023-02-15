@@ -33,7 +33,8 @@ class UserSeed extends Seeder
             'skill'             => ['1','2','3'],
             'status'            => 1,
             'passcode'          => '123456',
-            'password'          => Hash::make('123456')
+            'password'          => Hash::make('123456'),
+            'country'           =>'Israel',
         ]);
         
         for ($i = 1; $i < 10 ; $i++) {
@@ -51,7 +52,8 @@ class UserSeed extends Seeder
                 'skill'             => ['1','2','3'],
                 'status'            => 1,
                 'passcode'          => 'password',
-                'password'          => Hash::make('password')
+                'password'          => Hash::make('password'),
+                'country'           =>'Israel',
             ]);
             
         }

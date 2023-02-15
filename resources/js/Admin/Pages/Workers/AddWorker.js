@@ -15,11 +15,14 @@ export default function AddWorker() {
   const [payment_hour, setPaymentHour] = useState();
   const [worker_id, setWorkerId] = useState(Math.random().toString().concat("0".repeat(3)).substr(2,5));
   const [password, setPassword] = useState('');
-   const [lng,setLng]     = useState("");
+  const [lng,setLng]     = useState("");
   const [address, setAddress] = useState('');
   const [skill,setSkill] = useState([]);
-  const [avl_skill,setAvlSkill] = useState([]);
   const [itemStatus, setItemStatus] = useState('');
+  const [country, setCountry] = useState('Israel');
+
+   const [avl_skill,setAvlSkill] = useState([]);
+   const [countries,setCountries] = useState([]);
 
   const [errors, setErrors] = useState([]);
 
@@ -56,6 +59,7 @@ export default function AddWorker() {
         "password": password,
         "skill": skill,
         "status": itemStatus,
+        "country":country,
     }
      axios
             .post(`/api/admin/workers`, data, { headers })
@@ -77,8 +81,16 @@ export default function AddWorker() {
                 setAvlSkill(response.data.services);
             });
     };
+    const getCountries = () => {
+        axios
+            .get(`/api/admin/countries`, { headers })
+            .then((response) => {
+                setCountries(response.data.countries);
+            });
+    };
     useEffect(() => {
         getAvailableSkill();
+        getCountries();
     }, []);
   return (
     <div id='container'>
@@ -135,13 +147,7 @@ export default function AddWorker() {
                                         )}
                                     </div>
                                 </div>
-                                <div className='col-sm-6'>
-                                    <div className='form-group'>
-                                        <label className='control-label'>Renewal of visa</label>
-                                        <input type='date' selected={renewal_date} onChange={(e) => setRenewalDate(e.target.value)} className='form-control' placeholder='Email' />
-                                    </div>
-                                    
-                                </div>
+                              
                                 <div className='col-sm-6'>
                                       <div className='form-group'>
                                             <label className='control-label'>Gender</label>
@@ -199,6 +205,31 @@ export default function AddWorker() {
                                         </select>
                                     </div>
                                </div>
+                                <div className='col-sm-6'>
+                                        <div className="form-group">
+                                        <label className="control-label">Country</label>
+                                        
+                                        <select
+                                            className="form-control"
+                                            value={country}
+                                            onChange={(e) => setCountry(e.target.value)}
+                                        >
+                                        {countries && countries.map((item,index)=>(
+
+                                            <option value={item.name} selected={(country==item.name)?true:false}>{item.name}</option>
+                                        ))}
+                                        </select>
+                                    </div>
+                               </div>
+                               {country != 'Israel' &&
+                                 <div className='col-sm-6'>
+                                    <div className='form-group'>
+                                        <label className='control-label'>Renewal of visa</label>
+                                        <input type='date' selected={renewal_date} onChange={(e) => setRenewalDate(e.target.value)} className='form-control' placeholder='Email' />
+                                    </div>
+                                    
+                                </div>
+                                }
 
                             </div>
                              

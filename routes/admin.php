@@ -41,6 +41,7 @@ use App\Http\Controllers\Admin\ContractController;
 Route::group(['prefix' => 'admin'], function () {
     Route::post('login', [AuthController::class, 'login']);
     Route::post('register', [AuthController::class, 'register']);
+
 });
 
 // Authenticated Routes
@@ -135,6 +136,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin-api', 'scopes:ad
     // My Account Api
     Route::get('my-account', [SettingController::class, 'getAccountDetails']);
     Route::post('my-account', [SettingController::class, 'saveAccountDetails']);
+
+    Route::get('countries', [SettingController::class, 'getCountries']);
 
     // Change Password Api
     Route::post('change-password', [SettingController::class, 'changePassword']);

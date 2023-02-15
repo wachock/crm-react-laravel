@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
 use App\Models\GeneralSetting;
+use App\Models\Countries;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -124,5 +125,13 @@ class SettingController extends Controller
         return response()->json([
             'message'       => 'Password changed successfully',
         ], 200);
+    }
+    public function getCountries(){
+        $countries=Countries::get();
+        
+        return response()->json([
+            'countries'       => $countries
+        ], 200);
+
     }
 }
