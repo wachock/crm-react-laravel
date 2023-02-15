@@ -26,7 +26,7 @@ class CreateUsersTable extends Migration
             $table->enum('lng',['heb','en'])->default('heb');
             $table->string('worker_id')->nullable();
             $table->longText('skill')->nullable();
-            $table->enum('status', [0, 1])->default(0);
+            $table->integer('status')->default(1);
             $table->string('passcode');
             $table->string('password');
             $table->timestamps();
