@@ -40,7 +40,7 @@ export default function ViewOffer() {
               { offer && offer.map((ofr,i)=>{
                 let cl = ofr.client;
                 let services = (ofr.services) ? JSON.parse(ofr.services) : '';
-                console.log(services);
+                
              return(
               <div className='ViewOffer'>
                 <img src={logo} className="img-fluid" alt="Logo" />
@@ -79,9 +79,11 @@ export default function ViewOffer() {
                         <thead>
                           <tr>
                             <th style={{width:"30%"}}>Service</th>
-                            <th className='text-right'>Job Hours</th>
-                            <th className='text-right'>Rate Per Hour</th>
-                            <th className='text-right'>Total Amount</th>
+                            <th className='text-right'>Frequency</th>
+                            <th style={ ofr.type != 'fixed'? {display:"none"} : {}} className='text-right'>Job Price</th>
+                            <th style={ ofr.type == 'fixed'? {display:"none"} : {}} className='text-right'>Job Hours</th>
+                            <th style={ ofr.type == 'fixed'? {display:"none"} : {}} className='text-right'>Rate Per Hour</th>
+                            <th style={ ofr.type == 'fixed'? {display:"none"} : {}} className='text-right'>Total Amount</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -89,9 +91,19 @@ export default function ViewOffer() {
                             return(
                             <tr>
                               <td>{s.name}</td>
-                              <td className='text-right'>{ s.jobHours } hour(s)</td>
-                              <td className='text-right'>{ s.rateperhour }$</td>
-                              <td className='text-right'>{ s.totalamount}$</td>
+                              <td className='text-right'>{ s.freq_name }</td>
+                              {
+                                (ofr.type != 'fixed' ) ?
+                                <>
+                                  <td className='text-right'>{ s.jobHours } hour(s)</td>
+                                  <td className='text-right'>{ s.rateperhour }$</td>
+                                  <td className='text-right'>{ s.totalamount}$</td>
+                                </>
+                              :
+                                <>
+                                  <td className='text-right'>{ s.fixed_price }$</td>
+                                </>
+                              }
                             </tr>
                             )
                           })}
@@ -132,7 +144,6 @@ export default function ViewOffer() {
                   <Dropdown.Toggle className='btn-pink' id="dropdown-basic">Acton</Dropdown.Toggle>
                   <Dropdown.Menu>
                     <Dropdown.Item href={`/admin/edit-offer/${ofr.id}`}>Edit</Dropdown.Item>
-                    <Dropdown.Item href="#">Send as Email</Dropdown.Item>
                     <Dropdown.Item href={`/admin/offered-price`}>Back</Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>

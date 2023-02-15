@@ -257,7 +257,7 @@ export default function EditOffer() {
                             <thead>
                             <tr>
                                 <th style={ type =='fixed' ? { width: "50%" }: { width:"30%"}}>Service</th>
-                                <th style={ { width: "30%" }}>Job Frequency</th>
+                                <th style={ { width: "30%" }}>Frequency</th>
                                 <th style={ type =='fixed' ? { width: "25%" } :{ display: "none" } }>Job Price</th>
                                 <th style={ type =='fixed' ? { width: "16%", display: "none" } : { width: "16%"}}>Job Hours</th>
                                 <th style={ type =='fixed' ? { width: "16%", display: "none" } : { width: "16%"} }>Rate Per Hour</th>

@@ -245,7 +245,7 @@ export default function AddOffer() {
                             <thead>
                               <tr>
                                 <th style={{ width: "50%" }}>Service</th>
-                                <th style={{ width: "30%" }}>Job Frequency</th>
+                                <th style={{ width: "30%" }}>Frequency</th>
                                 <th style={{ width: "25%" }}>Job Price</th>
                                 <th style={{ width: "16%", display: "none" }}>Job Hours</th>
                                 <th style={{ width: "16%", display: "none" }}>Rate Per Hour</th>
