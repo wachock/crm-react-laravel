@@ -120,6 +120,7 @@ export default function TotalJobs() {
           newTotalJobs[index][e.target.name]=e.target.value;
            setTotalJobs(newTotalJobs);    
     }
+
     const [workers, setWorkers] = useState([]);
     const handleChange= (e,index) => {
           let newWorkers = [...workers];
@@ -131,10 +132,12 @@ export default function TotalJobs() {
       let date = getSelectedDate(job_id);
       let worker = getSelectedWorkers(job_id);
       let shifts = getSelectedShift(job_id,e);
+      let comment = document.getElementById('comment-'+job_id).value;
       let data ={
         date:date,
         worker:(worker!=undefined)?worker:'',
-        shifts:(shifts!=null)?shifts:''
+        shifts:(shifts!=null)?shifts:'',
+        comment:comment
       }
       axios
             .post(`/api/admin/upldate-job/${job_id}`, data, { headers })
@@ -198,7 +201,7 @@ console.log(totalJobs);
                         <div className="col-sm-6">
                             <div className="search-data">
                                 <input type='text' className="form-control" placeholder="Search" />
-                                <Link to="/admin/add-job" className="btn btn-pink addButton"><i class="btn-icon fas fa-plus-circle"></i>
+                                <Link to="/admin/add-job" className="btn btn-pink addButton"><i className="btn-icon fas fa-plus-circle"></i>
                                     Add New
                                 </Link>
                             </div> 
@@ -219,14 +222,17 @@ console.log(totalJobs);
                                     <table className="table table-bordered">
                                         <thead>
                                             <tr>
-                                                <th scope="col">Worker Availability</th>
                                                 <th scope="col">Date</th>
                                                 <th scope="col">Worker Name</th>
                                                 <th scope="col">Client Name</th>
                                                 <th scope="col">Service Name</th>
                                                 <th scope="col">Shift</th>
+                                                <th scope="col">Address</th>
+                                                <th scope="col">Comment</th>
+                                                <th scope="col">Complete Time</th>
                                                 <th scope="col">Status</th>
                                                 <th scope="col">Total</th>
+                                                <th scope="col">Update</th>
                                                 <th scope="col">Action</th>
                                             </tr>
                                         </thead>
@@ -234,7 +240,6 @@ console.log(totalJobs);
                                             {totalJobs &&
                                                 totalJobs.map((item, index) => (
                                                     <tr key={index}>
-                                                        <td>Available</td>
                                                          <td>
                                                             <input name='start_date' type="date" value={item.start_date} onChange={(e) =>
                                                                             handleDate(
@@ -244,12 +249,12 @@ console.log(totalJobs);
                                                                         } />
                                                         </td>
                                                         <td>
-                                                        {
+                                                        <h6>{
                                                             item.worker
                                                                 ? item.worker.firstname +
                                                                 " " + item.worker.lastname
                                                                 : "NA"
-                                                        }
+                                                        }</h6>
                                                         <div>Change Worker</div>
                                                         <select name={item.id}  className="form-control" value={(workers[`${item.id}`])?workers[`${item.id}`] : "" } onChange={e => handleChange(e,index)} >
                                                         <option selected>select</option>
@@ -290,6 +295,19 @@ console.log(totalJobs);
                                                         onChange={(e)=>changeShift(item.id,e)}
                                                       />
                                                         </td>
+                                                        <td>{
+                                                            item.client
+                                                                ? item.client.geo_address
+                                                                : "NA"
+                                                        }
+                                                        </td>
+                                                        <td>
+                                                        <textarea name='comment' id={`comment-${item.id}`} value={item.comment} rows="3" onChange={(e) =>handleDate(e,index)}>
+                                                        </textarea>
+                                                        </td>
+                                                        <td>
+                                                            {parseFloat(`${item.end_time}.replace(":", ".")`)-parseFloat(`${item.start_time}.replace(":", ".")`)} Hours
+                                                        </td>
                                                         <td
                                                             style={{
                                                                 textTransform:
@@ -302,12 +320,15 @@ console.log(totalJobs);
                                                             {item.rate} NIS
                                                         </td>
                                                         <td>
+                                                           <button className="btn btn-primary" onClick={(e) => handleform(item.id,e)}>Update</button>
+                                                        </td>
+                                                        <td>
                                                             <div className="action-dropdown dropdown">
                                                                 <button type="button" className="btn btn-default dropdown-toggle" data-toggle="dropdown">
                                                                     <i className="fa fa-ellipsis-vertical"></i>
                                                                 </button>
                                                                 <div className="dropdown-menu">
-                                                                    <button className="dropdown-item" onClick={(e) => handleform(item.id,e)}>Edit</button>
+                                                                    
                                                                     <Link to={`/admin/view-job/${item.id}`} className="dropdown-item">View</Link>
                                                                     <button className="dropdown-item" onClick={() => handleDelete(item.id)}>Delete</button>
                                                                 </div>

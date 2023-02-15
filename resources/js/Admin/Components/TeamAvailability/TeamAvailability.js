@@ -78,6 +78,7 @@ export default function TeamAvailability() {
         events={events}
         slotMinTime={'08:00'} // start timeline at this time, must be in format '08:00'
         slotMaxTime={'24:00'}
+        allDaySlot= {false}
     />
   )
 }

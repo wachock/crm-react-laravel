@@ -1215,5 +1215,14 @@ h1 {
 .thankyou img{
   margin-bottom: 20px;
 }
-.fc-timegrid-event-harness-inset{
+.fc-view-harness {
+  width: auto;
+}
+
+.fc-view-harness .fc-view {
+  overflow-x: scroll;
+}
+
+.fc-view-harness .fc-view > table {
+  width: 1500px;
 }

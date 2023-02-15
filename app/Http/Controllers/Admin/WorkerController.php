@@ -90,10 +90,11 @@ class WorkerController extends Controller
         $worker->password      = Hash::make($request->password);
         $worker->skill         = $request->skill;
         $worker->status        = $request->status;
+        $worker->country       = $request->country;
         $worker->save();
 
         return response()->json([
-            'message'       => 'Employer updated successfully',            
+            'message'       => 'Worker updated successfully',            
         ], 200);
     }
 
@@ -158,6 +159,7 @@ class WorkerController extends Controller
         $worker->password      = Hash::make($request->password);
         $worker->skill         = $request->skill;
         $worker->status        = $request->status;
+        $worker->country       = $request->country;
         $worker->save();
 
         return response()->json([

@@ -16,8 +16,11 @@ export default function EditWorker() {
   const [lng,setLng]     = useState("");
   const [address, setAddress] = useState('');
   const [skill,setSkill] = useState([]);
-  const [avl_skill,setAvlSkill] = useState([]);
   const [itemStatus, setItemStatus] = useState('');
+  const [country, setCountry] = useState('Israel');
+
+  const [countries,setCountries] = useState([]);
+  const [avl_skill,setAvlSkill] = useState([]);
 
   const [errors, setErrors] = useState([]);
   const params = useParams();
@@ -38,16 +41,6 @@ export default function EditWorker() {
         "Content-Type": "application/json",
         Authorization: `Bearer ` + localStorage.getItem("admin-token"),
     };
-    const getAvailableSkill = () => {
-        axios
-            .get(`/api/admin/services/create`, { headers })
-            .then((response) => {
-                setAvlSkill(response.data.services);
-            });
-    };
-    useEffect(() => {
-        getAvailableSkill();
-    }, []);
 
     const handleUpdate = (e) => {
         e.preventDefault();
@@ -65,6 +58,7 @@ export default function EditWorker() {
         "password": password,
         "skill": skill,
         "status": itemStatus,
+        "country":country,
     }
 
         axios
@@ -80,6 +74,7 @@ export default function EditWorker() {
                 }
             });
     };
+
 
     const getWorker = () => {
         axios
@@ -98,10 +93,28 @@ export default function EditWorker() {
                 setAddress(response.data.worker.address);
                 setItemStatus(response.data.worker.status);
                 setLng(response.data.worker.lng);
+                setCountry(response.data.worker.country);
+            });
+    };
+     const getAvailableSkill = () => {
+        axios
+            .get(`/api/admin/services/create`, { headers })
+            .then((response) => {
+                setAvlSkill(response.data.services);
+            });
+    };
+    const getCountries = () => {
+        axios
+            .get(`/api/admin/countries`, { headers })
+            .then((response) => {
+                setCountries(response.data.countries);
             });
     };
     useEffect(() => {
         getWorker();
+        getCountries();
+        getAvailableSkill();
+        
     }, []);
     return (
         <div id="container">
@@ -159,13 +172,6 @@ export default function EditWorker() {
                                 </div>
                                 <div className='col-sm-6'>
                                     <div className='form-group'>
-                                        <label className='control-label'>Renewal of visa</label>
-                                        <input type='date' value={renewal_date} onChange={(e) => setRenewalDate(e.target.value)} className='form-control' placeholder='Email' />
-                                    </div>
-                                    
-                                </div>
-                                <div className='col-sm-6'>
-                                    <div className='form-group'>
                                         <label className='control-label'>Gender</label>
                                     </div>
                                     <div className="form-check-inline">
@@ -219,8 +225,33 @@ export default function EditWorker() {
                                         <option value="heb" selected={lng == "heb"}>Hebrew</option>
                                         <option value="en" selected={lng == "en"}>English</option>
                                     </select>
+                                    </div>
                                 </div>
-                            </div>
+                                 <div className='col-sm-6'>
+                                        <div className="form-group">
+                                        <label className="control-label">Country</label>
+                                        
+                                        <select
+                                            className="form-control"
+                                            value={country}
+                                            onChange={(e) => setCountry(e.target.value)}
+                                        >
+                                        {countries && countries.map((item,index)=>(
+
+                                            <option value={item.name} selected={(country==item.name)?true:false}>{item.name}</option>
+                                        ))}
+                                        </select>
+                                    </div>
+                               </div>
+                               {country != 'Israel' &&
+                                 <div className='col-sm-6'>
+                                    <div className='form-group'>
+                                        <label className='control-label'>Renewal of visa </label>
+                                        <input type='date' selected={renewal_date} value={renewal_date} onChange={(e) => setRenewalDate(e.target.value)} className='form-control' placeholder='Email' />
+                                    </div>
+                                    
+                                </div>
+                                }
                             </div>
                             <div className='form-group'>
                                 <label className='control-label'>Address</label>
