@@ -11,11 +11,14 @@ class Job extends Model
 
     protected $fillable = [
         'client_id',        
-        'job_id',
+        'offer_id',
+        'contract_id',
         'worker_id',
         'start_date',
         'end_date',
+        'schedule_id',
         'schedule',
+        'comment',
         'instruction',
         'address',
         'start_time',
@@ -36,6 +39,9 @@ class Job extends Model
     public function service()
     {
         return $this->belongsTo(Services::class, 'job_id');
+    }
+    public function offer(){
+        return $this->belongsTo(Offer::class, 'offer_id');
     }
 
 

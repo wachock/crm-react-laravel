@@ -6,6 +6,7 @@ import { useParams } from 'react-router-dom';
 export default function Jobs() {
     
     const [jobs,setJobs] = useState([]);
+    const [loading , setLoading] = useState("Loading...");
     const params = useParams();
     const headers = {
         Accept: "application/json, text/plain, */*",
@@ -16,7 +17,9 @@ export default function Jobs() {
         axios
         .post(`/api/admin/get-client-jobs`,{cid:params.id},{headers})
         .then((res)=>{
-            setJobs(res.data.jobs);
+            (res.data.jobs.length >0) ?
+            setJobs(res.data.jobs)
+            :setLoading('No job found');
         });
     }
     useEffect(()=>{
@@ -24,7 +27,8 @@ export default function Jobs() {
     },[]);
   return (
     <div className="boxPanel">
-        <div className="table-responsive"> 
+        <div className="table-responsive">
+            { jobs.length >0 ? (
             <table className="table table-bordered">
                 <thead>
                     <tr>
@@ -70,6 +74,12 @@ export default function Jobs() {
                       
                 </tbody>
             </table>
+            )
+            :
+            (
+                <div className='form-control text-center'>{loading}</div>
+            )
+            }
         </div>
     </div>
   )

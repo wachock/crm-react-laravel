@@ -55,7 +55,7 @@
         "react-icons": "^4.7.1",
         "react-paginate": "^8.1.4",
         "react-phone-number-input": "^3.2.16",
-        "react-router-dom": "^6.4.5",
+        "react-router-dom": "^6.8.1",
         "react-router-link": "^2.0.2",
         "react-select": "^5.7.0",
         "react-signature-canvas": "^1.0.6",

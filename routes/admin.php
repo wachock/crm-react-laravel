@@ -90,7 +90,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin-api', 'scopes:ad
     Route::resource('contract',ContractController::class);
     Route::post('client-contracts',[ContractController::class,'clientContracts'])->name('client-contracts');
     Route::post('get-contract', [ContractController::class, 'getContract'])->name('get-contract');
-    
+    Route::post('verify-contract',[ContractController::class,'verifyContract'])->name('verify-contract');
 
     //TeamMembers
     Route::resource('team',TeamMemberController::class);

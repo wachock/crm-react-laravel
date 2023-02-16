@@ -17,9 +17,10 @@ class CreateJobsTable extends Migration
             
             $table->id();
             $table->unsignedBigInteger('client_id');
-            $table->unsignedBigInteger('worker_id');
+            $table->unsignedBigInteger('worker_id')->nullable();
             $table->unsignedBigInteger('offer_id');
             $table->unsignedBigInteger('contract_id');
+            $table->unsignedBigInteger('schedule_id')->nullable();
             $table->string('schedule')->nullable();
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
@@ -28,7 +29,7 @@ class CreateJobsTable extends Migration
             $table->text('shifts')->nullable();
             $table->text('comment')->nullable();
             $table->unsignedBigInteger('rate')->nullable();
-            $table->enum('status', ['not-started', 'progress', 'completed','scheduled','unscheduled'])->default('progress');
+            $table->enum('status', ['not-started', 'progress', 'completed','scheduled','unscheduled'])->default('not-started');
             $table->timestamps();
         });
     }
