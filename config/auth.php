@@ -47,7 +47,11 @@ return [
         'client' => [
             'driver' => 'session',
             'provider' => 'clients',
-        ],         
+        ], 
+        'team' => [
+            'driver' => 'session',
+            'provider' => 'teams',
+        ],           
         'api' => [
             'driver' => 'passport',
             'provider' => 'users',
@@ -91,7 +95,11 @@ return [
         'clients' => [
             'driver' => 'eloquent',
             'model' => App\Models\Client::class,
-        ],       
+        ],
+        'teams' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\TeamMember::class,
+        ]       
 
         // 'users' => [
         //     'driver' => 'database',

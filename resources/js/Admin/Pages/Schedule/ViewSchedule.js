@@ -70,7 +70,7 @@ export default function ViewSchedule() {
         }
 
         let btn = document.querySelector('.sendBtn');
-        btn.setAttribute('disabled',true);
+        btn.setAttribute('disabledrr',true);
         btn.innerHTML = "Sending..";
         
         axios

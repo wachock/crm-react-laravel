@@ -49,22 +49,111 @@ class ScheduleController extends Controller
  
          return response()->json([
              'schedules' => $result
-         ]);
- 
-
-        
+         ]);   
     }
 
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function GetAccessTokenRefresh($client_id,$client_secret, $rcode)
     {
-        //
+        $ch = curl_init();
+
+        curl_setopt($ch, CURLOPT_URL,"https://accounts.google.com/o/oauth2/token");
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS,
+        http_build_query(
+        array(
+
+            'client_id'     => $client_id,
+            'client_secret' => $client_secret,
+            'refresh_token' => $rcode,
+            'grant_type'    => 'refresh_token',
+
+        )));         
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $token_op = curl_exec($ch);
+        $data = json_decode($token_op);
+        return $data;
     }
+
+   public function GetUserCalendarTimezone($access_token)
+   {
+        $url_settings = 'https://www.googleapis.com/calendar/v3/users/me/settings/timezone';
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url_settings);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $access_token));
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+        $data = json_decode(curl_exec($ch), true);
+        
+        $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        if ($http_code != 200)
+            throw new Exception('Error : Failed to get timezone');
+
+        return $data['value'];
+   }
+    
+   public function CreateCalendarEvent($calendar_id, $summary, $all_day, $event_time, $event_timezone, $access_token,$description)
+    {
+        $url_events = 'https://www.googleapis.com/calendar/v3/calendars/' . $calendar_id . '/events';
+    
+        $curlPost = array('summary' => $summary);
+    
+        if ($all_day == 1) {
+            $curlPost['start'] = array('date' => $event_time['event_date']);
+            $curlPost['end'] = array('date' => $event_time['event_date']);
+            $curlPost['description'] = $description;
+
+        } else {
+            $curlPost['start'] = array('dateTime' => $event_time['start_time'], 'timeZone' => $event_timezone);
+            $curlPost['end'] = array('dateTime' => $event_time['end_time'], 'timeZone' => $event_timezone);
+            $curlPost['description'] = $description;
+        }
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url_events);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $access_token, 'Content-Type: application/json'));
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($curlPost));
+        $data = json_decode(curl_exec($ch), true);
+        $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        
+        if ($http_code != 200)
+            throw new Exception('Error : Failed to create event');
+
+        return $data['id'];
+    }
+    public function PushEvent($event_title,$event_date,$time_bw,$c_email,$cnct)
+    {
+
+        $description = "Between ".$time_bw." <br>".$c_email." <br> ".$cnct;
+        $date=date($event_date);
+        $str = str_replace('/', '-', $date);
+        $dt =  date('Y-m-d', strtotime($str));
+
+        $application_id = env('GAPP_ID');
+        $application_secret = env('GSEC');
+        $rcode = env('RTOKEN');
+        $calendar_id = env('CAL_ID');
+
+        $data = $this->GetAccessTokenRefresh($application_id , $application_secret, $rcode);
+        $access_token = $data->access_token;
+    
+        $user_timezone = $this->GetUserCalendarTimezone($access_token);
+        
+        $full_day_event = 1;
+        $event_time = ['event_date' => $dt];
+        
+        $event_id = $this->CreateCalendarEvent($calendar_id, $event_title, $full_day_event, $event_time, $user_timezone, $access_token,$description);
+        if($event_id != ""){
+
+            //success event create
+        }
+    }
+
+
 
     /**
      * Store a newly created resource in storage.
@@ -85,10 +174,16 @@ class ScheduleController extends Controller
         if($validator->fails()){
             return response()->json(['errors'=>$validator->messages()]);
         }
-       
+        
         $input  = $request->input(); 
         $sch = Schedule::create($input);
         $schedule = Schedule::where('id',$sch->id)->with('client','team')->get()->first();
+        $event_title = "Meeting with ".$schedule->client->firstname." ".$schedule->client->lastname;
+        $event_date  = $request->start_date;
+        $time_bw     = $request->start_time. " - ".$request->end_time;
+        $c_email     = $schedule->client->email;
+        $cnct        = (!empty($schedule->client->phone)) ? $schedule->client->phone : 'phone N/A';
+        $this->PushEvent($event_title,$event_date,$time_bw,$c_email,$cnct);
         $this->sendMeetingMail($schedule);
         return response()->json([
             'message' => 'Metting scheduled  successfully'

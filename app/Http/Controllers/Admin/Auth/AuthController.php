@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
+use App\Models\TeamMember;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -27,7 +28,7 @@ class AuthController extends Controller
             return response()->json(['errors' => $validator->messages()]);
         }
 
-        if (Auth::guard('admin')->attempt([
+        if (Auth::guard('admin',)->attempt([
             'email'     => $request->email,
             'password'  => $request->password
         ])) {
@@ -36,7 +37,18 @@ class AuthController extends Controller
             $admin->token = $admin->createToken('Admin', ['admin'])->accessToken;
 
             return response()->json($admin, 200);
-        } else {
+
+        } else if(Auth::guard('team')->attempt([
+            'email'     => $request->email,
+            'password'  => $request->password
+        ])){
+
+            $team        = TeamMember::find(auth()->guard('team')->user()->id);
+            $team->token = $team->createToken('Team', ['team'])->accessToken;
+
+            return response()->json($team, 200);
+
+        }else {
             return response()->json(['errors' => ['email' => 'These credentials do not match our records.']]);
         }
     }
