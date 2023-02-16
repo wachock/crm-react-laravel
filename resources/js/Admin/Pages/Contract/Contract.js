@@ -115,7 +115,7 @@ export default function Contract() {
                                         <tr>
                                             <th scope="col">Client</th>
                                             <th scope="col">Email</th>
-                                            <th scope="col">Address</th>
+                                            <th scope="col" style={{width: "16%"}}>Address</th>
                                             <th scope="col">Phone</th>
                                             <th scope="col">Service Name</th>
                                             <th scope="col">Status</th>

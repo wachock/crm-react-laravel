@@ -70,7 +70,7 @@ class ClientEmailController extends Controller
          'offer_id'   =>$request->id,
          'client_id'  =>$ofr['client']['id'],
          'unique_hash'=>$hash,
-         'status'     =>'Not Signed'
+         'status'     =>'not-signed'
       ]);
           $ofr['contract_id'] = $hash;
       

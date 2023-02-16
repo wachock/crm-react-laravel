@@ -18,7 +18,7 @@ class Schedule extends Model
     ];
 
     public function team(){
-        return $this->belongsTo(TeamMember::class,'team_id');
+        return $this->belongsTo(Admin::class,'team_id');
     }
     public function client(){
         return $this->belongsTo(Client::class,'client_id');

@@ -12,6 +12,7 @@ export default function WorkContract() {
 
     const [offer,setoffer]   = useState([]);
     const [contract,setContract]   = useState([]);
+    const [services,setServices]   = useState([]);
     const param = useParams();
     const sigRef = useRef();
 
@@ -27,32 +28,10 @@ export default function WorkContract() {
       Authorization: `Bearer ` + localStorage.getItem("admin-token"),
     };
    
-    const handleAccept = (e) =>{
-
-        if(!ctype){ swal('Please select card type','','error'); return false;}
-        if(!cname){ swal('Please enter card holder name','','error'); return false;}
-        if(!cvv)  { swal('Please select card cvv','','error'); return false;}
-        if(!signature){ swal('Please sign the contract','','error'); return false;}
-        
-        if(cno.length < 16) { swal('Invalid card number','','error'); return false;}
-        if(cm.length  < 2)  { swal('Invalid Month','please insert MM format','error'); return false;}
-        if(cy.length  < 2)  { swal('Invalid year','','error'); return false;}
-        if(cvv.length < 3)  { swal('Invalid cvv','','error'); return false;}
-
-        const data = {
-            unique_hash:param.hash,
-            offer_id:offer[0].id,
-            client_id:offer[0].client.id,
-            additional_address:Aaddress,
-            card_type:ctype,
-            name_on_card:cname,
-            cvv:cvv.substring(0,3),
-            status:'Signed',
-            signature:signature
-        }
-
+    const handleVerify = (e) =>{
+        e.preventDefault();
         axios
-        .post(`/api/client/accept-contract`,data)
+        .post(`/api/admin/verify-contract`,{id:param.id},{ headers })
         .then((res)=>{
             swal(res.data.message,'','success')
             setTimeout(()=>{
@@ -71,6 +50,9 @@ export default function WorkContract() {
         .post(`/api/client/get-offer-token`,{token:param.hash})
         .then((res)=>{
             setoffer(res.data.offer);
+            (res.data.offer[0].services)
+             ? setServices(JSON.parse(res.data.offer[0].services))
+             :[];
         })
     }
 
@@ -98,22 +80,27 @@ export default function WorkContract() {
                     </div>
                     { contract && contract.map((c,i)=>{
                       
-                      return(
-                      (c.status == "Not signed") ?
-                      (
-                      <div className='col-sm-6'>
-                        <div className='mt-2 float-right'>
-                            <input className='btn btn-pink' onClick={handleAccept} value='Accept Contract' />
-                        </div>
-                      </div>
-                      )
-                      :
-                      <div className='col-sm-6'>
-                          <div className='mt-2 float-right'>
-                              <input className='btn btn-success'  value='Accepted' />
-                          </div>
-                      </div>
-                    )
+                      if(c.status == "un-verified"){
+                        return (
+                            <>
+                            <div className='col-sm-6'>
+                                <div className='mt-2 float-right'>
+                                    <input className='btn btn-warning' onClick={handleVerify} value='Verify' />
+                                </div>
+                            </div>
+                            </>
+                        )
+                      } else if(c.status == 'verified') {
+                          return (
+                            <>
+                             <div className='col-sm-6'>
+                                <div className='mt-2 float-right'>
+                                    <input className='btn btn-success'  value='Verified' />
+                                </div>
+                            </div>
+                            </>
+                          )
+                      }
 
                     })}
                 </div>
@@ -217,21 +204,30 @@ export default function WorkContract() {
                         <table className='table table-bordered'>
                             <tr>
                                 <td style={{width: "60%"}}>The service and/or work requested by the Tenant</td>
-                                <td>Windows Cleaning</td>
+
+                                <td>
+                                {services && services.map((s,i)=>{
+                                    return (
+                                        (services.length -1) != i
+                                        ? s.name +", "
+                                        :s.name
+                                    )
+                                })}
+                                </td>
                             </tr>
                             <tr>
                                 <td style={{width: "60%"}}>The location in which the service will be provided and/or work will be performed</td>
                                 <td>Saurabh Vihar, Jaitpur, New Delhi, Delhi, India A-278 New Delhi <br/>
                                 { contract && contract.map((c,i)=>{
-                                    
-                                      if(c.status == "Not signed"){
+                                    if(c.additional_address){
+                                      if(c.status == "not-signed"){
                                           return (
                                         <>
                                         <span style={{fontWeight: "600"}} className='d-block mt-2'>Other address if any?</span> <br/>
                                         <input type='text' name="additional_address" onChange={(e)=>setAaddress(e.target.value)} placeholder='Any other address?' className='form-control'/>
                                         </>
                                         )
-                                      } else if( c.status == "Signed"){
+                                      } else if( c.status == "un-verified" || c.status == "un-verified" ){
                                          
                                         return (
                                           <>
@@ -240,6 +236,7 @@ export default function WorkContract() {
                                           </>
                                         )
                                       }
+                                    }
                                 
                                 })}  
                                 </td>
@@ -250,7 +247,15 @@ export default function WorkContract() {
                             </tr>
                             <tr>
                                 <td style={{width: "60%"}}>Frequency of the service and/or work</td>
-                                <td>Once in a Week<br/>Four Times in a Week</td>
+                                <td>
+                                {services && services.map((s,i)=>{
+                                    return (
+                                        (services.length -1) != i
+                                        ? s.freq_name +", "
+                                        :s.freq_name
+                                    )
+                                })}
+                                </td>
                             </tr>
                             <tr>
                                 <td style={{width: "60%"}}>Consideration the Tenant will pay the Company, including the payment method and/or payment date<br/>Prices does not include vat**</td>
@@ -266,7 +271,7 @@ export default function WorkContract() {
                             </tr>
                             { contract && contract.map((c,i)=>{
                               return (
-                                (c.status == "Not signed") ?
+                                (c.status == "not-signed") ?
                             <>
                             <tr>
                                 <td style={{width: "60%"}}>Card Type:</td>
@@ -457,7 +462,7 @@ export default function WorkContract() {
                             { contract && contract.map((c,i)=>{
 
                             return (
-                              (c.status == "Not signed") ?(<>
+                              (c.status == "not-signed") ?(<>
                               <h6>Draw Signature with mouse or touch</h6>
                               <SignatureCanvas
                               penColor='black' 
@@ -484,20 +489,27 @@ export default function WorkContract() {
 
                       { contract && contract.map((c,i)=>{
             
-                      return(
-                      (c.status == "Not signed") ?
-                      (
-                        <div className=' col-sm-12 mt-2 float-right'>
-                            <input className='btn btn-pink' onClick={handleAccept} value='Accept Contract' />
-                        </div>
-                      
-                      )
-                      :
-                      <div className=' col-sm-12 mt-2 float-right'>
-                            <input className='btn btn-success'  value='Accepted' />
-                      </div>
-                    )
-
+                        if(c.status == "un-verified"){
+                            return (
+                                <>
+                                <div className='col-sm-6'>
+                                    <div className='mt-2 '>
+                                        <input className='btn btn-warning' onClick={handleVerify} value='Verify' />
+                                    </div>
+                                </div>
+                                </>
+                            )
+                        } else if(c.status == 'verified') {
+                            return (
+                                <>
+                                <div className='col-sm-6'>
+                                    <div className='mt-2 '>
+                                        <input className='btn btn-success'  value='Verified' />
+                                    </div>
+                                </div>
+                                </>
+                            )
+                        }
                     })} 
                         
                     </div>

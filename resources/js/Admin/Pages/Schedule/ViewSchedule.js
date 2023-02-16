@@ -65,8 +65,6 @@ export default function ViewSchedule() {
             start_time:startTime,
             end_time:endTime,
             booking_status:st,
-            lang:lang
-            
         }
 
         let btn = document.querySelector('.sendBtn');

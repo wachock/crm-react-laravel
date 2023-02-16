@@ -40,7 +40,7 @@ export default function WorkContract() {
             card_type:ctype,
             name_on_card:cname,
             cvv:cvv.substring(0,3),
-            status:'Signed',
+            status:'un-verified',
             signature:signature,
             card_sign:signature2
         }
@@ -48,10 +48,14 @@ export default function WorkContract() {
         axios
         .post(`/api/client/accept-contract`,data)
         .then((res)=>{
+            if(res.data.error){
+                swal('',res.data.error,'error');
+            } else{
             swal(res.data.message,'','success')
             setTimeout(()=>{
                 window.location.href="/client/login";
             },1000)
+        }
         })
     }
 

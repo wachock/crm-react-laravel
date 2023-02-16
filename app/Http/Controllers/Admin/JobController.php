@@ -19,51 +19,15 @@ class JobController extends Controller
      */
     public function index(Request $request)
     {   
-        $filter              = [];
-        $filter['service']   = $request->service;
-        $filter['worker']    = $request->worker;
-        $filter['client']    = $request->client;
-        $filter['status']    = $request->status;
-
         
-        $jobs                = Job::with('worker', 'client','service');
-
-        if(isset($filter['worker'])){
-            $worker          = $filter['worker'];
-            $jobs            = $jobs->whereHas('worker', function($q) use ($worker) {
-                $q->where(function($q) use ($worker) {
-                    $q->where(DB::raw('id'), '=',$worker);
-                });
-            });
-
-        }
-        if(isset($filter['service'])){
-            $service          = $filter['service'];
-            $jobs            = $jobs->whereHas('service', function($q) use ($service) {
-                $q->where(function($q) use ($service) {
-                    $q->where(DB::raw('id'), '=',$service);
-                });
-            });
-
-        }
-        if(isset($filter['client'])){
-            $client          = $filter['client'];
-            $jobs            = $jobs->whereHas('client', function($q) use ($client) {
-                $q->where(function($q) use ($client) {
-                    $q->where(DB::raw('id'), '=', $client);
-                });
-            });
-
-        }
-
-        if(isset($filter['status'])){
-            $jobs            = $jobs->where('status', $filter['status']);
-        }
-
-        $jobs                = $jobs->orderBy('id', 'desc')->paginate(20);
+        $q =  $request->q;
+        $jobs = Job::where('status',$q)->with('worker', 'client','offer');
+        $jobs = $jobs->orderBy('id', 'desc')->paginate(20);
         return response()->json([
             'jobs'       => $jobs,        
         ], 200);
+
+
     }
     public function getAllJob(){
         $jobs = Job::where('status',1)->get();;

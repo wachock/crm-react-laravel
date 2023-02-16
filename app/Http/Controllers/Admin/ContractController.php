@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Contract;
+use App\Models\Job;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
@@ -127,5 +128,20 @@ class ContractController extends Controller
         return response()->json([
             'contract'=>$contract
         ],200);
+    }
+    public function verifyContract(Request $request){
+        Contract::where('id',$request->id)->update([
+            'status'=>'verified'
+        ]);
+        $contract = Contract::where('id',$request->id)->get()->first();
+        Job::create([
+            'client_id'=>$contract->client_id,
+            'offer_id'=>$contract->offer_id,
+            'contract_id'=>$request->id,
+            'status'=>'unscheduled',
+        ]);
+        return response()->json([
+             'message' => 'Contract verified successfully'
+        ]);
     }
 }
