@@ -233,13 +233,12 @@ export default function TotalJobs() {
                                     <table className="table table-bordered">
                                         <thead>
                                             <tr>
-                                                <th scope="col">Date</th>
+                                                <th scope="col">Job Dated</th>
                                                 <th scope="col">Worker Name</th>
                                                 <th scope="col">Client Name</th>
                                                 <th scope="col">Service Name</th>
                                                 <th scope="col">Shift</th>
                                                 <th scope="col">Address</th>
-                                                <th scope="col">Comment</th>
                                                 <th scope="col">Complete Time</th>
                                                 <th scope="col">Status</th>
                                                 <th scope="col">Total</th>

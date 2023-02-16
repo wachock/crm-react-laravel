@@ -22,7 +22,7 @@ export default function AddJob() {
     const [instruction,setInstruction] = useState('');
     const [address, setAddress]        = useState('');
     const [status, setStatus]          = useState('');
-    const [schedule, setSchedule]   = useState('');
+    const [schedule, setSchedule]      = useState('');
 
     const [AllClients,setAllClients]   = useState([]);
     const [AllServices,setAllServices] = useState([]);

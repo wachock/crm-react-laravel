@@ -18,4 +18,8 @@ class WorkerAvialibilty extends Model
     protected $casts = [
         'working' => 'array',
     ];
+     public function worker()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

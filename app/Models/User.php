@@ -61,9 +61,9 @@ class User extends Authenticatable
         return $this->hasMany(Job::class);
     }
 
-    public function subscription()
+    public function availabilities()
     {
-        return $this->hasOne(Subscription::class);
+        return $this->hasMany(WorkerAvialibilty::class);
     }
 
 }
