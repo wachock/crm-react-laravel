@@ -242,7 +242,7 @@ class ScheduleController extends Controller
             $ar["id"]         = $event['id'];
             $ar["title"]      = 'Busy';
             $ar["start"]      = date_format(date_create($sd.$event['start_time']) ,'Y-m-d H:i:s');
-            $ar["end"]      = date_format(date_create($sd.$event['end_time']) ,'Y-m-d H:i:s');
+            $ar["end"]        = date_format(date_create($sd.$event['end_time']) ,'Y-m-d H:i:s');
             $ar["start_time"] = $event['start_time'];
         
             array_push($evn,$ar);
