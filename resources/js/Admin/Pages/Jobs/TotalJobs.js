@@ -67,7 +67,6 @@ export default function TotalJobs() {
       }, [query]);
 
     useEffect(() => {
-        //getJobs();
         getClients();
         getServices();
         getWorkers();
@@ -141,12 +140,11 @@ export default function TotalJobs() {
         let date = getSelectedDate(job_id);
         let worker = getSelectedWorkers(job_id);
         let shifts = getSelectedShift(job_id, e);
-        let comment = document.getElementById('comment-' + job_id).value;
+       
         let data = {
             date: date,
             worker: (worker != undefined) ? worker : '',
             shifts: (shifts != null) ? shifts : '',
-            comment: comment
         }
         axios
             .post(`/api/admin/upldate-job/${job_id}`, data, { headers })
@@ -156,7 +154,7 @@ export default function TotalJobs() {
                 } else {
                     alert.success("Job Updated Successfully");
                     setTimeout(() => {
-                        getJobs();
+                        getJobs(query);
                     }, 1000);
                 }
             });
@@ -221,12 +219,7 @@ export default function TotalJobs() {
                 </div>
                 <div className="card">
                     <div className="card-body">
-                        {/* <JobFilter 
-                        AllServices={AllServices} 
-                        AllClients={AllClients}
-                        AllWorkers={AllWorkers}
-                        getTotalJobs={getTotalJobs}
-                          /> */}
+                      
                         <div className="boxPanel">
                             <div className="table-responsive">
                                 {totalJobs.length > 0 ? (
@@ -239,6 +232,7 @@ export default function TotalJobs() {
                                                 <th scope="col">Service Name</th>
                                                 <th scope="col">Shift</th>
                                                 <th scope="col">Address</th>
+                                                <th scope="col">Comment</th>
                                                 <th scope="col">Complete Time</th>
                                                 <th scope="col">Status</th>
                                                 <th scope="col">Total</th>
@@ -250,7 +244,7 @@ export default function TotalJobs() {
                                                 totalJobs.map((item, index) => {
 
                                                     let services =  (item.offer.services) ? JSON.parse(item.offer.services) : [];
-
+                          
                                                     return(
                                                     <tr key={index}>
                                                         <td>
