@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\TeamMember;
+use App\Models\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
 
 class TeamMemberController extends Controller
 {
@@ -14,13 +15,25 @@ class TeamMemberController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $team = TeamMember::query();
+        /*$team = Admin::query()->where('role','admin')->orWhere('role','member');
         $team = $team->orderBy('id','desc')->paginate(10);
         return response()->json([
             'team' => $team
-        ]);
+        ]);*/
+        $q = $request->q;
+        $result =Admin::query();
+        $result->where('name',    'like','%'.$q.'%');
+        $result->orWhere('phone',      'like','%'.$q.'%');
+        $result->orWhere('status',     'like','%'.$q.'%');
+        $result->orWhere('email',      'like','%'.$q.'%');
+
+        $result = $result->orderBy('id', 'desc')->paginate(20);
+
+        return response()->json([
+            'team'       => $result,            
+        ], 200);
     }
 
     /**
@@ -43,7 +56,7 @@ class TeamMemberController extends Controller
     {
         $validator = Validator::make($request->all(),[
             'name' =>['required'],
-            'email'     => ['required', 'string', 'email', 'max:255', 'unique:team_members'],
+            'email'     => ['required', 'string', 'email', 'max:255', 'unique:admins'],
             'phone'=>['required'],
             'password'=>['required','min:6','required_with:confirmation','same:confirmation'],
             'status' =>['required'],
@@ -51,7 +64,8 @@ class TeamMemberController extends Controller
         if($validator->fails()){
             return response()->json(['errors'=>$validator->messages()]);
         }
-        TeamMember::create($request->input());
+        $request->password = Hash::make($request->password);
+        Admin::create($request->input());
         return response()->json([
             'message'=>'Team member added successfully'
         ]);
@@ -76,7 +90,7 @@ class TeamMemberController extends Controller
      */
     public function edit($id)
     {
-        $member = TeamMember::where('id',$id)->get();
+        $member = Admin::where('id',$id)->get();
         return response()->json([
             'member'=>$member
         ]);
@@ -93,7 +107,7 @@ class TeamMemberController extends Controller
     {
          $validator = Validator::make($request->all(),[
             'name' =>['required'],
-            'email'     => ['required', 'string', 'email', 'max:255', 'unique:team_members,email,'.$id],
+            'email'     => ['required', 'string', 'email', 'max:255', 'unique:admins,email,'.$id],
             'phone'=>['required'],
             'password'=>['required','min:6','required_with:confirmation','same:confirmation'],
             'status' =>['required'],
@@ -101,8 +115,11 @@ class TeamMemberController extends Controller
         if($validator->fails()){
             return response()->json(['errors'=>$validator->messages()]);
         }
+        
         $request = $request->except(['confirmation']);
-        TeamMember::where('id',$id)->update($request);
+        $request['password'] = Hash::make($request['password']);
+        
+        Admin::where('id',$id)->update($request);
         return response()->json([
             'message'=>'Team member updated successfully'
         ]);
@@ -116,7 +133,7 @@ class TeamMemberController extends Controller
      */
     public function destroy($id)
     {
-        TeamMember::find($id)->delete();
+        Admin::find($id)->delete();
         return response()->json([
             'message'=>'Team member deleted successfully'
         ]);

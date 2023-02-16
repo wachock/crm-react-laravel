@@ -258,13 +258,11 @@ export default function ViewSchedule() {
                             <button className='btn btn-pink sendBtn' onClick={sendMeeting}>Send meeting</button>
                         </div>
                        
-                        <div className='worker-avail'>
+                        <div className='worker-avail1'>
                             <h4 className='text-center'>Worker Availability</h4>
                             <FullCalendar
-                                defaultView='basicWeek'
                                 initialView='timeGridWeek'
                                 themeSystem="Simplex"
-                                allDay= {false}
                                 droppable={true}
                                 selectable={true}
                                 selectMirror={true}

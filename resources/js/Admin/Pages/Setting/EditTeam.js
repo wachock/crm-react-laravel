@@ -36,7 +36,7 @@ export default function EditTeam() {
              password:password,
              confirmation:confirmPassword,
              status:status,
-             permission:perm
+             role:perm
           }
           
           axios
@@ -67,7 +67,7 @@ export default function EditTeam() {
             setAddress(d.address);
             setColor(d.color);
             setStatus(d.status);
-            setPermission(d.permission);
+            setPermission(d.role);
         })
     };
     useEffect(()=>{
@@ -133,9 +133,9 @@ export default function EditTeam() {
                             } Make Member &nbsp;
 
                             { 
-                            permission == 'administrator'
-                            ? <input type='radio' value='administrator' name='role' checked style={{height: "unset"}} />
-                            : <input type='radio' value='administrator' name='role' style={{height: "unset"}} />                    
+                            permission == 'admin'
+                            ? <input type='radio' value='admin' name='role' checked style={{height: "unset"}} />
+                            : <input type='radio' value='admin' name='role' style={{height: "unset"}} />                    
                             } Make Administrator
                         </div>
                         <div className='form-group'>

@@ -25,7 +25,7 @@ class CreateContractsTable extends Migration
             $table->integer('cvv')->nullable();
             $table->longText('card_sign')->nullable();
             $table->longText('signature')->nullable();
-            $table->enum('status',['Signed','Not signed'])->default('Not signed');
+            $table->enum('status',['verified','un-verified','not-signed'])->default('not-signed');
             $table->string('unique_hash')->nullable();
             $table->timestamps();
             

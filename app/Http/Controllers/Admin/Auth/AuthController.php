@@ -28,7 +28,7 @@ class AuthController extends Controller
             return response()->json(['errors' => $validator->messages()]);
         }
 
-        if (Auth::guard('admin',)->attempt([
+        if (Auth::guard('admin')->attempt([
             'email'     => $request->email,
             'password'  => $request->password
         ])) {
@@ -38,17 +38,7 @@ class AuthController extends Controller
 
             return response()->json($admin, 200);
 
-        } else if(Auth::guard('team')->attempt([
-            'email'     => $request->email,
-            'password'  => $request->password
-        ])){
-
-            $team        = TeamMember::find(auth()->guard('team')->user()->id);
-            $team->token = $team->createToken('Team', ['team'])->accessToken;
-
-            return response()->json($team, 200);
-
-        }else {
+        } else {
             return response()->json(['errors' => ['email' => 'These credentials do not match our records.']]);
         }
     }

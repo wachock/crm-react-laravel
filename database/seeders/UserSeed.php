@@ -19,23 +19,6 @@ class UserSeed extends Seeder
     {
         $faker = app(Generator::class);
 
-        User::create([
-            'firstname'         => 'לידור',
-            'lastname'          => 'ממו',
-            'email'             => 'brommservice@gmail.com',
-            'phone'             => '0525264264',
-            'address'           => $faker->address(),
-            'renewal_visa'      =>  Carbon::now(),
-            'gender'            => 'male',
-            'payment_per_hour'  =>  '0',
-            'worker_id'         => '67254',
-            'lng'               => 'heb',
-            'skill'             => ['1','2','3'],
-            'status'            => 1,
-            'passcode'          => '123456',
-            'password'          => Hash::make('123456'),
-            'country'           =>'Israel',
-        ]);
         
         for ($i = 1; $i < 20 ; $i++) {
             User::create([
@@ -58,6 +41,23 @@ class UserSeed extends Seeder
             
         }
         
+            User::create([
+                'firstname'         => 'לידור',
+                'lastname'          => 'ממו',
+                'email'             => 'brommservice@gmail.com',
+                'phone'             => '0525264264',
+                'address'           => $faker->address(),
+                'renewal_visa'      =>  Carbon::now(),
+                'gender'            => 'male',
+                'payment_per_hour'  =>  '0',
+                'worker_id'         => '67254',
+                'lng'               => 'heb',
+                'skill'             => ['1','2','3'],
+                'status'            => 1,
+                'passcode'          => '123456',
+                'password'          => Hash::make('123456'),
+                'country'           =>'Israel',
+            ]);
         
     }
 }

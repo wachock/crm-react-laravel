@@ -34,7 +34,7 @@ export default function AddTeam() {
            password:password,
            confirmation:confirmPassword,
            status:status,
-           permission:perm
+           role:perm
         }
         
         axios
@@ -109,7 +109,7 @@ export default function AddTeam() {
                         <h4 className='mb-2'>Preset permissions</h4>
                         <div className='form-group'>
                             <input type='radio'  name='role' value='member' style={{height: "unset"}}  checked /> Make Member
-                            <input type='radio'  name='role' value='administrator'  style={{height: "unset", marginLeft: "10px"}} /> Make Administrator
+                            <input type='radio'  name='role' value='admin'  style={{height: "unset", marginLeft: "10px"}} /> Make Administrator
                         </div>
                         <div className='form-group'>
                             <input type="submit" onClick={handleSubmit} class="btn btn-pink saveBtn" value="SAVE" />

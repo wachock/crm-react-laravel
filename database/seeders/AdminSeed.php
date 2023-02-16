@@ -18,16 +18,19 @@ class AdminSeed extends Seeder
     public function run()
     {
         $faker = app(Generator::class);
-
+        for ($i = 1; $i <= 10; $i++) {
         Admin::create([
-            'firstname'         => $faker->firstname(),
-            'lastname'          => $faker->lastname(),
-            'address'           => $faker->address(),
-            'email'             => 'admin@admin.com',
+            'name'              => $i == 1 ? 'superadmin' : $faker->name(),
+            'email'             => $i == 1 ? 'admin@admin.com' : $faker->unique()->safeEmail(),
             'phone'             => $faker->numerify('9#########'),
+            'address'           => $faker->address(), 
+            'color'             => ('#ffee'.rand(2,4)),
+            'status'            => 1,
+            'role'              => $i == 1 ? ('superadmin') : ('admin'),
             'avatar'            => 'admin.png',
             'email_verified_at' => Carbon::now(),
             'password'          => Hash::make('password')
         ]);
+    }
     }
 }
