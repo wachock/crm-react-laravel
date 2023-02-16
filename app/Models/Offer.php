@@ -12,6 +12,7 @@ class Offer extends Model
         'client_id',
         'type',
         'services',
+        'subtotal',
         'total',
         'status'
     ];

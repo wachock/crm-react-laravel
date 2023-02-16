@@ -457,9 +457,9 @@ export default function EditClient() {
                         </div>
 
                         <div className="form-group">
-                            <label className="control-label">Dob</label>
+                            <label className="control-label">Date of Birth</label>
                             <input
-                                type="text"
+                                type="date"
                                 value={dob}
                                 onChange={(e) => setDob(e.target.value)}
                                 className="form-control"

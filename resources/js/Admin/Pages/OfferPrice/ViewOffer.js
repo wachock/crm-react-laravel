@@ -119,19 +119,19 @@ export default function ViewOffer() {
                             <thead>
                               <tr>
                                 <td width="65%" class="text-right">Subtotal</td>
-                                <td class="text-right"><span>{ ofr.total }</span>$</td>
+                                <td class="text-right"><span>{ ofr.subtotal }</span>$</td>
                               </tr>
                             </thead>
                             <tbody>
                               <tr>
-                                <td width="65%" class="text-right">Total Tax</td>
-                                <td class="text-right"><span>0.00 </span>$</td> 
+                                <td width="65%" class="text-right">Vat</td>
+                                <td class="text-right"><span>17</span>%</td> 
                               </tr>
                             </tbody>
                             <tfoot>
                               <tr>
-                                <td width="65%" class="text-right">Total Tax</td>
-                                <td class="text-right"><span>0.00 </span>$</td> 
+                                <td width="65%" class="text-right">Total</td>
+                                <td class="text-right"><span>{ofr.total}</span>$</td> 
                               </tr>
                             </tfoot>
                           </table>

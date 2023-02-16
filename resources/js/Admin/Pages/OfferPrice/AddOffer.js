@@ -137,8 +137,9 @@ export default function AddOffer() {
   let handleSubmit = (event) => {
 
     event.preventDefault();
-
+    
     let to = 0;
+    let taxper = 17;
     let ty = document.querySelector('.type').value;
 
     for (let t in formValues) {
@@ -177,12 +178,13 @@ export default function AddOffer() {
       }
 
     }
-    
+    let tax = (taxper/100) * to;
     const data = {
       client_id: client,
       type:document.querySelector('.type').value,
       status: 'sent',
-      total: to,
+      subtotal:to,
+      total: to+tax,
       services: JSON.stringify(formValues),
     }
 
