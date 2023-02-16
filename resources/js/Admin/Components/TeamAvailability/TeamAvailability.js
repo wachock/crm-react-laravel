@@ -2,7 +2,9 @@ import React,{useState , useEffect} from 'react'
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from '@fullcalendar/timegrid';
-import resourceTimeGridPlugin from '@fullcalendar/resource-timegrid'
+import {resourceTimeGridPlugin} from '@fullcalendar/resource-timegrid'
+import resourceTimelinePlugin from '@fullcalendar/resource-timeline'
+import interactionPlugin from '@fullcalendar/interaction';
 import moment from 'moment-timezone';
 
 
@@ -17,7 +19,7 @@ export default function TeamAvailability() {
     };
     const getWorkers = () =>{
         axios
-        .get('/api/admin/all-workers',{headers})
+        .get('/api/admin/all-workers?filter=true',{headers})
         .then((res)=>{
           setAllWorkers(res.data.workers);
         })
@@ -68,17 +70,26 @@ export default function TeamAvailability() {
         }; 
     });  
      Array.prototype.push.apply(events,events1);
+     const dateClickHandle = (info) => {
+      alert('clicked ' + info.dateStr + ' on resource ' + info.resource.id);
+    }
   return (
     <FullCalendar
-        plugins={[dayGridPlugin, timeGridPlugin, resourceTimeGridPlugin ]}
-        initialView = 'resourceTimeGridDay'
+        selectable= {true}
+        plugins={[dayGridPlugin, timeGridPlugin,resourceTimelinePlugin,interactionPlugin  ]}
+        initialView = 'resourceTimelineWeek'
         resources =  {resources}
         height={'auto'} // sets height to height of resources.
-        slotDuration={'02:00:00'}
+        slotDuration={'00:30:00'}
         events={events}
+        resourceAreaWidth= {"15%"}
         slotMinTime={'08:00'} // start timeline at this time, must be in format '08:00'
         slotMaxTime={'24:00'}
         allDaySlot= {false}
-    />
+        eventClick= {function(info) {
+                    alert('Event: ' + info.event.start);
+                    info.el.style.borderColor = 'red';
+                  } }
+    />       
   )
 }

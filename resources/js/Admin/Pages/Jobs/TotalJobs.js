@@ -115,79 +115,7 @@ export default function TotalJobs() {
             }
         });
     };
-    const handleDate = (e,index) => {
-          let newTotalJobs = [...totalJobs];
-          newTotalJobs[index][e.target.name]=e.target.value;
-           setTotalJobs(newTotalJobs);    
-    }
 
-    const [workers, setWorkers] = useState([]);
-    const handleChange= (e,index) => {
-          let newWorkers = [...workers];
-          newWorkers[e.target.name]=e.target.value;
-          setWorkers(newWorkers);
-    }
-
- const handleform = (job_id,e) => {
-      let date = getSelectedDate(job_id);
-      let worker = getSelectedWorkers(job_id);
-      let shifts = getSelectedShift(job_id,e);
-      let comment = document.getElementById('comment-'+job_id).value;
-      let data ={
-        date:date,
-        worker:(worker!=undefined)?worker:'',
-        shifts:(shifts!=null)?shifts:'',
-        comment:comment
-      }
-      axios
-            .post(`/api/admin/upldate-job/${job_id}`, data, { headers })
-            .then((response) => {
-                if (response.data.errors) {
-                    setErrors(response.data.errors);
-                } else {
-                    alert.success("Job Updated Successfully");
-                    setTimeout(() => {
-                            getJobs();
-                        }, 1000);
-                }
-            });
-
-    }
-  const getSelectedDate = (job_id) => {
-      const filteredDate = totalJobs.filter(
-        (job) => job.id === job_id
-      );
-      return filteredDate['0']['start_date'];
-  };
-   const getSelectedWorkers = (job_id) => {
-      if(workers[job_id] !== 'undefined'){
-          return workers[job_id];
-      }else{
-          return '';
-      }
-      
-  };
-   const [selected_values,setSelectedValue]=useState([]);
-   const getSelectedShift = (job_id,e) => {
-     return document.getElementById('job-shift-'+job_id).getAttribute('value');
-  };
-const colourOptions = [
-  { value: 0, label: 'full day - 8am-16pm' },
-  { value: 1, label: 'morning - 8-12pm' },
-  { value: 2, label: 'morning1 - 8-10am' },
-  { value: 3, label: 'noon - 12pm-16pm' },
-  { value: 4, label: 'noon - 12pm-16pm' }
-]
-
-const changeShift = (job_id,e) =>{
-      
-      let data='';
-      {e.map((user,index) => (
-
-          data += (index)?','+user['value']:user['value']
-      ))}
-     document.getElementById('job-shift-'+job_id).setAttribute('value',data);
-};
 console.log(totalJobs);
     return (
         <div id="container">
@@ -222,17 +150,15 @@ console.log(totalJobs);
                                     <table className="table table-bordered">
                                         <thead>
                                             <tr>
-                                                <th scope="col">Date</th>
+                                                <th scope="col">Job Dated</th>
                                                 <th scope="col">Worker Name</th>
                                                 <th scope="col">Client Name</th>
                                                 <th scope="col">Service Name</th>
                                                 <th scope="col">Shift</th>
                                                 <th scope="col">Address</th>
-                                                <th scope="col">Comment</th>
                                                 <th scope="col">Complete Time</th>
                                                 <th scope="col">Status</th>
                                                 <th scope="col">Total</th>
-                                                <th scope="col">Update</th>
                                                 <th scope="col">Action</th>
                                             </tr>
                                         </thead>
@@ -241,29 +167,16 @@ console.log(totalJobs);
                                                 totalJobs.map((item, index) => (
                                                     <tr key={index}>
                                                          <td>
-                                                            <input name='start_date' type="date" value={item.start_date} onChange={(e) =>
-                                                                            handleDate(
-                                                                                e,
-                                                                                index
-                                                                            )
-                                                                        } />
+                                                             {item.start_date}                                                                {item.start_date}
                                                         </td>
                                                         <td>
-                                                        <h6>{
-                                                            item.worker
-                                                                ? item.worker.firstname +
-                                                                " " + item.worker.lastname
-                                                                : "NA"
-                                                        }</h6>
-                                                        <div>Change Worker</div>
-                                                        <select name={item.id}  className="form-control" value={(workers[`${item.id}`])?workers[`${item.id}`] : "" } onChange={e => handleChange(e,index)} >
-                                                        <option selected>select</option>
-                                                       { AllWorkers && AllWorkers.map((w,i)=>{
-                                                         return (
-                                                            <option value={w.id} key={i}> {w.firstname}  {w.lastname}</option>
-                                                         )
-                                                       })}
-                                                      </select>
+                                                            <h6>{
+                                                                item.worker
+                                                                    ? item.worker.firstname +
+                                                                    " " + item.worker.lastname
+                                                                    : "NA"
+                                                                }
+                                                            </h6>
 
                                                         </td>
                                                         <td>{
@@ -280,30 +193,13 @@ console.log(totalJobs);
                                                         }</td>
                                                         <td>
                                                         
-                                                    <Select
-                                                        defaultValue={colourOptions.filter(colour => {
-                                                                          if (`${item.shifts}`.includes(colour.value)) {
-                                                                            return colour
-                                                                          }
-                                                                      })}
-                                                        isMulti
-                                                        name="colors"
-                                                        id={`job-shift-${item.id}`}
-                                                        options={colourOptions}
-                                                        className="basic-multi-select"
-                                                        classNamePrefix="select"
-                                                        onChange={(e)=>changeShift(item.id,e)}
-                                                      />
+                                                         {item.start_time} to {item.end_time}
                                                         </td>
                                                         <td>{
                                                             item.client
                                                                 ? item.client.geo_address
                                                                 : "NA"
                                                         }
-                                                        </td>
-                                                        <td>
-                                                        <textarea name='comment' id={`comment-${item.id}`} value={item.comment} rows="3" onChange={(e) =>handleDate(e,index)}>
-                                                        </textarea>
                                                         </td>
                                                         <td>
                                                             {parseFloat(`${item.end_time}.replace(":", ".")`)-parseFloat(`${item.start_time}.replace(":", ".")`)} Hours
@@ -318,9 +214,6 @@ console.log(totalJobs);
                                                         </td>
                                                         <td>
                                                             {item.rate} NIS
-                                                        </td>
-                                                        <td>
-                                                           <button className="btn btn-primary" onClick={(e) => handleform(item.id,e)}>Update</button>
                                                         </td>
                                                         <td>
                                                             <div className="action-dropdown dropdown">

@@ -37,9 +37,22 @@ class WorkerController extends Controller
         ], 200);
     }
 
-    public function AllWorkers(){
-        
-        $workers = User::where('status',1)->get();
+    public function AllWorkers(Request $request){
+        $workers = User::with('availabilities')->where('status',1);
+        $workers = $workers->get();
+        if(isset($request->filter)){
+            $newworker=array();
+            foreach($workers as $worker){
+                  if(count($worker->availabilities)){
+                    $newworker[] = $worker;
+                  }
+            }
+             return response()->json([
+            'workers'       => $newworker,            
+        ], 200);
+
+        }
+
         return response()->json([
             'workers'       => $workers,            
         ], 200);
