@@ -2,12 +2,30 @@ import React, { useState } from "react";
 import Sidebar from "../../Layouts/Sidebar";
 import { useAlert } from "react-alert";
 import { useNavigate } from "react-router-dom";
+import { SelectPicker } from 'rsuite';
 
 export default function AddServiceSchedule(){
 
-   const [schedule,setschedule] = useState([]);
-   const [status,setStatus]   = useState(0);
-   const [errors,setErrors]   = useState([]);
+   const [name,setName]     = useState([]);
+   const [cycle,setCycle]   = useState([]);
+   const [period,setPeriod] = useState([]);
+   const [status,setStatus] = useState(0);
+   const [errors,setErrors] = useState([]);
+   const pe = [
+    { value: 'na', label: 'Not Required' },
+    { value: 'D', label: 'Day' },
+    { value: 'w', label: 'Week' },
+    { value: '2w', label: '2 Weeks' },
+    { value: '3w', label: '3 Weeks' },
+    { value: '4w', label: '4 Weeks' },
+    { value: '5w', label: '5 Weeks' },
+    { value: 'm', label: 'Month' },
+    { value: '2m', label: '2 Months' },
+    { value: '3m', label: '3 Months' },
+    { value: '6m', label: '6 Months' },
+    { value: 'y', label: 'Year' },
+
+]
    const alert = useAlert();
    const navigate = useNavigate();
    
@@ -20,7 +38,9 @@ export default function AddServiceSchedule(){
    const handleSubmit = (e) => {
       e.preventDefault();
       const data = {
-          name: schedule,
+          name: name,
+          cycle: cycle,
+          period: period,
           status: status,
       };
      
@@ -44,6 +64,7 @@ export default function AddServiceSchedule(){
             <div id="content">
                 <div className="edit-customer">
                     <h1 className="page-title addEmployer">Add schedule</h1>
+                    <div className="card card-body">
                     <form>
                         <div className="row">
                             <div className="col-sm-12">
@@ -53,9 +74,9 @@ export default function AddServiceSchedule(){
                                     </label>
                                     <input
                                         type="text"
-                                        value={schedule}
+                                        value={name}
                                         onChange={(e) =>
-                                            setschedule(e.target.value)
+                                            setName(e.target.value)
                                         }
                                         className="form-control"
                                         required
@@ -70,6 +91,54 @@ export default function AddServiceSchedule(){
                                     )}
                                 </div>
                             </div>
+
+                            <div className="col-sm-12">
+                                    <div className="form-group">
+                                        <label className="control-label">
+                                            Cycle *
+                                        </label>
+                                        <input
+                                            type="number"
+                                            value={cycle}
+                                            onChange={(e) =>
+                                                setCycle(e.target.value)
+                                            }
+                                            className="form-control"
+                                            placeholder="Enter cycle count"
+                                            required
+                                        />
+                                        {errors.cycle ? (
+                                            <small className="text-danger mb-1">
+                                                {errors.cycle}
+                                            </small>
+                                        ) : (
+                                            ""
+                                        )}
+                                    </div>
+                                </div>
+
+                                <div className="col-sm-12">
+                                    <div className="form-group">
+                                        <label className="control-label">Period</label>
+
+                                        <SelectPicker
+                                            data={pe}
+                                            defaultValue={period}
+                                            value={period}
+                                            onChange={(value, event) => setPeriod(value)}
+                                            size="lg"
+                                            required
+                                        />
+
+                                        {errors.period ? (
+                                            <small className="text-danger mb-1">
+                                                {errors.period}
+                                            </small>
+                                        ) : (
+                                            ""
+                                        )}
+                                    </div>
+                                </div>
                            
                         <div className="col-sm-12">
                         <div className="form-group">
@@ -103,6 +172,7 @@ export default function AddServiceSchedule(){
                         </div>
                         </div>
                     </form>
+                    </div>
                 </div>
             </div>
         </div>

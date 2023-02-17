@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCustomerFilesTable extends Migration
+class Notes extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class CreateCustomerFilesTable extends Migration
      */
     public function up()
     {
-        Schema::create('customer_files', function (Blueprint $table) {
+        Schema::create('notes', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('client_id');
-            $table->string('note')->nullable();
-            $table->string('file');
+            $table->string('note');
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('team_id');
+            $table->enum('role',['client','worker']);
             $table->timestamps();
         });
     }
@@ -29,6 +30,6 @@ class CreateCustomerFilesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('customer_files');
+        //
     }
 }

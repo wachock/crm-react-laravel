@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Client;
-use App\Models\CustomerFiles;
+use App\Models\Files;
+use App\Models\Note;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -46,16 +47,6 @@ class ClientController extends Controller
             'clients'       => $clients,            
         ], 200);
 
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -160,40 +151,53 @@ class ClientController extends Controller
     }
 
     public function addfile(Request $request){
-        
-        try{
-            $image_nm = '';
-            if($request->hasfile('file')){
+ 
+        /*
+        $video = $request->file('file');
+        $vname = $video->getClientOriginalName();
+        $path=storage_path().'/app/public/uploads/ClientFiles';
+        $video->move($path,$vname);
+        */
 
-                $image = $request->file('file');
-                $name = $image->getClientOriginalName();
-                $img = Image::make($image)->resize(350, 227);
-                $destinationPath=storage_path().'/app/public/uploads/ClientFiles/';
-                $fname = 'file_'.$request->client_id.'_'.date('s').'_'.$name;
-                $path=storage_path().'/app/public/uploads/ClientFiles/'. $fname;
-                File::exists($destinationPath) or File::makeDirectory($destinationPath,0777,true,true);
-                $img->save($path, 90);
-                $image_nm  = $fname; 
-            }
-           
-            CustomerFiles::create([
-                'client_id' => $request->client_id,
-                'note'      => $request->note,
-                'file'      => $image_nm
-            ]);
+        $validator = Validator::make($request->all(), [
+            'file'   => 'required|mimes:jpeg,jpg,png',
+            'role'   => 'required',
+            'user_id'=>'required'
+        ]);
 
-            return response()->json([
-                'message'=>'File uploaded',
-            ],200);
-
-        } catch(\Exception $e){
-            return response()->json([
-                'error'=>$e->getMessage()
-            ],200);
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->messages()]);
         }
+
+        $image_nm = '';
+        if($request->hasfile('file')){
+
+            $image = $request->file('file');
+            $name = $image->getClientOriginalName();
+            $img = Image::make($image)->resize(350, 227);
+            $destinationPath=storage_path().'/app/public/uploads/ClientFiles/';
+            $fname = 'file_'.$request->user_id.'_'.date('s').'_'.$name;
+            $path=storage_path().'/app/public/uploads/ClientFiles/'. $fname;
+            File::exists($destinationPath) or File::makeDirectory($destinationPath,0777,true,true);
+            $img->save($path, 90);
+            $image_nm  = $fname; 
+        }
+        
+        Files::create([
+            'user_id'   => $request->user_id,
+            'note'      => $request->note,
+            'role'      =>'client',
+            'type'      =>$request->type,
+            'file'      => $image_nm
+
+        ]);
+
+        return response()->json([
+            'message'=>'File uploaded',
+        ],200);
     }
     public function getfiles(Request $request){
-         $files = CustomerFiles::where('client_id',$request->id)->get();
+         $files = Files::where('user_id',$request->id)->get();
          if(isset($files)){
             foreach($files as $k => $file){
                 
@@ -206,9 +210,37 @@ class ClientController extends Controller
         ],200);
     }
     public function deletefile(Request $request){
-        CustomerFiles::where('id',$request->id)->delete();
+        Files::where('id',$request->id)->delete();
         return response()->json([
             'message'=>'File deleted',
         ],200);
+    }
+
+    public function addNote(Request $request){
+       
+        $validator = Validator::make($request->all(),[
+            'note'     =>'required',
+            'team_id'  =>'required',
+            'user_id'  =>'required',
+        ]);
+        if($validator->fails()){
+            return response()->json(['errors'=>$validator->messages()]);
+        }
+        Note::create([
+            'note'   =>$request->note,
+            'user_id'=>$request->user_id,
+            'team_id'=>$request->team_id,
+        ]);
+        return response()->json(['message'=>'Note added']);
+    }
+
+    public function getNotes(Request $request){
+        $notes = Note::where(['user_id'=>$request->id,'role'=>'client'])->with('team')->get();
+        return response()->json(['notes'=>$notes]);
+    }
+
+    public function deleteNote(Request $request){
+        Note::where(['id'=>$request->id])->delete();
+        return response()->json(['message'=>'Note deleted']);
     }
 }

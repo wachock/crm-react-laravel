@@ -5,11 +5,10 @@ import { useAlert } from "react-alert";
 import Moment from 'moment';
 import Swal from 'sweetalert2';
 
-export default function files() {
+export default function notes() {
 
     const [note,setNote] = useState("");
-    const [file,setFile] = useState([]);
-    const [AllFiles,setAllFiles] = useState([]);
+    const [AllNotes,setAllNotes] = useState([]);
     const param = useParams();
     const alert = useAlert();
     const headers = {
@@ -22,36 +21,27 @@ export default function files() {
     const handleNote = (e) =>{
        
       e.preventDefault();
-      if(file.length == 0){ window.alert('Please add file'); return;}
-      const type = document.querySelector('select[name="filetype"]').value;
-      const fd = new FormData();
-      fd.append('user_id',param.id);
-      fd.append('note',note);
-      fd.append('file',file);
-      fd.append('type',type);
-      fd.append('role','client');
-      
-      const videoHeader ={
-        Accept: "application/octet-stream, text/plain, */*",
-        "Content-Type": "application/octet-stream",
-        Authorization: `Bearer ` + localStorage.getItem("admin-token"),
+      const data ={
+        'note':note,
+        'user_id':param.id,
+        'team_id':localStorage.getItem('admin-id'),
+        'role':'client',
       }
+      
       axios
-      .post(`/api/admin/add-file`,fd,{ headers:(type == 'image')? headers : videoHeader })
+      .post(`/api/admin/add-note`,data,{  headers  })
       .then((res)=>{
         console.log(res)
-        if(res.data.error){
-            for( let e in res.data.error){
-                window.alert(res.data.error[e]);
+        if(res.data.errors){
+            for( let e in res.data.errors){
+                window.alert(res.data.errors[e]);
             }
             
         } else {
            document.querySelector('.closeb').click();
            alert.success(res.data.message);
-           getFiles();
+           getNotes();
            setNote("");
-           setFile([]);
-           document.querySelector('input[type="file"]').value="";
         }
       })
       
@@ -66,68 +56,77 @@ export default function files() {
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, Delete File",
+            confirmButtonText: "Yes, Delete Note",
         }).then((result) => {
             if (result.isConfirmed) {
                 axios
-                    .post(`/api/admin/delete-file/`,{id:id},{ headers })
+                    .post(`/api/admin/delete-note/`,{id:id},{ headers })
                     .then((response) => {
                         Swal.fire(
                             "Deleted!",
-                            "File has been deleted.",
+                            "Note has been deleted.",
                             "success"
                         );
                         setTimeout(() => {
-                            getFiles();
+                            getNotes();
                         }, 1000);
                     });
             }
         });
     };
 
-    const getFiles = () =>{
+    const getNotes = () =>{
       axios
-      .post(`/api/admin/get-files`,{id:parseInt(param.id)},{ headers })
+      .post(`/api/admin/get-notes`,{id:parseInt(param.id)},{ headers })
       .then((res)=>{
-        setAllFiles(res.data.files);
+        setAllNotes(res.data.notes);
       })
     }
     useEffect(()=>{
-        getFiles();
+        getNotes();
     },[])
+    
     return (
 
         <div className="tab-pane fade active show" id="customer-notes" role="tabpanel"
             aria-labelledby="customer-notes-tab">
             <div className="text-right pb-3">
-                <button type="button" className="btn btn-pink" data-toggle="modal" data-target="#exampleModal">
-                    Add File
+                <button type="button" className="btn btn-pink" data-toggle="modal" data-target="#exampleModalNote">
+                    Add Note
                 </button>
             </div>
-            {AllFiles && AllFiles.map((f,i)=>{
+            {AllNotes && AllNotes.map((n,i)=>{
                 return (
 
             <div className="card card-widget widget-user-2" style={{ "box-shadow": "none" }}>
                 <div className="card-comments cardforResponsive"></div>
                 <div className="card-comment p-3" style={{ "background-color": "rgba(0,0,0,.05)", "border-radius": "5px" }}>
                     <div className="row">
+                        
                         <div className="col-sm-7 col-6">
+                            <span className="noteby p-1" style={{
+                                 "font-weight": "600",
+                                 "background" : "darkgray",
+                                 "border"     : "inset"
+
+                            }}>
+                            {
+                            (n.team) ? n.team.name : 'NA'
+                            }
+                            </span>
                             <span className="noteDate" style={{ "font-weight": "600" }}>
-                                 {Moment(f.created_at).format('DD-MM-Y h:sa')} <br />
-                                <span className="badge badge-warning text-dark">
-                                    <a href={f.path} >{f.file}</a>
-                                </span>
+                                 {" | "+Moment(n.created_at).format('DD-MM-Y h:sa')} <br />
                             </span>
                         </div>
                         <div className="col-sm-5 col-6">
                             <div className="float-right noteUser">
-                            <button class="ml-2 btn bg-red" onClick={(e)=>handleDelete(e,f.id)}><i class="fa fa-trash"></i></button>
+                            <button class="ml-2 btn bg-red" onClick={(e)=>handleDelete(e,n.id)}><i class="fa fa-trash"></i></button>
                                 &nbsp;
                             </div>
                         </div>
                         <div className="col-sm-12">
                         {
-                          (f.note) ? f.note : 'NA'
+                          (n.note) ? n.note : 'NA'
                         }
                         </div>
                     </div>
@@ -137,11 +136,11 @@ export default function files() {
         })}
 
 
-            <div className="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div className="modal fade" id="exampleModalNote" tabindex="-1" role="dialog" aria-labelledby="exampleModalNote" aria-hidden="true">
                 <div className="modal-dialog" role="document">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <h5 className="modal-title" id="exampleModalLabel">Add File</h5>
+                            <h5 className="modal-title" id="exampleModalNote">Add Note</h5>
                             <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -167,46 +166,14 @@ export default function files() {
 
                                     </div>
                                 </div>
-                                <div className="col-sm-12">
-                                    <div className="form-group">
-                                        <label className="control-label">
-                                            Type
-                                        </label>
-                                        <select name="filetype" className="form-control">
-                                        <option value="image">Image</option>
-                                        <option value="video">Video</option>
-                                        </select>
-
-                                    </div>
-                                </div>
-                                <div className="col-sm-12">
-                                    <div className="form-group">
-                                        <label className="control-label">
-                                            File
-                                        </label>
-                                        <input
-                                            type="file"
-                                            name="file"
-                                            onChange={(e) =>
-                                                {
-                                                setFile(e.target.files[0]);
-                                                
-                                                }
-                                            }
-                                            className="form-control"
-                                            required
-                                        />
-
-                                    </div>
-                                </div>
-                                
+                                    
                             </div>
 
 
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn btn-secondary closeb" data-dismiss="modal">Close</button>
-                            <button type="button"  onClick={handleNote} className="btn btn-primary">Save File</button>
+                            <button type="button"  onClick={handleNote} className="btn btn-primary">Save Note</button>
                         </div>
                     </div>
                 </div>

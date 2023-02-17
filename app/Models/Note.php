@@ -5,12 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class CustomerFiles extends Model
+class Note extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'client_id',
         'note',
-        'file',
+        'user_id',
+        'role',
+        'team_id'
     ];
+
+    public function team(){
+        return $this->belongsTo(Admin::class,'team_id');
+    }
+   
 }

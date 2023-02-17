@@ -116,21 +116,9 @@ export default function ViewOffer() {
                       <div className='col-sm-6'>
                         <div className="table-responsive">
                           <table class="table table-sm table-bordered ">
-                            <thead>
-                              <tr>
-                                <td width="65%" class="text-right">Subtotal</td>
-                                <td class="text-right"><span>{ ofr.subtotal }</span>$</td>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr>
-                                <td width="65%" class="text-right">Vat</td>
-                                <td class="text-right"><span>17</span>%</td> 
-                              </tr>
-                            </tbody>
                             <tfoot>
                               <tr>
-                                <td width="65%" class="text-right">Total</td>
+                                <td width="65%" class="text-right">Total( plus vat )</td>
                                 <td class="text-right"><span>{ofr.total}</span>$</td> 
                               </tr>
                             </tfoot>

@@ -5,13 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class serviceSchedules extends Model
+class Files extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'name',
-        'cycle',
-        'period',
-        'status'
+        'user_id',
+        'type',
+        'role',
+        'note',
+        'file',
     ];
 }

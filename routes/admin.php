@@ -95,6 +95,11 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin-api', 'scopes:ad
     //TeamMembers
     Route::resource('team',TeamMemberController::class);
 
+    //Notes
+    Route::post('get-notes', [ClientController::class,'getNotes']);
+    Route::post('add-note', [ClientController::class,'addNote']);
+    Route::post('delete-note', [ClientController::class,'deleteNote']);
+   
     //Meeting Schedules
     Route::resource('schedule',ScheduleController::class);
     Route::post('client-schedules',[ScheduleController::class,'ClientSchedules']);

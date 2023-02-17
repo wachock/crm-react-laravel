@@ -134,7 +134,7 @@ The company is registered as a legal cleaning company in the Ministry of Industr
                     <div className='total-amount'>
                             <div className='row'>
                                 <div className='col-sm-6'>
-                                    <h5>Total Amount</h5>
+                                    <h5>Total Amount( plus vat )</h5>
                                 </div>
                                 <div className='col-sm-6'>
                                     <p className='float-right'>${offer.total}</p>

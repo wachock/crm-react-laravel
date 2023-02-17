@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateServiceSchedulesTable extends Migration
+class CreateFilesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,13 @@ class CreateServiceSchedulesTable extends Migration
      */
     public function up()
     {
-        Schema::create('service_schedules', function (Blueprint $table) {
+        Schema::create('files', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->integer('cycle');
-            $table->string('period');
-            $table->integer('status');
+            $table->unsignedBigInteger('user_id');
+            $table->enum('role',['client','worker']);
+            $table->string('note')->nullable();
+            $table->enum('type',['image','video'])->default('image');
+            $table->string('file');
             $table->timestamps();
         });
     }
@@ -30,6 +31,6 @@ class CreateServiceSchedulesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('service_schedules');
+        Schema::dropIfExists('files');
     }
 }

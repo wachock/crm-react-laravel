@@ -15,10 +15,7 @@ class ServiceSeed extends Seeder
     public function run()
     {
         
-        Services::create([
-            'name'         => 'Regular Room Service',   
-            'status'       => 1             
-        ]);
+       
         Services::create([
             'name'         => 'Office Cleaning',  
             'status'       => 1                
@@ -28,12 +25,36 @@ class ServiceSeed extends Seeder
             'status'       => 1                 
         ]);
         Services::create([
-            'name'         => 'Garden grass cutting',
+            'name'         => 'Thorough Cleaning',      
+            'status'       => 1           
+        ]);
+        Services::create([
+            'name'         => '5 Star',
             'status'       => 1                  
         ]);
         Services::create([
-            'name'         => 'Thorough Cleaning',      
-            'status'       => 1           
+            'name'         => '4 Star',
+            'status'       => 1                  
+        ]);
+        Services::create([
+            'name'         => '3 Star',
+            'status'       => 1                  
+        ]);
+        Services::create([
+            'name'         => '2 Star',
+            'status'       => 1                  
+        ]);
+        Services::create([
+            'name'         => 'window cleaning',
+            'status'       => 1                  
+        ]);
+        Services::create([
+            'name'         => 'P',
+            'status'       => 1                  
+        ]);
+        Services::create([
+            'name'         => 'Others',
+            'status'       => 1                  
         ]);
 
     }

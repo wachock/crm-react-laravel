@@ -160,7 +160,7 @@ export default function Contract() {
                                             })}
                                             </td>
                                             <td>{ c.status }</td>
-                                            <td>{ c.offer.total }</td>
+                                            <td>{ c.offer.total } $</td>
                                             <td>
                                                 <div className="action-dropdown dropdown">
                                                     <button type="button" className="btn btn-default dropdown-toggle" data-toggle="dropdown">
