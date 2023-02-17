@@ -133,7 +133,7 @@ export default function MyRoutes() {
                   <Route path="admin" element={<Admin />} >
                      <Route exact path="dashboard" element={<AdminDashboard />} />
                      <Route exact path="jobs" element={<TotalJobs />} />
-                     <Route exact path="add-job" element={<AddJob />} />
+                     <Route exact path="add-job/:id" element={<AddJob />} />
                      <Route exact path="view-job/:id" element={<ViewJob />} />
                      <Route exact path="add-job" element={<AddJob />} />
                      <Route exact path="edit-job/:id" element={<EditJob />} />

@@ -6,9 +6,14 @@ import {resourceTimeGridPlugin} from '@fullcalendar/resource-timegrid'
 import resourceTimelinePlugin from '@fullcalendar/resource-timeline'
 import interactionPlugin from '@fullcalendar/interaction';
 import moment from 'moment-timezone';
+import { useNavigate,useParams } from 'react-router-dom';
+import { useAlert } from 'react-alert';
 
 
 export default function TeamAvailability() { 
+   const params                       = useParams();
+   const navigate                     = useNavigate();
+   const alert                        = useAlert();
    const [AllWorkers,setAllWorkers]   = useState([]);
    const [AllJobs,setAllJobs]   = useState([]);
    const [AllWorkerAvailability,setAllWorkerAvailability]   = useState([]);
@@ -17,6 +22,22 @@ export default function TeamAvailability() {
         "Content-Type": "application/json",
         Authorization: `Bearer ` + localStorage.getItem("admin-token"),
     };
+
+    const [services, setServices]      = useState([]);
+    const [clientname, setClientName]          = useState('');
+    const getJob = () =>{
+        axios
+        .get(`/api/admin/jobs/${params.id}/edit`,{headers})
+        .then((res)=>{
+            const r = res.data.job;
+            setClientName(r.client.firstname+' '+r.client.lastname);
+            setServices(JSON.parse(r.offer.services));
+        });
+    }
+     useEffect(()=>{
+        getJob();
+    },[]);
+
     const getWorkers = () =>{
         axios
         .get('/api/admin/all-workers?filter=true',{headers})
@@ -71,49 +92,72 @@ export default function TeamAvailability() {
         }; 
     });  
      Array.prototype.push.apply(events,events1);
-
-    const contracts = {
-        client_id :1,
-        client_name:'Kulwinder',
-        services:'Office Cleaning,Regular Room Service',
-        frequency:'once a week',
-        hours:2.5,
-
-    }
      
-     const [data,setData]=useState({client_id:contracts.client_id,
-                                    client_name:contracts.client_name,
-                                    services:contracts.services,
-                                    frequency:contracts.frequency,
-                                    hours:contracts.hours,
-                                     worker_id:'',
-                                     date:'',
-                                     start_time:'',
-                                     end_time:'',
-                                     status:'not-started',
-                                 });
+     const [data,setData]=useState([]);
      const handleEventClick = (e) =>{
            let str=e.startStr;
             var parts = str.slice(0, -9).split('T');
             var dateComponent = parts[0];
             var timeComponent = parts[1];
-            var endtime = moment(parts[0]+' '+parts[1]).add(contracts.hours, 'hours').format('HH:mm');
+            var endtime = moment(parts[0]+' '+parts[1]).add(2.5, 'hours').format('HH:mm');
 
             const str1 = e.textColor;
             var parts1 = str1.split('_');
+            
+            if(data.length>0){
+                let new_data=[];
+                let found = true;
+                data.map((d)=>{
+                    if(d.worker_id==parts1[0] && d.date==dateComponent && d.start==timeComponent){
+                         found=false;
+                    }else{
+                        new_data.push(d)
+                    }
 
-            var newdata = data;
-            newdata.worker_id=parts1[0];
-            newdata.date=dateComponent;
-            newdata.start_time=timeComponent;
-            newdata.end_time=endtime;
-            document.getElementById('d_worker_name').innerHTML=parts1[1];
-            document.getElementById('d_date').innerHTML=dateComponent;
-            document.getElementById('d_start_time').innerHTML=timeComponent;
-            document.getElementById('d_end_time').innerHTML=endtime;
+                })
+
+                if(found){
+                    var newdata = [...data,{
+                                     worker_id:parts1[0],
+                                     worker_name:parts1[1],
+                                     date:dateComponent,
+                                     start:timeComponent,
+                                     end:endtime
+                                 }]
+                }else{
+                    var newdata =new_data;
+                }
+
+            }else{
+            var newdata = [...data,{
+                                     worker_id:parts1[0],
+                                     worker_name:parts1[1],
+                                     date:dateComponent,
+                                     start:timeComponent,
+                                     end:endtime
+                                 }]
+            }                    
             setData(newdata);
      }
-    console.log(data);
+    const handleSubmit = () => {
+        
+        let formdata = {'workers':data};
+        if(data.length>0){
+            axios
+            .post(`/api/admin/create-job/${params.id}`,formdata,{headers})
+            .then((res)=>{
+                alert.success(res.data.message)
+                setTimeout(()=>{
+                    navigate('/admin/jobs?q=scheduled');
+                },1000);
+                
+            });
+       }else{
+            alert("Please Select the Workers");
+       }
+
+    }
+
 
   return (
     <>
@@ -130,17 +174,19 @@ export default function TeamAvailability() {
         slotMaxTime={'24:00'}
         allDaySlot= {false}
         eventClick= {function(info) {
-                    // alert('Event: ' + info.event.textColor);
-                    // console.log(info.event);
-                    handleEventClick(info.event);
-                    info.el.style.borderColor = 'red';
+                        if(info.el.style.borderColor=='red'){
+                          info.el.style.borderColor = 'rgb(0 255 0)';
+                        }else{
+                         info.el.style.borderColor = 'red';
+                       }
+                       handleEventClick(info.event);
                   } }
     />  
     <div className="form-group text-center">
         <input type='button' value='View Job' className="btn btn-pink" data-toggle="modal" data-target="#exampleModal"/>
     </div> 
      <div className="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div className="modal-dialog" role="document">
+                <div className="modal-dialog modal-lg" role="document">
                     <div className="modal-content">
                         <div className="modal-header">
                             <h5 className="modal-title" id="exampleModalLabel">View Job</h5>
@@ -151,95 +197,73 @@ export default function TeamAvailability() {
                         <div className="modal-body">
 
                             <div className="row">
-                                <div className="col-sm-3">
-                                    <div className="form-group">
-                                        <label className="control-label">
-                                            client Name
-                                            <p> {data.client_name}</p>
-                                        </label>
-                                       
-
-                                    </div>
-                                </div>
-                                <div className="col-sm-3">
-                                    <div className="form-group">
-                                        <label className="control-label">
-                                              Services
-                                            <p> {data.services}</p>
-                                        </label>
-                                       
-
-                                    </div>
-                                </div>
-                                <div className="col-sm-3">
-                                    <div className="form-group">
-                                        <label className="control-label">
-                                              Frequency
-                                            <p> {data.frequency}</p>
-                                        </label>
-                                       
-
-                                    </div>
-                                </div>
-                                <div className="col-sm-3">
-                                    <div className="form-group">
-                                        <label className="control-label">
-                                              Hours
-                                            <p> {data.hours} hours</p>
-                                        </label>
-                                       
-
-                                    </div>
-                                </div>
-                                 <div className="col-sm-3">
-                                    <div className="form-group">
-                                        <label className="control-label">
-                                              Worker Name
-                                            <p id="d_worker_name"> {data.worker_id}</p>
-                                        </label>
-                                       
-
-                                    </div>
-                                </div>
-                                <div className="col-sm-3">
-                                    <div className="form-group">
-                                        <label className="control-label">
-                                              Date
-                                            <p id="d_date"> {data.date}</p>
-                                        </label>
-                                       
-
-                                    </div>
-                                </div>
-                                <div className="col-sm-3">
-                                    <div className="form-group">
-                                        <label className="control-label">
-                                              Start Time
-                                            <p id="d_start_time"> {data.start_time}</p>
-                                        </label>
-                                       
-
-                                    </div>
-                                </div>
-                                <div className="col-sm-3">
-                                    <div className="form-group">
-                                        <label className="control-label">
-                                              End Time
-                                            <p id="d_end_time"> {data.end_time}</p>
-                                        </label>
-                                       
-
-                                    </div>
-                                </div>
-                                <div className="col-sm-3">
-                                    <div className="form-group">
-                                        <label className="control-label">
-                                              Status
-                                            <p > {data.status}</p>
-                                        </label>
-                                       
-
-                                    </div>
+                                 <div className="table-responsive">
+                                     <table className="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Client Name</th>
+                                                <th scope="col">Services</th>
+                                                <th scope="col">Frequency</th>
+                                                <th scope="col">Complete Time</th>
+                                            </tr>
+                                            
+                                        </thead>
+                                         <tbody>
+                                           <td>{clientname}</td>
+                                           <td> {services &&
+                                                services.map((item, index) => (
+                                                
+                                                 <p>{index +1 }.{item.name}</p>
+                                                )
+                                            )}</td>
+                                            <td>{services &&
+                                                services.map((item, index) => (
+                                                
+                                                 <p>{index +1 }.{item.freq_name}</p>
+                                                )
+                                            )}</td>
+                                            <td>{services &&
+                                                services.map((item, index) => (
+                                                
+                                                 <p>{item.jobHours} hours</p>
+                                                )
+                                            )}</td>
+                                         </tbody>
+                                    </table>
+                                 </div>
+                                <div className="table-responsive">
+                                {data.length > 0 ? (
+                                    <table className="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Worker Name</th>
+                                                <th scope="col">Data</th>
+                                                <th scope="col">Start Time</th>
+                                                <th scope="col">End Time</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {data && data.map((d,i)=>
+                                                (
+                                                 <tr key={i}>
+                                                     <td>
+                                                         {d.worker_name}
+                                                    </td>
+                                                    <td>
+                                                         {d.date}
+                                                    </td>
+                                                    <td>
+                                                         {d.start}
+                                                    </td>
+                                                    <td>
+                                                         {d.end}
+                                                    </td>
+                                                </tr>
+                                                )
+                                            ) }
+                                         </tbody>
+                                    </table>
+                                    ):''}
                                 </div>
                                 
                             </div>
@@ -248,7 +272,7 @@ export default function TeamAvailability() {
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn btn-secondary closeb" data-dismiss="modal">Close</button>
-                            <button type="button"  className="btn btn-primary">Save and Send</button>
+                            <button type="button" onClick={handleSubmit} className="btn btn-primary">Save and Send</button>
                         </div>
                     </div>
                 </div>
