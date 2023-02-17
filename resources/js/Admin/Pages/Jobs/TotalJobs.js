@@ -232,7 +232,6 @@ export default function TotalJobs() {
                                                 <th scope="col">Service Name</th>
                                                 <th scope="col">Shift</th>
                                                 <th scope="col">Address</th>
-                                                <th scope="col">Comment</th>
                                                 <th scope="col">Complete Time</th>
                                                 <th scope="col">Status</th>
                                                 <th scope="col">Total</th>
@@ -306,9 +305,6 @@ export default function TotalJobs() {
                                                                 ? item.client.geo_address
                                                                 : "NA"
                                                         }
-                                                        </td>
-                                                        <td>
-                                                           {item.comment ? item.comment : 'NA'}
                                                         </td>
                                                         <td>
                                                             {
