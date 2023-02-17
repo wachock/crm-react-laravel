@@ -72,20 +72,7 @@ class JobController extends Controller
      */
     public function show($id)
     {
-        $job                = Job::with('client', 'worker')->find($id);
-        $slots              = collect([]);
-
-        foreach($job->slots as $slot){
-
-            $day            = Str::of(Str::after($slot, 'Day'))->trim();
-            $timings        = Str::of(Str::before($slot, 'Day'))->trim();
-
-            $slots->push([
-                'day'       => $day, 
-                'slot'      => $timings
-            ]);
-        }
-        $job->slots         = $slots;
+        $job                = Job::with('client','worker','service','offer')->find($id);
 
         return response()->json([
             'job'        => $job,            

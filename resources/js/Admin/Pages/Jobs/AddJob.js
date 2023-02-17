@@ -5,7 +5,7 @@ import 'rsuite/dist/rsuite.min.css';
 import axios from 'axios';
 import { useAlert } from 'react-alert';
 import { useNavigate,useParams } from 'react-router-dom';
-import TeamAvailability from '../../Components/TeamAvailability/TeamAvailability';
+import TeamAvailability from '../../Components/Job/TeamAvailability';
 
 
 export default function AddJob() {
