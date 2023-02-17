@@ -30,7 +30,7 @@ class JobController extends Controller
 
     }
     public function getAllJob(){
-        $jobs = Job::where('status',1)->get();;
+        $jobs = Job::get();;
         return response()->json([
             'jobs'       => $jobs,        
         ], 200);
@@ -72,20 +72,7 @@ class JobController extends Controller
      */
     public function show($id)
     {
-        $job                = Job::with('client', 'worker')->find($id);
-        $slots              = collect([]);
-
-        foreach($job->slots as $slot){
-
-            $day            = Str::of(Str::after($slot, 'Day'))->trim();
-            $timings        = Str::of(Str::before($slot, 'Day'))->trim();
-
-            $slots->push([
-                'day'       => $day, 
-                'slot'      => $timings
-            ]);
-        }
-        $job->slots         = $slots;
+        $job                = Job::with('client','worker','service','offer')->find($id);
 
         return response()->json([
             'job'        => $job,            
@@ -102,7 +89,7 @@ class JobController extends Controller
     public function edit($id)
     {
         //
-        $job = Job::with('client','worker','service')->find($id);
+        $job = Job::with('client','worker','service','offer')->find($id);
         return response()->json([
             'job'=>$job
         ]);
@@ -191,5 +178,26 @@ class JobController extends Controller
         return response()->json([
             'message'=>'Job has been updated successfully'
         ],200);
+    }
+    public function createJob(Request $request,$id){
+
+         $job = Job::find($id);
+         foreach($request->workers as $worker){
+            $new = new Job;
+            $new->client_id     = $job->client_id;
+            $new->worker_id     = $worker['worker_id'];
+            $new->offer_id      = $job->offer_id;
+            $new->contract_id   = $job->contract_id;
+            $new->start_date    = $worker['date'];
+            $new->start_time    = $worker['start'];
+            $new->end_time      = $worker['end'];
+            $new->status   = 'scheduled';
+            $new->save();
+         }
+
+        return response()->json([
+            'message'=>'Job has been created successfully'
+        ],200);
+
     }
 }

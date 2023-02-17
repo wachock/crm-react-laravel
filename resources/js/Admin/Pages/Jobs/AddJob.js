@@ -4,13 +4,39 @@ import { SelectPicker } from 'rsuite';
 import 'rsuite/dist/rsuite.min.css';
 import axios from 'axios';
 import { useAlert } from 'react-alert';
-import { useNavigate } from 'react-router-dom';
-import TeamAvailability from '../../Components/TeamAvailability/TeamAvailability';
+import { useNavigate,useParams } from 'react-router-dom';
+import TeamAvailability from '../../Components/Job/TeamAvailability';
 
 
 export default function AddJob() {
     const alert                        = useAlert();
     const navigate                     = useNavigate();
+    const params                       = useParams();
+    const [services, setServices]      = useState([]);
+    const [client, setClient]          = useState('');
+    const [address, setAddress]          = useState('');
+
+    const headers = {
+        Accept: "application/json, text/plain, */*",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ` + localStorage.getItem("admin-token"),
+    };
+
+    const getJob = () =>{
+        axios
+        .get(`/api/admin/jobs/${params.id}/edit`,{headers})
+        .then((res)=>{
+            const r = res.data.job;
+            console.log(r);
+            setClient(r.client.firstname+' '+r.client.lastname);
+            setAddress(r.client.geo_address);
+            setServices(JSON.parse(r.offer.services));
+        });
+    }
+     useEffect(()=>{
+        getJob();
+    },[]);
+     console.log(services);
     
   return (
     <div id="container">
@@ -26,31 +52,46 @@ export default function AddJob() {
                                 <div className='col-sm-2'>
                                           <div className='form-group'>
                                             <label>Client</label>
-                                            <p>Kulwinder</p>
+                                            <p>{client}</p>
                                         </div>
                                 </div>
                                  <div className='col-sm-2'>
                                           <div className='form-group'>
                                             <label>Services</label>
-                                            <p>Office Cleaning,Regular Room Service</p>
+                                            {services &&
+                                                services.map((item, index) => (
+                                                
+                                                 <p>{index +1 }.{item.name}</p>
+                                                )
+                                            )}
                                         </div>
                                 </div>
                                 <div className='col-sm-2'>
                                           <div className='form-group'>
                                             <label>Frequency</label>
-                                            <p>Once a week</p>
+                                            {services &&
+                                                services.map((item, index) => (
+                                                
+                                                 <p>{index +1 }.{item.freq_name}</p>
+                                                )
+                                            )}
                                         </div>
                                 </div>
                                  <div className='col-sm-2'>
                                           <div className='form-group'>
                                             <label>Complete Time</label>
-                                            <p>2.5 hour</p>
+                                             {services &&
+                                                services.map((item, index) => (
+                                                
+                                                 <p>{item.jobHours} hours</p>
+                                                )
+                                            )}
                                         </div>
                                 </div>
                                  <div className='col-sm-4'>
                                           <div className='form-group'>
                                             <label>Address</label>
-                                            <p>Delhi</p>
+                                            <p>{address}</p>
                                         </div>
                                 </div>
                                 <div className='col-sm-12'>
