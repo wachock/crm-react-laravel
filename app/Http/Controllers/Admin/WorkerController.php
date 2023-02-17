@@ -238,7 +238,7 @@ class WorkerController extends Controller
                  '20pm-24am'=>array('20:00','00:00'),
 
                 ];
-          $worker_availabilities = WorkerAvialibilty::orderBy('id', 'asc')->get();
+          $worker_availabilities = WorkerAvialibilty::with('worker')->orderBy('id', 'asc')->get();
             $new_array=array();
             foreach($worker_availabilities as $w_a){
                  $working=$this->Slot($w_a->user_id,$w_a->date,$w_a->working[0]);
@@ -250,6 +250,7 @@ class WorkerController extends Controller
                           'date'=>$w_a->date,
                           'start_time'=>$slot,
                           'end_time'=>$this->covertTime($slot),
+                          'name'=>$w_a->worker['firstname'].' '.$w_a->worker['lastname']
 
 
                        );
