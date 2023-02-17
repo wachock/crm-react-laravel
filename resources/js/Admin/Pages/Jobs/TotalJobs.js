@@ -247,7 +247,7 @@ export default function TotalJobs() {
                                                     return(
                                                     <tr key={index}>
                                                         <td>
-                                                           {Moment(item.created_at).format('DD MMM,Y')}
+                                                           {Moment(item.start_date).format('DD MMM,Y')}
                                                         </td>
                                                         <td>
                                                             <h6>{

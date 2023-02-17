@@ -174,12 +174,16 @@ export default function TeamAvailability() {
         slotMaxTime={'24:00'}
         allDaySlot= {false}
         eventClick= {function(info) {
-                        if(info.el.style.borderColor=='red'){
-                          info.el.style.borderColor = 'rgb(0 255 0)';
-                        }else{
-                         info.el.style.borderColor = 'red';
+                      if(info.event.title=='Busy'){
+                         window.alert('Worker Not Available');
+                      }else{
+                            if(info.el.style.borderColor=='red'){
+                              info.el.style.borderColor = 'rgb(0 255 0)';
+                            }else{
+                             info.el.style.borderColor = 'red';
+                           }
+                          handleEventClick(info.event);
                        }
-                       handleEventClick(info.event);
                   } }
     />  
     <div className="form-group text-center">
@@ -272,7 +276,7 @@ export default function TeamAvailability() {
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn btn-secondary closeb" data-dismiss="modal">Close</button>
-                            <button type="button" onClick={handleSubmit} className="btn btn-primary">Save and Send</button>
+                            <button type="button" onClick={handleSubmit} className="btn btn-primary" data-dismiss="modal">Save and Send</button>
                         </div>
                     </div>
                 </div>

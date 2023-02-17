@@ -30,7 +30,7 @@ class JobController extends Controller
 
     }
     public function getAllJob(){
-        $jobs = Job::where('status',1)->get();;
+        $jobs = Job::get();;
         return response()->json([
             'jobs'       => $jobs,        
         ], 200);
