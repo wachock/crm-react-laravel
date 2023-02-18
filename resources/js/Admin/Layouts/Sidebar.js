@@ -62,13 +62,13 @@ export default function Sidebar() {
                     <NavLink to="/admin/contracts"><i className="fa-solid fa-clipboard-list"></i>Contracts</NavLink>
                 </li>
                 <li className="list-group-item">
-                    <div id="fence" className='commonDropdown'>
-                        <div id="fencehead1">
+                    <div id="fence0" className='commonDropdown'>
+                        <div id="fencehead0">
                             <a href="#" className="text-left btn btn-header-link" data-toggle="collapse" data-target="#fence0" aria-expanded="true" aria-controls="fence0">
                                 <i className="fa-solid fa-briefcase"></i> Jobs <i className="fa-solid fa-angle-down"></i>
                             </a>
                         </div>
-                        <div id="fence0" className="collapse" aria-labelledby="fencehead1" data-parent="#fence">
+                        <div id="fence0" className="collapse" aria-labelledby="fencehead0" data-parent="#fence0">
                             <div className="card-body">
                                 <ul className='list-group'>
                                     <li className='list-group-item'>

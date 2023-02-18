@@ -1,90 +1,33 @@
-import React, { useState, useEffect } from 'react'
-import logo from "../Assets/image/logo.png";
-import star from "../Assets/image/icons/blue-star.png";
-import footer from "../Assets/image/bg-bottom-footer.png";
-import { useParams, useNavigate } from 'react-router-dom';
+import logo from "../../Assets/image/logo.png";
+import star from "../../Assets/image/icons/blue-star.png";
+import footer from "../../Assets/image/bg-bottom-footer.png";
 import Moment from 'moment';
-import swal from 'sweetalert'
-import axios from 'axios';
 
-export default function PriceOffer() {
+export default function Throughout() {
 
-    const param = useParams();
-    const navigate = useNavigate();
-    const [offer, setOffer] = useState([]);
-    const [services, setServices] = useState([]);
-    const [client, setClient] = useState([]);
-
-
-    const getOffer = () => {
-        axios
-            .post(`/api/client/get-offer`, { id: param.id })
-            .then((res) => {
-                setOffer(res.data.offer[0]);
-                setServices(JSON.parse(res.data.offer[0].services));
-                setClient(res.data.offer[0].client);
-            })
-    }
-    useEffect(() => {
-        getOffer();
-    }, [])
-
-    const handleOffer = (e, id) => {
-        e.preventDefault();
-        let btn = document.querySelectorAll('.acpt');
-        btn[0].setAttribute('disabled', true);
-        btn[0].value = ('Please Wait..');
-        btn[1].setAttribute('disabled', true);
-        btn[1].value = ('Please Wait..');
-        axios
-            .post(`/api/client/accept-offer`, { id: id })
-            .then((res) => {
-                if (res.data.errors) {
-                    for (let e in res.data.errors) {
-                        alert.error(res.data.errors[e]);
-                    }
-                    btn[0].removeAttribute('disabled');
-                    btn[0].value = ('Accept Offer');
-                    btn[1].removeAttribute('disabled');
-                    btn[1].value = ('Accept Offer');
-                } else {
-                    swal(res.data.message, '', 'success');
-                    setTimeout(() => {
-                        window.location.href = ('/client/login');
-                    }, 1000)
-                }
-            })
-
-    };
-    let src = '/images/regularServices.jpg';
-
+   
     return (
         <>
 
             <div className='container'>
                 <div className='send-offer'>
                     <div className='maxWidthControl dashBox mb-4'>
-                        <div className='row'>
+                    <div className='row'>
                             <div className='col-sm-6'>
                                 <img src={logo} className='img-fluid offer-logo' alt='Broom Service' />
-                            </div>
-                            <div className='col-sm-6'>
-                                <div className='mt-2 float-right'>
-                                    <input className='btn btn-pink acpt' onClick={(e) => handleOffer(e, offer.id)} value='Accept Offer' />
-                                </div>
                             </div>
                         </div>
                         <div className='row'>
                             <div className='col-sm-6'>
-                                <h1>Price Offer No. <span style={{ color: "#16a6ef" }}>#{offer.id}</span></h1>
+                                <h1>Price Offer No. <span style={{ color: "#16a6ef" }}>#12</span></h1>
                             </div>
                             <div className='col-sm-6'>
-                                <p className='date'>Date: <span style={{ color: "#16a6ef" }}>{Moment(offer.created_at).format('Y-MM--DD')}</span></p>
+                                <p className='date'>Date: <span style={{ color: "#16a6ef" }}>{Moment().format('Y-MM-DD')}</span></p>
                             </div>
                         </div>
 
                         <div className='grey-bd'>
-                            <p>In Honor Of: <span style={{ color: "#3da7ef", fontWeight: "700" }}>{client.firstname + " " + client.lastname}</span> </p>
+                            <p>In Honor Of: <span style={{ color: "#3da7ef", fontWeight: "700" }}>{"Jhon Doe"}</span> </p>
                             <p>Company Name: <span>Broom Service</span> </p>
                             <p>Address: <span>Saurabh Vihar, Jaitpur, New Delhi, Delhi, India , 2nd , 12, New Delhi</span></p>
                         </div>
@@ -102,32 +45,16 @@ export default function PriceOffer() {
                                             <th style={{ width: "30%" }}>Service</th>
                                             <th style={{ width: "22%" }}>Frequency of Services</th>
                                             <th style={{ width: "16%" }}>Job Hours</th>
-                                            <th style={offer.type != 'hourly' ? { width: "16%" } : { display: "none" }}>Job Price</th>
-                                            <th style={offer.type == 'hourly' ? { width: "16%" } : { display: "none" }}>Hourly Rate</th>
-                                            <th style={offer.type == 'hourly' ? { width: "16%" } : { display: "none" }}>Amount</th>
+                                            <th style={{ width: "16%" }}>Amount</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {services && services.map((s, i) => {
-                                            return (<tr>
-                                                <td>{s.name}</td>
-                                                <td>{s.freq_name}</td>
-                                                <td>{s.jobHours} hours</td>
-                                                {(offer.type == 'hourly') ?
-                                                    <>
-                                                        <td>{s.rateperhour} ILS</td>
-                                                        <td>{s.totalamount} ILS</td>
-                                                    </>
-                                                    :
-                                                    <>
-                                                        <td>{s.fixed_price} ILS</td>
-                                                    </>
-                                                }
-
-                                            </tr>
-                                            )
-                                        })}
-
+                                        <tr>
+                                            <td>Thorough Cleaning</td>
+                                            <td>Once Time week</td>
+                                            <td>2 hours</td>
+                                            <td>20 ILS</td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -137,33 +64,61 @@ export default function PriceOffer() {
                                         <h5>Total Amount</h5>
                                     </div>
                                     <div className='col-sm-6'>
-                                        <p className='float-right'>{offer.subtotal} ILS</p>
+                                        <p className='float-right'>20 ILS</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        
                         <div className='we-have'>
                             <h3>What Do We Have To Offer?</h3>
                             <div className='shift-20'>
-                                <h4>1. Room Service On A Regular Basis Customized To Your Requirements:</h4>
+                                <h4>1. Premium package which includes:</h4>
                                 <ul className='list-unstyled'>
-                                    <li><img src={star} /> Service on a regular basis by the same professional staff</li>
-                                    <li><img src={star} /> Employing a legal and regulated employee</li>
-                                    <li><img src={star} /> Strict sorting of staff including reliability tests</li>
-                                    <li><img src={star} /> Use of advanced cleaning materials and equipment at our expense</li>
-                                    <li><img src={star} /> Tight supervision by a regional supervisor</li>
+                                    <li><img src={star} /> Thorough dust.</li>
+                                    <li><img src={star} /> Vacuuming carpets and sofas.</li>
+                                    <li><img src={star} /> Interior and exterior windows including shutters, rails and frames.</li>
+                                    <li><img src={star} /> Toilets / showers – cleaning and disinfection.</li>
+                                    <li><img src={star} /> Tasks: vents, air conditioners, lamps, chandeliers and celling fans. Electrical switches, panels, doors, handles and lintels.</li>
+                                    <li><img src={star} /> Bes linen change / bedding.</li>
+                                    <li><img src={star} /> Replacing bags and cleaning bins.</li>
+                                    <li><img src={star} /> Kitchen: kitchen cabinets, thorough cleaning of the refrigerator, microwave, oven and gas, dishwasher and sink. </li>
+                                    <li><img src={star} /> Thorough washing of the floor and perfume of the apartment. </li>
+                                    <li><img src={star} /> Thorough arrangement and cleaning: kitchen and pantry cabinets, wardrobes, general cabinets and drawers in the house, warehouse.</li>
+                                    <li><img src={star} /> Including cleaning meterials + foreman. </li>
                                 </ul>
-                                <h4 className='mt-4'>2. Our packages- Regular Room Service</h4>
-                                <img src={src} className='img-fluid' alt='Room Services' />
-                                <h4 className='mt-4'>3. Cleaning Inside And Outside Windows At Any Height:</h4>
+                                <h4 className='mt-4'>2. Standard package which includes:</h4>
+                                <ul className='list-unstyled'>
+                                    <li><img src={star} /> Thorough dust.</li>
+                                    <li><img src={star} /> Vacuuming carpets and sofas . </li>
+                                    <li><img src={star} /> Interior and exterior windows including shutters, rails and frames.</li>
+                                    <li><img src={star} /> Toilets / showers – cleaning and disinfection.</li>
+                                    <li><img src={star} /> Tasks: vents, air conditioners, lamps, electrical switches, panels, doors, handles and lintels.</li>
+                                    <li><img src={star} /> Bes linen change / bedding.</li>
+                                    <li><img src={star} /> Replacing bags and cleaning bins.</li>
+                                    <li><img src={star} /> Kitchen: kitchen cabinets (outside), thorough cleaning of the refrigerator, microwave, oven and gas, dishwasher and sink.</li>
+                                    <li><img src={star} /> Thorough washing of the floor and perfume of the apartment. </li>
+                                    <li><img src={star} /> Including cleaning meterials + foreman. </li>
+                                </ul>
+                                <h4 className='mt-4'>3. Basic package which includes:</h4>
+                                <ul className='list-unstyled'>
+                                    <li><img src={star} /> Thorough dust.</li>
+                                    <li><img src={star} /> Vacuuming carpets and sofas.  </li>
+                                    <li><img src={star} /> Toilets / showers – cleaning and disinfection.</li>
+                                    <li><img src={star} /> Bes linen change / bedding.</li>
+                                    <li><img src={star} /> Replacing bags and cleaning bins.</li>
+                                    <li><img src={star} /> Kitchen: kitchen cabinets (outside), microwave, oven and gas, dishwasher and sink. </li>
+                                    <li><img src={star} /> Thorough washing of the floor and perfume of the apartment. </li>
+                                    <li><img src={star} /> Including cleaning meterials + foreman. </li>
+                                </ul>
+                            <h4 className='mt-4'>4. Cleaning Inside And Outside Windows At Any Height:</h4>
                                 <ul className='list-unstyled'>
                                     <li><img src={star} /> Professional cleaning of windows, blinds, rails, frames on a regular basis or on demand.</li>
-                                    <li><img src={star} />  Cleaning all types of windows at all heights. </li>
+                                    <li><img src={star} /> Cleaning all types of windows at all heights. </li>
                                     <li><img src={star} /> Nano coating option after cleaning the windows for clean windows over time.</li>
-                                    <li><img src={star} /> Use of advanced cleaning materials and equipment at our expense.</li>
                                     <li><img src={star} /> Cleaning in rappelling by a professional team.</li>
                                 </ul>
-                                <h4 className='mt-4'>4. Laundry Services, Fabric Cleaning And Upholstery:</h4>
+                             <h4 className='mt-4'>5. Laundry Services, Fabric Cleaning And Upholstery:</h4>
                                 <ul className='list-unstyled'>
                                     <li><img src={star} /> Pick up on order day and return up to 48 hours</li>
                                     <li><img src={star} /> Laundry services </li>
@@ -171,7 +126,7 @@ export default function PriceOffer() {
                                     <li><img src={star} /> Ironing services</li>
                                     <li><img src={star} /> Cleaning of sofas, carpets and curtains</li>
                                 </ul>
-                            </div>
+                                </div>
                             <h3 className='mt-4'>Our Services Here, And On Our Website: <a href='https://www.broomservice.co.il' target='_blank'>www.broomservice.co.il</a></h3>
                             <div className='shift-20'>
                                 <h4 className='mt-4'>1. Polishing & Renovating Floors & Surfaces:</h4>
@@ -204,10 +159,11 @@ export default function PriceOffer() {
                                 <h4 className='mt-4'>4. One-time Cleaning Service Afer Renovation / Pre-occupation / Passover Cleaning And Holidays</h4>
                                 <ul className='list-unstyled'>
                                     <li><img src={star} /> One-time general cleaning services - moving to a new apartment? Planning a renovation? Passover in the doorway? we are here!</li>
-                                    <li><img src={star} /> Cleaning services at various levels tailored to you and your needs </li>
+                                    <li><img src={star} /> Cleaning services at various levels, customized to you and your needs. </li>
                                     <li><img src={star} /> Service by legally insured professional workers </li>
-                                    <li><img src={star} /> Detergents and the most advanced equipment at our expense - without acids and dangerous </li>
+                                    <li><img src={star} /> The most advanced equipment at our expense - without acids and dangerous </li>
                                     <li><img src={star} /> A supervisor who will make sure that the work is to your satisfaction and up to our standards</li>
+                                    <li><img src={star} /> Final payment at the end of the work by credit card.</li>
                                 </ul>
                                 <h4 className='mt-4'>5. Full Moving Services From The Packaging Stage To The Coffee With The New Neighbors</h4>
                                 <ul className='list-unstyled'>
@@ -227,9 +183,6 @@ export default function PriceOffer() {
                                     <li><img src={star} /> <a href='https://www.bell-boy.com/' target='_blank'>https://www.bell-boy.com/</a> </li>
                                 </ul>
                             </div>
-                        </div>
-                        <div className='text-center mt-3 mb-3'>
-                            <input className='btn btn-pink acpt' onClick={(e) => handleOffer(e, offer.id)} value='Accept Offer' />
                         </div>
                         <footer className='mt-4'>
                             <img src={footer} className='img-fluid' alt='Footer' />

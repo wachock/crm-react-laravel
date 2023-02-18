@@ -96,12 +96,12 @@ export default function ViewOffer() {
                               {
                                 (ofr.type != 'fixed' ) ?
                                 <>
-                                  <td className='text-right'>{ s.rateperhour }$</td>
-                                  <td className='text-right'>{ s.totalamount}$</td>
+                                  <td className='text-right'>{ s.rateperhour } ILS</td>
+                                  <td className='text-right'>{ s.totalamount} ILS</td>
                                 </>
                               :
                                 <>
-                                  <td className='text-right'>{ s.fixed_price }$</td>
+                                  <td className='text-right'>{ s.fixed_price } ILS</td>
                                 </>
                               }
                             </tr>
@@ -118,8 +118,8 @@ export default function ViewOffer() {
                           <table class="table table-sm table-bordered ">
                             <tfoot>
                               <tr>
-                                <td width="65%" class="text-right">Total( plus vat )</td>
-                                <td class="text-right"><span>{ofr.total}</span>$</td> 
+                                <td width="65%" class="text-right">Total</td>
+                                <td class="text-right"><span>{ofr.subtotal} </span>ILS</td> 
                               </tr>
                             </tfoot>
                           </table>

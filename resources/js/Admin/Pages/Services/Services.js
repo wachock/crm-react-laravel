@@ -72,12 +72,21 @@ export default function Services() {
             }
         });
     };
-
+    const copy = [...services];
+    const [order,setOrder] = useState('ASC');
     const sortTable = (col) =>{
-       
-        const data1 = [...services].sort((a, b) => (a.name < b.name ? -1 : (a.name > b.name)));
-        setServices(data1);
-        console.log(data1);
+        
+        if(order == 'ASC'){
+            const sortData = [...copy].sort((a, b) => (a[col] < b[col] ? 1 : -1));
+            setServices(sortData);
+            setOrder('DESC');
+        }
+        if(order == 'DESC'){
+            const sortData = [...copy].sort((a, b) => (a[col] < b[col] ? -1 : 1));
+            setServices(sortData);
+            setOrder('ASC');
+        }
+        
     }
 
     return (
@@ -99,8 +108,13 @@ export default function Services() {
                                 </Link>
                                 <Link
                                     to="/admin/service-schedule"
-                                    className="btn btn-warning addButton">
+                                    className="ml-2 btn btn-warning addButton">
                                     Schedules
+                                </Link>
+                                <Link
+                                    to="/admin/templates"
+                                    className="btn btn-pink addButton">
+                                    Templates
                                 </Link>
 
                             </div>
@@ -115,9 +129,9 @@ export default function Services() {
                                         <table className="table table-bordered">
                                             <thead>
                                                 <tr>
-                                                    <th scope="col">ID</th>
+                                                    <th scope="col" onClick={(e)=>sortTable('id')}>ID</th>
                                                     <th scope="col" onClick={(e)=>sortTable('name')}>Service</th>
-                                                    <th scope="col">Status</th>
+                                                    <th scope="col" onClick={(e)=>sortTable('status')}>Status</th>
                                                     <th scope="col">Action</th>
                                                 </tr>
                                             </thead>

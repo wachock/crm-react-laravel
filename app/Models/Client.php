@@ -32,6 +32,7 @@ class Client extends Authenticatable
         'dob',
         'passcode',
         'geo_address',
+        'lng',
         'latitude',
         'longitude',
         'color',

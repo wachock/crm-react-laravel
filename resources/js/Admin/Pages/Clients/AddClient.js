@@ -100,7 +100,7 @@ export default function AddClient() {
             password: passcode,
             status: status,
         };
-       
+        
         axios
             .post(`/api/admin/clients`, data, { headers })
             .then((response) => {

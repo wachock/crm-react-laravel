@@ -21,6 +21,8 @@ class CreateSchedulesTable extends Migration
             $table->string('start_date');
             $table->string('start_time')->nullable();
             $table->string('end_time')->nullable();
+            $table->string('meet_via')->nullable();
+            $table->string('meet_link')->nullable();
             $table->timestamps();
         });
     }

@@ -216,7 +216,16 @@ export default function WorkContract() {
                             </tr>
                             <tr>
                                 <td style={{width: "60%"}}>The location in which the service will be provided and/or work will be performed</td>
-                                <td>Saurabh Vihar, Jaitpur, New Delhi, Delhi, India A-278 New Delhi <br/> <span style={{fontWeight: "600"}} className='d-block mt-2'>Other address if any?</span> <br/><input type='text' name="additional_address" onChange={(e)=>setAaddress(e.target.value)} placeholder='Any other address?' className='form-control'/></td>
+                                <td>
+                                    {offer && offer.map((ofr,i)=>{
+                                        let address =  (ofr.client.city) ? (ofr.client.city)+", " : '';
+                                            address += (ofr.client.street_n_no) ? (ofr.client.street_n_no)+", " : '';
+                                            address += (ofr.client.zipcode) ? (ofr.client.zipcode)+", ": ''; 
+                                        return address;
+                                    })}
+                                
+                                <br/> <span style={{fontWeight: "600"}} className='d-block mt-2'>Other address if any?</span> <br/>
+                                <input type='text' name="additional_address" onChange={(e)=>setAaddress(e.target.value)} placeholder='Any other address?' className='form-control'/></td>
                             </tr>
                             <tr>
                                 <td style={{width: "60%"}}>Date on which the service delivery and/or work will begin, and the date on which the service delivery and/or work will end</td>
@@ -236,7 +245,9 @@ export default function WorkContract() {
                             </tr>
                             <tr>
                                 <td style={{width: "60%"}}>Consideration the Tenant will pay the Company, including the payment method and/or payment date<br/>Prices does not include vat**</td>
-                                <td>50 ILS + VAT for 3 Star, Once in a Week<br/>100 ILS + VAT for BNB , Four Times in a Week</td>
+                                {offer && offer.map((ofr,i)=>{
+                                 return <td>{ofr.subtotal} ILS</td>
+                                })}
                             </tr>
                             <tr>
                                 <td style={{width: "60%"}}>Payment method:</td>

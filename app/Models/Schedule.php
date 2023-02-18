@@ -15,6 +15,8 @@ class Schedule extends Model
         'start_time',
         'end_time',
         'start_date',
+        'meet_via',
+        'meet_link'
     ];
 
     public function team(){
