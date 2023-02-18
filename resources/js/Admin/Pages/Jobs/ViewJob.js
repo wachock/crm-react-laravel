@@ -23,7 +23,6 @@ export default function ViewJob() {
         .get(`/api/admin/jobs/${params.id}`,{headers})
         .then((res)=>{
             const r = res.data.job;
-            console.log(r);
             setJob(r)
             setClient(r.client);
             setWorker(r.worker);

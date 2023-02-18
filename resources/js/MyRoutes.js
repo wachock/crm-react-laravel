@@ -74,7 +74,11 @@ import Thankyou from './Pages/Thankyou';
 import ManageTime from './Admin/Pages/Setting/Time/ManageTime';
 import AddTime from './Admin/Pages/Setting/Time/AddTime';
 import EditTime from './Admin/Pages/Setting/Time/EditTime';
-
+import ServiceTemplate from './Admin/Pages/Services/Templates';
+import RegularServiceTemplate from './Pages/offertemplates/template_regular';
+import OfficeCleaningTemplate from './Pages/offertemplates/template_officeCleaning';
+import AfterRenovationTemplate from './Pages/offertemplates/template_cleaningAfterRenovation';
+import ThoroughCleaningTemplate from './Pages/offertemplates/template_throughoutCleaning';
 
 TimeAgo.addDefaultLocale(en)
 const options = {
@@ -145,8 +149,6 @@ export default function MyRoutes() {
                      <Route exact path="add-worker" element={<AddWorker />} />
                      <Route exact path="edit-worker/:id" element={<EditWorker />} />
                      <Route exact path="view-worker/:id" element={<ViewWorker />} />
-                     
-               
                      <Route exact path="settings" element={<Setting />} />
                      <Route exact path="manage-team" element={<ManageTeam />} />
                      <Route exact path="add-team" element={<AddTeam />} />
@@ -157,6 +159,11 @@ export default function MyRoutes() {
                      <Route exact path="service-schedule" element={<ServiceSchedule />} />
                      <Route exact path="add-service-schedule" element={<AddServiceSchedule />} />
                      <Route exact path="edit-service-schedule/:id" element={<EditServiceSchedule />} />
+                     <Route exact path="templates" element={<ServiceTemplate />} />
+                     <Route exact path="template/regular-service" element={<RegularServiceTemplate />} />
+                     <Route exact path="template/office-cleaning" element={<OfficeCleaningTemplate />} />
+                     <Route exact path="template/after-renovation" element={<AfterRenovationTemplate />} />
+                     <Route exact path="template/thorough-cleaning" element={<ThoroughCleaningTemplate />} />
                      <Route exact path="offered-price" element={<OfferPrice />} />
                      <Route exact path="add-offer" element={<AddOffer />} />
                      <Route exact path="edit-offer/:id" element={<EditOffer />} />

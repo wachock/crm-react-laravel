@@ -16,14 +16,16 @@ import swal from 'sweetalert';
 export default function ViewSchedule() {
 
     const [startDate, setStartDate] = useState(new Date());
-    const [client, setClient] = useState([]);
+    const [client, setClient]       = useState([]);
     const [totalTeam, setTotalTeam] = useState([]);
-    const [team, setTeam] = useState([]);
-    const [bstatus, setBstatus] = useState("");
+    const [team, setTeam]           = useState([]);
+    const [bstatus, setBstatus]     = useState("");
     const [startTime, setStartTime] = useState("");
-    const [endTime, setEndTime] = useState("");
-    const [events ,setEvents] = useState([]);
-    const [lang,setLang]      =useState("");
+    const [endTime, setEndTime]     = useState("");
+    const [events ,setEvents]       = useState([]);
+    const [lang,setLang]            = useState("");
+    const [meetVia, setMeetVia]     = useState([]);
+    const [meetLink,setMeetLink]    = useState("");
     const param = useParams();
     const alert = useAlert();
     const navigate = useNavigate();
@@ -64,6 +66,8 @@ export default function ViewSchedule() {
             start_date:startDate,
             start_time:startTime,
             end_time:endTime,
+            meet_via:meetVia,
+            meet_link:meetLink,
             booking_status:st,
         }
 
@@ -118,6 +122,8 @@ export default function ViewSchedule() {
         setStartDate(Moment(d.start_date).toDate());
         setStartTime(d.start_time);
         setEndTime(d.end_time);
+        setMeetVia(d.meet_via);
+        setMeetLink(d.meet_link);
        
       });
     }
@@ -173,6 +179,7 @@ export default function ViewSchedule() {
         }
         
     }
+  
   
     return (
         <div id="container">
@@ -251,7 +258,28 @@ export default function ViewSchedule() {
                                     </select>
                                 </div>
                             </div>
+
                         </div>
+
+                        <div className='row'>
+                            <div className='col-sm-4'>
+                                <div className='form-group'>
+                                    <label>Meet Via</label>
+                                    <select name="meet_via" id="meet_via" selected={meetVia} onChange={(e)=>{setMeetVia(e.target.value);handleUpdate(e)}} className="form-control">
+                                        <option>Please select</option>
+                                        <option value="on-site"  selected={ meetVia == 'on-site' }>On site</option>
+                                        <option value='off-site' selected={ meetVia == 'off-site' }>Off site</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div className='col-sm-6'>
+                                <div className='form-group'>
+                                <label>Meet Link</label>
+                                 <input type="text" id="meet_link" name="meet_link"  value={meetLink} onChange={(e)=>{setMeetLink(e.target.value);handleUpdate(e)}} className='form-control' placeholder='Insert Meeting Link'/>
+                                </div>
+                            </div>
+                        </div>
+
                         <div className='text-center mt-3'>
                             <button className='btn btn-pink sendBtn' onClick={sendMeeting}>Send meeting</button>
                         </div>
@@ -260,11 +288,8 @@ export default function ViewSchedule() {
                             <h4 className='text-center'>Worker Availability</h4>
                             <FullCalendar
                                 initialView='timeGridWeek'
-                                themeSystem="Simplex"
-                                droppable={true}
-                                selectable={true}
-                                selectMirror={true}
-                                dayMaxEvents={true}
+                                themeSystem="bootstrap3"
+                                allDaySlot= {false}
                                 plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
                                 events={events}
                             />
