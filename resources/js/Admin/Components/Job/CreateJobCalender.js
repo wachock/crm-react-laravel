@@ -10,14 +10,13 @@ import { useNavigate,useParams } from 'react-router-dom';
 import { useAlert } from 'react-alert';
 
 
-export default function TeamAvailability() { 
+export default function CreateJobCalender() { 
    const params                       = useParams();
    const navigate                     = useNavigate();
    const alert                        = useAlert();
    const [AllWorkers,setAllWorkers]   = useState([]);
    const [AllJobs,setAllJobs]   = useState([]);
    const [AllWorkerAvailability,setAllWorkerAvailability]   = useState([]);
-
     const headers = {
         Accept: "application/json, text/plain, */*",
         "Content-Type": "application/json",
@@ -26,21 +25,18 @@ export default function TeamAvailability() {
 
     const [services, setServices]      = useState([]);
     const [clientname, setClientName]          = useState('');
-    // const [time_period, setTimePeriod]          = useState('');
     const getJob = () =>{
         axios
-        .get(`/api/admin/jobs/${params.id}/edit`,{headers})
+        .get(`/api/admin/contract/${params.id}`,{headers})
         .then((res)=>{
-            const r = res.data.job;
+            const r = res.data.contract;
             setClientName(r.client.firstname+' '+r.client.lastname);
             setServices(JSON.parse(r.offer.services));
-            
         });
     }
      useEffect(()=>{
         getJob();
     },[]);
-
 
     const getWorkers = () =>{
         axios
@@ -96,11 +92,12 @@ export default function TeamAvailability() {
         }; 
     });  
      Array.prototype.push.apply(events,events1);
-     let time_period;
+     
+     const [data,setData]=useState([]);
+      let time_period;
       {services && services.map((item, index) => ( 
                  time_period = (item.jobHours)
                 )  )}
-     const [data,setData]=useState([]);
      const handleEventClick = (e) =>{
            let str=e.startStr;
             var parts = str.slice(0, -9).split('T');
@@ -111,14 +108,39 @@ export default function TeamAvailability() {
             const str1 = e.textColor;
             var parts1 = str1.split('_');
             
-            
-             
-            var newdata = [{         worker_id:parts1[0],
+            if(data.length>0){
+                let new_data=[];
+                let found = true;
+                data.map((d)=>{
+                    if(d.worker_id==parts1[0] && d.date==dateComponent && d.start==timeComponent){
+                         found=false;
+                    }else{
+                        new_data.push(d)
+                    }
+
+                })
+
+                if(found){
+                    var newdata = [...data,{
+                                     worker_id:parts1[0],
                                      worker_name:parts1[1],
                                      date:dateComponent,
                                      start:timeComponent,
                                      end:endtime
-                                 }]              
+                                 }]
+                }else{
+                    var newdata =new_data;
+                }
+
+            }else{
+            var newdata = [...data,{
+                                     worker_id:parts1[0],
+                                     worker_name:parts1[1],
+                                     date:dateComponent,
+                                     start:timeComponent,
+                                     end:endtime
+                                 }]
+            }                    
             setData(newdata);
      }
     const handleSubmit = () => {
@@ -126,7 +148,7 @@ export default function TeamAvailability() {
         let formdata = {'workers':data};
         if(data.length>0){
             axios
-            .put(`/api/admin/jobs/${params.id}`,formdata,{headers})
+            .post(`/api/admin/create-job/${params.id}`,formdata,{headers})
             .then((res)=>{
                 alert.success(res.data.message)
                 setTimeout(()=>{

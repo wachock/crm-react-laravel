@@ -5,10 +5,10 @@ import 'rsuite/dist/rsuite.min.css';
 import axios from 'axios';
 import { useAlert } from 'react-alert';
 import { useNavigate,useParams } from 'react-router-dom';
-import TeamAvailability from '../../Components/Job/TeamAvailability';
+import CreateJobCalender from '../../Components/Job/CreateJobCalender';
 
 
-export default function AddJob() {
+export default function () {
     const alert                        = useAlert();
     const navigate                     = useNavigate();
     const params                       = useParams();
@@ -24,9 +24,9 @@ export default function AddJob() {
 
     const getJob = () =>{
         axios
-        .get(`/api/admin/jobs/${params.id}/edit`,{headers})
+        .get(`/api/admin/contract/${params.id}`,{headers})
         .then((res)=>{
-            const r = res.data.job;
+            const r = res.data.contract;
             console.log(r);
             setClient(r.client.firstname+' '+r.client.lastname);
             setAddress(r.client.geo_address);
@@ -36,7 +36,6 @@ export default function AddJob() {
      useEffect(()=>{
         getJob();
     },[]);
-     console.log(services);
     
   return (
     <div id="container">
@@ -100,7 +99,7 @@ export default function AddJob() {
                                     </div>
                                 </div> 
                                 <div className='col-sm-12'>
-                                    <TeamAvailability/>
+                                    <CreateJobCalender/>
                                     <div className='mb-3'>&nbsp;</div>
                                 </div>
                             </div>
