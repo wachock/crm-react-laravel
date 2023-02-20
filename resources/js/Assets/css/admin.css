@@ -189,24 +189,24 @@ a:hover{
   text-align: left;
   font-weight: normal;
 }
-#fence .fa-angle-down, #fence2 .fa-angle-down{
+.fence .fa-angle-down, #fence2 .fa-angle-down{
   margin-top: 3px;
   float: right;
 }
-#fence .card-body{
+.fence .card-body{
   padding: 0;
   background: #f9f9fd;
 }
-#fence .card-body ul{
+.fence .card-body ul{
   padding-left: 10px;
 }
-#fence .card-body li{
+.fence .card-body li{
   border: none;
 }
-#fence .card-body li a{
+.fence .card-body li a{
   color: #757589;
 }
-#fence .btn.focus, #fence .btn:focus{
+.fence .btn.focus, #fence .btn:focus{
   box-shadow: none;
 }
 select.form-control:not([size]):not([multiple]) {
