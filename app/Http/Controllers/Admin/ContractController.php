@@ -81,9 +81,13 @@ class ContractController extends Controller
      * @param  \App\Models\Contract  $contract
      * @return \Illuminate\Http\Response
      */
-    public function show(Contract $contract)
+    public function show($id)
     {
-        //
+        $contracts = Contract::with('offer','client')->find($id);
+        return response()->json([
+            'contract'     => $contracts         
+        ], 200);
+
     }
 
     /**

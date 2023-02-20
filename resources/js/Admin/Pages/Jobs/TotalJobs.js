@@ -332,7 +332,10 @@ export default function TotalJobs() {
                                                                     <i className="fa fa-ellipsis-vertical"></i>
                                                                 </button>
                                                                 <div className="dropdown-menu">
-                                                                   <Link to={`/admin/add-job/${item.id}`} className="dropdown-item">Edit Job</Link>
+                                                                   {(item.status=='unscheduled') ?
+
+                                                                   <Link to={`/admin/edit-job/${item.id}`} className="dropdown-item">Edit Job</Link>
+                                                                   :''}
                                                                     <Link to={`/admin/view-job/${item.id}`} className="dropdown-item">View</Link>
                                                                     <button className="dropdown-item" onClick={() => handleDelete(item.id)}>Delete</button>
                                                                 </div>

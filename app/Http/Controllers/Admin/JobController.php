@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Job;
 use App\Models\User;
+use App\Models\Contract;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -104,16 +105,21 @@ class JobController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
         $validator = Validator::make($request->all(),[
-            'client_id' =>['required'],
-            'worker_id' =>['required'],
-            'start_date' =>['required'] 
+            'workers' =>['required'], 
         ]);
         if($validator->fails()){
             return response()->json(['error'=>$validator->messages()]);
         }
-        Job::where('id',$id)->update($request->input());
+        $worker=$request->workers[0];
+        $job = Job::find($id);
+        $job->worker_id     = $worker['worker_id'];
+        $job->start_date    = $worker['date'];
+        $job->start_time    = $worker['start'];
+        $job->end_time      = $worker['end'];
+        $job->status   = 'scheduled';
+        $job->save();
+        
         return response()->json([
             'message'=>'Job has been updated successfully'
         ]);
@@ -181,13 +187,13 @@ class JobController extends Controller
     }
     public function createJob(Request $request,$id){
 
-         $job = Job::find($id);
+         $job = Contract::find($id);
          foreach($request->workers as $worker){
             $new = new Job;
             $new->client_id     = $job->client_id;
             $new->worker_id     = $worker['worker_id'];
             $new->offer_id      = $job->offer_id;
-            $new->contract_id   = $job->contract_id;
+            $new->contract_id   = $id;
             $new->start_date    = $worker['date'];
             $new->start_time    = $worker['start'];
             $new->end_time      = $worker['end'];
