@@ -75,13 +75,15 @@ export default function ClientViewOffer() {
                   </div>
                   <div className="card-body">
                     <div className="table-responsive">
-                      <table class="table table-sm">
+                    <table class="table table-sm">
                         <thead>
                           <tr>
                             <th style={{width:"30%"}}>Service</th>
+                            <th className='text-right'>Frequency</th>
                             <th className='text-right'>Job Hours</th>
-                            <th className='text-right'>Rate Per Hour</th>
-                            <th className='text-right'>Total Amount</th>
+                            <th style={ ofr.type != 'fixed'? {display:"none"} : {}} className='text-right'>Job Price</th>
+                            <th style={ ofr.type == 'fixed'? {display:"none"} : {}} className='text-right'>Rate Per Hour</th>
+                            <th style={ ofr.type == 'fixed'? {display:"none"} : {}} className='text-right'>Total Amount</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -89,9 +91,19 @@ export default function ClientViewOffer() {
                             return(
                             <tr>
                               <td>{s.name}</td>
+                              <td className='text-right'>{ s.freq_name }</td>
                               <td className='text-right'>{ s.jobHours } hour(s)</td>
-                              <td className='text-right'>{ s.rateperhour }$</td>
-                              <td className='text-right'>{ s.totalamount}$</td>
+                              {
+                                (ofr.type != 'fixed' ) ?
+                                <>
+                                  <td className='text-right'>{ s.rateperhour } ILS</td>
+                                  <td className='text-right'>{ s.totalamount} ILS</td>
+                                </>
+                              :
+                                <>
+                                  <td className='text-right'>{ s.fixed_price } ILS</td>
+                                </>
+                              }
                             </tr>
                             )
                           })}
@@ -103,23 +115,11 @@ export default function ClientViewOffer() {
                       <div className='col-sm-6'></div>
                       <div className='col-sm-6'>
                         <div className="table-responsive">
-                          <table class="table table-sm table-bordered ">
-                            <thead>
-                              <tr>
-                                <td width="65%" class="text-right">Subtotal</td>
-                                <td class="text-right"><span>{ ofr.total }</span>$</td>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr>
-                                <td width="65%" class="text-right">Total Tax</td>
-                                <td class="text-right"><span>0.00 </span>$</td> 
-                              </tr>
-                            </tbody>
+                        <table class="table table-sm table-bordered ">
                             <tfoot>
                               <tr>
-                                <td width="65%" class="text-right">Total Tax</td>
-                                <td class="text-right"><span>0.00 </span>$</td> 
+                                <td width="65%" class="text-right">Total</td>
+                                <td class="text-right"><span>{ofr.subtotal} </span>ILS</td> 
                               </tr>
                             </tfoot>
                           </table>

@@ -10,6 +10,8 @@ export default function files() {
     const [note,setNote] = useState("");
     const [file,setFile] = useState([]);
     const [AllFiles,setAllFiles] = useState([]);
+    const [schedules,setSchedules] = useState([]);
+    const [meeting,setMeeting]    = useState([]);
     const param = useParams();
     const alert = useAlert();
     const headers = {
@@ -19,14 +21,16 @@ export default function files() {
     };
 
    
-    const handleNote = (e) =>{
+    const handleFile = (e) =>{
        
       e.preventDefault();
+      if(meeting.length == 0 || meeting == 0){ window.alert('Please select meeting'); return;}
       if(file.length == 0){ window.alert('Please add file'); return;}
       const type = document.querySelector('select[name="filetype"]').value;
       const fd = new FormData();
       fd.append('user_id',param.id);
       fd.append('note',note);
+      fd.append('meeting',meeting);
       fd.append('file',file);
       fd.append('type',type);
       fd.append('role','client');
@@ -92,8 +96,17 @@ export default function files() {
         setAllFiles(res.data.files);
       })
     }
+    const getMeetings = () =>{
+      axios 
+      .post(`/api/admin/client-schedules`,{id:param.id},{ headers })
+      .then((res)=>{
+        setSchedules(res.data.schedules);
+      })
+    }
+
     useEffect(()=>{
         getFiles();
+        getMeetings();
     },[])
     return (
 
@@ -149,6 +162,23 @@ export default function files() {
                         <div className="modal-body">
 
                             <div className="row">
+                            <div className="col-sm-12">
+                                    <div className="form-group">
+                                        <label className="control-label">
+                                            Meeting
+                                        </label>
+                                       <select name="meeting" onChange={(e)=>setMeeting(e.target.value)} className="form-control">
+                                        <option value={0}>select meeting</option>
+                                        { schedules && schedules.map((m,i)=>{
+                                            return <option value={m.id}>
+                                                {Moment(m.start_date).format('DD/MM/Y')+" | "+ m.start_time+" - "+m.end_time}
+                                            </option>
+                                        })}
+                                       </select>
+
+                                    </div>
+                                </div>
+
                                 <div className="col-sm-12">
                                     <div className="form-group">
                                         <label className="control-label">
@@ -206,7 +236,7 @@ export default function files() {
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn btn-secondary closeb" data-dismiss="modal">Close</button>
-                            <button type="button"  onClick={handleNote} className="btn btn-primary">Save File</button>
+                            <button type="button"  onClick={handleFile} className="btn btn-primary">Save File</button>
                         </div>
                     </div>
                 </div>

@@ -16,6 +16,7 @@ class CreateFilesTable extends Migration
         Schema::create('files', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('meeting');
             $table->enum('role',['client','worker']);
             $table->string('note')->nullable();
             $table->enum('type',['image','video'])->default('image');

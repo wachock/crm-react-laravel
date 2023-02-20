@@ -93,6 +93,7 @@ export default function Schedule() {
                         <th scope="col">Meeting Attender</th>
                         <th scope="col">Scheduled</th>
                         <th scope="col">Booking Status</th>
+                        <th scope="col">Files</th>
                        
                       </tr>
                     </thead>
@@ -121,7 +122,7 @@ export default function Schedule() {
                               <span style={{ color: "red" }}>{"End   :" + item.end_time}</span>
                             </td>
                             <td>{item.booking_status}</td>
-                          
+                            <td><a href={`/client/files/${item.id}`}><i className='fa fa-image' style={{"font-size":"36px"}}></i></a></td>
                           </tr>
                         )
                       })}

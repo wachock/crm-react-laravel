@@ -77,7 +77,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin-api', 'scopes:ad
     Route::resource('services', ServicesController::class);
     Route::get('all-services', [ServicesController::class,'AllServices']);
 
-     // Services Api
+     // Services schedule Api
      Route::resource('service-schedule', ServiceSchedulesController::class);
      Route::get('all-service-schedule', [ServiceSchedulesController::class,'allSchedules'])->name('all-service-schedule');
 
@@ -106,7 +106,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin-api', 'scopes:ad
     Route::post('client-schedules',[ScheduleController::class,'ClientSchedules']);
     Route::post('schedule-events', [ScheduleController::class,'getEvents']);
     Route::post('latest-client-schedule', [ScheduleController::class,'getLatestClientSchedule']);
-    
+        
     //client files
     Route::post('add-file',[ClientController::class,'addfile'])->name('add-file');
     Route::post('get-files',[ClientController::class,'getfiles'])->name('get-files');

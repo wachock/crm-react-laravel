@@ -28,6 +28,9 @@ Route::group(['prefix' => 'client', 'middleware' => ['auth:client-api', 'scopes:
    Route::post('contracts', [DashboardController::class, 'contracts'])->name('contracts');
    Route::post('view-contract', [DashboardController::class, 'viewContract'])->name('view-contract');
    Route::post('get-contract', [DashboardController::class, 'getContract'])->name('get-contract');
+   Route::post('add-file',[DashboardController::class,'addfile'])->name('add-file');
+   Route::post('get-files',[DashboardController::class,'getfiles'])->name('get-files');
+   Route::post('delete-file',[DashboardController::class,'deletefile'])->name('delete-file');
   
 });
 

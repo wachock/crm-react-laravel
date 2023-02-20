@@ -185,6 +185,7 @@ class ClientController extends Controller
         
         Files::create([
             'user_id'   => $request->user_id,
+            'meeting'   => $request->meeting,
             'note'      => $request->note,
             'role'      =>'client',
             'type'      =>$request->type,

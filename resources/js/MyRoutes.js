@@ -21,6 +21,7 @@ import ClientOffers from './Client/Pages/OfferPrice/OfferPrice';
 import ClientViewOffer from './Client/Pages/OfferPrice/ViewOffer';
 import ClientContracts from './Client/Pages/Contract/Contract';
 import ClientViewContract from './Client/Pages/Contract/ViewContract';
+import ClientFiles from './Client/Pages/Schedule/Files';
 // Worker Routes
 
 import Worker from './Worker/Worker';
@@ -112,6 +113,7 @@ export default function MyRoutes() {
                      <Route exact path="/client/view-offer/:id" element={<ClientViewOffer/>} />
                      <Route exact path="/client/contracts" element={<ClientContracts/>} />
                      <Route exact path="/client/view-contract/:id/:hash" element={<ClientViewContract/>} />
+                     <Route exact path="/client/files/:meetId" element={<ClientFiles/>}/>
                   </Route>
                </Route>
                {/* Client Routes End  */}

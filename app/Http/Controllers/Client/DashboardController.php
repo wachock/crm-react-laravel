@@ -7,8 +7,12 @@ use App\Models\Job;
 use App\Models\Offer;
 use App\Models\Schedule;
 use App\Models\Contract;
+use App\Models\Files;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
+use Image;
+use File;
 
 class DashboardController extends Controller
 {
@@ -137,6 +141,77 @@ class DashboardController extends Controller
         $contract = Contract::where('id',$request->id)->get();
         return response()->json([
             'contract'=>$contract
+        ],200);
+    }
+
+    public function addfile(Request $request){
+ 
+        /*
+        $video = $request->file('file');
+        $vname = $video->getClientOriginalName();
+        $path=storage_path().'/app/public/uploads/ClientFiles';
+        $video->move($path,$vname);
+        */
+
+        $validator = Validator::make($request->all(), [
+            'file'   => 'required|mimes:jpeg,jpg,png',
+            'role'   => 'required',
+            'user_id'=>'required'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->messages()]);
+        }
+
+        $image_nm = '';
+        if($request->hasfile('file')){
+
+            $image = $request->file('file');
+            $name = $image->getClientOriginalName();
+            $img = Image::make($image)->resize(350, 227);
+            $destinationPath=storage_path().'/app/public/uploads/ClientFiles/';
+            $fname = 'file_'.$request->user_id.'_'.date('s').'_'.$name;
+            $path=storage_path().'/app/public/uploads/ClientFiles/'. $fname;
+            File::exists($destinationPath) or File::makeDirectory($destinationPath,0777,true,true);
+            $img->save($path, 90);
+            $image_nm  = $fname; 
+        }
+        
+        Files::create([
+            'user_id'   => $request->user_id,
+            'meeting'   => $request->meeting,
+            'note'      => $request->note,
+            'role'      =>'client',
+            'type'      =>$request->type,
+            'file'      => $image_nm
+
+        ]);
+
+        return response()->json([
+            'message'=>'File uploaded',
+        ],200);
+    }
+    public function getfiles(Request $request){
+         $files = Files::where([
+            'user_id'=>$request->id,
+            'role' =>'client',
+            'meeting'=>$request->meet_id
+         ])->get();
+         if(isset($files)){
+            foreach($files as $k => $file){
+                
+                $files[$k]->path =  asset('storage/uploads/ClientFiles')."/".$file->file;
+                
+            }
+         }
+         return response()->json([
+            'files'=>$files
+        ],200);
+    }
+    public function deletefile(Request $request){
+        Files::where('id',$request->id)->delete();
+        return response()->json([
+            'message'=>'File deleted',
         ],200);
     }
 
