@@ -92,8 +92,6 @@ export default function Services() {
     return (
         <div id="container">
             <Sidebar />
-            <div id="container">
-                <Sidebar />
                 <div id="content">
                     <div className="titleBox customer-title">
                         <div className="row">
@@ -195,7 +193,6 @@ export default function Services() {
                         </div>
                     </div>
                 </div>
-            </div>
         </div>
 
     );
