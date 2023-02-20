@@ -120,6 +120,7 @@ export default function Contract() {
                                             <th scope="col">Service Name</th>
                                             <th scope="col">Status</th>
                                             <th scope="col">Total</th>
+                                            <th scope="col">Job Status</th>
                                             <th scope="col">Action</th>
                                         </tr>
                                     </thead>
@@ -161,6 +162,7 @@ export default function Contract() {
                                             </td>
                                             <td>{ c.status }</td>
                                             <td>{ c.offer.total } ILS</td>
+                                            <td>{ (c.job_status)?'Active':'InActive' }</td>
                                             <td>
                                                 <div className="action-dropdown dropdown">
                                                     <button type="button" className="btn btn-default dropdown-toggle" data-toggle="dropdown">
