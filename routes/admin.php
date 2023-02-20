@@ -41,6 +41,7 @@ use App\Http\Controllers\Admin\ContractController;
 Route::group(['prefix' => 'admin'], function () {
     Route::post('login', [AuthController::class, 'login']);
     Route::post('register', [AuthController::class, 'register']);
+    Route::get('weeklyjob', [DashboardController::class, 'WeeklyJob']);
 
 });
 
