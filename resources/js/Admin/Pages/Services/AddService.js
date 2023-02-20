@@ -5,7 +5,8 @@ import { useNavigate } from "react-router-dom";
 
 export default function AddService() {
 
-    const [service, setService] = useState([]);
+    const [service, setService]  = useState([]);
+    const [template,setTemplate] = useState([]);
     const [status, setStatus] = useState(0);
     const [errors, setErrors] = useState([]);
     const alert = useAlert();
@@ -21,6 +22,7 @@ export default function AddService() {
         e.preventDefault();
         const data = {
             name: service,
+            template:template,
             status: status,
         };
 
@@ -66,6 +68,30 @@ export default function AddService() {
                                             {errors.service ? (
                                                 <small className="text-danger mb-1">
                                                     {errors.service}
+                                                </small>
+                                            ) : (
+                                                ""
+                                            )}
+                                        </div>
+                                    </div>
+
+                                    <div className="col-sm-12">
+                                        <div className="form-group">
+                                            <label className="control-label">Template</label>
+                                            <select
+                                                className="form-control"
+                                                value={template}
+                                                onChange={(e) => setTemplate(e.target.value)}
+                                            >
+                                                <option>Please select</option>
+                                                <option value="regular">Regular Services( 2*, 3*, 4*, 5* )</option>
+                                                <option value="office_cleaning">Office Cleaning</option>
+                                                <option value="after_renovation">After Renovation</option>
+                                                <option value="thorough_cleaning">Thorough Cleaning</option>
+                                            </select>
+                                            {errors.template ? (
+                                                <small className="text-danger mb-1">
+                                                    {errors.template}
                                                 </small>
                                             ) : (
                                                 ""

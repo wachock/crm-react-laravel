@@ -8,6 +8,7 @@ import axios from "axios";
 export default function EditService() {
 
     const [service, setService] = useState([]);
+    const [template,setTemplate]= useState([]);
     const [status, setStatus] = useState(0);
     const [errors, setErrors] = useState([]);
     const alert = useAlert();
@@ -24,6 +25,7 @@ export default function EditService() {
         e.preventDefault();
         const data = {
             name: service,
+            template:template,
             status: status,
         };
 
@@ -46,7 +48,9 @@ export default function EditService() {
         axios
             .get(`/api/admin/services/${params.id}/edit`, { headers })
             .then((res) => {
-                setService(res.data.service);
+                setService(res.data.service.name);
+                setTemplate(res.data.service.template);
+                setStatus(res.data.service.status);
             });
 
     }
@@ -73,7 +77,7 @@ export default function EditService() {
                                             </label>
                                             <input
                                                 type="text"
-                                                value={service.name}
+                                                value={service}
                                                 onChange={(e) =>
                                                     setService(e.target.value)
                                                 }
@@ -93,6 +97,30 @@ export default function EditService() {
 
                                     <div className="col-sm-12">
                                         <div className="form-group">
+                                            <label className="control-label">Template</label>
+                                            <select
+                                                className="form-control"
+                                                value={template}
+                                                onChange={(e) => setTemplate(e.target.value)}
+                                            >
+                                                <option>Please select</option>
+                                                <option value="regular" selected={template == 'regular'}>Regular Services( 2*, 3*, 4*, 5* )</option>
+                                                <option value="office_cleaning" selected={template == 'office_cleaning'}>Office Cleaning</option>
+                                                <option value="after_renovation" selected={template == 'after_renovation'}>After Renovation</option>
+                                                <option value="thorough_cleaning" selected={template == 'thorough_cleaning'}>Thorough Cleaning</option>
+                                            </select>
+                                            {errors.template ? (
+                                                <small className="text-danger mb-1">
+                                                    {errors.template}
+                                                </small>
+                                            ) : (
+                                                ""
+                                            )}
+                                        </div>
+                                    </div>
+
+                                    <div className="col-sm-12">
+                                        <div className="form-group">
                                             <label className="control-label">Status</label>
                                             <select
                                                 className="form-control"
@@ -100,8 +128,8 @@ export default function EditService() {
                                                 onChange={(e) => setStatus(e.target.value)}
                                             >
                                                 <option>Please select</option>
-                                                <option value="1">Active</option>
-                                                <option value="0">Inactive</option>
+                                                <option value="1" selected={ status == '1'}>Active</option>
+                                                <option value="0" selected={ status == '0'}>Inactive</option>
                                             </select>
                                             {errors.status ? (
                                                 <small className="text-danger mb-1">
