@@ -22,7 +22,7 @@ class JobController extends Controller
     {   
         
         $q =  $request->q;
-        $jobs = Job::where('status',$q)->with('worker', 'client','offer');
+        $jobs = Job::with('worker', 'client','offer');
         $jobs = $jobs->orderBy('id', 'desc')->paginate(20);
         return response()->json([
             'jobs'       => $jobs,        
