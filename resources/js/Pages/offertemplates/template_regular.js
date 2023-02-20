@@ -85,7 +85,7 @@ export default function RegularServices() {
                                 <h4 className='mt-4'>3. Cleaning Inside And Outside Windows At Any Height:</h4>
                                 <ul className='list-unstyled'>
                                     <li><img src={star} /> Professional cleaning of windows, blinds, rails, frames on a regular basis or on demand.</li>
-                                    <li><img src={star} />  Cleaning all types of windows at all heights. </li>
+                                    <li><img src={star} /> Cleaning all types of windows at all heights. </li>
                                     <li><img src={star} /> Nano coating option after cleaning the windows for clean windows over time.</li>
                                     <li><img src={star} /> Use of advanced cleaning materials and equipment at our expense.</li>
                                     <li><img src={star} /> Cleaning in rappelling by a professional team.</li>
