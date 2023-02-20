@@ -62,26 +62,9 @@ export default function Sidebar() {
                     <NavLink to="/admin/contracts"><i className="fa-solid fa-clipboard-list"></i>Contracts</NavLink>
                 </li>
                 <li className="list-group-item">
-                    <div id="fence0" className='fence commonDropdown'>
-                        <div id="fencehead0">
-                            <a href="#" className="text-left btn btn-header-link" data-toggle="collapse" data-target="#fence_job" aria-expanded="true" aria-controls="fence0">
-                                <i className="fa-solid fa-briefcase"></i> Jobs <i className="fa-solid fa-angle-down"></i>
-                            </a>
-                        </div>
-                        <div id="fence_job" className="collapse" aria-labelledby="fencehead0" data-parent="#fence0">
-                            <div className="card-body">
-                                <ul className='list-group'>
-                                    <li className='list-group-item'>
-                                        <Link to="/admin/jobs?q=unscheduled"><i className="fa fa-angle-right"></i> Unscheduled </Link>
-                                    </li>
-                                    <li className='list-group-item'>
-                                        <Link to="/admin/jobs?q=scheduled"><i className="fa fa-angle-right"></i> Scheduled </Link>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
+                    <NavLink to="/admin/jobs"><i className="fa-solid fa-briefcase"></i>Jobs</NavLink>
                 </li>
+                
                 <li className="list-group-item">
                     <div id="fence" className='fence commonDropdown'>
                         <div id="fencehead1">

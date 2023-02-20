@@ -115,7 +115,7 @@ export default function AdminDashboard() {
                             </a>  
                         </div>
                         <div className="col-sm-4 col-xs-6">
-                            <a href="#">
+                            <a href="/admin/schedule">
                                 <div className="dashBox">
                                     <div className="dashIcon">
                                         <i className="fa-solid fa-handshake"></i>

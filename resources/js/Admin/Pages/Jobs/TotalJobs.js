@@ -27,8 +27,8 @@ export default function TotalJobs() {
         Authorization: `Bearer ` + localStorage.getItem("admin-token"),
     };
 
-    const getJobs = (q) => {
-        axios.get(`/api/admin/jobs?q=${q}`, { headers }).then((response) => {
+    const getJobs = () => {
+        axios.get(`/api/admin/jobs`, { headers }).then((response) => {
             if (response.data.jobs.data.length > 0) {
                 setTotalJobs(response.data.jobs.data);
                 setPageCount(response.data.jobs.last_page);
@@ -62,14 +62,12 @@ export default function TotalJobs() {
                 setAllWorkers(res.data.workers);
             })
     }
-    useEffect(() => {
-        getJobs(query);
-      }, [query]);
-
+    
     useEffect(() => {
         getClients();
         getServices();
         getWorkers();
+        getJobs();
     }, []);
 
     const handlePageClick = async (data) => {
@@ -154,7 +152,7 @@ export default function TotalJobs() {
                 } else {
                     alert.success("Job Updated Successfully");
                     setTimeout(() => {
-                        getJobs(query);
+                        getJobs();
                     }, 1000);
                 }
             });

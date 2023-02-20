@@ -174,6 +174,7 @@ export default function EditOffer() {
       subtotal:to,
       total: to+tax,
       services: JSON.stringify(formValues),
+      action:event.target.value,
     }
 
     event.target.setAttribute('disabled', true);

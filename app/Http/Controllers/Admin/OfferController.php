@@ -63,7 +63,7 @@ class OfferController extends Controller
      */
     public function store(Request $request)
     {
-       
+    
         $validator  = Validator::make($request->all(),[
 
             'client_id'    => ['required'],
@@ -147,6 +147,7 @@ class OfferController extends Controller
      */
     public function update(Request $request,$id)
     {
+        //dd($request->all());
         $validator  = Validator::make($request->all(),[
 
             'client_id'    => ['required'],

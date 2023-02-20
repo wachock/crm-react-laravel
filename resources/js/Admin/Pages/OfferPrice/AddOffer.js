@@ -136,6 +136,7 @@ export default function AddOffer() {
 
   let handleSubmit = (event) => {
 
+    
     event.preventDefault();
     
     let to = 0;
@@ -186,6 +187,7 @@ export default function AddOffer() {
       subtotal:to,
       total: to+tax,
       services: JSON.stringify(formValues),
+      action:event.target.value,
     }
 
     event.target.setAttribute('disabled', true);
@@ -307,6 +309,7 @@ export default function AddOffer() {
                   </div>
                 </div>
                 <div className="text-right">
+                  <input type="submit" value="Save" className="btn btn-success saveBtn" onClick={handleSubmit} style={{'margin-inline':'6px'}} />
                   <input type="submit" value="Save and Send" className="btn btn-pink saveBtn" onClick={handleSubmit} />
                 </div>
               </form>
