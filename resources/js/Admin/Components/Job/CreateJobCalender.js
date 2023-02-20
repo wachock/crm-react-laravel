@@ -37,10 +37,16 @@ export default function CreateJobCalender() {
      useEffect(()=>{
         getJob();
     },[]);
+      let time_period;
+      let service_id;
+      {services && services.map((item, index) => { 
+                 time_period = (item.jobHours);
+                 service_id = parseInt(item.service);
+                }  )}
 
     const getWorkers = () =>{
         axios
-        .get('/api/admin/all-workers?filter=true',{headers})
+        .get(`/api/admin/all-workers?filter=true&contract_id=${params.id}`,{headers})
         .then((res)=>{
           setAllWorkers(res.data.workers);
         })
@@ -94,10 +100,7 @@ export default function CreateJobCalender() {
      Array.prototype.push.apply(events,events1);
      
      const [data,setData]=useState([]);
-      let time_period;
-      {services && services.map((item, index) => ( 
-                 time_period = (item.jobHours)
-                )  )}
+     
      const handleEventClick = (e) =>{
            let str=e.startStr;
             var parts = str.slice(0, -9).split('T');

@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use App\Models\WorkerAvialibilty;
 use App\Models\Job;
+use App\Models\Contract;
+use Carbon\Carbon;
 
 class WorkerController extends Controller
 {
@@ -38,7 +40,21 @@ class WorkerController extends Controller
     }
 
     public function AllWorkers(Request $request){
-        $workers = User::with('availabilities')->where('status',1);
+        if($request->contract_id){
+           $contract=Contract::with('offer','client')->find($request->contract_id);
+           if($contract->offer){
+               $services=json_decode($contract->offer['services']);
+               $service=$services[0]->service;
+           }
+        }
+        if($request->job_id){
+            $job=Job::with('offer')->find($request->job_id);
+            if($job->offer){
+               $services=json_decode($job->offer['services']);
+               $service=$services[0]->service;
+           }
+        }
+        $workers = User::with('availabilities')->where('skill',  'like','%'.$service.'%')->where('status',1);
         $workers = $workers->get();
         if(isset($request->filter)){
             $newworker=array();
@@ -238,7 +254,8 @@ class WorkerController extends Controller
                  '20pm-24am'=>array('20:00','00:00'),
 
                 ];
-          $worker_availabilities = WorkerAvialibilty::with('worker')->orderBy('id', 'asc')->get();
+          $sunday = Carbon::now()->startOfWeek()->subDays(1);
+          $worker_availabilities = WorkerAvialibilty::with('worker')->where('date', '>=', $sunday)->orderBy('id', 'asc')->get();
             $new_array=array();
             foreach($worker_availabilities as $w_a){
                  $working=$this->Slot($w_a->user_id,$w_a->date,$w_a->working[0]);

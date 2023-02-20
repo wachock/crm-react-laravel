@@ -44,7 +44,7 @@ export default function TeamAvailability() {
 
     const getWorkers = () =>{
         axios
-        .get('/api/admin/all-workers?filter=true',{headers})
+        .get(`/api/admin/all-workers?filter=true&job_id=${params.id}`,{headers})
         .then((res)=>{
           setAllWorkers(res.data.workers);
         })
