@@ -40,6 +40,7 @@ export default function Schedule() {
           setSchedules(response.data.schedules.data);
           setPageCount(response.data.schedules.last_page);
         } else {
+          setSchedules([]);
           setLoading("No meeting scheduled yet");
         }
       })
