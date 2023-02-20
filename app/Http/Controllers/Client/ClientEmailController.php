@@ -128,5 +128,9 @@ class ClientEmailController extends Controller
       ]);
   }
 
+  public function serviceTemplate(Request $request){
+    $template = Services::where('id',$request->id)->get('template')->first();
+    return response()->json(['template'=>$template]);
+  }
 }
 

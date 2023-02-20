@@ -14,6 +14,7 @@ export default function PriceOffer() {
     const [offer, setOffer] = useState([]);
     const [services, setServices] = useState([]);
     const [client, setClient] = useState([]);
+    const [template,setTemplate] = useState([]);
 
 
     const getOffer = () => {
@@ -56,8 +57,23 @@ export default function PriceOffer() {
             })
 
     };
-    let src = '/images/regularServices.jpg';
+    const getTemplate = (id) =>{
+        axios
+        .post(`/api/client/get-service-template`,{id:id})
+        .then((res)=>{
+           setTemplate(res.data.template.template);
+        })
+    }
 
+    let src = '/images/regularServices.jpg';
+    services && services.map((s,i)=>{
+      if(i == 0){ getTemplate(s.service) }
+    });
+    let address = (client.city) ? (client.city)+", " : '';
+    address += (client.street_n_no) ? (client.street_n_no)+", ": '';
+    address += (client.zipcode) ? (client.zipcode)+", " : '';
+
+    console.log(template);
     return (
         <>
 
@@ -86,7 +102,9 @@ export default function PriceOffer() {
                         <div className='grey-bd'>
                             <p>In Honor Of: <span style={{ color: "#3da7ef", fontWeight: "700" }}>{client.firstname + " " + client.lastname}</span> </p>
                             <p>Company Name: <span>Broom Service</span> </p>
-                            <p>Address: <span>Saurabh Vihar, Jaitpur, New Delhi, Delhi, India , 2nd , 12, New Delhi</span></p>
+                            
+                             <p>Address: <span>{ address }</span></p>
+                            
                         </div>
                         <div className='abt'>
                             <h2>About us</h2>
@@ -143,6 +161,11 @@ export default function PriceOffer() {
                             </div>
                         </div>
                         <div className='we-have'>
+                            
+                            {
+                             (template == 'regular') ?
+                            <>
+                            
                             <h3>What Do We Have To Offer?</h3>
                             <div className='shift-20'>
                                 <h4>1. Room Service On A Regular Basis Customized To Your Requirements:</h4>
@@ -154,7 +177,7 @@ export default function PriceOffer() {
                                     <li><img src={star} /> Tight supervision by a regional supervisor</li>
                                 </ul>
                                 <h4 className='mt-4'>2. Our packages- Regular Room Service</h4>
-                                <img src={src} className='img-fluid' alt='Room Services' />
+                                <img src={'/images/regularServices.jpg'} className='img-fluid' alt='Room Services' />
                                 <h4 className='mt-4'>3. Cleaning Inside And Outside Windows At Any Height:</h4>
                                 <ul className='list-unstyled'>
                                     <li><img src={star} /> Professional cleaning of windows, blinds, rails, frames on a regular basis or on demand.</li>
@@ -172,6 +195,143 @@ export default function PriceOffer() {
                                     <li><img src={star} /> Cleaning of sofas, carpets and curtains</li>
                                 </ul>
                             </div>
+
+                            </> : ''
+                            
+                            }
+
+                            {
+                                (template == 'thorough_cleaning') ? 
+                                <>
+                                <h3>What Do We Have To Offer?</h3>
+                            <div className='shift-20'>
+                                <h4>1. Premium package which includes:</h4>
+                                <ul className='list-unstyled'>
+                                    <li><img src={star} /> Thorough dust.</li>
+                                    <li><img src={star} /> Vacuuming carpets and sofas.</li>
+                                    <li><img src={star} /> Interior and exterior windows including shutters, rails and frames.</li>
+                                    <li><img src={star} /> Toilets / showers – cleaning and disinfection.</li>
+                                    <li><img src={star} /> Tasks: vents, air conditioners, lamps, chandeliers and celling fans. Electrical switches, panels, doors, handles and lintels.</li>
+                                    <li><img src={star} /> Bes linen change / bedding.</li>
+                                    <li><img src={star} /> Replacing bags and cleaning bins.</li>
+                                    <li><img src={star} /> Kitchen: kitchen cabinets, thorough cleaning of the refrigerator, microwave, oven and gas, dishwasher and sink. </li>
+                                    <li><img src={star} /> Thorough washing of the floor and perfume of the apartment. </li>
+                                    <li><img src={star} /> Thorough arrangement and cleaning: kitchen and pantry cabinets, wardrobes, general cabinets and drawers in the house, warehouse.</li>
+                                    <li><img src={star} /> Including cleaning meterials + foreman. </li>
+                                </ul>
+                                <h4 className='mt-4'>2. Standard package which includes:</h4>
+                                <ul className='list-unstyled'>
+                                    <li><img src={star} /> Thorough dust.</li>
+                                    <li><img src={star} /> Vacuuming carpets and sofas . </li>
+                                    <li><img src={star} /> Interior and exterior windows including shutters, rails and frames.</li>
+                                    <li><img src={star} /> Toilets / showers – cleaning and disinfection.</li>
+                                    <li><img src={star} /> Tasks: vents, air conditioners, lamps, electrical switches, panels, doors, handles and lintels.</li>
+                                    <li><img src={star} /> Bes linen change / bedding.</li>
+                                    <li><img src={star} /> Replacing bags and cleaning bins.</li>
+                                    <li><img src={star} /> Kitchen: kitchen cabinets (outside), thorough cleaning of the refrigerator, microwave, oven and gas, dishwasher and sink.</li>
+                                    <li><img src={star} /> Thorough washing of the floor and perfume of the apartment. </li>
+                                    <li><img src={star} /> Including cleaning meterials + foreman. </li>
+                                </ul>
+                                <h4 className='mt-4'>3. Basic package which includes:</h4>
+                                <ul className='list-unstyled'>
+                                    <li><img src={star} /> Thorough dust.</li>
+                                    <li><img src={star} /> Vacuuming carpets and sofas.  </li>
+                                    <li><img src={star} /> Toilets / showers – cleaning and disinfection.</li>
+                                    <li><img src={star} /> Bes linen change / bedding.</li>
+                                    <li><img src={star} /> Replacing bags and cleaning bins.</li>
+                                    <li><img src={star} /> Kitchen: kitchen cabinets (outside), microwave, oven and gas, dishwasher and sink. </li>
+                                    <li><img src={star} /> Thorough washing of the floor and perfume of the apartment. </li>
+                                    <li><img src={star} /> Including cleaning meterials + foreman. </li>
+                                </ul>
+                            <h4 className='mt-4'>4. Cleaning Inside And Outside Windows At Any Height:</h4>
+                                <ul className='list-unstyled'>
+                                    <li><img src={star} /> Professional cleaning of windows, blinds, rails, frames on a regular basis or on demand.</li>
+                                    <li><img src={star} /> Cleaning all types of windows at all heights. </li>
+                                    <li><img src={star} /> Nano coating option after cleaning the windows for clean windows over time.</li>
+                                    <li><img src={star} /> Cleaning in rappelling by a professional team.</li>
+                                </ul>
+                             <h4 className='mt-4'>5. Laundry Services, Fabric Cleaning And Upholstery:</h4>
+                                <ul className='list-unstyled'>
+                                    <li><img src={star} /> Pick up on order day and return up to 48 hours</li>
+                                    <li><img src={star} /> Laundry services </li>
+                                    <li><img src={star} /> Dry Cleaning</li>
+                                    <li><img src={star} /> Ironing services</li>
+                                    <li><img src={star} /> Cleaning of sofas, carpets and curtains</li>
+                                </ul>
+                                </div>
+                                </>:''
+                            }
+
+                            {
+                                (template == 'office_cleaning') ? 
+                                <>
+                                <h3>What Do We Have To Offer?</h3>
+                                <div className='shift-20'>
+                                    <h4>1. Room Service On A Regular Basis Customized To Your Requirements:</h4>
+                                    <ul className='list-unstyled'>
+                                        <li><img src={star} /> Service on a regular basis by the same professional staff</li>
+                                        <li><img src={star} /> Employing a legal and regulated employee</li>
+                                        <li><img src={star} /> Strict sorting of staff including reliability tests</li>
+                                        <li><img src={star} /> Use of advanced cleaning materials and equipment at our expense</li>
+                                        <li><img src={star} /> Tight supervision by a regional supervisor</li>
+                                    </ul>
+                                    <h4 className='mt-4'>2.Our package- Regular Office cleaning</h4>
+                                    <img src={'/images/officeCleaning.png'} className='img-fluid' alt='Room Services' />
+                                    <h4 className='mt-4'>3. Cleaning Inside And Outside Windows At Any Height:</h4>
+                                    <ul className='list-unstyled'>
+                                        <li><img src={star} /> Professional cleaning of windows, blinds, rails, frames on a regular basis or on demand.</li>
+                                        <li><img src={star} />  Cleaning all types of windows at all heights. </li>
+                                        <li><img src={star} /> Nano coating option after cleaning the windows for clean windows over time.</li>
+                                        <li><img src={star} /> Cleaning in rappelling by a professional team.</li>
+                                    </ul>
+                                    <h4 className='mt-4'>4. Laundry Services, Fabric Cleaning And Upholstery:</h4>
+                                    <ul className='list-unstyled'>
+                                        <li><img src={star} /> Pick up on order day and return up to 48 hours</li>
+                                        <li><img src={star} /> Laundry services </li>
+                                        <li><img src={star} /> Dry Cleaning</li>
+                                        <li><img src={star} /> Ironing services</li>
+                                        <li><img src={star} /> Cleaning of sofas, carpets and curtains</li>
+                                    </ul>
+                                </div>
+                                </>: ''
+                            }
+
+                            {
+                                (template == 'after_renovation') ? 
+                                <>
+                                <h3>What Do We Have To Offer?</h3>
+                                <div className='shift-20'>
+                                    <h4>1. One-time cleaning service after renovation / Pre-occupation.</h4>
+                                    <ul className='list-unstyled'>
+                                        <li><img src={star} /> One-time general cleaning services - moving to a new apartment? Planning a renovation? Passover in the doorway? we are here!</li>
+                                        <li><img src={star} /> Cleaning services at various levels tailored to you and your needs</li>
+                                        <li><img src={star} /> Service by legally insured professional workers</li>
+                                        <li><img src={star} /> Detergents and the most advanced equipment at our expense - without acids and dangerous </li>
+                                        <li><img src={star} /> A supervisor who will make sure that the work is to your satisfaction and up to our standards.</li>
+                                        <li><img src={star} /> Payment will be made at the end of the work by credit card.</li>
+
+                                    </ul>
+                                    <h4 className='mt-4'>2. Our package- After renovation / Pre-occupation.</h4>
+                                    <img src={'/images/renovation.png'} className='img-fluid' alt='Room Services' />
+                                    <h4 className='mt-4'>3. Cleaning Inside And Outside Windows At Any Height:</h4>
+                                    <ul className='list-unstyled'>
+                                        <li><img src={star} /> Professional cleaning of windows, blinds, rails, frames on a regular basis or on demand.</li>
+                                        <li><img src={star} /> Cleaning all types of windows at all heights. </li>
+                                        <li><img src={star} /> Nano coating option after cleaning the windows for clean windows over time.</li>
+                                        <li><img src={star} /> Cleaning in rappelling by a professional team.</li>
+                                    </ul>
+                                    <h4 className='mt-4'>4. Laundry Services, Fabric Cleaning And Upholstery:</h4>
+                                    <ul className='list-unstyled'>
+                                        <li><img src={star} /> Pick up on order day and return up to 48 hours</li>
+                                        <li><img src={star} /> Laundry services </li>
+                                        <li><img src={star} /> Dry Cleaning</li>
+                                        <li><img src={star} /> Ironing services</li>
+                                        <li><img src={star} /> Cleaning of sofas, carpets and curtains</li>
+                                    </ul>
+                                </div>
+                                </>: ''
+                            }
+
                             <h3 className='mt-4'>Our Services Here, And On Our Website: <a href='https://www.broomservice.co.il' target='_blank'>www.broomservice.co.il</a></h3>
                             <div className='shift-20'>
                                 <h4 className='mt-4'>1. Polishing & Renovating Floors & Surfaces:</h4>
