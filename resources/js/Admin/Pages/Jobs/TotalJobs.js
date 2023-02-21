@@ -322,7 +322,7 @@ export default function TotalJobs() {
                                                             {item.status}
                                                         </td>
                                                         <td>
-                                                            {item.offer.total} $
+                                                            {item.offer.total} ILS + VAT
                                                         </td>
                                                         <td>
                                                             <div className="action-dropdown dropdown pb-2">

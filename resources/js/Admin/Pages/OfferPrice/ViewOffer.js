@@ -119,7 +119,7 @@ export default function ViewOffer() {
                             <tfoot>
                               <tr>
                                 <td width="65%" class="text-right">Total</td>
-                                <td class="text-right"><span>{ofr.subtotal} </span>ILS</td> 
+                                <td class="text-right"><span>{ofr.subtotal} ILS + VAT </span></td> 
                               </tr>
                             </tfoot>
                           </table>
@@ -128,13 +128,13 @@ export default function ViewOffer() {
                     </div>
                   </div>
                 </div>
-                <Dropdown className='text-right'>
+              {/*  <Dropdown className='text-right'>
                   <Dropdown.Toggle className='btn-pink' id="dropdown-basic">Acton</Dropdown.Toggle>
                   <Dropdown.Menu>
                     <Dropdown.Item href={`/admin/edit-offer/${ofr.id}`}>Edit</Dropdown.Item>
                     <Dropdown.Item href={`/admin/offered-price`}>Back</Dropdown.Item>
                   </Dropdown.Menu>
-                </Dropdown>
+                        </Dropdown>*/}
               </div>  
            )
           })}
