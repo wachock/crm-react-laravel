@@ -13,6 +13,7 @@ use App\Models\WorkerAvialibilty;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
+use Mail;
 use Carbon\Carbon;
 
 class CronController extends Controller
@@ -24,7 +25,6 @@ class CronController extends Controller
         $jobs = $jobs->whereHas('contract', function ($query) {
                     $query->where('job_status', '=',1);
                 })->get();
-    
         foreach($jobs as $job){
              if($job->schedule == 'w'){
                  $date = Carbon::parse($job->start_date);
@@ -59,14 +59,19 @@ class CronController extends Controller
             $new->start_time    = $job->start_time;
             $new->end_time      = $job->end_time;
             $new->schedule      = $job->schedule;
-            $new->status        = 'unscheduled';
+            if($this->checkWorker($job)){
+                 $new->status='scheduled';
+            }else{
+                 $new->status        = 'unscheduled';
+            }
+            
 
             $new->save();
                 
         }
         echo "Job Updated Successfully.";
     }
-    public function checkWorker(){
+    public function checkWorker($job){
         $allslot =  [
                  '8am-16pm'=>array('08:00','08:30','09:00','09:30','10:00','10:30','11:00','11:30','12:00','12:30','13:00','13:30','14:00','14:30','15:00','15:30','16:00'),
                  '8am-10am'=>array('08:00','08:30','09:00','09:30','10:00'),
@@ -82,22 +87,15 @@ class CronController extends Controller
                  '20pm-24am'=>array('20:00','20:30','21:00','21:30','22:00','22:30','23:00','23:30','00:00'),
 
                 ];
-        $jobs = Job::query()->with('offer','contract')->where('status','unscheduled')->get();
-        foreach($jobs as $job){
+                $availabiltities=false;
                $w_a=WorkerAvialibilty::where('user_id',$job->worker_id)
                                        ->where('date',$job->start_date)->first();
                 if($w_a){
                     $data=$allslot[$w_a->working[0]];
                     if(in_array($job->start_time,$data) && in_array($job->end_time,$data)){
-                           $new = Job::find($job->id);
-                           $new->status='scheduled';
-                           $new->save();
-
+                        $availabiltities=true;
                     }
                 }
-
-
-        }
-         echo "Workers Updated Successfully.";
+                return  $availabiltities;
     }
 }
