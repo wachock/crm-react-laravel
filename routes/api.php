@@ -3,7 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\Auth\AuthController;
-
+use App\Http\Controllers\User\JobController;
+use App\Http\Controllers\User\DashboardController;
 /*
 |--------------------------------------------------------------------------
 | Employee API Routes
@@ -22,6 +23,9 @@ Route::post('register', [AuthController::class, 'register']);
 
 // Authenticated Routes
 Route::group( ['middleware' => ['auth:api','scopes:user'] ],function(){
+    Route::post('dashboard', [DashboardController::class, 'dashboard']);
+    Route::resource('jobs', JobController::class);
     Route::post('logout', [AuthController::class, 'logout']);
-    Route::get('details',[AuthController::class, 'details']);    
+    Route::get('details',[AuthController::class, 'details']); 
+    Route::post('update_details/{id}',[AuthController::class, 'updateWorker']);     
 });

@@ -1,6 +1,5 @@
 import React from "react";
-import { useNavigate} from "react-router-dom";
-import { Link} from "react-router-link";
+import { useNavigate,Link} from "react-router-dom";
 import User from '../../Assets/image/user.png';
 import { useAlert } from "react-alert";
 
@@ -40,7 +39,7 @@ export default function WorkerHeader() {
                   <img src={User} className='img-fluid' alt='Ajay' />
                 </Link>
                 <div className="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                  <Link className="dropdown-item" to="/worker/settings">My Account</Link>
+                  <Link className="dropdown-item" to="/worker/my-account">My Account</Link>
                   <Link className="dropdown-item" onClick={HandleLogout}>Logout</Link>
                 </div>
               </div>

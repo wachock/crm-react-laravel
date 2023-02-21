@@ -59,9 +59,9 @@ export default function Login() {
                                         }
                                     />
                                 </div>
-                                {errors.worker_id ? (
+                                {errors.worker ? (
                                     <small className="text-danger mb-1">
-                                        {errors.worker_id}
+                                        {errors.worker}
                                     </small>
                                 ) : (
                                     ""
