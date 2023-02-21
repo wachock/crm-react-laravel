@@ -1,7 +1,6 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { useAlert } from "react-alert";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,Link } from "react-router-dom";
 import logo from "../../Assets/image/logo.png";
 import { NavLink } from 'react-router-dom';
 
@@ -47,10 +46,10 @@ export default function WorkerSidebar() {
                     <NavLink to="/worker/dashboard"><i className="fa-solid fa-gauge"></i>Dashboard</NavLink>
                 </li>
                 <li className="list-group-item">
-                    <NavLink to="/worker/jobs"><i className="fa-solid fa-gauge"></i>Jobs</NavLink>
+                    <NavLink to="/worker/jobs"><i className="fa-solid fa-briefcase"></i>Jobs</NavLink>
                 </li>
                  <li className="list-group-item">
-                    <NavLink to="/worker/schedule"><i className="fa-solid fa-gauge"></i>Schedule</NavLink>
+                    <NavLink to="/worker/schedule"><i className="fa-solid fa-clipboard-list"></i>Schedule</NavLink>
                 </li>
                 <li className="list-group-item">
                     <div id="fence" className='commonDropdown fence'>

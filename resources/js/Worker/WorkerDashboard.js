@@ -47,7 +47,7 @@ export default function WorkerDashboard() {
                             <a href="/worker/jobs">
                                 <div className="dashBox">
                                     <div className="dashIcon">
-                                        <i class="fa-solid fa-suitcase"></i>
+                                        <i className="fa-solid fa-suitcase"></i>
                                     </div>
                                     <div className="dashText">
                                         <h3>{totalJobs}</h3>
