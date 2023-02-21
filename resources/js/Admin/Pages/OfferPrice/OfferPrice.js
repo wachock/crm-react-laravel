@@ -154,7 +154,7 @@ export default function OfferPrice() {
                                             <td><Link to={`https://maps.google.com?q=${cords}`}>{address}</Link></td>
                                             <td>{ ofr.client.phone }</td>
                                             <td>{ ofr.status }</td>
-                                            <td>{ ofr.subtotal } ILS</td>
+                                            <td>{ ofr.subtotal } ILS + VAT</td>
                                             <td>
                                                 <div className="action-dropdown dropdown">
                                                     <button type="button" className="btn btn-default dropdown-toggle" data-toggle="dropdown">

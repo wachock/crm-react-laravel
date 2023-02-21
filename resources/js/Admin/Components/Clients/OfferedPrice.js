@@ -106,7 +106,7 @@ export default function OfferedPrice() {
                         </td>
                         <td>{ ofr.client.phone }</td>
                         <td>{ofr.status}</td>
-                        <td>{ofr.total} NIS</td>
+                        <td>{ofr.subtotal} NIS + VAT</td>
                         <td>
                             <div className="d-flex">
                                 <Link to={`/admin/edit-offer/${ofr.id}`} className="btn bg-green"><i className="fa fa-edit"></i></Link>

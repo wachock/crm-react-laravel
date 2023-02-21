@@ -74,9 +74,10 @@ class OfferController extends Controller
             return response()->json(['errors'=>$validator->messages()]);
         }
        
-        $input             = $request->input(); 
+        $input = $request->except(['action']);
         $ofr = Offer::create($input);
         $offer = Offer::where('id',$ofr->id)->with('client','service')->get()->first();
+        if($request->action == 'Save and Send')
         $this->sendOfferMail($offer);
         return response()->json([
             'message' => 'Offer created successfully'
@@ -147,7 +148,7 @@ class OfferController extends Controller
      */
     public function update(Request $request,$id)
     {
-        //dd($request->all());
+       // dd($request->all());
         $validator  = Validator::make($request->all(),[
 
             'client_id'    => ['required'],
@@ -157,9 +158,11 @@ class OfferController extends Controller
             return response()->json(['errors'=>$validator->messages()]);
         }
        
-        $input = $request->input(); 
+       // $input = $request->input(); 
+        $input = $request->except(['action']);
         Offer::where('id',$id)->update($input);
         $offer =  Offer::where('id',$id)->with('client','service')->get()->first();
+        if($request->action == 'Save and Send')
         $this->sendOfferMail($offer);
         return response()->json([
             'message' => 'Offer updated successfully'

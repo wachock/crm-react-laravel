@@ -55,7 +55,7 @@ export default function ClientLogin() {
                                     onChange={(e) =>
                                         setEmail(e.target.value)
                                     }
-                                    placeholder="Username"
+                                    placeholder="Email"
                                     name="username"
                                     aria-label="Username"
                                 />
