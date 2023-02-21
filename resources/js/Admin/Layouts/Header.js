@@ -3,6 +3,7 @@ import { useNavigate} from "react-router-dom";
 import { Link} from "react-router-link";
 import User from '../../Assets/image/user.png';
 import { useAlert } from "react-alert";
+import MobileHeader from "./MobileHeader";
 
 export default function AdminHeader() {
   const alert = useAlert();
@@ -27,7 +28,8 @@ export default function AdminHeader() {
         });
     };
   return (
-    <div className='AdminHeader'>
+    <>
+    <div className='AdminHeader hidden-xs'>
       <div className="container-fluid">
         <div className="row">
           <div className="col-sm-6">
@@ -49,5 +51,7 @@ export default function AdminHeader() {
         </div>
       </div>
     </div>
+    <MobileHeader/>
+    </>
   )
 }

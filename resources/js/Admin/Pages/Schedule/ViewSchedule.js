@@ -220,7 +220,7 @@ export default function ViewSchedule() {
                             </ul>
                         </div>
                         <div className='col-sm-4'>
-                            <div className='form-group float-right'>
+                            <div className='form-group float-right xs-float-none'>
                                 <label>Joined On</label>
                                 <p>{Moment(client.created_at).format('DD/MM/Y')}</p>
                             </div>
