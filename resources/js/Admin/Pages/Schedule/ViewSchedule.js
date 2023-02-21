@@ -311,13 +311,14 @@ export default function ViewSchedule() {
                             <h4 className='text-center'>Worker Availability</h4>
                             <FullCalendar
                                 initialView='timeGridWeek'
-                                themeSystem="bootstrap3"
                                 allDaySlot={false}
                                 slotMinTime={startSlot}
                                 slotMaxTime={endSlot}
                                 hiddenDays={interval}
-                                seletable={true}
-                                plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+                                selectable={true}
+                                height={'auto'}
+                                slotEventOverlap = {false}
+                                plugins={[timeGridPlugin]}
                                 events={events}
                             />
 

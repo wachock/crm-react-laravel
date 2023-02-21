@@ -39,26 +39,27 @@ class DashboardController extends Controller
     public function meetings(Request $request)
     {
 
-        $q  = $request->q;
+        //$q  = $request->q;
         $id = $request->id;
-        $result = Schedule::where('client_id',$id)->with('team');
+        $result = Schedule::with('team')->where('client_id',$id);
+         
+        if(isset($request->q)):
+          $q = $request->q;
 
-         /*
-        if(!is_null($q))
-        $result->orWhere('booking_status','like','%'.$q.'%');
-       
-        $result->orWhere('end_time',       'like','%'.$q.'%');
-        $result->orWhere('start_date',     'like','%'.$q.'%');
-        $result->orWhere('start_time', 'like','%'.$q.'%');
-        
-        
-         $result = $result->orWhereHas('team',function ($qr) use ($q){
+          $result = $result->orWhereHas('team',function ($qr) use ($q){
             $qr->where(function($qr) use ($q) {
-                $qr->where(DB::raw('name'), 'like','%'.$q.'%');
+                $qr->where('name', 'like','%'.$q.'%');
             });
         });
-        */
-         $result = $result->paginate(20);
+
+         $result->orWhere('booking_status','like','%'.$q.'%');
+         //$result->orWhere('end_time',       'like','%'.$q.'%');
+         //$result->orWhere('start_date',     'like','%'.$q.'%');
+         //$result->orWhere('start_time', 'like','%'.$q.'%');
+        
+        endif;
+         
+         $result = $result->where('client_id',$id)->paginate(20);
  
          return response()->json([
              'schedules' => $result

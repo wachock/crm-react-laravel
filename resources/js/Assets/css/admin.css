@@ -1226,3 +1226,7 @@ h1 {
 .fc-view-harness .fc-view > table {
   width: 1500px;
 }
+
+.worker-avail1 .fc-view-harness .fc-view > table{
+  width:720px;
+}
