@@ -161,7 +161,7 @@ export default function Contract() {
                                             })}
                                             </td>
                                             <td>{ c.status }</td>
-                                            <td>{ c.offer.total } ILS</td>
+                                            <td>{ c.offer.total } ILS + VAT</td>
                                             <td>{ (c.job_status)?'Active':'InActive' }</td>
                                             <td>
                                                 <div className="action-dropdown dropdown">
@@ -170,7 +170,7 @@ export default function Contract() {
                                                     </button>
                                                     <div className="dropdown-menu">
                                                          <Link to={`/admin/create-job/${c.id}`} className="dropdown-item">Create Job</Link>
-                                                        <Link to={`/admin/view-contract/${c.id}/${c.unique_hash}`} className="dropdown-item">View</Link>
+                                                        <Link to={`/admin/view-contract/${c.id}`} className="dropdown-item">View</Link>
                                                         <button className="dropdown-item" onClick={() => handleDelete(c.id)}
                                                         >Delete</button>
                                                     </div>

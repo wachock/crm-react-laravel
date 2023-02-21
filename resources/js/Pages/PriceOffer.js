@@ -155,7 +155,7 @@ export default function PriceOffer() {
                                         <h5>Total Amount</h5>
                                     </div>
                                     <div className='col-sm-6'>
-                                        <p className='float-right'>{offer.subtotal} ILS</p>
+                                        <p className='float-right'>{offer.subtotal} ILS + VAT</p>
                                     </div>
                                 </div>
                             </div>

@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -82,5 +83,41 @@ class AuthController extends Controller
         $user = Auth::user()->token();
         $user->revoke();
         return response()->json(['success' => 'Logged Out Successfully!'], 200);
+    }
+    public function updateWorker(Request $request,$id){
+        $validator = Validator::make($request->all(), [
+            'firstname' => ['required', 'string', 'max:255'],
+            'address'   => ['required', 'string'],
+            'phone'     => ['required'],
+            'worker_id' => ['required','unique:users,worker_id,'.$id],
+            'status'    => ['required'],
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->messages()]);
+        }
+
+        $worker                = User::find($id);
+        $worker->firstname     = $request->firstname;
+        $worker->lastname      = $request->lastname;
+        $worker->phone         = $request->phone;
+        $worker->email         = $request->email;
+        $worker->address       = $request->address;
+        $worker->renewal_visa  = $request->renewal_visa;
+        $worker->gender        = $request->gender;
+        $worker->payment_per_hour  = $request->payment_hour;
+        $worker->worker_id     = $request->worker_id;
+        $worker->lng           = $request->lng;
+        $worker->passcode     = $request->password;
+        $worker->password      = Hash::make($request->password);
+        $worker->skill         = $request->skill;
+        $worker->status        = $request->status;
+        $worker->country       = $request->country;
+        $worker->save();
+
+        return response()->json([
+            'message'       => 'Account updated successfully',            
+        ], 200);
+
     }
 }

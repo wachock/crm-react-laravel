@@ -26,7 +26,11 @@ import ClientFiles from './Client/Pages/Schedule/Files';
 // Worker Routes
 
 import Worker from './Worker/Worker';
+import WorkerMyAccount  from './Worker/Auth/WorkerMyAccount';
 import WorkerDashboard from './Worker/WorkerDashboard';
+import WorkerTotalJobs from './Worker/Pages/Job/WorkerTotalJobs';
+import WorkerViewJob    from './Worker/Pages/Job/WorkerViewJob';
+
 
 // Admin Routes
 import Admin from './Admin/Admin';
@@ -128,7 +132,10 @@ export default function MyRoutes() {
                </Route>
                <Route element={<WorkerProtectedRoutes />}>
                   <Route path="worker" element={<Worker/>} >
+                     <Route exact path="my-account" element={<WorkerMyAccount/>} />
                      <Route exact path="dashboard" element={<WorkerDashboard />} />
+                     <Route exact path="jobs" element={<WorkerTotalJobs />} />
+                     <Route exact path="view-job/:id" element={<WorkerViewJob />} />
                   </Route>
                </Route>
                {/* Worker Routes End  */}
@@ -176,7 +183,7 @@ export default function MyRoutes() {
                      <Route exact path="contracts" element={<Contract />} />
                      <Route exact path="add-contract" element={<AddContract />} />
                      <Route exact path="edit-contract" element={<EditContract />} />
-                     <Route exact path="view-contract/:id/:hash" element={<ViewContract />} />
+                     <Route exact path="view-contract/:id" element={<ViewContract />} />
                      <Route exact path="schedule" element={<Schedule />} />
                      <Route exact path="view-schedule/:id" element={<ViewSchedule />} />
                      <Route exact path="manage-time" element={<ManageTime />} />

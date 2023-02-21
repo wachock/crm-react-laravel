@@ -68,7 +68,7 @@ export default function Contract({ contracts }) {
                                 )
                             })}
                         </td>
-                        <td>{ c.offer? c.offer.total : 'NA' }</td>
+                        <td>{ c.offer? c.offer.subtotal : 'NA' } ILS + VAT</td>
                         <td>{Moment(c.created_at).format('MMMM DD, Y')}</td>
                         <td>{ c.status }</td>
                         <td>

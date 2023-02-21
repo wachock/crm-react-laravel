@@ -6,11 +6,14 @@ import companySign from "../Assets/image/company-sign.png";
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import swal from 'sweetalert';
+import Moment from 'moment';
 
 export default function WorkContract() {
 
     const [offer,setoffer]         = useState([]);
     const [services,setServices]   = useState([]);
+    const [client,setClient]       = useState([]);
+    const [contract,setContract]   = useState([]);
     const param = useParams();
     const sigRef = useRef();
     const sigRef2 = useRef();
@@ -20,7 +23,7 @@ export default function WorkContract() {
     const [ctype,setCtype]          = useState("");
     const [cname,setCname]          = useState("");
     const [cvv,setCvv]              = useState("");
-
+   
     
    
     const handleAccept = (e) =>{
@@ -79,10 +82,18 @@ export default function WorkContract() {
         axios
         .post(`/api/client/get-offer-token`,{token:param.id})
         .then((res)=>{
-            setoffer(res.data.offer);
-            (res.data.offer[0].services)
-             ? setServices(JSON.parse(res.data.offer[0].services))
-             :[];
+            
+            if(res.data.offer.length > 0){
+               setoffer(res.data.offer);
+               setServices(JSON.parse(res.data.offer[0].services));
+               setClient(res.data.offer[0].client);
+               setContract(res.data.contract);
+            } else {
+                setoffer([]);
+                setServices([]);
+                setClient([]);
+                setContract([]);
+            };
         })
     }
 
@@ -106,7 +117,7 @@ export default function WorkContract() {
                 </div>
                 <h4 className='inHead'>Broom Service L.M. Ltd Private Company no. 515184208 Exclusive Framework Agreement with Tenants/Clients</h4>
                 <div className='signed'>
-                    <p>Made and Signed in: <span>New Delhi</span> on <span>10 Feb. 2023</span></p>
+                    <p>Made and Signed in: <span>{client.city ? client.city : 'NA'}</span> on <span>{Moment(contract.created_at).format('DD MMMM,Y')}</span></p>
                 </div>
                 <div className='between'>
                     <p>Between:</p>
@@ -229,7 +240,7 @@ export default function WorkContract() {
                             </tr>
                             <tr>
                                 <td style={{width: "60%"}}>Date on which the service delivery and/or work will begin, and the date on which the service delivery and/or work will end</td>
-                                <td>As agreed between the parties</td>
+                                <td>As agreed between the parties </td>
                             </tr>
                             <tr>
                                 <td style={{width: "60%"}}>Frequency of the service and/or work</td>
@@ -245,9 +256,14 @@ export default function WorkContract() {
                             </tr>
                             <tr>
                                 <td style={{width: "60%"}}>Consideration the Tenant will pay the Company, including the payment method and/or payment date<br/>Prices does not include vat**</td>
-                                {offer && offer.map((ofr,i)=>{
-                                 return <td>{ofr.subtotal} ILS</td>
+                                <td>
+                                {services && services.map((s,i)=>{
+                                  if((services.length)-1 != i )
+                                  return s.totalamount + " ILS + VAT for " + s.name + ", " + s.freq_name+", ";
+                                  else
+                                  return s.totalamount + " ILS + VAT for " + s.name + ", " + s.freq_name;
                                 })}
+                                </td>
                             </tr>
                             <tr>
                                 <td style={{width: "60%"}}>Payment method:</td>

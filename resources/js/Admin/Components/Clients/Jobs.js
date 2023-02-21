@@ -2,6 +2,7 @@ import axios from 'axios';
 import React,{useState,useEffect} from 'react'
 import { Link } from "react-router-dom";
 import { useParams } from 'react-router-dom';
+import Moment from 'moment';
 
 export default function Jobs() {
     
@@ -43,13 +44,19 @@ export default function Jobs() {
                 </thead>
                 <tbody>       
                     { jobs && jobs.map((j,i)=>{
+                        let services = (j.offer.services) ? JSON.parse(j.offer.services) : [];
+                        console.log(services)
                         return(
                         <tr>
                             <td>#{j.job_id}</td>
                             <td>{
-                            j.service 
-                             ? j.service.name
-                             : "NA"
+                               services && services.map((s,i)=>{
+                                return(
+                                (services.length) -1 != i ?
+                                 s.name+" | "
+                                 :s.name
+                                )
+                               })
                             }
                             </td>
                             <td>{
@@ -58,8 +65,8 @@ export default function Jobs() {
                                 +" "+ j.worker.lastname
                                 :"NA" 
                              }</td>
-                            <td>{j.rate}</td>
-                            <td>{j.start_date}</td>
+                            <td>{j.offer.subtotal} ILS + VAT</td>
+                            <td>{Moment(j.created_at).format('DD MMM,Y')}</td>
                             <td>{j.status}</td>
                             <td>
                                 <div className="d-flex">

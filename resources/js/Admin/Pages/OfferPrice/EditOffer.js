@@ -178,7 +178,7 @@ export default function EditOffer() {
     }
 
     event.target.setAttribute('disabled', true);
-    event.target.value = ('Sending..');
+    event.target.value = (event.target.value == 'Save') ? ('Saving..') :('Sending..');
     axios
       .put(`/api/admin/offers/${param.id}`, data, { headers })
       .then((response) => {
@@ -187,7 +187,7 @@ export default function EditOffer() {
             alert.error(response.data.errors[e]);
           }
           document.querySelector('.saveBtn').removeAttribute('disabled');
-          document.querySelector('.saveBtn').value = ('Save and Send');
+          document.querySelector('.saveBtn').value = (event.target.value == 'Save') ? ('Save') : ('Save and Send');
         } else {
           alert.success(response.data.message);
           setTimeout(() => {
@@ -322,6 +322,7 @@ export default function EditOffer() {
                   </div>
                 </div>
                 <div className="text-right">
+                <input type="submit" value="Save" className="btn btn-success saveBtn" onClick={handleUpdate} style={{'margin-inline':'6px'}} />
                   <input type="submit" value="Save and Send" className="btn btn-pink saveBtn" onClick={handleUpdate} />
                 </div>
               </form>

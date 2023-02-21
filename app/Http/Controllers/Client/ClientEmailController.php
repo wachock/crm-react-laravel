@@ -64,7 +64,7 @@ class ClientEmailController extends Controller
         'status' =>'accepted'
       ]);
       $ofr  = Offer::with('client')->where('id',$request->id)->get()->first()->toArray();
-      $hash = md5($ofr['client']['email']); 
+      $hash = md5($ofr['client']['email'].$ofr['id']); 
       
       $contract = Contract::create([
          'offer_id'   =>$request->id,
@@ -124,7 +124,8 @@ class ClientEmailController extends Controller
       $offer = Contract::where('unique_hash',$request->token)->get()->last();
       $goffer = Offer::where('id',$offer->offer_id)->with('client')->get();
       return response()->json([
-        'offer' => $goffer
+        'offer' => $goffer,
+        'contract'=>$offer,
       ]);
   }
 
