@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import logo from "../../Assets/image/logo.png";
 import { NavLink } from 'react-router-dom';
 
-export default function ClientSidebar() {
+export default function WorkerSidebar() {
 
     const alert = useAlert();
     const name = localStorage.getItem("admin-name");
@@ -53,7 +53,7 @@ export default function ClientSidebar() {
                     <NavLink to="/worker/schedule"><i className="fa-solid fa-gauge"></i>Schedule</NavLink>
                 </li>
                 <li className="list-group-item">
-                    <div id="fence" className='commonDropdown'>
+                    <div id="fence" className='commonDropdown fence'>
                         <div id="fencehead1">
                             <a href="#" className="text-left btn btn-header-link" data-toggle="collapse" data-target="#fence1" aria-expanded="true" aria-controls="fence1">
                                 <i className="fa-solid fa-gear"></i> Settings <i className="fa-solid fa-angle-down"></i>
@@ -63,7 +63,7 @@ export default function ClientSidebar() {
                             <div className="card-body">
                                 <ul className='list-group'>
                                     <li className='list-group-item'>
-                                        <Link to="/worker/settings"><i className="fa fa-angle-right"></i> My Account</Link>
+                                        <Link to="/worker/my-account"><i className="fa fa-angle-right"></i> My Account</Link>
                                     </li>
                                 </ul>
                             </div>

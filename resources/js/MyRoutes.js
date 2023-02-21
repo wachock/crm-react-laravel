@@ -25,7 +25,11 @@ import ClientFiles from './Client/Pages/Schedule/Files';
 // Worker Routes
 
 import Worker from './Worker/Worker';
+import WorkerMyAccount  from './Worker/Auth/WorkerMyAccount';
 import WorkerDashboard from './Worker/WorkerDashboard';
+import WorkerTotalJobs from './Worker/Pages/Job/WorkerTotalJobs';
+import WorkerViewJob    from './Worker/Pages/Job/WorkerViewJob';
+
 
 // Admin Routes
 import Admin from './Admin/Admin';
@@ -127,7 +131,10 @@ export default function MyRoutes() {
                </Route>
                <Route element={<WorkerProtectedRoutes />}>
                   <Route path="worker" element={<Worker/>} >
+                     <Route exact path="my-account" element={<WorkerMyAccount/>} />
                      <Route exact path="dashboard" element={<WorkerDashboard />} />
+                     <Route exact path="jobs" element={<WorkerTotalJobs />} />
+                     <Route exact path="view-job/:id" element={<WorkerViewJob />} />
                   </Route>
                </Route>
                {/* Worker Routes End  */}
