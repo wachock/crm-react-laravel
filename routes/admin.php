@@ -23,6 +23,7 @@ use App\Http\Controllers\Admin\OfferController;
 use App\Http\Controllers\Admin\TeamMemberController;
 use App\Http\Controllers\Admin\ScheduleController;
 use App\Http\Controllers\Admin\ContractController;
+use App\Http\Controllers\Admin\CronController;
 
 
 
@@ -41,7 +42,7 @@ use App\Http\Controllers\Admin\ContractController;
 Route::group(['prefix' => 'admin'], function () {
     Route::post('login', [AuthController::class, 'login']);
     Route::post('register', [AuthController::class, 'register']);
-    Route::get('weeklyjob', [DashboardController::class, 'WeeklyJob']);
+    Route::get('weeklyjob', [CronController::class, 'WeeklyJob']);
 
 });
 
