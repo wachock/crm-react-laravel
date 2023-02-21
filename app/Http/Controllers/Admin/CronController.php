@@ -26,27 +26,27 @@ class CronController extends Controller
                 })->get();
     
         foreach($jobs as $job){
-             if($job->schedule == '1 week'){
+             if($job->schedule == 'w'){
                  $date = Carbon::parse($job->start_date);
                  $newDate = $date->addDays(7);
              }
-             if($job->schedule == '2 week'){
+             if($job->schedule == '2w'){
                  $date = Carbon::parse($job->start_date);
                  $newDate = $date->addDays(14);
              }
-             if($job->schedule == '3 week'){
+             if($job->schedule == '3w'){
                  $date = Carbon::parse($job->start_date);
                  $newDate = $date->addDays(21);
              }
-             if($job->schedule == '1 month'){
+             if($job->schedule == 'm'){
                  $date = Carbon::parse($job->start_date);
                  $newDate = $date->addMonths(1);
              }
-             if($job->schedule == '2 month'){
+             if($job->schedule == '2m'){
                  $date = Carbon::parse($job->start_date);
                  $newDate = $date->addMonths(2);
              }
-             if($job->schedule == '3 month'){
+             if($job->schedule == '4m'){
                  $date = Carbon::parse($job->start_date);
                  $newDate = $date->addMonths(3);
              }

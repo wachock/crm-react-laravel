@@ -17,6 +17,9 @@ export default function TeamAvailability() {
    const [AllWorkers,setAllWorkers]   = useState([]);
    const [AllJobs,setAllJobs]   = useState([]);
    const [AllWorkerAvailability,setAllWorkerAvailability]   = useState([]);
+   const [startSlot, setStartSlot] = useState([]);
+    const [endSlot, setEndSlot] = useState([]);
+    const [interval, setTimeInterval] = useState([]);
 
     const headers = {
         Accept: "application/json, text/plain, */*",
@@ -63,10 +66,26 @@ export default function TeamAvailability() {
           setAllWorkerAvailability(res.data.availability);
         })
      }
+     const getTime = () => {
+        axios
+            .get(`/api/admin/get-time`, { headers })
+            .then((res) => {
+                if (res.data.time.length > 0) {
+                    setStartSlot(res.data.time[0].start_time);
+                    setEndSlot(res.data.time[0].end_time);
+                    let ar = JSON.parse(res.data.time[0].days);
+                    let ai = [];
+                    ar && ar.map((a, i) => (ai.push(parseInt(a))));
+                    var hid = [0, 1, 2, 3, 4, 5, 6].filter(function (obj) { return ai.indexOf(obj) == -1; });
+                    setTimeInterval(hid);
+                }
+            })
+    }
       useEffect(()=>{
         getWorkers();
         getJobs();
         getWorkerAvailabilty();
+        getTime();
     },[]);
       
       const resources = AllWorkers.map((w,i)=>{
@@ -130,7 +149,7 @@ export default function TeamAvailability() {
             .then((res)=>{
                 alert.success(res.data.message)
                 setTimeout(()=>{
-                    navigate('/admin/jobs?q=scheduled');
+                    navigate('/admin/jobs');
                 },1000);
                 
             });
@@ -152,8 +171,9 @@ export default function TeamAvailability() {
         slotDuration={'00:30:00'}
         events={events}
         resourceAreaWidth= {"15%"}
-        slotMinTime={'08:00'} // start timeline at this time, must be in format '08:00'
-        slotMaxTime={'24:00'}
+        slotMinTime={startSlot}
+        slotMaxTime={endSlot}
+        hiddenDays={interval}
         allDaySlot= {false}
         eventClick= {function(info) {
                       if(info.event.title=='Busy'){

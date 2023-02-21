@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Job;
 use App\Models\User;
 use App\Models\Contract;
+use App\Models\serviceSchedules;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -187,7 +188,13 @@ class JobController extends Controller
     }
     public function createJob(Request $request,$id){
 
-         $job = Contract::find($id);
+         $job = Contract::with('offer')->find($id);
+         $repeat_value='';
+         foreach(json_decode($job->offer->services) as $service){
+                
+                  $service_schedules = serviceSchedules::where('name','=',$service->freq_name)->first();
+                      $repeat_value=$service_schedules->period;
+         }
          foreach($request->workers as $worker){
             $new = new Job;
             $new->client_id     = $job->client_id;
@@ -197,6 +204,7 @@ class JobController extends Controller
             $new->start_date    = $worker['date'];
             $new->start_time    = $worker['start'];
             $new->end_time      = $worker['end'];
+            $new->schedule      = $repeat_value;
             $new->status   = 'scheduled';
             $new->save();
          }
