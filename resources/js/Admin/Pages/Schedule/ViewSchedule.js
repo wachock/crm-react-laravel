@@ -36,6 +36,9 @@ export default function ViewSchedule() {
     const queryParams = new URLSearchParams(window.location.search);
     const sid = queryParams.get("sid");
     const time = [
+        "08:00 AM",
+        "08:30 AM",
+        "09:00 AM",
         "09:30 AM",
         "10:00 AM",
         "10:30 AM",

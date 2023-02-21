@@ -68,7 +68,7 @@ class SettingController extends Controller
     {
         $admin     = Auth::user();
         $validator = Validator::make($request->all(), [
-            'firstname' => ['required', 'string', 'max:255'],
+            'name' => ['required', 'string', 'max:255'],
             'address'   => ['required', 'string'],
             'email'     => ['required', 'string', 'email', 'max:255', 'unique:admins,email,' . $admin->id],
 

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 import axios from "axios";
-import Sidebar from "../../Layouts/Sidebar";
+import Sidebar from "../../Layouts/ClientSidebar";
 import { Link } from "react-router-dom";
-import JobFilter from "../../Components/Filter/JobFilter";
 import { useAlert } from "react-alert";
 import Select from 'react-select';
+import Moment from 'moment';
 
 export default function TotalJobs() {
     const [totalJobs, setTotalJobs] = useState([]);
@@ -185,7 +185,7 @@ const changeShift = (job_id,e) =>{
       ))}
      document.getElementById('job-shift-'+job_id).setAttribute('value',data);
 };
-console.log(totalJobs);
+
     return (
         <div id="container">
             <Sidebar />
@@ -198,68 +198,49 @@ console.log(totalJobs);
                         <div className="col-sm-6">
                             <div className="search-data">
                                 <input type='text' className="form-control" placeholder="Search" />
-                                <Link to="/admin/add-job" className="btn btn-pink addButton"><i class="btn-icon fas fa-plus-circle"></i>
-                                    Add New
-                                </Link>
                             </div> 
                         </div>
                     </div>
                 </div>
                 <div className="card">
                     <div className="card-body">
-                        {/* <JobFilter 
-                        AllServices={AllServices} 
-                        AllClients={AllClients}
-                        AllWorkers={AllWorkers}
-                        getTotalJobs={getTotalJobs}
-                          /> */}
                         <div className="boxPanel">
                             <div className="table-responsive">
                                 {totalJobs.length > 0 ? (
                                     <table className="table table-bordered">
                                         <thead>
                                             <tr>
-                                                <th scope="col">Worker Availability</th>
-                                                <th scope="col">Date</th>
+                                                <th scope="col">Job Dated</th>
                                                 <th scope="col">Worker Name</th>
                                                 <th scope="col">Client Name</th>
                                                 <th scope="col">Service Name</th>
                                                 <th scope="col">Shift</th>
+                                                <th scope="col">Address</th>
+                                                <th scope="col">Complete Time</th>
                                                 <th scope="col">Status</th>
                                                 <th scope="col">Total</th>
-                                                <th scope="col">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {totalJobs &&
-                                                totalJobs.map((item, index) => (
+                                        {totalJobs &&
+                                                totalJobs.map((item, index) => {
+
+                                                    let services =  (item.offer.services) ? JSON.parse(item.offer.services) : [];
+                          
+                                                    return(
                                                     <tr key={index}>
-                                                        <td>Available</td>
-                                                         <td>
-                                                            <input name='start_date' type="date" value={item.start_date} onChange={(e) =>
-                                                                            handleDate(
-                                                                                e,
-                                                                                index
-                                                                            )
-                                                                        } />
+                                                        <td>
+                                                           {Moment(item.start_date).format('DD MMM,Y')}
                                                         </td>
                                                         <td>
-                                                        {
-                                                            item.worker
-                                                                ? item.worker.firstname +
-                                                                " " + item.worker.lastname
-                                                                : "NA"
-                                                        }
-                                                        <div>Change Worker</div>
-                                                        <select name={item.id}  className="form-control" value={(workers[`${item.id}`])?workers[`${item.id}`] : "" } onChange={e => handleChange(e,index)} >
-                                                        <option selected>select</option>
-                                                       { AllWorkers && AllWorkers.map((w,i)=>{
-                                                         return (
-                                                            <option value={w.id} key={i}> {w.firstname}  {w.lastname}</option>
-                                                         )
-                                                       })}
-                                                      </select>
-
+                                                            <h6>{
+                                                                item.worker
+                                                                    ? item.worker.firstname +
+                                                                    " " + item.worker.lastname
+                                                                    : "NA"
+                                                            }</h6>
+                                                            
+                                                           
                                                         </td>
                                                         <td>{
                                                             item.client
@@ -269,26 +250,32 @@ console.log(totalJobs);
                                                         }
                                                         </td>
                                                         <td>{
-                                                            item.service
-                                                                ? item.service.name
-                                                                : "NA"
+                                                           services && services.map((s,i)=>{
+                                                            return(
+                                                                (services.length -1) != i?
+                                                                  s.name+" | "
+                                                                : s.name
+                                                            )
+                                                           })
                                                         }</td>
                                                         <td>
-                                                        
-                                                    <Select
-                                                        defaultValue={colourOptions.filter(colour => {
-                                                                          if (`${item.shifts}`.includes(colour.value)) {
-                                                                            return colour
-                                                                          }
-                                                                      })}
-                                                        isMulti
-                                                        name="colors"
-                                                        id={`job-shift-${item.id}`}
-                                                        options={colourOptions}
-                                                        className="basic-multi-select"
-                                                        classNamePrefix="select"
-                                                        onChange={(e)=>changeShift(item.id,e)}
-                                                      />
+                                                             {(item.start_time !='')?(`${item.start_time} to ${item.end_time}`):''}
+                                                           
+                                                        </td>
+                                                        <td>{
+                                                            item.client
+                                                                ? item.client.geo_address
+                                                                : "NA"
+                                                        }
+                                                        </td>
+                                                        <td>
+                                                            {
+                                                            item.end_time && item.start_time ?
+                                                            parseFloat(`${item.end_time}.replace(":", ".")`)
+                                                             - parseFloat(`${item.start_time}.replace(":", ".")`)
+                                                             +" Hours"
+                                                             :"NA"
+                                                            }
                                                         </td>
                                                         <td
                                                             style={{
@@ -299,22 +286,11 @@ console.log(totalJobs);
                                                             {item.status}
                                                         </td>
                                                         <td>
-                                                            {item.rate} NIS
+                                                            {item.offer.subtotal} ILS + VAT
                                                         </td>
-                                                        <td>
-                                                            <div className="action-dropdown dropdown">
-                                                                <button type="button" className="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                                                    <i className="fa fa-ellipsis-vertical"></i>
-                                                                </button>
-                                                                <div className="dropdown-menu">
-                                                                    <button className="dropdown-item" onClick={(e) => handleform(item.id,e)}>Edit</button>
-                                                                    <Link to={`/admin/view-job/${item.id}`} className="dropdown-item">View</Link>
-                                                                    <button className="dropdown-item" onClick={() => handleDelete(item.id)}>Delete</button>
-                                                                </div>
-                                                            </div>
-                                                        </td>
+                                                       
                                                     </tr>
-                                                ))}
+                                                )})}
                                         </tbody>
                                     </table>
                                 ) : (

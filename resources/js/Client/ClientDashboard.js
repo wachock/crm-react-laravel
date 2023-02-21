@@ -47,7 +47,7 @@ export default function ClientDashboard() {
                     </div>
                     <div className="row">
                         <div className="col-sm-3 col-xs-6">
-                            <a href="/client/jobs-posted">
+                            <a href="/client/jobs">
                                 <div className="dashBox">
                                     <div className="dashIcon">
                                         <i class="fa-solid fa-suitcase"></i>

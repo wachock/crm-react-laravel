@@ -1,12 +1,12 @@
 import React from 'react'
-import Acc from '../../Components/Settings/Acc'
-import ChangePass from '../../Components/Settings/ChangePass'
-import Sidebar from '../../Layouts/Sidebar'
+import Acc from '../../../Client/Component/Settings/Acc'
+import ChangePass from '../../../Client/Component/Settings/ChangePass'
+import Sidebar from '../../Layouts/ClientSidebar'
 
 export default function Setting() {
   return (
     <div id='container'>
-        <Sidebar/>
+         <Sidebar/>
         <div id='content'>
             <div className='settings-page'>
                 <h1 className="page-title revTitle">Settings</h1>
