@@ -19,7 +19,7 @@ export default function CreateJobCalender() {
     const [AllWorkerAvailability, setAllWorkerAvailability] = useState([]);
     const [startSlot, setStartSlot] = useState([]);
     const [endSlot, setEndSlot] = useState([]);
-    const [interval, setInterval] = useState([]);
+    const [interval, setTimeInterval] = useState([]);
 
     const headers = {
         Accept: "application/json, text/plain, */*",
@@ -82,7 +82,7 @@ export default function CreateJobCalender() {
                     let ai = [];
                     ar && ar.map((a, i) => (ai.push(parseInt(a))));
                     var hid = [0, 1, 2, 3, 4, 5, 6].filter(function (obj) { return ai.indexOf(obj) == -1; });
-                    setInterval(hid);
+                    setTimeInterval(hid);
                 }
             })
     }

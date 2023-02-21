@@ -282,21 +282,8 @@ export default function TotalJobs() {
                                                            })
                                                         }</td>
                                                         <td>
-
-                                                            <Select
-                                                                defaultValue={colourOptions.filter(colour => {
-                                                                    if (`${item.shifts}`.includes(colour.value)) {
-                                                                        return colour
-                                                                    }
-                                                                })}
-                                                                isMulti
-                                                                name="colors"
-                                                                id={`job-shift-${item.id}`}
-                                                                options={colourOptions}
-                                                                className="basic-multi-select"
-                                                                classNamePrefix="select"
-                                                                onChange={(e) => changeShift(item.id, e)}
-                                                            />
+                                                             {(item.start_time !='')?(`${item.start_time} to ${item.end_time}`):''}
+                                                           
                                                         </td>
                                                         <td>{
                                                             item.client
@@ -322,7 +309,7 @@ export default function TotalJobs() {
                                                             {item.status}
                                                         </td>
                                                         <td>
-                                                            {item.offer.total} ILS + VAT
+                                                            {item.offer.subtotal} ILS + VAT
                                                         </td>
                                                         <td>
                                                             <div className="action-dropdown dropdown pb-2">
