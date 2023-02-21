@@ -37,7 +37,7 @@ export default function ViewJob() {
     }
     return (
         <div id='container'>
-            <Sidebar />\
+            <Sidebar />
             <div id="content">
                 <div className='view-applicant'>
                     <div className='worker-profile'>
