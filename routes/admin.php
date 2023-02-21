@@ -43,6 +43,8 @@ Route::group(['prefix' => 'admin'], function () {
     Route::post('login', [AuthController::class, 'login']);
     Route::post('register', [AuthController::class, 'register']);
     Route::get('weeklyjob', [CronController::class, 'WeeklyJob']);
+    Route::get('check_worker', [CronController::class, 'checkWorker']);
+
 
 });
 
