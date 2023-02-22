@@ -41,7 +41,7 @@ export default function ClientDashboard() {
         <div id="container">
             <ClientSidebar />
             <div id="content">
-                <div className="adminDash">
+                <div className="adminDash andClient">
                     <div className="titleBox">
                         <h1 className="page-title">Dashboard</h1>
                     </div>
@@ -49,7 +49,7 @@ export default function ClientDashboard() {
                         <div className="col-sm-3 col-xs-6">
                             <a href="/client/jobs">
                                 <div className="dashBox">
-                                    <div className="dashIcon">
+                                    <div className="dashIcon mr-4">
                                         <i class="fa-solid fa-suitcase"></i>
                                     </div>
                                     <div className="dashText">
@@ -63,7 +63,7 @@ export default function ClientDashboard() {
                         <div className="col-sm-3 col-xs-6">
                             <a href="/client/schedule">
                                 <div className="dashBox">
-                                    <div className="dashIcon">
+                                    <div className="dashIcon mr-4">
                                         <i className="fa-solid fa-handshake"></i>
                                     </div>
                                     <div className="dashText">
@@ -76,7 +76,7 @@ export default function ClientDashboard() {
                         <div className="col-sm-3 col-xs-6">
                             <a href="/client/offered-price">
                                 <div className="dashBox">
-                                    <div className="dashIcon">
+                                    <div className="dashIcon mr-4">
                                         <i className="fa-solid fa-dollar-sign"></i>
                                     </div>
                                     <div className="dashText"> 
@@ -89,7 +89,7 @@ export default function ClientDashboard() {
                         <div className="col-sm-3 col-xs-6">
                             <a href="/client/contracts">
                                 <div className="dashBox">
-                                    <div className="dashIcon">
+                                    <div className="dashIcon mr-4">
                                         <i className="fa-solid fa-file-contract"></i>
                                     </div>
                                     <div className="dashText">

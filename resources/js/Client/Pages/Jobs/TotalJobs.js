@@ -219,6 +219,7 @@ const changeShift = (job_id,e) =>{
                                                 <th scope="col">Complete Time</th>
                                                 <th scope="col">Status</th>
                                                 <th scope="col">Total</th>
+                                                <th scope="col">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -287,6 +288,9 @@ const changeShift = (job_id,e) =>{
                                                         </td>
                                                         <td>
                                                             {item.offer.subtotal} ILS + VAT
+                                                        </td>
+                                                        <td>
+                                                            <Link to={`/client/view-job/${item.id}`} className="btn btn-primary">View</Link>
                                                         </td>
                                                        
                                                     </tr>

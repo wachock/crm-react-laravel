@@ -4,7 +4,7 @@ import { Link} from "react-router-link";
 import User from '../../Assets/image/user.png';
 import { useAlert } from "react-alert";
 import axios from "axios";
-import { Avatar } from "rsuite";
+import ClientMobileHeader from "./ClientMobileHeader";
 
 export default function ClientHeader() {
   const alert = useAlert();
@@ -45,7 +45,8 @@ export default function ClientHeader() {
     },[]);
     
   return (
-    <div className='AdminHeader'>
+    <>
+    <div className='AdminHeader hidden-xs'>
       <div className="container-fluid">
         <div className="row">
           <div className="col-sm-6">
@@ -67,5 +68,7 @@ export default function ClientHeader() {
         </div>
       </div>
     </div>
+    <ClientMobileHeader/>
+    </>
   )
 }

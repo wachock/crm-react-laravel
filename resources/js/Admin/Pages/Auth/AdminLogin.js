@@ -21,11 +21,9 @@ export default function AdminLogin() {
             if (result.data.errors) {
                 setErrors(result.data.errors);
             } else {
+                console.log(result.data);
                 localStorage.setItem("admin-token", result.data.token);
-                localStorage.setItem(
-                    "admin-name",
-                    result.data.firstname + " " + result.data.lastname
-                );
+                localStorage.setItem("admin-name",result.data.name);
                 localStorage.setItem("admin-id", result.data.id);
                 window.location = "/admin/dashboard";
             }
