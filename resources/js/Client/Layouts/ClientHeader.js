@@ -1,14 +1,15 @@
-import React from "react";
+import React, { useState,useEffect } from "react";
 import { useNavigate} from "react-router-dom";
 import { Link} from "react-router-link";
 import User from '../../Assets/image/user.png';
 import { useAlert } from "react-alert";
+import axios from "axios";
 import ClientMobileHeader from "./ClientMobileHeader";
 
 export default function ClientHeader() {
   const alert = useAlert();
    const navigate = useNavigate();
-
+    const [avatar,setAvatar] = useState("");
     const HandleLogout = (e) => {
         fetch("/api/client/logout", {
             method: "POST",
@@ -27,6 +28,22 @@ export default function ClientHeader() {
             }
         });
     };
+    const headers = {
+      Accept: "application/json, text/plain, */*",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ` + localStorage.getItem("client-token"),
+  };
+    const getAvatar = () =>{
+      axios
+      .get('/api/client/my-account',{ headers })
+      .then((res)=>{
+        setAvatar(res.data.account.avatar);
+      })
+    }
+    useEffect(()=>{
+      getAvatar();
+    },[]);
+    
   return (
     <>
     <div className='AdminHeader hidden-xs'>
@@ -39,7 +56,7 @@ export default function ClientHeader() {
             <div className="float-right">
               <div className="dropdown show">
                 <Link className="dropdown-toggle" href="#!" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <img src={User} className='img-fluid' alt='Ajay' />
+                  <img src={avatar} className='img-fluid' alt='Avatar not uploaded' />
                 </Link>
                 <div className="dropdown-menu" aria-labelledby="dropdownMenuLink">
                   <Link className="dropdown-item" to="/admin/settings">My Account</Link>

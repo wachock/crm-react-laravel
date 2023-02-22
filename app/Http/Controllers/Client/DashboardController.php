@@ -8,9 +8,12 @@ use App\Models\Offer;
 use App\Models\Schedule;
 use App\Models\Contract;
 use App\Models\Files;
+use App\Models\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Image;
 use File;
 
@@ -214,6 +217,87 @@ class DashboardController extends Controller
         return response()->json([
             'message'=>'File deleted',
         ],200);
+    }
+
+    public function getAccountDetails()
+    {
+        $account          = Auth::user();
+        $account->avatar  = $account->avatar ? asset('storage/uploads/client/'.$account->avatar) : asset('images/man.png');
+        return response()->json([
+            'account'         => $account,
+        ], 200);
+    }
+
+    public function saveAccountDetails(Request $request)
+    {
+        $client     = Auth::user();
+        $validator = Validator::make($request->all(), [
+            'firstname' => ['required', 'string', 'max:255'],
+            'lastname' => ['required', 'string', 'max:255'],
+            'invoicename' => ['required', 'string', 'max:255'],
+            'phone'   => ['required', 'string'],
+            'email'     => ['required', 'string', 'email', 'max:255', 'unique:clients,email,' . $client->id],
+            'city' => ['required', 'string', 'max:255'],
+            'street_n_no' => ['required', 'string', 'max:255'],
+            'dob' => ['required'],
+            'floor' => ['required'],
+            'entrence_code' => ['required'],
+            'lng' => ['required'],
+            'apt_no' => ['required'],
+            'zipcode' => ['required'],
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->messages()]);
+        }
+
+        $input                  = $request->all();
+        if ($request->hasfile('avatar')) {
+            $image              = $request->file('avatar');
+            $name               = $image->getClientOriginalName();
+            $image->storeAs('uploads/client/', $name, 'public');
+
+            $input['avatar']      = $name;
+        }
+        $client                  = Client::where('id', $client->id)->update($input);
+
+        return response()->json([
+            'message'       => 'Account details updated successfully',
+        ], 200);
+    }
+
+    public function changePassword(Request $request)
+    {
+
+        $id = Auth::user()->id;
+
+        $validator = Validator::make($request->all(), [
+            'current_password' => ['required', 'min:6'],
+            'password'   => ['required', 'min:6', 'confirmed']
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->messages()]);
+        }
+
+        $client = Client::find($id);
+
+        if (Hash::check($request->get('current_password'), $client->password)) {
+
+            $client->password = Hash::make($request->password);
+            $client->save();
+
+            return response()->json([
+                'message'       => 'Password changed successfully',
+            ], 200);
+        } else {
+
+            return response()->json(['errors' => ['current_password' => 'Current password is incorrect.']]);
+        }
+
+        return response()->json([
+            'message'       => 'Password changed successfully',
+        ], 200);
     }
 
 }

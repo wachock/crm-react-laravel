@@ -73,7 +73,7 @@ export default function Contract({ contracts }) {
                         <td>{ c.status }</td>
                         <td>
                             <div className="d-flex">
-                                <Link to={`/admin/view-contract/${c.id}/${c.unique_hash}`} className="btn bg-yellow"><i className="fa fa-eye"></i></Link>
+                                <Link to={`/admin/view-contract/${c.id}`} className="btn bg-yellow"><i className="fa fa-eye"></i></Link>
                                 <button className="ml-2 btn bg-red" onClick={() => handleDelete( c.id )}><i className="fa fa-trash"></i></button>                            
                             </div>
                         </td>

@@ -1218,6 +1218,11 @@ h1 {
   border-color: #54BA4A;
   padding: 18px 21px;
 }
+.worker-contract h4.inHead{
+  margin-bottom: 10px !important;
+  font-weight: 700;
+  color: #000;
+}
 .fc-license-message{
   display: none;
 }
