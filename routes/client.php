@@ -32,7 +32,6 @@ Route::group(['prefix' => 'client', 'middleware' => ['auth:client-api', 'scopes:
    Route::post('add-file',[DashboardController::class,'addfile'])->name('add-file');
    Route::post('get-files',[DashboardController::class,'getfiles'])->name('get-files');
    Route::post('delete-file',[DashboardController::class,'deletefile'])->name('delete-file');
-<<<<<<< HEAD
     // My Account Api
     Route::get('my-account', [DashboardController::class, 'getAccountDetails']);
     Route::post('my-account', [DashboardController::class, 'saveAccountDetails']);
@@ -40,9 +39,7 @@ Route::group(['prefix' => 'client', 'middleware' => ['auth:client-api', 'scopes:
     // Change Password Api
     Route::post('change-password', [DashboardController::class, 'changePassword']);
 
-=======
     Route::resource('job-comments', JobCommentController::class);
->>>>>>> 862384f847822901a922e317933fd269220c5a16
   
 });
 
