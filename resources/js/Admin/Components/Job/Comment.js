@@ -8,7 +8,9 @@ import Swal from 'sweetalert2';
 export default function Comment() {
 
     const [comment,setComment] = useState("");
-    const [allComment,setAllComment] = useState([]);
+    const [role,setRole] = useState("");
+    const [allClientComment,setAllClientComment] = useState([]);
+    const [allWorkerComment,setAllWorkerComment] = useState([]);
     const param = useParams();
     const alert = useAlert();
 
@@ -22,10 +24,12 @@ export default function Comment() {
     const handleSubmit = (e) =>{
        
       e.preventDefault();
+      if(role == ''){ window.alert('Please Select Comment For.'); return;}
       if(comment == ''){ window.alert('Please Enter Comment'); return;}
       let data={
         'job_id':param.id,
         'comment':comment,
+        'role':role,
         'name':localStorage.getItem("admin-name")
       }
       
@@ -42,6 +46,7 @@ export default function Comment() {
            alert.success(res.data.message);
            getComments();
            setComment("");
+           setRole("");
         }
       })
       
@@ -79,13 +84,16 @@ export default function Comment() {
       axios
       .get(`/api/admin/job-comments?id=${param.id}`,{ headers })
       .then((res)=>{
-        setAllComment(res.data.comments);
+        console.log(res.data);
+        setAllClientComment(res.data.client_comments);
+        setAllWorkerComment(res.data.worker_comments);
       })
     }
 
     useEffect(()=>{
         getComments();
     },[])
+    console.log(allClientComment)
     return (
 
         <div className="tab-pane fade active show" id="customer-notes" role="tabpanel"
@@ -95,7 +103,13 @@ export default function Comment() {
                     Add Comment
                 </button>
             </div>
-            {allComment && allComment.map((c,i)=>{
+            <ul className="nav nav-tabs" role="tablist">
+            <li className="nav-item" role="presentation"><a id="worker-availability" className="nav-link active" data-toggle="tab" href="#tab-worker-availability" aria-selected="true" role="tab">Client Comment</a></li>
+            <li className="nav-item" role="presentation"><a id="current-job" className="nav-link" data-toggle="tab" href="#tab-current-job" aria-selected="true" role="tab">Worker Comment</a></li>
+            </ul>
+             <div className='tab-content' style={{background: "#fff"}}>
+              <div id="tab-worker-availability" className="tab-pane active show" role="tab-panel" aria-labelledby="current-job">
+            {allClientComment && allClientComment.map((c,i)=>{
                 return (
 
             <div className="card card-widget widget-user-2" style={{ "box-shadow": "none" }}>
@@ -131,6 +145,46 @@ export default function Comment() {
             </div>
             )
         })}
+        </div>
+        <div id="tab-current-job" className="tab-pane" role="tab-panel" aria-labelledby="current-job">
+              {allWorkerComment && allWorkerComment.map((w,i)=>{
+                return (
+
+            <div className="card card-widget widget-user-2" style={{ "box-shadow": "none" }}>
+                <div className="card-comments cardforResponsive"></div>
+                <div className="card-comment p-3" style={{ "background-color": "rgba(0,0,0,.05)", "border-radius": "5px" }}>
+                    <div className="row">
+                        <div className="col-sm-7 col-6">
+                            <span className="noteby p-1" style={{
+                                 "font-weight": "600",
+                                 "background" : "darkgray",
+                                 "border"     : "inset"
+
+                            }}>
+                            {
+                            w.name
+                            }
+                            </span>
+                            <span className="noteDate" style={{ "font-weight": "600" }}>
+                                 {" | "+Moment(w.created_at).format('DD-MM-Y h:sa')} <br />
+                            </span>
+                        </div>
+                        <div className="col-sm-5 col-6">
+                            <div className="float-right noteUser">
+                            <button class="ml-2 btn bg-red" onClick={(e)=>handleDelete(e,w.id)}><i class="fa fa-trash"></i></button>
+                                &nbsp;
+                            </div>
+                        </div>
+                        <div className="col-sm-12">
+                          {w.comment}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            )
+        })}
+        </div>
+        </div>
 
 
             <div className="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -144,7 +198,23 @@ export default function Comment() {
                         </div>
                         <div className="modal-body">
 
+
                             <div className="row">
+                             <div className="col-sm-12">
+                                    <div className="form-group">
+                                        <label className="control-label">
+                                            Comment For
+                                        </label>
+                                        <select value={role} onChange={(e) =>
+                                                setRole(e.target.value)
+                                            } className="form-control">
+                                        <option value="">Please Choose Comment For</option>
+                                        <option value="client">Client</option>
+                                        <option value="worker">Worker</option>
+                                        </select>
+
+                                    </div>
+                                </div>
                                 <div className="col-sm-12">
                                     <div className="form-group">
                                         <label className="control-label">
@@ -170,7 +240,7 @@ export default function Comment() {
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn btn-secondary closeb" data-dismiss="modal">Close</button>
-                            <button type="button"  onClick={handleSubmit} className="btn btn-primary">Save File</button>
+                            <button type="button"  onClick={handleSubmit} className="btn btn-primary">Save Comment</button>
                         </div>
                     </div>
                 </div>

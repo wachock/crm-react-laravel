@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateJobCommentsTable extends Migration
+class AddRoleToJobCommentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,8 @@ class CreateJobCommentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('job_comments', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('job_id');
-            $table->text('comment');
-            $table->string('name');
+        Schema::table('job_comments', function (Blueprint $table) {
             $table->enum('role',['client','worker']);
-            $table->timestamps();
         });
     }
 
@@ -30,6 +25,8 @@ class CreateJobCommentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('job_comments');
+        Schema::table('job_comments', function (Blueprint $table) {
+            $table->dropColumn('role');
+        });
     }
 }
