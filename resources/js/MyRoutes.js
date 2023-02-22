@@ -7,6 +7,7 @@ import TimeAgo from 'javascript-time-ago'
 import en from 'javascript-time-ago/locale/en.json'
 
 import './Assets/css/admin.css';
+// import './Assets/css/rtl.css';
 import './Assets/css/responsive.css';
 
 // Protected Routes
