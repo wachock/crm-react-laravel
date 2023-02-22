@@ -121,7 +121,7 @@ export default function Comment() {
                         </div>
                         <div className="col-sm-5 col-6">
                             <div className="float-right noteUser">
-                            {(c.name==localStorage.getItem("client-name"))
+                            {(c.name==localStorage.getItem("worker-name"))
                             ?
                             <button class="ml-2 btn bg-red" onClick={(e)=>handleDelete(e,c.id)}><i class="fa fa-trash"></i></button>
                              :''}
