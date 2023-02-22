@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import ClientSidebar from '../../Layouts/ClientSidebar'
 import logo from "../../../Assets/image/logo.png";
-import Dropdown from 'react-bootstrap/Dropdown';
 import { useParams } from 'react-router-dom';
 import Moment from 'moment';
 
@@ -119,7 +118,7 @@ export default function ClientViewOffer() {
                             <tfoot>
                               <tr>
                                 <td width="65%" class="text-right">Total</td>
-                                <td class="text-right"><span>{ofr.subtotal} </span>ILS</td> 
+                                <td class="text-right"><span>{ofr.subtotal} </span>ILS + VAT</td> 
                               </tr>
                             </tfoot>
                           </table>
@@ -128,14 +127,7 @@ export default function ClientViewOffer() {
                     </div>
                   </div>
                 </div>
-                <Dropdown className='text-right'>
-                  <Dropdown.Toggle className='btn-pink' id="dropdown-basic">Acton</Dropdown.Toggle>
-                  <Dropdown.Menu>
-                    <Dropdown.Item href={`/admin/edit-offer/${ofr.id}`}>Edit</Dropdown.Item>
-                    <Dropdown.Item href="#">Send as Email</Dropdown.Item>
-                    <Dropdown.Item href={`/admin/offered-price`}>Back</Dropdown.Item>
-                  </Dropdown.Menu>
-                </Dropdown>
+               
               </div>  
            )
           })}

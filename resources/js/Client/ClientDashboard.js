@@ -61,7 +61,7 @@ export default function ClientDashboard() {
                         </div>
 
                         <div className="col-sm-3 col-xs-6">
-                            <a href="#">
+                            <a href="/client/schedule">
                                 <div className="dashBox">
                                     <div className="dashIcon">
                                         <i className="fa-solid fa-handshake"></i>

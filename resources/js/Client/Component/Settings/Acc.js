@@ -3,16 +3,19 @@ import { useAlert } from "react-alert";
 
 export default function Acc() {
 
-    const [name, setName] = useState("");
-    const [address, setAddress] = useState("");
-    const [email, setEmail] = useState("");
-    const [file, setFile] = useState("");
-    const [color,setColor] = useState("");
-    const [phone,setPhone] = useState("");
-    const [avatar, setAvatar] = useState("");
-    const [errors, setErrors] = useState([]);
-    const alert = useAlert();
+    const [firstname, setFirstName]  = useState("");
+    const [lastname, setLastName]    = useState("");
+    const [email, setEmail]          = useState("");
+    const [phone,setPhone]           = useState("");
+    const [city, setCity]            = useState("");
+    const [street,setStreet]         = useState("");
+    const [zipcode,setZipcode]       = useState("");
+    const [file, setFile]            = useState("");
+    const [color,setColor]           = useState("");
+    const [avatar, setAvatar]        = useState("");
+    const [errors, setErrors]        = useState([]);
 
+    const alert = useAlert();
     const headers = {
         Accept: "application/json, text/plain, */*",
         "Content-Type": "application/json",
@@ -27,9 +30,12 @@ export default function Acc() {
     const handleSubmit = (e) => {
         e.preventDefault();
         const formData = new FormData();
-        formData.append("name", name);
+        formData.append("firstname", firstname);
+        formData.append("lastname", lastname);
+        formData.append("city", city);
+        formData.append("street_n_no", street);
+        formData.append("zipcode", zipcode);
         formData.append("email", email);
-        formData.append("address", address);
         formData.append("color",color);
         formData.append("avatar", avatar);
         formData.append("phone",phone);
@@ -48,7 +54,11 @@ export default function Acc() {
 
     const getSetting = () => {
         axios.get("/api/client/my-account", { headers }).then((response) => {
-            setName(response.data.account.name);
+            setFirstName(response.data.account.firstname);
+            setLastName(response.data.account.lastname);
+            setCity(response.data.account.city);
+            setStreet(response.data.account.street_n_no);
+            setZipcode(response.data.account.zipcode);
             setColor(response.data.account.color);
             setEmail(response.data.account.email);
             setPhone(response.data.account.phone);
@@ -64,13 +74,23 @@ export default function Acc() {
             <div className="card-body">
         <form>
             <div className="form-group">
-                <label className="control-label">Your Name</label>
+                <label className="control-label">Your FirstName</label>
                 <input
                     type="text"
                     className="form-control"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    placeholder="Your Name"
+                    value={firstname}
+                    onChange={(e) => setFirstName(e.target.value)}
+                    placeholder="Your FirstName"
+                />
+            </div>
+            <div className="form-group">
+                <label className="control-label">Your LastName</label>
+                <input
+                    type="text"
+                    className="form-control"
+                    value={lastname}
+                    onChange={(e) => setLastName(e.target.value)}
+                    placeholder="Your LastName"
                 />
             </div>
             <div className="form-group">
@@ -88,30 +108,37 @@ export default function Acc() {
                     ""
                 )}
             </div>
-            
             <div className="form-group">
-                <label className="control-label">Your Address</label>
-                <textarea
-                    className="form-control"
-                    value={address}
-                    onChange={(e) => setAddress(e.target.value)}
-                    placeholder="Your Address"
-                />
-                {errors.address ? (
-                    <small className="text-danger mb-1">{errors.address}</small>
-                ) : (
-                    ""
-                )}
-            </div>
-            <div className="form-group">
-                <label className="control-label">Color</label>
+                <label className="control-label">Your City</label>
                 <input
-                    type="color"
+                    type="text"
                     className="form-control"
-                    value={color}
-                    onChange={(e) => setColor(e.target.value)}
+                    value={city}
+                    onChange={(e) => setCity(e.target.value)}
+                    placeholder="Your LastName"
                 />
             </div>
+            <div className="form-group">
+                <label className="control-label">Your Street and Number</label>
+                <input
+                    type="text"
+                    className="form-control"
+                    value={street}
+                    onChange={(e) => setStreet(e.target.value)}
+                    placeholder="Your street and number"
+                />
+            </div>
+            <div className="form-group">
+                <label className="control-label">Your Zipcode</label>
+                <input
+                    type="number"
+                    className="form-control"
+                    value={zipcode}
+                    onChange={(e) => setZipcode(e.target.value)}
+                    placeholder="Your zipcode"
+                />
+            </div>
+            
             <div className="form-group">
                 <label className="control-label">Phone</label>
                 <input
@@ -120,6 +147,15 @@ export default function Acc() {
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                     placeholder="Your Phone"
+                />
+            </div>
+            <div className="form-group">
+                <label className="control-label">Color</label>
+                <input
+                    type="color"
+                    className="form-control"
+                    value={color}
+                    onChange={(e) => setColor(e.target.value)}
                 />
             </div>
             <div className="form-group">
