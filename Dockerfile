@@ -1,6 +1,6 @@
 # Set the base image for subsequent instructions
 FROM node:16 AS node
-FROM php:8.0
+FROM php:8.1
 
 COPY --from=node /usr/local/lib/node_modules /usr/local/lib/node_modules
 COPY --from=node /usr/local/bin/node /usr/local/bin/node
