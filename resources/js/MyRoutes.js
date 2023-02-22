@@ -89,6 +89,7 @@ import RegularServiceTemplate from './Pages/offertemplates/template_regular';
 import OfficeCleaningTemplate from './Pages/offertemplates/template_officeCleaning';
 import AfterRenovationTemplate from './Pages/offertemplates/template_cleaningAfterRenovation';
 import ThoroughCleaningTemplate from './Pages/offertemplates/template_throughoutCleaning';
+import WorkerContract from './Pages/WorkerContract';
 
 TimeAgo.addDefaultLocale(en)
 const options = {
@@ -108,6 +109,7 @@ export default function MyRoutes() {
                <Route exact path="meeting-status/:id" element={<MeetingStatus />} />
                <Route exact path="price-offer/:id" element={<PriceOffer />} />
                <Route exact path="work-contract/:id" element={<WorkContract />} />
+               <Route exact path="worker-contract" element={<WorkerContract />} />
                <Route exact path="calendar" element={<CalendarTeam />} />
                <Route exact path="thankyou/:id/:response" element={<Thankyou />} />
 
