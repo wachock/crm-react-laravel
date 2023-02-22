@@ -32,6 +32,7 @@ import WorkerMyAccount  from './Worker/Auth/WorkerMyAccount';
 import WorkerDashboard from './Worker/WorkerDashboard';
 import WorkerTotalJobs from './Worker/Pages/Job/WorkerTotalJobs';
 import WorkerViewJob    from './Worker/Pages/Job/WorkerViewJob';
+import Availability    from './Worker/Pages/Availability/Availability';
 
 
 // Admin Routes
@@ -141,6 +142,7 @@ export default function MyRoutes() {
                      <Route exact path="dashboard" element={<WorkerDashboard />} />
                      <Route exact path="jobs" element={<WorkerTotalJobs />} />
                      <Route exact path="view-job/:id" element={<WorkerViewJob />} />
+                     <Route exact path="schedule" element={<Availability />} />
                   </Route>
                </Route>
                {/* Worker Routes End  */}

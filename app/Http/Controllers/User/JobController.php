@@ -7,6 +7,7 @@ use App\Models\Job;
 use App\Models\User;
 use App\Models\Contract;
 use App\Models\serviceSchedules;
+use App\Models\WorkerAvialibilty;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -96,4 +97,31 @@ class JobController extends Controller
     {
        
     }
+    public function getWorkerAvailability($id){
+         $worker_availabilities = WorkerAvialibilty::where('user_id',$id)
+                             ->orderBy('id', 'asc')
+                             ->get();
+            $new_array=array();
+            foreach($worker_availabilities as $w_a){
+                 $new_array[$w_a->date]=$w_a->working;
+            }
+
+           return response()->json([
+            'availability'     => $new_array,         
+           ], 200);
+    }
+    public function updateAvailability(Request $request,$id){
+        WorkerAvialibilty::where('user_id',$id)->delete();
+        foreach($request->data as $key=>$availabilty){
+           $avl = new WorkerAvialibilty;
+           $avl->user_id=$id;
+           $avl->date=trim($key);
+           $avl->working=$availabilty;
+           $avl->status='1';
+           $avl->save();
+        }
+        return response()->json([
+            'message'     => 'Updated Successfully',         
+        ], 200);
+    } 
 }

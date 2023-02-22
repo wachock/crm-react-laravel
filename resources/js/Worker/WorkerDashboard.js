@@ -125,7 +125,7 @@ export default function WorkerDashboard() {
                                                                 <div className="d-flex">
                                                                     
                                                                     <Link
-                                                                        to={`/client/view-job/${item.id}`}
+                                                                        to={`/worker/view-job/${item.id}`}
                                                                         className="ml-2 btn bg-yellow"
                                                                     >
                                                                         <i className="fa fa-eye"></i>
