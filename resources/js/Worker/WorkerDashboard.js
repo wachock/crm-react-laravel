@@ -46,7 +46,7 @@ export default function WorkerDashboard() {
                         <div className="col-sm-3 col-xs-6">
                             <a href="/worker/jobs">
                                 <div className="dashBox">
-                                    <div className="dashIcon">
+                                    <div className="dashIcon mr-3">
                                         <i className="fa-solid fa-suitcase"></i>
                                     </div>
                                     <div className="dashText">
