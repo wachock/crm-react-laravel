@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Client\Auth\AuthController;
 use App\Http\Controllers\Client\ClientEmailController;
 use App\Http\Controllers\Client\DashboardController;
+use App\Http\Controllers\Client\JobCommentController;
 /*
 |--------------------------------------------------------------------------
 | Admin API Routes
@@ -31,6 +32,7 @@ Route::group(['prefix' => 'client', 'middleware' => ['auth:client-api', 'scopes:
    Route::post('add-file',[DashboardController::class,'addfile'])->name('add-file');
    Route::post('get-files',[DashboardController::class,'getfiles'])->name('get-files');
    Route::post('delete-file',[DashboardController::class,'deletefile'])->name('delete-file');
+    Route::resource('job-comments', JobCommentController::class);
   
 });
 

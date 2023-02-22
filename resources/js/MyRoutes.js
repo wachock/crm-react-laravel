@@ -24,6 +24,7 @@ import ClientContracts from './Client/Pages/Contract/Contract';
 import ClientViewContract from './Client/Pages/Contract/ViewContract';
 import ClientFiles from './Client/Pages/Schedule/Files';
 import ClientJobs  from './Client/Pages/Jobs/TotalJobs';
+import ClientJobView  from './Client/Pages/Jobs/ViewJob';
 import ClientSetting from './Client/Pages/Settings/Setting';
 // Worker Routes
 
@@ -123,6 +124,8 @@ export default function MyRoutes() {
                      <Route exact path="/client/view-contract/:id/:hash" element={<ClientViewContract/>} />
                      <Route exact path="/client/files/:meetId" element={<ClientFiles/>}/>
                      <Route exact path="/client/jobs" element={<ClientJobs/>}/>
+                     <Route exact path="/client/view-job/:id" element={<ClientJobView/>}/>
+                     
                      <Route exact path="/client/settings" element={<ClientSetting />} />
 
                   </Route>
