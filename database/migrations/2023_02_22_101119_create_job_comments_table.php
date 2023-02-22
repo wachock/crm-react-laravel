@@ -18,6 +18,7 @@ class CreateJobCommentsTable extends Migration
             $table->unsignedBigInteger('job_id');
             $table->text('comment');
             $table->string('name');
+            $table->enum('role',['client','worker']);
             $table->timestamps();
         });
     }

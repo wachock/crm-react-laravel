@@ -16,7 +16,7 @@ class JobCommentController extends Controller
      */
     public function index(request $request)
     {
-        $comments = JobComments::where('job_id',$request->id)->orderBy('id', 'desc')->get();
+        $comments = JobComments::where('job_id',$request->id)->where('role','client')->orderBy('id', 'desc')->get();
          return response()->json([
             'comments'=>$comments
         ],200);
@@ -51,6 +51,7 @@ class JobCommentController extends Controller
         $comment=new JobComments();
         $comment->name=$request->name;
         $comment->job_id=$request->job_id;
+        $comment->role='client';
         $comment->comment=$request->comment;
         $comment->save();
 

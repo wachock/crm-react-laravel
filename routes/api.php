@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\Auth\AuthController;
 use App\Http\Controllers\User\JobController;
 use App\Http\Controllers\User\DashboardController;
+use App\Http\Controllers\User\JobCommentController;
 /*
 |--------------------------------------------------------------------------
 | Employee API Routes
@@ -27,6 +28,7 @@ Route::group( ['middleware' => ['auth:api','scopes:user'] ],function(){
     Route::post('dashboard', [DashboardController::class, 'dashboard']);
 
     Route::resource('jobs', JobController::class);
+    Route::resource('job-comments', JobCommentController::class);
     Route::get('worker_availability/{id}', [JobController::class,'getWorkerAvailability']);
     Route::post('update_availability/{id}', [JobController::class,'updateAvailability']); 
 

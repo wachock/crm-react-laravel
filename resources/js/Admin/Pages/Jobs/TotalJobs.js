@@ -135,9 +135,9 @@ export default function TotalJobs() {
     }
 
     const handleform = (job_id, e) => {
-        let date = getSelectedDate(job_id);
+        let date = '';
         let worker = getSelectedWorkers(job_id);
-        let shifts = getSelectedShift(job_id, e);
+        let shifts = null;
        
         let data = {
             date: date,
@@ -158,12 +158,6 @@ export default function TotalJobs() {
             });
 
     }
-    const getSelectedDate = (job_id) => {
-        const filteredDate = totalJobs.filter(
-            (job) => job.id === job_id
-        );
-        return filteredDate['0']['start_date'];
-    };
     const getSelectedWorkers = (job_id) => {
         if (workers[job_id] !== 'undefined') {
             return workers[job_id];
@@ -171,29 +165,6 @@ export default function TotalJobs() {
             return '';
         }
 
-    };
-    const [selected_values, setSelectedValue] = useState([]);
-    const getSelectedShift = (job_id, e) => {
-        return document.getElementById('job-shift-' + job_id).getAttribute('value');
-    };
-    const colourOptions = [
-        { value: 0, label: 'full day - 8am-16pm' },
-        { value: 1, label: 'morning - 8-12pm' },
-        { value: 2, label: 'morning1 - 8-10am' },
-        { value: 3, label: 'noon - 12pm-16pm' },
-        { value: 4, label: 'noon - 12pm-16pm' }
-    ]
-
-    const changeShift = (job_id, e) => {
-
-        let data = '';
-        {
-            e.map((user, index) => (
-
-                data += (index) ? ',' + user['value'] : user['value']
-            ))
-        }
-        document.getElementById('job-shift-' + job_id).setAttribute('value', data);
     };
     
     return (
