@@ -56,7 +56,7 @@ export default function AdminHeader() {
             <div className="float-right">
               <div className="dropdown show">
                 <Link className="dropdown-toggle" href="#!" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <img src={file} className='img-fluid' alt='Ajay' />
+                  <img src={file} className='img-fluid' alt='Admin' />
                 </Link>
                 <div className="dropdown-menu" aria-labelledby="dropdownMenuLink">
                   <Link className="dropdown-item" to="/admin/settings">My Account</Link>

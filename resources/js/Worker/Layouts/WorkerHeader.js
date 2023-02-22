@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate,Link} from "react-router-dom";
 import User from '../../Assets/image/user.png';
 import { useAlert } from "react-alert";
+import WorkerMobileHeader from "./WorkerMobileHeader";
 
 export default function WorkerHeader() {
   const alert = useAlert();
@@ -26,7 +27,8 @@ export default function WorkerHeader() {
         });
     };
   return (
-    <div className='AdminHeader'>
+    <>
+    <div className='AdminHeader hidden-xs'>
       <div className="container-fluid">
         <div className="row">
           <div className="col-sm-6">
@@ -48,5 +50,7 @@ export default function WorkerHeader() {
         </div>
       </div>
     </div>
+    <WorkerMobileHeader/>
+    </>
   )
 }
