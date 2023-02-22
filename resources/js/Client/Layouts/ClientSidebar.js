@@ -59,23 +59,9 @@ export default function ClientSidebar() {
                     <NavLink to="/client/jobs"><i className="fa-solid fa-briefcase"></i>Jobs</NavLink>
                 </li>
                 <li className="list-group-item">
-                    <div id="fence" className='commonDropdown'>
-                        <div id="fencehead1">
-                            <a href="#" className="text-left btn btn-header-link" data-toggle="collapse" data-target="#fence1" aria-expanded="true" aria-controls="fence1">
-                                <i className="fa-solid fa-gear"></i> Settings <i className="fa-solid fa-angle-down"></i>
-                            </a>
-                        </div>
-                        <div id="fence1" className="collapse" aria-labelledby="fencehead1" data-parent="#fence">
-                            <div className="card-body">
-                                <ul className='list-group'>
-                                    <li className='list-group-item'>
-                                        <Link to="/client/settings"><i className="fa fa-angle-right"></i> My Account</Link>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
+                    <NavLink to="/client/settings"><i className="fa-solid fa-gear"></i>settings</NavLink>
                 </li>
+                
             </ul>
             <div className="sideLogout">
                 <div className="logoutBtn">

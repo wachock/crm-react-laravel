@@ -130,33 +130,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin-api', 'scopes:ad
     Route::post('update-time',[DashboardController::class,'updateTime'])->name('update-time');
     Route::get('get-time',[DashboardController::class,'getTime'])->name('get-time');
 
-    // Language Api
-    Route::resource('languages', LanguageController::class);
-
-    // Nationality Api
-    Route::resource('nationalities', NationalityController::class);
-
-    // Information Pages Api
-    Route::resource('information-pages', InformationPageController::class);
-
-    // Plans Api
-    Route::resource('plans', PlanController::class);
-
-    // Subscriptions Api
-    Route::resource('subscriptions', SubscriptionController::class);
-
-    // Job Profile Api
-    Route::resource('job-profiles', JobProfileController::class);
-
-    // General Setting Api
-    Route::get('general-settings', [SettingController::class, 'getGeneralSettings']);
-    Route::post('general-settings', [SettingController::class, 'saveGeneralSettings']);
-
     // My Account Api
     Route::get('my-account', [SettingController::class, 'getAccountDetails']);
     Route::post('my-account', [SettingController::class, 'saveAccountDetails']);
-
-    
 
     // Change Password Api
     Route::post('change-password', [SettingController::class, 'changePassword']);

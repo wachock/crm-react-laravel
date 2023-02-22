@@ -47,7 +47,7 @@ export default function Acc() {
     };
 
     const getSetting = () => {
-        axios.get("/api/admin/my-account", { headers }).then((response) => {
+        axios.get("/api/client/my-account", { headers }).then((response) => {
             setName(response.data.account.name);
             setColor(response.data.account.color);
             setEmail(response.data.account.email);

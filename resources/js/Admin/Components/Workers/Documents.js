@@ -42,7 +42,7 @@ export default function Documents() {
             />
 
             <label htmlFor='fileUpload'>
-                <a  className={`btn btn-primary`}>Upload Files</a>
+                <a  className={`btn btn-pink`}>Upload Files</a>
             </label>
 
             <div className="uploaded-files-list">

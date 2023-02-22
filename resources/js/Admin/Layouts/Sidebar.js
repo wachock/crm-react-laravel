@@ -66,13 +66,13 @@ export default function Sidebar() {
                 </li>
                 
                 <li className="list-group-item">
-                    <div id="fence" className='fence commonDropdown'>
-                        <div id="fencehead1">
-                            <a href="#" className="text-left btn btn-header-link" data-toggle="collapse" data-target="#fence1" aria-expanded="true" aria-controls="fence1">
+                    <div id="myFence" className='fence commonDropdown'>
+                        <div id="fencehead2">
+                            <a href="#" className="text-left btn btn-header-link" data-toggle="collapse" data-target="#fence2" aria-expanded="true" aria-controls="fence2">
                                 <i className="fa-solid fa-gear"></i> Settings <i className="fa-solid fa-angle-down"></i>
                             </a>
                         </div>
-                        <div id="fence1" className="collapse" aria-labelledby="fencehead1" data-parent="#fence">
+                        <div id="fence2" className="collapse" aria-labelledby="fencehead2" data-parent="#fence">
                             <div className="card-body">
                                 <ul className='list-group'>
                                     <li className='list-group-item'>

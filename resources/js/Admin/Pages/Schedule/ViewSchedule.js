@@ -36,6 +36,9 @@ export default function ViewSchedule() {
     const queryParams = new URLSearchParams(window.location.search);
     const sid = queryParams.get("sid");
     const time = [
+        "08:00 AM",
+        "08:30 AM",
+        "09:00 AM",
         "09:30 AM",
         "10:00 AM",
         "10:30 AM",
@@ -220,7 +223,7 @@ export default function ViewSchedule() {
                             </ul>
                         </div>
                         <div className='col-sm-4'>
-                            <div className='form-group float-right'>
+                            <div className='form-group float-right xs-float-none'>
                                 <label>Joined On</label>
                                 <p>{Moment(client.created_at).format('DD/MM/Y')}</p>
                             </div>
@@ -311,13 +314,14 @@ export default function ViewSchedule() {
                             <h4 className='text-center'>Worker Availability</h4>
                             <FullCalendar
                                 initialView='timeGridWeek'
-                                themeSystem="bootstrap3"
                                 allDaySlot={false}
                                 slotMinTime={startSlot}
                                 slotMaxTime={endSlot}
                                 hiddenDays={interval}
-                                seletable={true}
-                                plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+                                selectable={true}
+                                height={'auto'}
+                                slotEventOverlap = {false}
+                                plugins={[timeGridPlugin]}
                                 events={events}
                             />
 

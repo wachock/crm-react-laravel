@@ -64,7 +64,7 @@ class ClientEmailController extends Controller
         'status' =>'accepted'
       ]);
       $ofr  = Offer::with('client')->where('id',$request->id)->get()->first()->toArray();
-      $hash = md5($ofr['client']['email']); 
+      $hash = md5($ofr['client']['email'].$ofr['id']); 
       
       $contract = Contract::create([
          'offer_id'   =>$request->id,

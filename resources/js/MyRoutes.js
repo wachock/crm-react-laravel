@@ -7,6 +7,7 @@ import TimeAgo from 'javascript-time-ago'
 import en from 'javascript-time-ago/locale/en.json'
 
 import './Assets/css/admin.css';
+import './Assets/css/responsive.css';
 
 // Protected Routes
 import AdminProtectedRoutes from './Components/Auth/PrivateAdmin';
@@ -22,6 +23,8 @@ import ClientViewOffer from './Client/Pages/OfferPrice/ViewOffer';
 import ClientContracts from './Client/Pages/Contract/Contract';
 import ClientViewContract from './Client/Pages/Contract/ViewContract';
 import ClientFiles from './Client/Pages/Schedule/Files';
+import ClientJobs  from './Client/Pages/Jobs/TotalJobs';
+import ClientSetting from './Client/Pages/Settings/Setting';
 // Worker Routes
 
 import Worker from './Worker/Worker';
@@ -113,12 +116,15 @@ export default function MyRoutes() {
                <Route element={<ClientProtectedRoutes />}>
                   <Route path="client" element={<Client />} >
                      <Route exact path="dashboard" element={<ClientDashboard/>} />
-                     <Route exact path="/client/schedule" element={<ClientSchedules/>} />
+                     <Route exact path="schedule" element={<ClientSchedules/>} />
                      <Route exact path="/client/offered-price" element={<ClientOffers/>} />
                      <Route exact path="/client/view-offer/:id" element={<ClientViewOffer/>} />
                      <Route exact path="/client/contracts" element={<ClientContracts/>} />
                      <Route exact path="/client/view-contract/:id/:hash" element={<ClientViewContract/>} />
                      <Route exact path="/client/files/:meetId" element={<ClientFiles/>}/>
+                     <Route exact path="/client/jobs" element={<ClientJobs/>}/>
+                     <Route exact path="/client/settings" element={<ClientSetting />} />
+
                   </Route>
                </Route>
                {/* Client Routes End  */}
