@@ -24,6 +24,7 @@ import ClientContracts from './Client/Pages/Contract/Contract';
 import ClientViewContract from './Client/Pages/Contract/ViewContract';
 import ClientFiles from './Client/Pages/Schedule/Files';
 import ClientJobs  from './Client/Pages/Jobs/TotalJobs';
+import ClientJobView  from './Client/Pages/Jobs/ViewJob';
 import ClientSetting from './Client/Pages/Settings/Setting';
 // Worker Routes
 
@@ -90,6 +91,8 @@ import OfficeCleaningTemplate from './Pages/offertemplates/template_officeCleani
 import AfterRenovationTemplate from './Pages/offertemplates/template_cleaningAfterRenovation';
 import ThoroughCleaningTemplate from './Pages/offertemplates/template_throughoutCleaning';
 import WorkerContract from './Pages/WorkerContract';
+import Languages from './Admin/Pages/Languages/language';
+import EditLanguages from './Admin/Pages/Languages/EditLanguage';
 
 TimeAgo.addDefaultLocale(en)
 const options = {
@@ -125,6 +128,8 @@ export default function MyRoutes() {
                      <Route exact path="/client/view-contract/:id/:hash" element={<ClientViewContract/>} />
                      <Route exact path="/client/files/:meetId" element={<ClientFiles/>}/>
                      <Route exact path="/client/jobs" element={<ClientJobs/>}/>
+                     <Route exact path="/client/view-job/:id" element={<ClientJobView/>}/>
+                     
                      <Route exact path="/client/settings" element={<ClientSetting />} />
 
                   </Route>
@@ -198,6 +203,8 @@ export default function MyRoutes() {
                      <Route exact path="manage-time" element={<ManageTime />} />
                      <Route exact path="add-time" element={<AddTime />} />
                      <Route exact path="edit-time/:id" element={<EditTime />} />
+                     <Route exact path="Languages" element={<Languages />} />
+                     <Route exact path="edit-language/:id" element={<EditLanguages />} />
                      
                   </Route>
                </Route>

@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\WorkerController;
 use App\Http\Controllers\Admin\InformationPageController;
 use App\Http\Controllers\Admin\JobController;
+use App\Http\Controllers\Admin\JobCommentController;
 use App\Http\Controllers\Admin\JobProfileController;
 use App\Http\Controllers\Admin\LanguageController;
 use App\Http\Controllers\Admin\NationalityController;
@@ -65,6 +66,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin-api', 'scopes:ad
     Route::post('create-job/{id}',[JobController::class,'createJob']);
     Route::post('get-client-jobs',[JobController::class,'getJobByClient'])->name('get-client-jobs');
     Route::post('get-worker-jobs',[JobController::class,'getJobWorker']);
+
+    Route::resource('job-comments', JobCommentController::class);
 
     // workers Api
     Route::resource('workers', WorkerController::class);
@@ -136,6 +139,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin-api', 'scopes:ad
 
     // Change Password Api
     Route::post('change-password', [SettingController::class, 'changePassword']);
+
+    //Languages
+    Route::resource('languages',LanguageController::class);
 
     // Admin Logout Api
     Route::post('logout', [AuthController::class, 'logout']);

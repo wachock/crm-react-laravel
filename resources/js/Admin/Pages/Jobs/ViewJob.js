@@ -4,6 +4,7 @@ import Sidebar from '../../Layouts/Sidebar'
 import ClientDetails from '../../Components/Job/ClientDetails'
 import WorkerDetails from '../../Components/Job/WorkerDetails'
 import Services from '../../Components/Job/Services'
+import Comment from '../../Components/Job/Comment'
 
 export default function ViewJob() {
     const params = useParams();
@@ -33,7 +34,7 @@ export default function ViewJob() {
         getJob();
     }, []);
     const handleClick = () => {
-        navigate(`/admin/jobs?q=scheduled`);
+        navigate(`/admin/jobs`);
     }
     return (
         <div id='container'>
@@ -51,6 +52,7 @@ export default function ViewJob() {
                             </div>
                             <div className="col-sm-12">
                                 <Services services={services} job={job} />
+                                <Comment />
 
                             </div>
                             <div className="col-sm-12 text-center">
