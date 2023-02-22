@@ -59,7 +59,7 @@ export default function ClientSidebar() {
                     <NavLink to="/client/jobs"><i className="fa-solid fa-briefcase"></i>Jobs</NavLink>
                 </li>
                 <li className="list-group-item">
-                    <NavLink to="/client/settings"><i className="fa-solid fa-gear"></i>settings</NavLink>
+                    <NavLink to="/client/settings"><i className="fa-solid fa-gear"></i>Settings</NavLink>
                 </li>
                 
             </ul>

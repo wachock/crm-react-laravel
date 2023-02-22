@@ -1203,6 +1203,21 @@ h1 {
   margin-top: 10px;
   font-weight: 500;
 }
+.andClient .row .col-sm-3.col-xs-6:nth-child(2) .dashIcon i {
+  color: #FFAA05;
+  border-color: #FFAA05;
+  padding: 18px 15px;
+}
+.andClient .row .col-sm-3.col-xs-6:nth-child(3) .dashIcon i {
+  color: #8677f6;
+    border-color: #8677f6;
+    padding: 18px 24px;
+}
+.andClient .row .col-sm-3.col-xs-6:nth-child(4) .dashIcon i {
+  color: #54BA4A;
+  border-color: #54BA4A;
+  padding: 18px 21px;
+}
 .fc-license-message{
   display: none;
 }
