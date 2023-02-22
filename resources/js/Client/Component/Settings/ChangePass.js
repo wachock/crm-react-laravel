@@ -11,7 +11,7 @@ export default function ChangePass() {
     const headers = {
         Accept: "application/json, text/plain, */*",
         "Content-Type": "application/json",
-        Authorization: `Bearer ` + localStorage.getItem("admin-token"),
+        Authorization: `Bearer ` + localStorage.getItem("client-token"),
     };
 
     const handleSubmit = (e) => {

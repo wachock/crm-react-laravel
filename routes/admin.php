@@ -137,6 +137,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin-api', 'scopes:ad
     // Change Password Api
     Route::post('change-password', [SettingController::class, 'changePassword']);
 
+    //Languages
+    Route::resource('languages',LanguageController::class);
+
     // Admin Logout Api
     Route::post('logout', [AuthController::class, 'logout']);
 });

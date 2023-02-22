@@ -40,7 +40,8 @@ class ClientSeed extends Seeder
                 'phone'             => $faker->numerify('9#########'),
                 'email'             => $i == 1 ? 'client@admin.com' : $faker->unique()->safeEmail(),
                 'status'            => 1,
-                'password'          => Hash::make('password')
+                'password'          => Hash::make('password'),
+                'avatar'            => 'admin.png',
             ]);
         }
     }

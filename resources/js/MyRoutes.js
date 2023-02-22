@@ -89,6 +89,8 @@ import RegularServiceTemplate from './Pages/offertemplates/template_regular';
 import OfficeCleaningTemplate from './Pages/offertemplates/template_officeCleaning';
 import AfterRenovationTemplate from './Pages/offertemplates/template_cleaningAfterRenovation';
 import ThoroughCleaningTemplate from './Pages/offertemplates/template_throughoutCleaning';
+import Languages from './Admin/Pages/Languages/language';
+import EditLanguages from './Admin/Pages/Languages/EditLanguage';
 
 TimeAgo.addDefaultLocale(en)
 const options = {
@@ -196,6 +198,8 @@ export default function MyRoutes() {
                      <Route exact path="manage-time" element={<ManageTime />} />
                      <Route exact path="add-time" element={<AddTime />} />
                      <Route exact path="edit-time/:id" element={<EditTime />} />
+                     <Route exact path="Languages" element={<Languages />} />
+                     <Route exact path="edit-language/:id" element={<EditLanguages />} />
                      
                   </Route>
                </Route>
