@@ -8,6 +8,7 @@ import { useAlert } from "react-alert";
 import Select from 'react-select';
 import { useLocation } from 'react-router-dom'
 import Moment  from "moment";
+import {Table, Thead, Tbody, Tr, Th, Td} from 'react-super-responsive-table'
 
 export default function TotalJobs() {
 
@@ -192,33 +193,33 @@ export default function TotalJobs() {
                         <div className="boxPanel">
                             <div className="table-responsive">
                                 {totalJobs.length > 0 ? (
-                                    <table className="table table-bordered">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">Job Dated</th>
-                                                <th scope="col">Worker Name</th>
-                                                <th scope="col">Client Name</th>
-                                                <th scope="col">Service Name</th>
-                                                <th scope="col">Shift</th>
-                                                <th scope="col">Address</th>
-                                                <th scope="col">Complete Time</th>
-                                                <th scope="col">Status</th>
-                                                <th scope="col">Total</th>
-                                                <th scope="col">Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
+                                    <Table className="table table-bordered">
+                                        <Thead>
+                                            <Tr>
+                                                <Th scope="col">Job Dated</Th>
+                                                <Th scope="col">Worker Name</Th>
+                                                <Th scope="col">Client Name</Th>
+                                                <Th scope="col">Service Name</Th>
+                                                <Th scope="col">Shift</Th>
+                                                <Th scope="col">Address</Th>
+                                                <Th scope="col">Complete Time</Th>
+                                                <Th scope="col">Status</Th>
+                                                <Th scope="col">Total</Th>
+                                                <Th scope="col">Action</Th>
+                                            </Tr>
+                                        </Thead>
+                                        <Tbody>
                                             {totalJobs &&
                                                 totalJobs.map((item, index) => {
 
                                                     let services =  (item.offer.services) ? JSON.parse(item.offer.services) : [];
                           
                                                     return(
-                                                    <tr key={index}>
-                                                        <td>
+                                                    <Tr key={index}>
+                                                        <Td>
                                                            {Moment(item.start_date).format('DD MMM,Y')}
-                                                        </td>
-                                                        <td>
+                                                        </Td>
+                                                        <Td>
                                                             <h6>{
                                                                 item.worker
                                                                     ? item.worker.firstname +
@@ -235,15 +236,15 @@ export default function TotalJobs() {
                                                                 })}
                                                             </select>
 
-                                                        </td>
-                                                        <td>{
+                                                        </Td>
+                                                        <Td>{
                                                             item.client
                                                                 ? item.client.firstname +
                                                                 " " + item.client.lastname
                                                                 : "NA"
                                                         }
-                                                        </td>
-                                                        <td>{
+                                                        </Td>
+                                                        <Td>{
                                                            services && services.map((s,i)=>{
                                                             return(
                                                                 (services.length -1) != i?
@@ -251,18 +252,18 @@ export default function TotalJobs() {
                                                                 : s.name
                                                             )
                                                            })
-                                                        }</td>
-                                                        <td>
+                                                        }</Td>
+                                                        <Td>
                                                              {(item.start_time !='')?(`${item.start_time} to ${item.end_time}`):''}
                                                            
-                                                        </td>
-                                                        <td>{
+                                                        </Td>
+                                                        <Td>{
                                                             item.client
                                                                 ? item.client.geo_address
                                                                 : "NA"
                                                         }
-                                                        </td>
-                                                        <td>
+                                                        </Td>
+                                                        <Td>
                                                             {
                                                             item.end_time && item.start_time ?
                                                             parseFloat(`${item.end_time}.replace(":", ".")`)
@@ -270,19 +271,19 @@ export default function TotalJobs() {
                                                              +" Hours"
                                                              :"NA"
                                                             }
-                                                        </td>
-                                                        <td
+                                                        </Td>
+                                                        <Td
                                                             style={{
                                                                 textTransform:
                                                                     "capitalize",
                                                             }}
                                                         >
                                                             {item.status}
-                                                        </td>
-                                                        <td>
+                                                        </Td>
+                                                        <Td>
                                                             {item.offer.subtotal} ILS + VAT
-                                                        </td>
-                                                        <td>
+                                                        </Td>
+                                                        <Td>
                                                             <div className="action-dropdown dropdown pb-2">
                                                                 <button type="button" className="btn btn-default dropdown-toggle" data-toggle="dropdown">
                                                                     <i className="fa fa-ellipsis-vertical"></i>
@@ -299,11 +300,11 @@ export default function TotalJobs() {
                                                             <button type="button" className="btn btn-default" onClick={(e) => handleform(item.id, e)}>
                                                                     <i className="fa fa-upload" ></i>
                                                             </button>
-                                                        </td>
-                                                    </tr>
+                                                        </Td>
+                                                    </Tr>
                                                 )})}
-                                        </tbody>
-                                    </table>
+                                        </Tbody>
+                                    </Table>
                                 ) : (
                                     <p className="text-center mt-5">{loading}</p>
                                 )}

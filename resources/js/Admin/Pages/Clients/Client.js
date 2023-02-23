@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import ReactPaginate from "react-paginate";
 import {Table, Thead, Tbody, Tr, Th, Td} from 'react-super-responsive-table'
-import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css'
 
 export default function Clients() {
     

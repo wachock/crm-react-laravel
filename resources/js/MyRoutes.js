@@ -9,6 +9,7 @@ import en from 'javascript-time-ago/locale/en.json'
 import './Assets/css/admin.css';
 // import './Assets/css/rtl.css';
 import './Assets/css/responsive.css';
+import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css'
 
 // Protected Routes
 import AdminProtectedRoutes from './Components/Auth/PrivateAdmin';

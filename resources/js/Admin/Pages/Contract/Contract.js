@@ -4,6 +4,7 @@ import Sidebar from '../../Layouts/Sidebar';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import ReactPaginate from "react-paginate";
+import {Table, Thead, Tbody, Tr, Th, Td} from 'react-super-responsive-table'
 
 export default function Contract() {
     
@@ -110,21 +111,21 @@ export default function Contract() {
                         <div className="boxPanel">
                             <div className="table-responsive">
                                 { contracts.length > 0 ?(
-                                <table className="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">Client</th>
-                                            <th scope="col">Email</th>
-                                            <th scope="col" style={{width: "16%"}}>Address</th>
-                                            <th scope="col">Phone</th>
-                                            <th scope="col">Service Name</th>
-                                            <th scope="col">Status</th>
-                                            <th scope="col">Total</th>
-                                            <th scope="col">Job Status</th>
-                                            <th scope="col">Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>  
+                                <Table className="table table-bordered">
+                                    <Thead>
+                                        <Tr>
+                                            <Th scope="col">Client</Th>
+                                            <Th scope="col">Email</Th>
+                                            <Th scope="col" style={{width: "16%"}}>Address</Th>
+                                            <Th scope="col">Phone</Th>
+                                            <Th scope="col">Service Name</Th>
+                                            <Th scope="col">Status</Th>
+                                            <Th scope="col">Total</Th>
+                                            <Th scope="col">Job Status</Th>
+                                            <Th scope="col">Action</Th>
+                                        </Tr>
+                                    </Thead>
+                                    <Tbody>  
                                         {contracts && contracts.map((c,i)=>{
 
                                             let address = c.client ? c.client.city+", " :'';
@@ -135,22 +136,22 @@ export default function Contract() {
 
                                             return(
 
-                                        <tr>
-                                            <td><Link to={`/admin/view-client/${c.client.id}`}>
+                                        <Tr>
+                                            <Td><Link to={`/admin/view-client/${c.client.id}`}>
                                             {
                                                 c.client
                                                 ?c.client.firstname+" "+c.client.lastname
                                                 :''
                                             }
-                                            </Link></td>
-                                            <td>{c.client.email}</td>
-                                            <td><Link to={`https://maps.google.com?q=${address}`}>
+                                            </Link></Td>
+                                            <Td>{c.client.email}</Td>
+                                            <Td><Link to={`https://maps.google.com?q=${address}`}>
 
                                                 {address}
 
-                                            </Link></td>
-                                            <td>{ c.client.phone }</td>
-                                            <td>
+                                            </Link></Td>
+                                            <Td>{ c.client.phone }</Td>
+                                            <Td>
                                             {services && services.map((s,j)=>{
                                
                                                 return(
@@ -159,11 +160,11 @@ export default function Contract() {
                                                     : s.name
                                                 )
                                             })}
-                                            </td>
-                                            <td>{ c.status }</td>
-                                            <td>{ c.offer.total } ILS + VAT</td>
-                                            <td>{ (c.job_status)?'Active':'InActive' }</td>
-                                            <td>
+                                            </Td>
+                                            <Td>{ c.status }</Td>
+                                            <Td>{ c.offer.total } ILS + VAT</Td>
+                                            <Td>{ (c.job_status)?'Active':'InActive' }</Td>
+                                            <Td>
                                                 <div className="action-dropdown dropdown">
                                                     <button type="button" className="btn btn-default dropdown-toggle" data-toggle="dropdown">
                                                         <i className="fa fa-ellipsis-vertical"></i>
@@ -175,14 +176,14 @@ export default function Contract() {
                                                         >Delete</button>
                                                     </div>
                                                 </div>
-                                            </td>
-                                        </tr>   
+                                            </Td>
+                                        </Tr>   
 
                                             )
                                         })}
                                           
-                                    </tbody>
-                                </table> 
+                                    </Tbody>
+                                </Table> 
                                 ):(
                                     <div className='form-control text-center'>{loading}</div>
                                 )
