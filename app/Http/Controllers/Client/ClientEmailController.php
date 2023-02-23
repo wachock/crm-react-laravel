@@ -75,9 +75,10 @@ class ClientEmailController extends Controller
           $ofr['contract_id'] = $hash;
 
       \App::setLocale($ofr['client']['lng']);
-      $sub = __('mail.contract.subject')."  ".__('mail.contract.company');
+      
       Mail::send('/Mails/ContractMail',$ofr,function($messages) use ($ofr){
         $messages->to($ofr['client']['email']);
+        $sub = __('mail.contract.subject')."  ".__('mail.contract.company');
         $messages->subject($sub);
       });
       
