@@ -3,6 +3,8 @@ import Sidebar from "../../Layouts/Sidebar";
 import { Link } from "react-router-dom";
 import ReactPaginate from "react-paginate";
 import axios from "axios";
+import {Table, Thead, Tbody, Tr, Th, Td} from 'react-super-responsive-table'
+
 
 export default function AllWorkers() {
     const [workers, setWorkers] = useState([]);
@@ -107,39 +109,39 @@ export default function AllWorkers() {
                     <div className="card-body">
                     {/* <WorkerFilter getWorkerFilter={getWorkerFilter}/> */}
                         <div className="boxPanel">
-                            <div className="table-responsive">
+                            <div className="Table-responsive">
                                 {workers.length > 0 ? (
-                                    <table className="table table-bordered">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">ID</th>
-                                                <th scope="col">Worker Name</th>
-                                                <th scope="col">Email</th>
-                                                <th scope="col">Address</th>
-                                                <th scope="col">Phone</th>
-                                                <th scope="col">Status</th>
-                                                <th scope="col">Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
+                                    <Table className='table table-bordered'>
+                                        <Thead>
+                                            <Tr>
+                                                <Th>ID</Th>
+                                                <Th>Worker Name</Th>
+                                                <Th>Email</Th>
+                                                <Th>Address</Th>
+                                                <Th>Phone</Th>
+                                                <Th>Status</Th>
+                                                <Th>Action</Th>
+                                            </Tr>
+                                        </Thead>
+                                        <Tbody>
                                             {workers &&
                                                 workers.map((item, index) => {
                                                     
                                                     return(
-                                                    <tr key={index}>
-                                                        <td>{item.id}</td>
-                                                        <td>
+                                                    <Tr key={index}>
+                                                        <Td>{item.id}</Td>
+                                                        <Td>
                                                             <Link to={`/admin/view-worker/${item.id}`}>{item.firstname}{" "}{item.lastname}</Link> 
-                                                        </td>
-                                                        <td>{item.email}</td>
-                                                        <td><a href={`https://maps.google.com?q=${item.address}`}>{ item.address }</a></td>
-                                                        <td>{item.phone}</td>
-                                                        <td>
+                                                        </Td>
+                                                        <Td><Link to={`/admin/view-worker/${item.id}`}>{item.email}</Link></Td>
+                                                        <Td><a target="_blank" href={`https://maps.google.com?q=${item.address}`}>{ item.address }</a></Td>
+                                                        <Td><Link to={`/admin/view-worker/${item.id}`}>{item.phone}</Link></Td>
+                                                        <Td><Link to={`/admin/view-worker/${item.id}`}>
                                                         {item.status == 0
                                                                 ? "Inactive"
-                                                                : "Active"}
-                                                        </td>
-                                                        <td>
+                                                                : "Active"}</Link>
+                                                        </Td>
+                                                        <Td>
                                                             <div className="action-dropdown dropdown">
                                                                 <button type="button" className="btn btn-default dropdown-toggle" data-toggle="dropdown">
                                                                     <i className="fa fa-ellipsis-vertical"></i>
@@ -151,11 +153,11 @@ export default function AllWorkers() {
                                                                     >Delete</button>
                                                                 </div>
                                                             </div>
-                                                        </td>
-                                                    </tr>
+                                                        </Td>
+                                                    </Tr>
                                                 )})}
-                                        </tbody>
-                                    </table>
+                                        </Tbody>
+                                    </Table>
                                 ) : (
                                     <p className="text-center mt-5">{loading}</p>
                                 )}
@@ -188,7 +190,6 @@ export default function AllWorkers() {
                         </div>
                     </div>
                 </div>
-                
             </div>
         </div>
     );

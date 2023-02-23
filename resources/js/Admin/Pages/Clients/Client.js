@@ -3,12 +3,15 @@ import Sidebar from "../../Layouts/Sidebar";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import ReactPaginate from "react-paginate";
+import {Table, Thead, Tbody, Tr, Th, Td} from 'react-super-responsive-table'
+import { useNavigate } from "react-router-dom";
 
 export default function Clients() {
     
     const [clients, setClients] = useState([]);
     const [pageCount, setPageCount] = useState(0);
     const [loading, setLoading] = useState("Loading...");
+    const navigate = useNavigate();
     const headers = {
         Accept: "application/json, text/plain, */*",
         "Content-Type": "application/json",
@@ -86,6 +89,10 @@ export default function Clients() {
             }
         });
     };
+    const handleNavigate = (e,id) =>{
+      e.preventDefault();
+      navigate(`/admin/view-client/${id}`);
+    }
 
 
     return (
@@ -108,21 +115,20 @@ export default function Clients() {
                 <div className="card">
                     <div className="card-body">
                         <div className="boxPanel">
-                            <div className="table-responsive">
                                 {clients.length > 0 ? (
-                                    <table className="table table-bordered">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">ID</th>
-                                                <th scope="col">Client Name</th>
-                                                <th scope="col">Email</th>
-                                                <th scope="col">Address</th>
-                                                <th scope="col">Phone</th>
-                                                <th scope="col">Status</th>
-                                                <th scope="col">Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
+                                    <Table className='table table-bordered'>
+                                        <Thead>
+                                            <Tr>
+                                                <Th>ID</Th>
+                                                <Th>Client Name</Th>
+                                                <Th>Email</Th>
+                                                <Th>Address</Th>
+                                                <Th>Phone</Th>
+                                                <Th>Status</Th>
+                                                <Th>Action</Th>
+                                            </Tr>
+                                        </Thead>
+                                        <Tbody>
                                             {clients &&
                                                 clients.map((item, index) => {
                                                     
@@ -130,20 +136,20 @@ export default function Clients() {
                                                     let cords   = (item.latitude && item.longitude) ? item.latitude +","+ item.longitude :"";
 
                                                     return(
-                                                    <tr key={index}>
-                                                        <td>{item.id}</td>
-                                                        <td>
+                                                    <Tr key={index}>
+                                                        <Td onClick={(e)=>handleNavigate(e,item.id)}>{item.id}</Td>
+                                                        <Td>
                                                             <Link to={`/admin/view-client/${item.id}`}>{item.firstname}{" "}{item.lastname}</Link>  
-                                                        </td>
-                                                        <td>{item.email}</td>
-                                                        <td><a href={`https://maps.google.com?q=${cords}`} target='_blank'>{address}</a></td>
-                                                        <td>{item.phone}</td>
-                                                        <td>
+                                                        </Td>
+                                                        <Td onClick={(e)=>handleNavigate(e,item.id)}>{item.email}</Td>
+                                                        <Td><a href={`https://maps.google.com?q=${cords}`} target='_blank'>{address}</a></Td>
+                                                        <Td onClick={(e)=>handleNavigate(e,item.id)}>{item.phone}</Td>
+                                                        <Td onClick={(e)=>handleNavigate(e,item.id)}>
                                                             {item.status == 0
                                                                 ? "Inactive"
                                                                 : "Active"}
-                                                        </td>
-                                                        <td>
+                                                        </Td>
+                                                        <Td>
                                                             <div className="action-dropdown dropdown">
                                                                 <button type="button" className="btn btn-default dropdown-toggle" data-toggle="dropdown">
                                                                     <i className="fa fa-ellipsis-vertical"></i>
@@ -155,11 +161,11 @@ export default function Clients() {
                                                                     >Delete</button>
                                                                 </div>
                                                             </div>
-                                                        </td>
-                                                    </tr>)
+                                                        </Td>
+                                                    </Tr>)
                                                 })}
-                                        </tbody>
-                                    </table>
+                                        </Tbody>
+                                    </Table>
                                 ) : (
                                     <p className="text-center mt-5">{loading}</p>
                                 )}
@@ -188,7 +194,6 @@ export default function Clients() {
                                 ) : (
                                     <></>
                                 )}
-                            </div>
                         </div>
                     </div>
                 </div>

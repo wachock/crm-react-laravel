@@ -203,10 +203,7 @@ export default function WorkContract() {
                                     <td>
                                         {contract && contract.map((c, i) => {
 
-                                            let address = (c.client.city) ? (c.client.city) + ", " : '';
-                                            address += (c.client.street_n_no) ? (c.client.street_n_no) + ", " : '';
-                                            address += (c.client.zipcode) ? (c.client.zipcode) + " " : '';
-
+                                            let address = (c.client.geo_address) ? (c.client.geo_address) + ", " : '';
                                            
                                             if (c.additional_address) {
                                                 if (c.status == "not-signed") {

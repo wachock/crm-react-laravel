@@ -62,6 +62,7 @@
         "react-select": "^5.7.0",
         "react-signature-canvas": "^1.0.6",
         "react-star-ratings": "^2.3.0",
+        "react-super-responsive-table": "^5.2.1",
         "reactstrap": "^9.1.5",
         "rsuite": "^5.25.0",
         "sweetalert": "^2.1.2",

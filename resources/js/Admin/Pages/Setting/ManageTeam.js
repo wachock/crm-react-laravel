@@ -3,6 +3,7 @@ import Sidebar from '../../Layouts/Sidebar'
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import ReactPaginate from "react-paginate";
+import {Table, Thead, Tbody, Tr, Th, Td} from 'react-super-responsive-table'
 
 export default function ManageTeam() {
 
@@ -108,29 +109,29 @@ export default function ManageTeam() {
                 <div className='dashBox p-4'>
                     <div className="table-responsive">
                         { item.length > 0 ? (
-                        <table className="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Name</th>
-                                    <th scope="col">Email</th>
-                                    <th scope="col">Phone</th>
-                                    <th scope="col">Status</th>
-                                    <th scope="col">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
+                        <Table className="table table-bordered">
+                            <Thead>
+                                <Tr>
+                                    <Th scope="col">Name</Th>
+                                    <Th scope="col">Email</Th>
+                                    <Th scope="col">Phone</Th>
+                                    <Th scope="col">Status</Th>
+                                    <Th scope="col">Action</Th>
+                                </Tr>
+                            </Thead>
+                            <Tbody>
                                 {item && item.map((item, index) => (
-                                    <tr key={index}>
-                                        <td>{item.name}</td>
-                                        <td>{item.email}</td>
-                                        <td>{item.phone}</td>
-                                        <td>
+                                    <Tr key={index}>
+                                        <Td>{item.name}</Td>
+                                        <Td>{item.email}</Td>
+                                        <Td>{item.phone}</Td>
+                                        <Td>
                                             {
                                                 (item.status == 1)
                                                     ? 'Active'
                                                     : 'Inactive'
-                                            }</td>
-                                        <td>
+                                            }</Td>
+                                        <Td>
                                             <div className="action-dropdown dropdown">
                                                 <button type="button" className="btn btn-default dropdown-toggle" data-toggle="dropdown">
                                                     <i className="fa fa-ellipsis-vertical"></i>
@@ -141,11 +142,11 @@ export default function ManageTeam() {
                                                     >Delete</button>
                                                 </div>
                                             </div>
-                                        </td>
-                                    </tr>
+                                        </Td>
+                                    </Tr>
                                 ))}
-                            </tbody>
-                        </table>
+                            </Tbody>
+                        </Table>
                         )
                         :
                         (

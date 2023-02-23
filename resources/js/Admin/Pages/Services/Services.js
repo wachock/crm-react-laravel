@@ -3,6 +3,7 @@ import axios from "axios";
 import ReactPaginate from "react-paginate";
 import Sidebar from "../../Layouts/Sidebar";
 import { Link } from "react-router-dom";
+import {Table, Thead, Tbody, Tr, Th, Td} from 'react-super-responsive-table'
 
 export default function Services() {
 
@@ -124,27 +125,27 @@ export default function Services() {
                             <div className="boxPanel">
                                 <div className="table-responsive">
                                     {services.length > 0 ? (
-                                        <table className="table table-bordered">
-                                            <thead>
-                                                <tr>
-                                                    <th scope="col" onClick={(e)=>sortTable('id')}>ID</th>
-                                                    <th scope="col" onClick={(e)=>sortTable('name')}>Service</th>
-                                                    <th scope="col" onClick={(e)=>sortTable('status')}>Status</th>
-                                                    <th scope="col">Action</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
+                                        <Table className="table table-bordered">
+                                            <Thead>
+                                                <Tr>
+                                                    <Th scope="col" onClick={(e)=>sortTable('id')}>ID</Th>
+                                                    <Th scope="col" onClick={(e)=>sortTable('name')}>Service</Th>
+                                                    <Th scope="col" onClick={(e)=>sortTable('status')}>Status</Th>
+                                                    <Th scope="col">Action</Th>
+                                                </Tr>
+                                            </Thead>
+                                            <Tbody>
                                                 {services &&
                                                     services.map((item, index) => (
-                                                        <tr key={index}>
-                                                            <td>{item.id}</td>
-                                                            <td>{item.name}</td>
-                                                            <td>
+                                                        <Tr key={index}>
+                                                            <Td>{item.id}</Td>
+                                                            <Td>{item.name}</Td>
+                                                            <Td>
                                                                 {item.status == 0
                                                                     ? "Inactive"
                                                                     : "Active"}
-                                                            </td>
-                                                            <td>
+                                                            </Td>
+                                                            <Td>
                                                                 <div className="action-dropdown dropdown">
                                                                     <button type="button" className="btn btn-default dropdown-toggle" data-toggle="dropdown">
                                                                         <i className="fa fa-ellipsis-vertical"></i>
@@ -155,11 +156,11 @@ export default function Services() {
                                                                         >Delete</button>
                                                                     </div>
                                                                 </div>
-                                                            </td>
-                                                        </tr>
+                                                            </Td>
+                                                        </Tr>
                                                     ))}
-                                            </tbody>
-                                        </table>
+                                            </Tbody>
+                                        </Table>
                                     ) : (
                                         <p className="text-center mt-5">{loading}</p>
                                     )}

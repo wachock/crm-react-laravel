@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Contract;
 use App\Models\serviceSchedules;
 use App\Models\WorkerAvialibilty;
+use App\Models\JobHours;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -84,6 +85,13 @@ class JobController extends Controller
      */
     public function update(Request $request, $id)
     {
+         $job = Job::find($id);
+         $job->status ='completed';
+         $job->save();
+
+        return response()->json([
+            'message'        => 'job completed',            
+        ], 200);
        
     }
 
@@ -123,5 +131,42 @@ class JobController extends Controller
         return response()->json([
             'message'     => 'Updated Successfully',         
         ], 200);
-    } 
+    }
+    public function JobStartTime(Request $request){
+        $time = new JobHours();
+        $time->job_id=$request->job_id;
+        $time->worker_id=$request->worker_id;
+        $time->start_time=$request->start_time;
+        $time->save();
+        return response()->json([
+            'message'     => 'Updated Successfully',         
+        ], 200);
+    }
+    public function JobEndTime(Request $request){
+        $time = JobHours::find($request->id);
+        $time->end_time=$request->end_time;
+        $time->time_diff=$request->time_diff;
+        $time->save();
+        return response()->json([
+            'message'     => 'Updated Successfully',         
+        ], 200);
+    }
+    public function getJobTime(Request $request){
+         $time = JobHours::where('job_id',$request->job_id)->where('worker_id',$request->worker_id);
+         $total=0;
+         if($request->filter_end_time){
+            $time = $time->where('end_time',NULL)->first();
+         }else{
+            $time = $time->get();
+            foreach($time as $t){
+                if($t->time_diff){
+                  $total = $total+(int)$t->time_diff;
+                }
+            }
+         }
+          return response()->json([
+            'time'     => $time,
+            'total'    => $total         
+            ], 200);
+    }
 }

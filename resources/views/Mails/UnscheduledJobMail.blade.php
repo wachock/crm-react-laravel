@@ -27,9 +27,6 @@
 				</td>
 				<td> Action </td>
 			</tr>
-			 @foreach($un_job as $blog)
-
-			 @endforeach
 		</table>
 		
 

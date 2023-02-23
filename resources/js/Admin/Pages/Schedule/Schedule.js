@@ -5,12 +5,15 @@ import axios from 'axios';
 import ReactPaginate from "react-paginate";
 import Moment from 'moment';
 import Swal from 'sweetalert2';
+import {Table, Thead, Tbody, Tr, Th, Td} from 'react-super-responsive-table'
+import { useNavigate } from 'react-router-dom';
 
 export default function Schedule() {
 
   const [schedules, setSchedules] = useState([]);
   const [loading, setLoading] = useState("Loading...");
   const [pageCount, setPageCount] = useState(0);
+  const navigate = useNavigate();
 
   const headers = {
     Accept: "application/json, text/plain, */*",
@@ -91,7 +94,11 @@ export default function Schedule() {
       }
     });
   };
-
+  const handleNavigate = (e,cid,id) => {
+    e.preventDefault();
+    navigate(`/admin/view-schedule/${cid}?sid=${id}`);
+  }
+  
   return (
     <div id="container">
       <Sidebar />
@@ -113,52 +120,52 @@ export default function Schedule() {
             <div className="boxPanel">
               <div className="table-responsive">
                 {schedules.length > 0 ? (
-                  <table className="table table-bordered">
-                    <thead>
-                      <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">Client</th>
-                        <th scope="col">Contact</th>
-                        <th scope="col">Address</th>
-                        <th scope="col">Meeting Attender</th>
-                        <th scope="col">Scheduled</th>
-                        <th scope="col">Booking Status</th>
-                        <th scope="col">Action</th>
-                      </tr>
-                    </thead>
-                    <tbody>
+                  <Table className="table table-bordered">
+                    <Thead>
+                      <Tr>
+                        <Th>ID</Th>
+                        <Th>Client</Th>
+                        <Th>Contact</Th>
+                        <Th>Address</Th>
+                        <Th>Meeting Attender</Th>
+                        <Th>Scheduled</Th>
+                        <Th>Booking Status</Th>
+                        <Th>Action</Th>
+                      </Tr>
+                    </Thead>
+                    <Tbody>
                       {schedules && schedules.map((item, index) => {
 
                         let address = (item.client.geo_address) ? item.client.geo_address : 'NA';
                         let cords  = (item.client.latitude && item.client.longitude) ?
                                      item.client.latitude +","+ item.client.longitude:"NA";
                         return (
-                          <tr key={index}>
-                            <td>{item.id}</td>
-                            <td><Link to={`/admin/view-client/${item.client.id}`}>
+                          <Tr key={index}>
+                            <Td onClick={(e)=>handleNavigate(e,item.client.id,item.id)}>{item.id}</Td>
+                            <Td><Link to={`/admin/view-client/${item.client.id}`}>
                               {
                                 item.client
                                   ? item.client.firstname + " " + item.client.lastname
                                   : 'NA'
                               }
-                            </Link></td>
-                            <td>
+                            </Link></Td>
+                            <Td>
                               {
                                 item.client
                                   ? item.client.phone
                                   : 'NA'
                               }
-                            </td>
-                            <td><Link to={`https://maps.google.com?q=${cords}`} target="_blank">{address}</Link></td>
-                            <td>
+                            </Td>
+                            <Td><Link to={`https://maps.google.com?q=${cords}`} target="_blank">{address}</Link></Td>
+                            <Td onClick={(e)=>handleNavigate(e,item.client.id,item.id)}>
                               {
                                 item.team
                                   ? item.team.name
                                   : "NA"
                               }
-                            </td>
+                            </Td>
 
-                            <td>
+                            <Td onClick={(e)=>handleNavigate(e,item.client.id,item.id)}>
                               <span style={{ color: "blue" }}>{Moment(item.start_date).format('DD/MM/Y') + '\n'}</span>
                               <br />
                               <span style={{ color: "blue" }}>{Moment(item.start_date).format('dddd')}</span>
@@ -166,9 +173,9 @@ export default function Schedule() {
                               <span style={{ color: "green" }}>{"Start :" + item.start_time}</span>
                               <br />
                               <span style={{ color: "red" }}>{"End   :" + item.end_time}</span>
-                            </td>
-                            <td>{item.booking_status}</td>
-                            <td>
+                            </Td>
+                            <Td onClick={(e)=>handleNavigate(e,item.client.id,item.id)}>{item.booking_status}</Td>
+                            <Td>
                               <div className="action-dropdown dropdown">
                                 <button type="button" className="btn btn-default dropdown-toggle" data-toggle="dropdown">
                                   <i className="fa fa-ellipsis-vertical"></i>
@@ -179,12 +186,12 @@ export default function Schedule() {
                                   >Delete</button>
                                 </div>
                               </div>
-                            </td>
-                          </tr>
+                            </Td>
+                          </Tr>
                         )
                       })}
-                    </tbody>
-                  </table>
+                    </Tbody>
+                  </Table>
                 ) : (
                   <p className="text-center mt-5">{loading}</p>
                 )}
