@@ -51,11 +51,7 @@ class LanguageController extends Controller
      */
     public function show(language $language)
     {
-        $content  = Yaml::dump($language->getLocaleArrayFromFile());
-        return response()->json([
-            'content'=>$content
-        ]); 
-
+         Yaml::parse($language->getLocaleArrayFromFile());
     }
 
     /**

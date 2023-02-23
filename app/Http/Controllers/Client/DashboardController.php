@@ -56,9 +56,9 @@ class DashboardController extends Controller
         });
 
          $result->orWhere('booking_status','like','%'.$q.'%');
-         //$result->orWhere('end_time',       'like','%'.$q.'%');
-         //$result->orWhere('start_date',     'like','%'.$q.'%');
-         //$result->orWhere('start_time', 'like','%'.$q.'%');
+         $result->orWhere('end_time',       'like','%'.$q.'%');
+         $result->orWhere('start_date',     'like','%'.$q.'%');
+         $result->orWhere('start_time', 'like','%'.$q.'%');
         
         endif;
          
@@ -86,14 +86,14 @@ class DashboardController extends Controller
         $q = $request->q;
         $id = $request->id;
         $result = Offer::where('client_id',$id);  
-         /*
+         
         if(!is_null($q)){
 
         $result->orWhere('status','like','%'.$q.'%');
         $result->orWhere('total', 'like','%'.$q.'%');
 
         }
-        */
+        
          $result = $result->orderBy('id', 'desc')->paginate(20);
  
         return response()->json([
@@ -116,7 +116,7 @@ class DashboardController extends Controller
         $q = $request->q;
         $id= $request->id;
         $result = Contract::where('client_id',$id)->with('client','offer');  
-        /*
+        if(!is_null($q)):
         $result->orWhere('status','like','%'.$q.'%');
         
         $result = $result->orWhereHas('client',function ($qr) use ($q){
@@ -130,7 +130,7 @@ class DashboardController extends Controller
                  $qr->orWhere(DB::raw('phone'), 'like','%'.$q.'%');
              });
          });
-        */
+        endif;
          $result = $result->orderBy('id', 'desc')->paginate(20);
         
         return response()->json([

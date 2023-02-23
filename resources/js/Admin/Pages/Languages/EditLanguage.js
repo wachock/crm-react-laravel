@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 
-export default function languages() {
+export default function EditLanguage() {
     
     const param = useParams(); 
     const [languages,setLanguages] = useState([]);
@@ -19,14 +19,13 @@ export default function languages() {
        axios
        .get(`/api/admin/languages/${param.id}`,{ headers })
        .then((res)=>{
-          (res.data.languages.length > 0)
-          ? setLanguages(res.data.languages)
-          : setLoading("No language found");
+          setLanguages(res.data)
        })
     }
     useEffect(()=>{
         getLanguage();
     },[]);
+    console.log(languages);
     return (
         <div id="container">
             <Sidebar />
