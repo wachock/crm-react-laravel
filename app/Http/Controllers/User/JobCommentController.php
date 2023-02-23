@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\User;
 
+use App\Models\Job;
 use App\Models\JobComments;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -16,11 +17,9 @@ class JobCommentController extends Controller
      */
     public function index(request $request)
     {
-        $client_comments = JobComments::where('job_id',$request->id)->where('role','client')->orderBy('id', 'desc')->get();
-        $worker_comments = JobComments::where('job_id',$request->id)->where('role','worker')->orderBy('id', 'desc')->get();
+        $comments = JobComments::where('job_id',$request->id)->where('role','worker')->orderBy('id', 'desc')->get();
          return response()->json([
-            'client_comments'=>$client_comments,
-            'worker_comments'=>$worker_comments
+            'comments'=>$comments
         ],200);
     }
 
@@ -45,7 +44,6 @@ class JobCommentController extends Controller
          $validator = Validator::make($request->all(),[
             'name' =>['required'],
             'job_id' =>['required'],
-            'role' =>['required'],
             'comment'=>['required']
         ]);
         if($validator->fails()){
@@ -53,9 +51,15 @@ class JobCommentController extends Controller
         }
         $comment=new JobComments();
         $comment->name=$request->name;
-        $comment->role=$request->role;
         $comment->job_id=$request->job_id;
+        $comment->role='worker';
         $comment->comment=$request->comment;
+        if($request->status == 'unscheduled'){
+            $job = Job::find($request->job_id);
+            $job->status = $request->status;
+            $job->save();
+
+        }
         $comment->save();
 
         return response()->json([

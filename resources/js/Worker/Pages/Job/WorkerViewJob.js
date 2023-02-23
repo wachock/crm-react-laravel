@@ -4,6 +4,7 @@ import WorkerSidebar from '../../Layouts/WorkerSidebar'
 import ClientDetails from '../../Components/Job/ClientDetails'
 import WorkerDetails from '../../Components/Job/WorkerDetails'
 import Services from '../../Components/Job/Services'
+import Comment from '../../Components/Job/Comment'
 
 export default function WorkerViewJob() {
     const params = useParams();
@@ -48,6 +49,7 @@ export default function WorkerViewJob() {
                             </div>
                             <div className="col-sm-12">
                                 <Services services={services} job={job} />
+                                <Comment/>
 
                             </div>
                             <div className="col-sm-12 text-center">

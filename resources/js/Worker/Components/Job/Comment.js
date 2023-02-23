@@ -8,6 +8,7 @@ import Swal from 'sweetalert2';
 export default function Comment() {
 
     const [comment,setComment] = useState("");
+    const [status,setStatus] = useState("");
     const [allComment,setAllComment] = useState([]);
     const param = useParams();
     const alert = useAlert();
@@ -15,7 +16,7 @@ export default function Comment() {
     const headers = {
         Accept: "application/json, text/plain, */*",
         "Content-Type": "application/json",
-        Authorization: `Bearer ` + localStorage.getItem("client-token"),
+        Authorization: `Bearer ` + localStorage.getItem("worker-token"),
     };
 
    
@@ -26,11 +27,12 @@ export default function Comment() {
       let data={
         'job_id':param.id,
         'comment':comment,
-        'name':localStorage.getItem("client-name")
+        'status':status,
+        'name':localStorage.getItem("worker-name")
       }
       
       axios
-      .post(`/api/client/job-comments`,data,{headers})
+      .post(`/api/job-comments`,data,{headers})
       .then((res)=>{
         if(res.data.error){
             for( let e in res.data.error){
@@ -60,7 +62,7 @@ export default function Comment() {
         }).then((result) => {
             if (result.isConfirmed) {
                 axios
-                    .delete(`/api/client/job-comments/${id}`,{ headers })
+                    .delete(`/api/job-comments/${id}`,{ headers })
                     .then((response) => {
                         Swal.fire(
                             "Deleted!",
@@ -77,7 +79,7 @@ export default function Comment() {
 
     const getComments = () =>{
       axios
-      .get(`/api/client/job-comments?id=${param.id}`,{ headers })
+      .get(`/api/job-comments?id=${param.id}`,{ headers })
       .then((res)=>{
         setAllComment(res.data.comments);
       })
@@ -92,7 +94,7 @@ export default function Comment() {
             aria-labelledby="customer-notes-tab">
             <div className="text-right pb-3">
                 <button type="button" className="btn btn-pink" data-toggle="modal" data-target="#exampleModal">
-                    Add Comment
+                    Add Comment/Cancel Job
                 </button>
             </div>
             {allComment && allComment.map((c,i)=>{
@@ -119,7 +121,7 @@ export default function Comment() {
                         </div>
                         <div className="col-sm-5 col-6">
                             <div className="float-right noteUser">
-                            {(c.name==localStorage.getItem("client-name"))
+                            {(c.name==localStorage.getItem("worker-name"))
                             ?
                             <button class="ml-2 btn bg-red" onClick={(e)=>handleDelete(e,c.id)}><i class="fa fa-trash"></i></button>
                              :''}
@@ -140,7 +142,7 @@ export default function Comment() {
                 <div className="modal-dialog" role="document">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <h5 className="modal-title" id="exampleModalLabel">Add Comment</h5>
+                            <h5 className="modal-title" id="exampleModalLabel">Add Comment/Cancel Job</h5>
                             <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -148,6 +150,20 @@ export default function Comment() {
                         <div className="modal-body">
 
                             <div className="row">
+                                <div className="col-sm-12">
+                                    <div className="form-group">
+                                        <label className="control-label">
+                                            Job Status (You Can't Revert Status if Changed)
+                                        </label>
+                                        <select value={status} onChange={(e) =>
+                                                setStatus(e.target.value)
+                                            } className="form-control">
+                                        <option value="">Job Status</option>
+                                        <option value="unscheduled">Unscheduled</option>
+                                        </select>
+
+                                    </div>
+                                </div>
                                 <div className="col-sm-12">
                                     <div className="form-group">
                                         <label className="control-label">
