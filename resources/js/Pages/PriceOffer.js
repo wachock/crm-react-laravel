@@ -93,23 +93,19 @@ export default function PriceOffer() {
                         </div>
                         <div className='row'>
                             <div className='col-sm-6'>
-                                <h1>{t('price_offer.title')}. <span style={{ color: "#16a6ef" }}>#{offer.id}</span></h1>
+                                <h1>{t('price_offer.title')} : <span style={{ color: "#16a6ef" }}>{offer.subtotal} ILS + VAT</span></h1>
                             </div>
                             <div className='col-sm-6'>
-                                <p className='date'>{t('price_offer.dateTxt')}: <span style={{ color: "#16a6ef" }}>{Moment(offer.created_at).format('Y-MM--DD')}</span></p>
+                                <p className='date'>{t('price_offer.dateTxt')}: <span style={{ color: "#16a6ef" }}>{Moment(offer.created_at).format('Y-MM-DD')}</span></p>
                             </div>
                         </div>
-
+                        
                         <div className='grey-bd'>
                             <p>{t('price_offer.honour_of')}: <span style={{ color: "#3da7ef", fontWeight: "700" }}>{client.firstname + " " + client.lastname}</span> </p>
                             <p>{t('price_offer.company_text')}: <span>Broom Service</span> </p>
                             
                              <p>{t('price_offer.address_text')}: <span>{ address }</span></p>
                             
-                        </div>
-                        <div className='abt'>
-                            <h2>{t('price_offer.about_title')}</h2>
-                            <p>{t('price_offer.about')}</p>
                         </div>
                         <div className='services'>
                             <h3 class="card-title">{t('price_offer.service_title')}</h3>
@@ -159,6 +155,10 @@ export default function PriceOffer() {
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                        <div className='abt'>
+                            <h2>{t('price_offer.about_title')}</h2>
+                            <p>{t('price_offer.about')}</p>
                         </div>
                         <div className='we-have'>
                         <h3>{t('price_offer.offer_title')}</h3>

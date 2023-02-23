@@ -435,8 +435,8 @@ export default function AddClient() {
                                         <option value="en">English</option>
                                     </select>
                                 </div>
-                                <div className="form-group">
-                                    <div className="form-check form-check-inline1">
+                                <div className="form-group lcs">
+                                    <div className="form-check form-check-inline1 pl-0" style={{paddingLeft: "0"}}>
                                         <label class="form-check-label" for="title">Color</label>
                                     </div>
 
