@@ -69,6 +69,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin-api', 'scopes:ad
 
     Route::resource('job-comments', JobCommentController::class);
 
+    Route::post('get-job-time', [JobController::class, 'getJobTime']);
+    Route::post('add-job-time', [JobController::class, 'addJobTime']);
+
     // workers Api
     Route::resource('workers', WorkerController::class);
     Route::get('all-workers', [WorkerController::class,'AllWorkers']);

@@ -253,7 +253,7 @@ export default function WorkerViewJob() {
                                         
                                         </table>
                                 ) : (
-                                    <p className="text-center mt-5"></p>
+                                    <p className="text-center mt-5">Worker Timing not found.</p>
                                 )}
                                        
                            

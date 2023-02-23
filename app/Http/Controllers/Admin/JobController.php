@@ -7,6 +7,7 @@ use App\Models\Job;
 use App\Models\User;
 use App\Models\Contract;
 use App\Models\serviceSchedules;
+use App\Models\JobHours;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -213,5 +214,34 @@ class JobController extends Controller
             'message'=>'Job has been created successfully'
         ],200);
 
+    }
+    public function getJobTime(Request $request){
+         $time = JobHours::where('job_id',$request->job_id)->where('worker_id',$request->worker_id)->get();
+         $total=0;
+         foreach($time as $t){
+                if($t->time_diff){
+                  $total = $total+(int)$t->time_diff;
+                }
+          }
+          return response()->json([
+            'time'     => $time,
+            'total'    => $total         
+            ], 200);
+    }
+    public function addJobTime(Request $request){
+        $validator = Validator::make($request->all(),[
+            'start_time' =>['required'],
+            'end_time'  =>['required']
+        ]);
+        if($validator->fails()){
+            return response()->json(['error'=>$validator->messages()]);
+        }
+        $time = new JobHours();
+        $time->job_id=$request->job_id;
+        $time->worker_id=$request->worker_id;
+        $time->start_time=$request->start_time;
+        $time->end_time=$request->end_time;
+        $time->time_diff=$request->time_diff;
+        $time->save();
     }
 }
