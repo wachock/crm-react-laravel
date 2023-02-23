@@ -73,10 +73,13 @@ class ClientEmailController extends Controller
          'status'     =>'not-signed'
       ]);
           $ofr['contract_id'] = $hash;
+
+      \App::setLocale($ofr['client']['lng']);
       
       Mail::send('/Mails/ContractMail',$ofr,function($messages) use ($ofr){
         $messages->to($ofr['client']['email']);
-        $messages->subject('Contract with Broom Services');
+        $sub = __('mail.contract.subject')."  ".__('mail.contract.company');
+        $messages->subject($sub);
       });
       
       return response()->json([

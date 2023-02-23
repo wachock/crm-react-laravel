@@ -28,6 +28,9 @@ export default function PriceOffer() {
                 setServices(JSON.parse(res.data.offer[0].services));
                 setClient(res.data.offer[0].client);
                 i18next.changeLanguage(res.data.offer[0].client.lng);
+                if(res.data.offer[0].client.lng == 'heb'){
+                   document.querySelector('html').setAttribute('dir','rtl');
+                }
             })
     }
     useEffect(() => {

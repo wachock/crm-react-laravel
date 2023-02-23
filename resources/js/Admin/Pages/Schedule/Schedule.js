@@ -149,7 +149,7 @@ export default function Schedule() {
                                   : 'NA'
                               }
                             </Link></Td>
-                            <Td>
+                            <Td onClick={(e)=>handleNavigate(e,item.client.id,item.id)}>
                               {
                                 item.client
                                   ? item.client.phone
