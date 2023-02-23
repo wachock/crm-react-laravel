@@ -11,6 +11,7 @@ export default function WorkerViewJob() {
     const params = useParams();
     const navigate = useNavigate();
     const [job, setJob] = useState([]);
+    const [job_status, setJobStatus] = useState('completed');
     const [client, setClient] = useState([]);
     const [worker, setWorker] = useState([]);
     const [services, setServices] = useState([]);
@@ -33,6 +34,7 @@ export default function WorkerViewJob() {
             .then((res) => {
                 const r = res.data.job;
                 setJob(r)
+                setJobStatus(r.status);
                 setClient(r.client);
                 setWorker(r.worker);
                 setServices(JSON.parse(r.offer.services));
@@ -174,7 +176,7 @@ export default function WorkerViewJob() {
       return `${hours}h:${minutes}m:${seconds}s`;
 
    }
-
+  console.log(job_status);
 
     return (
         <div id='container'>
@@ -189,8 +191,9 @@ export default function WorkerViewJob() {
                                      <h2 className="text-danger">Client Details</h2>
                                   </div>
                                   <div className='col-sm-2'>
-                                     <button type="button" onClick={HandleMarkComplete} className="btn btn-success">Mark as Complete</button>
+                                     {(job_status !='completed') && ( <button type="button" onClick={HandleMarkComplete} className="btn btn-success">Mark as Complete</button>)}
                                   </div>
+                                   {(job_status !='completed')?
                                     <div className='col-sm-2'>
                                      {!isRunning && (
                                           <button onClick={startTimer} className="btn btn-primary">Start Timer</button>
@@ -203,6 +206,11 @@ export default function WorkerViewJob() {
                                             </>
                                         )}
                                     </div>
+                                    :
+                                    <div className='col-sm-2'>
+                                       Job Status : <h6 className="text-danger">Completed</h6>
+                                    </div>
+                                     }
                                  </div>
 
                                 <ClientDetails client={client} />
@@ -236,7 +244,7 @@ export default function WorkerViewJob() {
 
                                                     )})}
                                                 <tr>
-                                                 <td colspan="2">Total Time</td>
+                                                 <td colSpan="2">Total Time</td>
                                                  <td>{calculateTime(total_time)}</td>
                                                 </tr>
                                         </tbody>
