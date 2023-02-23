@@ -195,6 +195,7 @@ export default function TotalJobs() {
                                     <table className="table table-bordered">
                                         <thead>
                                             <tr>
+                                                <td>Id</td>
                                                 <th scope="col">Job Dated</th>
                                                 <th scope="col">Worker Name</th>
                                                 <th scope="col">Client Name</th>
@@ -215,6 +216,7 @@ export default function TotalJobs() {
                           
                                                     return(
                                                     <tr key={index}>
+                                                        <td>{item.id}</td>
                                                         <td>
                                                            {Moment(item.start_date).format('DD MMM,Y')}
                                                         </td>

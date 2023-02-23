@@ -29,7 +29,7 @@ class CreateJobsTable extends Migration
             $table->text('shifts')->nullable();
             $table->text('comment')->nullable();
             $table->unsignedBigInteger('rate')->nullable();
-            $table->enum('status', ['not-started', 'progress', 'completed','scheduled','unscheduled'])->default('not-started');
+            $table->enum('status', ['not-started', 'progress', 'completed','scheduled','unscheduled','re-scheduled'])->default('unscheduled');
             $table->timestamps();
         });
     }
