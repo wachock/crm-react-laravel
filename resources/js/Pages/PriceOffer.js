@@ -73,10 +73,8 @@ export default function PriceOffer() {
     services && services.map((s,i)=>{
       if(i == 0){ getTemplate(s.service) }
     });
-    let address = (client.city) ? (client.city)+", " : '';
-    address += (client.street_n_no) ? (client.street_n_no)+", ": '';
-    address += (client.zipcode) ? (client.zipcode)+", " : '';
-
+    let address = (client.geo_address) ? (client.geo_address)+", " : '';
+   
     return (
         <>
 

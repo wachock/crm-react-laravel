@@ -5,12 +5,14 @@ import axios from 'axios';
 import ReactPaginate from "react-paginate";
 import Moment from 'moment';
 import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
 
 export default function Schedule() {
 
   const [schedules, setSchedules] = useState([]);
   const [loading, setLoading] = useState("Loading...");
   const [pageCount, setPageCount] = useState(0);
+  const navigate = useNavigate();
 
   const headers = {
     Accept: "application/json, text/plain, */*",
@@ -92,6 +94,11 @@ export default function Schedule() {
     });
   };
 
+  const handleNavigate = (e, id) => {
+    e.preventDefault();
+    navigate(`/admin/view-schedule/${id}`);
+}
+
   return (
     <div id="container">
       <Sidebar />
@@ -133,8 +140,8 @@ export default function Schedule() {
                         let cords  = (item.client.latitude && item.client.longitude) ?
                                      item.client.latitude +","+ item.client.longitude:"NA";
                         return (
-                          <tr key={index}>
-                            <td>{item.id}</td>
+                          <tr>
+                            <td onClick={(e) => handleNavigate(e, item.id)}>{item.id}</td>
                             <td><Link to={`/admin/view-client/${item.client.id}`}>
                               {
                                 item.client
@@ -142,7 +149,7 @@ export default function Schedule() {
                                   : 'NA'
                               }
                             </Link></td>
-                            <td>
+                            <td onClick={(e) => handleNavigate(e, item.id)}>
                               {
                                 item.client
                                   ? item.client.phone
@@ -150,7 +157,7 @@ export default function Schedule() {
                               }
                             </td>
                             <td><Link to={`https://maps.google.com?q=${cords}`} target="_blank">{address}</Link></td>
-                            <td>
+                            <td  onClick={(e) => handleNavigate(e, item.id)}>
                               {
                                 item.team
                                   ? item.team.name
@@ -158,7 +165,7 @@ export default function Schedule() {
                               }
                             </td>
 
-                            <td>
+                            <td onClick={(e) => handleNavigate(e, item.id)}>
                               <span style={{ color: "blue" }}>{Moment(item.start_date).format('DD/MM/Y') + '\n'}</span>
                               <br />
                               <span style={{ color: "blue" }}>{Moment(item.start_date).format('dddd')}</span>
@@ -167,7 +174,7 @@ export default function Schedule() {
                               <br />
                               <span style={{ color: "red" }}>{"End   :" + item.end_time}</span>
                             </td>
-                            <td>{item.booking_status}</td>
+                            <td onClick={(e) => handleNavigate(e, item.id)}>{item.booking_status}</td>
                             <td>
                               <div className="action-dropdown dropdown">
                                 <button type="button" className="btn btn-default dropdown-toggle" data-toggle="dropdown">

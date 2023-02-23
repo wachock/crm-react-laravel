@@ -356,39 +356,18 @@ export default function EditClient() {
                                 <h4 className="mt-2 mb-3">Client Full Address</h4>
 
                                 <div className="form-group">
-                                    <label className="control-label">City</label>
+                                    <label className="control-label">Full Address
+                                    <small className="text-pink mb-1">
+                                        &nbsp; (auto complete from google address)
+                                     </small>
+                                    </label>
                                     <input
                                         type="text"
-                                        value={city}
-                                        onChange={(e) => setCity(e.target.value)}
+                                        value={address}
                                         className="form-control"
-                                        placeholder="Enter City"
+                                        placeholder="Full Address"
                                     />
-                                    {errors.city ? (
-                                        <small className="text-danger mb-1">
-                                            {errors.city}
-                                        </small>
-                                    ) : (
-                                        ""
-                                    )}
-                                </div>
-
-                                <div className="form-group">
-                                    <label className="control-label">Street number and Street name </label>
-                                    <input
-                                        type="text"
-                                        value={streetNumber}
-                                        onChange={(e) => setStreetNumber(e.target.value)}
-                                        className="form-control"
-                                        placeholder="Enter street and number"
-                                    />
-                                    {errors.streetNumber ? (
-                                        <small className="text-danger mb-1">
-                                            {errors.streetNumber}
-                                        </small>
-                                    ) : (
-                                        ""
-                                    )}
+                                   
                                 </div>
 
                                 <div className="form-group">

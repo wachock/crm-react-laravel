@@ -229,9 +229,8 @@ export default function WorkContract() {
                                 <td style={{width: "60%"}}>The location in which the service will be provided and/or work will be performed</td>
                                 <td>
                                     {offer && offer.map((ofr,i)=>{
-                                        let address =  (ofr.client.city) ? (ofr.client.city)+", " : '';
-                                            address += (ofr.client.street_n_no) ? (ofr.client.street_n_no)+", " : '';
-                                            address += (ofr.client.zipcode) ? (ofr.client.zipcode)+", ": ''; 
+                                        let address =  (ofr.client.geo_address) ? (ofr.client.geo_address)+", " : '';
+                                           
                                         return address;
                                     })}
                                 
