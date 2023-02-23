@@ -17,7 +17,6 @@ export default function WorkerTiming({job}) {
     const getTimes = () => {
      let data = {
         job_id:params.id,
-        worker_id:job.worker_id
      };
       axios
             .post(`/api/admin/get-job-time`,data, { headers })

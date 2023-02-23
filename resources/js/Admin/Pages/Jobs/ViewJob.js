@@ -53,7 +53,6 @@ export default function ViewJob() {
                             </div>
                             <div className="col-sm-12">
                                 <Services services={services} job={job} />
-                                
                                 <WorkerTiming job={job}/>
 
                                 <Comment />

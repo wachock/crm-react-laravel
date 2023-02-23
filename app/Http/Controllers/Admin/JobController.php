@@ -216,7 +216,7 @@ class JobController extends Controller
 
     }
     public function getJobTime(Request $request){
-         $time = JobHours::where('job_id',$request->job_id)->where('worker_id',$request->worker_id)->get();
+         $time = JobHours::where('job_id',$request->job_id)->get();
          $total=0;
          foreach($time as $t){
                 if($t->time_diff){
