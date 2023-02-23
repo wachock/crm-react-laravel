@@ -16,7 +16,7 @@ class language extends Model
     ];
     public function languageDir(): string
     {
-        return base_path('localization/'.$this->code.'/');
+        return ('localization/'.$this->code.'/');
     }
 
     public function getLocaleArrayFromFile(): mixed

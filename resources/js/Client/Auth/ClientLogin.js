@@ -28,10 +28,7 @@ export default function ClientLogin() {
             }
         });
     };
-    const onChange = (value) => {
-        console.log("Captcha value:", value);
-    };
-
+   
     return (
            <div id="loginPage">
             <div className="container adminLogin">
@@ -97,16 +94,7 @@ export default function ClientLogin() {
                                 ""
                             )}
                         </div>
-                        <div className="form-group">
-                            <ul className="list-inline">
-                                <li>
-                                    <label>
-                                        <input type="checkbox" />{" "}
-                                        Remember me{" "} 
-                                    </label>
-                                </li>
-                            </ul>
-                        </div>
+                       
                         <div className="form-group mt-4">
                             <button
                                 type="button"

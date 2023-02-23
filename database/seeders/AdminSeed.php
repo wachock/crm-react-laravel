@@ -24,7 +24,7 @@ class AdminSeed extends Seeder
             'email'             => $i == 1 ? 'admin@admin.com' : $faker->unique()->safeEmail(),
             'phone'             => $faker->numerify('9#########'),
             'address'           => $faker->address(), 
-            'color'             => ('#ffee'.rand(2,4)),
+            'color'             => '#00FF00',
             'status'            => 1,
             'role'              => $i == 1 ? ('superadmin') : ('admin'),
             'avatar'            => 'admin.png',

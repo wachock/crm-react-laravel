@@ -95,16 +95,6 @@ export default function AdminLogin() {
                                 ""
                             )}
                         </div>
-                        <div className="form-group">
-                            <ul className="list-inline">
-                                <li>
-                                    <label>
-                                        <input type="checkbox" />{" "}
-                                        Remember me{" "}
-                                    </label>
-                                </li>
-                            </ul>
-                        </div>
                         <div className="form-group mt-4">
                             <button
                                 type="button"
