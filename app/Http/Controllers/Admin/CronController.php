@@ -69,6 +69,7 @@ class CronController extends Controller
             $new->save();
                 
         }
+        // $this->sendUnscheduledMail();
         echo "Job Updated Successfully.";
     }
     public function checkWorker($job){
@@ -97,5 +98,23 @@ class CronController extends Controller
                     }
                 }
                 return  $availabiltities;
+    }
+    public function sendUnscheduledMail(){
+        $startDate = Carbon::now()->startOfWeek()->addDays(6);;
+        $endDate = $startDate ->addDays(6);
+        $jobs = Job::query()->with('offer','contract')->where('status','unscheduled')->whereBetween('start_date',[$startDate, $endDate]);
+        $jobs = $jobs->whereHas('contract', function ($query) {
+                    $query->where('job_status', '=',1);
+                })->get();
+        $new_job=array('1');
+        foreach($jobs as $job){
+
+        }
+        $subject = 'Unscheduled Jobs of Week('.$startDate.' to '.$endDate.').';
+        Mail::send('/Mails/UnscheduledJobMail',$new_job,function($messages) use ($new_job){
+            $messages->to('kulwindern2r@gmail.com');
+            $messages->subject('Unscheduled Jobs of Next Week');
+        });
+
     }
 }
