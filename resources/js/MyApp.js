@@ -17,10 +17,8 @@ i18n
     supportedLngs: ['en','heb'],
     fallbackLng: "en",
     detection:{
-      order: ['querystring','path','htmlTag',  'localStorage', 'sessionStorage',
-               'navigator',  'subdomain'],
-      caches:['querystring']
-
+      order: ['querystring','path','cookie','htmlTag',  'localStorage', 'sessionStorage',
+               'navigator',  'subdomain']
     },
     backend:{
       loadPath: '/localization/{{lng}}/locale.json',
