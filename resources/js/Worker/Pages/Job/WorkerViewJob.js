@@ -48,10 +48,12 @@ export default function WorkerViewJob() {
     }
     const HandleMarkComplete = () => {
          let data = [];
+         (isRunning)?stopTimer():'';
          axios
             .put(`/api/jobs/${params.id}`,data, { headers })
             .then((res) => {
                 alert.success('Job Mark as Completed.');
+                getJob();
             });
 
     }
