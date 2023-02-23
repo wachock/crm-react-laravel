@@ -55,7 +55,7 @@ export default function WorkerTiming({job}) {
                 alert.error(res.data.errors[e]);
               }
             } else {
-                alert.success(res.data.message);
+                alert.success('Worker Timing Added Successfully.');
                 document.querySelector('.closeb').click();
                 document.querySelector('#timing_starts').value='';
                 document.querySelector('#timing_ends').value='';
