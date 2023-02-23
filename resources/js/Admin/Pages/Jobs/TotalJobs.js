@@ -7,8 +7,8 @@ import JobFilter from "../../Components/Filter/JobFilter";
 import { useAlert } from "react-alert";
 import Select from 'react-select';
 import { useLocation } from 'react-router-dom'
-import Moment from "moment";
-import { useNavigate } from 'react-router-dom';
+import Moment  from "moment";
+import {Table, Thead, Tbody, Tr, Th, Td} from 'react-super-responsive-table'
 
 export default function TotalJobs() {
 
@@ -20,9 +20,8 @@ export default function TotalJobs() {
     const [AllWorkers, setAllWorkers] = useState([]);
     const alert = useAlert();
     const location = useLocation();
-    const navigate = useNavigate();
     const query = (location.search.split('=')[1]);
-
+    
     const headers = {
         Accept: "application/json, text/plain, */*",
         "Content-Type": "application/json",
@@ -64,7 +63,7 @@ export default function TotalJobs() {
                 setAllWorkers(res.data.workers);
             })
     }
-
+    
     useEffect(() => {
         getClients();
         getServices();
@@ -140,7 +139,7 @@ export default function TotalJobs() {
         let date = '';
         let worker = getSelectedWorkers(job_id);
         let shifts = null;
-
+       
         let data = {
             date: date,
             worker: (worker != undefined) ? worker : '',
@@ -168,11 +167,7 @@ export default function TotalJobs() {
         }
 
     };
-    const handleNavigate = (e, id) => {
-        e.preventDefault();
-        navigate(`/admin/view-job/${id}`);
-    }
-
+    
     return (
         <div id="container">
             <Sidebar />
@@ -182,7 +177,7 @@ export default function TotalJobs() {
                         <div className="col-sm-6">
                             <h1 className="page-title">Jobs</h1>
                         </div>
-                        <div className="col-sm-6" style={{ display: "none" }}>
+                        <div className="col-sm-6" style={{ display:"none" }}>
                             <div className="search-data">
                                 <input type='text' className="form-control" placeholder="Search" />
                                 <Link to="/admin/add-job" className="btn btn-pink addButton"><i className="btn-icon fas fa-plus-circle"></i>
@@ -194,126 +189,122 @@ export default function TotalJobs() {
                 </div>
                 <div className="card">
                     <div className="card-body">
-
+                      
                         <div className="boxPanel">
                             <div className="table-responsive">
                                 {totalJobs.length > 0 ? (
-                                    <table className="table table-bordered">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">Job Dated</th>
-                                                <th scope="col">Worker Name</th>
-                                                <th scope="col">Client Name</th>
-                                                <th scope="col">Service Name</th>
-                                                <th scope="col">Shift</th>
-                                                <th scope="col">Address</th>
-                                                <th scope="col">Complete Time</th>
-                                                <th scope="col">Status</th>
-                                                <th scope="col">Total</th>
-                                                <th scope="col">Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
+                                    <Table className="table table-bordered">
+                                        <Thead>
+                                            <Tr>
+                                                <Th scope="col">Job Dated</Th>
+                                                <Th scope="col">Worker Name</Th>
+                                                <Th scope="col">Client Name</Th>
+                                                <Th scope="col">Service Name</Th>
+                                                <Th scope="col">Shift</Th>
+                                                <Th scope="col">Address</Th>
+                                                <Th scope="col">Complete Time</Th>
+                                                <Th scope="col">Status</Th>
+                                                <Th scope="col">Total</Th>
+                                                <Th scope="col">Action</Th>
+                                            </Tr>
+                                        </Thead>
+                                        <Tbody>
                                             {totalJobs &&
                                                 totalJobs.map((item, index) => {
 
-                                                    let services = (item.offer.services) ? JSON.parse(item.offer.services) : [];
-                                                    let cords = (item.client.latitude && item.client.longitude) ? item.client.latitude + "," + item.client.longitude : "";
-                                                    return (
-                                                        <tr key={index}>
-                                                            <td onClick={(e) => handleNavigate(e, item.id)}>
-                                                                {Moment(item.start_date).format('DD MMM,Y')}
-                                                            </td>
-                                                            <td>
-                                                                <h6>{
-                                                                    item.worker
-                                                                        ? item.worker.firstname +
-                                                                        " " + item.worker.lastname
-                                                                        : "NA"
-                                                                }</h6>
-                                                                <div>Change Worker</div>
-                                                                <select name={item.id} className="form-control" value={(workers[`${item.id}`]) ? workers[`${item.id}`] : ""} onChange={e => handleChange(e, index)} >
-                                                                    <option selected>select</option>
-                                                                    {AllWorkers && AllWorkers.map((w, i) => {
-                                                                        return (
-                                                                            <option value={w.id} key={i}> {w.firstname}  {w.lastname}</option>
-                                                                        )
-                                                                    })}
-                                                                </select>
-
-                                                            </td>
-                                                            <td onClick={(e) => handleNavigate(e, item.id)}>{
-                                                                item.client
-                                                                    ? item.client.firstname +
-                                                                    " " + item.client.lastname
+                                                    let services =  (item.offer.services) ? JSON.parse(item.offer.services) : [];
+                          
+                                                    return(
+                                                    <Tr key={index}>
+                                                        <Td>
+                                                           {Moment(item.start_date).format('DD MMM,Y')}
+                                                        </Td>
+                                                        <Td>
+                                                            <h6>{
+                                                                item.worker
+                                                                    ? item.worker.firstname +
+                                                                    " " + item.worker.lastname
                                                                     : "NA"
-                                                            }
-                                                            </td>
-                                                            <td onClick={(e) => handleNavigate(e, item.id)}>{
-                                                                services && services.map((s, i) => {
+                                                            }</h6>
+                                                            <div>Change Worker</div>
+                                                            <select name={item.id} className="form-control" value={(workers[`${item.id}`]) ? workers[`${item.id}`] : ""} onChange={e => handleChange(e, index)} >
+                                                                <option selected>select</option>
+                                                                {AllWorkers && AllWorkers.map((w, i) => {
                                                                     return (
-                                                                        (services.length - 1) != i ?
-                                                                            s.name + " | "
-                                                                            : s.name
+                                                                        <option value={w.id} key={i}> {w.firstname}  {w.lastname}</option>
                                                                     )
-                                                                })
-                                                            }</td>
-                                                            <td onClick={(e) => handleNavigate(e, item.id)}>
-                                                                {(item.start_time != '') ? (`${item.start_time} to ${item.end_time}`) : ''}
+                                                                })}
+                                                            </select>
 
-                                                            </td>
-                                                            <td>
-                                                                <a href={`https://maps.google.com?q=${cords}`}>
-                                                                    {
-                                                                        item.client
-                                                                            ? item.client.geo_address
-                                                                            : "NA"
-                                                                    }
-                                                                </a>
-                                                            </td>
-                                                            <td onClick={(e) => handleNavigate(e, item.id)}>
-                                                                {
-                                                                    item.end_time && item.start_time ?
-                                                                        parseFloat(`${item.end_time}.replace(":", ".")`)
-                                                                        - parseFloat(`${item.start_time}.replace(":", ".")`)
-                                                                        + " Hours"
-                                                                        : "NA"
-                                                                }
-                                                            </td>
-                                                            <td onClick={(e) => handleNavigate(e, item.id)}
-                                                                style={{
-                                                                    textTransform:
-                                                                        "capitalize",
-                                                                }}
-                                                            >
-                                                                {item.status}
-                                                            </td>
-                                                            <td onClick={(e) => handleNavigate(e, item.id)}>
-                                                                {item.offer.subtotal} ILS + VAT
-                                                            </td>
-                                                            <td>
-                                                                <div className="action-dropdown dropdown pb-2">
-                                                                    <button type="button" className="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                                                        <i className="fa fa-ellipsis-vertical"></i>
-                                                                    </button>
-                                                                    <div className="dropdown-menu">
-                                                                        {(item.status == 'unscheduled') ?
-
-                                                                            <Link to={`/admin/edit-job/${item.id}`} className="dropdown-item">Edit Job</Link>
-                                                                            : ''}
-                                                                        <Link to={`/admin/view-job/${item.id}`} className="dropdown-item">View</Link>
-                                                                        <button className="dropdown-item" onClick={() => handleDelete(item.id)}>Delete</button>
-                                                                    </div>
-                                                                </div>
-                                                                <button type="button" className="btn btn-default" onClick={(e) => handleform(item.id, e)}>
-                                                                    <i className="fa fa-upload" ></i>
+                                                        </Td>
+                                                        <Td>{
+                                                            item.client
+                                                                ? item.client.firstname +
+                                                                " " + item.client.lastname
+                                                                : "NA"
+                                                        }
+                                                        </Td>
+                                                        <Td>{
+                                                           services && services.map((s,i)=>{
+                                                            return(
+                                                                (services.length -1) != i?
+                                                                  s.name+" | "
+                                                                : s.name
+                                                            )
+                                                           })
+                                                        }</Td>
+                                                        <Td>
+                                                             {(item.start_time !='')?(`${item.start_time} to ${item.end_time}`):''}
+                                                           
+                                                        </Td>
+                                                        <Td>{
+                                                            item.client
+                                                                ? item.client.geo_address
+                                                                : "NA"
+                                                        }
+                                                        </Td>
+                                                        <Td>
+                                                            {
+                                                            item.end_time && item.start_time ?
+                                                            parseFloat(`${item.end_time}.replace(":", ".")`)
+                                                             - parseFloat(`${item.start_time}.replace(":", ".")`)
+                                                             +" Hours"
+                                                             :"NA"
+                                                            }
+                                                        </Td>
+                                                        <Td
+                                                            style={{
+                                                                textTransform:
+                                                                    "capitalize",
+                                                            }}
+                                                        >
+                                                            {item.status}
+                                                        </Td>
+                                                        <Td>
+                                                            {item.offer.subtotal} ILS + VAT
+                                                        </Td>
+                                                        <Td>
+                                                            <div className="action-dropdown dropdown pb-2">
+                                                                <button type="button" className="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                                                    <i className="fa fa-ellipsis-vertical"></i>
                                                                 </button>
-                                                            </td>
-                                                        </tr>
-                                                    )
-                                                })}
-                                        </tbody>
-                                    </table>
+                                                                <div className="dropdown-menu">
+                                                                   {(item.status=='unscheduled') ?
+
+                                                                   <Link to={`/admin/edit-job/${item.id}`} className="dropdown-item">Edit Job</Link>
+                                                                   :''}
+                                                                    <Link to={`/admin/view-job/${item.id}`} className="dropdown-item">View</Link>
+                                                                    <button className="dropdown-item" onClick={() => handleDelete(item.id)}>Delete</button>
+                                                                </div>
+                                                            </div>
+                                                            <button type="button" className="btn btn-default" onClick={(e) => handleform(item.id, e)}>
+                                                                    <i className="fa fa-upload" ></i>
+                                                            </button>
+                                                        </Td>
+                                                    </Tr>
+                                                )})}
+                                        </Tbody>
+                                    </Table>
                                 ) : (
                                     <p className="text-center mt-5">{loading}</p>
                                 )}

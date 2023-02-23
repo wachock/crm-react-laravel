@@ -94,7 +94,7 @@ export default function Comment() {
             aria-labelledby="customer-notes-tab">
             <div className="text-right pb-3">
                 <button type="button" className="btn btn-pink" data-toggle="modal" data-target="#exampleModal">
-                    Add Comment/Cancel Job
+                    Request for Reschedule or Unavailable
                 </button>
             </div>
             {allComment && allComment.map((c,i)=>{
@@ -159,7 +159,8 @@ export default function Comment() {
                                                 setStatus(e.target.value)
                                             } className="form-control">
                                         <option value="">Job Status</option>
-                                        <option value="unscheduled">Unscheduled</option>
+                                        <option value="unscheduled">Unavailable</option>
+                                        <option value="re-scheduled">Reschedule</option>
                                         </select>
 
                                     </div>

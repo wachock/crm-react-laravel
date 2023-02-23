@@ -4,8 +4,7 @@ export default function ClientDetails({client}) {
     let geo_address = (client.geo_address) ? client.geo_address : "NA";
     let cords   = (client.latitude && client.longitude) ? client.latitude +","+ client.longitude :"";
   return (
-    <>
-                    <h2 className="text-danger">Client Details</h2>
+    <>               
                     <div className='dashBox p-4 mb-3'>
                         <form>
                             <div className='row'>

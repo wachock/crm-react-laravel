@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import Sidebar from '../../Layouts/Sidebar';
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import {Table, Thead, Tbody, Tr, Th, Td} from 'react-super-responsive-table'
 
 export default function OfferPrice() {
 
@@ -121,27 +122,27 @@ export default function OfferPrice() {
 
                                 {totalOffers.length > 0 ? (
 
-                                <table className="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">Client</th>
-                                            <th scope="col">Email</th>
-                                            <th scope="col">Address</th>
-                                            <th scope="col">Phone</th>
-                                            <th scope="col">Status</th>
-                                            <th scope="col">Total</th>
-                                            <th scope="col">Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>  
+                                <Table className="table table-bordered">
+                                    <Thead>
+                                        <Tr>
+                                            <Th scope="col">Client</Th>
+                                            <Th scope="col">Email</Th>
+                                            <Th scope="col">Address</Th>
+                                            <Th scope="col">Phone</Th>
+                                            <Th scope="col">Status</Th>
+                                            <Th scope="col">Total</Th>
+                                            <Th scope="col">Action</Th>
+                                        </Tr>
+                                    </Thead>
+                                    <Tbody>  
                                         { offers && offers.map((ofr,i)=>{
 
                                             var address = (ofr.client.geo_address) ? ofr.client.geo_address : 'NA';
                                             var cords   = (ofr.client.latitude && ofr.client.longitude)
                                                            ? ofr.client.latitude+","+ofr.client.longitude : 'NA';
                                            return ( 
-                                           <tr>
-                                            <td><Link to={`/admin/view-client/${ofr.client.id}`}>
+                                           <Tr>
+                                            <Td><Link to={`/admin/view-client/${ofr.client.id}`}>
                                                 {
                                                   ofr.client 
                                                   ? ofr.client.firstname
@@ -149,13 +150,13 @@ export default function OfferPrice() {
                                                   :"NA"
                                                 }
                                                 </Link>
-                                            </td>
-                                            <td>{ofr.client.email}</td>
-                                            <td><Link to={`https://maps.google.com?q=${cords}`}>{address}</Link></td>
-                                            <td>{ ofr.client.phone }</td>
-                                            <td>{ ofr.status }</td>
-                                            <td>{ ofr.subtotal } ILS + VAT</td>
-                                            <td>
+                                            </Td>
+                                            <Td>{ofr.client.email}</Td>
+                                            <Td><Link to={`https://maps.google.com?q=${cords}`}>{address}</Link></Td>
+                                            <Td>{ ofr.client.phone }</Td>
+                                            <Td>{ ofr.status }</Td>
+                                            <Td>{ ofr.subtotal } ILS + VAT</Td>
+                                            <Td>
                                                 <div className="action-dropdown dropdown">
                                                     <button type="button" className="btn btn-default dropdown-toggle" data-toggle="dropdown">
                                                         <i className="fa fa-ellipsis-vertical"></i>
@@ -167,15 +168,12 @@ export default function OfferPrice() {
                                                         >Delete</button>
                                                     </div>
                                                 </div>
-                                            </td>
-                                        </tr>     
+                                            </Td>
+                                        </Tr>     
                                         )
                                         })}
-
-                                        
-                                       
-                                    </tbody>
-                                </table> 
+                                    </Tbody>
+                                </Table> 
                              ): (
                                 <p className="text-center mt-5">{loading}</p>
                             )}
