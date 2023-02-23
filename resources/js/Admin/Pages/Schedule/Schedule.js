@@ -6,12 +6,14 @@ import ReactPaginate from "react-paginate";
 import Moment from 'moment';
 import Swal from 'sweetalert2';
 import {Table, Thead, Tbody, Tr, Th, Td} from 'react-super-responsive-table'
+import { useNavigate } from 'react-router-dom';
 
 export default function Schedule() {
 
   const [schedules, setSchedules] = useState([]);
   const [loading, setLoading] = useState("Loading...");
   const [pageCount, setPageCount] = useState(0);
+  const navigate = useNavigate();
 
   const headers = {
     Accept: "application/json, text/plain, */*",
@@ -92,7 +94,11 @@ export default function Schedule() {
       }
     });
   };
-
+  const handleNavigate = (e,cid,id) => {
+    e.preventDefault();
+    navigate(`/admin/view-schedule/${cid}?sid=${id}`);
+  }
+  
   return (
     <div id="container">
       <Sidebar />
@@ -135,7 +141,7 @@ export default function Schedule() {
                                      item.client.latitude +","+ item.client.longitude:"NA";
                         return (
                           <Tr key={index}>
-                            <Td>{item.id}</Td>
+                            <Td onClick={(e)=>handleNavigate(e,item.client.id,item.id)}>{item.id}</Td>
                             <Td><Link to={`/admin/view-client/${item.client.id}`}>
                               {
                                 item.client
@@ -151,7 +157,7 @@ export default function Schedule() {
                               }
                             </Td>
                             <Td><Link to={`https://maps.google.com?q=${cords}`} target="_blank">{address}</Link></Td>
-                            <Td>
+                            <Td onClick={(e)=>handleNavigate(e,item.client.id,item.id)}>
                               {
                                 item.team
                                   ? item.team.name
@@ -159,7 +165,7 @@ export default function Schedule() {
                               }
                             </Td>
 
-                            <Td>
+                            <Td onClick={(e)=>handleNavigate(e,item.client.id,item.id)}>
                               <span style={{ color: "blue" }}>{Moment(item.start_date).format('DD/MM/Y') + '\n'}</span>
                               <br />
                               <span style={{ color: "blue" }}>{Moment(item.start_date).format('dddd')}</span>
@@ -168,7 +174,7 @@ export default function Schedule() {
                               <br />
                               <span style={{ color: "red" }}>{"End   :" + item.end_time}</span>
                             </Td>
-                            <Td>{item.booking_status}</Td>
+                            <Td onClick={(e)=>handleNavigate(e,item.client.id,item.id)}>{item.booking_status}</Td>
                             <Td>
                               <div className="action-dropdown dropdown">
                                 <button type="button" className="btn btn-default dropdown-toggle" data-toggle="dropdown">

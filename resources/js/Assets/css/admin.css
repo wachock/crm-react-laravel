@@ -935,6 +935,7 @@ h1 {
   font-weight: 700;
   color: #000;
   margin-bottom: 10px;
+  font-size: 24px !important;
 }
 .send-offer .date{
   float: right;
@@ -1250,6 +1251,12 @@ h1 {
 }
 .fc-timegrid-slots tr{
   height: 90px;
+}
+.lcs .form-check-inline input{
+  height: unset !important;
+    margin-right: 5px;
+    position: relative;
+    top: -3px;
 }
 .thankyou{
   margin-top: 40px;

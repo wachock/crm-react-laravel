@@ -7,9 +7,12 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import swal from 'sweetalert';
 import Moment from 'moment';
+import { useTranslation } from "react-i18next";
+import i18next from 'i18next';
 
 export default function WorkContract() {
 
+    const { t } = useTranslation();
     const [offer,setoffer]         = useState([]);
     const [services,setServices]   = useState([]);
     const [client,setClient]       = useState([]);
@@ -23,9 +26,9 @@ export default function WorkContract() {
     const [ctype,setCtype]          = useState("");
     const [cname,setCname]          = useState("");
     const [cvv,setCvv]              = useState("");
-   
-    
-   
+
+
+
     const handleAccept = (e) =>{
 
         if(!ctype){ swal('Please select card type','','error'); return false;}
@@ -77,16 +80,17 @@ export default function WorkContract() {
         sigRef2.current.clear();
         setSignature2(null);
     }
-     
+
     const getOffer = () =>{
         axios
         .post(`/api/client/get-offer-token`,{token:param.id})
         .then((res)=>{
-            
+
             if(res.data.offer.length > 0){
                setoffer(res.data.offer);
                setServices(JSON.parse(res.data.offer[0].services));
                setClient(res.data.offer[0].client);
+               i18next.changeLanguage(res.data.offer[0].client.lng);
                setContract(res.data.contract);
             } else {
                 setoffer([]);
@@ -100,8 +104,9 @@ export default function WorkContract() {
     useEffect(()=>{
         getOffer();
     },[]);
-    
+
   return (
+
     <div className='container'>
         <div className='send-offer client-contract'>
             <div className='maxWidthControl dashBox mb-4'>
@@ -111,110 +116,110 @@ export default function WorkContract() {
                     </div>
                     <div className='col-sm-6'>
                         <div className='mt-2 float-right'>
-                            <input className='btn btn-pink' onClick={handleAccept} value='Accept Contract' />
+                            <input className='btn btn-pink' onClick={handleAccept} value={t('work-contract.accept_contract')} />
                         </div>
                     </div>
                 </div>
-                <h4 className='inHead'>Broom Service L.M. Ltd Private Company no. 515184208 Exclusive Framework Agreement with Tenants/Clients</h4>
+                <h4 className='inHead'>{t('work-contract.inHead')}</h4>
                 <div className='signed'>
-                    <p>Made and Signed in: <span>{client.city ? client.city : 'NA'}</span> on <span>{Moment(contract.created_at).format('DD MMMM,Y')}</span></p>
+                    <p>{t('work-contract.signed')} <span>{client.city ? client.city : 'NA'}</span> on <span>{Moment(contract.created_at).format('DD MMMM,Y')}</span></p>
                 </div>
                 <div className='between'>
-                    <p>Between:</p>
-                    <p>Broom Service L.M. Ltd Private Company no. 515184208</p>
-                    <p>From 69 Jerusalem st. , Bat Yam (Hereinafter: the Company)</p>
+                    <p>{t('work-contract.between')}</p>
+                    <p>{t('work-contract.broom_service')}</p>
+                    <p>{t('work-contract.from')}</p>
                 </div>
                 <div className='first'>
-                    <h2 className='mb-4'>Of the First Party</h2>
+                    <h2 className='mb-4'>{t('work-contract.first_party_title')}</h2>
                     {offer && offer.map((ofr,i)=>{
                     let cl = ofr.client;
 
                     return (
                         <>
                     <ul className='list-inline'>
-                        <li className='list-inline-item'>Full Name: <span>{ cl.firstname+" "+cl.lastname }</span></li>
-                        <li className='list-inline-item'>City: <span>{ cl.city }</span></li>
+                        <li className='list-inline-item'>{t('work-contract.full_name')} <span>{ cl.firstname+" "+cl.lastname }</span></li>
+                        <li className='list-inline-item'>{t('work-contract.city')} <span>{ cl.city }</span></li>
                     </ul>
                     <ul className='list-inline'>
-                        <li className='list-inline-item'>Street and Number: <span>{ cl.street_n_no }</span></li>
-                        <li className='list-inline-item'>Floor: <span>{ cl.floor }</span></li>
+                        <li className='list-inline-item'>{t('work-contract.street_and_number')} <span>{ cl.street_n_no }</span></li>
+                        <li className='list-inline-item'>{t('work-contract.floor')} <span>{ cl.floor }</span></li>
                     </ul>
                     <ul className='list-inline'>
-                        <li className='list-inline-item'>Apt Number: <span>{ cl.apt_no }</span></li>
-                        <li className='list-inline-item'>Enterance Code: <span>{ cl.entrence_code }</span></li>
+                        <li className='list-inline-item'>{t('work-contract.apt_number')} <span>{ cl.apt_no }</span></li>
+                        <li className='list-inline-item'>{t('work-contract.enterance_code')} <span>{ cl.entrence_code }</span></li>
                     </ul>
                     <ul className='list-inline'>
-                        <li className='list-inline-item'>Zip code: <span>{ cl.zipcode }</span></li>
-                        <li className='list-inline-item'>DOB: <span>{ cl.dob }</span></li>
+                        <li className='list-inline-item'>{t('work-contract.zip_code')} <span>{ cl.zipcode }</span></li>
+                        <li className='list-inline-item'>{t('work-contract.dob')} <span>{ cl.dob }</span></li>
                     </ul>
                     <ul className='list-inline'>
-                        <li className='list-inline-item'>Telephone: <span>{ cl.phone }</span></li>
-                        <li className='list-inline-item'>Email: <span>{ cl.email }</span></li>
+                        <li className='list-inline-item'>{t('work-contract.telephone')} <span>{ cl.phone }</span></li>
+                        <li className='list-inline-item'>{t('work-contract.email')} <span>{ cl.email }</span></li>
                     </ul>
                     </>
                     )
 
                     })}
-                    <h2 className='mb-4'>Of the Second Party</h2>
+                    <h2 className='mb-4'>{t('work-contract.second_party_title')}</h2>
                     <div className='whereas'>
                         <div className='info-list'>
                             <div className='icons'>
-                                <h4>Whereas:</h4>
+                                <h4>{t('work-contract.whereas')}</h4>
                             </div>
                             <div className='info-text'>
-                                <p>Broom Service L.M. Private Company no. 515184208 (hereinafter: the Company) is a company that provides, inter alia, services of maintenance, supply, and cleaning fortenants in various facilities across the State of Israel.</p>
+                                <p>{t('work-contract.whereas_info_text')}</p>
                             </div>
                         </div>
                         <div className='info-list'>
                             <div className='icons'>
-                                <h4>And whereas:</h4>
+                                <h4>{t('work-contract.and_whereas')}</h4>
                             </div>
                             <div className='info-text'>
-                                <p>The Tenant is interested in making an agreement with the Company in order to receive the services requested in this agreement, for the consideration specified in this agreement.</p>
+                                <p>{t('work-contract.and_whereas_info_text')}</p>
                             </div>
                         </div>
                         <div className='info-list'>
                             <div className='icons'>
-                                <h4>And whereas:</h4>
+                                <h4>{t('work-contract.and_whereas_2')}</h4>
                             </div>
                             <div className='info-text'>
-                                <p>The Tenant is aware that in order to receive the service and/or work from the Company, he/she must sign this agreement and comply with all the terms and conditions of this agreement, with no exception, in connection with the service and/or work and/or the materials and/or the products the Tenant is interested in receiving from the Company.</p>
+                                <p>{t('work-contract.and_whereas_2_info_text')}</p>
                             </div>
                         </div>
                     </div>
                 </div>
-                <h2 className='text-center mb-4'>Therefore, the Parties hereby agree and declare as follows:</h2>
+                <h2 className='text-center mb-4'>{t('work-contract.parties_hereby_title')}</h2>
                 <div className='shift-30'>
                     <h6>Introduction</h6>
                     <div className='agg-list'>
                         <div className='icons'><img src={star} /></div>
                         <div className='agg-text'>
-                            <p>The introduction of this agreement is an integral part thereof and as binding as all its other provisions.</p>
+                            <p>{t('work-contract.intro_txt_1')}</p>
                         </div>
                     </div>
                     <div className='agg-list'>
                         <div className='icons'><img src={star} /></div>
                         <div className='agg-text'>
-                            <p>Any obligation of the Tenant under this agreement is an addition to any other obligation of the Tenant under other agreements and/or the quotation and/or any applicable law.</p>
+                            <p>{t('work-contract.intro_txt_2')}</p>
                         </div>
                     </div>
                     <div className='agg-list'>
                         <div className='icons'><img src={star} /></div>
                         <div className='agg-text'>
-                            <p>In any case of contrast between the provisions of this agreement and the provisions of any other agreement between the Tenant and the Company and/or the quotation the Tenant submitted to the Company, the provisions of this agreement shall prevail.</p>
+                            <p>{t('work-contract.intro_txt_3')}</p>
                         </div>
                     </div>
                     <div className='agg-list'>
                         <div className='icons'><img src={star} /></div>
                         <div className='agg-text'>
-                            <p>Headings of the sections contained in this agreement are for convenience only and shall not be interpreted to limit or otherwise affect the provisions of this agreement.</p>
+                            <p>{t('work-contract.intro_txt_4')}</p>
                         </div>
                     </div>
-                    <h6 className='text-center text-underline'>The service / work and/or products requested by the Tenant, including their scope, location and commercial terms</h6>
+                    <h6 className='text-center text-underline'>{t('work-contract.service_subtitle')}</h6>
                     <div className='service-table table-responsive'>
                         <table className='table table-bordered'>
                             <tr>
-                                <td style={{width: "60%"}}>The service and/or work requested by the Tenant</td>
+                                <td style={{width: "60%"}}>{t('work-contract.the_service_txt')}</td>
                                 <td>
                                 {services && services.map((s,i)=>{
                                     return (
@@ -226,24 +231,24 @@ export default function WorkContract() {
                                 </td>
                             </tr>
                             <tr>
-                                <td style={{width: "60%"}}>The location in which the service will be provided and/or work will be performed</td>
+                                <td style={{width: "60%"}}>{t('work-contract.location_txt')}</td>
                                 <td>
                                     {offer && offer.map((ofr,i)=>{
                                         let address =  (ofr.client.city) ? (ofr.client.city)+", " : '';
                                             address += (ofr.client.street_n_no) ? (ofr.client.street_n_no)+", " : '';
-                                            address += (ofr.client.zipcode) ? (ofr.client.zipcode)+", ": ''; 
+                                            address += (ofr.client.zipcode) ? (ofr.client.zipcode)+", ": '';
                                         return address;
                                     })}
-                                
-                                <br/> <span style={{fontWeight: "600"}} className='d-block mt-2'>Other address if any?</span> <br/>
-                                <input type='text' name="additional_address" onChange={(e)=>setAaddress(e.target.value)} placeholder='Any other address?' className='form-control'/></td>
+
+                                <br/> <span style={{fontWeight: "600"}} className='d-block mt-2'>{t('work-contract.other_address_txt')}</span> <br/>
+                                <input type='text' name="additional_address" onChange={(e)=>setAaddress(e.target.value)} placeholder={t('work-contract.placeholder_address')} className='form-control'/></td>
                             </tr>
                             <tr>
-                                <td style={{width: "60%"}}>Date on which the service delivery and/or work will begin, and the date on which the service delivery and/or work will end</td>
-                                <td>As agreed between the parties </td>
+                                <td style={{width: "60%"}}>{t('work-contract.service_delivery_txt')}</td>
+                                <td>{t('work-contract.as_agreed_txt')} </td>
                             </tr>
                             <tr>
-                                <td style={{width: "60%"}}>Frequency of the service and/or work</td>
+                                <td style={{width: "60%"}}>{t('work-contract.frequency_txt')}</td>
                                 <td>
                                 {services && services.map((s,i)=>{
                                     return (
@@ -255,7 +260,7 @@ export default function WorkContract() {
                                 </td>
                             </tr>
                             <tr>
-                                <td style={{width: "60%"}}>Consideration the Tenant will pay the Company, including the payment method and/or payment date<br/>Prices does not include vat**</td>
+                                <td style={{width: "60%"}}>{t('work-contract.consideration_txt')}</td>
                                 <td>
                                 {services && services.map((s,i)=>{
                                   if((services.length)-1 != i )
@@ -266,193 +271,193 @@ export default function WorkContract() {
                                 </td>
                             </tr>
                             <tr>
-                                <td style={{width: "60%"}}>Payment method:</td>
+                                <td style={{width: "60%"}}>{t('work-contract.payment_method')}</td>
                                 <td>&nbsp;</td>
                             </tr>
                             <tr>
-                                <td style={{width: "60%"}}>I the undersigned hereby permit Broom Service L.M. Ltd to charge my credit card account (the details of which are listed below) for the services I will receive from the Company, in the amounts and on the dates specified in this agreement between Broom Service L.M. Ltd and me.</td>
+                                <td style={{width: "60%"}}>{t('work-contract.hereby_permit_txt')}</td>
                                 <td>&nbsp;</td>
                             </tr>
                             <tr>
-                                <td style={{width: "60%"}}>Card Type:</td>
+                                <td style={{width: "60%"}}>{t('work-contract.card_type')}</td>
                                 <td>
                                     <select className='form-control'  onChange={(e)=>setCtype(e.target.value)}>
-                                        <option>Please Select</option>
-                                        <option value='Visa'>Visa</option>
-                                        <option value='Master Card'>Master Card</option>
-                                        <option value='American Express'>American Express</option>
+                                        <option>{t('work-contract.option_select')}</option>
+                                        <option value={t('work-contract.option_visa')}>{t('work-contract.option_visa')}</option>
+                                        <option value={t('work-contract.option_master')}>{t('work-contract.option_master')}</option>
+                                        <option value={t('work-contract.option_american')}>{t('work-contract.option_american')}</option>
                                     </select>
                                 </td>
                             </tr>
                             <tr>
-                                <td style={{width: "60%"}}>Name on the Card</td>
-                                <td><input type='text' name="name_on_card"  onChange={(e)=>setCname(e.target.value)} className='form-control' placeholder='Name on the Card' /></td>
+                                <td style={{width: "60%"}}>{t('work-contract.card_name')}</td>
+                                <td><input type='text' name="name_on_card"  onChange={(e)=>setCname(e.target.value)} className='form-control' placeholder={t('work-contract.card_name')} /></td>
                             </tr>
                             <tr>
-                                <td style={{width: "60%"}}>CVV</td>
-                                <td><input type='text' name="cvv"  onChange={(e)=>setCvv(e.target.value)} onKeyUp={(e)=>{if(e.target.value.length >= 3) e.target.value = e.target.value.slice(0, 3); }} className='form-control' placeholder='CVV' /></td>
+                                <td style={{width: "60%"}}>{t('work-contract.card_cvv')}</td>
+                                <td><input type='text' name="cvv"  onChange={(e)=>setCvv(e.target.value)} onKeyUp={(e)=>{if(e.target.value.length >= 3) e.target.value = e.target.value.slice(0, 3); }} className='form-control' placeholder={t('work-contract.card_cvv')} /></td>
                             </tr>
                             <tr>
-                                <td style={{width: "60%"}}>Signature on the Card</td>
+                                <td style={{width: "60%"}}>{t('work-contract.signature')}</td>
                                 <td>
-                                <SignatureCanvas 
+                                <SignatureCanvas
                                     penColor="black"
                                     canvasProps={{className: 'sigCanvas'}}
                                     ref={sigRef2}
                                     onEnd={handleSignatureEnd2}
                                 />
-                                <button className='btn btn-warning' onClick={clearSignature2}>Clear</button>
+                                <button className='btn btn-warning' onClick={clearSignature2}>{t('work-contract.btn_warning_txt')}</button>
                                 </td>
                             </tr>
                             <tr>
-                                <td style={{width: "60%"}}>Miscellaneous</td>
-                                <td>All the employees of the Company are employed in compliance with the law and the Company provides them with all the benefits to which they are entitled; the Client has no employee-employer relationship with the employees of the Company.</td>
+                                <td style={{width: "60%"}}>{t('work-contract.miscellaneous_txt')}</td>
+                                <td>{t('work-contract.employees_txt')}</td>
                             </tr>
                         </table>
                     </div>
-                    <h6 className='text-underline'>Obligations and Statements of the Tenant</h6>
+                    <h6 className='text-underline'>{t('work-contract.tenant_subtitle')}</h6>
                     <div className='agg-list'>
                         <div className='icons'><img src={star} /></div>
                         <div className='agg-text'>
-                            <p>By signing this agreement, the Tenant declares that he/she fully and voluntarily accepts all the terms and conditions specified in this agreement and may not have any claim and/or demand and/or complaint against the Company in connection with any promise and/or representation and/or correspondence and/or draft and/or presentation, whether done in writing or orally, prior to the signature of this agreement.</p>
+                            <p>{t('work-contract.tenant_txt_1')}</p>
                         </div>
                     </div>
                     <div className='agg-list'>
                         <div className='icons'><img src={star} /></div>
                         <div className='agg-text'>
-                            <p>The right to use this document is personal and non-transferable. Note that it is prohibited to distribute and/or duplicate and/or copy and/or publish this document without prior express permission in writing from the management of the Company.</p>
+                            <p>{t('work-contract.tenant_txt_2')}</p>
                         </div>
                     </div>
                     <div className='agg-list'>
                         <div className='icons'><img src={star} /></div>
                         <div className='agg-text'>
-                            <p>The Tenant states that he/she will fully cooperate with the Company for the performance of the work and/or service the Company should provide, as detailed above in this agreement.</p>
+                            <p>{t('work-contract.tenant_txt_3')}</p>
                         </div>
                     </div>
                     <div className='agg-list'>
                         <div className='icons'><img src={star} /></div>
                         <div className='agg-text'>
-                            <p>The Tenant hereby undertakes not to directly or indirectly (through another company or person) hire the employees of the Company, even if they are no longer employees of the Company and/or after the termination of the agreement between the Parties.</p>
+                            <p>{t('work-contract.tenant_txt_4')}</p>
                         </div>
                     </div>
                     <div className='agg-list'>
                         <div className='icons'><img src={star} /></div>
                         <div className='agg-text'>
-                            <p>All the orders placed by the Tenant in connection with any service and/or work he/she requests shall be governed by the order terms and conditions listed on the website of the Company; the website address is as follows: www.broomservice.co.il</p>
+                            <p>{t('work-contract.tenant_txt_5')}</p>
                         </div>
                     </div>
                     <div className='agg-list'>
                         <div className='icons'><img src={star} /></div>
                         <div className='agg-text'>
-                            <p>This agreement is valid until the notice of a change or cancellation or freeze of any of the parties and in accordance with the company service cancellation procedures.</p>
+                            <p>{t('work-contract.tenant_txt_6')}</p>
                         </div>
                     </div>
                     <div className='agg-list'>
                         <div className='icons'><img src={star} /></div>
                         <div className='agg-text'>
-                            <p>In case of cancellation of a work order after closing the weekly arrangement and up to 24 hours before the date, the tenant undertakes to pay the company 50 percent of the cost of the visit.</p>
+                            <p>{t('work-contract.tenant_txt_7')}</p>
                         </div>
                     </div>
                     <div className='agg-list'>
                         <div className='icons'><img src={star} /></div>
                         <div className='agg-text'>
-                            <p>In case of cancellation of a work order less than 24 hours before the date, the tenant undertakes to pay the company 100 percent of the cost of the visit.</p>
+                            <p>{t('work-contract.tenant_txt_8')}</p>
                         </div>
                     </div>
-                    <h6 className='text-underline'>Obligations and Statements of the Company</h6>
+                    <h6 className='text-underline'>{t('work-contract.company_subtitle')}</h6>
                     <div className='agg-list'>
                         <div className='icons'><img src={star} /></div>
                         <div className='agg-text'>
-                            <p>The Company agrees to perform the work and/or provide the service and/or products devotedly, in a reliable and timely manner and maintain a high standard of service, all pursuant to the dates determined by the Tenant, through suppliers and/or employees and/or sub-contractors working on its behalf. The Company hereby declares that it has the ability and skills to perform the work and/or provide the service and/or products specified in this agreement.</p>
-                        </div>
-                    </div>
-                    <div className='agg-list'>
-                        <div className='icons'><img src={star} /></div>
-                        <div className='agg-text'>
-                            <p>The company undertakes to pay its employees a salary according to law.</p>
+                            <p>{t('work-contract.company_txt_1')}</p>
                         </div>
                     </div>
                     <div className='agg-list'>
                         <div className='icons'><img src={star} /></div>
                         <div className='agg-text'>
-                            <p>The Company undertakes to timely perform the work and/or provide the service, pursuant to the dates determined in this agreement and/or any dates determined by the Tenant in the orders he/she may place through the website of the Company. Reasonable delay in the performance of the work and/or the arrival of any employee of the Company to the Tenant&lsquos address, given the relevant circumstances, may not be deemed breach of this agreement on part of the Company. </p>
+                            <p>{t('work-contract.company_txt_2')}</p>
                         </div>
                     </div>
                     <div className='agg-list'>
                         <div className='icons'><img src={star} /></div>
                         <div className='agg-text'>
-                            <p>The Company hereby states and notifies the Tenant that it may not be held responsible to any cancelation and/or postponement of the work and/or service and/or any delay in the performance of the work and/or service resulting from extraordinary circumstances it cannot control and/or such that derive from force majeure. For the purpose of this section, force majeure is defined as follows: wars, protests, emergencies, conscription (whether partial or full), including conscription of reserve duty forces, including conscription of employees and/or suppliers and/or contractors and/or any representatives of the Company and/or its suppliers, strikes, diseases and/or epidemics, mourning (including national days of mourning), natural disasters, inability to move on the roads, fire, state of preparedness to emergency, and any situation of any kind that the Company cannot control. In any of the aforementioned situations, the Tenant may not have any claim and/or demand and/or complaint against the Company and/or any of its representatives, and the Parties shall schedule the performance of the work and/or service on a later date that would be agreed upon between the Parties. </p>
+                            <p>{t('work-contract.company_txt_3')} </p>
                         </div>
                     </div>
                     <div className='agg-list'>
                         <div className='icons'><img src={star} /></div>
                         <div className='agg-text'>
-                            <p>The Parties hereby agree that this agreement is a framework agreement and that the Tenant will submit to the Company, from time to time, written work orders that shall be deemed integral part of this agreement. </p>
+                            <p>{t('work-contract.company_txt_4')} </p>
                         </div>
                     </div>
                     <div className='agg-list'>
                         <div className='icons'><img src={star} /></div>
                         <div className='agg-text'>
-                            <p>The company is not responsible for any direct or indirect damage, consequential or special, of any kind, that will be caused to the customer and / or any third party as a result of receiving service by the company and its employees or anyone on its behalf. </p>
+                            <p>{t('work-contract.company_txt_5')} </p>
                         </div>
                     </div>
                     <div className='agg-list'>
                         <div className='icons'><img src={star} /></div>
                         <div className='agg-text'>
-                            <p>This agreement is valid for 1 year.</p>
-                        </div>
-                    </div>
-                    <h6 className='text-underline'>General</h6>
-                    <div className='agg-list'>
-                        <div className='icons'><img src={star} /></div>
-                        <div className='agg-text'>
-                            <p>This agreement summarizes and establishes any and all understandings between the Parties; upon signature, no other agreement that was made between the Parties will be in force, and no amendment and/or agreement and/or alteration and/or addition and/or reduction and/or extension and/or waiver in connection with anything related to this agreement may be in force, unless done in writing and signed by the Parties. In case any section, provision or obligation in this agreement is null or unenforceable, all the other provisions of this agreement shall remain in force. No failure or delay by either party in exercising any of its rights under this agreement may be deemed waiver of such rights.</p>
+                            <p>{t('work-contract.company_txt_6')} </p>
                         </div>
                     </div>
                     <div className='agg-list'>
                         <div className='icons'><img src={star} /></div>
                         <div className='agg-text'>
-                            <p>By signing this agreement, the customer agrees to register his details in a database for the purpose of receiving direct mailing of everything. </p>
+                            <p>{t('work-contract.company_txt_7')}</p>
+                        </div>
+                    </div>
+                    <h6 className='text-underline'>{t('work-contract.general_subtitle')}</h6>
+                    <div className='agg-list'>
+                        <div className='icons'><img src={star} /></div>
+                        <div className='agg-text'>
+                            <p>{t('work-contract.general_txt_1')}</p>
                         </div>
                     </div>
                     <div className='agg-list'>
                         <div className='icons'><img src={star} /></div>
                         <div className='agg-text'>
-                            <p>Addresses of the Parties for the purpose of this agreement are as specified in the introduction of this agreement. Any notice sent by either party to the other, to the aforementioned addresses, shall be deemed effective within 72 hours from its delivery to a post office branch in Israel for registered mail shipment and upon its delivery to the addressee, if it is delivered by hand, or upon receipt of transmission certificate, if it is sent by fax.</p>
+                            <p>{t('work-contract.general_txt_2')} </p>
                         </div>
                     </div>
-                    <h6 className='text-center text-underline mt-3 mb-4'>In witness whereas the Parties have signed:</h6>
+                    <div className='agg-list'>
+                        <div className='icons'><img src={star} /></div>
+                        <div className='agg-text'>
+                            <p>{t('work-contract.general_txt_3')}</p>
+                        </div>
+                    </div>
+                    <h6 className='text-center text-underline mt-3 mb-4'>{t('work-contract.signed_title')}</h6>
                     <div className='row'>
                         <div className='col-sm-6'>
-                            <h5 className='mt-2 mb-4'>The Tenant</h5>
-                            <h6>Draw Signature with mouse or touch</h6>
-                              <SignatureCanvas 
+                            <h5 className='mt-2 mb-4'>{t('work-contract.the_tenant_subtitle')}</h5>
+                            <h6>{t('work-contract.draw_signature')}</h6>
+                              <SignatureCanvas
                                     penColor="black"
                                     canvasProps={{className: 'sigCanvas'}}
                                     ref={sigRef}
                                     onEnd={handleSignatureEnd}
                                 />
-                                <button className='btn btn-warning' onClick={clearSignature}>Clear</button>
+                                <button className='btn btn-warning' onClick={clearSignature}>{t('work-contract.btn_warning_txt')}</button>
                         </div>
                         <div className='col-sm-6'>
                             <div className='float-right'>
-                                <h5 className='mt-2 mb-4'>The Company</h5>
+                                <h5 className='mt-2 mb-4'>{t('work-contract.the_company')}</h5>
                             </div>
                             <div className='float-right'>
                                 <img src={companySign} className='img-fluid' alt='Company' />
                             </div>
                         </div>
                         <div className=' col-sm-12 mt-2 float-right'>
-                            <input className='btn btn-pink' onClick={handleAccept} value='Accept Contract' />
+                            <input className='btn btn-pink' onClick={handleAccept} value={t('work-contract.accept_contract')} />
                         </div>
-                        
+
                     </div>
-                    
+
                     <div className='mb-4'>&nbsp;</div>
                 </div>
             </div>
         </div>
     </div>
-     
+
   )
 }
