@@ -5,6 +5,7 @@ import ClientDetails from '../../Components/Job/ClientDetails'
 import WorkerDetails from '../../Components/Job/WorkerDetails'
 import Services from '../../Components/Job/Services'
 import Comment from '../../Components/Job/Comment'
+import WorkerTiming from '../../Components/Job/WorkerTiming'
 
 export default function ViewJob() {
     const params = useParams();
@@ -52,6 +53,9 @@ export default function ViewJob() {
                             </div>
                             <div className="col-sm-12">
                                 <Services services={services} job={job} />
+                                
+                                <WorkerTiming job={job}/>
+
                                 <Comment />
 
                             </div>
