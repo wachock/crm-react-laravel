@@ -98,8 +98,8 @@ export default function TeamAvailability() {
           start:moment(j.start_date+' '+j.start_time).toISOString(),
           end:moment(j.start_date+' '+j.end_time).toISOString(),
           resourceId: j.worker_id,
-          backgroundColor: '#ff0000',
-          borderColor: '#ff0000',
+          backgroundColor: '#cd1313',
+          borderColor: '#cd1313',
         }; 
     });
      const events1 = AllWorkerAvailability.map((wa,i)=>{
@@ -110,8 +110,8 @@ export default function TeamAvailability() {
           end:moment(wa.date+' '+wa.end_time).toISOString(),
           resourceId: wa.worker_id,
           textColor: wa.worker_id+'_'+wa.name,
-          backgroundColor: '#00FF00',
-          borderColor: '#00FF00',
+          backgroundColor: 'green',
+          borderColor: 'green',
         }; 
     });  
      Array.prototype.push.apply(events,events1);
@@ -167,7 +167,7 @@ export default function TeamAvailability() {
         plugins={[dayGridPlugin, timeGridPlugin,resourceTimelinePlugin,interactionPlugin  ]}
         initialView = 'resourceTimelineWeek'
         resources =  {resources}
-        height={'auto'} // sets height to height of resources.
+        minHeight={'200px'} // sets height to height of resources.
         slotDuration={'00:30:00'}
         events={events}
         resourceAreaWidth= {"15%"}
@@ -179,17 +179,17 @@ export default function TeamAvailability() {
                       if(info.event.title=='Busy'){
                          window.alert('Worker Not Available');
                       }else{
-                            if(info.el.style.borderColor=='red'){
-                              info.el.style.borderColor = 'rgb(0 255 0)';
+                            if(info.el.style.borderColor=='#da0606'){
+                              info.el.style.borderColor = 'green';
                             }else{
-                             info.el.style.borderColor = 'red';
+                             info.el.style.borderColor = '#da0606';
                            }
                           handleEventClick(info.event);
                        }
                   } }
     />  
     <div className="form-group text-center">
-        <input type='button' value='View Job' className="btn btn-pink" data-toggle="modal" data-target="#exampleModal"/>
+        <input type='button' value='View Job' className="mt-3 btn btn-pink" data-toggle="modal" data-target="#exampleModal"/>
     </div> 
      <div className="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div className="modal-dialog modal-lg" role="document">
