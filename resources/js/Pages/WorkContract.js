@@ -106,6 +106,7 @@ export default function WorkContract() {
     },[]);
 
   return (
+
     <div className='container'>
         <div className='send-offer client-contract'>
             <div className='maxWidthControl dashBox mb-4'>
