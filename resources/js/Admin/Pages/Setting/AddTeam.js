@@ -24,7 +24,7 @@ export default function AddTeam() {
   
   const handleSubmit =() =>{
      let perm = document.querySelector('input[name="role"]:checked').value; 
-     let clr  = document.querySelector('input[name="color"]').value
+     let clr  = document.querySelector('input[name="color"]:checked').value
         const data = {
            name:name,
            email:email,
@@ -82,10 +82,50 @@ export default function AddTeam() {
                 </div>
                 <div className='col-sm-6'>
                     <div className='dashBox p-4'> 
-                        <div className='form-group'>
-                            <label className='control-label'>Color</label>
-                            <input type='color' name='color' className='form-control' placeholder='Color' />
-                        </div>
+                    <div className="form-group">
+                                    <div className="form-check form-check-inline1">
+                                        <label class="form-check-label" for="title">Color</label>
+                                    </div>
+
+                                    <div className="form-check form-check-inline">
+                                        <input type="radio" name="color" value="#9400D3" onChange={(e) => setColor(e.target.value)} />
+                                        <label class="form-check-label" for="voilet">Voilet</label>
+                                    </div>
+
+                                    <div className="form-check form-check-inline">
+                                        <input type="radio" name="color" value="#4B0082" onChange={(e) => setColor(e.target.value)} />
+                                        <label class="form-check-label" for="voilet">Indigo</label>
+                                    </div>
+
+                                    <div className="form-check form-check-inline">
+                                        <input type="radio" name="color" value="#0000FF" onChange={(e) => setColor(e.target.value)} />
+                                        <label class="form-check-label" for="Blue">Blue</label>
+                                    </div>
+
+                                    <div className="form-check form-check-inline">
+                                        <input type="radio" name="color" value="#00FF00" onChange={(e) => setColor(e.target.value)} />
+                                        <label class="form-check-label" for="Green">Green</label>
+                                    </div>
+
+                                    <div className="form-check form-check-inline">
+                                        <input type="radio" name="color" value="#FFFF00" onChange={(e) => setColor(e.target.value)} />
+                                        <label class="form-check-label" for="Yellow">Yellow</label>
+                                    </div>
+
+                                    <div className="form-check form-check-inline">
+                                        <input type="radio" name="color" value="#FF7F00" onChange={(e) => setColor(e.target.value)} />
+                                        <label class="form-check-label" for="Orange">Orange</label>
+                                    </div>
+
+                                    <div className="form-check form-check-inline">
+                                        <input type="radio" name="color" value="#FF0000" onChange={(e) => setColor(e.target.value)} />
+                                        <label class="form-check-label" for="Red">Red</label>
+                                    </div>
+
+
+                                </div>
+
+
                         <div className='form-group'>
                             <label className='control-label'>Password</label>
                             <input type='password' className='form-control' onChange={(e) => setPassword(e.target.value)} placeholder='Password' />

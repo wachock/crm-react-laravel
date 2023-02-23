@@ -36,7 +36,7 @@ class ClientSeed extends Seeder
                 'geo_address'       => $faker->address(),
                 'latitude'          => $faker->latitude(),
                 'longitude'         => $faker->longitude(),
-                'color'             => ('#ffee'.rand(2,4)),
+                'color'             => '#00FF00',
                 'phone'             => $faker->numerify('9#########'),
                 'email'             => $i == 1 ? 'client@admin.com' : $faker->unique()->safeEmail(),
                 'status'            => 1,

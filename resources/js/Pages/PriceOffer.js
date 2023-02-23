@@ -6,9 +6,12 @@ import { useParams, useNavigate } from 'react-router-dom';
 import Moment from 'moment';
 import swal from 'sweetalert'
 import axios from 'axios';
+import { useTranslation } from "react-i18next";
+import i18next from 'i18next';
 
 export default function PriceOffer() {
 
+    const { t } = useTranslation();
     const param = useParams();
     const navigate = useNavigate();
     const [offer, setOffer] = useState([]);
@@ -24,6 +27,7 @@ export default function PriceOffer() {
                 setOffer(res.data.offer[0]);
                 setServices(JSON.parse(res.data.offer[0].services));
                 setClient(res.data.offer[0].client);
+                i18next.changeLanguage(res.data.offer[0].client.lng);
             })
     }
     useEffect(() => {
@@ -73,7 +77,6 @@ export default function PriceOffer() {
     address += (client.street_n_no) ? (client.street_n_no)+", ": '';
     address += (client.zipcode) ? (client.zipcode)+", " : '';
 
-    console.log(template);
     return (
         <>
 
@@ -92,37 +95,36 @@ export default function PriceOffer() {
                         </div>
                         <div className='row'>
                             <div className='col-sm-6'>
-                                <h1>Price Offer No. <span style={{ color: "#16a6ef" }}>#{offer.id}</span></h1>
+                                <h1>{t('price_offer.title')}. <span style={{ color: "#16a6ef" }}>#{offer.id}</span></h1>
                             </div>
                             <div className='col-sm-6'>
-                                <p className='date'>Date: <span style={{ color: "#16a6ef" }}>{Moment(offer.created_at).format('Y-MM--DD')}</span></p>
+                                <p className='date'>{t('price_offer.dateTxt')}: <span style={{ color: "#16a6ef" }}>{Moment(offer.created_at).format('Y-MM--DD')}</span></p>
                             </div>
                         </div>
 
                         <div className='grey-bd'>
-                            <p>In Honor Of: <span style={{ color: "#3da7ef", fontWeight: "700" }}>{client.firstname + " " + client.lastname}</span> </p>
-                            <p>Company Name: <span>Broom Service</span> </p>
+                            <p>{t('price_offer.honour_of')}: <span style={{ color: "#3da7ef", fontWeight: "700" }}>{client.firstname + " " + client.lastname}</span> </p>
+                            <p>{t('price_offer.company_text')}: <span>Broom Service</span> </p>
                             
-                             <p>Address: <span>{ address }</span></p>
+                             <p>{t('price_offer.address_text')}: <span>{ address }</span></p>
                             
                         </div>
                         <div className='abt'>
-                            <h2>About us</h2>
-                            <p>Broom Service was founder by Lidor Mamou on 2013 The company employs a team of professionals in a wide variety of house cleaning and maintenance jobs. Our staff are regular and experienced employees Our staff are regular and experienced employees who receive a fair and proper reward and all the beneﬁts they receive according to the law Our clients are accustomed and well acquainted with the high standard of service used in the best luxury and boutique hotels in Israel and worldwide and we strive to meet this high quality standard. Our customer satisfaction, high level of service, attention to detail and personal attitude are the foundations on which we base our services.
-                                The company is registered as a legal cleaning company in the Ministry of Industry. License number: 4569 </p>
+                            <h2>{t('price_offer.about_title')}</h2>
+                            <p>{t('price_offer.about')}</p>
                         </div>
                         <div className='services'>
-                            <h3 class="card-title">Services</h3>
+                            <h3 class="card-title">{t('price_offer.service_title')}</h3>
                             <div className="table-responsive">
                                 <table class="table table-sm">
                                     <thead>
                                         <tr>
-                                            <th style={{ width: "30%" }}>Service</th>
-                                            <th style={{ width: "22%" }}>Frequency of Services</th>
-                                            <th style={{ width: "16%" }}>Job Hours</th>
-                                            <th style={offer.type != 'hourly' ? { width: "16%" } : { display: "none" }}>Job Price</th>
-                                            <th style={offer.type == 'hourly' ? { width: "16%" } : { display: "none" }}>Hourly Rate</th>
-                                            <th style={offer.type == 'hourly' ? { width: "16%" } : { display: "none" }}>Amount</th>
+                                            <th style={{ width: "30%" }}>{t('price_offer.service_txt')}</th>
+                                            <th style={{ width: "22%" }}>{t('price_offer.freq_s_txt')}</th>
+                                            <th style={{ width: "16%" }}>{t('price_offer.job_h_txt')}</th>
+                                            <th style={offer.type != 'hourly' ? { width: "16%" } : { display: "none" }}>{t('price_offer.job_price')}</th>
+                                            <th style={offer.type == 'hourly' ? { width: "16%" } : { display: "none" }}>{t('price_offer.hourly_rate')}</th>
+                                            <th style={offer.type == 'hourly' ? { width: "16%" } : { display: "none" }}>{t('price_offer.amount')}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -130,7 +132,7 @@ export default function PriceOffer() {
                                             return (<tr>
                                                 <td>{s.name}</td>
                                                 <td>{s.freq_name}</td>
-                                                <td>{s.jobHours} hours</td>
+                                                <td>{s.jobHours} {t('price_offer.hours')}</td>
                                                 {(offer.type == 'hourly') ?
                                                     <>
                                                         <td>{s.rateperhour} ILS</td>
@@ -152,7 +154,7 @@ export default function PriceOffer() {
                             <div className='total-amount'>
                                 <div className='row'>
                                     <div className='col-sm-6'>
-                                        <h5>Total Amount</h5>
+                                        <h5>{t('price_offer.amount_txt')}</h5>
                                     </div>
                                     <div className='col-sm-6'>
                                         <p className='float-right'>{offer.subtotal} ILS + VAT</p>
@@ -161,38 +163,38 @@ export default function PriceOffer() {
                             </div>
                         </div>
                         <div className='we-have'>
-                            
+                        <h3>{t('price_offer.offer_title')}</h3>
+
                             {
                              (template == 'regular') ?
                             <>
                             
-                            <h3>What Do We Have To Offer?</h3>
                             <div className='shift-20'>
-                                <h4>1. Room Service On A Regular Basis Customized To Your Requirements:</h4>
+                                <h4>1. {t('price_offer.regular_services.rs1')}</h4>
                                 <ul className='list-unstyled'>
-                                    <li><img src={star} /> Service on a regular basis by the same professional staff</li>
-                                    <li><img src={star} /> Employing a legal and regulated employee</li>
-                                    <li><img src={star} /> Strict sorting of staff including reliability tests</li>
-                                    <li><img src={star} /> Use of advanced cleaning materials and equipment at our expense</li>
-                                    <li><img src={star} /> Tight supervision by a regional supervisor</li>
+                                    <li><img src={star} /> {t('price_offer.regular_services.rs1_p1')}</li>
+                                    <li><img src={star} /> {t('price_offer.regular_services.rs1_p2')}</li>
+                                    <li><img src={star} /> {t('price_offer.regular_services.rs1_p3')}</li>
+                                    <li><img src={star} /> {t('price_offer.regular_services.rs1_p4')}</li>
+                                    <li><img src={star} /> {t('price_offer.regular_services.rs1_p5')}</li>
                                 </ul>
-                                <h4 className='mt-4'>2. Our packages- Regular Room Service</h4>
-                                <img src={'/images/regularServices.jpg'} className='img-fluid' alt='Room Services' />
-                                <h4 className='mt-4'>3. Cleaning Inside And Outside Windows At Any Height:</h4>
+                                <h4 className='mt-4'>2. {t('price_offer.regular_services.rs2')}</h4>
+                                <img src={t('price_offer.regular_services.rs2_img')} className='img-fluid' alt='Room Services' />
+                                <h4 className='mt-4'>3. {t('price_offer.window_any_height.title')}</h4>
                                 <ul className='list-unstyled'>
-                                    <li><img src={star} /> Professional cleaning of windows, blinds, rails, frames on a regular basis or on demand.</li>
-                                    <li><img src={star} />  Cleaning all types of windows at all heights. </li>
-                                    <li><img src={star} /> Nano coating option after cleaning the windows for clean windows over time.</li>
-                                    <li><img src={star} /> Use of advanced cleaning materials and equipment at our expense.</li>
-                                    <li><img src={star} /> Cleaning in rappelling by a professional team.</li>
+                                    <li><img src={star} /> {t('price_offer.window_any_height.p1')}</li>
+                                    <li><img src={star} /> {t('price_offer.window_any_height.p2')} </li>
+                                    <li><img src={star} /> {t('price_offer.window_any_height.p3')}</li>
+                                    <li><img src={star} /> {t('price_offer.window_any_height.p4')}</li>
+                                    <li><img src={star} /> {t('price_offer.window_any_height.p5')}</li>
                                 </ul>
-                                <h4 className='mt-4'>4. Laundry Services, Fabric Cleaning And Upholstery:</h4>
+                                <h4 className='mt-4'>4. {t('price_offer.laundary.title')}</h4>
                                 <ul className='list-unstyled'>
-                                    <li><img src={star} /> Pick up on order day and return up to 48 hours</li>
-                                    <li><img src={star} /> Laundry services </li>
-                                    <li><img src={star} /> Dry Cleaning</li>
-                                    <li><img src={star} /> Ironing services</li>
-                                    <li><img src={star} /> Cleaning of sofas, carpets and curtains</li>
+                                    <li><img src={star} /> {t('price_offer.laundary.p1')}</li>
+                                    <li><img src={star} /> {t('price_offer.laundary.p2')}</li>
+                                    <li><img src={star} /> {t('price_offer.laundary.p3')}</li>
+                                    <li><img src={star} /> {t('price_offer.laundary.p4')}</li>
+                                    <li><img src={star} /> {t('price_offer.laundary.p5')}</li>
                                 </ul>
                             </div>
 
@@ -203,60 +205,59 @@ export default function PriceOffer() {
                             {
                                 (template == 'thorough_cleaning') ? 
                                 <>
-                                <h3>What Do We Have To Offer?</h3>
                             <div className='shift-20'>
-                                <h4>1. Premium package which includes:</h4>
+                                <h4>1. {t('price_offer.thorough_cleaning.premium')}</h4>
                                 <ul className='list-unstyled'>
-                                    <li><img src={star} /> Thorough dust.</li>
-                                    <li><img src={star} /> Vacuuming carpets and sofas.</li>
-                                    <li><img src={star} /> Interior and exterior windows including shutters, rails and frames.</li>
-                                    <li><img src={star} /> Toilets / showers – cleaning and disinfection.</li>
-                                    <li><img src={star} /> Tasks: vents, air conditioners, lamps, chandeliers and celling fans. Electrical switches, panels, doors, handles and lintels.</li>
-                                    <li><img src={star} /> Bes linen change / bedding.</li>
-                                    <li><img src={star} /> Replacing bags and cleaning bins.</li>
-                                    <li><img src={star} /> Kitchen: kitchen cabinets, thorough cleaning of the refrigerator, microwave, oven and gas, dishwasher and sink. </li>
-                                    <li><img src={star} /> Thorough washing of the floor and perfume of the apartment. </li>
-                                    <li><img src={star} /> Thorough arrangement and cleaning: kitchen and pantry cabinets, wardrobes, general cabinets and drawers in the house, warehouse.</li>
-                                    <li><img src={star} /> Including cleaning meterials + foreman. </li>
+                                    <li><img src={star} /> {t('price_offer.thorough_cleaning.s1_1')}</li>
+                                    <li><img src={star} /> {t('price_offer.thorough_cleaning.s1_2')}</li>
+                                    <li><img src={star} /> {t('price_offer.thorough_cleaning.s1_3_ebasic')}</li>
+                                    <li><img src={star} /> {t('price_offer.thorough_cleaning.s1_4')}</li>
+                                    <li><img src={star} /> {t('price_offer.thorough_cleaning.s1_5_ebasic')}</li>
+                                    <li><img src={star} /> {t('price_offer.thorough_cleaning.s1_6')}</li>
+                                    <li><img src={star} /> {t('price_offer.thorough_cleaning.s1_7')}</li>
+                                    <li><img src={star} /> {t('price_offer.thorough_cleaning.s1_8')} </li>
+                                    <li><img src={star} /> {t('price_offer.thorough_cleaning.s1_9')}</li>
+                                    <li><img src={star} /> {t('price_offer.thorough_cleaning.s1_10_estandard')}</li>
+                                    <li><img src={star} /> {t('price_offer.thorough_cleaning.s1_11')} </li>
                                 </ul>
-                                <h4 className='mt-4'>2. Standard package which includes:</h4>
+                                <h4 className='mt-4'>2. {t('price_offer.thorough_cleaning.standard')}</h4>
                                 <ul className='list-unstyled'>
-                                    <li><img src={star} /> Thorough dust.</li>
-                                    <li><img src={star} /> Vacuuming carpets and sofas . </li>
-                                    <li><img src={star} /> Interior and exterior windows including shutters, rails and frames.</li>
-                                    <li><img src={star} /> Toilets / showers – cleaning and disinfection.</li>
-                                    <li><img src={star} /> Tasks: vents, air conditioners, lamps, electrical switches, panels, doors, handles and lintels.</li>
-                                    <li><img src={star} /> Bes linen change / bedding.</li>
-                                    <li><img src={star} /> Replacing bags and cleaning bins.</li>
-                                    <li><img src={star} /> Kitchen: kitchen cabinets (outside), thorough cleaning of the refrigerator, microwave, oven and gas, dishwasher and sink.</li>
-                                    <li><img src={star} /> Thorough washing of the floor and perfume of the apartment. </li>
-                                    <li><img src={star} /> Including cleaning meterials + foreman. </li>
+                                    <li><img src={star} /> {t('price_offer.thorough_cleaning.s1_1')}</li>
+                                    <li><img src={star} /> {t('price_offer.thorough_cleaning.s1_2')} </li>
+                                    <li><img src={star} /> {t('price_offer.thorough_cleaning.s1_3_ebasic')}</li>
+                                    <li><img src={star} /> {t('price_offer.thorough_cleaning.s1_4')}</li>
+                                    <li><img src={star} /> {t('price_offer.thorough_cleaning.s2_5r')}</li>
+                                    <li><img src={star} /> {t('price_offer.thorough_cleaning.s1_6')}</li>
+                                    <li><img src={star} /> {t('price_offer.thorough_cleaning.s1_7')}</li>
+                                    <li><img src={star} /> {t('price_offer.thorough_cleaning.s2_8r')}</li>
+                                    <li><img src={star} /> {t('price_offer.thorough_cleaning.s1_9')} </li>
+                                    <li><img src={star} /> {t('price_offer.thorough_cleaning.s1_11')} </li>
                                 </ul>
-                                <h4 className='mt-4'>3. Basic package which includes:</h4>
+                                <h4 className='mt-4'>3. {t('price_offer.thorough_cleaning.basic')}</h4>
                                 <ul className='list-unstyled'>
-                                    <li><img src={star} /> Thorough dust.</li>
-                                    <li><img src={star} /> Vacuuming carpets and sofas.  </li>
-                                    <li><img src={star} /> Toilets / showers – cleaning and disinfection.</li>
-                                    <li><img src={star} /> Bes linen change / bedding.</li>
-                                    <li><img src={star} /> Replacing bags and cleaning bins.</li>
-                                    <li><img src={star} /> Kitchen: kitchen cabinets (outside), microwave, oven and gas, dishwasher and sink. </li>
-                                    <li><img src={star} /> Thorough washing of the floor and perfume of the apartment. </li>
-                                    <li><img src={star} /> Including cleaning meterials + foreman. </li>
+                                    <li><img src={star} /> {t('price_offer.thorough_cleaning.s1_1')}</li>
+                                    <li><img src={star} /> {t('price_offer.thorough_cleaning.s1_2')}</li>
+                                    <li><img src={star} /> {t('price_offer.thorough_cleaning.s1_4')}</li>
+                                    <li><img src={star} /> {t('price_offer.thorough_cleaning.s1_6')}</li>
+                                    <li><img src={star} /> {t('price_offer.thorough_cleaning.s1_7')}</li>
+                                    <li><img src={star} /> {t('price_offer.thorough_cleaning.s3_8r')}</li>
+                                    <li><img src={star} /> {t('price_offer.thorough_cleaning.s1_9')}</li>
+                                    <li><img src={star} /> {t('price_offer.thorough_cleaning.s1_11')}</li>
                                 </ul>
-                            <h4 className='mt-4'>4. Cleaning Inside And Outside Windows At Any Height:</h4>
+                            <h4 className='mt-4'>4. {t('price_offer.window_any_height.title')}</h4>
                                 <ul className='list-unstyled'>
-                                    <li><img src={star} /> Professional cleaning of windows, blinds, rails, frames on a regular basis or on demand.</li>
-                                    <li><img src={star} /> Cleaning all types of windows at all heights. </li>
-                                    <li><img src={star} /> Nano coating option after cleaning the windows for clean windows over time.</li>
-                                    <li><img src={star} /> Cleaning in rappelling by a professional team.</li>
+                                    <li><img src={star} /> {t('price_offer.window_any_height.p1')}</li>
+                                    <li><img src={star} /> {t('price_offer.window_any_height.p2')}</li>
+                                    <li><img src={star} /> {t('price_offer.window_any_height.p3')}</li>
+                                    <li><img src={star} /> {t('price_offer.window_any_height.p5')}</li>
                                 </ul>
-                             <h4 className='mt-4'>5. Laundry Services, Fabric Cleaning And Upholstery:</h4>
+                            <h4 className='mt-4'>4. {t('price_offer.laundary.title')}</h4>
                                 <ul className='list-unstyled'>
-                                    <li><img src={star} /> Pick up on order day and return up to 48 hours</li>
-                                    <li><img src={star} /> Laundry services </li>
-                                    <li><img src={star} /> Dry Cleaning</li>
-                                    <li><img src={star} /> Ironing services</li>
-                                    <li><img src={star} /> Cleaning of sofas, carpets and curtains</li>
+                                    <li><img src={star} /> {t('price_offer.laundary.p1')}</li>
+                                    <li><img src={star} /> {t('price_offer.laundary.p2')}</li>
+                                    <li><img src={star} /> {t('price_offer.laundary.p3')}</li>
+                                    <li><img src={star} /> {t('price_offer.laundary.p4')}</li>
+                                    <li><img src={star} /> {t('price_offer.laundary.p5')}</li>
                                 </ul>
                                 </div>
                                 </>:''
@@ -265,32 +266,31 @@ export default function PriceOffer() {
                             {
                                 (template == 'office_cleaning') ? 
                                 <>
-                                <h3>What Do We Have To Offer?</h3>
                                 <div className='shift-20'>
-                                    <h4>1. Room Service On A Regular Basis Customized To Your Requirements:</h4>
+                                    <h4>1. {t('price_offer.office_cleaning.oc1')}</h4>
                                     <ul className='list-unstyled'>
-                                        <li><img src={star} /> Service on a regular basis by the same professional staff</li>
-                                        <li><img src={star} /> Employing a legal and regulated employee</li>
-                                        <li><img src={star} /> Strict sorting of staff including reliability tests</li>
-                                        <li><img src={star} /> Use of advanced cleaning materials and equipment at our expense</li>
-                                        <li><img src={star} /> Tight supervision by a regional supervisor</li>
+                                        <li><img src={star} /> {t('price_offer.office_cleaning.oc1_p1')}</li>
+                                        <li><img src={star} /> {t('price_offer.office_cleaning.oc1_p2')}</li>
+                                        <li><img src={star} /> {t('price_offer.office_cleaning.oc1_p3')}</li>
+                                        <li><img src={star} /> {t('price_offer.office_cleaning.oc1_p4')}</li>
+                                        <li><img src={star} /> {t('price_offer.office_cleaning.oc1_p5')}</li>
                                     </ul>
-                                    <h4 className='mt-4'>2.Our package- Regular Office cleaning</h4>
-                                    <img src={'/images/officeCleaning.png'} className='img-fluid' alt='Room Services' />
-                                    <h4 className='mt-4'>3. Cleaning Inside And Outside Windows At Any Height:</h4>
+                                    <h4 className='mt-4'>2. {t('price_offer.office_cleaning.oc2')}</h4>
+                                    <img src={t('price_offer.office_cleaning.oc2_img')} className='img-fluid' alt='Room Services' />
+                                    <h4 className='mt-4'>4. {t('price_offer.window_any_height.title')}</h4>
                                     <ul className='list-unstyled'>
-                                        <li><img src={star} /> Professional cleaning of windows, blinds, rails, frames on a regular basis or on demand.</li>
-                                        <li><img src={star} />  Cleaning all types of windows at all heights. </li>
-                                        <li><img src={star} /> Nano coating option after cleaning the windows for clean windows over time.</li>
-                                        <li><img src={star} /> Cleaning in rappelling by a professional team.</li>
+                                        <li><img src={star} /> {t('price_offer.window_any_height.p1')}</li>
+                                        <li><img src={star} /> {t('price_offer.window_any_height.p2')}</li>
+                                        <li><img src={star} /> {t('price_offer.window_any_height.p3')}</li>
+                                        <li><img src={star} /> {t('price_offer.window_any_height.p5')}</li>
                                     </ul>
-                                    <h4 className='mt-4'>4. Laundry Services, Fabric Cleaning And Upholstery:</h4>
+                                    <h4 className='mt-4'>4. {t('price_offer.laundary.title')}</h4>
                                     <ul className='list-unstyled'>
-                                        <li><img src={star} /> Pick up on order day and return up to 48 hours</li>
-                                        <li><img src={star} /> Laundry services </li>
-                                        <li><img src={star} /> Dry Cleaning</li>
-                                        <li><img src={star} /> Ironing services</li>
-                                        <li><img src={star} /> Cleaning of sofas, carpets and curtains</li>
+                                        <li><img src={star} /> {t('price_offer.laundary.p1')}</li>
+                                        <li><img src={star} /> {t('price_offer.laundary.p2')}</li>
+                                        <li><img src={star} /> {t('price_offer.laundary.p3')}</li>
+                                        <li><img src={star} /> {t('price_offer.laundary.p4')}</li>
+                                        <li><img src={star} /> {t('price_offer.laundary.p5')}</li>
                                     </ul>
                                 </div>
                                 </>: ''
@@ -299,92 +299,91 @@ export default function PriceOffer() {
                             {
                                 (template == 'after_renovation') ? 
                                 <>
-                                <h3>What Do We Have To Offer?</h3>
                                 <div className='shift-20'>
-                                    <h4>1. One-time cleaning service after renovation / Pre-occupation.</h4>
+                                    <h4>1. {t('price_offer.renovation.rn1')}</h4>
                                     <ul className='list-unstyled'>
-                                        <li><img src={star} /> One-time general cleaning services - moving to a new apartment? Planning a renovation? Passover in the doorway? we are here!</li>
-                                        <li><img src={star} /> Cleaning services at various levels tailored to you and your needs</li>
-                                        <li><img src={star} /> Service by legally insured professional workers</li>
-                                        <li><img src={star} /> Detergents and the most advanced equipment at our expense - without acids and dangerous </li>
-                                        <li><img src={star} /> A supervisor who will make sure that the work is to your satisfaction and up to our standards.</li>
-                                        <li><img src={star} /> Payment will be made at the end of the work by credit card.</li>
+                                        <li><img src={star} /> {t('price_offer.renovation.rn1_p1')}</li>
+                                        <li><img src={star} /> {t('price_offer.renovation.rn1_p2')}</li>
+                                        <li><img src={star} /> {t('price_offer.renovation.rn1_p3')}</li>
+                                        <li><img src={star} /> {t('price_offer.renovation.rn1_p4')}</li>
+                                        <li><img src={star} /> {t('price_offer.renovation.rn1_p5')}</li>
+                                        <li><img src={star} /> {t('price_offer.renovation.rn1_p6')}</li>
 
                                     </ul>
-                                    <h4 className='mt-4'>2. Our package- After renovation / Pre-occupation.</h4>
-                                    <img src={'/images/renovation.png'} className='img-fluid' alt='Room Services' />
-                                    <h4 className='mt-4'>3. Cleaning Inside And Outside Windows At Any Height:</h4>
+                                    <h4 className='mt-4'>2. {t('price_offer.renovation.rn2')}</h4>
+                                    <img src={t('price_offer.renovation.rn2_img')} className='img-fluid' alt='Room Services' />
+                                    <h4 className='mt-4'>4. {t('price_offer.window_any_height.title')}</h4>
                                     <ul className='list-unstyled'>
-                                        <li><img src={star} /> Professional cleaning of windows, blinds, rails, frames on a regular basis or on demand.</li>
-                                        <li><img src={star} /> Cleaning all types of windows at all heights. </li>
-                                        <li><img src={star} /> Nano coating option after cleaning the windows for clean windows over time.</li>
-                                        <li><img src={star} /> Cleaning in rappelling by a professional team.</li>
+                                        <li><img src={star} /> {t('price_offer.window_any_height.p1')}</li>
+                                        <li><img src={star} /> {t('price_offer.window_any_height.p2')}</li>
+                                        <li><img src={star} /> {t('price_offer.window_any_height.p3')}</li>
+                                        <li><img src={star} /> {t('price_offer.window_any_height.p5')}</li>
                                     </ul>
-                                    <h4 className='mt-4'>4. Laundry Services, Fabric Cleaning And Upholstery:</h4>
+                                    <h4 className='mt-4'>4. {t('price_offer.laundary.title')}</h4>
                                     <ul className='list-unstyled'>
-                                        <li><img src={star} /> Pick up on order day and return up to 48 hours</li>
-                                        <li><img src={star} /> Laundry services </li>
-                                        <li><img src={star} /> Dry Cleaning</li>
-                                        <li><img src={star} /> Ironing services</li>
-                                        <li><img src={star} /> Cleaning of sofas, carpets and curtains</li>
+                                        <li><img src={star} /> {t('price_offer.laundary.p1')}</li>
+                                        <li><img src={star} /> {t('price_offer.laundary.p2')}</li>
+                                        <li><img src={star} /> {t('price_offer.laundary.p3')}</li>
+                                        <li><img src={star} /> {t('price_offer.laundary.p4')}</li>
+                                        <li><img src={star} /> {t('price_offer.laundary.p5')}</li>
                                     </ul>
                                 </div>
                                 </>: ''
                             }
 
-                            <h3 className='mt-4'>Our Services Here, And On Our Website: <a href='https://www.broomservice.co.il' target='_blank'>www.broomservice.co.il</a></h3>
+                            <h3 className='mt-4'>{t('price_offer.our_services.heading')} <a href='https://www.broomservice.co.il' target='_blank'>www.broomservice.co.il</a></h3>
                             <div className='shift-20'>
-                                <h4 className='mt-4'>1. Polishing & Renovating Floors & Surfaces:</h4>
+                                <h4 className='mt-4'>1. {t('price_offer.our_services.s1')}</h4>
                                 <ul className='list-unstyled'>
-                                    <li><img src={star} /> Floor polishing services of all kinds</li>
-                                    <li><img src={star} /> Polishing and crystal polishing </li>
-                                    <li><img src={star} /> Renew and renovation of old and damaged tiles </li>
-                                    <li><img src={star} /> Riﬂe, opening slots, ﬁlling holes</li>
-                                    <li><img src={star} /> Remove stains </li>
-                                    <li><img src={star} /> Renovation of stairwells </li>
-                                    <li><img src={star} /> Fine polishing and lubrication and wood surfaces</li>
-                                    <li><img src={star} /> Renovation of wooden furniture, of all kinds </li>
+                                    <li><img src={star} /> {t('price_offer.our_services.s1_p1')}</li>
+                                    <li><img src={star} /> {t('price_offer.our_services.s1_p2')}</li>
+                                    <li><img src={star} /> {t('price_offer.our_services.s1_p3')}</li>
+                                    <li><img src={star} /> {t('price_offer.our_services.s1_p4')}</li>
+                                    <li><img src={star} /> {t('price_offer.our_services.s1_p5')}</li>
+                                    <li><img src={star} /> {t('price_offer.our_services.s1_p6')}</li>
+                                    <li><img src={star} /> {t('price_offer.our_services.s1_p7')}</li>
+                                    <li><img src={star} /> {t('price_offer.our_services.s1_p8')}</li>
                                 </ul>
-                                <h4 className='mt-4'>2. Professional Cabinet Organization / Packing & Unpacking Services.</h4>
+                                <h4 className='mt-4'>2. {t('price_offer.our_services.s2')}</h4>
                                 <ul className='list-unstyled'>
-                                    <li><img src={star} /> Creating maximum order and organization.</li>
-                                    <li><img src={star} /> Sorting your items in a professional way to maximize your storage space </li>
-                                    <li><img src={star} /> Re-storage using creative storage solutions that preserve order over time. </li>
-                                    <li><img src={star} /> Professional and agile arrangement, sorting clothes by seasons etc.</li>
-                                    <li><img src={star} /> Professional packing before moving</li>
-                                    <li><img src={star} /> Unpacking the contents and arranging cabinets after passage </li>
+                                    <li><img src={star} /> {t('price_offer.our_services.s2_p1')}</li>
+                                    <li><img src={star} /> {t('price_offer.our_services.s2_p2')}</li>
+                                    <li><img src={star} /> {t('price_offer.our_services.s2_p3')}</li>
+                                    <li><img src={star} /> {t('price_offer.our_services.s2_p4')}</li>
+                                    <li><img src={star} /> {t('price_offer.our_services.s2_p5')}</li>
+                                    <li><img src={star} /> {t('price_offer.our_services.s2_p6')}</li>
                                 </ul>
-                                <h4 className='mt-4'>3. Home Accommodation Services:</h4>
+                                <h4 className='mt-4'>3. {t('price_offer.our_services.s3')}</h4>
                                 <ul className='list-unstyled'>
-                                    <li><img src={star} /> Basic or deep cleaning before - after or while hosting at your home</li>
-                                    <li><img src={star} /> Waiters to serve your guests</li>
-                                    <li><img src={star} /> Chef for small and large events</li>
-                                    <li><img src={star} /> Help with cutting and preparing groceries</li>
+                                    <li><img src={star} /> {t('price_offer.our_services.s3_p1')}</li>
+                                    <li><img src={star} /> {t('price_offer.our_services.s2_p2')}</li>
+                                    <li><img src={star} /> {t('price_offer.our_services.s2_p3')}</li>
+                                    <li><img src={star} /> {t('price_offer.our_services.s2_p4')}</li>
                                 </ul>
-                                <h4 className='mt-4'>4. One-time Cleaning Service Afer Renovation / Pre-occupation / Passover Cleaning And Holidays</h4>
+                                <h4 className='mt-4'>4. {t('price_offer.our_services.s4')}</h4>
                                 <ul className='list-unstyled'>
-                                    <li><img src={star} /> One-time general cleaning services - moving to a new apartment? Planning a renovation? Passover in the doorway? we are here!</li>
-                                    <li><img src={star} /> Cleaning services at various levels tailored to you and your needs </li>
-                                    <li><img src={star} /> Service by legally insured professional workers </li>
-                                    <li><img src={star} /> Detergents and the most advanced equipment at our expense - without acids and dangerous </li>
-                                    <li><img src={star} /> A supervisor who will make sure that the work is to your satisfaction and up to our standards</li>
+                                    <li><img src={star} /> {t('price_offer.our_services.s4_p1')}</li>
+                                    <li><img src={star} /> {t('price_offer.our_services.s4_p2')}</li>
+                                    <li><img src={star} /> {t('price_offer.our_services.s4_p3')}</li>
+                                    <li><img src={star} /> {t('price_offer.our_services.s4_p4')}</li>
+                                    <li><img src={star} /> {t('price_offer.our_services.s4_p5')}</li>
                                 </ul>
-                                <h4 className='mt-4'>5. Full Moving Services From The Packaging Stage To The Coffee With The New Neighbors</h4>
+                                <h4 className='mt-4'>5. {t('price_offer.our_services.s5')}</h4>
                                 <ul className='list-unstyled'>
-                                    <li><img src={star} /> Deep general cleaning services before moving</li>
-                                    <li><img src={star} /> Cleaning windows at any height (even in rappelling)</li>
-                                    <li><img src={star} /> Polishing and renovating all types of ﬂoors and wood (including renovation of parquet, deck and furniture renewal of all types)</li>
-                                    <li><img src={star} /> Packaging and sorting services from the old house (including crates and packaging products) </li>
-                                    <li><img src={star} /> Freight services including dismantling assembly and warranty from the cutting plant (possibility of crane service at any height) Polishing and polishing</li>
-                                    <li><img src={star} /> Storage services for crates and furniture until the move</li>
-                                    <li><img src={star} /> Professional unpacking and arranging services in your home cabinets</li>
-                                    <li><img src={star} /> Handyman services: installations, hangings, electrical work of the highest and most professional level</li>
-                                    <li><img src={star} /> Pest control services: license by the Ministry of Health</li>
+                                    <li><img src={star} /> {t('price_offer.our_services.s5_p1')}</li>
+                                    <li><img src={star} /> {t('price_offer.our_services.s5_p2')}</li>
+                                    <li><img src={star} /> {t('price_offer.our_services.s5_p3')}</li>
+                                    <li><img src={star} /> {t('price_offer.our_services.s5_p4')}</li>
+                                    <li><img src={star} /> {t('price_offer.our_services.s5_p5')}</li>
+                                    <li><img src={star} /> {t('price_offer.our_services.s5_p6')}</li>
+                                    <li><img src={star} /> {t('price_offer.our_services.s5_p7')}</li>
+                                    <li><img src={star} /> {t('price_offer.our_services.s5_p8')}</li>
+                                    <li><img src={star} /> {t('price_offer.our_services.s5_p9')}</li>
                                 </ul>
-                                <h4 className='mt-4'>6. Short-term Service Asset Management Quietly:</h4>
+                                <h4 className='mt-4'>6. {t('price_offer.our_services.s6')}</h4>
                                 <ul className='list-unstyled'>
-                                    <li><img src={star} /> we offer short term airbnb services through Bell boy app for more details and registration:</li>
-                                    <li><img src={star} /> <a href='https://www.bell-boy.com/' target='_blank'>https://www.bell-boy.com/</a> </li>
+                                    <li><img src={star} /> {t('price_offer.our_services.s6_p1')}</li>
+                                    <li><img src={star} /> <a href='https://www.bell-boy.com/' target='_blank'>{t('price_offer.our_services.s6_p2')}</a> </li>
                                 </ul>
                             </div>
                         </div>

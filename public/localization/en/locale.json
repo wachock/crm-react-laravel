@@ -1,19 +1,154 @@
 {
-    "res_txt":"Thankyou for your response",
-    "meet_accept":{
-        "cnct_txt":"Our team will contact you shortly"
+    "res_txt": "Thankyou for your response",
+    "meet_accept": {
+        "cnct_txt": "Our team will contact you shortly"
     },
-    "meet_reject":{
-        "txt":"May I know the reason for rejection? If you have any query / suggestions or you would like to reschedule the meeting, please write us on email. We will get back to you shortly.",
-        "btn_txt":"Write email"
+    "meet_reject": {
+        "txt": "May I know the reason for rejection? If you have any query / suggestions or you would like to reschedule the meeting, please write us on email. We will get back to you shortly.",
+        "btn_txt": "Write email"
     },
-    "meet_stat":{
-        "with":"Meeting with",
-        "date":"Date",
-        "time":"Time",
-        "to":"to",
-        "service":"Service",
-        "txt":"If you are not available for this date, please email us and let us know so that we can schedule another date.",
-        "btn":"Schedule another date"
+    "meet_stat": {
+        "with": "Meeting with",
+        "date": "Date",
+        "time": "Time",
+        "to": "to",
+        "service": "Service",
+        "txt": "If you are not available for this date, please email us and let us know so that we can schedule another date.",
+        "btn": "Schedule another date"
+    },
+    "price_offer": {
+        "button": "Accept Offer",
+        "title": "Price Offer No",
+        "dateTxt": "Date",
+        "honour_of": "In Honor Of",
+        "company_text": "Company Name",
+        "address_text": "Address",
+        "about_title": "About us",
+        "about": "Broom Service was founder by Lidor Mamou on 2013 The company employs a team of professionals in a wide variety of house cleaning and maintenance jobs. Our staff are regular and experienced employees Our staff are regular and experienced employees who receive a fair and proper reward and all the beneﬁts they receive according to the law Our clients are accustomed and well acquainted with the high standard of service used in the best luxury and boutique hotels in Israel and worldwide and we strive to meet this high quality standard. Our customer satisfaction, high level of service, attention to detail and personal attitude are the foundations on which we base our services. The company is registered as a legal cleaning company in the Ministry of Industry. License number: 4569",
+        "service_title": "Services",
+        "service_txt": "Service",
+        "freq_s_txt": "Frequency of Services",
+        "job_h_txt": "Job Hours",
+        "job_price": "Job Price",
+        "hourly_rate":"Hourly Rate",
+        "hours":"hour(s)",
+        "amount":"Amount",
+        "amount_txt": "Total Amount",
+        "offer_title": "What Do We Have To Offer?",
+
+        "thorough_cleaning": {
+
+            "premium": "Premium package which includes:",
+            "s1_1": "Thorough dust.",
+            "s1_2": "Vacuuming carpets and sofas.",
+            "s1_3_ebasic": "Interior and exterior windows including shutters, rails and frames.",
+            "s1_4": " Toilets / showers – cleaning and disinfection.",
+            "s1_5_ebasic": "Tasks: vents, air conditioners, lamps, chandeliers and celling fans. Electrical switches, panels, doors, handles and lintels.",
+            "s1_6": " Bes linen change / bedding.",
+            "s1_7": "Replacing bags and cleaning bins.",
+            "s1_8": " Kitchen: kitchen cabinets, thorough cleaning of the refrigerator, microwave, oven and gas, dishwasher and sink.",
+            "s1_9": " Thorough washing of the floor and perfume of the apartment.",
+            "s1_10_estandard": " Thorough arrangement and cleaning: kitchen and pantry cabinets, wardrobes, general cabinets and drawers in the house, warehouse.",
+            "s1_11": "Including cleaning meterials + foreman.",
+            "standard": "Standard package which includes",
+            "s2_5r": " Tasks: vents, air conditioners, lamps, electrical switches, panels, doors, handles and lintels.",
+            "s2_8r": " Kitchen: kitchen cabinets (outside), thorough cleaning of the refrigerator, microwave, oven and gas, dishwasher and sink.",
+            "basic": "Basic package which includes:",
+            "s3_8r": "Kitchen: kitchen cabinets (outside), microwave, oven and gas, dishwasher and sink."
+        },
+        "regular_services": {
+            "rs1":"Room Service On A Regular Basis Customized To Your Requirements:",
+            "rs1_p1":"Service on a regular basis by the same professional staff.",
+            "rs1_p2":"Employing a legal and regulated employee.",
+            "rs1_p3":"Strict sorting of staff including reliability tests.",
+            "rs1_p4":"Use of advanced cleaning materials and equipment at our expense.",
+            "rs1_p5":"Tight supervision by a regional supervisor.",
+
+            "rs2":"Our packages- Regular Room Service:",
+            "rs2_img":"/images/regularServices.jpg"
+
+        },
+        "office_cleaning":{
+            "oc1":"Room Service On A Regular Basis Customized To Your Requirements:",
+            "oc1_p1":"Service on a regular basis by the same professional staff.",
+            "oc1_p2":"Employing a legal and regulated employee.",
+            "oc1_p3":"Strict sorting of staff including reliability tests.",
+            "oc1_p4":"Use of advanced cleaning materials and equipment at our expense.",
+            "oc1_p5":"Tight supervision by a regional supervisor.",
+
+            "oc2":"Our package- Regular Office cleaning:",
+            "oc2_img":"/images/officeCleaning.png"
+        },
+        "renovation":{
+            "rn1":"One-time cleaning service after renovation / Pre-occupation:",
+            "rn1_p1":"One-time general cleaning services - moving to a new apartment? Planning a renovation? Passover in the doorway? we are here!",
+            "rn1_p2":"Cleaning services at various levels tailored to you and your needs.",
+            "rn1_p3":"Service by legally insured professional workers.",
+            "rn1_p4":"Detergents and the most advanced equipment at our expense - without acids and dangerous.",
+            "rn1_p5":"A supervisor who will make sure that the work is to your satisfaction and up to our standards.",
+            "rn1_p6":"Payment will be made at the end of the work by credit card.",
+
+            "rn2":"Our package- After renovation / Pre-occupation:",
+            "rn2_img":"/images/renovation.jpg"
+        },
+        "window_any_height": {
+            "title": "Cleaning Inside And Outside Windows At Any Height:",
+            "p1": "Professional cleaning of windows, blinds, rails, frames on a regular basis or on demand.",
+            "p2": "Cleaning all types of windows at all heights.",
+            "p3": "Nano coating option after cleaning the windows for clean windows over time.",
+            "p4": "Use of advanced cleaning materials and equipment at our expense.",
+            "p5": "Cleaning in rappelling by a professional team."
+        },
+        "laundary": {
+            "title": "Laundry Services, Fabric Cleaning And Upholstery:",
+            "p1": "Pick up on order day and return up to 48 hours.",
+            "p2": "Laundry services.",
+            "p3": "Dry Cleaning.",
+            "p4": "Ironing services.",
+            "p5": "Cleaning of sofas, carpets and curtains."
+        },
+        "our_services": {
+            "heading": "Our Services Here, And On Our Website:",
+            "s1": "Polishing & Renovating Floors & Surfaces.",
+            "s1_p1": "Floor polishing services of all kinds.",
+            "s1_p2": "Polishing and crystal polishing.",
+            "s1_p3": "Renew and renovation of old and damaged tiles.",
+            "s1_p4": "Riﬂe, opening slots, ﬁlling holes.",
+            "s1_p5": "Remove stains.",
+            "s1_p6": "Renovation of stairwells.",
+            "s1_p7": "Fine polishing and lubrication and wood surfaces.",
+            "s1_p8": " Renovation of wooden furniture, of all kinds.",
+            "s2": "Professional Cabinet Organization / Packing & Unpacking Services:",
+            "s2_p1": "Creating maximum order and organization.",
+            "s2_p2": "Sorting your items in a professional way to maximize your storage space.",
+            "s2_p3": "Re-storage using creative storage solutions that preserve order over time.",
+            "s2_p4": "Professional and agile arrangement, sorting clothes by seasons etc.",
+            "s2_p5": "Professional packing before moving.",
+            "s2_p6": "Unpacking the contents and arranging cabinets after passage.",
+            "s3": "Home Accommodation Services:",
+            "s3_p1": "Basic or deep cleaning before - after or while hosting at your home.",
+            "s3_p2": "Waiters to serve your guests.",
+            "s3_p3": "Chef for small and large events.",
+            "s3_p4": "Help with cutting and preparing groceries.",
+            "s4": "One-time Cleaning Service Afer Renovation / Pre-occupation / Passover Cleaning And Holidays:",
+            "s4_p1": "One-time general cleaning services - moving to a new apartment? Planning a renovation? Passover in the doorway? we are here!",
+            "s4_p2": "Cleaning services at various levels tailored to you and your needs.",
+            "s4_p3": "Service by legally insured professional workers.",
+            "s4_p4": "Detergents and the most advanced equipment at our expense - without acids and dangerous.",
+            "s4_p5": "A supervisor who will make sure that the work is to your satisfaction and up to our standards.",
+            "s5": "Full Moving Services From The Packaging Stage To The Coffee With The New Neighbors:",
+            "s5_p1": "Deep general cleaning services before moving.",
+            "s5_p2": "Cleaning windows at any height (even in rappelling).",
+            "s5_p3": "Polishing and renovating all types of ﬂoors and wood (including renovation of parquet, deck and furniture renewal of all types).",
+            "s5_p4": "Packaging and sorting services from the old house (including crates and packaging products).",
+            "s5_p5": "Freight services including dismantling assembly and warranty from the cutting plant (possibility of crane service at any height) Polishing and polishing.",
+            "s5_p6": "Storage services for crates and furniture until the move.",
+            "s5_p7": "Professional unpacking and arranging services in your home cabinets.",
+            "s5_p8": "Handyman services: installations, hangings, electrical work of the highest and most professional level.",
+            "s5_p9": "Pest control services: license by the Ministry of Health.",
+            "s6": "Short-term Service Asset Management Quietly:",
+            "s6_p1": "we offer short term airbnb services through Bell boy app for more details and registration:",
+            "s6_p2": "https://www.bell-boy.com"
+        }
     }
 }

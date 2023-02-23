@@ -1223,6 +1223,28 @@ h1 {
   font-weight: 700;
   color: #000;
 }
+.form101{
+  margin: 40px 0;
+}
+.form101 .broom-logo{
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 40px;
+}
+.form101 iframe{
+  min-height: 6000px;
+  border: none;
+}
+.responsiveTable tbody tr{
+  border-bottom: 1px solid #ddd !important;
+  margin-bottom: 20px !important;
+  border-right: none !important;
+  border-left: none !important;
+  border-top: none !important;
+}
+.responsiveTable td.pivoted{
+  padding-bottom: 2px !important;
+}
 .fc-license-message{
   display: none;
 }

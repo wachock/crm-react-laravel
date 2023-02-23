@@ -7,7 +7,9 @@ import TimeAgo from 'javascript-time-ago'
 import en from 'javascript-time-ago/locale/en.json'
 
 import './Assets/css/admin.css';
+// import './Assets/css/rtl.css';
 import './Assets/css/responsive.css';
+import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css'
 
 // Protected Routes
 import AdminProtectedRoutes from './Components/Auth/PrivateAdmin';
@@ -91,8 +93,10 @@ import OfficeCleaningTemplate from './Pages/offertemplates/template_officeCleani
 import AfterRenovationTemplate from './Pages/offertemplates/template_cleaningAfterRenovation';
 import ThoroughCleaningTemplate from './Pages/offertemplates/template_throughoutCleaning';
 import WorkerContract from './Pages/WorkerContract';
+import Form101 from './Pages/Form101';
 import Languages from './Admin/Pages/Languages/language';
 import EditLanguages from './Admin/Pages/Languages/EditLanguage';
+
 
 TimeAgo.addDefaultLocale(en)
 const options = {
@@ -112,6 +116,7 @@ export default function MyRoutes() {
                <Route exact path="meeting-status/:id" element={<MeetingStatus />} />
                <Route exact path="price-offer/:id" element={<PriceOffer />} />
                <Route exact path="work-contract/:id" element={<WorkContract />} />
+               <Route exact path="form101" element={<Form101 />} />
                <Route exact path="worker-contract" element={<WorkerContract />} />
                <Route exact path="calendar" element={<CalendarTeam />} />
                <Route exact path="thankyou/:id/:response" element={<Thankyou />} />
