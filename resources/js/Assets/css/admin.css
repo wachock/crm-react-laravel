@@ -1149,6 +1149,13 @@ h1 {
 .form101 label{
   font-weight: 600;
 }
+.fc-view-harness.fc-view-harness-active{
+  height: 2000px !important;
+  max-height: 300px !important;
+}
+.fc-view-harness .fc-view {
+  overflow-x: hidden;
+}
 .text-underline{
   text-decoration: underline;
 }
