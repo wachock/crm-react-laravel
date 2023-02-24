@@ -141,7 +141,7 @@ export default function Schedule() {
                         let cords  = (item.client.latitude && item.client.longitude) ?
                                      item.client.latitude +","+ item.client.longitude:"NA";
                         return (
-                          <Tr key={index}>
+                          <Tr style={{"cursor":"pointer"}}>
                             <Td onClick={(e)=>handleNavigate(e,item.client.id,item.id)}>{item.id}</Td>
                             <Td><Link to={`/admin/view-client/${item.client.id}`}>
                               {

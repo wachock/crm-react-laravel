@@ -221,7 +221,7 @@ export default function TotalJobs() {
                                                     let services = (item.offer.services) ? JSON.parse(item.offer.services) : [];
 
                                                     return (
-                                                        <Tr key={index}>
+                                                        <Tr key={index} style={{"cursor":"pointer"}}>
                                                             <Td onClick={(e)=>handleNavigate(e,item.id)}>
                                                                 {Moment(item.start_date).format('DD MMM,Y')}
                                                             </Td>
