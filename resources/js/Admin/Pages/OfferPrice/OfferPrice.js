@@ -5,6 +5,7 @@ import Sidebar from '../../Layouts/Sidebar';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table'
+import { useNavigate } from 'react-router-dom';
 
 export default function OfferPrice() {
 
@@ -12,7 +13,8 @@ export default function OfferPrice() {
     const [totalOffers, setTotalOffers] = useState([]);
     const [loading, setLoading] = useState("Loading...");
     const [pageCount, setPageCount] = useState(0);
-
+    const navigate = useNavigate();
+    
     const headers = {
         Accept: "application/json, text/plain, */*",
         "Content-Type": "application/json",
@@ -98,6 +100,11 @@ export default function OfferPrice() {
         getOffers();
     }, []);
 
+    const handleNavigate = (e, id) => {
+        e.preventDefault();
+        navigate(`/admin/view-offer/${id}`);
+    }
+
     return (
         <div id="container">
             <Sidebar />
@@ -152,11 +159,11 @@ export default function OfferPrice() {
                                                                 }
                                                             </Link>
                                                             </Td>
-                                                            <Td>{ofr.client.email}</Td>
+                                                            <Td onClick={(e)=>handleNavigate(e,ofr.id)}>{ofr.client.email}</Td>
                                                             <Td><Link to={`https://maps.google.com?q=${cords}`}>{address}</Link></Td>
-                                                            <Td>{ofr.client.phone}</Td>
-                                                            <Td>{ofr.status}</Td>
-                                                            <Td>{ofr.subtotal} ILS + VAT</Td>
+                                                            <Td onClick={(e)=>handleNavigate(e,ofr.id)}>{ofr.client.phone}</Td>
+                                                            <Td onClick={(e)=>handleNavigate(e,ofr.id)}>{ofr.status}</Td>
+                                                            <Td onClick={(e)=>handleNavigate(e,ofr.id)}>{ofr.subtotal} ILS + VAT</Td>
                                                             <Td>
                                                                 <div className="action-dropdown dropdown">
                                                                     <button type="button" className="btn btn-default dropdown-toggle" data-toggle="dropdown">
