@@ -24,7 +24,7 @@ export default function ViewSchedule() {
     const [endTime, setEndTime] = useState("");
     const [events, setEvents] = useState([]);
     const [lang, setLang] = useState("");
-    const [meetVia, setMeetVia] = useState([]);
+    const [meetVia, setMeetVia] = useState("");
     const [meetLink, setMeetLink] = useState("");
     const [startSlot, setStartSlot] = useState([]);
     const [endSlot, setEndSlot] = useState([]);
@@ -77,7 +77,7 @@ export default function ViewSchedule() {
             meet_link: meetLink,
             booking_status: st,
         }
-
+    
         let btn = document.querySelector('.sendBtn');
         btn.setAttribute('disabled', true);
         btn.innerHTML = "Sending..";

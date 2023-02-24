@@ -1,6 +1,7 @@
 import React  from 'react'
 
-export default function WorkerDetails({worker}) {
+export default function WorkerDetails({worker, job}) {
+
   return (
     <>
                     <h2 className="text-danger">Worker Details</h2>
@@ -31,6 +32,14 @@ export default function WorkerDetails({worker}) {
                                         <p>{worker.address}</p>
                                     </div>
                                 </div>
+                                {(job.invoice_url) ?
+                                <div className='col-sm-2'>
+                                    <div className='form-group'>
+                                        <a className='btn btn-success' target='_blank' href={job.invoice_url}>view invoice</a>
+                                    </div>
+                                </div>
+                                :''
+                                }
                                
                         </div>
                 </form>

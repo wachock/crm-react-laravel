@@ -1,48 +1,21 @@
 import { Outlet } from "react-router"; 
 import { Navigate } from 'react-router-dom';
 
-const useVendorAuth = () => {
-  var vendor = { VendorloggedIn: false };
+const useAuth = () => {
+  var user = { loggedIn: true };
 
-  if(localStorage.getItem('tokenkey')) {
-
-    getWithExpiry('tokenkey');
-
-    vendor = { VendorloggedIn: true };
+  if(localStorage.getItem('worker-token')) {
+     user = { loggedIn: true };
   } else {
-    vendor = { VendorloggedIn: true };
-  }
-
-  return vendor && vendor.VendorloggedIn;
+    user = { loggedIn: false };
+ }
+ 
+  return user && user.loggedIn;
 }
 
 const WorkerProtectedRoutes = () => {
-  const isAuth = useVendorAuth();
-  return isAuth ? <Outlet /> : <Navigate replace to="/login" />
+  const isAuth = useAuth(); 
+  return isAuth ? <Outlet /> : <Navigate replace to="worker/login" />
 }
 
-function getWithExpiry(key) {
-  const itemStr = localStorage.getItem(key)
-
-  // if the item doesn't exist, return null
-  if (!itemStr) {
-    return null
-  }
-
-  try {
-    const item = JSON.parse(itemStr)
-
-    const now = new Date()
-
-
-    if (now.getTime() > item.expiry) {
-      localStorage.removeItem(key)
-      return null
-    }
-    return item.value
-
-  } catch(err) {
-      localStorage.removeItem('tokenkey');
-  }
-}
 export default WorkerProtectedRoutes;

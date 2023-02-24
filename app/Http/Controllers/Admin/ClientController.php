@@ -152,12 +152,12 @@ class ClientController extends Controller
 
     public function addfile(Request $request){
  
-        /*
+        
         $video = $request->file('file');
         $vname = $video->getClientOriginalName();
         $path=storage_path().'/app/public/uploads/ClientFiles';
         $video->move($path,$vname);
-        */
+        dd('DEAD HERE');
 
         $validator = Validator::make($request->all(), [
             'file'   => 'required|mimes:jpeg,jpg,png',
