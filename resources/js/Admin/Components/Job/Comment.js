@@ -93,7 +93,7 @@ export default function Comment() {
     useEffect(()=>{
         getComments();
     },[])
-    console.log(allClientComment)
+    
     return (
 
         <div className="tab-pane fade active show" id="customer-notes" role="tabpanel"

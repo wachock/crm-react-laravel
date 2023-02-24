@@ -174,7 +174,7 @@ class ScheduleController extends Controller
         if($validator->fails()){
             return response()->json(['errors'=>$validator->messages()]);
         }
-        
+    
         $input  = $request->input(); 
         $sch = Schedule::create($input);
         $schedule = Schedule::where('id',$sch->id)->with('client','team')->get()->first();
@@ -191,7 +191,7 @@ class ScheduleController extends Controller
     }
 
     public function sendMeetingMail($sch){
-        
+      
        $sch = $sch->toArray();
        $services = Offer::where('client_id',$sch['client']['id'])->get()->last();
        $str = '';

@@ -24,6 +24,8 @@ class Job extends Model
         'start_time',
         'end_time',
         'rate',
+        'invoice_no',
+        'invoice_url',
         'status'
     ];
 

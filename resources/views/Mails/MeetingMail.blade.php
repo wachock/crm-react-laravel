@@ -18,6 +18,7 @@
 			</tr>
 		</table>
 		<h1 style="text-align: center;">{{__('mail.meeting.hi')}}, {{$client['firstname']}} {{$client['lastname']}}</h1>
+
 		<p style="text-align: center;">{{__('mail.meeting.greetings')}} {{__('mail.meeting.from')}} {{__('mail.meeting.company')}}. {{__('mail.meeting.appointment')}}
 		
 		@if(!empty($team['name'])) 
@@ -27,6 +28,10 @@
 		 {{__('mail.meeting.between')}}  <span style="color:#0130c6;font-weight:700;">{{$start_time}}</span>
 		 {{__('mail.meeting.to')}}       <span style="color:#0130c6;font-weight:700;">{{$end_time}}</span>
 		 {{__('mail.meeting.for')}}      <span style="color:#0130c6;font-weight:700;">{{$service_names}}</span>{{__('mail.meeting.service')}}</p>
+        
+		@if(!empty($meet_link))
+		<p style="text-align: center;">{{$meet_link}}</p>
+		@endif
 
 		<div style="display:flex;justify-content: center">
 			<a href='{{ url("thankyou/$id/accept")}}' target='_blank' style="background: green;color: #fff;border: 1px solid green;font-size: 16px;padding: 10px 24px;border-radius: 4px;cursor: pointer;text-decoration: none;min-width:135px;text-align: center">{{__('mail.meeting.accept')}}</a>

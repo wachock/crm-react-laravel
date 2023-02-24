@@ -92,7 +92,7 @@ export default function CreateJobCalender() {
         getWorkerAvailabilty();
         getTime();
     }, []);
-
+    
     const resources = AllWorkers.map((w, i) => {
         return { id: w.id, title: (w.firstname + ' ' + w.lastname) };
     });
