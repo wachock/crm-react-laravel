@@ -138,12 +138,12 @@ class ContractController extends Controller
             'status'=>'verified'
         ]);
         $contract = Contract::where('id',$request->id)->get()->first();
-       /* Job::create([
+        Job::create([
             'client_id'=>$contract->client_id,
             'offer_id'=>$contract->offer_id,
             'contract_id'=>$request->id,
             'status'=>'unscheduled',
-        ]);*/
+        ]);
         return response()->json([
              'message' => 'Contract verified successfully'
         ]);
