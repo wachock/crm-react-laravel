@@ -194,7 +194,7 @@ class JobController extends Controller
         "cid"  => env('ICOUNT_COMPANYID'),
         "user" => env('ICOUNT_USERNAME'),
         "pass" => env('ICOUNT_PASS'),
-        "doctype" => "invrec",
+        "doctype" => "order",
         "client_name" => "Broom Service", 
         "email" => "office@broomservice.co.il", 
         "lang" => $job->worker->lng,
