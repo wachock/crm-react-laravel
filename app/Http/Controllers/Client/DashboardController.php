@@ -300,4 +300,19 @@ class DashboardController extends Controller
         ], 200);
     }
 
+    //JOBS
+    public function listJobs(Request $request){
+        $jobs = Job::where('client_id',$request->cid)->with('offer','client','worker')->get();;
+        return response()->json([
+            'jobs'       => $jobs,        
+        ], 200);
+    }
+    public function viewJob(Request $request){
+        $job = Job::where('id',$request->id)->with('client','worker','service','offer')->get();
+        return response()->json([
+            'job'        => $job,            
+        ], 200);
+
+    }
+
 }
