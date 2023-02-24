@@ -135,6 +135,7 @@ export default function Contract() {
                                         <Tbody>
                                             {contracts && contracts.map((c, i) => {
 
+                                            if(c.client){
                                                 let address = c.client ? c.client.city + ", " : '';
                                                 address += c.client ? c.client.street_n_no + ", " : '';
                                                 address += c.client ? c.client.zipcode + " " : '';
@@ -187,6 +188,7 @@ export default function Contract() {
                                                     </Tr>
 
                                                 )
+                                            }
                                             })}
 
                                         </Tbody>

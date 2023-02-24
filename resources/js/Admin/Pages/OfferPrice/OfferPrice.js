@@ -1,14 +1,14 @@
-import React,{ useState,useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import ReactPaginate from "react-paginate";
 import { Link } from "react-router-dom";
 import Sidebar from '../../Layouts/Sidebar';
 import axios from 'axios';
 import Swal from 'sweetalert2';
-import {Table, Thead, Tbody, Tr, Th, Td} from 'react-super-responsive-table'
+import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table'
 
 export default function OfferPrice() {
 
-    const [offers,setOffers] = useState();
+    const [offers, setOffers] = useState();
     const [totalOffers, setTotalOffers] = useState([]);
     const [loading, setLoading] = useState("Loading...");
     const [pageCount, setPageCount] = useState(0);
@@ -19,19 +19,19 @@ export default function OfferPrice() {
         Authorization: `Bearer ` + localStorage.getItem("admin-token"),
     };
 
-    const getOffers = () =>{
+    const getOffers = () => {
         axios
-          .get('/api/admin/offers',{headers})
-          .then((response)=>{
-            if (response.data.offers.data.length > 0) {
-                setTotalOffers(response.data.offers.data);
-                setOffers(response.data.offers.data);
-                setPageCount(response.data.offers.last_page);
-            } else {
-                setLoading("No offer found");
-            }
-            
-          });
+            .get('/api/admin/offers', { headers })
+            .then((response) => {
+                if (response.data.offers.data.length > 0) {
+                    setTotalOffers(response.data.offers.data);
+                    setOffers(response.data.offers.data);
+                    setPageCount(response.data.offers.last_page);
+                } else {
+                    setLoading("No offer found");
+                }
+
+            });
     }
 
     const handlePageClick = async (data) => {
@@ -49,20 +49,20 @@ export default function OfferPrice() {
             });
     };
 
-    const filterOffers = (e) =>{
+    const filterOffers = (e) => {
         axios
-        .get(`/api/admin/offers?q=${e.target.value}`,{ headers })
-        .then((response)=>{
-            if (response.data.offers.data.length > 0) {
-                setTotalOffers(response.data.offers.data);
-                setOffers(response.data.offers.data);
-                setPageCount(response.data.offers.last_page);
-            } else {
-                setTotalOffers([]);
-                setPageCount(response.data.offers.last_page);
-                setLoading("No offer found");
-            }
-        });
+            .get(`/api/admin/offers?q=${e.target.value}`, { headers })
+            .then((response) => {
+                if (response.data.offers.data.length > 0) {
+                    setTotalOffers(response.data.offers.data);
+                    setOffers(response.data.offers.data);
+                    setPageCount(response.data.offers.last_page);
+                } else {
+                    setTotalOffers([]);
+                    setPageCount(response.data.offers.last_page);
+                    setLoading("No offer found");
+                }
+            });
     }
 
 
@@ -93,11 +93,11 @@ export default function OfferPrice() {
         });
     };
 
-    
-    useEffect(()=>{
+
+    useEffect(() => {
         getOffers();
-    },[]);
-    
+    }, []);
+
     return (
         <div id="container">
             <Sidebar />
@@ -122,86 +122,88 @@ export default function OfferPrice() {
 
                                 {totalOffers.length > 0 ? (
 
-                                <Table className="table table-bordered">
-                                    <Thead>
-                                        <Tr>
-                                            <Th scope="col">Client</Th>
-                                            <Th scope="col">Email</Th>
-                                            <Th scope="col">Address</Th>
-                                            <Th scope="col">Phone</Th>
-                                            <Th scope="col">Status</Th>
-                                            <Th scope="col">Total</Th>
-                                            <Th scope="col">Action</Th>
-                                        </Tr>
-                                    </Thead>
-                                    <Tbody>  
-                                        { offers && offers.map((ofr,i)=>{
+                                    <Table className="table table-bordered">
+                                        <Thead>
+                                            <Tr>
+                                                <Th scope="col">Client</Th>
+                                                <Th scope="col">Email</Th>
+                                                <Th scope="col">Address</Th>
+                                                <Th scope="col">Phone</Th>
+                                                <Th scope="col">Status</Th>
+                                                <Th scope="col">Total</Th>
+                                                <Th scope="col">Action</Th>
+                                            </Tr>
+                                        </Thead>
+                                        <Tbody>
+                                            {offers && offers.map((ofr, i) => {
 
-                                            var address = (ofr.client.geo_address) ? ofr.client.geo_address : 'NA';
-                                            var cords   = (ofr.client.latitude && ofr.client.longitude)
-                                                           ? ofr.client.latitude+","+ofr.client.longitude : 'NA';
-                                           return ( 
-                                           <Tr>
-                                            <Td><Link to={`/admin/view-client/${ofr.client.id}`}>
-                                                {
-                                                  ofr.client 
-                                                  ? ofr.client.firstname
-                                                  + " "+ofr.client.lastname
-                                                  :"NA"
+                                                if (ofr.client) {
+                                                    var address = (ofr.client.geo_address) ? ofr.client.geo_address : 'NA';
+                                                    var cords = (ofr.client.latitude && ofr.client.longitude)
+                                                        ? ofr.client.latitude + "," + ofr.client.longitude : 'NA';
+                                                    return (
+                                                        <Tr>
+                                                            <Td><Link to={`/admin/view-client/${ofr.client.id}`}>
+                                                                {
+                                                                    ofr.client
+                                                                        ? ofr.client.firstname
+                                                                        + " " + ofr.client.lastname
+                                                                        : "NA"
+                                                                }
+                                                            </Link>
+                                                            </Td>
+                                                            <Td>{ofr.client.email}</Td>
+                                                            <Td><Link to={`https://maps.google.com?q=${cords}`}>{address}</Link></Td>
+                                                            <Td>{ofr.client.phone}</Td>
+                                                            <Td>{ofr.status}</Td>
+                                                            <Td>{ofr.subtotal} ILS + VAT</Td>
+                                                            <Td>
+                                                                <div className="action-dropdown dropdown">
+                                                                    <button type="button" className="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                                                        <i className="fa fa-ellipsis-vertical"></i>
+                                                                    </button>
+                                                                    <div className="dropdown-menu">
+                                                                        <Link to={`/admin/edit-offer/${ofr.id}`} className="dropdown-item">Edit</Link>
+                                                                        <Link to={`/admin/view-offer/${ofr.id}`} className="dropdown-item">View</Link>
+                                                                        <button className="dropdown-item" onClick={() => handleDelete(ofr.id)}
+                                                                        >Delete</button>
+                                                                    </div>
+                                                                </div>
+                                                            </Td>
+                                                        </Tr>
+                                                    )
                                                 }
-                                                </Link>
-                                            </Td>
-                                            <Td>{ofr.client.email}</Td>
-                                            <Td><Link to={`https://maps.google.com?q=${cords}`}>{address}</Link></Td>
-                                            <Td>{ ofr.client.phone }</Td>
-                                            <Td>{ ofr.status }</Td>
-                                            <Td>{ ofr.subtotal } ILS + VAT</Td>
-                                            <Td>
-                                                <div className="action-dropdown dropdown">
-                                                    <button type="button" className="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                                        <i className="fa fa-ellipsis-vertical"></i>
-                                                    </button>
-                                                    <div className="dropdown-menu">
-                                                        <Link to={`/admin/edit-offer/${ofr.id}`} className="dropdown-item">Edit</Link>
-                                                        <Link to={`/admin/view-offer/${ofr.id}`} className="dropdown-item">View</Link>
-                                                        <button className="dropdown-item" onClick={() => handleDelete(ofr.id)}
-                                                        >Delete</button>
-                                                    </div>
-                                                </div>
-                                            </Td>
-                                        </Tr>     
-                                        )
-                                        })}
-                                    </Tbody>
-                                </Table> 
-                             ): (
-                                <p className="text-center mt-5">{loading}</p>
-                            )}
+                                            })}
+                                        </Tbody>
+                                    </Table>
+                                ) : (
+                                    <p className="text-center mt-5">{loading}</p>
+                                )}
                             </div>
 
-                            { totalOffers.length > 0 ?(
-                            <ReactPaginate
-                                        previousLabel={"Previous"}
-                                        nextLabel={"Next"}
-                                        breakLabel={"..."}
-                                        pageCount={pageCount}
-                                        marginPagesDisplayed={2}
-                                        pageRangeDisplayed={3}
-                                        onPageChange={handlePageClick}
-                                        containerClassName={
-                                            "pagination justify-content-end mt-3"
-                                        }
-                                        pageClassName={"page-item"}
-                                        pageLinkClassName={"page-link"}
-                                        previousClassName={"page-item"}
-                                        previousLinkClassName={"page-link"}
-                                        nextClassName={"page-item"}
-                                        nextLinkClassName={"page-link"}
-                                        breakClassName={"page-item"}
-                                        breakLinkClassName={"page-link"}
-                                        activeClassName={"active"}
-                                    />
-                                ): '' }
+                            {totalOffers.length > 0 ? (
+                                <ReactPaginate
+                                    previousLabel={"Previous"}
+                                    nextLabel={"Next"}
+                                    breakLabel={"..."}
+                                    pageCount={pageCount}
+                                    marginPagesDisplayed={2}
+                                    pageRangeDisplayed={3}
+                                    onPageChange={handlePageClick}
+                                    containerClassName={
+                                        "pagination justify-content-end mt-3"
+                                    }
+                                    pageClassName={"page-item"}
+                                    pageLinkClassName={"page-link"}
+                                    previousClassName={"page-item"}
+                                    previousLinkClassName={"page-link"}
+                                    nextClassName={"page-item"}
+                                    nextLinkClassName={"page-link"}
+                                    breakClassName={"page-item"}
+                                    breakLinkClassName={"page-link"}
+                                    activeClassName={"active"}
+                                />
+                            ) : ''}
                         </div>
                     </div>
                 </div>

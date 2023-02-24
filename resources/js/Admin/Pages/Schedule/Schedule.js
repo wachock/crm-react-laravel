@@ -135,8 +135,9 @@ export default function Schedule() {
                     </Thead>
                     <Tbody>
                       {schedules && schedules.map((item, index) => {
-
-                        let address = (item.client.geo_address) ? item.client.geo_address : 'NA';
+                       
+                       if(item.client){
+                        let address = (item.client.geo_address != null) ? item.client.geo_address : 'NA';
                         let cords  = (item.client.latitude && item.client.longitude) ?
                                      item.client.latitude +","+ item.client.longitude:"NA";
                         return (
@@ -189,6 +190,8 @@ export default function Schedule() {
                             </Td>
                           </Tr>
                         )
+                      }
+                        
                       })}
                     </Tbody>
                   </Table>
