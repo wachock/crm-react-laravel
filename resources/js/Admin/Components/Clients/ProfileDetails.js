@@ -136,17 +136,17 @@ export default function ProfileDetails({ client, offerStatus , scheduleStatus , 
 
                             <div className='form-group'>
                                 <label className='d-block'>Meeting Status</label>
-                                <span onClick={(e)=>handleTab(e)} id="ms" className='dashStatus' style={{ background: scolor }}>{scheduleStatus}</span>
+                                <span onClick={(e)=>handleTab(e)} id="ms"  className='dashStatus' style={{ background: scolor,cursor:"pointer" }}>{scheduleStatus}</span>
                             </div>
 
                             <div className='form-group'>
                                 <label className='d-block'>Price Offer</label>
-                                <span  onClick={(e)=>handleTab(e)} id="os" className='dashStatus' style={{ background: ocolor }}>{offerStatus}</span>
+                                <span  onClick={(e)=>handleTab(e)} id="os" className='dashStatus' style={{ background: ocolor,cursor:"pointer" }}>{offerStatus}</span>
                             </div>
 
                             <div className='form-group mb-0'>
                                 <label className='d-block'>Contract</label>
-                                <span  onClick={(e)=>handleTab(e)} id="cs" className='dashStatus' style={{ background: (latestContract && latestContract.status == 'Signed') ? 'green' : '#7e7e56' }}>{(latestContract) ? latestContract.status : 'Not Sent'}</span>
+                                <span  onClick={(e)=>handleTab(e)} id="cs" className='dashStatus' style={{ background: (latestContract && latestContract.status == 'Signed') ? 'green' : '#7e7e56',"cursor":"pointer" }}>{(latestContract) ? latestContract.status : 'Not Sent'}</span>
                          </div>
                            
                         </div>

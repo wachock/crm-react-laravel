@@ -144,7 +144,7 @@ export default function Contract() {
 
                                                 return (
 
-                                                    <Tr>
+                                                    <Tr style={{"cursor":"pointer"}}>
                                                         <Td><Link to={`/admin/view-client/${c.client.id}`}>
                                                             {
                                                                 c.client

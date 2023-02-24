@@ -136,7 +136,7 @@ export default function Clients() {
                                                     let cords   = (item.latitude && item.longitude) ? item.latitude +","+ item.longitude :"";
 
                                                     return(
-                                                    <Tr key={index}>
+                                                    <Tr style={{"cursor":"pointer"}}>
                                                         <Td onClick={(e)=>handleNavigate(e,item.id)}>{item.id}</Td>
                                                         <Td>
                                                             <Link to={`/admin/view-client/${item.id}`}>{item.firstname}{" "}{item.lastname}</Link>  

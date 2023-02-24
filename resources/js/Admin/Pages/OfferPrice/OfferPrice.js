@@ -14,7 +14,7 @@ export default function OfferPrice() {
     const [loading, setLoading] = useState("Loading...");
     const [pageCount, setPageCount] = useState(0);
     const navigate = useNavigate();
-    
+
     const headers = {
         Accept: "application/json, text/plain, */*",
         "Content-Type": "application/json",
@@ -149,7 +149,7 @@ export default function OfferPrice() {
                                                     var cords = (ofr.client.latitude && ofr.client.longitude)
                                                         ? ofr.client.latitude + "," + ofr.client.longitude : 'NA';
                                                     return (
-                                                        <Tr>
+                                                        <Tr style={{"cursor":"pointer"}}>
                                                             <Td><Link to={`/admin/view-client/${ofr.client.id}`}>
                                                                 {
                                                                     ofr.client

@@ -4,12 +4,14 @@ import { Link } from "react-router-dom";
 import ReactPaginate from "react-paginate";
 import axios from "axios";
 import {Table, Thead, Tbody, Tr, Th, Td} from 'react-super-responsive-table'
-
+import { useNavigate } from "react-router-dom";
 
 export default function AllWorkers() {
     const [workers, setWorkers] = useState([]);
     const [pageCount, setPageCount] = useState(0);
     const [loading, setLoading] = useState("Loading...");
+    const navigate = useNavigate();
+
     const headers = {
         Accept: "application/json, text/plain, */*",
         "Content-Type": "application/json",
@@ -88,6 +90,11 @@ export default function AllWorkers() {
         });
     };
 
+    const handleNavigate = (e,id) =>{
+        e.preventDefault();
+        navigate(`/admin/view-worker/${id}`);
+    }
+
     return (
         <div id="container">
             <Sidebar />
@@ -113,7 +120,7 @@ export default function AllWorkers() {
                                 {workers.length > 0 ? (
                                     <Table className='table table-bordered'>
                                         <Thead>
-                                            <Tr>
+                                            <Tr style={{"cursor":"pointer"}}>
                                                 <Th>ID</Th>
                                                 <Th>Worker Name</Th>
                                                 <Th>Email</Th>
@@ -128,18 +135,18 @@ export default function AllWorkers() {
                                                 workers.map((item, index) => {
                                                     
                                                     return(
-                                                    <Tr key={index}>
-                                                        <Td>{item.id}</Td>
+                                                    <Tr style={{cursor:"pointer"}}>
+                                                        <Td onClick={(e)=>handleNavigate(e,item.id)}>{item.id}</Td>
                                                         <Td>
                                                             <Link to={`/admin/view-worker/${item.id}`}>{item.firstname}{" "}{item.lastname}</Link> 
                                                         </Td>
-                                                        <Td><Link to={`/admin/view-worker/${item.id}`}>{item.email}</Link></Td>
+                                                        <Td onClick={(e)=>handleNavigate(e,item.id)}>{item.email}</Td>
                                                         <Td><a target="_blank" href={`https://maps.google.com?q=${item.address}`}>{ item.address }</a></Td>
-                                                        <Td><Link to={`/admin/view-worker/${item.id}`}>{item.phone}</Link></Td>
-                                                        <Td><Link to={`/admin/view-worker/${item.id}`}>
+                                                        <Td onClick={(e)=>handleNavigate(e,item.id)}>{item.phone}</Td>
+                                                        <Td onClick={(e)=>handleNavigate(e,item.id)}>
                                                         {item.status == 0
                                                                 ? "Inactive"
-                                                                : "Active"}</Link>
+                                                                : "Active"}
                                                         </Td>
                                                         <Td>
                                                             <div className="action-dropdown dropdown">
