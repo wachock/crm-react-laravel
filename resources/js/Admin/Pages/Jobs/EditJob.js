@@ -36,7 +36,6 @@ export default function AddJob() {
      useEffect(()=>{
         getJob();
     },[]);
-     console.log(services);
     
   return (
     <div id="container">

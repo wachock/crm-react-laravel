@@ -20,6 +20,17 @@ export default function files() {
         Authorization: `Bearer ` + localStorage.getItem("admin-token"),
     };
 
+    const handleFileChange = (e) =>{
+        let type = e.target.files[0].type.split('/')[1];
+        let allow = ['jpeg','png','jpg','mp4','webm'];
+        if(allow.includes(type)){
+            setFile(e.target.files[0]);
+        } else {
+            setFile([]);
+            window.alert("This file is not allowed");
+            document.querySelector('input[type="file"]').value = "";
+        }
+    }
 
     const handleFile = (e) => {
 
@@ -218,7 +229,7 @@ export default function files() {
                                             type="file"
                                             name="file"
                                             onChange={(e) => {
-                                                setFile(e.target.files[0]);
+                                                handleFileChange(e)
 
                                             }
                                             }
