@@ -963,15 +963,11 @@ h1 {
   font-size: 14px;
   line-height: 22px;
 }
-.send-offer .table td, .send-offer .table th{
-  border-bottom: none;
-  border-top: none;
-}
-.send-offer .table th{
-  border-bottom: 1px solid #ccc !important;
-}
 .send-offer .shift-20{
   padding-left: 30px;
+}
+.services {
+  margin-top: 20px;
 }
 .shift-20 h4{
   color: #1b3f79;
@@ -1126,13 +1122,39 @@ h1 {
   font-weight: 600;
   margin-bottom: 15px;
 }
-.client-contract .shift-30 .agg-list{
+.agg-list{
   display: inline-flex;
   margin-bottom: 25px;
   width: 100%;
 }
-.client-contract .shift-30 .agg-list .icons{
+.agg-list .icons{
   margin-right: 10px;
+}
+.form101 .agg-list{
+  margin-bottom: 15px;
+}
+.form101 .box-heading{
+  margin-bottom: 40px;
+  margin-top: 20px;
+}
+.form101 .box-heading h2{
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 28px;
+  background: #041a85;
+  color: #fff;
+  padding: 5px 15px;
+  margin-bottom: 15px;
+}
+.form101 label{
+  font-weight: 600;
+}
+.fc-view-harness.fc-view-harness-active{
+  height: 2000px !important;
+  max-height: 300px !important;
+}
+.fc-view-harness .fc-view {
+  overflow-x: hidden;
 }
 .text-underline{
   text-decoration: underline;
@@ -1225,16 +1247,23 @@ h1 {
   color: #000;
 }
 .form101{
-  margin: 40px 0;
+  background: #fff;
+  margin-top: 40px;
+  margin-bottom: 40px;
+  font-family: 'Open Sans', sans-serif;
 }
 .form101 .broom-logo{
   display: block;
   margin: 0 auto;
   margin-bottom: 40px;
 }
-.form101 iframe{
-  min-height: 6000px;
-  border: none;
+.form101 h1{
+  color: #030388;
+}
+.form101 .max600{
+  max-width: 600px;
+  margin: 0 auto;
+  margin-bottom: 15px;
 }
 .responsiveTable tbody tr{
   border-bottom: 1px solid #ddd !important;

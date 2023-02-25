@@ -167,7 +167,7 @@ export default function TeamAvailability() {
         plugins={[dayGridPlugin, timeGridPlugin,resourceTimelinePlugin,interactionPlugin  ]}
         initialView = 'resourceTimelineWeek'
         resources =  {resources}
-        minHeight={'200px'} // sets height to height of resources.
+        
         slotDuration={'00:30:00'}
         events={events}
         resourceAreaWidth= {"15%"}

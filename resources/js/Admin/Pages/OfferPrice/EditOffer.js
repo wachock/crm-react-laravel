@@ -35,8 +35,8 @@ export default function EditOffer() {
     var h = e.target.parentNode.parentNode.childNodes[1].childNodes[0].value;
     var rh = e.target.parentNode.parentNode.childNodes[2].childNodes[0].value;
     if (rh != '' && h != '') {
-      e.target.parentNode.parentNode.childNodes[3].style.display = 'none';
-      e.target.parentNode.parentNode.childNodes[4].style.display = 'block';
+     // e.target.parentNode.parentNode.childNodes[3].style.display = 'none';
+      //e.target.parentNode.parentNode.childNodes[4].style.display = 'block';
       e.target.parentNode.parentNode.childNodes[4].childNodes[0].setAttribute('value', h * rh);
     }
 
@@ -157,7 +157,7 @@ export default function EditOffer() {
 
 
       } else {
-
+        
         if (formValues[t].fixed_price == '') {
           alert.error("One of the job price is missing");
           return false;

@@ -31,14 +31,13 @@ export default function notes() {
       axios
       .post(`/api/admin/add-note`,data,{  headers  })
       .then((res)=>{
-        console.log(res)
         if(res.data.errors){
             for( let e in res.data.errors){
                 window.alert(res.data.errors[e]);
             }
             
         } else {
-           document.querySelector('.closeb').click();
+           document.querySelector('.closeb1').click();
            alert.success(res.data.message);
            getNotes();
            setNote("");
@@ -107,7 +106,6 @@ export default function notes() {
                             <span className="noteby p-1" style={{
                                  "font-weight": "600",
                                  "background" : "darkgray",
-                                 "border"     : "inset"
 
                             }}>
                             {
@@ -172,7 +170,7 @@ export default function notes() {
 
                         </div>
                         <div className="modal-footer">
-                            <button type="button" className="btn btn-secondary closeb" data-dismiss="modal">Close</button>
+                            <button type="button" className="btn btn-secondary closeb1" data-dismiss="modal">Close</button>
                             <button type="button"  onClick={handleNote} className="btn btn-primary">Save Note</button>
                         </div>
                     </div>

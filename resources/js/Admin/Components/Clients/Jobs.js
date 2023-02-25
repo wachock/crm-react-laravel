@@ -70,7 +70,10 @@ export default function Jobs() {
                             <td>{j.status}</td>
                             <td>
                                 <div className="d-flex">
+                                { (j.worker) ? 
                                     <Link to={`/admin/edit-job/${j.id}`} className="btn bg-purple"><i className="fa fa-edit"></i></Link>
+                                    :<Link to={`/admin/create-job/${j.contract_id}`} className="btn bg-purple"><i className="fa fa-edit"></i></Link>
+                                }
                                     <Link to={`/admin/view-job/${j.id}`} className="ml-2 btn bg-yellow"><i className="fa fa-eye"></i></Link>
                                     <button className="ml-2 btn bg-red" onClick={() => handleDelete( j.id )}><i className="fa fa-trash"></i></button>                            
                                 </div>

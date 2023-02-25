@@ -18,8 +18,8 @@ class CreateOffersTable extends Migration
             $table->unsignedBigInteger('client_id');
             $table->string('type');
             $table->longText('services');
-            $table->integer('subtotal');
-            $table->integer('total');
+            $table->double('subtotal',15,8);
+            $table->double('total',15,8);
             $table->enum('status',['sent','accepted','declined'])->default('sent');
             $table->timestamps();
         });

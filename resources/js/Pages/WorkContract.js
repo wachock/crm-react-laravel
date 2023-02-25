@@ -90,8 +90,11 @@ export default function WorkContract() {
                setoffer(res.data.offer);
                setServices(JSON.parse(res.data.offer[0].services));
                setClient(res.data.offer[0].client);
-               i18next.changeLanguage(res.data.offer[0].client.lng);
                setContract(res.data.contract);
+               i18next.changeLanguage(res.data.offer[0].client.lng);
+               if(res.data.offer[0].client.lng == 'heb'){
+                document.querySelector('html').setAttribute('dir','rtl');
+             }
             } else {
                 setoffer([]);
                 setServices([]);
@@ -122,7 +125,7 @@ export default function WorkContract() {
                 </div>
                 <h4 className='inHead'>{t('work-contract.inHead')}</h4>
                 <div className='signed'>
-                    <p>{t('work-contract.signed')} <span>{client.city ? client.city : 'NA'}</span> on <span>{Moment(contract.created_at).format('DD MMMM,Y')}</span></p>
+                    <p>{t('work-contract.signed')} <span>{client.geo_address ? client.geo_address : 'NA'}</span> on <span>{Moment(contract.created_at).format('DD MMMM,Y')}</span></p>
                 </div>
                 <div className='between'>
                     <p>{t('work-contract.between')}</p>

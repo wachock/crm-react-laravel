@@ -16,7 +16,6 @@ class ClientEmailController extends Controller
 
        $id = $request->id;
        $schedule = Schedule::where('id',$id)->with('client','team')->get()->first();
-
        $services = Offer::where('client_id',$schedule->client->id)->get()->last();
        $str = '';
        if(!empty($services->services)){

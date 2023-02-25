@@ -40,6 +40,7 @@ class WorkerController extends Controller
     }
 
     public function AllWorkers(Request $request){
+       
         $service='';
         if($request->contract_id){
            $contract=Contract::with('offer','client')->find($request->contract_id);
@@ -60,6 +61,7 @@ class WorkerController extends Controller
           $workers= $workers->where('skill',  'like','%'.$service.'%');
         }
         $workers = $workers->where('status',1)->get();
+    
         if(isset($request->filter)){
             $newworker=array();
             foreach($workers as $worker){

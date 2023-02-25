@@ -15,14 +15,14 @@ export default function ViewJob() {
     const headers = {
         Accept: "application/json, text/plain, */*",
         "Content-Type": "application/json",
-        Authorization: `Bearer ` + localStorage.getItem("admin-token"),
+        Authorization: `Bearer ` + localStorage.getItem("client-token"),
     };
 
     const getJob = () => {
         axios
-            .get(`/api/admin/jobs/${params.id}`, { headers })
+            .post(`/api/client/view-job`,{id:params.id}, { headers })
             .then((res) => {
-                const r = res.data.job;
+                const r = res.data.job[0];
                 setJob(r)
                 setClient(r.client);
                 setWorker(r.worker);

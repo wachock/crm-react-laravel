@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import Moment from 'moment';
+import { useNavigate } from 'react-router-dom';
 
 export default function ProfileDetails({ client, offerStatus , scheduleStatus , latestContract }) {
     //console.log(latestContract.card_type);
+    const navigate = useNavigate();
     const firstname = client.firstname;
     const lastname = client.lastname;
     const email = client.email;
@@ -37,6 +39,18 @@ export default function ProfileDetails({ client, offerStatus , scheduleStatus , 
      if(offerStatus == 'sent' || offerStatus == 'Not Sent') {ocolor = '#7e7e56'} 
      if(offerStatus == 'accepted') {ocolor = 'green'} 
      if(offerStatus == 'declined') {ocolor = 'red'}  
+
+     const handleTab = (e)=>{
+        e.preventDefault();
+        let id = (e.target.getAttribute('id'));
+        if(id == "ms")
+        document.querySelector('#schedule-meeting').click();
+        if(id == "os")
+        document.querySelector('#offered-price').click();
+        if(id == "cs")
+        document.querySelector('#contract').click();
+
+     }
     return (
         <>
 
@@ -122,17 +136,17 @@ export default function ProfileDetails({ client, offerStatus , scheduleStatus , 
 
                             <div className='form-group'>
                                 <label className='d-block'>Meeting Status</label>
-                                <span className='dashStatus' style={{ background: scolor }}>{scheduleStatus}</span>
+                                <span onClick={(e)=>handleTab(e)} id="ms"  className='dashStatus' style={{ background: scolor,cursor:"pointer" }}>{scheduleStatus}</span>
                             </div>
 
                             <div className='form-group'>
                                 <label className='d-block'>Price Offer</label>
-                                <span className='dashStatus' style={{ background: ocolor }}>{offerStatus}</span>
+                                <span  onClick={(e)=>handleTab(e)} id="os" className='dashStatus' style={{ background: ocolor,cursor:"pointer" }}>{offerStatus}</span>
                             </div>
 
                             <div className='form-group mb-0'>
                                 <label className='d-block'>Contract</label>
-                                <span className='dashStatus' style={{ background: (latestContract && latestContract.status == 'Signed') ? 'green' : '#7e7e56' }}>{(latestContract) ? latestContract.status : 'Not Sent'}</span>
+                                <span  onClick={(e)=>handleTab(e)} id="cs" className='dashStatus' style={{ background: (latestContract && latestContract.status == 'Signed') ? 'green' : '#7e7e56',"cursor":"pointer" }}>{(latestContract) ? latestContract.status : 'Not Sent'}</span>
                          </div>
                            
                         </div>

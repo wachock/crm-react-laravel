@@ -19,15 +19,15 @@
     },
     "price_offer": {
         "button": "Accept Offer",
-        "title": "Price Offer",
+        "title": "Price Offer No",
         "dateTxt": "Date",
         "honour_of": "In Honor Of",
         "company_text": "Company Name",
         "address_text": "Address",
         "about_title": "About us",
         "about": "Broom Service was founder by Lidor Mamou on 2013 The company employs a team of professionals in a wide variety of house cleaning and maintenance jobs. Our staff are regular and experienced employees Our staff are regular and experienced employees who receive a fair and proper reward and all the beneﬁts they receive according to the law Our clients are accustomed and well acquainted with the high standard of service used in the best luxury and boutique hotels in Israel and worldwide and we strive to meet this high quality standard. Our customer satisfaction, high level of service, attention to detail and personal attitude are the foundations on which we base our services. The company is registered as a legal cleaning company in the Ministry of Industry. License number: 4569",
-        "service_title": "Services",
-        "service_txt": "Service",
+        "service_title": "Price Summary",
+        "service_txt": "Service Name",
         "freq_s_txt": "Frequency of Services",
         "job_h_txt": "Job Hours",
         "job_price": "Job Price",
@@ -36,6 +36,7 @@
         "amount":"Amount",
         "amount_txt": "Total Amount",
         "offer_title": "What Do We Have To Offer?",
+        "laundary_service_price_title": "Laundry Services Price List",
 
         "thorough_cleaning": {
 
@@ -78,7 +79,7 @@
             "oc1_p5":"Tight supervision by a regional supervisor.",
 
             "oc2":"Our package- Regular Office cleaning:",
-            "oc2_img":"/images/officeCleaning.png"
+            "laundary":"/images/laundary.jpeg"
         },
         "renovation":{
             "rn1":"One-time cleaning service after renovation / Pre-occupation:",

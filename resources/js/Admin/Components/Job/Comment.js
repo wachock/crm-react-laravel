@@ -93,7 +93,7 @@ export default function Comment() {
     useEffect(()=>{
         getComments();
     },[])
-    console.log(allClientComment)
+    
     return (
 
         <div className="tab-pane fade active show" id="customer-notes" role="tabpanel"
@@ -120,7 +120,6 @@ export default function Comment() {
                             <span className="noteby p-1" style={{
                                  "font-weight": "600",
                                  "background" : "darkgray",
-                                 "border"     : "inset"
 
                             }}>
                             {
@@ -158,7 +157,6 @@ export default function Comment() {
                             <span className="noteby p-1" style={{
                                  "font-weight": "600",
                                  "background" : "darkgray",
-                                 "border"     : "inset"
 
                             }}>
                             {

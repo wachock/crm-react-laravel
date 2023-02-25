@@ -39,7 +39,7 @@ export default function ClientViewOffer() {
               { offer && offer.map((ofr,i)=>{
                 let cl = ofr.client;
                 let services = (ofr.services) ? JSON.parse(ofr.services) : '';
-                console.log(services);
+      
              return(
               <div className='ViewOffer'>
                 <img src={logo} className="img-fluid" alt="Logo" />

@@ -152,15 +152,8 @@ class ClientController extends Controller
 
     public function addfile(Request $request){
  
-        /*
-        $video = $request->file('file');
-        $vname = $video->getClientOriginalName();
-        $path=storage_path().'/app/public/uploads/ClientFiles';
-        $video->move($path,$vname);
-        */
-
+        
         $validator = Validator::make($request->all(), [
-            'file'   => 'required|mimes:jpeg,jpg,png',
             'role'   => 'required',
             'user_id'=>'required'
         ]);
@@ -169,7 +162,17 @@ class ClientController extends Controller
             return response()->json(['error' => $validator->messages()]);
         }
 
-        $image_nm = '';
+        $file_nm = '';
+        if($request->type == 'video'){
+
+        $video = $request->file('file');
+        $vname = $request->user_id."_".date('s')."_".$video->getClientOriginalName();
+        $path=storage_path().'/app/public/uploads/ClientFiles';
+        $video->move($path,$vname);
+        $file_nm = $vname;
+
+        } else {
+
         if($request->hasfile('file')){
 
             $image = $request->file('file');
@@ -180,8 +183,8 @@ class ClientController extends Controller
             $path=storage_path().'/app/public/uploads/ClientFiles/'. $fname;
             File::exists($destinationPath) or File::makeDirectory($destinationPath,0777,true,true);
             $img->save($path, 90);
-            $image_nm  = $fname; 
-        }
+            $file_nm  = $fname; 
+        }}
         
         Files::create([
             'user_id'   => $request->user_id,
@@ -189,7 +192,7 @@ class ClientController extends Controller
             'note'      => $request->note,
             'role'      =>'client',
             'type'      =>$request->type,
-            'file'      => $image_nm
+            'file'      => $file_nm
 
         ]);
 

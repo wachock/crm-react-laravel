@@ -86,6 +86,7 @@ class JobController extends Controller
     public function update(Request $request, $id)
     {
          $job = Job::find($id);
+         //$this->invoice($id);
          $job->status ='completed';
          $job->save();
 
@@ -168,5 +169,62 @@ class JobController extends Controller
             'time'     => $time,
             'total'    => $total         
             ], 200);
+    }
+
+    public function invoice($id){
+
+        $job = Job::where('id',$id)->with('offer','worker')->get()->first();
+        $services = json_decode($job->offer->services);
+        $items = []; 
+        if(isset($services)){
+            foreach($services as $service){
+              $itm = [
+                "description" => $service->name,
+                "unitprice"   => $service->totalamount,
+                "quantity"    => 1,
+              ];
+              array_push($items,$itm);
+            }
+        }
+        
+        $url = "https://api.icount.co.il/api/v3.php/doc/create";
+        $params = Array(
+
+        "cid"  => env('ICOUNT_COMPANYID'),
+        "user" => env('ICOUNT_USERNAME'),
+        "pass" => env('ICOUNT_PASS'),
+        "doctype" => "order",
+        "client_name" => "Broom Service", 
+        "email" => "office@broomservice.co.il", 
+        "lang" => $job->worker->lng,
+        "currency_code" => "ILS",
+        
+        "items" => $items,
+        
+        "cc" => Array(
+        "sum" => $job->offer->total,
+        "card_type" => "VISA",
+        ),
+
+        "send_email" => 1, 
+        "email_to_client" => 1, 
+        "email_to" => $job->worker->email, 
+        );
+
+            $ch = curl_init($url);
+            curl_setopt($ch, CURLOPT_POST, 1);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($params, null, '&'));
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            $response = curl_exec($ch);
+            $info = curl_getinfo($ch);
+
+            if(!$info["http_code"] || $info["http_code"]!=200) throw new Exception("HTTP Error");
+            $json = json_decode($response, true);
+            if(!$json["status"]) throw new Exception($json["reason"]);
+            job::where('id',$id)->update([
+                'invoice_no'    =>$json['docnum'],
+                'invoice_url'   =>$json['doc_url']
+            ]
+            );
     }
 }

@@ -32,6 +32,11 @@ Route::group(['prefix' => 'client', 'middleware' => ['auth:client-api', 'scopes:
    Route::post('add-file',[DashboardController::class,'addfile'])->name('add-file');
    Route::post('get-files',[DashboardController::class,'getfiles'])->name('get-files');
    Route::post('delete-file',[DashboardController::class,'deletefile'])->name('delete-file');
+
+    //job APis
+    Route::post('jobs',[DashboardController::class,'listJobs'])->name('jobs');
+    Route::post('view-job',[DashboardController::class,'viewJob'])->name('view-job');
+
     // My Account Api
     Route::get('my-account', [DashboardController::class, 'getAccountDetails']);
     Route::post('my-account', [DashboardController::class, 'saveAccountDetails']);
