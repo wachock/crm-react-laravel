@@ -32,7 +32,7 @@ export default function ViewJob() {
                 setClient(r.client);
                 setWorker(r.worker);
                 setTotal(r.offer.subtotal);
-                setServices(JSON.parse(r.offer.services));
+                setServices(r.jobservice);
             });
     }
     useEffect(() => {
