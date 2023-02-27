@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import WorkerSidebar from "./Layouts/WorkerSidebar";
 import axios from "axios";
 import {  Link } from "react-router-dom";
+import {Table, Thead, Tbody, Tr, Th, Td} from 'react-super-responsive-table'
 
 export default function WorkerDashboard() {
 
@@ -62,20 +63,20 @@ export default function WorkerDashboard() {
                         <div className="boxPanel">
                             <div className="table-responsive">
                                 {latestJobs.length > 0 ? (
-                                    <table className="table table-bordered">
-                                        <thead>
-                                            <tr>
-                                                <th>Client Name</th>
-                                                <th>Service Name</th>
-                                                <th>Date</th>
-                                                <th>Start Time</th>
-                                                <th>End Time</th>
-                                                <th>Status</th>
-                                                <th>Total</th>
-                                                <th>Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
+                                    <Table className="table table-bordered responsiveTable">
+                                        <Thead>
+                                            <Tr>
+                                                <Th>Client Name</Th>
+                                                <Th>Service Name</Th>
+                                                <Th>Date</Th>
+                                                <Th>Start Time</Th>
+                                                <Th>End Time</Th>
+                                                <Th>Status</Th>
+                                                <Th>Total</Th>
+                                                <Th>Action</Th>
+                                            </Tr>
+                                        </Thead>
+                                        <Tbody>
                                             {latestJobs &&
                                                 latestJobs.map(
                                                     (item, index) => {
@@ -83,39 +84,39 @@ export default function WorkerDashboard() {
                                                    
                                                     return (
 
-                                                        <tr key={index}>
-                                                                <td>{
+                                                        <Tr key={index}>
+                                                                <Td>{
                                                             item.client
                                                                 ? item.client.firstname +
                                                                 " " + item.client.lastname
                                                                 : "NA"
                                                         }
-                                                        </td>
-                                                        <td>{
+                                                        </Td>
+                                                        <Td>{
                                                            item.jobservice.name
-                                                        }</td>
-                                                        <td>
+                                                        }</Td>
+                                                        <Td>
                                                             {item.start_date}
-                                                        </td>
-                                                        <td>
+                                                        </Td>
+                                                        <Td>
                                                             {item.start_time}
-                                                        </td>
-                                                        <td>
+                                                        </Td>
+                                                        <Td>
                                                             {item.end_time}
-                                                        </td>
+                                                        </Td>
 
-                                                        <td
+                                                        <Td
                                                             style={{
                                                                 textTransform:
                                                                     "capitalize",
                                                             }}
                                                         >
                                                             {item.status}
-                                                        </td>
-                                                        <td>
+                                                        </Td>
+                                                        <Td>
                                                            {item.jobservice.total} ILS
-                                                        </td>
-                                                            <td>
+                                                        </Td>
+                                                            <Td>
                                                                 <div className="d-flex">
                                                                     
                                                                     <Link
@@ -127,13 +128,13 @@ export default function WorkerDashboard() {
 
                                                                    
                                                                 </div>
-                                                                    </td>
-                                                        </tr>
+                                                                    </Td>
+                                                        </Tr>
                                                     )
                                                      }
                                                                     )}
-                                        </tbody>
-                                    </table>
+                                        </Tbody>
+                                    </Table>
                                 ) : (
                                     <p className="text-center mt-5">
                                         {loading}

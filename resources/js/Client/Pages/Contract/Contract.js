@@ -2,8 +2,8 @@ import React,{useState, useEffect} from 'react'
 import { Link } from "react-router-dom";
 import Sidebar from '../../Layouts/ClientSidebar';
 import axios from 'axios';
-import Swal from 'sweetalert2';
 import ReactPaginate from "react-paginate";
+import {Table, Thead, Tbody, Tr, Th, Td} from 'react-super-responsive-table'
 
 export default function Contract() {
     
@@ -80,26 +80,26 @@ export default function Contract() {
                         <div className="boxPanel">
                             <div className="table-responsive">
                                 { contracts.length > 0 ?(
-                                <table className="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">Contract ID</th>
-                                            <th scope="col">Services</th>
-                                            <th scope="col">Status</th>
-                                            <th scope="col">Total</th>
-                                            <th scope="col">Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>  
+                                <Table className="table table-bordered responsiveTable">
+                                    <Thead>
+                                        <Tr>
+                                            <Th scope="col">Contract ID</Th>
+                                            <Th scope="col">Services</Th>
+                                            <Th scope="col">Status</Th>
+                                            <Th scope="col">Total</Th>
+                                            <Th scope="col">Action</Th>
+                                        </Tr>
+                                    </Thead>
+                                    <Tbody>  
                                         {contracts && contracts.map((c,i)=>{
 
                                             let services = JSON.parse(c.offer.services);
 
                                             return(
 
-                                        <tr>
-                                            <td>#{c.id}</td>
-                                            <td>
+                                        <Tr>
+                                            <Td>#{c.id}</Td>
+                                            <Td>
                                             {services && services.map((s,j)=>{
                                
                                                 return(
@@ -108,19 +108,19 @@ export default function Contract() {
                                                     : s.name
                                                 )
                                             })}
-                                            </td>
-                                            <td>{ c.status }</td>
-                                            <td>{ c.offer.total } ILS + VAT</td>
-                                            <td>
+                                            </Td>
+                                            <Td>{ c.status }</Td>
+                                            <Td>{ c.offer.total } ILS + VAT</Td>
+                                            <Td>
                                             <Link to={`/client/view-contract/${c.id}/${c.unique_hash}`} className="ml-2 btn bg-yellow"><i className="fa fa-eye"></i></Link>
-                                            </td>
-                                        </tr>   
+                                            </Td>
+                                        </Tr>   
 
                                             )
                                         })}
                                           
-                                    </tbody>
-                                </table> 
+                                    </Tbody>
+                                </Table> 
                                 ):(
                                     <div className='form-control text-center'>{loading}</div>
                                 )
