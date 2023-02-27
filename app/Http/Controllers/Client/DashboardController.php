@@ -26,7 +26,7 @@ class DashboardController extends Controller
         $total_offers    = Offer::where('client_id',$id)->count();
         $total_schedules  = Schedule::where('client_id',$id)->count();
         $total_contracts  = Contract::where('client_id',$id)->count();
-        $latest_jobs     = Job::where('client_id',$id)->with('client','service','worker')->orderBy('id', 'desc')->take(10)->get();
+        $latest_jobs     = Job::where('client_id',$id)->with('client','service','worker','jobservice')->orderBy('id', 'desc')->take(10)->get();
 
         return response()->json([
             'total_jobs'         => $total_jobs,
@@ -307,13 +307,13 @@ class DashboardController extends Controller
 
     //JOBS
     public function listJobs(Request $request){
-        $jobs = Job::where('client_id',$request->cid)->with('offer','client','worker')->get();;
+        $jobs = Job::where('client_id',$request->cid)->with('offer','client','worker','jobservice')->get();;
         return response()->json([
             'jobs'       => $jobs,        
         ], 200);
     }
     public function viewJob(Request $request){
-        $job = Job::where('id',$request->id)->with('client','worker','service','offer')->get();
+        $job = Job::where('id',$request->id)->with('client','worker','service','offer','jobservice')->get();
         return response()->json([
             'job'        => $job,            
         ], 200);

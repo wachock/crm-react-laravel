@@ -27,10 +27,9 @@ export default function AddJob() {
         .get(`/api/admin/jobs/${params.id}/edit`,{headers})
         .then((res)=>{
             const r = res.data.job;
-            console.log(r);
             setClient(r.client.firstname+' '+r.client.lastname);
             setAddress(r.client.geo_address);
-            setServices(JSON.parse(r.offer.services));
+            setServices(r.jobservice);
         });
     }
      useEffect(()=>{
@@ -57,34 +56,16 @@ export default function AddJob() {
                                  <div className='col-sm-2'>
                                           <div className='form-group'>
                                             <label>Services</label>
-                                            {services &&
-                                                services.map((item, index) => (
                                                 
-                                                 <p>{index +1 }.{item.name}</p>
-                                                )
-                                            )}
-                                        </div>
-                                </div>
-                                <div className='col-sm-2'>
-                                          <div className='form-group'>
-                                            <label>Frequency</label>
-                                            {services &&
-                                                services.map((item, index) => (
-                                                
-                                                 <p>{index +1 }.{item.freq_name}</p>
-                                                )
-                                            )}
+                                                 <p>{services.name}</p>
                                         </div>
                                 </div>
                                  <div className='col-sm-2'>
                                           <div className='form-group'>
                                             <label>Complete Time</label>
-                                             {services &&
-                                                services.map((item, index) => (
+                                             
                                                 
-                                                 <p>{item.jobHours} hours</p>
-                                                )
-                                            )}
+                                                 <p>{services.job_hour} hours</p>
                                         </div>
                                 </div>
                                  <div className='col-sm-4'>

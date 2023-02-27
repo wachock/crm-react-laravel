@@ -37,7 +37,7 @@ export default function WorkerViewJob() {
                 setJobStatus(r.status);
                 setClient(r.client);
                 setWorker(r.worker);
-                setServices(JSON.parse(r.offer.services));
+                setServices(r.jobservice);
             });
     }
     useEffect(() => {

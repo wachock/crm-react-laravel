@@ -10,12 +10,7 @@ export default function Services({services,job}) {
                                 <div className='col-sm-3'>
                                     <div className='form-group'>
                                         <label className='control-label'>Services</label>
-                                          {services &&
-                                                services.map((item, index) => (
-                                                
-                                                 <p>{index +1 }.{item.name}</p>
-                                                )
-                                            )}
+                                          <p>{services.name}</p>
                                     </div>
                                 </div>
                                 <div className='col-sm-3'>
@@ -28,12 +23,7 @@ export default function Services({services,job}) {
                                 <div className='col-sm-3'>
                                     <div className='form-group'>
                                         <label className='control-label'>Complete Time</label>
-                                      {services &&
-                                                services.map((item, index) => (
-                                                
-                                                 <p>{item.jobHours} hours</p>
-                                                )
-                                            )}
+                                                 <p>{services.job_hour} hours</p>
                                     </div>
                                 </div>
                                 <div className='col-sm-3'>

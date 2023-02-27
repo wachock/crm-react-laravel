@@ -92,13 +92,7 @@ export default function WorkerDashboard() {
                                                         }
                                                         </td>
                                                         <td>{
-                                                           services && services.map((s,i)=>{
-                                                            return(
-                                                                (services.length -1) != i?
-                                                                  s.name+" | "
-                                                                : s.name
-                                                            )
-                                                           })
+                                                           item.jobservice.name
                                                         }</td>
                                                         <td>
                                                             {item.start_date}
@@ -119,7 +113,7 @@ export default function WorkerDashboard() {
                                                             {item.status}
                                                         </td>
                                                         <td>
-                                                           {item.offer.subtotal} ILS
+                                                           {item.jobservice.total} ILS
                                                         </td>
                                                             <td>
                                                                 <div className="d-flex">

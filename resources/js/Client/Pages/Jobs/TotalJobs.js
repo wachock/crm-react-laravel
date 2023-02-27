@@ -116,13 +116,7 @@ export default function TotalJobs() {
                                                         }
                                                         </td>
                                                         <td>{
-                                                           services && services.map((s,i)=>{
-                                                            return(
-                                                                (services.length -1) != i?
-                                                                  s.name+" | "
-                                                                : s.name
-                                                            )
-                                                           })
+                                                           item.jobservice?item.jobservice.name:''
                                                         }</td>
                                                         <td>
                                                              {(item.start_time !='')?(`${item.start_time} to ${item.end_time}`):''}
@@ -152,7 +146,7 @@ export default function TotalJobs() {
                                                             {item.status}
                                                         </td>
                                                         <td>
-                                                            {item.offer.subtotal} ILS + VAT
+                                                            {item.jobservice?item.jobservice.total:'0'} ILS + VAT
                                                         </td>
                                                         <td>
                                                             <Link to={`/client/view-job/${item.id}`} className="btn btn-primary">View</Link>

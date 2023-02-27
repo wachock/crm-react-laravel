@@ -15,7 +15,7 @@ class DashboardController extends Controller
     {
         $id              = $request->id;
         $total_jobs      = Job::where('worker_id',$id)->count();
-        $latest_jobs     = Job::where('worker_id',$id)->with('client','offer','worker')->orderBy('id', 'desc')->take(10)->get();
+        $latest_jobs     = Job::where('worker_id',$id)->with('client','offer','worker','jobservice')->orderBy('id', 'desc')->take(10)->get();
 
         return response()->json([
             'total_jobs'         => $total_jobs,
