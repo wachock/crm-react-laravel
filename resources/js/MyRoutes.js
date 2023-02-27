@@ -6,9 +6,13 @@ import AlertTemplate from "react-alert-template-basic";
 import TimeAgo from 'javascript-time-ago'
 import en from 'javascript-time-ago/locale/en.json'
 const lng = localStorage.getItem('i18nextLng');
+console.log(lng);
 if(lng == 'heb'){ 
    import ('./Assets/css/rtl.css');
-} 
+   document.querySelector('html').setAttribute('dir','rtl');
+} else {
+   document.querySelector('html').removeAttribute('dir');
+}
 
 import './Assets/css/admin.css';
 // import './Assets/css/rtl.css';
