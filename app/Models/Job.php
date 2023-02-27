@@ -48,6 +48,9 @@ class Job extends Model
     public function contract(){
         return $this->belongsTo(Contract::class,'contract_id');
     }
+    public function jobservice(){
+        return $this->hasOne(JobService::class,'job_id');
+    }
 
 
 }

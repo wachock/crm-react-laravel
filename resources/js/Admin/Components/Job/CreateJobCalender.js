@@ -20,6 +20,7 @@ export default function CreateJobCalender() {
     const [startSlot, setStartSlot] = useState([]);
     const [endSlot, setEndSlot] = useState([]);
     const [interval, setTimeInterval] = useState([]);
+    const [selected_service,setSelectedService]=useState(0);
 
     const headers = {
         Accept: "application/json, text/plain, */*",
@@ -168,16 +169,32 @@ export default function CreateJobCalender() {
         }
         setData(newdata);
     }
+    useEffect(() => {
+    (services.length>1)?($('#edit-work-time').modal('show')):'';
+    }, []);
+
+    const handleServices = (value) => {
+       const filtered = services.filter((s)=>{
+            if(s.service == value){
+                return s;
+            }else{
+                $('.services-'+s.service).css('display','none');
+            }
+        });
+       setServices(filtered);
+       setSelectedService(value);
+       $('#edit-work-time').modal('hide')
+    } 
     const handleSubmit = () => {
 
-        let formdata = { 'workers': data };
+        let formdata = { 'workers': data ,'services':services};
         if (data.length > 0) {
             axios
                 .post(`/api/admin/create-job/${params.id}`, formdata, { headers })
                 .then((res) => {
                     alert.success(res.data.message)
                     setTimeout(() => {
-                        navigate('/admin/jobs?q=scheduled');
+                        navigate('/admin/jobs');
                     }, 1000);
 
                 });
@@ -247,13 +264,13 @@ export default function CreateJobCalender() {
                                             <td> {services &&
                                                 services.map((item, index) => (
 
-                                                    <p>{index + 1}.{item.name}</p>
+                                                    <p>{item.name}</p>
                                                 )
                                                 )}</td>
                                             <td>{services &&
                                                 services.map((item, index) => (
 
-                                                    <p>{index + 1}.{item.freq_name}</p>
+                                                    <p>{item.freq_name}</p>
                                                 )
                                                 )}</td>
                                             <td>{services &&
@@ -307,6 +324,35 @@ export default function CreateJobCalender() {
                         <div className="modal-footer">
                             <button type="button" className="btn btn-secondary closeb" data-dismiss="modal">Close</button>
                             <button type="button" onClick={handleSubmit} className="btn btn-primary" data-dismiss="modal">Save and Send</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+              <div className="modal fade" id="edit-work-time" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div className="modal-dialog" role="document">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h5 className="modal-title" id="exampleModalLabel">Select Service</h5>
+                        </div>
+                        <div className="modal-body">
+                            <div className="row">
+                                <div className="col-sm-12">
+                                   <label className="control-label">
+                                            Services
+                                        </label>
+                                        <select value={selected_service} onChange={(e) =>
+                                                handleServices(e.target.value)
+                                            } className="form-control">
+                                        <option value="">Please Select Service</option>
+                                       {services &&
+                                                services.map((item, index) => (
+                                                
+                                                 <option value={item.service}>{item.name} hours</option>
+                                                )
+                                            )}
+                                        </select>
+                                </div>
+                                </div>
                         </div>
                     </div>
                 </div>

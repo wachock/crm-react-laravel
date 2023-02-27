@@ -134,8 +134,8 @@ export default function ClientDashboard() {
                                                                 }
                                                                 </td>
                                                                 <td>{
-                                                                    item.service
-                                                                        ? item.service.name
+                                                                    item.jobservice
+                                                                        ? item.jobservice.name
                                                                         : "NA"
                                                                 }</td>
                                                                 <td>
@@ -163,7 +163,7 @@ export default function ClientDashboard() {
                                                                     {item.status}
                                                                 </td>
                                                                 <td>
-                                                                    {item.rate}
+                                                                    {item.jobservice.total}
                                                                 </td>
                                                                 <td>
                                                                     <div className="d-flex">

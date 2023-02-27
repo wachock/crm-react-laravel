@@ -10,34 +10,14 @@ export default function Services({services,job}) {
                                 <div className='col-sm-3'>
                                     <div className='form-group'>
                                         <label className='control-label'>Services</label>
-                                          {services &&
-                                                services.map((item, index) => (
-                                                
-                                                 <p key={index}>{item.name}</p>
-                                                )
-                                            )}
-                                    </div>
-                                </div>
-                                <div className='col-sm-3'>
-                                    <div className='form-group'>
-                                        <label className='control-label'>Frequency</label>
-                                          {services &&
-                                                services.map((item, index) => (
-                                                
-                                                 <p key={index}>{item.freq_name}</p>
-                                                )
-                                            )}
+                                          <p>{services.name}</p>
                                     </div>
                                 </div>
                                 <div className='col-sm-2'>
                                     <div className='form-group'>
                                         <label className='control-label'>Complete Time</label>
-                                      {services &&
-                                                services.map((item, index) => (
                                                 
-                                                 <p key={index}>{item.jobHours} hours</p>
-                                                )
-                                            )}
+                                                 <p>{services.job_hour} hours</p>
                                     </div>
                                 </div>
                                 <div className='col-sm-2'>
