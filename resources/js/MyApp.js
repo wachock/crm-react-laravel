@@ -27,6 +27,15 @@ i18n
   
 });
 
+const lng = localStorage.getItem('i18nextLng');
+const url = window.location.href;
+if(lng == 'heb' && !url.includes('admin')){ 
+   import ('./Assets/css/rtl.css');
+   document.querySelector('html').setAttribute('dir','rtl');
+} else {
+   document.querySelector('html').removeAttribute('dir');
+}
+
 const root = document.getElementById('root');
 render(
   <React.StrictMode> 

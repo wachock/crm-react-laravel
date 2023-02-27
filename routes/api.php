@@ -40,4 +40,5 @@ Route::group( ['middleware' => ['auth:api','scopes:user'] ],function(){
     Route::get('details',[AuthController::class, 'details']); 
     Route::post('update_details/{id}',[AuthController::class, 'updateWorker']); 
 
+
 });

@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import { useAlert } from "react-alert";
 import { useNavigate } from "react-router-dom";
@@ -12,12 +11,6 @@ export default function ClientSidebar() {
     const name = localStorage.getItem("admin-name");
     const navigate = useNavigate();
     const {t} = useTranslation();
-    const lng = localStorage.getItem('i18nextLng');
-    if(lng == 'heb'){ 
-        document.querySelector('html').setAttribute('dir','rtl');
-    } else {
-        document.querySelector('html').removeAttribute('dir');
-    }
     const HandleLogout = (e) => {
         fetch("/api/client/logout", {
             method: "POST",
@@ -42,6 +35,8 @@ export default function ClientSidebar() {
         alert.success("Logged Out Successfully");
     };
 
+    
+    
     return (
         <div id="column-left">
             <div className="sideLogo">

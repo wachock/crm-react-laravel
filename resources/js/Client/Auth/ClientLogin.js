@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import logo from "../../Assets/image/logo.png";
-
-
+import i18next from "i18next";
 export default function ClientLogin() {
+
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [errors, setErrors] = useState([]);
@@ -18,6 +18,7 @@ export default function ClientLogin() {
                 setErrors(result.data.errors);
             } else {
                 localStorage.setItem("client-token", result.data.token);
+                i18next.changeLanguage(result.data.lng);
                 localStorage.setItem(
                     "client-name",
                     result.data.firstname + " " + result.data.lastname

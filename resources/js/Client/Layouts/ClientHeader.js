@@ -6,6 +6,7 @@ import { useAlert } from "react-alert";
 import axios from "axios";
 import ClientMobileHeader from "./ClientMobileHeader";
 import { useTranslation } from "react-i18next";
+import i18next from "i18next";
 
 export default function ClientHeader() {
    
@@ -41,6 +42,7 @@ export default function ClientHeader() {
       .get('/api/client/my-account',{ headers })
       .then((res)=>{
         setAvatar(res.data.account.avatar);
+        i18next.changeLanguage(res.data.account.lng);
       })
     }
     useEffect(()=>{
