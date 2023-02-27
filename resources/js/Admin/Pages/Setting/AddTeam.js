@@ -83,42 +83,42 @@ export default function AddTeam() {
                 <div className='col-sm-6'>
                     <div className='dashBox p-4'> 
                     <div className="form-group">
-                                    <div className="form-check form-check-inline1">
+                                    <div className="form-check form-check-inline1 pl-0">
                                         <label class="form-check-label" for="title">Color</label>
                                     </div>
 
                                     <div className="form-check form-check-inline">
-                                        <input type="radio" name="color" value="#9400D3" onChange={(e) => setColor(e.target.value)} />
+                                        <input className='mr-1' type="radio" name="color" value="#9400D3" onChange={(e) => setColor(e.target.value)} />
                                         <label class="form-check-label" for="voilet">Voilet</label>
                                     </div>
 
                                     <div className="form-check form-check-inline">
-                                        <input type="radio" name="color" value="#4B0082" onChange={(e) => setColor(e.target.value)} />
+                                        <input className='mr-1' type="radio" name="color" value="#4B0082" onChange={(e) => setColor(e.target.value)} />
                                         <label class="form-check-label" for="voilet">Indigo</label>
                                     </div>
 
                                     <div className="form-check form-check-inline">
-                                        <input type="radio" name="color" value="#0000FF" onChange={(e) => setColor(e.target.value)} />
+                                        <input className='mr-1' type="radio" name="color" value="#0000FF" onChange={(e) => setColor(e.target.value)} />
                                         <label class="form-check-label" for="Blue">Blue</label>
                                     </div>
 
                                     <div className="form-check form-check-inline">
-                                        <input type="radio" name="color" value="#00FF00" onChange={(e) => setColor(e.target.value)} />
+                                        <input className='mr-1' type="radio" name="color" value="#00FF00" onChange={(e) => setColor(e.target.value)} />
                                         <label class="form-check-label" for="Green">Green</label>
                                     </div>
 
                                     <div className="form-check form-check-inline">
-                                        <input type="radio" name="color" value="#FFFF00" onChange={(e) => setColor(e.target.value)} />
+                                        <input className='mr-1' type="radio" name="color" value="#FFFF00" onChange={(e) => setColor(e.target.value)} />
                                         <label class="form-check-label" for="Yellow">Yellow</label>
                                     </div>
 
                                     <div className="form-check form-check-inline">
-                                        <input type="radio" name="color" value="#FF7F00" onChange={(e) => setColor(e.target.value)} />
+                                        <input className='mr-1' type="radio" name="color" value="#FF7F00" onChange={(e) => setColor(e.target.value)} />
                                         <label class="form-check-label" for="Orange">Orange</label>
                                     </div>
 
                                     <div className="form-check form-check-inline">
-                                        <input type="radio" name="color" value="#FF0000" onChange={(e) => setColor(e.target.value)} />
+                                        <input className='mr-1' type="radio" name="color" value="#FF0000" onChange={(e) => setColor(e.target.value)} />
                                         <label class="form-check-label" for="Red">Red</label>
                                     </div>
 

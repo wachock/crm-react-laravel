@@ -81,7 +81,7 @@ export default function PriceOffer() {
         <>
 
             <div className='container'>
-                <div className='send-offer'>
+                <div className='send-offer sendOfferRtl'>
                     <div className='maxWidthControl dashBox mb-4'>
                         <div className='row'>
                             <div className='col-sm-6'>
