@@ -71,6 +71,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin-api', 'scopes:ad
 
     Route::post('get-job-time', [JobController::class, 'getJobTime']);
     Route::post('add-job-time', [JobController::class, 'addJobTime']);
+    Route::post('update-job-time', [JobController::class, 'updateJobTime']);
+    Route::delete('delete-job-time/{id}', [JobController::class, 'deleteJobTime']);
 
     // workers Api
     Route::resource('workers', WorkerController::class);

@@ -3,7 +3,6 @@ import React  from 'react'
 export default function WorkerDetails({worker}) {
   return (
     <>
-                    <h2 className="text-danger">Worker Details</h2>
                     <div className='dashBox p-4 mb-3'>
                         <form>
                             <div className='row'>

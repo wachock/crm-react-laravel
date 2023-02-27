@@ -1147,7 +1147,12 @@ h1 {
   margin-bottom: 15px;
 }
 .form101 label{
-  font-weight: 600;
+  font-weight: 700;
+}
+.form101 .sign101{
+  margin-top: 15px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
 }
 .fc-view-harness.fc-view-harness-active{
   height: 2000px !important;
@@ -1259,11 +1264,13 @@ h1 {
 }
 .form101 h1{
   color: #030388;
+  margin-bottom: 5px;
 }
 .form101 .max600{
-  max-width: 600px;
-  margin: 0 auto;
   margin-bottom: 15px;
+}
+.form101 .box-heading [aria-hidden="true"] {
+  display: none;
 }
 .responsiveTable tbody tr{
   border-bottom: 1px solid #ddd !important;
