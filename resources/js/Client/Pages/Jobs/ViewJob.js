@@ -88,18 +88,18 @@ export default function ViewJob() {
             <Sidebar />
             <div id="content">
                 <div className='view-applicant'>
-                    <div className='worker-profile'>
+                    <div className='worker-profile mt-4'>
                         <div className="row">
                             <div className="col-sm-12">
                                 <div className="row">
                                    <div className="col-sm-8 ">
-                                      <h2 className="text-danger">Worker Details</h2>
+                                      <h2 className="text-custom">Worker Details</h2>
                                     </div>
                                     <div className="col-sm-2 text-right">
-                                          Job Status : <h6 className="text-danger">{job.status}</h6>
+                                          Job Status : <h6 className="text-custom" style={{textTransform: "capitalize"}}>{job.status}</h6>
                                     </div>
                                      <div className="col-sm-2">
-                                          {(job_status !='completed' && job_status !='cancel') && ( <button type="button" onClick={HandleCancelJob} className="btn btn-success">Cancel</button>)}
+                                          {(job_status !='completed' && job_status !='cancel') && ( <button type="button" onClick={HandleCancelJob} className="btn btn-danger dangerous">Cancel</button>)}
                                     </div>
                                 </div>
                                

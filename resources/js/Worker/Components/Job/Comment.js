@@ -92,8 +92,8 @@ export default function Comment() {
 
         <div className="tab-pane fade active show" id="customer-notes" role="tabpanel"
             aria-labelledby="customer-notes-tab">
-            <div className="text-right pb-3">
-                <button type="button" className="btn btn-pink" data-toggle="modal" data-target="#exampleModal">
+            <div className="text-right pb-3 mt-3">
+                <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
                     Request for Reschedule or Unavailable
                 </button>
             </div>
@@ -104,21 +104,21 @@ export default function Comment() {
                 <div className="card-comments cardforResponsive"></div>
                 <div className="card-comment p-3" style={{ "background-color": "rgba(0,0,0,.05)", "border-radius": "5px" }}>
                     <div className="row">
-                        <div className="col-sm-7 col-6">
-                            <span className="noteby p-1" style={{
-                                 "font-weight": "600",
-                                 "background" : "darkgray",
+                        <div className="col-sm-10 col-10">
+                            <p className="noteby p-1" style={{
+                                 "font-size": "16px",
 
                             }}>
                             {
                             c.name
-                            }
-                            </span>
+                            } - 
                             <span className="noteDate" style={{ "font-weight": "600" }}>
-                                 {" | "+Moment(c.created_at).format('DD-MM-Y h:sa')} <br />
+                                 {" "+Moment(c.created_at).format('DD-MM-Y h:sa')} <br />
                             </span>
+                            </p>
+                            
                         </div>
-                        <div className="col-sm-5 col-6">
+                        <div className="col-sm-2 col-2">
                             <div className="float-right noteUser">
                             {(c.name==localStorage.getItem("worker-name"))
                             ?

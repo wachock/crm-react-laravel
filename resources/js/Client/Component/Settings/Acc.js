@@ -317,7 +317,7 @@ export default function Acc() {
                     type="submit"
                     value="UPDATE"
                     onClick={handleSubmit}
-                    className="btn btn-danger saveBtn"
+                    className="btn btn-primary saveBtn"
                 />
             </div>
         </form>
