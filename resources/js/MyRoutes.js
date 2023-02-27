@@ -5,6 +5,10 @@ import { positions, Provider } from "react-alert";
 import AlertTemplate from "react-alert-template-basic";
 import TimeAgo from 'javascript-time-ago'
 import en from 'javascript-time-ago/locale/en.json'
+const lng = localStorage.getItem('i18nextLng');
+if(lng == 'heb'){ 
+   import ('./Assets/css/rtl.css');
+} 
 
 import './Assets/css/admin.css';
 // import './Assets/css/rtl.css';

@@ -4,13 +4,20 @@ import { useAlert } from "react-alert";
 import { useNavigate } from "react-router-dom";
 import logo from "../../Assets/image/logo.png";
 import { NavLink } from 'react-router-dom';
+import { useTranslation } from "react-i18next";
 
 export default function ClientSidebar() {
 
     const alert = useAlert();
     const name = localStorage.getItem("admin-name");
     const navigate = useNavigate();
-
+    const {t} = useTranslation();
+    const lng = localStorage.getItem('i18nextLng');
+    if(lng == 'heb'){ 
+        document.querySelector('html').setAttribute('dir','rtl');
+    } else {
+        document.querySelector('html').removeAttribute('dir');
+    }
     const HandleLogout = (e) => {
         fetch("/api/client/logout", {
             method: "POST",
@@ -44,29 +51,29 @@ export default function ClientSidebar() {
             </div>
             <ul className="list-group">
                 <li className="list-group-item">
-                    <NavLink to="/client/dashboard"><i className="fa-solid fa-gauge"></i>Dashboard</NavLink>
+                    <NavLink to="/client/dashboard"><i className="fa-solid fa-gauge"></i>{t('client.sidebar.dashboard')}</NavLink>
                 </li>
                 <li className="list-group-item">
-                    <NavLink to="/client/schedule"><i className="fa-solid fa-video"></i>Scheduled Meetings</NavLink>
+                    <NavLink to="/client/schedule"><i className="fa-solid fa-video"></i>{t('client.sidebar.schedule_meet')}</NavLink>
                 </li>
                 <li className="list-group-item">
-                    <NavLink to="/client/offered-price"><i className="fa-solid fa-tags"></i>Offered Prices</NavLink>
+                    <NavLink to="/client/offered-price"><i className="fa-solid fa-tags"></i>{t('client.sidebar.ofr_price')}</NavLink>
                 </li>
                 <li className="list-group-item">
-                    <NavLink to="/client/contracts"><i className="fa-solid fa-clipboard-list"></i>Contracts</NavLink>
+                    <NavLink to="/client/contracts"><i className="fa-solid fa-clipboard-list"></i>{t('client.sidebar.contracts')}</NavLink>
                 </li>
                 <li className="list-group-item">
-                    <NavLink to="/client/jobs"><i className="fa-solid fa-briefcase"></i>Jobs</NavLink>
+                    <NavLink to="/client/jobs"><i className="fa-solid fa-briefcase"></i>{t('client.sidebar.jobs')}</NavLink>
                 </li>
                 <li className="list-group-item">
-                    <NavLink to="/client/settings"><i className="fa-solid fa-gear"></i>Settings</NavLink>
+                    <NavLink to="/client/settings"><i className="fa-solid fa-gear"></i>{t('client.sidebar.settings')}</NavLink>
                 </li>
                 
             </ul>
             <div className="sideLogout">
                 <div className="logoutBtn">
                     <button className="btn btn-white" onClick={HandleLogout}>
-                        Logout
+                    {t('client.logout')}
                     </button>
                 </div>
             </div>

@@ -5,12 +5,15 @@ import User from '../../Assets/image/user.png';
 import { useAlert } from "react-alert";
 import axios from "axios";
 import ClientMobileHeader from "./ClientMobileHeader";
+import { useTranslation } from "react-i18next";
 
 export default function ClientHeader() {
+   
+  const {t} = useTranslation(); 
   const alert = useAlert();
-   const navigate = useNavigate();
-    const [avatar,setAvatar] = useState("");
-    const HandleLogout = (e) => {
+  const navigate = useNavigate();
+  const [avatar,setAvatar] = useState("");
+  const HandleLogout = (e) => {
         fetch("/api/client/logout", {
             method: "POST",
             headers: {
@@ -59,8 +62,8 @@ export default function ClientHeader() {
                   <img src={avatar} className='img-fluid' alt='Avatar not uploaded' />
                 </Link>
                 <div className="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                  <Link className="dropdown-item" to="/admin/settings">My Account</Link>
-                  <Link className="dropdown-item" onClick={HandleLogout}>Logout</Link>
+                  <Link className="dropdown-item" to="/admin/settings">{t('client.my_account')}</Link>
+                  <Link className="dropdown-item" onClick={HandleLogout}>{t('client.logout')}</Link>
                 </div>
               </div>
             </div>
