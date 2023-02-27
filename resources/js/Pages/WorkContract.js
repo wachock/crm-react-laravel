@@ -125,7 +125,7 @@ export default function WorkContract() {
                 </div>
                 <h4 className='inHead'>{t('work-contract.inHead')}</h4>
                 <div className='signed'>
-                    <p>{t('work-contract.signed')} <span>{client.city ? client.city : 'NA'}</span> on <span>{Moment(contract.created_at).format('DD MMMM,Y')}</span></p>
+                    <p>{t('work-contract.signed')} <span>{client.geo_address ? client.geo_address : 'NA'}</span> on <span>{Moment(contract.created_at).format('DD MMMM,Y')}</span></p>
                 </div>
                 <div className='between'>
                     <p>{t('work-contract.between')}</p>

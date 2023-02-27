@@ -106,7 +106,6 @@ export default function notes() {
                             <span className="noteby p-1" style={{
                                  "font-weight": "600",
                                  "background" : "darkgray",
-                                 "border"     : "inset"
 
                             }}>
                             {

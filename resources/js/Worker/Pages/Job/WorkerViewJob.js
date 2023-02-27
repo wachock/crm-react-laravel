@@ -210,7 +210,7 @@ export default function WorkerViewJob() {
                                     </div>
                                     :
                                     <div className='col-sm-2'>
-                                       Job Status : <h6 className="text-danger">Completed</h6>
+                                       Job Status : <h6 className="text-danger">{job.status}</h6>
                                     </div>
                                      }
                                  </div>

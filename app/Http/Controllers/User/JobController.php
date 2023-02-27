@@ -86,8 +86,7 @@ class JobController extends Controller
     public function update(Request $request, $id)
     {
          $job = Job::find($id);
-         $this->invoice($id);
-         die();
+         //$this->invoice($id);
          $job->status ='completed';
          $job->save();
 
