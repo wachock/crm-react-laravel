@@ -1,11 +1,21 @@
-import React from 'react'
+import React, { useState } from 'react'
 import logo from "../Assets/image/logo.png";
 import check from "../Assets/image/icons/check-mark.png";
 
 export default function Form101() {
+  const [selected, setSelected] = useState("");
+  const changeHandler = e => {
+    setSelected(e.target.value);
+  };
+  console.log(selected);
+  const [file, setFile] = useState();
+  function handleChange(e) {
+      console.log(e.target.files);
+      setFile(URL.createObjectURL(e.target.files[0]));
+  }
   return (
     <div className='container'>
-      <div className='form101 maxWidthControl p-4'>
+      <div className='form101 p-4'>
         <img src={logo} className='img-fluid broom-logo' alt='Broom Services' />
         <h1 className='text-center'>Form 101</h1>
         <p className='text-center max600'>Employee card - and a request for tax relief and coordination by the employer according to the Income Tax Regulations (deduction from salary and wages), 1993</p>
@@ -53,34 +63,136 @@ export default function Form101() {
         </div>  
         <div className='box-heading'>
           <h2>A. Employer details</h2>
-          <form>
-            <div className='row'>
-              <div className='col-sm-6 col-xs-6'>
-                <div className='form-group'>
-                  <label className='control-label'>Name</label>
-                  <input type='text' className='form-control' placeholder='Name' />
-                </div>
+          <div className='row'>
+            <div className='col-sm-3 col-xs-6'>
+              <div className='form-group'>
+                <label className='control-label'>Name*</label>
+                <input type='text' className='form-control' placeholder='Name' required />
               </div>
-              <div className='col-sm-6 col-xs-6'>
-                <div className='form-group'>
-                  <label className='control-label'>Address</label>
-                  <input type='text' className='form-control' placeholder='Address' />
-                </div>
+            </div>
+            <div className='col-sm-3 col-xs-6'>
+              <div className='form-group'>
+                <label className='control-label'>Address</label>
+                <input type='text' className='form-control' placeholder='Address' />
               </div>
-              <div className='col-sm-6 col-xs-6'>
-                <div className='form-group'>
-                  <label className='control-label'>Phone Number</label>
-                  <input type='tel' className='form-control' placeholder='Phone Number' />
-                </div>
+            </div>
+            <div className='col-sm-3 col-xs-6'>
+              <div className='form-group'>
+                <label className='control-label'>Phone Number*</label>
+                <input type='tel' className='form-control' placeholder='Phone Number' required />
               </div>
-              <div className='col-sm-6 col-xs-6'>
+            </div>
+            <div className='col-sm-3 col-xs-6'>
+              <div className='form-group'>
+                <label className='control-label'>Deduction file ID</label>
+                <input type='text' className='form-control' placeholder='Deduction file ID' />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className='box-heading'>
+          <h2>B. Employee details</h2>
+          <div className='row'>
+            <div className='col-sm-4 col-xs-6'>
                 <div className='form-group'>
-                  <label className='control-label'>Deduction file ID</label>
-                  <input type='text' className='form-control' placeholder='Deduction file ID' />
+                  <label className='control-label'>First name*</label>
+                  <input type='text' className='form-control' placeholder='First name' required />
+                </div>
+            </div>
+            <div className='col-sm-4 col-xs-6'>
+                <div className='form-group'>
+                  <label className='control-label'>Last name*</label>
+                  <input type='text' className='form-control' placeholder='Last name' required />
+                </div>
+            </div>
+            <div className='col-sm-4 col-xs-6'>
+                <div className='form-group'>
+                  <label className='control-label d-block'>Identification by*</label>
+
+                  <input className='mr-1' type="radio" name="identification" value="byId" id="byId" checked={selected === "byId"} onChange={changeHandler}/>
+                  <label className='mr-2' htmlFor="byId">ID</label>
+                    
+                  <input className='mr-1' type="radio" value="passport" id="passport" checked={selected === "passport"} name="identification" onChange={changeHandler}/>
+                  <label className='mr-2' ohtmlFor="passport">Passport (for a foreign citizen)</label>
+                  
+                </div>
+            </div>
+            <div className='col-sm-12'>
+              <div aria-hidden={selected !== "byId" ? true : false}>
+                <div className='row'>
+                  <div className='col-sm-4 col-xs-6'>
+                    <div className='form-group'>
+                      <label className="control-label">ID Number*</label>
+                      <input type='text' className="form-control" placeholder="" required />
+                    </div>
+                  </div>
+                  <div className='col-sm-4 col-xs-6'>
+                    <div className='form-group'>
+                      <label className="control-label">Photocopy of ID card and appendix</label>
+                      <input type="file" onChange={handleChange} style={{display: "block"}} />
+                      <img src={file} className="img-fluid" style={{maxWidth: "100px"}} />
+                    </div>
+                  </div>
+                  <div className='col-sm-4 col-xs-6'>
+                    <div className='form-group'>
+                      <label className="control-label">Date of Birth*</label>
+                      <input type='date' className="form-control" placeholder="" required />
+                    </div>
+                  </div>
+                  <div className='col-sm-4 col-xs-6'>
+                    <div className='form-group'>
+                      <label className="control-label">Date of immigration</label>
+                      <input type='date' className="form-control" placeholder="" />
+                    </div>
+                  </div>
+                  <div className='col-sm-4 col-xs-6'>
+                    <div className='form-group'>
+                      <label className="control-label">Address</label>
+                      <input type='text' className="form-control" placeholder="Address" />
+                    </div>
+                  </div>
+                  <div className='col-sm-4 col-xs-6'>
+                    <div className='form-group'>
+                      <label className="control-label">Mobile number*</label>
+                      <input type='tel' className="form-control" placeholder="Mobile number" required />
+                    </div>
+                  </div>
+                  <div className='col-sm-4 col-xs-6'>
+                    <div className='form-group'>
+                      <label className="control-label">Phone number</label>
+                      <input type='tel' className="form-control" placeholder="Phone number" />
+                    </div>
+                  </div>
+                  <div className='col-sm-4 col-xs-6'>
+                    <div className='form-group'>
+                      <label className="control-label">Email*</label>
+                      <input type='email' className="form-control" placeholder="Email" required/>
+                    </div>
+                  </div>
+                  <div className='col-sm-4 col-xs-6'>
+                    <div className='form-group'>
+                      <label className="control-label d-block">Sex*</label>
+                      <input className='mr-1' type="radio" name="sex" value="Male" id="Male" checked />
+                      <label className='mr-2' htmlFor="Male">Male</label>
+                        
+                      <input className='mr-1' type="radio" value="Female" id="Female" name="sex" />
+                      <label className='mr-2' ohtmlFor="Female">Female</label>
+                    </div>
+                  </div>
+                  {/* <div className='col-sm-12'>
+                    <div className='row'>
+                      <div className=''></div>
+                    </div>
+                  </div> */}
                 </div>
               </div>
             </div>
-          </form>
+            <div className='col-sm-12'>
+              <div aria-hidden={selected !== "passport" ? true : false}>
+                This is Passport
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

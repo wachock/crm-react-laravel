@@ -1259,11 +1259,13 @@ h1 {
 }
 .form101 h1{
   color: #030388;
+  margin-bottom: 5px;
 }
 .form101 .max600{
-  max-width: 600px;
-  margin: 0 auto;
   margin-bottom: 15px;
+}
+.form101 .box-heading [aria-hidden="true"] {
+  display: none;
 }
 .responsiveTable tbody tr{
   border-bottom: 1px solid #ddd !important;
