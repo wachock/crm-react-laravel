@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Contract;
 use App\Models\serviceSchedules;
 use App\Models\JobHours;
+use App\Models\JobService;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -24,7 +25,7 @@ class JobController extends Controller
     {   
         
         $q =  $request->q;
-        $jobs = Job::with('worker', 'client','offer');
+        $jobs = Job::with('worker', 'client','offer','jobservice');
         $jobs = $jobs->orderBy('id', 'desc')->paginate(20);
         return response()->json([
             'jobs'       => $jobs,        
@@ -75,7 +76,7 @@ class JobController extends Controller
      */
     public function show($id)
     {
-        $job                = Job::with('client','worker','service','offer')->find($id);
+        $job                = Job::with('client','worker','service','offer','jobservice')->find($id);
 
         return response()->json([
             'job'        => $job,            
@@ -92,7 +93,7 @@ class JobController extends Controller
     public function edit($id)
     {
         //
-        $job = Job::with('client','worker','service','offer')->find($id);
+        $job = Job::with('client','worker','service','offer','jobservice')->find($id);
         return response()->json([
             'job'=>$job
         ]);
@@ -188,13 +189,19 @@ class JobController extends Controller
         ],200);
     }
     public function createJob(Request $request,$id){
-
          $job = Contract::with('offer')->find($id);
          $repeat_value='';
-         foreach(json_decode($job->offer->services) as $service){
-                
-                  $service_schedules = serviceSchedules::where('name','=',$service->freq_name)->first();
+         $s_name='';
+         $s_hour='';
+         $s_total='';
+         foreach($request->services as $service){
+                  $service_schedules = serviceSchedules::where('name','=',$service['freq_name'])->first();
+
                       $repeat_value=$service_schedules->period;
+                      $s_name=$service['name'];
+                      $s_hour=$service['jobHours'];
+                      $s_total=$service['totalamount'];
+
          }
          foreach($request->workers as $worker){
             $new = new Job;
@@ -206,8 +213,16 @@ class JobController extends Controller
             $new->start_time    = $worker['start'];
             $new->end_time      = $worker['end'];
             $new->schedule      = $repeat_value;
-            $new->status   = 'scheduled';
+            $new->status        = 'scheduled';
             $new->save();
+
+            $service           = new JobService;
+            $service->job_id   = $new->id;
+            $service->name     = $s_name;
+            $service->job_hour = $s_hour;
+            $service->total    = $s_total;
+            $service->save();
+
          }
 
         return response()->json([

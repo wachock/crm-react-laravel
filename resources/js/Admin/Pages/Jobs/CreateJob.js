@@ -15,6 +15,7 @@ export default function () {
     const [services, setServices]      = useState([]);
     const [client, setClient]          = useState('');
     const [address, setAddress]          = useState('');
+    const [selected_service,setSelectedService]=useState(0);
 
     const headers = {
         Accept: "application/json, text/plain, */*",
@@ -36,6 +37,18 @@ export default function () {
      useEffect(()=>{
         getJob();
     },[]);
+    (services.length>1)?($('#edit-work-time').modal('show')):'';
+
+    const handleServices = (value) => {
+       const filtered = services.filter((s)=>{
+            if(s.service == value){
+                return s;
+            }
+        });
+       setServices(filtered);
+       setSelectedService(value);
+       document.querySelector('.closee').click();
+    } 
     
   return (
     <div id="container">
@@ -60,7 +73,7 @@ export default function () {
                                             {services &&
                                                 services.map((item, index) => (
                                                 
-                                                 <p>{index +1 }.{item.name}</p>
+                                                 <p className={`services-${item.service}`}>{item.name}</p>
                                                 )
                                             )}
                                         </div>
@@ -71,7 +84,7 @@ export default function () {
                                             {services &&
                                                 services.map((item, index) => (
                                                 
-                                                 <p>{index +1 }.{item.freq_name}</p>
+                                                 <p className={`services-${item.service}`}>{item.freq_name}</p>
                                                 )
                                             )}
                                         </div>
@@ -82,7 +95,7 @@ export default function () {
                                              {services &&
                                                 services.map((item, index) => (
                                                 
-                                                 <p>{item.jobHours} hours</p>
+                                                 <p className={`services-${item.service}`}>{item.jobHours} hours</p>
                                                 )
                                             )}
                                         </div>

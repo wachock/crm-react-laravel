@@ -251,13 +251,8 @@ export default function TotalJobs() {
                                                             }
                                                             </Td>
                                                             <Td onClick={(e)=>handleNavigate(e,item.id)}>{
-                                                                services && services.map((s, i) => {
-                                                                    return (
-                                                                        (services.length - 1) != i ?
-                                                                            s.name + " | "
-                                                                            : s.name
-                                                                    )
-                                                                })
+                                                               item.jobservice
+                                                                   ? item.jobservice.name:'NA'
                                                             }</Td>
                                                             <Td onClick={(e)=>handleNavigate(e,item.id)}>
                                                                 {(item.start_time != '') ? (`${item.start_time} to ${item.end_time}`) : ''}
@@ -287,7 +282,9 @@ export default function TotalJobs() {
                                                                 {item.status}
                                                             </Td>
                                                             <Td onClick={(e)=>handleNavigate(e,item.id)}>
-                                                                {item.offer.subtotal} ILS + VAT
+                                                                {item.jobservice
+                                                                   ? item.jobservice.total:'0'} ILS + VAT
+                                                    
                                                             </Td>
                                                             <Td>
                                                                 <div className="action-dropdown dropdown pb-2">
