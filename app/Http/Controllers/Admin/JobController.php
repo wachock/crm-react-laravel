@@ -241,7 +241,34 @@ class JobController extends Controller
         $time->worker_id=$request->worker_id;
         $time->start_time=$request->start_time;
         $time->end_time=$request->end_time;
-        $time->time_diff=$request->time_diff;
+        $time->time_diff=$request->timeDiff;
         $time->save();
+         return response()->json([
+            'time'     => $time,        
+            ], 200);
     }
+    public function updateJobTime(Request $request){
+         $validator = Validator::make($request->all(),[
+            'start_time' =>['required'],
+            'end_time'  =>['required']
+        ]);
+        if($validator->fails()){
+            return response()->json(['error'=>$validator->messages()]);
+        }
+        $time = JobHours::find($request->id);
+        $time->start_time=$request->start_time;
+        $time->end_time=$request->end_time;
+        $time->time_diff=$request->timeDiff;
+        $time->save();
+        return response()->json([
+            'time'     => $time,        
+            ], 200);
+    }
+    public function deleteJobTime($id){
+         JobHours::find($id)->delete();
+          return response()->json([
+            'message'     => 'Job Time Deleted Successfully',   
+            ], 200);
+    }
+
 }

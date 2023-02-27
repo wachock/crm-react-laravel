@@ -316,5 +316,15 @@ class DashboardController extends Controller
         ], 200);
 
     }
+    public function updateJobStatus(Request $request,$id){
+        $job = Job::find($id);
+        $job->status = $request->status;
+        $job->rate  = $request->total;
+        $job->save();
+         return response()->json([
+            'job'        => $job,            
+        ], 200);
+
+    }
 
 }
