@@ -36,7 +36,7 @@ export default function TeamAvailability() {
         .then((res)=>{
             const r = res.data.job;
             setClientName(r.client.firstname+' '+r.client.lastname);
-            setServices(JSON.parse(r.offer.services));
+            setServices(r.jobservice);
             
         });
     }
@@ -116,9 +116,8 @@ export default function TeamAvailability() {
     });  
      Array.prototype.push.apply(events,events1);
      let time_period;
-      {services && services.map((item, index) => ( 
-                 time_period = (item.jobHours)
-                )  )}
+     
+                 time_period = services.job_hour;
      const [data,setData]=useState([]);
      const handleEventClick = (e) =>{
            let str=e.startStr;
@@ -209,31 +208,21 @@ export default function TeamAvailability() {
                                             <tr>
                                                 <th scope="col">Client Name</th>
                                                 <th scope="col">Services</th>
-                                                <th scope="col">Frequency</th>
                                                 <th scope="col">Complete Time</th>
                                             </tr>
                                             
                                         </thead>
                                          <tbody>
                                            <td>{clientname}</td>
-                                           <td> {services &&
-                                                services.map((item, index) => (
+                                           <td>
                                                 
-                                                 <p>{index +1 }.{item.name}</p>
-                                                )
-                                            )}</td>
-                                            <td>{services &&
-                                                services.map((item, index) => (
+                                                 <p>{services.name}</p>
+                                               </td>
+                                            
+                                            <td>
                                                 
-                                                 <p>{index +1 }.{item.freq_name}</p>
-                                                )
-                                            )}</td>
-                                            <td>{services &&
-                                                services.map((item, index) => (
-                                                
-                                                 <p>{item.jobHours} hours</p>
-                                                )
-                                            )}</td>
+                                                 <p>{services.job_hour} hours</p>
+                                                </td>
                                          </tbody>
                                     </table>
                                  </div>
