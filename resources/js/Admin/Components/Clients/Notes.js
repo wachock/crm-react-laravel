@@ -102,21 +102,22 @@ export default function notes() {
                 <div className="card-comment p-3" style={{ "background-color": "rgba(0,0,0,.05)", "border-radius": "5px" }}>
                     <div className="row">
                         
-                        <div className="col-sm-7 col-6">
-                            <span className="noteby p-1" style={{
-                                 "font-weight": "600",
-                                 "background" : "darkgray",
+                        <div className="col-sm-10 col-10">
+                            <p className="noteby p-1" style={{
+                                 "textTransform": "uppercase",
+                                 "fontSize": "16px",
 
                             }}>
                             {
                             (n.team) ? n.team.name : 'NA'
-                            }
-                            </span>
+                            } - 
                             <span className="noteDate" style={{ "font-weight": "600" }}>
-                                 {" | "+Moment(n.created_at).format('DD-MM-Y h:sa')} <br />
+                                 {"  "+Moment(n.created_at).format('DD-MM-Y h:sa')} <br />
                             </span>
+                            </p>
+                            
                         </div>
-                        <div className="col-sm-5 col-6">
+                        <div className="col-sm-2 col-2">
                             <div className="float-right noteUser">
                             <button class="ml-2 btn bg-red" onClick={(e)=>handleDelete(e,n.id)}><i class="fa fa-trash"></i></button>
                                 &nbsp;

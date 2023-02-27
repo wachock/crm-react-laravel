@@ -33,3 +33,35 @@
     direction: rtl;
     margin-top: 10px;
 }
+.sendOfferRtl .float-right{
+    float: none !important;
+    direction: rtl;
+}
+.sendOfferRtl h1{
+    text-align: right;
+    direction: rtl;
+}
+.sendOfferRtl .abt h2{
+    text-align: right;
+    direction: rtl;
+}
+.sendOfferRtl .we-have h3{
+    text-align: right;
+    direction: rtl;
+}
+.sendOfferRtl .shift-20{
+    text-align: right;
+    direction: rtl;
+}
+.sendOfferRtl .shift-20 ul li img{
+    direction: rtl;
+    margin-left: 10px;
+}
+.send-offer .abt h2, .send-offer h3, .client-contract h2, .client-contract h3{
+    text-align: right;
+    direction: rtl;
+}
+.client-contract .signed p, .client-contract h4.inHead{
+    text-align: right;
+    direction: rtl;
+}

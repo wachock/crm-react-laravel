@@ -25,7 +25,7 @@ class JobController extends Controller
     {   
         
         $q =  $request->q;
-        $jobs = Job::with('worker', 'client','offer')->where('worker_id',$request->id);
+        $jobs = Job::with('worker', 'client','offer','jobservice')->where('worker_id',$request->id);
         $jobs = $jobs->orderBy('id', 'desc')->paginate(20);
         return response()->json([
             'jobs'       => $jobs,        
@@ -57,7 +57,7 @@ class JobController extends Controller
      */
     public function show($id)
     {
-        $job                = Job::with('client','worker','service','offer')->find($id);
+        $job                = Job::with('client','worker','service','offer','jobservice')->find($id);
 
         return response()->json([
             'job'        => $job,            
