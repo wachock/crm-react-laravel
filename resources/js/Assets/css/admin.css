@@ -1147,7 +1147,12 @@ h1 {
   margin-bottom: 15px;
 }
 .form101 label{
-  font-weight: 600;
+  font-weight: 700;
+}
+.form101 .sign101{
+  margin-top: 15px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
 }
 .fc-view-harness.fc-view-harness-active{
   height: 2000px !important;
