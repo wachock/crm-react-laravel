@@ -5,17 +5,18 @@ import Moment from 'moment';
 import { useNavigate } from 'react-router-dom';
 
 export default function ProfileDetails({ client, offerStatus , scheduleStatus , latestContract }) {
-    //console.log(latestContract.card_type);
+    
     const navigate = useNavigate();
     const firstname = client.firstname;
     const lastname = client.lastname;
     const email = client.email;
-    const phone = client.phone;
+    const phone = (client.phone) ? client.phone.toString().split(",").join(' | '): '';
     const city = client.city;
     const streetNumber = client.street_n_no;
     const floor = client.floor;
     const Apt = client.apt_no;
     const enterance = client.entrence_code;
+    const lang = (client.lng =='heb') ? 'Hebrew' : 'English';
     
     let geo_address = (client.geo_address) ? client.geo_address : "NA";
     let cords   = (client.latitude && client.longitude) ? client.latitude +","+ client.longitude :"";
@@ -86,8 +87,8 @@ export default function ProfileDetails({ client, offerStatus , scheduleStatus , 
                                         </div>
                                         <div className='col-sm-4'>
                                             <div className='form-group'>
-                                                <label>City</label>
-                                                <p>{city} - {zip}</p>
+                                                <label>Language</label>
+                                                <p>{lang}</p>
                                             </div>
                                         </div>
                                         <div className='col-sm-4'>
