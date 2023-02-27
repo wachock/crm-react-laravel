@@ -219,7 +219,7 @@ export default function ViewSchedule() {
                             <ul className='list-unstyled'>
                                 <li><i className="fas fa-mobile"></i> {client.phone}</li>
                                 <li><i className="fas fa-envelope"></i> {client.email}</li>
-                                <li><i className="fas fa-map-marker"></i> {client.city + ", " + client.street_n_no + ", " + client.zipcode}</li>
+                                <li><i className="fas fa-map-marker"></i> {client.geo_address ? client.geo_address : ''}</li>
                             </ul>
                         </div>
                         <div className='col-sm-4'>
