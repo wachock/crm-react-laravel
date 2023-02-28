@@ -3,6 +3,7 @@ import ClientSidebar from "./Layouts/ClientSidebar";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import {Table, Thead, Tbody, Tr, Th, Td} from 'react-super-responsive-table'
+import { useTranslation } from "react-i18next";
 
 export default function ClientDashboard() {
 
@@ -13,6 +14,7 @@ export default function ClientDashboard() {
     const [contracts, setContract] = useState([]);
     const [loading, setLoading] = useState("Loading...");
     const id = localStorage.getItem('client-id');
+    const {t} = useTranslation();
     const headers = {
         Accept: "application/json, text/plain, */*",
         "Content-Type": "application/json",
@@ -44,7 +46,7 @@ export default function ClientDashboard() {
             <div id="content">
                 <div className="adminDash andClient">
                     <div className="titleBox">
-                        <h1 className="page-title">Dashboard</h1>
+                        <h1 className="page-title">{t('client.sidebar.dashboard')}</h1>
                     </div>
                     <div className="row">
                         <div className="col-sm-3 col-xs-6">
@@ -55,7 +57,7 @@ export default function ClientDashboard() {
                                     </div>
                                     <div className="dashText">
                                         <h3>{totalJobs}</h3>
-                                        <p>Jobs</p>
+                                        <p>{t('client.dashboard.jobs')}</p>
                                     </div>
                                 </div>
                             </a>
@@ -69,7 +71,7 @@ export default function ClientDashboard() {
                                     </div>
                                     <div className="dashText">
                                         <h3>{totalSchedules}</h3>
-                                        <p>Meetings</p>
+                                        <p>{t('client.dashboard.meetings')}</p>
                                     </div>
                                 </div>
                             </a>
@@ -82,7 +84,7 @@ export default function ClientDashboard() {
                                     </div>
                                     <div className="dashText">
                                         <h3>{totalOffers}</h3>
-                                        <p>Offered Prices</p>
+                                        <p>{t('client.dashboard.offered_price')}</p>
                                     </div>
                                 </div>
                             </a>
@@ -95,29 +97,29 @@ export default function ClientDashboard() {
                                     </div>
                                     <div className="dashText">
                                         <h3>{contracts}</h3>
-                                        <p>Contracts</p>
+                                        <p>{t('client.dashboard.contracts')}</p>
                                     </div>
                                 </div>
                             </a>
                         </div>
                     </div>
                     <div className="latest-users">
-                        <h2 className="page-title">Recent Jobs</h2>
+                        <h2 className="page-title">{t('client.dashboard.recent_jobs')}</h2>
                         <div className="boxPanel">
                             <div className="table-responsive">
                                 {latestJobs.length > 0 ? (
                                     <Table className="table table-bordered responsiveTable">
                                         <Thead>
                                             <Tr>
-                                                <Th>Client Name</Th>
-                                                <Th>Service Name</Th>
-                                                <Th>Date</Th>
-                                                <Th>Start Time</Th>
-                                                <Th>End Time</Th>
-                                                <Th>Assigned Worker</Th>
-                                                <Th>Status</Th>
-                                                <Th>Total</Th>
-                                                <Th>Action</Th>
+                                                <Th>{t('client.dashboard.client_name')}</Th>
+                                                <Th>{t('client.dashboard.service_name')}</Th>
+                                                <Th>{t('client.dashboard.date')}</Th>
+                                                <Th>{t('client.dashboard.start_time')}</Th>
+                                                <Th>{t('client.dashboard.end_time')}</Th>
+                                                <Th>{t('client.dashboard.assigned_worker')}</Th>
+                                                <Th>{t('client.dashboard.status')}</Th>
+                                                <Th>{t('client.dashboard.total')}</Th>
+                                                <Th>{t('client.dashboard.action')}</Th>
                                             </Tr>
                                         </Thead>
                                         <Tbody>

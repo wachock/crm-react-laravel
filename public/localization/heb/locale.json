@@ -229,16 +229,32 @@
         "accept_contract": "קבל חוזה"
     },
     "client": {
-        "welcome": "welcome",
-        "logout": "Logout",
-        "my_account": "My Account",
+        "welcome": "ברוך הבא",
+        "logout": "להתנתק",
+        "my_account": "החשבון שלי",
         "sidebar": {
-            "dashboard": "Dashboard",
-            "schedule_meet": "Scheduled Meetings",
-            "ofr_price": "Offered Prices",
-            "contracts": "Contracts",
-            "jobs": "Jobs",
-            "settings": "Settings"
+            "dashboard": "לוּחַ מַחווָנִים",
+            "schedule_meet": "פגישות מתוזמנות",
+            "ofr_price": "מחירים מוצעים",
+            "contracts": "חוזים",
+            "jobs": "מקומות תעסוקה",
+            "settings": "הגדרות"
+        },
+        "dashboard":{
+            "contracts":"חוזים",
+            "offered_price":"מחיר מוצע",
+            "meetings":"פגישות",
+            "jobs":"מקומות תעסוקה",
+            "recent_jobs":"משרות אחרונות",
+            "client_name":"שם הלקוח",
+            "service_name":"שם השירות",
+            "date":"תַאֲרִיך",
+            "start_time":"שעת התחלה",
+            "end_time":"שעת סיום",
+            "assigned_worker":"עובד מוקצה",
+            "status":"סטָטוּס",
+            "total":"סה\"כ",
+            "action":"פעולה"
         }
     }
 }
