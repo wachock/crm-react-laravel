@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import Sidebar from '../../Layouts/ClientSidebar'
-import { Link } from 'react-router-dom'
+import {Table, Thead, Tbody, Tr, Th, Td} from 'react-super-responsive-table'
 import axios from 'axios';
 import ReactPaginate from "react-paginate";
 import Moment from 'moment';
-import Swal from 'sweetalert2';
 
 export default function Schedule() {
 
@@ -86,33 +85,33 @@ export default function Schedule() {
             <div className="boxPanel">
               <div className="table-responsive">
                 {schedules.length > 0 ? (
-                  <table className="table table-bordered">
-                    <thead>
-                      <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">Meeting Attender</th>
-                        <th scope="col">Scheduled</th>
-                        <th scope="col">Booking Status</th>
-                        <th scope="col">Files</th>
+                  <Table className="table table-bordered responsiveTable">
+                    <Thead>
+                      <Tr>
+                        <Th scope="col">ID</Th>
+                        <Th scope="col">Meeting Attender</Th>
+                        <Th scope="col">Scheduled</Th>
+                        <Th scope="col">Booking Status</Th>
+                        <Th scope="col">Files</Th>
                        
-                      </tr>
-                    </thead>
-                    <tbody>
+                      </Tr>
+                    </Thead>
+                    <Tbody>
                       {schedules && schedules.map((item, index) => {
 
                         return (
-                          <tr key={index}>
-                            <td>#{item.id}</td>
+                          <Tr key={index}>
+                            <Td>#{item.id}</Td>
                             
-                            <td>
+                            <Td>
                               {
                                 item.team
                                   ? item.team.name
                                   : "NA"
                               }
-                            </td>
+                            </Td>
 
-                            <td>
+                            <Td>
                               <span style={{ color: "blue" }}>{Moment(item.start_date).format('DD/MM/Y') + '\n'}</span>
                               <br />
                               <span style={{ color: "blue" }}>{Moment(item.start_date).format('dddd')}</span>
@@ -120,14 +119,14 @@ export default function Schedule() {
                               <span style={{ color: "green" }}>{"Start :" + item.start_time}</span>
                               <br />
                               <span style={{ color: "red" }}>{"End   :" + item.end_time}</span>
-                            </td>
-                            <td>{item.booking_status}</td>
-                            <td><a href={`/client/files/${item.id}`}><i className='fa fa-image' style={{"font-size":"36px"}}></i></a></td>
-                          </tr>
+                            </Td>
+                            <Td>{item.booking_status}</Td>
+                            <Td><a href={`/client/files/${item.id}`}><i className='fa fa-image' style={{"font-size":"36px"}}></i></a></Td>
+                          </Tr>
                         )
                       })}
-                    </tbody>
-                  </table>
+                    </Tbody>
+                  </Table>
                 ) : (
                   <p className="text-center mt-5">{loading}</p>
                 )}

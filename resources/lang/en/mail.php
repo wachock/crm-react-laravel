@@ -48,6 +48,20 @@ return [
         'regards'     =>'Best Regards',
         'tel'         =>'Telephone'
 
+    ],
+     'form_101' =>[
+        'subject'     =>'Form 101 with',
+        'hi'          =>'Hi',
+        'greetings'   =>'Greetings',
+        'from'        =>'from',
+        'company'     =>'Broom Services',
+        'content'     =>'Please Follow the instructions on the Each Form any questions please contact us: 03- 525-70-60 or reply to this email.',
+        'below_txt'   =>'Click the below button to fill Form101.',
+        'btn_txt'     =>'Form 101',
+        'reply_txt'   =>'If you have any questions or concerns please don\'t hesitate to get in touch with us by replying to this email.',
+        'regards'     =>'Best Regards',
+        'tel'         =>'Telephone'
+
     ]
 ];
 ?>

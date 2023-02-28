@@ -292,7 +292,7 @@ export default function WorkerMyAccount() {
                                         )}
                             </div>
                             <div className="form-group text-center">
-                                <input type='submit' value='Update'  onClick={handleUpdate} className="btn btn-danger saveBtn"/>
+                                <input type='submit' value='Update'  onClick={handleUpdate} className="btn btn-primary saveBtn"/>
                             </div>
                         </form>
                     </div>
