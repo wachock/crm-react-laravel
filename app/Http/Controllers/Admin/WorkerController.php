@@ -12,6 +12,7 @@ use App\Models\WorkerAvialibilty;
 use App\Models\Job;
 use App\Models\Contract;
 use Carbon\Carbon;
+use Mail;
 
 class WorkerController extends Controller
 {
@@ -127,6 +128,14 @@ class WorkerController extends Controller
         $worker->status        = $request->status;
         $worker->country       = $request->country;
         $worker->save();
+
+        \App::setLocale($worker->lng);
+      $worker= $worker->toArray();
+      Mail::send('/Mails/Form101Mail',$worker,function($messages) use ($new_worker){
+        $messages->to($new_worker['email']);
+        $sub = __('mail.form_101.subject')."  ".__('mail.form_101.company');
+        $messages->subject($sub);
+      });
 
         return response()->json([
             'message'       => 'Worker updated successfully',            

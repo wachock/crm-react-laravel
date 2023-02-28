@@ -28,7 +28,7 @@ export default function AddClient() {
     const [color, setColor] = useState("");
     const [status, setStatus] = useState("");
     const [errors, setErrors] = useState([]);
-
+    const [city,setCity] = useState("");
     const alert = useAlert();
     const navigate = useNavigate();
 
@@ -50,7 +50,8 @@ export default function AddClient() {
 
     const handlePlaceChanged = () => {
         if (place) {
-
+            
+            setCity(place.getPlace().vicinity);
             setAddress(place.getPlace().formatted_address);
             setLatitude(place.getPlace().geometry.location.lat());
             setLongitude(place.getPlace().geometry.location.lng());
@@ -79,6 +80,7 @@ export default function AddClient() {
             floor: floor,
             apt_no: Apt,
             entrence_code: enterance,
+            city:city,
             zipcode: zip,
             dob: dob,
             passcode: passcode,

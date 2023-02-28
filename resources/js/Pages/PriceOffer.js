@@ -89,7 +89,7 @@ export default function PriceOffer() {
                             </div>
                             <div className='col-sm-6'>
                                 <div className='mt-2 float-right'>
-                                    <input className='btn btn-pink acpt' onClick={(e) => handleOffer(e, offer.id)} value='Accept Offer' />
+                                    <input className='btn btn-pink acpt' onClick={(e) => handleOffer(e, offer.id)} value={t('price_offer.button')}  />
                                 </div>
                             </div>
                         </div>
@@ -391,7 +391,7 @@ export default function PriceOffer() {
                             </div>
                         </div>
                         <div className='text-center mt-3 mb-3'>
-                            <input className='btn btn-pink acpt' onClick={(e) => handleOffer(e, offer.id)} value='Accept Offer' />
+                            <input className='btn btn-pink acpt' onClick={(e) => handleOffer(e, offer.id)} value={t('price_offer.button')} />
                         </div>
                         <footer className='mt-4'>
                             <img src={footer} className='img-fluid' alt='Footer' />

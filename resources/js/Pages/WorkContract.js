@@ -125,7 +125,7 @@ export default function WorkContract() {
                 </div>
                 <h4 className='inHead'>{t('work-contract.inHead')}</h4>
                 <div className='signed'>
-                    <p>{t('work-contract.signed')} <span>{client.geo_address ? client.geo_address : 'NA'}</span> on <span>{Moment(contract.created_at).format('DD MMMM,Y')}</span></p>
+                    <p>{t('work-contract.signed')} <span>{client.city ? client.city : 'NA'}</span> on <span>{Moment(contract.created_at).format('DD MMMM,Y')}</span></p>
                 </div>
                 <div className='between'>
                     <p>{t('work-contract.between')}</p>
@@ -140,23 +140,23 @@ export default function WorkContract() {
                     return (
                         <>
                     <ul className='list-inline'>
-                        <li className='list-inline-item'>{t('work-contract.full_name')} <span>{ cl.firstname+" "+cl.lastname }</span></li>
+                        <li className='list-inline-item ml-2'>{t('work-contract.full_name')} <span>{ cl.firstname+" "+cl.lastname }</span></li>
                         <li className='list-inline-item'>{t('work-contract.city')} <span>{ cl.city }</span></li>
                     </ul>
                     <ul className='list-inline'>
-                        <li className='list-inline-item'>{t('work-contract.street_and_number')} <span>{ cl.street_n_no }</span></li>
+                        <li className='list-inline-item ml-2'>{t('work-contract.street_and_number')} <span>{ cl.geo_address }</span></li>
                         <li className='list-inline-item'>{t('work-contract.floor')} <span>{ cl.floor }</span></li>
                     </ul>
                     <ul className='list-inline'>
-                        <li className='list-inline-item'>{t('work-contract.apt_number')} <span>{ cl.apt_no }</span></li>
+                        <li className='list-inline-item ml-2'>{t('work-contract.apt_number')} <span>{ cl.apt_no }</span></li>
                         <li className='list-inline-item'>{t('work-contract.enterance_code')} <span>{ cl.entrence_code }</span></li>
                     </ul>
                     <ul className='list-inline'>
-                        <li className='list-inline-item'>{t('work-contract.zip_code')} <span>{ cl.zipcode }</span></li>
+                        <li className='list-inline-item ml-2'>{t('work-contract.zip_code')} <span>{ cl.zipcode }</span></li>
                         <li className='list-inline-item'>{t('work-contract.dob')} <span>{ cl.dob }</span></li>
                     </ul>
                     <ul className='list-inline'>
-                        <li className='list-inline-item'>{t('work-contract.telephone')} <span>{ cl.phone }</span></li>
+                        <li className='list-inline-item ml-2'>{t('work-contract.telephone')} <span>{ cl.phone }</span></li>
                         <li className='list-inline-item'>{t('work-contract.email')} <span>{ cl.email }</span></li>
                     </ul>
                     </>
@@ -193,7 +193,7 @@ export default function WorkContract() {
                 </div>
                 <h2 className='text-center mb-4'>{t('work-contract.parties_hereby_title')}</h2>
                 <div className='shift-30'>
-                    <h6>Introduction</h6>
+                    <h6>{t('work-contract.intro_subtitle')}</h6>
                     <div className='agg-list'>
                         <div className='icons'><img src={star} /></div>
                         <div className='agg-text'>
