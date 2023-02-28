@@ -349,6 +349,56 @@
                  "back":"Back",
                  "add_cmt":"Add Comment"
             }
+        },
+        "settings":{
+            "title":"Settings",
+            "my_account":"My Account",
+            "change_pass":"Change Password",
+            "f_nm":"Your FirstName",
+            "l_nm":"Your LastName",
+            "inm":"Your InvoiceName",
+            "email":"Email",
+            "dob":"Your Date of Birth",
+            "city":"Your City",
+            "street_label":"Your Street and Number",
+            "e_code":"Your Entrence Code",
+            "apt_no":"Your Apt number",
+            "floor_no":"Your floor",
+            "zip":"Your Zipcode",
+            "phone":"Phone",
+            "lng":"Language",
+            "color":"Color",
+            "avatar_txt":"Upload Profile Image",
+            "update":"Update",
+            "c_pass":"Current Password",
+            "u_pass":"Update New Password",
+            "cn_pass":"Confirm New Password",
+            "save":"Save"
+
+        }
+    },
+    "worker":{
+        "welcome": "welcome",
+        "logout": "Logout",
+        "my_account": "My Account",
+        "search":"search",
+        "next":"Next",
+        "previous":"Previous",
+        "sidebar":{
+            "dashboard":"Dashboard",
+            "jobs":"Jobs",
+            "schedule":"Schedule"
+        },
+        "dashboard":{
+            "recent_jobs":"Recent Jobs",
+            "client_name":"Client Name",
+            "service_name":"Service Name",
+            "date":"Date",
+            "start_time":"Start Time",
+            "end_time":"End Time",
+            "status":"Status",
+            "total":"Total",
+            "action":"Action"
         }
     }
 }

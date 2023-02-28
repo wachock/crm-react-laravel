@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useAlert } from "react-alert";
 import Moment from 'moment';
+import { useTranslation } from "react-i18next";
 
 export default function Acc() {
 
@@ -21,7 +22,7 @@ export default function Acc() {
     const [color,setColor]           = useState("");
     const [avatar, setAvatar]        = useState("");
     const [errors, setErrors]        = useState([]);
-
+    const {t}                        = useTranslation();
     const alert = useAlert();
     const headers = {
         Accept: "application/json, text/plain, */*",
@@ -95,13 +96,13 @@ export default function Acc() {
             <div className="card-body">
         <form>
             <div className="form-group">
-                <label className="control-label">Your FirstName</label>
+                <label className="control-label">{t('client.settings.f_nm')}</label>
                 <input
                     type="text"
                     className="form-control"
                     value={firstname}
                     onChange={(e) => setFirstName(e.target.value)}
-                    placeholder="Your FirstName"
+                    placeholder={t('client.settings.f_nm')}
                 />
                 {errors.firstname ? (
                     <small className="text-danger mb-1">{errors.firstname}</small>
@@ -111,13 +112,13 @@ export default function Acc() {
             </div>
             
             <div className="form-group">
-                <label className="control-label">Your LastName</label>
+                <label className="control-label">{t('client.settings.l_nm')}</label>
                 <input
                     type="text"
                     className="form-control"
                     value={lastname}
                     onChange={(e) => setLastName(e.target.value)}
-                    placeholder="Your LastName"
+                    placeholder={t('client.settings.l_nm')}
                 />
                 {errors.lastname ? (
                     <small className="text-danger mb-1">{errors.lastname}</small>
@@ -126,13 +127,13 @@ export default function Acc() {
                 )}
             </div>
             <div className="form-group">
-                <label className="control-label">Your InvoiceName</label>
+                <label className="control-label">{t('client.settings.inm')}</label>
                 <input
                     type="text"
                     className="form-control"
                     value={invoicename}
                     onChange={(e) => setInvoicename(e.target.value)}
-                    placeholder="Your InvoiceName"
+                    placeholder={t('client.settings.inm')}
                 />
                 {errors.invoicename ? (
                     <small className="text-danger mb-1">{errors.invoicename}</small>
@@ -141,13 +142,13 @@ export default function Acc() {
                 )}
             </div>
             <div className="form-group">
-                <label className="control-label">Email</label>
+                <label className="control-label">{t('client.settings.email')}</label>
                 <input
                     type="text"
                     className="form-control"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Email"
+                    placeholder={t('client.settings.email')}
                 />
                 {errors.email ? (
                     <small className="text-danger mb-1">{errors.email}</small>
@@ -156,7 +157,7 @@ export default function Acc() {
                 )}
             </div>
             <div className="form-group">
-                <label className="control-label">Your Date of Birth</label>
+                <label className="control-label">{t('client.settings.dob')}</label>
                 <input
                     type="date"
                     id="dob"
@@ -171,13 +172,13 @@ export default function Acc() {
                 )}
             </div>
             <div className="form-group">
-                <label className="control-label">Your City</label>
+                <label className="control-label">{t('client.settings.city')}</label>
                 <input
                     type="text"
                     className="form-control"
                     value={city}
                     onChange={(e) => setCity(e.target.value)}
-                    placeholder="Your City"
+                    placeholder={t('client.settings.city')}
                 />
                  {errors.city ? (
                     <small className="text-danger mb-1">{errors.city}</small>
@@ -186,13 +187,13 @@ export default function Acc() {
                 )}
             </div>
             <div className="form-group">
-                <label className="control-label">Your Street and Number</label>
+                <label className="control-label">{t('client.settings.street_label')}</label>
                 <input
                     type="text"
                     className="form-control"
                     value={street}
                     onChange={(e) => setStreet(e.target.value)}
-                    placeholder="Your street and number"
+                    placeholder={t('client.settings.street_label')}
                 />
                  {errors.street_n_no ? (
                     <small className="text-danger mb-1">{errors.street_n_no}</small>
@@ -201,13 +202,13 @@ export default function Acc() {
                 )}
             </div>
             <div className="form-group">
-                <label className="control-label">Your Entrence Code</label>
+                <label className="control-label">{t('client.settings.e_code')}</label>
                 <input
                     type="number"
                     className="form-control"
                     value={entrence}
                     onChange={(e) => setEntrence(e.target.value)}
-                    placeholder="Your Entrence Code"
+                    placeholder={t('client.settings.ecode')}
                 />
                  {errors.entrence_code ? (
                     <small className="text-danger mb-1">{errors.entrence_code}</small>
@@ -216,13 +217,13 @@ export default function Acc() {
                 )}
             </div>
             <div className="form-group">
-                <label className="control-label">Your Apt number</label>
+                <label className="control-label">{t('client.settings.apt_no')}</label>
                 <input
                     type="number"
                     className="form-control"
                     value={apt}
                     onChange={(e) => setApt(e.target.value)}
-                    placeholder="Your Appartment number"
+                    placeholder={t('client.settings.apt_no')}
                 />
                  {errors.apt_no ? (
                     <small className="text-danger mb-1">{errors.apt_no}</small>
@@ -231,13 +232,13 @@ export default function Acc() {
                 )}
             </div>
             <div className="form-group">
-                <label className="control-label">Your floor</label>
+                <label className="control-label">{t('client.settings.floor_no')}</label>
                 <input
                     type="number"
                     className="form-control"
                     value={floor}
                     onChange={(e) => setFloor(e.target.value)}
-                    placeholder="Your floor"
+                    placeholder={t('client.settings.floor_no')}
                 />
                  {errors.floor ? (
                     <small className="text-danger mb-1">{errors.floor}</small>
@@ -246,13 +247,13 @@ export default function Acc() {
                 )}
             </div>
             <div className="form-group">
-                <label className="control-label">Your Zipcode</label>
+                <label className="control-label">{t('client.settings.zip')}</label>
                 <input
                     type="text"
                     className="form-control"
                     value={zipcode}
                     onChange={(e) => setZipcode(e.target.value)}
-                    placeholder="Your zipcode"
+                    placeholder={t('client.settings.zip')}
                 />
                  {errors.zipcode ? (
                     <small className="text-danger mb-1">{errors.zipcode}</small>
@@ -262,13 +263,13 @@ export default function Acc() {
             </div>
             
             <div className="form-group">
-                <label className="control-label">Phone</label>
+                <label className="control-label">{t('client.settings.phone')}</label>
                 <input
                     type="text"
                     className="form-control"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
-                    placeholder="Your Phone"
+                    placeholder={t('client.settings.phone')}
                 />
                  {errors.phone ? (
                     <small className="text-danger mb-1">{errors.phone}</small>
@@ -277,7 +278,7 @@ export default function Acc() {
                 )}
             </div>
             <div className="form-group">
-                <label className="control-label">Language</label>
+                <label className="control-label">{t('client.settings.lng')}</label>
                 <select className="form-control" onChange={(e)=>e.target.value}>
                   <option value={0}>-- select language --</option>
                   <option value="heb" selected={ lng == 'heb'}>Hebrew</option>
@@ -285,7 +286,7 @@ export default function Acc() {
                 </select>
             </div>
             <div className="form-group">
-                <label className="control-label">Color</label>
+                <label className="control-label">{t('client.settings.color')}</label>
                 <input
                     type="color"
                     className="form-control"
@@ -295,7 +296,7 @@ export default function Acc() {
             </div>
             <div className="form-group">
                 <label className="control-label" style={{ display: "block" }}>
-                    Upload Profile Image
+                {t('client.settings.avatar_txt')}
                 </label>
                 <input
                     type="file"
@@ -315,7 +316,7 @@ export default function Acc() {
             <div className="form-group text-center">
                 <input
                     type="submit"
-                    value="UPDATE"
+                    value={t('client.settings.update')}
                     onClick={handleSubmit}
                     className="btn btn-primary saveBtn"
                 />

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import logo from "../../Assets/image/logo.png";
-
+import i18next from "i18next";
 export default function Login() {
     const [worker, setWorker] = useState("");
     const [password, setPassword] = useState("");
@@ -17,6 +17,7 @@ export default function Login() {
                 setErrors(result.data.errors);
             } else {
                 localStorage.setItem("worker-token", result.data.token);
+                i18next.changeLanguage(result.data.lng);
                 localStorage.setItem(
                     "worker-name",
                     result.data.firstname + " " + result.data.lastname
@@ -27,10 +28,7 @@ export default function Login() {
             }
         });
     };
-    const onChange = (value) => {
-        console.log("Captcha value:", value);
-    };
-
+  
     return (
         <div>
             <div id="loginPage">
