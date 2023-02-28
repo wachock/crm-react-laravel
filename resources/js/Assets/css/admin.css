@@ -1158,6 +1158,9 @@ h1 {
   height: 2000px !important;
   max-height: 300px !important;
 }
+.fc-timegrid-slots tr{
+  height: 30px !important;
+}
 .fc-view-harness .fc-view {
   overflow-x: hidden;
 }
