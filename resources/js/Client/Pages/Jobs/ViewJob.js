@@ -87,7 +87,7 @@ export default function ViewJob() {
         <div id='container'>
             <Sidebar />
             <div id="content">
-                <div className='view-applicant'>
+                <div className='view-applicant client-view-job'>
                     <div className='worker-profile mt-4'>
                         <div className="row">
                             <div className="col-sm-12">
