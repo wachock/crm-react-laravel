@@ -139,6 +139,35 @@
     text-align: right;
     direction: rtl;
 }
+.worker-view-job{
+    text-align: right;
+    direction: rtl;
+}
+.modal-header .close{
+    direction: rtl;
+    margin-left: 0;
+}
+.closeb{
+    margin-left: 10px;
+    direction: rtl;
+}
+.worker-account .form-group{
+    text-align: right;
+    direction: rtl;
+}
+.gender-group input{
+    margin-left: 10px !important;
+    direction: rtl;
+    height: unset !important;
+}
+.skills-group input{
+    height: unset !important;
+    direction: rtl;
+}
+.skills-group span{
+    margin-right: 20px;
+    direction: rtl;
+}
 @media (max-width: 767px){
 .mobileNav .navbar-collapse.show, .mobileNav .navbar-toggler.collapsed ~ .navbar-collapse{
     left: unset;
@@ -146,7 +175,7 @@
     direction: rtl;
     transition: right 100ms ease-in-out;
 }
-.mobileNav .nav-item a{
+.mobileNav .nav-item a, .client-contract .between p{
     text-align: right;
     direction: rtl;
 }

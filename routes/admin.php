@@ -80,6 +80,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin-api', 'scopes:ad
     Route::get('all-workers/availability', [WorkerController::class,'getALLWorkerAvailability']);
     Route::get('worker_availability/{id}', [WorkerController::class,'getWorkerAvailability']);
     Route::post('update_availability/{id}', [WorkerController::class,'updateAvailability']);
+    Route::post('upload/{id}', [WorkerController::class,'upload']);
 
 
     // Clients Api

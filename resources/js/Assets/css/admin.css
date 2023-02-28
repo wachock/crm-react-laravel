@@ -1158,6 +1158,9 @@ h1 {
   height: 2000px !important;
   max-height: 300px !important;
 }
+.fc-timegrid-slots tr{
+  height: 30px !important;
+}
 .fc-view-harness .fc-view {
   overflow-x: hidden;
 }
@@ -1329,4 +1332,8 @@ h1 {
 
 .worker-avail1 .fc-view-harness .fc-view > table{
   width:720px;
+}
+.gender-group input{
+  height: unset;
+  margin-right: 10px;
 }

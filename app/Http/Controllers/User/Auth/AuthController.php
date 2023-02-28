@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class AuthController extends Controller
 {
@@ -119,6 +120,14 @@ class AuthController extends Controller
             'message'       => 'Account updated successfully',            
         ], 200);
 
+    }
+    public function showPdf($id){
+        $worker = User::find($id);
+        // echo Storage::get();die;
+        $pdf = Storage::get('/public/uploads/worker/form101/'.$worker->id.'/'.$worker->form_101);
+        return response($pdf)
+            ->header('Content-Type', 'application/pdf')
+            ->header('Content-Disposition', 'inline; filename=form101.pdf');
     }
     
 }
