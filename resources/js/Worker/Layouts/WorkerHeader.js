@@ -4,11 +4,12 @@ import User from '../../Assets/image/user.png';
 import { useAlert } from "react-alert";
 import WorkerMobileHeader from "./WorkerMobileHeader";
 import i18next from "i18next";
-
+import { useTranslation } from "react-i18next";
 export default function WorkerHeader() {
   const alert = useAlert();
   const navigate = useNavigate();
   const [avatar, setAvatar] = useState("");
+  const {t} = useTranslation();
   const HandleLogout = (e) => {
     fetch("/api/logout", {
       method: "POST",
@@ -51,7 +52,7 @@ export default function WorkerHeader() {
         <div className="container-fluid">
           <div className="row">
             <div className="col-sm-6">
-              <h1>Welcome {localStorage.getItem("worker-name")}</h1>
+              <h1>{t('worker.welcome')} {localStorage.getItem("worker-name")}</h1>
             </div>
             <div className="col-sm-6">
               <div className="float-right">
@@ -60,8 +61,8 @@ export default function WorkerHeader() {
                     <img src={User} className='img-fluid' alt='Ajay' />
                   </Link>
                   <div className="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                    <Link className="dropdown-item" to="/worker/my-account">My Account</Link>
-                    <Link className="dropdown-item" onClick={HandleLogout}>Logout</Link>
+                    <Link className="dropdown-item" to="/worker/my-account">{t('worker.my_account')}</Link>
+                    <Link className="dropdown-item" onClick={HandleLogout}>{t('worker.logout')}</Link>
                   </div>
                 </div>
               </div>

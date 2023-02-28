@@ -3,7 +3,7 @@ import WorkerSidebar from "./Layouts/WorkerSidebar";
 import axios from "axios";
 import {  Link } from "react-router-dom";
 import {Table, Thead, Tbody, Tr, Th, Td} from 'react-super-responsive-table'
-
+import { useTranslation } from "react-i18next";
 export default function WorkerDashboard() {
 
     const [totalJobs, setTotalJobs] = useState([0]);
@@ -13,6 +13,7 @@ export default function WorkerDashboard() {
     const [contracts, setContract] = useState([]);
     const [loading, setLoading] = useState("Loading...");
     const id = localStorage.getItem('worker-id');
+    const {t} = useTranslation();
     const headers = {
         Accept: "application/json, text/plain, */*",
         "Content-Type": "application/json",
@@ -41,7 +42,7 @@ export default function WorkerDashboard() {
             <div id="content">
                 <div className="adminDash">
                     <div className="titleBox">
-                        <h1 className="page-title">Dashboard</h1>
+                        <h1 className="page-title">{t('worker.sidebar.dashboard')}</h1>
                     </div>
                     <div className="row">
                         <div className="col-sm-3 col-xs-6">
@@ -52,28 +53,28 @@ export default function WorkerDashboard() {
                                     </div>
                                     <div className="dashText">
                                         <h3>{totalJobs}</h3>
-                                        <p>Jobs</p>
+                                        <p>{t('worker.sidebar.jobs')}</p>
                                     </div>   
                                 </div>
                             </a>
                         </div>
                     </div>
                     <div className="latest-users">
-                        <h2 className="page-title">Recent Jobs</h2>
+                        <h2 className="page-title">{t('worker.dashboard.recent_jobs')}</h2>
                         <div className="boxPanel">
                             <div className="table-responsive">
                                 {latestJobs.length > 0 ? (
                                     <Table className="table table-bordered responsiveTable">
                                         <Thead>
                                             <Tr>
-                                                <Th>Client Name</Th>
-                                                <Th>Service Name</Th>
-                                                <Th>Date</Th>
-                                                <Th>Start Time</Th>
-                                                <Th>End Time</Th>
-                                                <Th>Status</Th>
-                                                <Th>Total</Th>
-                                                <Th>Action</Th>
+                                                <Th>{t('worker.dashboard.client_name')}</Th>
+                                                <Th>{t('worker.dashboard.service_name')}</Th>
+                                                <Th>{t('worker.dashboard.date')}</Th>
+                                                <Th>{t('worker.dashboard.start_time')}</Th>
+                                                <Th>{t('worker.dashboard.end_time')}</Th>
+                                                <Th>{t('worker.dashboard.status')}</Th>
+                                                <Th>{t('worker.dashboard.total')}</Th>
+                                                <Th>{t('worker.dashboard.action')}</Th>
                                             </Tr>
                                         </Thead>
                                         <Tbody>
