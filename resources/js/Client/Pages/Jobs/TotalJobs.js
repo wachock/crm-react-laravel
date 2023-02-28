@@ -92,7 +92,18 @@ export default function TotalJobs() {
                                                 totalJobs.map((item, index) => {
 
                                                     let services =  (item.offer.services) ? JSON.parse(item.offer.services) : [];
-                          
+                                                    let address = (item.client.geo_address) ? (item.client.geo_address) : 0;
+                                                    let Ad = [];
+                                                    if(address){
+                                                        let ar = address.split('\n');
+                                                        for (let a in ar){
+                                                            Ad.push(
+                                                                <span>{ ar[a] }<br/></span>
+                                                            )
+                                        
+                                                        }
+                                                    
+                                                    }
                                                     return(
                                                     <Tr key={index}>
                                                         <Td>
@@ -123,9 +134,7 @@ export default function TotalJobs() {
                                                            
                                                         </Td>
                                                         <Td>{
-                                                            item.client
-                                                                ? item.client.geo_address
-                                                                : "NA"
+                                                            Ad
                                                         }
                                                         </Td>
                                                         <Td>
