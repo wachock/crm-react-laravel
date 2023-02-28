@@ -1330,3 +1330,7 @@ h1 {
 .worker-avail1 .fc-view-harness .fc-view > table{
   width:720px;
 }
+.gender-group input{
+  height: unset;
+  margin-right: 10px;
+}

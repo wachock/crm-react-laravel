@@ -52,22 +52,7 @@ export default function WorkerSidebar() {
                     <NavLink to="/worker/schedule"><i className="fa-solid fa-clipboard-list"></i>Schedule</NavLink>
                 </li>
                 <li className="list-group-item">
-                    <div id="fence" className='commonDropdown fence'>
-                        <div id="fencehead1">
-                            <a href="#" className="text-left btn btn-header-link" data-toggle="collapse" data-target="#fence1" aria-expanded="true" aria-controls="fence1">
-                                <i className="fa-solid fa-gear"></i> Settings <i className="fa-solid fa-angle-down"></i>
-                            </a>
-                        </div>
-                        <div id="fence1" className="collapse" aria-labelledby="fencehead1" data-parent="#fence">
-                            <div className="card-body">
-                                <ul className='list-group'>
-                                    <li className='list-group-item'>
-                                        <Link to="/worker/my-account"><i className="fa fa-angle-right"></i> My Account</Link>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
+                    <NavLink to="/worker/my-account"><i className="fa-solid fa-user"></i>My Account</NavLink>
                 </li>
             </ul>
             <div className="sideLogout">

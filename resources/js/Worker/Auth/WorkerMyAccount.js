@@ -119,7 +119,7 @@ export default function WorkerMyAccount() {
         <div id="container">
             <WorkerSidebar />
             <div id="content">
-                <div className="edit-customer">
+                <div className="edit-customer worker-account">
                     <h1 className="page-title editEmployer">Edit Worker</h1>
                     <div className="dashBox p-4">
                         <form>
@@ -170,18 +170,18 @@ export default function WorkerMyAccount() {
                                     </div>
                                 </div>
                                 <div className='col-sm-6'>
-                                    <div className='form-group'>
-                                        <label className='control-label'>Gender</label>
-                                    </div>
-                                    <div className="form-check-inline">
-                                    <label className="form-check-label">
-                                        <input type="radio" className="form-check-input" value="male" onChange={(e) => setGender(e.target.value)} checked={gender === 'male'} />Male
-                                    </label>
-                                    </div>
-                                    <div className="form-check-inline">
-                                    <label className="form-check-label">
-                                        <input type="radio" className="form-check-input" value="female" onChange={(e) => setGender(e.target.value)} checked={gender === 'female'} />Female
-                                    </label>
+                                    <div className='form-group gender-group'>
+                                        <label className='control-label d-block'>Gender</label>
+                                        <div className="form-check-inline">
+                                            <label className="form-check-label">
+                                                <input type="radio" className="form-check-input" value="male" onChange={(e) => setGender(e.target.value)} checked={gender === 'male'} />Male
+                                            </label>
+                                        </div>
+                                        <div className="form-check-inline">
+                                            <label className="form-check-label">
+                                                <input type="radio" className="form-check-input" value="female" onChange={(e) => setGender(e.target.value)} checked={gender === 'female'} />Female
+                                            </label>
+                                        </div>
                                     </div>
                                 </div>
                                 <div className='col-sm-6'>
@@ -264,17 +264,16 @@ export default function WorkerMyAccount() {
                                         )}
                             </div>
                             <div className='col-sm-12'>
-                                    <div className='form-group'>
-                                        <label className='control-label'>Skills</label>
-                                    </div>
-                                {avl_skill && avl_skill.map((item,index)=>(
+                                <div className='form-group skills-group'>
+                                    <label className='control-label'>Skills</label>
+                                    {avl_skill && avl_skill.map((item,index)=>(
                                     <div className="form-check" key={index}>
-                                <label className="form-check-label">
-                                    <input type="checkbox" className="form-check-input" name="skills" value={item.id} onChange={handleSkills} checked={skill.includes((item.id).toString())} />{item.name}
-                                </label>
-                                </div>
-
+                                        <label className="form-check-label">
+                                            <input type="checkbox" className="form-check-input" name="skills" value={item.id} onChange={handleSkills} checked={skill.includes((item.id).toString())} /><span>{item.name}</span> 
+                                        </label>
+                                    </div>
                                     ))}
+                                </div> 
                             </div>
                             <div className='form-group mt-4'>
                                 <label className='control-label'>Status</label>

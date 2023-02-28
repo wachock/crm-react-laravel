@@ -182,21 +182,21 @@ export default function WorkerViewJob() {
 
     return (
         <div id='container'>
-            <WorkerSidebar />\
+            <WorkerSidebar />
             <div id="content">
                 <div className='view-applicant'>
-                    <div className='worker-profile'>
+                    <div className='worker-profile worker-view-job'>
                         <div className="row">
                             <div className="col-sm-12">
-                                <div className="row">
-                                  <div className='col-sm-8'>
+                                <div className="row mb-3 mt-4">
+                                  <div className='col-sm-8 col-12'>
                                      <h2 className="text-custom">Client Details</h2>
                                   </div>
-                                  <div className='col-sm-2'>
+                                  <div className='col-sm-2 col-6'>
                                      {(job_status !='completed') && ( <button type="button" onClick={HandleMarkComplete} className="btn btn-success">Mark as Complete</button>)}
                                   </div>
                                    {(job_status !='completed')?
-                                    <div className='col-sm-2'>
+                                    <div className='col-sm-2 col-6'>
                                      {!isRunning && (
                                           <button onClick={startTimer} className="btn btn-primary">Start Timer</button>
                                         )}
