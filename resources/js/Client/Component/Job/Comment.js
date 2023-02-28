@@ -4,6 +4,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useAlert } from "react-alert";
 import Moment from 'moment';
 import Swal from 'sweetalert2';
+import { useTranslation } from "react-i18next";
 
 export default function Comment() {
 
@@ -11,6 +12,7 @@ export default function Comment() {
     const [allComment,setAllComment] = useState([]);
     const param = useParams();
     const alert = useAlert();
+    const {t} = useTranslation();
 
     const headers = {
         Accept: "application/json, text/plain, */*",
@@ -92,7 +94,7 @@ export default function Comment() {
             aria-labelledby="customer-notes-tab">
             <div className="text-right pb-3">
                 <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                    Add Comment
+                {t('client.jobs.view.add_cmt')}
                 </button>
             </div>
             {allComment && allComment.map((c,i)=>{
@@ -138,7 +140,7 @@ export default function Comment() {
                 <div className="modal-dialog" role="document">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <h5 className="modal-title" id="exampleModalLabel">Add Comment</h5>
+                            <h5 className="modal-title" id="exampleModalLabel">{t('client.jobs.view.add_cmt_box')}</h5>
                             <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -149,7 +151,7 @@ export default function Comment() {
                                 <div className="col-sm-12">
                                     <div className="form-group">
                                         <label className="control-label">
-                                            Comment
+                                        {t('client.jobs.view.cmt')}
                                         </label>
                                         <textarea
                                             type="text"
@@ -159,7 +161,7 @@ export default function Comment() {
                                             }
                                             className="form-control"
                                             required
-                                            placeholder="Enter Comment"
+                                            placeholder={t('client.jobs.view.enter_cmt')}
                                         ></textarea>
 
                                     </div>
@@ -170,8 +172,8 @@ export default function Comment() {
 
                         </div>
                         <div className="modal-footer">
-                            <button type="button" className="btn btn-secondary closeb" data-dismiss="modal">Close</button>
-                            <button type="button"  onClick={handleSubmit} className="btn btn-primary">Save Comment</button>
+                            <button type="button" className="btn btn-secondary closeb" data-dismiss="modal">{t('client.jobs.view.close')}</button>
+                            <button type="button"  onClick={handleSubmit} className="btn btn-primary">{t('client.jobs.view.save_cmt')}</button>
                         </div>
                     </div>
                 </div>

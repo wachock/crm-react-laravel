@@ -286,7 +286,25 @@
             "services":"Services",
             "status":"Status",
             "total":"Total",
-            "action":"Action"
+            "action":"Action",
+            "view":{
+                "title":"View Offer",
+                "to":"To",
+                "ofr_price":"Offer Price",
+                "ofr_id":"Offer Id",
+                "date":"Date",
+                "services":"Services",
+                "service":"Service",
+                "frequency":"Frequency",
+                "job_hr":"Job Hours",
+                "job_price":"Job Price",
+                "rate_ph":"Rate Per Hour",
+                "total_amt":"Total Amount",
+                "hour_s":"hour(s)",
+                "total":"Total",
+                "phone":"Phone",
+                "email":"Email"
+            }
         },
         "contract":{
             "title":"Contracts",
@@ -295,6 +313,42 @@
             "status":"Status",
             "total":"Total",
             "action":"Action"
+        },
+        "jobs":{
+            "title":"Jobs",
+            "job_date":"Job Dated",
+            "worker_name":"Worker Name",
+            "client_name":"Client Name",
+            "service_name":"Service Name",
+            "shift":"Shift",
+            "address":"Address",
+            "c_time":"Complete Time",
+            "status":"Status",
+            "total":"Total",
+            "action":"Action",
+            "view_btn":"View",
+            "view":{
+                 "worker_details":"Worker Details",
+                 "job_status":"Job Status",
+                 "w_name":"Worker Name",
+                 "w_email":"Worker Email",
+                 "w_phone":"Worker Phone",
+                 "address":"Address",
+                 "service_dtl":"Service Details",
+                 "services":"Services",
+                 "c_time":"Complete Time",
+                 "shift":"Shift",
+                 "to":"To",
+                 "add_cmt_box":"Add Comment",
+                 "cmt":"Comment",
+                 "enter_cmt":"Enter Comment",
+                 "save_cmt":"Save Comment",
+                 "close":"Close",
+                 "hour_s":"hour(s)",
+                 "cancel":"Cancel",
+                 "back":"Back",
+                 "add_cmt":"Add Comment"
+            }
         }
     }
 }

@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { useAlert } from "react-alert";
 import {Table, Thead, Tbody, Tr, Th, Td} from 'react-super-responsive-table'
 import Moment from 'moment';
+import { useTranslation } from "react-i18next";
 
 export default function TotalJobs() {
     const [totalJobs, setTotalJobs] = useState([]);
@@ -16,6 +17,7 @@ export default function TotalJobs() {
     const [AllWorkers, setAllWorkers] = useState([]);
     const alert = useAlert();
     const cid = localStorage.getItem('client-id'); 
+    const {t} = useTranslation();
     const headers = {
         Accept: "application/json, text/plain, */*",
         "Content-Type": "application/json",
@@ -58,11 +60,11 @@ export default function TotalJobs() {
                 <div className="titleBox customer-title">
                     <div className="row">
                         <div className="col-sm-6">
-                            <h1 className="page-title">Jobs</h1>
+                            <h1 className="page-title">{t('client.jobs.title')}</h1>
                         </div>
                         <div className="col-sm-6">
                             <div className="search-data">
-                                <input type='text' className="form-control" placeholder="Search" />
+                                <input type='text' className="form-control" placeholder={t('client.search')} />
                             </div> 
                         </div>
                     </div>
@@ -75,16 +77,16 @@ export default function TotalJobs() {
                                     <Table className="table table-bordered responsiveTable">
                                         <Thead>
                                             <Tr>
-                                                <Th scope="col">Job Dated</Th>
-                                                <Th scope="col">Worker Name</Th>
-                                                <Th scope="col">Client Name</Th>
-                                                <Th scope="col">Service Name</Th>
-                                                <Th scope="col">Shift</Th>
-                                                <Th scope="col">Address</Th>
-                                                <Th scope="col">Complete Time</Th>
-                                                <Th scope="col">Status</Th>
-                                                <Th scope="col">Total</Th>
-                                                <Th scope="col">Action</Th>
+                                                <Th scope="col">{t('client.jobs.job_date')}</Th>
+                                                <Th scope="col">{t('client.jobs.worker_name')}</Th>
+                                                <Th scope="col">{t('client.jobs.client_name')}</Th>
+                                                <Th scope="col">{t('client.jobs.service_name')}</Th>
+                                                <Th scope="col">{t('client.jobs.shift')}</Th>
+                                                <Th scope="col">{t('client.jobs.address')}</Th>
+                                                <Th scope="col">{t('client.jobs.c_time')}</Th>
+                                                <Th scope="col">{t('client.jobs.status')}</Th>
+                                                <Th scope="col">{t('client.jobs.total')}</Th>
+                                                <Th scope="col">{t('client.jobs.action')}</Th>
                                             </Tr>
                                         </Thead>
                                         <Tbody>
@@ -158,7 +160,7 @@ export default function TotalJobs() {
                                                             {item.jobservice?item.jobservice.total:'0'} ILS + VAT
                                                         </Td>
                                                         <Td>
-                                                            <Link to={`/client/view-job/${item.id}`} className="btn btn-primary">View</Link>
+                                                            <Link to={`/client/view-job/${item.id}`} className="btn btn-primary">{t('client.jobs.view_btn')}</Link>
                                                         </Td>
                                                        
                                                     </Tr>
@@ -170,8 +172,8 @@ export default function TotalJobs() {
                                 )}
                                 {totalJobs.length > 0 ? (
                                     <ReactPaginate
-                                        previousLabel={"Previous"}
-                                        nextLabel={"Next"}
+                                        previousLabel={t('client.previous')}
+                                        nextLabel={t('client.next')}
                                         breakLabel={"..."}
                                         pageCount={pageCount}
                                         marginPagesDisplayed={2}
