@@ -358,12 +358,4 @@ class WorkerController extends Controller
         $worker->save();
         return response()->json(['success' => true]);
     }
-    public function showPdf($id)
-    {
-        $worker = User::find($id);
-        $pdf = Storage::get('worker/form101/'.$worker->id.'/'.$worker->form_101);
-        return response($pdf)
-            ->header('Content-Type', 'application/pdf')
-            ->header('Content-Disposition', 'inline; filename=example.pdf');
-    }
 }
