@@ -36,7 +36,8 @@ Route::group( ['middleware' => ['auth:api','scopes:user'] ],function(){
     Route::resource('job-comments', JobCommentController::class);
     Route::get('worker_availability/{id}', [JobController::class,'getWorkerAvailability']);
     Route::post('update_availability/{id}', [JobController::class,'updateAvailability']); 
-
+   
+    Route::post('upload/{id}', [AuthController::class,'upload']);
     Route::post('logout', [AuthController::class, 'logout']);
     Route::get('details',[AuthController::class, 'details']); 
     Route::post('update_details/{id}',[AuthController::class, 'updateWorker']); 

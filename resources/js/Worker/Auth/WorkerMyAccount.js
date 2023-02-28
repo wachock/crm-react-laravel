@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useAlert } from "react-alert";
 import { useParams,useNavigate } from "react-router-dom";
-import WorkerSidebar from "../Layouts/WorkerSidebar";
 
 export default function WorkerMyAccount() {
   const [firstname, setFirstName] = useState('');
@@ -116,11 +115,8 @@ export default function WorkerMyAccount() {
         
     }, []);
     return (
-        <div id="container">
-            <WorkerSidebar />
-            <div id="content">
+            <>
                 <div className="edit-customer worker-account">
-                    <h1 className="page-title editEmployer">Edit Worker</h1>
                     <div className="dashBox p-4">
                         <form>
                             <div className='row'>
@@ -296,7 +292,6 @@ export default function WorkerMyAccount() {
                         </form>
                     </div>
                 </div>
-            </div>
-        </div>
+            </>
     );
 }
