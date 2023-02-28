@@ -153,7 +153,7 @@ export default function WorkerTiming({job}) {
                                    </div>
                                 <div className="col-sm-2">
                                 <button type="button" className="btn btn-pink" data-toggle="modal" data-target="#add-work-time">
-                                    Edit Timing
+                                    Add Timing
                                 </button>
                                 </div>
                             </div>
