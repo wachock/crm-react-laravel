@@ -131,8 +131,8 @@ class WorkerController extends Controller
 
         \App::setLocale($worker->lng);
       $worker= $worker->toArray();
-      Mail::send('/Mails/Form101Mail',$worker,function($messages) use ($new_worker){
-        $messages->to($new_worker['email']);
+      Mail::send('/Mails/Form101Mail',$worker,function($messages) use ($worker){
+        $messages->to($worker['email']);
         $sub = __('mail.form_101.subject')."  ".__('mail.form_101.company');
         $messages->subject($sub);
       });
