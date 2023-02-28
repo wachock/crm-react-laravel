@@ -4,6 +4,7 @@ import Sidebar from '../../Layouts/ClientSidebar';
 import axios from 'axios';
 import ReactPaginate from "react-paginate";
 import {Table, Thead, Tbody, Tr, Th, Td} from 'react-super-responsive-table'
+import { useTranslation } from 'react-i18next';
 
 export default function Contract() {
     
@@ -11,6 +12,7 @@ export default function Contract() {
     const [loading, setLoading] = useState("Loading...");
     const [pageCount, setPageCount] = useState(0);
     const id                        =localStorage.getItem('client-id');
+    const {t} = useTranslation();
     const headers = {
         Accept: "application/json, text/plain, */*",
         "Content-Type": "application/json",
@@ -66,11 +68,11 @@ export default function Contract() {
                 <div className="titleBox customer-title">
                     <div className="row">
                         <div className="col-sm-6">
-                            <h1 className="page-title">Contracts</h1>
+                            <h1 className="page-title">{t('client.contract.title')}</h1>
                         </div>
                         <div className="col-sm-6">
                             <div className="search-data">
-                                <input type='text' className="mr-0 form-control" onChange={filterContracts} placeholder="Search" />
+                                <input type='text' className="mr-0 form-control" onChange={filterContracts} placeholder={t('client.search')} />
                             </div>
                         </div>
                     </div>
@@ -83,11 +85,11 @@ export default function Contract() {
                                 <Table className="table table-bordered responsiveTable">
                                     <Thead>
                                         <Tr>
-                                            <Th scope="col">Contract ID</Th>
-                                            <Th scope="col">Services</Th>
-                                            <Th scope="col">Status</Th>
-                                            <Th scope="col">Total</Th>
-                                            <Th scope="col">Action</Th>
+                                            <Th scope="col">{t('client.contract.c_id')}</Th>
+                                            <Th scope="col">{t('client.contract.services')}</Th>
+                                            <Th scope="col">{t('client.contract.status')}</Th>
+                                            <Th scope="col">{t('client.contract.total')}</Th>
+                                            <Th scope="col">{t('client.contract.action')}</Th>
                                         </Tr>
                                     </Thead>
                                     <Tbody>  
@@ -128,8 +130,8 @@ export default function Contract() {
                             </div>
                             { contracts.length > 0 ?(
                             <ReactPaginate
-                                        previousLabel={"Previous"}
-                                        nextLabel={"Next"}
+                                        previousLabel={t('client.previous')}
+                                        nextLabel={t('client.next')}
                                         breakLabel={"..."}
                                         pageCount={pageCount}
                                         marginPagesDisplayed={2}

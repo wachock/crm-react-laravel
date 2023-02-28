@@ -229,6 +229,9 @@
         "welcome": "welcome",
         "logout": "Logout",
         "my_account": "My Account",
+        "search":"search",
+        "next":"Next",
+        "previous":"Previous",
         "sidebar": {
             "dashboard": "Dashboard",
             "schedule_meet": "Scheduled Meetings",
@@ -249,6 +252,46 @@
             "start_time":"Start Time",
             "end_time":"End Time",
             "assigned_worker":"Assigned Worker",
+            "status":"Status",
+            "total":"Total",
+            "action":"Action"
+        },
+        "meeting":{
+            "title":"Schedule meetings",
+            "id":"ID",
+            "attender":"Meeting Attender",
+            "scheduled":"Scheduled",
+            "status":"Booking Status",
+            "files":"Files",
+            "cfiles":{
+                "title":"Meeting Files",
+                "button":"Add Files",
+                "upload_date":"Upload Date",
+                "note":"Note",
+                "action":"Action",
+                "add_file":"Add File",
+                "note_label":"Note",
+                "note_box":"Enter Note ( optional )",
+                "type":"Type",
+                "type_img":"Image",
+                "type_video":"Video",
+                "file":"File",
+                "save":"Save File",
+                "close":"Close"
+            }
+        },
+        "offer":{
+            "title":"Offered Prices",
+            "ofr_id":"Offer ID",
+            "services":"Services",
+            "status":"Status",
+            "total":"Total",
+            "action":"Action"
+        },
+        "contract":{
+            "title":"Contracts",
+            "c_id":"Contract ID",
+            "services":"Services",
             "status":"Status",
             "total":"Total",
             "action":"Action"

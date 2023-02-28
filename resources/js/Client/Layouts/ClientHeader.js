@@ -55,7 +55,7 @@ export default function ClientHeader() {
       <div className="container-fluid">
         <div className="row">
           <div className="col-sm-6">
-            <h1>Welcome { localStorage.getItem("client-name") }</h1>
+            <h1>{t('client.welcome')} { localStorage.getItem("client-name") }</h1>
           </div>
           <div className="col-sm-6">
             <div className="float-right">

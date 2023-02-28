@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import ClientSidebar from '../../Layouts/ClientSidebar';
 import axios from 'axios';
 import {Table, Thead, Tbody, Tr, Th, Td} from 'react-super-responsive-table'
+import { useTranslation } from 'react-i18next';
 
 export default function ClientOfferPrice() {
 
@@ -12,6 +13,7 @@ export default function ClientOfferPrice() {
     const [loading, setLoading] = useState("Loading...");
     const [pageCount, setPageCount] = useState(0);
     const id                        = localStorage.getItem('client-id');
+    const {t} = useTranslation();
     const headers = {
         Accept: "application/json, text/plain, */*",
         "Content-Type": "application/json",
@@ -76,11 +78,11 @@ export default function ClientOfferPrice() {
                 <div className="titleBox customer-title">
                     <div className="row">
                         <div className="col-sm-6">
-                            <h1 className="page-title">Offered Prices</h1>
+                            <h1 className="page-title">{t('client.offer.title')}</h1>
                         </div>
                         <div className="col-sm-6">
                             <div className="search-data">
-                                <input type='text' className="form-control" onChange={filterOffers} placeholder="Search" />
+                                <input type='text' className="form-control" onChange={filterOffers} placeholder={t('client.search')} />
                             </div>
                         </div>
                     </div>
@@ -95,11 +97,11 @@ export default function ClientOfferPrice() {
                                 <Table className="table table-bordered responsiveTable">
                                     <Thead>
                                         <Tr>
-                                            <Th>Offer ID</Th>
-                                            <Th>Services</Th>
-                                            <Th>Status</Th>
-                                            <Th>Total</Th>
-                                            <Th>Action</Th>
+                                            <Th>{t('client.offer.ofr_id')}</Th>
+                                            <Th>{t('client.offer.services')}</Th>
+                                            <Th>{t('client.offer.status')}</Th>
+                                            <Th>{t('client.offer.total')}</Th>
+                                            <Th>{t('client.offer.action')}</Th>
                                         </Tr>
                                     </Thead>
                                     <Tbody>  
@@ -139,8 +141,8 @@ export default function ClientOfferPrice() {
 
                             { totalOffers.length > 0 ?(
                             <ReactPaginate
-                                        previousLabel={"Previous"}
-                                        nextLabel={"Next"}
+                                        previousLabel={t('client.previous')}
+                                        nextLabel={t('client.next')}
                                         breakLabel={"..."}
                                         pageCount={pageCount}
                                         marginPagesDisplayed={2}

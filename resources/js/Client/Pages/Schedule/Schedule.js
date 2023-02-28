@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useTransition } from 'react'
 import Sidebar from '../../Layouts/ClientSidebar'
 import {Table, Thead, Tbody, Tr, Th, Td} from 'react-super-responsive-table'
 import axios from 'axios';
 import ReactPaginate from "react-paginate";
 import Moment from 'moment';
+import { useTranslation } from 'react-i18next';
 
 export default function Schedule() {
 
@@ -11,6 +12,7 @@ export default function Schedule() {
   const [loading, setLoading] = useState("Loading...");
   const [pageCount, setPageCount] = useState(0);
   const id                        = localStorage.getItem('client-id'); 
+  const {t} = useTranslation();
   const headers = {
     Accept: "application/json, text/plain, */*",
     "Content-Type": "application/json",
@@ -71,11 +73,11 @@ export default function Schedule() {
         <div className="titleBox customer-title">
           <div className="row">
             <div className="col-sm-6">
-              <h1 className="page-title">Schedule meetings</h1>
+              <h1 className="page-title">{t('client.meeting.title')}</h1>
             </div>
             <div className="col-sm-6">
               <div className="search-data">
-                <input type='text' className="form-control" onChange={filterSchedules} placeholder="Search" />
+                <input type='text' className="form-control" onChange={filterSchedules} placeholder={t('client.search')} />
               </div>
             </div>
           </div>
@@ -88,11 +90,11 @@ export default function Schedule() {
                   <Table className="table table-bordered responsiveTable">
                     <Thead>
                       <Tr>
-                        <Th scope="col">ID</Th>
-                        <Th scope="col">Meeting Attender</Th>
-                        <Th scope="col">Scheduled</Th>
-                        <Th scope="col">Booking Status</Th>
-                        <Th scope="col">Files</Th>
+                        <Th scope="col">{t('client.meeting.id')}</Th>
+                        <Th scope="col">{t('client.meeting.attender')}</Th>
+                        <Th scope="col">{t('client.meeting.scheduled')}</Th>
+                        <Th scope="col">{t('client.meeting.status')}</Th>
+                        <Th scope="col">{t('client.meeting.files')}</Th>
                        
                       </Tr>
                     </Thead>
@@ -133,8 +135,8 @@ export default function Schedule() {
               </div>
               {schedules.length > 0 ? (
                 <ReactPaginate
-                  previousLabel={"Previous"}
-                  nextLabel={"Next"}
+                  previousLabel={t('client.previous')}
+                  nextLabel={t('client.next')}
                   breakLabel={"..."}
                   pageCount={pageCount}
                   marginPagesDisplayed={2}
