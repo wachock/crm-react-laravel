@@ -20,6 +20,7 @@ use App\Http\Controllers\User\JobCommentController;
 // Unauthenticated Routes
 Route::post('login', [AuthController::class, 'login']);
 Route::post('register', [AuthController::class, 'register']);
+Route::get('showPdf/{id}', [AuthController::class, 'showPdf']);
 
 
 // Authenticated Routes

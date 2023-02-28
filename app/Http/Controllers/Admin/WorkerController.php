@@ -162,6 +162,7 @@ class WorkerController extends Controller
     public function edit($id)
     {
         $worker                = User::find($id);
+        $worker->form_101 = $worker->form_101 ? asset('storage/app/public/uploads/worker/form101/'.$worker->id.'/'.$worker->form_101) : asset('images/Frontlogo.png');
         return response()->json([
             'worker'        => $worker,            
         ], 200);
@@ -345,5 +346,25 @@ class WorkerController extends Controller
                     return $allslot[$slot];
                 }
 
+    }
+    public function upload(Request $request,$id)
+    {
+        $worker = User::find($id);
+
+        $pdf = $request->file('pdf');
+        $filename = 'form101_'.$worker->id . '.' . $pdf->getClientOriginalExtension();
+        $path = storage_path().'/app/public/uploads/worker/form101/'.$worker->id;
+        $pdf->move($path, $filename);
+        $worker->form_101 = $filename;
+        $worker->save();
+        return response()->json(['success' => true]);
+    }
+    public function showPdf($id)
+    {
+        $worker = User::find($id);
+        $pdf = Storage::get('worker/form101/'.$worker->id.'/'.$worker->form_101);
+        return response($pdf)
+            ->header('Content-Type', 'application/pdf')
+            ->header('Content-Disposition', 'inline; filename=example.pdf');
     }
 }
