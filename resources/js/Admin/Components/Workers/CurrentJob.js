@@ -110,8 +110,8 @@ export default function CurrentJob() {
                                                             }
                                                         </td>
                                                         <td>{
-                                                            item.service
-                                                                ? item.service.name
+                                                            item.jobservice
+                                                                ? item.jobservice.name
                                                                 : "NA"
                                                             }</td>
                                                         <td>
@@ -124,7 +124,9 @@ export default function CurrentJob() {
                                                             {item.end_time}
                                                         </td>
                                                         <td>
-                                                            {item.rate}
+                                                            {item.jobservice
+                                                                ? item.jobservice.total
+                                                                : "NA"}
                                                         </td>
                                                        <td
                                                             style={{
