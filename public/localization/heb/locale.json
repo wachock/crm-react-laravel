@@ -289,7 +289,25 @@
             "services":"שירותים",
             "status":"סטָטוּס",
             "total":"סה\"כ",
-            "action":"פעולה"
+            "action":"פעולה",
+            "view":{
+                "title":"צפה בהצעה",
+                "to":"ל",
+                "ofr_price":"הצעת מחיר",
+                "ofr_id":"מזהה הצעה",
+                "date":"תַאֲרִיך",
+                "services":"שירותים",
+                "service":"שֵׁרוּת",
+                "frequency":"תדירות",
+                "job_hr":"שעות עבודה",
+                "job_price":"מחיר עבודה",
+                "job_rph":"תעריף לשעה",
+                "total_amt":"הכמות הכוללת",
+                "hour_s":"שעה (ות)",
+                "total":"סה\"כ",
+                "phone":"טלפון",
+                "email":"אימייל"
+            }
         },
         "contract":{
             "title":"חוזים",
@@ -298,6 +316,42 @@
             "status":"סטָטוּס",
             "total":"סה\"כ",
             "action":"פעולה"
+        },
+        "jobs":{
+            "title":"מקומות תעסוקה",
+            "job_date":"משרה תאריך",
+            "worker_name":"שם העובד",
+            "client_name":"שם הלקוח",
+            "service_name":"שם השירות",
+            "shift":"מִשׁמֶרֶת",
+            "address":"כתובת",
+            "c_time":"זמן שלם",
+            "status":"סטָטוּס",
+            "total":"סה\"כ",
+            "action":"פעולה",
+            "view_btn":"נוף",
+            "view":{
+                "worker_details":"פרטי עובד",
+                "job_status":"מצב עבודה",
+                "w_name":"שם העובד",
+                "w_email":"דואר אלקטרוני לעובד",
+                "w_phone":"טלפון לעובד",
+                "address":"כתובת",
+                "service_dtl":"פרטי שירות",
+                "services":"שירותים",
+                "c_time":"זמן שלם",
+                "shift":"מִשׁמֶרֶת",
+                "to":"ל",
+                "add_cmt_box":"הוסף תגובה",
+                "cmt":"תגובה",
+                "enter_cmt":"הכנס תגובה",
+                "save_cmt":"שמור תגובה",
+                "close":"סגור",
+                "hour_s":"שעה (ות)",
+                "cancel":"לְבַטֵל",
+                "back":"חזור",
+                "add_cmt":"הוסף תגובה"
+           }
         }
     }
 }
