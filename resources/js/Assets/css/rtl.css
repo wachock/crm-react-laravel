@@ -166,6 +166,7 @@
 }
 .skills-group span{
     margin-right: 20px;
+    direction: rtl;
 }
 @media (max-width: 767px){
 .mobileNav .navbar-collapse.show, .mobileNav .navbar-toggler.collapsed ~ .navbar-collapse{
