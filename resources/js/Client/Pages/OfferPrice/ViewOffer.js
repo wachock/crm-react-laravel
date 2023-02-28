@@ -3,6 +3,7 @@ import ClientSidebar from '../../Layouts/ClientSidebar'
 import logo from "../../../Assets/image/logo.png";
 import { useParams } from 'react-router-dom';
 import Moment from 'moment';
+import {Table, Thead, Tbody, Tr, Th, Td} from 'react-super-responsive-table'
 
 export default function ClientViewOffer() {
 
@@ -74,41 +75,41 @@ export default function ClientViewOffer() {
                   </div>
                   <div className="card-body">
                     <div className="table-responsive">
-                    <table class="table table-sm">
-                        <thead>
-                          <tr>
-                            <th style={{width:"30%"}}>Service</th>
-                            <th className='text-right'>Frequency</th>
-                            <th className='text-right'>Job Hours</th>
-                            <th style={ ofr.type != 'fixed'? {display:"none"} : {}} className='text-right'>Job Price</th>
-                            <th style={ ofr.type == 'fixed'? {display:"none"} : {}} className='text-right'>Rate Per Hour</th>
-                            <th style={ ofr.type == 'fixed'? {display:"none"} : {}} className='text-right'>Total Amount</th>
-                          </tr>
-                        </thead>
-                        <tbody>
+                    <Table class="table table-sm responsiveTable">
+                        <Thead>
+                          <Tr>
+                            <Th style={{width:"30%"}}>Service</Th>
+                            <Th className='text-right'>Frequency</Th>
+                            <Th className='text-right'>Job Hours</Th>
+                            <Th style={ ofr.type != 'fixed'? {display:"none"} : {}} className='text-right'>Job Price</Th>
+                            <Th style={ ofr.type == 'fixed'? {display:"none"} : {}} className='text-right'>Rate Per Hour</Th>
+                            <Th style={ ofr.type == 'fixed'? {display:"none"} : {}} className='text-right'>Total Amount</Th>
+                          </Tr>
+                        </Thead>
+                        <Tbody>
                           { services && services.map((s,i)=>{
                             return(
-                            <tr>
-                              <td>{s.name}</td>
-                              <td className='text-right'>{ s.freq_name }</td>
-                              <td className='text-right'>{ s.jobHours } hour(s)</td>
+                            <Tr>
+                              <Td>{s.name}</Td>
+                              <Td className='text-right'>{ s.freq_name }</Td>
+                              <Td className='text-right'>{ s.jobHours } hour(s)</Td>
                               {
                                 (ofr.type != 'fixed' ) ?
                                 <>
-                                  <td className='text-right'>{ s.rateperhour } ILS</td>
-                                  <td className='text-right'>{ s.totalamount} ILS</td>
+                                  <Td className='text-right'>{ s.rateperhour } ILS</Td>
+                                  <Td className='text-right'>{ s.totalamount} ILS</Td>
                                 </>
                               :
                                 <>
-                                  <td className='text-right'>{ s.fixed_price } ILS</td>
+                                  <Td className='text-right'>{ s.fixed_price } ILS</Td>
                                 </>
                               }
-                            </tr>
+                            </Tr>
                             )
                           })}
                          
-                        </tbody>
-                      </table>
+                        </Tbody>
+                      </Table>
                     </div>
                     <div className='row'>
                       <div className='col-sm-6'></div>
@@ -117,8 +118,8 @@ export default function ClientViewOffer() {
                         <table class="table table-sm table-bordered ">
                             <tfoot>
                               <tr>
-                                <td width="65%" class="text-right">Total</td>
-                                <td class="text-right"><span>{ofr.subtotal} </span>ILS + VAT</td> 
+                                <Td width="65%" class="text-right">Total</Td>
+                                <Td class="text-right"><span>{ofr.subtotal} </span>ILS + VAT</Td> 
                               </tr>
                             </tfoot>
                           </table>

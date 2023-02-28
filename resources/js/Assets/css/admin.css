@@ -1294,6 +1294,9 @@ h1 {
 .responsiveTable td.pivoted{
   padding-bottom: 2px !important;
 }
+.responsiveTable tbody tr td:last-child{
+  padding: 5px !important;
+} 
 .fc-license-message{
   display: none;
 }

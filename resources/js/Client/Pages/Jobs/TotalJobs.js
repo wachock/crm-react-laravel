@@ -122,7 +122,7 @@ export default function TotalJobs() {
                                                              {(item.start_time !='')?(`${item.start_time} to ${item.end_time}`):''}
                                                            
                                                         </Td>
-                                                        <Td>{
+                                                        <Td className='forAdd'>{
                                                             item.client
                                                                 ? item.client.geo_address
                                                                 : "NA"
