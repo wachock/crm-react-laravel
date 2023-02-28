@@ -148,8 +148,9 @@ export default function WorkerViewJob() {
 
   }
    useEffect(() => {
+         getTimes();
         getTime();
-        getTimes();
+       
     }, []);
    useEffect(() => {
     const interval = setInterval(() => {
@@ -165,6 +166,7 @@ export default function WorkerViewJob() {
     }, 1000);
     return () => clearInterval(interval);
   }, [startTime]);
+   
    let time_difference = (start,end) =>{
     const timeDiff = (new Date(end).getTime() - new Date(start).getTime()) / 1000;
       return calculateTime(timeDiff);
@@ -180,7 +182,6 @@ export default function WorkerViewJob() {
       return `${hours}h:${minutes}m:${seconds}s`;
 
    }
-  console.log(job_status);
 
     return (
         <div id='container'>
