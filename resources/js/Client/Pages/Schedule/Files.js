@@ -6,6 +6,7 @@ import { useAlert } from "react-alert";
 import Moment from 'moment';
 import Swal from 'sweetalert2';
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 export default function Clientfiles() {
 
@@ -13,7 +14,7 @@ export default function Clientfiles() {
     const [file, setFile] = useState([]);
     const [AllFiles, setAllFiles] = useState([]);
     const [loading, setLoading] = useState("Loading...");
-   
+    const {t} = useTranslation();
     const param = useParams();
     const cid = localStorage.getItem('client-id');
     const meetId = param.meetId;
@@ -125,11 +126,11 @@ export default function Clientfiles() {
                 <div className="titleBox customer-title">
                     <div className="row">
                         <div className="col-sm-6">
-                            <h1 className="page-title">Meeting Files</h1>
+                            <h1 className="page-title">{t('client.meeting.cfiles.title')}</h1>
                         </div>
                         <div className="col-sm-6">
                             <div className="search-data">
-                            <Link className="btn btn-pink addButton" data-toggle="modal" data-target="#exampleModal"><i class="btn-icon fas fa-plus-circle"></i>Add File</Link>
+                            <Link className="btn btn-pink addButton" data-toggle="modal" data-target="#exampleModal"><i class="btn-icon fas fa-plus-circle"></i>{t('client.meeting.cfiles.button')}</Link>
                             </div>
                         </div>
                     </div>
@@ -142,9 +143,9 @@ export default function Clientfiles() {
                                     <table className="table table-bordered">
                                         <thead>
                                             <tr>
-                                                <th scope="col">Upload Date</th>
-                                                <th scope="col">Note</th>
-                                                <th scope="col">Action</th>
+                                                <th scope="col">{t('client.meeting.cfiles.upload_date')}</th>
+                                                <th scope="col">{t('client.meeting.cfiles.note')}</th>
+                                                <th scope="col">{t('client.meeting.cfiles.action')}</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -185,7 +186,7 @@ export default function Clientfiles() {
                                 <div className="modal-dialog" role="document">
                                     <div className="modal-content">
                                         <div className="modal-header">
-                                            <h5 className="modal-title" id="exampleModalLabel">Add File</h5>
+                                            <h5 className="modal-title" id="exampleModalLabel">{t('client.meeting.cfiles.add_file')}</h5>
                                             <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
@@ -197,7 +198,7 @@ export default function Clientfiles() {
                                                 <div className="col-sm-12">
                                                     <div className="form-group">
                                                         <label className="control-label">
-                                                            Note 
+                                                        {t('client.meeting.cfiles.note_label')}
                                                         </label>
                                                         <textarea
                                                             type="text"
@@ -207,7 +208,7 @@ export default function Clientfiles() {
                                                             }
                                                             className="form-control"
                                                             required
-                                                            placeholder="Enter Note ( optional )"
+                                                            placeholder={t('client.meeting.cfiles.note_box')}
                                                         ></textarea>
 
                                                     </div>
@@ -215,11 +216,11 @@ export default function Clientfiles() {
                                                 <div className="col-sm-12">
                                                     <div className="form-group">
                                                         <label className="control-label">
-                                                            Type
+                                                        {t('client.meeting.cfiles.type')}
                                                         </label>
                                                         <select name="filetype" className="form-control">
-                                                            <option value="image">Image</option>
-                                                            <option value="video">Video</option>
+                                                            <option value="image">{t('client.meeting.cfiles.type_img')}</option>
+                                                            <option value="video">{t('client.meeting.cfiles.type_video')}</option>
                                                         </select>
 
                                                     </div>
@@ -227,7 +228,7 @@ export default function Clientfiles() {
                                                 <div className="col-sm-12">
                                                     <div className="form-group">
                                                         <label className="control-label">
-                                                            File *
+                                                        {t('client.meeting.cfiles.file')} *
                                                         </label>
                                                         <input
                                                             type="file"
@@ -249,8 +250,8 @@ export default function Clientfiles() {
 
                                         </div>
                                         <div className="modal-footer">
-                                            <button type="button" className="btn btn-secondary closeb" data-dismiss="modal">Close</button>
-                                            <button type="button" onClick={handleFile} className="btn btn-primary">Save File</button>
+                                            <button type="button" className="btn btn-secondary closeb" data-dismiss="modal">{t('client.meeting.cfiles.close')}</button>
+                                            <button type="button" onClick={handleFile} className="btn btn-primary">{t('client.meeting.cfiles.save')}</button>
                                         </div>
                                     </div>
                                 </div>

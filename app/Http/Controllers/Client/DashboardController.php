@@ -92,8 +92,11 @@ class DashboardController extends Controller
          
         if(!is_null($q)){
 
-        $result->orWhere('status','like','%'.$q.'%');
-        $result->orWhere('total', 'like','%'.$q.'%');
+        $result->orWhere(function($qry) use($q,$id){
+            $qry->where('status','like','%'.$q.'%')
+                    ->orWhere('total',   'like','%'.$q.'%')
+                    ->where('client_id',$id);
+        });
 
         }
         
@@ -120,19 +123,25 @@ class DashboardController extends Controller
         $id= $request->id;
         $result = Contract::where('client_id',$id)->with('client','offer');  
         if(!is_null($q)):
-        $result->orWhere('status','like','%'.$q.'%');
         
-        $result = $result->orWhereHas('client',function ($qr) use ($q){
-             $qr->where(function($qr) use ($q) {
-                 $qr->where(DB::raw('firstname'), 'like','%'.$q.'%');
-                 $qr->orWhere(DB::raw('lastname'), 'like','%'.$q.'%');
-                 $qr->orWhere(DB::raw('email'), 'like','%'.$q.'%');
-                 $qr->orWhere(DB::raw('city'), 'like','%'.$q.'%');
-                 $qr->orWhere(DB::raw('street_n_no'), 'like','%'.$q.'%');
-                 $qr->orWhere(DB::raw('zipcode'), 'like','%'.$q.'%');
-                 $qr->orWhere(DB::raw('phone'), 'like','%'.$q.'%');
+        $result = $result->orWhereHas('client',function ($qr) use ($q,$id){
+             $qr->where(function($qr) use ($q,$id) {
+                 $qr->where('firstname', 'like','%'.$q.'%');
+                 $qr->orWhere('lastname', 'like','%'.$q.'%');
+                 $qr->orWhere('email', 'like','%'.$q.'%');
+                 $qr->orWhere('city', 'like','%'.$q.'%');
+                 $qr->orWhere('street_n_no', 'like','%'.$q.'%');
+                 $qr->orWhere('zipcode', 'like','%'.$q.'%');
+                 $qr->orWhere('phone', 'like','%'.$q.'%');
+                 $qr->where('client_id',$id);
              });
          });
+
+         $result->orWhere(function($qry) use($q,$id){
+            $qry->where('status','like','%'.$q.'%')
+                    ->where('client_id',$id);
+        });
+
         endif;
          $result = $result->orderBy('id', 'desc')->paginate(20);
         

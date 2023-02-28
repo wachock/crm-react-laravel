@@ -232,6 +232,9 @@
         "welcome": "ברוך הבא",
         "logout": "להתנתק",
         "my_account": "החשבון שלי",
+        "search":"לחפש",
+        "next":"הַבָּא",
+        "previous":"קודם",
         "sidebar": {
             "dashboard": "לוּחַ מַחווָנִים",
             "schedule_meet": "פגישות מתוזמנות",
@@ -252,6 +255,46 @@
             "start_time":"שעת התחלה",
             "end_time":"שעת סיום",
             "assigned_worker":"עובד מוקצה",
+            "status":"סטָטוּס",
+            "total":"סה\"כ",
+            "action":"פעולה"
+        },
+        "meeting":{
+            "title":"תזמן פגישות",
+            "id":"תְעוּדַת זֶהוּת",
+            "attender":"משתתף במפגש",
+            "scheduled":"מתוזמן",
+            "status":"סטטוס הזמנה",
+            "files":"קבצים",
+            "cfiles":{
+                "title":"קבצי פגישה",
+                "button":"הוסף קבצים",
+                "upload_date":"תאריך העלאה",
+                "note":"הערה",
+                "action":"פעולה",
+                "add_file":"הוסף קובץ",
+                "note_label":"הערה",
+                "note_box":"הזן הערה (אופציונלי)",
+                "type":"סוּג",
+                "type_img":"תמונה",
+                "type_video":"וִידֵאוֹ",
+                "file":"קוֹבֶץ",
+                "save":"שמור את הקובץ",
+                "close":"סגור"
+            }
+        },
+        "offer":{
+            "title":"מחירים מוצעים",
+            "ofr_id":"מזהה הצעה",
+            "services":"שירותים",
+            "status":"סטָטוּס",
+            "total":"סה\"כ",
+            "action":"פעולה"
+        },
+        "contract":{
+            "title":"חוזים",
+            "c_id":"מזהה חוזה",
+            "services":"שירותים",
             "status":"סטָטוּס",
             "total":"סה\"כ",
             "action":"פעולה"
