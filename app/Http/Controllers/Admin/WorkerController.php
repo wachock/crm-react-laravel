@@ -162,7 +162,6 @@ class WorkerController extends Controller
     public function edit($id)
     {
         $worker                = User::find($id);
-        $worker->form_101 = $worker->form_101 ? asset('storage/app/public/uploads/worker/form101/'.$worker->id.'/'.$worker->form_101) : asset('images/Frontlogo.png');
         return response()->json([
             'worker'        => $worker,            
         ], 200);

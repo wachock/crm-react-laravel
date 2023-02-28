@@ -7,7 +7,7 @@ import Swal from 'sweetalert2';
 
 export default function Documents() {
 
-    const [file, setFile] = useState('');
+    const [file, setFile] = useState(false);
     const [pdf, setPdf] = useState('');
     const params = useParams();
     const alert = useAlert();
@@ -35,14 +35,15 @@ export default function Documents() {
         console.log(error);
       });
   };  
-   const headers1 = {
+   
+    const getWorker = () => {
+        const headers = {
         Accept: "application/json, text/plain, */*",
         "Content-Type": "application/json",
         Authorization: `Bearer ` + localStorage.getItem("admin-token"),
     };
-    const getWorker = () => {
         axios
-            .get(`/api/admin/workers/${params.id}/edit`, { headers1 })
+            .get(`/api/admin/workers/${params.id}/edit`, { headers })
             .then((response) => {
                 setFile(response.data.worker.form_101);
             });
@@ -50,15 +51,18 @@ export default function Documents() {
     useEffect(() => {
         getWorker();
     }, []);
+    console.log(file)
     return (
 
         <div className="tab-pane fade active show" id="customer-notes" role="tabpanel"
             aria-labelledby="customer-notes-tab">
             <div className="row pb-3">
                 <div className="col-sm-10">
+                {file &&
                 <a href={ (`/api/showPdf/${params.id}`)} target="_blank" className="btn btn-pink">
                     View Worker 101 Form
                 </a>
+                }
                  </div>
                 <div className="col-sm-2">
                 <button type="button" className="btn btn-pink" data-toggle="modal" data-target="#exampleModal">
