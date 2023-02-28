@@ -143,7 +143,7 @@ export default function Clients() {
                                                         </Td>
                                                         <Td onClick={(e)=>handleNavigate(e,item.id)}>{item.email}</Td>
                                                         <Td><a href={`https://maps.google.com?q=${cords}`} target='_blank'>{address}</a></Td>
-                                                        <Td onClick={(e)=>handleNavigate(e,item.id)}>{item.phone}</Td>
+                                                        <Td onClick={(e)=>handleNavigate(e,item.id)}>{  (item.phone) ? item.phone.toString().split(",").join(' | '): ''}</Td>
                                                         <Td onClick={(e)=>handleNavigate(e,item.id)}>
                                                             {item.status == 0
                                                                 ? "Inactive"

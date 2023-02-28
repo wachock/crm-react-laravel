@@ -55,6 +55,7 @@ export default function EditClient() {
     const handlePlaceChanged = () => {
         if (place) {
 
+            setCity(place.getPlace().vicinity);
             setAddress(place.getPlace().formatted_address);
             setLatitude(place.getPlace().geometry.location.lat());
             setLongitude(place.getPlace().geometry.location.lng());
