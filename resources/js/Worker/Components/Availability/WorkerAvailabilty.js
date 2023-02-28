@@ -171,9 +171,9 @@ export default function WorkerAvailabilty() {
             </div>
        </div>
       </div>
-      <div className="text-center">
-                    <input type="button" value="Update availabilities" className="btn btn-pink" onClick={handleSubmit}/>
-                </div>
+      <div className="text-center mt-3">
+        <input type="button" value="Update availabilities" className="btn btn-primary" onClick={handleSubmit}/>
+      </div>
      
     </div>
   )

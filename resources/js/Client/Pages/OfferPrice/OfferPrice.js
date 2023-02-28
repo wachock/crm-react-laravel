@@ -3,6 +3,7 @@ import ReactPaginate from "react-paginate";
 import { Link } from "react-router-dom";
 import ClientSidebar from '../../Layouts/ClientSidebar';
 import axios from 'axios';
+import {Table, Thead, Tbody, Tr, Th, Td} from 'react-super-responsive-table'
 
 export default function ClientOfferPrice() {
 
@@ -91,24 +92,24 @@ export default function ClientOfferPrice() {
 
                                 {totalOffers.length > 0 ? (
  
-                                <table className="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">Offer ID</th>
-                                            <th scope="col">Services</th>
-                                            <th scope="col">Status</th>
-                                            <th scope="col">Total</th>
-                                            <th scope="col">Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>  
+                                <Table className="table table-bordered responsiveTable">
+                                    <Thead>
+                                        <Tr>
+                                            <Th>Offer ID</Th>
+                                            <Th>Services</Th>
+                                            <Th>Status</Th>
+                                            <Th>Total</Th>
+                                            <Th>Action</Th>
+                                        </Tr>
+                                    </Thead>
+                                    <Tbody>  
                                         { offers && offers.map((ofr,i)=>{
 
                                           let services = ofr.services ? JSON.parse(ofr.services):'';
                                            return ( 
-                                           <tr>
-                                            <td>#{ ofr.id }</td>
-                                            <td>
+                                           <Tr>
+                                            <Td>#{ ofr.id }</Td>
+                                            <Td>
                                                 {services && services.map((s,i)=>{
                                                     return(
                                                         services.length-1 != i
@@ -117,20 +118,20 @@ export default function ClientOfferPrice() {
                                                     )
                                                 })}
 
-                                            </td>
-                                            <td>{ofr.status}</td>
-                                            <td>{ofr.total} ILS + VAT</td>
-                                            <td>
+                                            </Td>
+                                            <Td>{ofr.status}</Td>
+                                            <Td>{ofr.total} ILS + VAT</Td>
+                                            <Td>
                                                <Link to={`/client/view-offer/${ofr.id}`} className="ml-2 btn bg-yellow"><i className="fa fa-eye"></i></Link>
-                                            </td>
-                                        </tr>     
+                                            </Td>
+                                        </Tr>     
                                         )
                                         })}
 
                                         
                                        
-                                    </tbody>
-                                </table> 
+                                    </Tbody>
+                                </Table> 
                              ): (
                                 <p className="text-center mt-5">{loading}</p>
                             )}

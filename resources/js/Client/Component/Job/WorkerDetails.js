@@ -3,7 +3,7 @@ import React  from 'react'
 export default function WorkerDetails({worker}) {
   return (
     <>
-                    <div className='dashBox p-4 mb-3'>
+                    <div className='dashBox p-4 mb-3 mt-3'>
                         <form>
                             <div className='row'>
                                 <div className='col-sm-4'>

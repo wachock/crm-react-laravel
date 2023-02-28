@@ -165,7 +165,7 @@ export default function AddWorker() {
                                 </div>
                                 <div className='col-sm-6'>
                                     <div className='form-group'>
-                                        <label className='control-label'>Payment Per Hour</label>
+                                        <label className='control-label'>Payment Per Hour (NIS)</label>
                                         <input type='text' value={payment_hour} onChange={(e) => setPaymentHour(e.target.value)} className='form-control' placeholder='Payment Per Hour' />
                                     </div>
                                     

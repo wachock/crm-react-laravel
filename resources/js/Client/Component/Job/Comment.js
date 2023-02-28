@@ -91,7 +91,7 @@ export default function Comment() {
         <div className="tab-pane fade active show" id="customer-notes" role="tabpanel"
             aria-labelledby="customer-notes-tab">
             <div className="text-right pb-3">
-                <button type="button" className="btn btn-pink" data-toggle="modal" data-target="#exampleModal">
+                <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
                     Add Comment
                 </button>
             </div>

@@ -3,7 +3,7 @@ import React  from 'react'
 export default function Services({services,job}) {
   return (
     <>
-                    <h2 className="text-danger">Service Details</h2>
+                    <h2 className="text-custom">Service Details</h2>
                     <div className='dashBox p-4 mb-3'>
                         <form>
                             <div className='row'>

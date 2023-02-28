@@ -2,7 +2,7 @@ import React, { useState, useEffect  } from 'react'
 import { useParams, useNavigate } from "react-router-dom";
 import WorkerSidebar from '../../Layouts/WorkerSidebar'
 import ClientDetails from '../../Components/Job/ClientDetails'
-import WorkerDetails from '../../Components/Job/WorkerDetails'
+import {Table, Thead, Tbody, Tr, Th, Td} from 'react-super-responsive-table'
 import Services from '../../Components/Job/Services'
 import Comment from '../../Components/Job/Comment'
 import { useAlert } from "react-alert";
@@ -190,7 +190,7 @@ export default function WorkerViewJob() {
                             <div className="col-sm-12">
                                 <div className="row">
                                   <div className='col-sm-8'>
-                                     <h2 className="text-danger">Client Details</h2>
+                                     <h2 className="text-custom">Client Details</h2>
                                   </div>
                                   <div className='col-sm-2'>
                                      {(job_status !='completed') && ( <button type="button" onClick={HandleMarkComplete} className="btn btn-success">Mark as Complete</button>)}
@@ -203,14 +203,14 @@ export default function WorkerViewJob() {
                                         {isRunning && (
                                             <>
                                            
-                                          <button onClick={stopTimer} className="btn btn-danger">Stop Timer</button>
+                                          <button onClick={stopTimer} className="btn btn-danger dangerous">Stop Timer</button>
                                            <h4>{counter}</h4>
                                             </>
                                         )}
                                     </div>
                                     :
                                     <div className='col-sm-2'>
-                                       Job Status : <h6 className="text-danger">{job.status}</h6>
+                                       Job Status : <h6 className="text-custom">{job.status}</h6>
                                     </div>
                                      }
                                  </div>
@@ -223,41 +223,42 @@ export default function WorkerViewJob() {
 
                             </div>
                             <div className="col-sm-12">
-                                <h2 className="text-danger">Work Time</h2>
-                                 {job_time.length > 0 ? (
-                                    <table className="table table-bordered">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">Start Time</th>
-                                                <th scope="col">End Time</th>
-                                                <th scope="col">Time</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {job_time &&
-                                                job_time.map((item, index) => {
-                                                    let w_t = (item.end_time)?time_difference(item.start_time,item.end_time):'';
-                                                     return(
-                                                    <tr key={index}>
-                                                    <td>{item.start_time}</td>
-                                                    <td>{item.end_time}</td>
-                                                    <td>{w_t}</td>
-                                                    </tr>
+                                <h2 className="text-custom">Work Time</h2>
+                                <div className='dashBox p-4'>
+                                    <div className='table-responsive'>
+                                    {job_time.length > 0 ? (
+                                        <Table className="table table-bordered responsiveTable">
+                                            <Thead>
+                                                <Tr>
+                                                    <Th scope="col">Start Time</Th>
+                                                    <Th scope="col">End Time</Th>
+                                                    <Th scope="col">Time</Th>
+                                                </Tr>
+                                            </Thead>
+                                            <Tbody>
+                                                {job_time &&
+                                                    job_time.map((item, index) => {
+                                                        let w_t = (item.end_time)?time_difference(item.start_time,item.end_time):'';
+                                                        return(
+                                                        <Tr key={index}>
+                                                        <Td>{item.start_time}</Td>
+                                                        <Td>{item.end_time}</Td>
+                                                        <Td>{w_t}</Td>
+                                                        </Tr>
 
-                                                    )})}
-                                                <tr>
-                                                 <td colSpan="2">Total Time</td>
-                                                 <td>{calculateTime(total_time)}</td>
-                                                </tr>
-                                        </tbody>
-                                        
-                                        </table>
-                                ) : (
-                                    <p className="text-center mt-5">Worker Timing not found.</p>
-                                )}
-                                       
-                           
-
+                                                        )})}
+                                                    <Tr>
+                                                    <Td colSpan="2">Total Time</Td>
+                                                    <Td>{calculateTime(total_time)}</Td>
+                                                    </Tr>
+                                            </Tbody>
+                                            
+                                            </Table>
+                                    ) : (
+                                        <p className="text-center mt-5">Worker Timing not found.</p>
+                                    )}
+                                    </div>
+                                </div>
                              <Comment/>
                             </div>
                             <div className="col-sm-12 text-center">

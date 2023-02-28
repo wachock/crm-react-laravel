@@ -1196,6 +1196,11 @@ h1 {
 .mt-25{
   margin-top: 25px;
 }
+.text-custom{
+  color: #080e73!important;
+  font-family: 'Open Sans';
+  font-size: 22px !important;
+}
 .meet-status{
   font-family: 'Open Sans';
   margin-top: 100px;
@@ -1271,6 +1276,13 @@ h1 {
 }
 .form101 .box-heading [aria-hidden="true"] {
   display: none;
+}
+.btn-primary, .btn-success, .dangerous{
+  font-size: 15px;
+  font-weight: 600;
+}
+.bg-yellow:hover{
+  color: #fff;
 }
 .responsiveTable tbody tr{
   border-bottom: 1px solid #ddd !important;

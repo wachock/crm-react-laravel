@@ -47,10 +47,10 @@ export default function ViewOffer() {
                 <div className='row'>
                   <div className='col-sm-5'>
                     <h2>Broom Service</h2>
-                    <p>4 Ashlinn House,College Squar</p>
-                    <p>Florida, USA</p>
-                    <p>Phone: <span>0872992300</span></p>
-                    <p>Email: <span>info@yourcompany.com</span></p>
+                    <p>Bnei Dan St, Tel Aviv-Yafo</p>
+                    <p>Israel</p>
+                    <p>Phone: <span>+97235257060</span></p>
+                    <p>Email: <span>office@broomservice.co.il</span></p>
                   </div>
                   <div className='col-sm-4'>
                     <h2>To</h2>

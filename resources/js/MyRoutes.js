@@ -104,14 +104,6 @@ const options = {
    position: positions.TOP_RIGHT
 };
 
-const lng = localStorage.getItem('i18nextLng');
-const url = window.location.href;
-if(lng == 'heb' && !url.includes('admin')){ 
-   import ('./Assets/css/rtl.css');
-} else {
-   document.querySelector('html').removeAttribute('dir');
-}
-
 export default function MyRoutes() {
    return (
       <Provider template={AlertTemplate} {...options}>

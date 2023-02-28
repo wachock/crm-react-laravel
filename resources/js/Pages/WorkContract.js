@@ -111,7 +111,7 @@ export default function WorkContract() {
   return (
 
     <div className='container'>
-        <div className='send-offer client-contract'>
+        <div className='send-offer client-contract sendOfferRtl'>
             <div className='maxWidthControl dashBox mb-4'>
                 <div className='row'>
                     <div className='col-sm-6'>

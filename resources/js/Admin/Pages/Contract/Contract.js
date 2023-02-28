@@ -136,10 +136,9 @@ export default function Contract() {
                                             {contracts && contracts.map((c, i) => {
 
                                             if(c.client){
-                                                let address = c.client ? c.client.city + ", " : '';
-                                                address += c.client ? c.client.street_n_no + ", " : '';
-                                                address += c.client ? c.client.zipcode + " " : '';
-
+                                                let address = (c.client.geo_address) ? c.client.geo_address : 'NA';
+                                                let cords = (c.client.latitude && c.client.longitude)
+                                                            ? (c.client.latitude +","+ c.client.longitude):"";
                                                 let services = JSON.parse(c.offer.services);
 
                                                 return (
@@ -153,7 +152,7 @@ export default function Contract() {
                                                             }
                                                         </Link></Td>
                                                         <Td onClick={(e)=>handleNavigate(e,c.id)}>{c.client.email}</Td>
-                                                        <Td><Link to={`https://maps.google.com?q=${address}`}>
+                                                        <Td><Link to={`https://maps.google.com?q=${cords}`}>
 
                                                             {address}
 
