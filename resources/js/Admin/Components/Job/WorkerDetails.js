@@ -4,7 +4,7 @@ export default function WorkerDetails({worker, job}) {
 
   return (
     <>
-                    <h2 className="text-danger">Worker Details</h2>
+                    <h2 className="text-custom">Worker Details</h2>
                     <div className='dashBox p-4 mb-3'>
                         <form>
                             <div className='row'>
