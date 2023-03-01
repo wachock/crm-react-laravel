@@ -6,6 +6,7 @@ import {Table, Thead, Tbody, Tr, Th, Td} from 'react-super-responsive-table'
 import Services from '../../Components/Job/Services'
 import Comment from '../../Components/Job/Comment'
 import { useAlert } from "react-alert";
+import { useTranslation } from 'react-i18next';
 
 export default function WorkerViewJob() {
     const params = useParams();
@@ -22,6 +23,7 @@ export default function WorkerViewJob() {
     const [job_time, setJobTime] = useState([]);
     const [total_time, setTotalTime] = useState(0);
     const alert = useAlert();
+    const {t} = useTranslation();
     const headers = {
         Accept: "application/json, text/plain, */*",
         "Content-Type": "application/json",

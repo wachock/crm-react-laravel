@@ -399,6 +399,38 @@
             "status":"Status",
             "total":"Total",
             "action":"Action"
+        },
+        "jobs":{
+            "title":"Jobs",
+            "job_date":"Job Dated",
+            "client_name":"Client Name",
+            "service_name":"Service Name",
+            "shift":"Shift",
+            "address":"Address",
+            "c_time":"Complete Time",
+            "status":"Status",
+            "total":"Total",
+            "action":"Action",
+            "viewbtn":"View",
+            "view":{
+                "c_details":"Client Details",
+                "c_name":"Client Name",
+                "c_email":"Client Email",
+                "c_phone":"Client Phone",
+                "geo_adr":"Google address",
+                "s_details":"Service Details",
+                "services":"Services",
+                "job_date":"Job Date",
+                "c_time":"Complete Time",
+                "shift":"Shift",
+                "w_time":"Work Time",
+                "start_time":"Start Time",
+                "end_time":"End Time",
+                "time":"Time",
+                "req_re":"Request for Reschedule or Unavailable",
+                "completebtn":"Mark as Complete",
+                "startbtn":"Start Timer"
+            }
         }
     }
 }
