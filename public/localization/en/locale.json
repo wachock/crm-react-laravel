@@ -420,6 +420,7 @@
                 "geo_adr":"Google address",
                 "s_details":"Service Details",
                 "services":"Services",
+                "job_status":"Job Status",
                 "job_date":"Job Date",
                 "c_time":"Complete Time",
                 "shift":"Shift",
@@ -427,10 +428,55 @@
                 "start_time":"Start Time",
                 "end_time":"End Time",
                 "time":"Time",
+                "resbtn":"Resume Timer",
+                "stopbtn":"Stop Timer",
                 "req_re":"Request for Reschedule or Unavailable",
                 "completebtn":"Mark as Complete",
-                "startbtn":"Start Timer"
+                "startbtn":"Start Timer",
+                "back":"Back",
+                "total_time":"Total Time",
+                "timing_not":"Worker timing not found",
+                "add_cancel_txt":"Add Comment/Cancel Job",
+                "status_warning":"Job Status (You Can't Revert Status if Changed)",
+                "cmt":"Comment",
+                "cmt_box":"Enter Comment",
+                "save_cmt":"Save Comment",
+                "close":"Close"
+
             }
+        },
+        "schedule":{
+            "title":"Schedule",
+            "c_week":"Current Week",
+            "n_week":"Next Week",
+            "update":"Update Availability"
+        },
+        "settings":{
+            "edit_account":"Edit Account",
+            "manage_form":"Manage Form",
+            "f_name":"First Name",
+            "l_name":"Last Name",
+            "email":"Email",
+            "phone":"Phone",
+            "gender":"Gender",
+            "male":"Male",
+            "female":"Female",
+            "p_ph":"Payment Per Hour",
+            "w_id":"Worker Id",
+            "pass":"Password",
+            "lng":"Language",
+            "country":"Country",
+            "address":"Address",
+            "skills":"Skills",
+            "status":"Status",
+            "renewal_visa":"Renewal of Visa",
+            "update":"Update",
+            "view_form":"View Worker 101 Form",
+            "add_file":"Add File",
+            "file":"File",
+            "close":"Close",
+            "save_file":"Save File"
+
         }
     }
 }

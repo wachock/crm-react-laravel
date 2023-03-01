@@ -185,7 +185,7 @@ export default function TeamAvailability() {
         plugins={[dayGridPlugin, timeGridPlugin,resourceTimelinePlugin,interactionPlugin  ]}
         initialView = 'resourceTimelineWeek'
         resources =  {resources}
-        
+        resourceAreaHeaderContent="Workers"
         slotDuration={'00:30:00'}
         events={events}
         resourceAreaWidth= {"15%"}

@@ -231,6 +231,7 @@ export default function CreateJobCalender() {
                 plugins={[dayGridPlugin, timeGridPlugin, resourceTimelinePlugin, interactionPlugin]}
                 initialView='resourceTimelineWeek'
                 resources={resources}
+                resourceAreaHeaderContent="Workers"
                 height={'auto'} // sets height to height of resources.
                 slotDuration={'00:30:00'}
                 events={events}

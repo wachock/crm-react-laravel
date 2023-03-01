@@ -195,30 +195,30 @@ export default function WorkerViewJob() {
                             <div className="col-sm-12">
                                 <div className="row mb-3 mt-4">
                                   <div className='col-sm-8 col-12'>
-                                     <h2 className="text-custom">Client Details</h2>
+                                     <h2 className="text-custom">{t('worker.jobs.view.c_details')}</h2>
                                   </div>
                                   <div className='col-sm-2 col-6'>
-                                     {(job_status !='completed') && ( <button type="button" onClick={HandleMarkComplete} className="btn btn-success">Mark as Complete</button>)}
+                                     {(job_status !='completed') && ( <button type="button" onClick={HandleMarkComplete} className="btn btn-success">{t('worker.jobs.view.completebtn')}</button>)}
                                   </div>
                                    {(job_status !='completed')?
                                     <div className='col-sm-2 col-6'>
                                      {!isRunning && (
                                            <>
-                                          <button onClick={startTimer} className="btn btn-primary">{job_time.length > 0 ?'Resume Timer':'Start Timer'}</button>
+                                          <button onClick={startTimer} className="btn btn-primary">{job_time.length > 0 ? t('worker.jobs.view.resbtn') : t('worker.jobs.view.c_details') }</button>
                                           <h4>{job_time.length > 0 ? calculateTime(total_time) :'' }</h4>
                                            </>
                                         )}
                                         {isRunning && (
                                             <>
                                            
-                                          <button onClick={stopTimer} className="btn btn-danger dangerous">Stop Timer</button>
+                                          <button onClick={stopTimer} className="btn btn-danger dangerous">{t('worker.jobs.view.stopbtn')}</button>
                                            <h4>{counter}</h4>
                                             </>
                                         )}
                                     </div>
                                     :
                                     <div className='col-sm-2'>
-                                       Job Status : <h6 className="text-custom">{job.status}</h6>
+                                       {t('worker.jobs.view.job_status')} : <h6 className="text-custom">{job.status}</h6>
                                     </div>
                                      }
                                  </div>
@@ -231,16 +231,16 @@ export default function WorkerViewJob() {
 
                             </div>
                             <div className="col-sm-12">
-                                <h2 className="text-custom">Work Time</h2>
+                                <h2 className="text-custom">{t('worker.jobs.view.w_time')}</h2>
                                 <div className='dashBox p-4'>
                                     <div className='table-responsive'>
                                     {job_time.length > 0 ? (
                                         <Table className="table table-bordered responsiveTable">
                                             <Thead>
                                                 <Tr>
-                                                    <Th scope="col">Start Time</Th>
-                                                    <Th scope="col">End Time</Th>
-                                                    <Th scope="col">Time</Th>
+                                                    <Th scope="col">{t('worker.jobs.view.start_time')}</Th>
+                                                    <Th scope="col">{t('worker.jobs.view.end_time')}</Th>
+                                                    <Th scope="col">{t('worker.jobs.view.time')}</Th>
                                                 </Tr>
                                             </Thead>
                                             <Tbody>
@@ -256,14 +256,14 @@ export default function WorkerViewJob() {
 
                                                         )})}
                                                     <Tr>
-                                                    <Td colSpan="2">Total Time</Td>
+                                                    <Td colSpan="2">{t('worker.jobs.view.total_time')}</Td>
                                                     <Td>{calculateTime(total_time)}</Td>
                                                     </Tr>
                                             </Tbody>
                                             
                                             </Table>
                                     ) : (
-                                        <p className="text-center mt-5">Worker Timing not found.</p>
+                                        <p className="text-center mt-5">{t('worker.jobs.view.timing_not')}</p>
                                     )}
                                     </div>
                                 </div>
@@ -271,7 +271,7 @@ export default function WorkerViewJob() {
                             </div>
                             <div className="col-sm-12 text-center">
                                 <button type="button" onClick={handleClick} className="btn btn-pink addButton">
-                                    Back
+                                {t('worker.jobs.view.back')}
                                 </button>
                             </div>
                         </div>

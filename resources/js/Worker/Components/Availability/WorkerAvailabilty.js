@@ -1,6 +1,7 @@
-import React,{useState,useEffect} from 'react'
+import React,{useState,useEffect, useTransition} from 'react'
 import { useAlert } from "react-alert";
 import { useParams,useNavigate,Link } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 
 export default function WorkerAvailabilty() {
     const [worker_aval, setWorkerAval] = useState([])
@@ -9,6 +10,7 @@ export default function WorkerAvailabilty() {
     const navigate = useNavigate();
     const alert = useAlert();
     const id = localStorage.getItem('worker-id');
+    const {t} = useTranslation();
     const headers = {
         Accept: "application/json, text/plain, */*",
         "Content-Type": "application/json",
@@ -108,8 +110,8 @@ export default function WorkerAvailabilty() {
   return (
     <div className="boxPanel">
         <ul className="nav nav-tabs" role="tablist">
-            <li className="nav-item" role="presentation"><a id="current-week" className="nav-link active" data-toggle="tab" href="#tab-current-week" aria-selected="true" role="tab">Current Week</a></li>
-            <li className="nav-item" role="presentation"><a id="first-next-week" className="nav-link" data-toggle="tab" href="#tab-first-next-week" aria-selected="true" role="tab">Next Week</a></li>
+            <li className="nav-item" role="presentation"><a id="current-week" className="nav-link active" data-toggle="tab" href="#tab-current-week" aria-selected="true" role="tab">{t('worker.schedule.c_week')}</a></li>
+            <li className="nav-item" role="presentation"><a id="first-next-week" className="nav-link" data-toggle="tab" href="#tab-first-next-week" aria-selected="true" role="tab">{t('worker.schedule.n_week')}</a></li>
         </ul>
          <div className='tab-content' style={{background: "#fff"}}>
          <div id="tab-current-week" className="tab-pane active show" role="tab-panel" aria-labelledby="current-week">
@@ -172,7 +174,7 @@ export default function WorkerAvailabilty() {
        </div>
       </div>
       <div className="text-center mt-3">
-        <input type="button" value="Update availabilities" className="btn btn-primary" onClick={handleSubmit}/>
+        <input type="button" value={t('worker.schedule.update')} className="btn btn-primary" onClick={handleSubmit}/>
       </div>
      
     </div>
