@@ -126,7 +126,6 @@ export default function EditOffer() {
     event.preventDefault();
     let to = 0;
     let taxper = 17;
-    let ty = document.querySelector('.type').value;
 
     for (let t in formValues) {
 
@@ -138,8 +137,8 @@ export default function EditOffer() {
         alert.error("One of the frequency is not selected");
         return false;
       }
-      formValues[t].type = ty;
-      if (ty == "hourly") {
+      (!formValues[t].type) ? formValues[t].type ='fixed':'';
+      if (formValues[t].type == "hourly") {
 
         if (formValues[t].jobHours == '') {
           alert.error("One of the job hours value is missing");
@@ -168,7 +167,6 @@ export default function EditOffer() {
     const data = {
       client_id: client,
       status: status,
-      type:document.querySelector('.type').value,
       subtotal:to,
       total: to+tax,
       services: JSON.stringify(formValues),
@@ -241,13 +239,7 @@ export default function EditOffer() {
                         <label className="control-label">Client Name</label>
                         <SelectPicker data={cData} defaultValue={client} value={client} onChange={(value, event) => setClient(value)} size="lg" required />
                     </div>
-                    <div className="form-group">
-                      <label className="control-label">Job Type</label>
-                      <select value={type} onChange={e => { setType(e.target.value); handleJob(e) }} className="form-control type">
-                        <option value="fixed" selected={type == "fixed"}>Fixed</option>
-                        <option value="hourly" selected={type == "hourly"}>Hourly</option>
-                      </select>
-                    </div>
+                   
 
                     <div className="card card-dark">
                       <div className="card-header card-black">
@@ -258,11 +250,11 @@ export default function EditOffer() {
                           <table class="table table-sm">
                             <thead>
                             <tr>
-                                <th style={ { width: "30%" }}>Service</th>
-                                <th style={ { width: "30%" }}>Frequency</th>
-                                <th style={ { width: "16%" }}>Job Hours</th>
-                                <th style={ type =='fixed' ? { width: "25%" } :{ display: "none" } }>Job Price</th>
-                                <th style={ type =='fixed' ? { width: "16%", display: "none" } : { width: "16%"} }>Rate Per Hour</th>
+                                <th style={ { width: "20" }}>Service</th>
+                                <th style={ { width: "20%" }}>Frequency</th>
+                                <th style={ { width: "20%" }}>Job Hours</th>
+                                <th style={ type =='fixed' ? { width: "20%" } :{ display: "none" } }>Job Price</th>
+                                <th style={ type =='fixed' ? { width: "20%", display: "none" } : { width: "20%"} }>Rate Per Hour</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -280,6 +272,12 @@ export default function EditOffer() {
                                     </select>
                                   </td>
                                   <td>
+                                  <td>
+                                    <select name="type" className="form-control" value={element.type || ""} onChange={(e) => {handleChange(index, e);handleType(e)}} >
+                                      <option selected value="fixed">Fixed</option>
+                                      <option selected value="hourly">Hourly</option>
+                                    </select>
+                                  </td>
                                     <select name="frequency" className="form-control" value={element.frequency || ""} onChange={e => handleChange(index, e)} >
                                       <option selected value={0}> -- Please select --</option>
                                       {AllFreq && AllFreq.map((s, i) => {

@@ -131,6 +131,20 @@ export default function AddOffer() {
       th[4].style.display = "none";
     }
   }
+  const handleType = (e) => {
+
+    let fixed_field    = e.target.parentNode.nextSibling.nextElementSibling.nextElementSibling;
+    let per_hour_field = e.target.parentNode.nextSibling.nextElementSibling.nextElementSibling.nextElementSibling;
+    
+    if(e.target.value == 'hourly'){
+        fixed_field.style.display = 'none';
+        per_hour_field.style.display='block';
+      } else  {
+        fixed_field.style.display = 'block';
+        per_hour_field.style.display='none';
+
+      }
+  }
 
 
 
@@ -139,8 +153,7 @@ export default function AddOffer() {
     
     let to = 0;
     let taxper = 17;
-    let ty = document.querySelector('.type').value;
-
+    
     for (let t in formValues) {
 
       if (formValues[t].service == '' || formValues[t].service == 0) {
@@ -155,8 +168,8 @@ export default function AddOffer() {
         alert.error("One of the job hours value is missing");
         return false;
       }
-      formValues[t].type = ty;
-      if (ty == "hourly") {
+      (!formValues[t].type) ? formValues[t].type ='fixed':'';
+      if (formValues[t].type == "hourly") {
 
         if (formValues[t].rateperhour == '') {
           alert.error("One of the rate per hour value is missing");
@@ -177,10 +190,11 @@ export default function AddOffer() {
       }
 
     }
+    
+    
     let tax = (taxper/100) * to;
     const data = {
       client_id: client,
-      type:document.querySelector('.type').value,
       status: 'sent',
       subtotal:to,
       total: to+tax,
@@ -226,14 +240,6 @@ export default function AddOffer() {
                       <label className="control-label">Client Name</label>
                       <SelectPicker data={cData} value={client} onChange={(value, event) => setClient(value)} size="lg" required />
                     </div>
-                    <div className="form-group">
-                      <label className="control-label">Job Type</label>
-                      <select value={type} onChange={e => { setType(e.target.value); handleJob(e) }} className="form-control type">
-                        <option value="fixed">Fixed</option>
-                        <option value="hourly">Hourly</option>
-                      </select>
-                    </div>
-
 
                     <div className="card card-dark">
                       <div className="card-header card-black">
@@ -244,11 +250,12 @@ export default function AddOffer() {
                           <table class="table table-sm">
                             <thead>
                               <tr>
-                                <th style={{ width: "30%" }}>Service</th>
-                                <th style={{ width: "30%" }}>Frequency</th>
-                                <th style={{ width: "16%" }}>Job Hours</th>
-                                <th style={{ width: "25%" }}>Job Price</th>
-                                <th style={{ width: "16%", display: "none" }}>Rate Per Hour</th>
+                                <th style={{ width: "20%" }}>Service</th>
+                                <th style={{ width: "20%" }}>Type</th>
+                                <th style={{ width: "20%" }}>Frequency</th>
+                                <th style={{ width: "20%" }}>Job Hours</th>
+                                <th style={{ width: "20%" }}>Price</th>
+                                <th style={{ width: "20%", display: "none" }}>Rate Per Hour</th>
                               </tr>
                             </thead>
                             <tbody>
@@ -266,6 +273,13 @@ export default function AddOffer() {
                                     </select>
                                   </td>
                                   <td>
+                                    <select name="type" className="form-control" value={element.type || ""} onChange={(e) => {handleChange(index, e);handleType(e)}} >
+                                      <option selected value="fixed">Fixed</option>
+                                      <option selected value="hourly">Hourly</option>
+                                    </select>
+                                  </td>
+
+                                  <td>
                                     <select name="frequency" className="form-control" value={element.frequency || ""} onChange={e => handleChange(index, e)} >
                                       <option selected value={0}> -- Please select --</option>
                                       {AllFreq && AllFreq.map((s, i) => {
@@ -275,6 +289,7 @@ export default function AddOffer() {
                                       })}
                                     </select>
                                   </td>
+                                 
                                   <td>
                                     <input type="number" name="jobHours" value={element.jobHours || ""} onChange={e => handleChange(index, e)} className="form-control jobhr"  required placeholder="Enter job Hrs" />
                                   </td>

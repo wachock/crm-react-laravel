@@ -8,6 +8,7 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import swal from 'sweetalert';
 import Moment from 'moment';
+import { useTranslation } from 'react-i18next';
 
 export default function WorkContract() {
 
@@ -18,7 +19,7 @@ export default function WorkContract() {
     const param = useParams();
     const sigRef = useRef();
     const sigRef2 = useRef();
-
+    const {t} = useTranslation();
     const [signature, setSignature] = useState(null);
     const [signature2, setSignature2] = useState(null);
     const [Aaddress, setAaddress] = useState(null);

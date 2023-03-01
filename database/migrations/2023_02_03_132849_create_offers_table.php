@@ -16,7 +16,6 @@ class CreateOffersTable extends Migration
         Schema::create('offers', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('client_id');
-            $table->string('type');
             $table->longText('services');
             $table->double('subtotal',15,8);
             $table->double('total',15,8);
