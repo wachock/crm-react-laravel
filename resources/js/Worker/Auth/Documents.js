@@ -4,6 +4,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useAlert } from "react-alert";
 import Moment from 'moment';
 import Swal from 'sweetalert2';
+import { useTranslation } from "react-i18next";
 
 export default function Documents() {
 
@@ -11,6 +12,7 @@ export default function Documents() {
     const [pdf, setPdf] = useState('');
     const params = useParams();
     const alert = useAlert();
+    const {t} = useTranslation();
     const headers = {
         Accept: "application/json, text/plain, */*",
         "Content-Type": "multipart/form-data",
@@ -51,7 +53,7 @@ export default function Documents() {
     useEffect(() => {
         getWorker();
     }, []);
-    console.log(file)
+   
     return (
 
         <div className="tab-pane fade active show" id="customer-notes" role="tabpanel"
@@ -60,13 +62,13 @@ export default function Documents() {
                 <div className="col-sm-10">
                 {file &&
                 <a href={ (`/api/showPdf/${localStorage.getItem("worker-id")}`)} target="_blank" className="btn btn-pink">
-                    View Worker 101 Form
+                   {t('worker.settings.view_form')}
                 </a>
                 }
                  </div>
                 <div className="col-sm-2">
                 <button type="button" className="btn btn-pink" data-toggle="modal" data-target="#exampleModal">
-                    Add File
+                {t('worker.settings.add_file')}
                 </button>
                  </div>
             </div>
@@ -77,7 +79,7 @@ export default function Documents() {
                 <div className="modal-dialog" role="document">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <h5 className="modal-title" id="exampleModalLabel">Add File</h5>
+                            <h5 className="modal-title" id="exampleModalLabel"> {t('worker.settings.add_file')}</h5>
                             <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -85,14 +87,11 @@ export default function Documents() {
                         <div className="modal-body">
 
                             <div className="row">
-                                
-
-                               
-                                
+                                                                
                                 <div className="col-sm-12">
                                     <div className="form-group">
                                         <label className="control-label">
-                                            File
+                                        {t('worker.settings.file')}
                                         </label>
                                          <input type="file" onChange={handlePdfUpload} />
 
@@ -104,8 +103,8 @@ export default function Documents() {
 
                         </div>
                         <div className="modal-footer">
-                            <button type="button" className="btn btn-secondary closedoc" data-dismiss="modal">Close</button>
-                            <button type="button" onClick={handleFormSubmit} className="btn btn-primary">Save File</button>
+                            <button type="button" className="btn btn-secondary closedoc" data-dismiss="modal"> {t('worker.settings.close')}</button>
+                            <button type="button" onClick={handleFormSubmit} className="btn btn-primary"> {t('worker.settings.save_file')}</button>
                         </div>
                     </div>
                 </div>

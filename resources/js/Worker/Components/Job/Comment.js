@@ -4,6 +4,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useAlert } from "react-alert";
 import Moment from 'moment';
 import Swal from 'sweetalert2';
+import { useTranslation } from "react-i18next";
 
 export default function Comment() {
 
@@ -12,6 +13,7 @@ export default function Comment() {
     const [allComment,setAllComment] = useState([]);
     const param = useParams();
     const alert = useAlert();
+    const {t} = useTranslation();
 
     const headers = {
         Accept: "application/json, text/plain, */*",
@@ -94,7 +96,7 @@ export default function Comment() {
             aria-labelledby="customer-notes-tab">
             <div className="text-right pb-3 mt-3">
                 <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                    Request for Reschedule or Unavailable
+                {t('worker.jobs.view.req_re')}
                 </button>
             </div>
             {allComment && allComment.map((c,i)=>{
@@ -141,7 +143,7 @@ export default function Comment() {
                 <div className="modal-dialog" role="document">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <h5 className="modal-title" id="exampleModalLabel">Add Comment/Cancel Job</h5>
+                            <h5 className="modal-title" id="exampleModalLabel">{t('worker.jobs.view.add_cancel_txt')}</h5>
                             <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -152,7 +154,7 @@ export default function Comment() {
                                 <div className="col-sm-12">
                                     <div className="form-group">
                                         <label className="control-label">
-                                            Job Status (You Can't Revert Status if Changed)
+                                        {t('worker.jobs.view.status_warning')}
                                         </label>
                                         <select value={status} onChange={(e) =>
                                                 setStatus(e.target.value)
@@ -167,7 +169,7 @@ export default function Comment() {
                                 <div className="col-sm-12">
                                     <div className="form-group">
                                         <label className="control-label">
-                                            Comment
+                                        {t('worker.jobs.view.cmt')}
                                         </label>
                                         <textarea
                                             type="text"
@@ -177,7 +179,7 @@ export default function Comment() {
                                             }
                                             className="form-control"
                                             required
-                                            placeholder="Enter Comment"
+                                            placeholder={t('worker.jobs.view.cmt_box')}
                                         ></textarea>
 
                                     </div>
@@ -188,8 +190,8 @@ export default function Comment() {
 
                         </div>
                         <div className="modal-footer">
-                            <button type="button" className="btn btn-secondary closeb" data-dismiss="modal">Close</button>
-                            <button type="button"  onClick={handleSubmit} className="btn btn-primary">Save Comment</button>
+                            <button type="button" className="btn btn-secondary closeb" data-dismiss="modal">{t('worker.jobs.view.close')}</button>
+                            <button type="button"  onClick={handleSubmit} className="btn btn-primary">{t('worker.jobs.view.save_cmt')}</button>
                         </div>
                     </div>
                 </div>

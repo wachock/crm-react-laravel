@@ -1,34 +1,36 @@
 import React  from 'react'
+import { useTranslation } from 'react-i18next'
 
 export default function Services({services,job}) {
+    const {t} = useTranslation();
   return (
     <>
-                    <h2 className="text-custom">Service Details</h2>
+                    <h2 className="text-custom">{t('worker.jobs.view.s_details')}</h2>
                     <div className='dashBox p-4 mb-3'>
                         <form>
                             <div className='row'>
                                 <div className='col-sm-3'>
                                     <div className='form-group'>
-                                        <label className='control-label'>Services</label>
+                                        <label className='control-label'>{t('worker.jobs.view.services')}</label>
                                           <p>{services.name}</p>
                                     </div>
                                 </div>
                                 <div className='col-sm-3'>
                                     <div className='form-group'>
-                                        <label className='control-label'>Job Date</label>
+                                        <label className='control-label'>{t('worker.jobs.view.job_date')}</label>
                                                 
                                                  <p>{job.start_date}</p>
                                     </div>
                                 </div>
                                 <div className='col-sm-3'>
                                     <div className='form-group'>
-                                        <label className='control-label'>Complete Time</label>
+                                        <label className='control-label'>{t('worker.jobs.view.c_time')}</label>
                                                  <p>{services.job_hour} hours</p>
                                     </div>
                                 </div>
                                 <div className='col-sm-3'>
                                     <div className='form-group'>
-                                        <label className='control-label'>Shift</label>
+                                        <label className='control-label'>{t('worker.jobs.view.shift')}</label>
                                         <p>{job.start_time} to {job.end_time}</p>
                                     </div>
                                 </div>
