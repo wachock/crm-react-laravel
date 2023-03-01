@@ -1164,6 +1164,9 @@ h1 {
 .fc-view-harness .fc-view {
   overflow-x: hidden;
 }
+.bg-success{
+  color: #fff;
+}
 .text-underline{
   text-decoration: underline;
 }

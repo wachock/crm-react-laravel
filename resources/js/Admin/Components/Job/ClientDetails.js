@@ -3,7 +3,7 @@ import React  from 'react'
 export default function ClientDetails({client}) {
   return (
     <>
-                    <h2 className="text-danger">Client Details</h2>
+                    <h2 className="text-custom">Client Details</h2>
                     <div className='dashBox p-4 mb-3'>
                         <form>
                             <div className='row'>

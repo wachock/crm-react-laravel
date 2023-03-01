@@ -297,8 +297,8 @@ export default function TotalJobs() {
                                                                         <button className="dropdown-item" onClick={() => handleDelete(item.id)}>Delete</button>
                                                                     </div>
                                                                 </div>
-                                                                <button type="button" className="btn btn-default" onClick={(e) => handleform(item.id, e)}>
-                                                                    <i className="fa fa-upload" ></i>
+                                                                <button type="button" className="btn btn-success" onClick={(e) => handleform(item.id, e)}>
+                                                                    Update
                                                                 </button>
                                                             </Td>
                                                         </Tr>

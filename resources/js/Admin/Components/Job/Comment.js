@@ -114,23 +114,22 @@ export default function Comment() {
 
             <div className="card card-widget widget-user-2" style={{ "box-shadow": "none" }}>
                 <div className="card-comments cardforResponsive"></div>
-                <div className="card-comment p-3" style={{ "background-color": "rgba(0,0,0,.05)", "border-radius": "5px" }}>
+                <div className="card-comment p-3">
                     <div className="row">
-                        <div className="col-sm-7 col-6">
-                            <span className="noteby p-1" style={{
-                                 "font-weight": "600",
-                                 "background" : "darkgray",
+                        <div className="col-sm-10 col-10">
+                            <p className="noteby p-1" style={{
+                                 "font-size": "16px",
 
                             }}>
                             {
                             c.name
-                            }
-                            </span>
+                            } - 
                             <span className="noteDate" style={{ "font-weight": "600" }}>
-                                 {" | "+Moment(c.created_at).format('DD-MM-Y h:sa')} <br />
+                                 {""+Moment(c.created_at).format('DD-MM-Y h:sa')} <br />
                             </span>
+                            </p>
                         </div>
-                        <div className="col-sm-5 col-6">
+                        <div className="col-sm-2 col-2">
                             <div className="float-right noteUser">
                             <button class="ml-2 btn bg-red" onClick={(e)=>handleDelete(e,c.id)}><i class="fa fa-trash"></i></button>
                                 &nbsp;
@@ -151,23 +150,22 @@ export default function Comment() {
 
             <div className="card card-widget widget-user-2" style={{ "box-shadow": "none" }}>
                 <div className="card-comments cardforResponsive"></div>
-                <div className="card-comment p-3" style={{ "background-color": "rgba(0,0,0,.05)", "border-radius": "5px" }}>
+                <div className="card-comment p-3">
                     <div className="row">
-                        <div className="col-sm-7 col-6">
-                            <span className="noteby p-1" style={{
-                                 "font-weight": "600",
-                                 "background" : "darkgray",
+                        <div className="col-sm-10 col-10">
+                            <p className="noteby p-1" style={{
+                                 "font-size": "16px",
 
                             }}>
                             {
                             w.name
-                            }
-                            </span>
+                            } - 
                             <span className="noteDate" style={{ "font-weight": "600" }}>
-                                 {" | "+Moment(w.created_at).format('DD-MM-Y h:sa')} <br />
+                                 {" "+Moment(w.created_at).format('DD-MM-Y h:sa')} <br />
                             </span>
+                            </p>
                         </div>
-                        <div className="col-sm-5 col-6">
+                        <div className="col-sm-2 col-2">
                             <div className="float-right noteUser">
                             <button class="ml-2 btn bg-red" onClick={(e)=>handleDelete(e,w.id)}><i class="fa fa-trash"></i></button>
                                 &nbsp;

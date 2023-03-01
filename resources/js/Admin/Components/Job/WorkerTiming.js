@@ -2,6 +2,7 @@ import React,{ useState, useEffect  }   from 'react'
 import { useParams, useNavigate } from "react-router-dom";
 import { useAlert } from "react-alert";
 import Swal from 'sweetalert2';
+import {Table, Thead, Tbody, Tr, Th, Td} from 'react-super-responsive-table'
 
 export default function WorkerTiming({job}) {
     const [job_time, setJobTime] = useState([]);
@@ -149,49 +150,51 @@ export default function WorkerTiming({job}) {
          <div className="col-sm-12">
                             <div className="row">
                                 <div className="col-sm-10">
-                                  <h2 className="text-danger">Work Time</h2>
+                                  <h2 className="text-custom">Work Time</h2>
                                    </div>
                                 <div className="col-sm-2">
-                                <button type="button" className="btn btn-pink" data-toggle="modal" data-target="#add-work-time">
-                                    Add Timing
-                                </button>
+                                    <div className='float-right'>
+                                        <button type="button" className="btn btn-pink" data-toggle="modal" data-target="#add-work-time">
+                                            Add Timing
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                                  {job_time.length > 0 ? (
-                                    <table className="table table-bordered">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">Start Time</th>
-                                                <th scope="col">End Time</th>
-                                                <th scope="col">Time</th>
-                                                <td scope="col">Action</td>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
+                                    <Table className="table table-bordered responsiveTable" style={{background: "#fff"}}>
+                                        <Thead>
+                                            <Tr>
+                                                <Th scope="col">Start Time</Th>
+                                                <Th scope="col">End Time</Th>
+                                                <Th scope="col">Time</Th>
+                                                <Th scope="col">Action</Th>
+                                            </Tr>
+                                        </Thead>
+                                        <Tbody>
                                             {job_time &&
                                                 job_time.map((item, index) => {
                                                     let w_t = (item.end_time)?time_difference(item.start_time,item.end_time):'';
                                                      return(
-                                                    <tr key={index}>
-                                                    <td>{item.start_time}</td>
-                                                    <td>{item.end_time}</td>
-                                                    <td>{w_t}</td>
-                                                    <td><div className="float-left">
-                                                        <button type='button' class="ml-2 btn bg-red" onClick={(e)=>handleEdit(item.start_time,item.end_time,item.id)}><i class="fa fa-edit"></i></button>
+                                                    <Tr key={index}>
+                                                    <Td>{item.start_time}</Td>
+                                                    <Td>{item.end_time}</Td>
+                                                    <Td>{w_t}</Td>
+                                                    <Td><div className="float-left">
+                                                        <button type='button' class="ml-2 btn bg-success" onClick={(e)=>handleEdit(item.start_time,item.end_time,item.id)}><i class="fa fa-edit"></i></button>
                                                             &nbsp;
                                                          <button class="ml-2 btn bg-red" onClick={(e)=>handleDelete(e,item.id)}><i class="fa fa-trash"></i></button>
                                                             &nbsp;
-                                                        </div></td>
-                                                    </tr>
+                                                        </div></Td>
+                                                    </Tr>
 
                                                     )})}
-                                                <tr>
-                                                 <td colSpan="2">Total Time</td>
-                                                 <td>{calculateTime(total_time)}</td>
-                                                </tr>
-                                        </tbody>
+                                                <Tr>
+                                                 <Td colSpan="2">Total Time</Td>
+                                                 <Td>{calculateTime(total_time)}</Td>
+                                                </Tr>
+                                        </Tbody>
                                         
-                                        </table>
+                                        </Table>
                                 ) : ( <p className="text-center mt-5"></p>
                                 )}
                             </div>
