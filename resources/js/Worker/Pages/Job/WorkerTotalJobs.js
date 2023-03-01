@@ -7,6 +7,7 @@ import { useAlert } from "react-alert";
 import {Table, Thead, Tbody, Tr, Th, Td} from 'react-super-responsive-table'
 import { useLocation } from 'react-router-dom'
 import Moment  from "moment";
+import { useTranslation } from "react-i18next";
 
 export default function WorkerTotalJobs() {
 
@@ -16,7 +17,7 @@ export default function WorkerTotalJobs() {
     const alert = useAlert();
     const location = useLocation();
     const id = localStorage.getItem('worker-id');
-    
+    const {t}= useTranslation();
     const headers = {
         Accept: "application/json, text/plain, */*",
         "Content-Type": "application/json",
@@ -70,7 +71,7 @@ export default function WorkerTotalJobs() {
                 <div className="titleBox customer-title">
                     <div className="row">
                         <div className="col-sm-6">
-                            <h1 className="page-title">Jobs</h1>
+                            <h1 className="page-title">{t('worker.jobs.title')}</h1>
                         </div>
                         <div className="col-sm-6" style={{ display:"none" }}>
                             <div className="search-data">
@@ -91,15 +92,15 @@ export default function WorkerTotalJobs() {
                                     <Table className="table table-bordered responsiveTable">
                                         <Thead>
                                             <Tr>
-                                                <Th scope="col">Job Dated</Th>
-                                                <Th scope="col">Client Name</Th>
-                                                <Th scope="col">Service Name</Th>
-                                                <Th scope="col">Shift</Th>
-                                                <Th scope="col">Address</Th>
-                                                <Th scope="col">Complete Time</Th>
-                                                <Th scope="col">Status</Th>
-                                                <Th scope="col">Total</Th>
-                                                <Th scope="col">Action</Th>
+                                                <Th scope="col">{t('worker.jobs.job_date')}</Th>
+                                                <Th scope="col">{t('worker.jobs.client_name')}</Th>
+                                                <Th scope="col">{t('worker.jobs.service_name')}</Th>
+                                                <Th scope="col">{t('worker.jobs.shift')}</Th>
+                                                <Th scope="col">{t('worker.jobs.address')}</Th>
+                                                <Th scope="col">{t('worker.jobs.c_time')}</Th>
+                                                <Th scope="col">{t('worker.jobs.status')}</Th>
+                                                <Th scope="col">{t('worker.jobs.total')}</Th>
+                                                <Th scope="col">{t('worker.jobs.action')}</Th>
                                             </Tr>
                                         </Thead>
                                         <Tbody>
@@ -154,7 +155,7 @@ export default function WorkerTotalJobs() {
                                                             {item.jobservice.total} ILS 
                                                         </Td>
                                                         <Td>
-                                                            <Link to={`/worker/view-job/${item.id}`} className="btn btn-primary">View</Link>
+                                                            <Link to={`/worker/view-job/${item.id}`} className="btn btn-primary">{t('worker.jobs.viewbtn')}</Link>
                                                         </Td>
                                                     </Tr>
                                                 )})}
@@ -165,8 +166,8 @@ export default function WorkerTotalJobs() {
                                 )}
                                 {totalJobs.length > 0 ? (
                                     <ReactPaginate
-                                        previousLabel={"Previous"}
-                                        nextLabel={"Next"}
+                                        previousLabel={t('worker.previous')}
+                                        nextLabel={t('worker.next')}
                                         breakLabel={"..."}
                                         pageCount={pageCount}
                                         marginPagesDisplayed={2}

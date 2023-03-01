@@ -131,8 +131,8 @@ class WorkerController extends Controller
 
         \App::setLocale($worker->lng);
       $worker= $worker->toArray();
-      Mail::send('/Mails/Form101Mail',$worker,function($messages) use ($new_worker){
-        $messages->to($new_worker['email']);
+      Mail::send('/Mails/Form101Mail',$worker,function($messages) use ($worker){
+        $messages->to($worker['email']);
         $sub = __('mail.form_101.subject')."  ".__('mail.form_101.company');
         $messages->subject($sub);
       });
@@ -345,5 +345,17 @@ class WorkerController extends Controller
                     return $allslot[$slot];
                 }
 
+    }
+    public function upload(Request $request,$id)
+    {
+        $worker = User::find($id);
+
+        $pdf = $request->file('pdf');
+        $filename = 'form101_'.$worker->id . '.' . $pdf->getClientOriginalExtension();
+        $path = storage_path().'/app/public/uploads/worker/form101/'.$worker->id;
+        $pdf->move($path, $filename);
+        $worker->form_101 = $filename;
+        $worker->save();
+        return response()->json(['success' => true]);
     }
 }

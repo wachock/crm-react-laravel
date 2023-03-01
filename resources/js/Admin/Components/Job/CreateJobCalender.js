@@ -124,7 +124,7 @@ export default function CreateJobCalender() {
 
     const [data, setData] = useState([]);
 
-    const handleEventClick = (e) => {
+    const handleEventClick = (e,s) => {
         let str = e.startStr;
         var parts = str.slice(0, -9).split('T');
         var dateComponent = parts[0];
@@ -133,7 +133,26 @@ export default function CreateJobCalender() {
 
         const str1 = e.textColor;
         var parts1 = str1.split('_');
-
+        
+         let worker_start = moment(e.startStr).toISOString();
+         let worker_end = moment(parts[0] + ' ' + parts[1]).add(time_period, 'hours').toISOString();
+          let check_worker_start = true;
+          let check_worker_end = true;
+          AllWorkerAvailability.map((wa, i) => {
+               let new_date= moment(wa.date + ' ' + wa.start_time).toISOString();
+               let new_end_date =moment(wa.date + ' ' + wa.end_time).toISOString();
+               if(new_date == worker_start){
+                    check_worker_start=false;
+               }
+                if(new_end_date == worker_end){
+                    check_worker_end=false;
+               }
+          });
+        if(check_worker_start || check_worker_end){
+            window.alert('Worker not Available on This Time Period');
+            s.style.borderColor = 'rgb(0 255 0)';
+            return false;
+        }
         if (data.length > 0) {
             let new_data = [];
             let found = true;
@@ -220,6 +239,7 @@ export default function CreateJobCalender() {
                 slotMaxTime={endSlot}
                 hiddenDays={interval}
                 allDaySlot={false}
+                firstDay = {moment().day()}
                 eventClick={function (info) {
                     if (info.event.title == 'Busy') {
                         window.alert('Worker Not Available');
@@ -229,7 +249,7 @@ export default function CreateJobCalender() {
                         } else {
                             info.el.style.borderColor = 'red';
                         }
-                        handleEventClick(info.event);
+                        handleEventClick(info.event,info.el);
                     }
                 }}
             />

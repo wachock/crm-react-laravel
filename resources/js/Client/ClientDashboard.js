@@ -166,7 +166,7 @@ export default function ClientDashboard() {
                                                                     {item.status}
                                                                 </Td>
                                                                 <Td>
-                                                                    {item.jobservice.total}
+                                                                    {item.jobservice ? item.jobservice.total : ''}
                                                                 </Td>
                                                                 <Td>
                                                                     <div className="d-flex">

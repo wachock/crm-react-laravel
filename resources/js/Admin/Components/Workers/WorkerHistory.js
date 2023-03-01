@@ -13,7 +13,7 @@ export default function WorkerHistory() {
             <li className="nav-item" role="presentation"><a id="worker-availability" className="nav-link active" data-toggle="tab" href="#tab-worker-availability" aria-selected="true" role="tab">Worker Availability</a></li>
             <li className="nav-item" role="presentation"><a id="current-job" className="nav-link" data-toggle="tab" href="#tab-current-job" aria-selected="true" role="tab">Current Job</a></li>
             <li className="nav-item" role="presentation"><a id="past-job" className="nav-link" data-toggle="tab" href="#tab-past-job" aria-selected="false" role="tab">Past Job</a></li>
-            <li className="nav-item" role="presentation"><a id="doucments" className="nav-link" data-toggle="tab" href="#tab-doucments" aria-selected="false" role="tab">Documents</a></li>
+            <li className="nav-item" role="presentation"><a id="doucments" className="nav-link" data-toggle="tab" href="#tab-doucments" aria-selected="false" role="tab">Form 101</a></li>
         </ul>
         <div className='tab-content' style={{background: "#fff"}}>
              <div id="tab-worker-availability" className="tab-pane active show" role="tab-panel" aria-labelledby="current-job"><WorkerAvailabilty/></div>

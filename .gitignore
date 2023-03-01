@@ -22,4 +22,4 @@ yarn-error.log
 /public/js/vendor.js
 composer.lock
 .DS_Store
-public/js/resources_js_Assets_css_rtl_css
+public/js/resources_js_Assets_css_rtl_css.js

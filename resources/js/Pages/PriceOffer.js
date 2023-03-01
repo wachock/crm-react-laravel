@@ -225,7 +225,7 @@ export default function PriceOffer() {
                                                 <th style={{ width: "16%" }}>{t('price_offer.job_h_txt')}</th>
                                                 <th style={offer.type != 'hourly' ? { width: "16%" } : { display: "none" }}>{t('price_offer.job_price')}</th>
                                                 <th style={offer.type == 'hourly' ? { width: "16%" } : { display: "none" }}>{t('price_offer.hourly_rate')}</th>
-                                                <th style={offer.type == 'hourly' ? { width: "16%" } : { display: "none" }}>{t('price_offer.amount')}</th>
+                                                <th style={offer.type == 'hourly' ? { width: "16%" } : { display: "none" }}>{t('price_offer.amount_txt')}</th>
                                             </tr>
                                         </thead>
                                         <tbody>

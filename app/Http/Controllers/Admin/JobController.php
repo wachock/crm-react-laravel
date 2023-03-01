@@ -152,7 +152,7 @@ class JobController extends Controller
     public function getJobWorker(Request $request){
         $filter              = [];
         $filter['status']    = $request->status;
-        $jobs = Job::with('client', 'worker','service')->where('worker_id',$request->wid);
+        $jobs = Job::with('client', 'worker','service','jobservice')->where('worker_id',$request->wid);
         
           if(isset($filter['status']) && $filter['status']){
             $jobs            = $jobs->where('status', 'completed');

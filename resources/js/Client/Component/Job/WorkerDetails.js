@@ -1,6 +1,8 @@
 import React  from 'react'
+import { useTranslation } from 'react-i18next'
 
 export default function WorkerDetails({worker}) {
+    const {t} = useTranslation();
   return (
     <>
                     <div className='dashBox p-4 mb-3 mt-3'>
@@ -8,26 +10,26 @@ export default function WorkerDetails({worker}) {
                             <div className='row'>
                                 <div className='col-sm-4'>
                                     <div className='form-group'>
-                                        <label className='control-label'>Worker Name</label>
-                                         <p>{worker.firstname} {worker.lastname}</p>
+                                        <label className='control-label'>{t('client.jobs.view.w_name')}</label>
+                                         <p>{(worker) ? worker.firstname +" "+worker.lastname:"NA"}</p>
                                     </div>
                                 </div>
                                 <div className='col-sm-4'>
                                     <div className='form-group'>
-                                        <label className='control-label'>Worker Email</label>
-                                          <p>{worker.email}</p>
+                                        <label className='control-label'>{t('client.jobs.view.w_email')}</label>
+                                          <p>{worker ? worker.email : "NA"}</p>
                                     </div>
                                 </div>
                                 <div className='col-sm-4'>
                                     <div className='form-group'>
-                                        <label className='control-label'>Worker Phone</label>
-                                       <p>{worker.phone}</p>
+                                        <label className='control-label'>{t('client.jobs.view.w_phone')}</label>
+                                       <p>{worker ? worker.phone : "NA"}</p>
                                     </div>
                                 </div>
                                 <div className='col-sm-8'>
                                     <div className='form-group'>
-                                        <label className='control-label'>Address</label>
-                                        <p>{worker.address}</p>
+                                        <label className='control-label'>{t('client.jobs.view.address')}</label>
+                                        <p>{worker ? worker.address : "NA"}</p>
                                     </div>
                                 </div>
                                

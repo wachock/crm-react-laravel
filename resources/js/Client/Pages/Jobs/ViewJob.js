@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useTransition } from 'react'
 import { useParams, useNavigate } from "react-router-dom";
 import Sidebar from '../../Layouts/ClientSidebar'
 import WorkerDetails from '../../Component/Job/WorkerDetails'
@@ -6,6 +6,7 @@ import Services from '../../Component/Job/Services'
 import Comment from '../../Component/Job/Comment'
 import moment from 'moment-timezone';
 import Swal from 'sweetalert2';
+import { useTranslation } from 'react-i18next';
 
 export default function ViewJob() {
     const params = useParams();
@@ -16,6 +17,7 @@ export default function ViewJob() {
     const [worker, setWorker] = useState([]);
     const [services, setServices] = useState([]);
     const [total, setTotal] = useState(0);
+    const {t} = useTranslation();
     const headers = {
         Accept: "application/json, text/plain, */*",
         "Content-Type": "application/json",
@@ -93,13 +95,13 @@ export default function ViewJob() {
                             <div className="col-sm-12">
                                 <div className="row">
                                    <div className="col-sm-8 ">
-                                      <h2 className="text-custom">Worker Details</h2>
+                                      <h2 className="text-custom">{t('client.jobs.view.worker_details')}</h2>
                                     </div>
                                     <div className="col-sm-2 text-right">
-                                          Job Status : <h6 className="text-custom" style={{textTransform: "capitalize"}}>{job.status}</h6>
+                                    {t('client.jobs.view.job_status')} : <h6 className="text-custom" style={{textTransform: "capitalize"}}>{job.status}</h6>
                                     </div>
                                      <div className="col-sm-2">
-                                          {(job_status !='completed' && job_status !='cancel') && ( <button type="button" onClick={HandleCancelJob} className="btn btn-danger dangerous">Cancel</button>)}
+                                          {(job_status !='completed' && job_status !='cancel') && ( <button type="button" onClick={HandleCancelJob} className="btn btn-danger dangerous">{t('client.jobs.view.cancel')}</button>)}
                                     </div>
                                 </div>
                                
@@ -112,7 +114,7 @@ export default function ViewJob() {
                             </div>
                             <div className="col-sm-12 text-center">
                                 <button type="button" onClick={handleClick} className="btn btn-pink addButton">
-                                    Back
+                                {t('client.jobs.view.back')}
                                 </button>
                             </div>
                         </div>

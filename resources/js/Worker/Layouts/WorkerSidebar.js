@@ -3,13 +3,14 @@ import { useAlert } from "react-alert";
 import { useNavigate,Link } from "react-router-dom";
 import logo from "../../Assets/image/logo.png";
 import { NavLink } from 'react-router-dom';
+import { useTranslation } from "react-i18next";
 
 export default function WorkerSidebar() {
 
     const alert = useAlert();
     const name = localStorage.getItem("admin-name");
     const navigate = useNavigate();
-
+    const {t} = useTranslation();
     const HandleLogout = (e) => {
         fetch("/api/logout", {
             method: "POST",
@@ -43,22 +44,22 @@ export default function WorkerSidebar() {
             </div>
             <ul className="list-group">
                 <li className="list-group-item">
-                    <NavLink to="/worker/dashboard"><i className="fa-solid fa-gauge"></i>Dashboard</NavLink>
+                    <NavLink to="/worker/dashboard"><i className="fa-solid fa-gauge"></i>{t('worker.sidebar.dashboard')}</NavLink>
                 </li>
                 <li className="list-group-item">
-                    <NavLink to="/worker/jobs"><i className="fa-solid fa-briefcase"></i>Jobs</NavLink>
+                    <NavLink to="/worker/jobs"><i className="fa-solid fa-briefcase"></i>{t('worker.sidebar.jobs')}</NavLink>
                 </li>
                  <li className="list-group-item">
-                    <NavLink to="/worker/schedule"><i className="fa-solid fa-clipboard-list"></i>Schedule</NavLink>
+                    <NavLink to="/worker/schedule"><i className="fa-solid fa-clipboard-list"></i>{t('worker.sidebar.schedule')}</NavLink>
                 </li>
                 <li className="list-group-item">
-                    <NavLink to="/worker/my-account"><i className="fa-solid fa-user"></i>My Account</NavLink>
+                    <NavLink to="/worker/my-account"><i className="fa-solid fa-user"></i>{t('worker.my_account')}</NavLink>
                 </li>
             </ul>
             <div className="sideLogout">
                 <div className="logoutBtn">
                     <button className="btn btn-white" onClick={HandleLogout}>
-                        Logout
+                    {t('worker.logout')}
                     </button>
                 </div>
             </div>

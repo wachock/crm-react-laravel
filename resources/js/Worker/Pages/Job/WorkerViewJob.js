@@ -6,6 +6,7 @@ import {Table, Thead, Tbody, Tr, Th, Td} from 'react-super-responsive-table'
 import Services from '../../Components/Job/Services'
 import Comment from '../../Components/Job/Comment'
 import { useAlert } from "react-alert";
+import { useTranslation } from 'react-i18next';
 
 export default function WorkerViewJob() {
     const params = useParams();
@@ -22,6 +23,7 @@ export default function WorkerViewJob() {
     const [job_time, setJobTime] = useState([]);
     const [total_time, setTotalTime] = useState(0);
     const alert = useAlert();
+    const {t} = useTranslation();
     const headers = {
         Accept: "application/json, text/plain, */*",
         "Content-Type": "application/json",
@@ -84,6 +86,7 @@ export default function WorkerViewJob() {
          return dateTime;
     }
    const startTimer = () => {
+    setCounter('00:00:00');
     setIsRunning(true);
      let data = {
         job_id:params.id,
@@ -147,12 +150,14 @@ export default function WorkerViewJob() {
 
   }
    useEffect(() => {
+         getTimes();
         getTime();
-        getTimes();
+       
     }, []);
    useEffect(() => {
     const interval = setInterval(() => {
-      const timeDiff = (new Date().getTime() - new Date(startTime).getTime()) / 1000;
+      let timeDiff = (new Date().getTime() - new Date(startTime).getTime()) / 1000;
+       timeDiff = timeDiff+total_time;
      let hours = Math.floor(timeDiff / 3600);
       let minutes = Math.floor((timeDiff % 3600) / 60);
       let seconds = Math.floor(timeDiff % 60);
@@ -163,6 +168,7 @@ export default function WorkerViewJob() {
     }, 1000);
     return () => clearInterval(interval);
   }, [startTime]);
+   
    let time_difference = (start,end) =>{
     const timeDiff = (new Date(end).getTime() - new Date(start).getTime()) / 1000;
       return calculateTime(timeDiff);
@@ -178,7 +184,6 @@ export default function WorkerViewJob() {
       return `${hours}h:${minutes}m:${seconds}s`;
 
    }
-  console.log(job_status);
 
     return (
         <div id='container'>
@@ -198,7 +203,10 @@ export default function WorkerViewJob() {
                                    {(job_status !='completed')?
                                     <div className='col-sm-2 col-6'>
                                      {!isRunning && (
-                                          <button onClick={startTimer} className="btn btn-primary">Start Timer</button>
+                                           <>
+                                          <button onClick={startTimer} className="btn btn-primary">{job_time.length > 0 ?'Resume Timer':'Start Timer'}</button>
+                                          <h4>{job_time.length > 0 ? calculateTime(total_time) :'' }</h4>
+                                           </>
                                         )}
                                         {isRunning && (
                                             <>

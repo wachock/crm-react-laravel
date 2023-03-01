@@ -14,7 +14,7 @@ export default function Documents() {
     const headers = {
         Accept: "application/json, text/plain, */*",
         "Content-Type": "multipart/form-data",
-        Authorization: `Bearer ` + localStorage.getItem("admin-token"),
+        Authorization: `Bearer ` + localStorage.getItem("worker-token"),
     };
 
   
@@ -26,7 +26,7 @@ export default function Documents() {
     e.preventDefault();
     const formData = new FormData();
     formData.append('pdf', pdf);
-    axios.post(`/api/admin/upload/${params.id}`, formData, { headers })
+    axios.post(`/api/upload/${localStorage.getItem("worker-id")}`, formData, { headers })
       .then((response) => {
           document.querySelector('.closedoc').click();
           alert.success('Form Upload Successfully');
@@ -40,12 +40,12 @@ export default function Documents() {
         const headers = {
         Accept: "application/json, text/plain, */*",
         "Content-Type": "application/json",
-        Authorization: `Bearer ` + localStorage.getItem("admin-token"),
+        Authorization: `Bearer ` + localStorage.getItem("worker-token"),
     };
         axios
-            .get(`/api/admin/workers/${params.id}/edit`, { headers })
+            .get(`/api/details`, { headers })
             .then((response) => {
-                setFile(response.data.worker.form_101);
+                setFile(response.data.success.form_101);
             });
     };
     useEffect(() => {
@@ -56,10 +56,10 @@ export default function Documents() {
 
         <div className="tab-pane fade active show" id="customer-notes" role="tabpanel"
             aria-labelledby="customer-notes-tab">
-            <div className="row pb-3">
+            <div className="row pb-3 py-3 m-3">
                 <div className="col-sm-10">
                 {file &&
-                <a href={ (`/api/showPdf/${params.id}`)} target="_blank" className="btn btn-pink">
+                <a href={ (`/api/showPdf/${localStorage.getItem("worker-id")}`)} target="_blank" className="btn btn-pink">
                     View Worker 101 Form
                 </a>
                 }

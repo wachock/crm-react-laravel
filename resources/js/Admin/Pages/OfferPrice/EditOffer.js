@@ -111,15 +111,12 @@ export default function EditOffer() {
     let v = e.target.value;
     let th = document.querySelectorAll('.table th');
     if (v == 'hourly') {
-      th[0].style.width = "30%";
-      th[2].style.display = "none";
-      th[3].style.display = "table-cell";
+
+      th[3].style.display = "none";
       th[4].style.display = "table-cell";
 
     } else {
-      th[0].style.width = "50%";
-      th[2].style.display = "table-cell";
-      th[3].style.display = "none";
+      th[3].style.display = "table-cell";
       th[4].style.display = "none";
     }
   }
@@ -171,11 +168,13 @@ export default function EditOffer() {
     const data = {
       client_id: client,
       status: status,
+      type:document.querySelector('.type').value,
       subtotal:to,
       total: to+tax,
       services: JSON.stringify(formValues),
       action:event.target.value,
     }
+    
 
     event.target.setAttribute('disabled', true);
     event.target.value = (event.target.value == 'Save') ? ('Saving..') :('Sending..');

@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useAlert } from 'react-alert';
+import { useTranslation } from 'react-i18next';
 
 export default function ChangePass() {
     const [currentPassword, setCurrentPassword] = useState("");
@@ -7,7 +8,7 @@ export default function ChangePass() {
     const [passwordConfirmed, setPasswordConfirmed] = useState("");
     const [errors, setErrors] = useState([]);
     const alert = useAlert();
-
+    const {t} = useTranslation();
     const headers = {
         Accept: "application/json, text/plain, */*",
         "Content-Type": "application/json",
@@ -41,8 +42,8 @@ export default function ChangePass() {
             <div className='card-body'>
                 <form>
                     <div className='form-group'>
-                        <label className='control-label'>Current Password *</label>
-                        <input type='password' value={currentPassword} onChange={(e) => setCurrentPassword(e.target.value)} className='form-control' placeholder='Current Password' />
+                        <label className='control-label'>{t('client.settings.c_pass')} *</label>
+                        <input type='password' value={currentPassword} onChange={(e) => setCurrentPassword(e.target.value)} className='form-control' placeholder={t('client.settings.c_pass')} />
                         {errors.current_password ? (
                             <small className="text-danger mb-1">
                                 {errors.current_password}
@@ -52,8 +53,8 @@ export default function ChangePass() {
                         )}
                     </div>
                     <div className='form-group'>
-                        <label className='control-label'>Update New Password *</label>
-                        <input type='password' value={password} onChange={(e) => setPassword(e.target.value)} className='form-control' placeholder='Update New Password' />
+                        <label className='control-label'>{t('client.settings.u_pass')} *</label>
+                        <input type='password' value={password} onChange={(e) => setPassword(e.target.value)} className='form-control' placeholder={t('client.settings.u_pass')} />
                         {errors.password ? (
                             <small className="text-danger mb-1">
                                 {errors.password}
@@ -63,11 +64,11 @@ export default function ChangePass() {
                         )}
                     </div>
                     <div className='form-group'>
-                        <label className='control-label'>Confirm New Password *</label>
-                        <input type='password' value={passwordConfirmed} onChange={(e) => setPasswordConfirmed(e.target.value)} className='form-control' placeholder='Confirm New Password' />
+                        <label className='control-label'>{t('client.settings.cn_pass')}*</label>
+                        <input type='password' value={passwordConfirmed} onChange={(e) => setPasswordConfirmed(e.target.value)} className='form-control' placeholder={t('client.settings.cn_pass')} />
                     </div>
                     <div className="form-group text-center">
-                        <input type='submit' value='SAVE' onClick={handleSubmit} className="btn btn-danger saveBtn" />
+                        <input type='submit' value={t('client.settings.save')} onClick={handleSubmit} className="btn btn-danger saveBtn" />
                     </div>
                 </form>
             </div>

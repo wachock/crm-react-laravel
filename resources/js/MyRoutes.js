@@ -31,7 +31,7 @@ import ClientSetting from './Client/Pages/Settings/Setting';
 // Worker Routes
 
 import Worker from './Worker/Worker';
-import WorkerMyAccount  from './Worker/Auth/WorkerMyAccount';
+import WorkerMyAccount  from './Worker/Pages/MyAccount/MyAccount';
 import WorkerDashboard from './Worker/WorkerDashboard';
 import WorkerTotalJobs from './Worker/Pages/Job/WorkerTotalJobs';
 import WorkerViewJob    from './Worker/Pages/Job/WorkerViewJob';

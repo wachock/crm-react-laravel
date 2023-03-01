@@ -1,6 +1,7 @@
 import React  from 'react'
-
+import { useTranslation } from 'react-i18next'
 export default function Services({services,job}) {
+    const {t} = useTranslation();
   return (
     <>
                     <h2 className="text-custom">Service Details</h2>
@@ -9,20 +10,20 @@ export default function Services({services,job}) {
                             <div className='row'>
                                 <div className='col-sm-4'>
                                     <div className='form-group'>
-                                        <label className='control-label'>Services</label>
-                                                 <p>{services.name}</p>
+                                        <label className='control-label'>{t('client.jobs.view.services')}</label>
+                                                 <p>{services ? services.name : 'NA'}</p>
                                     </div>
                                 </div>
                                 <div className='col-sm-4'>
                                     <div className='form-group'>
-                                        <label className='control-label'>Complete Time</label>
-                                                 <p>{services.job_hour} hours</p>
+                                        <label className='control-label'>{t('client.jobs.view.c_time')}</label>
+                                                 <p>{services ? services.job_hour : 'NA'} {t('client.jobs.view.hour_s')}</p>
                                     </div>
                                 </div>
                                 <div className='col-sm-4'>
                                     <div className='form-group'>
-                                        <label className='control-label'>Shift</label>
-                                        <p>{job.start_time} to {job.end_time}</p>
+                                        <label className='control-label'>{t('client.jobs.view.shift')}</label>
+                                        <p>{job ? job.start_time : 'NA'} {t('client.jobs.view.to')} {job ? job.end_time : 'NA'}</p>
                                     </div>
                                 </div>
                                
