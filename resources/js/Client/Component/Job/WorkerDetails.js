@@ -11,25 +11,25 @@ export default function WorkerDetails({worker}) {
                                 <div className='col-sm-4'>
                                     <div className='form-group'>
                                         <label className='control-label'>{t('client.jobs.view.w_name')}</label>
-                                         <p>{worker.firstname} {worker.lastname}</p>
+                                         <p>{(worker) ? worker.firstname +" "+worker.lastname:"NA"}</p>
                                     </div>
                                 </div>
                                 <div className='col-sm-4'>
                                     <div className='form-group'>
                                         <label className='control-label'>{t('client.jobs.view.w_email')}</label>
-                                          <p>{worker.email}</p>
+                                          <p>{worker ? worker.email : "NA"}</p>
                                     </div>
                                 </div>
                                 <div className='col-sm-4'>
                                     <div className='form-group'>
                                         <label className='control-label'>{t('client.jobs.view.w_phone')}</label>
-                                       <p>{worker.phone}</p>
+                                       <p>{worker ? worker.phone : "NA"}</p>
                                     </div>
                                 </div>
                                 <div className='col-sm-8'>
                                     <div className='form-group'>
                                         <label className='control-label'>{t('client.jobs.view.address')}</label>
-                                        <p>{worker.address}</p>
+                                        <p>{worker ? worker.address : "NA"}</p>
                                     </div>
                                 </div>
                                
