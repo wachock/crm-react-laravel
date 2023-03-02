@@ -92,10 +92,14 @@ import RegularServiceTemplate from './Pages/offertemplates/template_regular';
 import OfficeCleaningTemplate from './Pages/offertemplates/template_officeCleaning';
 import AfterRenovationTemplate from './Pages/offertemplates/template_cleaningAfterRenovation';
 import ThoroughCleaningTemplate from './Pages/offertemplates/template_throughoutCleaning';
+import TemplateWindowCleaning from './Pages/offertemplates/template_windowCleaning';
+import TemplateOthers from './Pages/offertemplates/template_others';
 import WorkerContract from './Pages/WorkerContract';
 import Form101 from './Pages/Form101';
 import Languages from './Admin/Pages/Languages/language';
 import EditLanguages from './Admin/Pages/Languages/EditLanguage';
+
+
 
 
 TimeAgo.addDefaultLocale(en)
@@ -117,7 +121,7 @@ export default function MyRoutes() {
                <Route exact path="price-offer/:id" element={<PriceOffer />} />
                <Route exact path="work-contract/:id" element={<WorkContract />} />
                <Route exact path="form101" element={<Form101 />} />
-               <Route exact path="worker-contract" element={<WorkerContract />} />
+               <Route exact path="worker-contract/:id" element={<WorkerContract />} />
                <Route exact path="calendar" element={<CalendarTeam />} />
                <Route exact path="thankyou/:id/:response" element={<Thankyou />} />
 
@@ -195,6 +199,8 @@ export default function MyRoutes() {
                      <Route exact path="template/office-cleaning" element={<OfficeCleaningTemplate />} />
                      <Route exact path="template/after-renovation" element={<AfterRenovationTemplate />} />
                      <Route exact path="template/thorough-cleaning" element={<ThoroughCleaningTemplate />} />
+                     <Route exact path="template/window-cleaning" element={<TemplateWindowCleaning />} />
+                     <Route exact path="template/others" element={<TemplateOthers />} />
                      <Route exact path="offered-price" element={<OfferPrice />} />
                      <Route exact path="add-offer" element={<AddOffer />} />
                      <Route exact path="edit-offer/:id" element={<EditOffer />} />

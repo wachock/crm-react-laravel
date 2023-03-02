@@ -21,6 +21,9 @@ use App\Http\Controllers\User\JobCommentController;
 Route::post('login', [AuthController::class, 'login']);
 Route::post('register', [AuthController::class, 'register']);
 Route::get('showPdf/{id}', [AuthController::class, 'showPdf']);
+Route::post('worker-detail',[AuthController::class, 'getWorkerDetail']); 
+Route::post('work-contract', [AuthController::class, 'WorkContract']);
+
 
 
 // Authenticated Routes

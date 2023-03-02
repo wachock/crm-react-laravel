@@ -120,7 +120,7 @@ export default function WorkerAvailabilty() {
             <li className="nav-item" role="presentation"><a id="current-week" className="nav-link active" data-toggle="tab" href="#tab-current-week" aria-selected="true" role="tab">{t('worker.schedule.c_week')}</a></li>
             <li className="nav-item" role="presentation"><a id="first-next-week" className="nav-link" data-toggle="tab" href="#tab-first-next-week" aria-selected="true" role="tab">{t('worker.schedule.n_week')}</a></li>
         </ul>
-         <div className='tab-content' style={{background: "#fff"}}>
+         <div className='tab-content maxWidth770' style={{background: "#fff"}}>
          <div id="tab-current-week" className="tab-pane active show" role="tab-panel" aria-labelledby="current-week">
             <div className="table-responsive">
               <table className="timeslots table">

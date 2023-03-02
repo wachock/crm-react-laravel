@@ -4,7 +4,7 @@ import packageEn from "/images/regularServices.jpg";
 import footer from "../../Assets/image/bg-bottom-footer.png";
 import Moment from 'moment';
 
-export default function RegularServices() {
+export default function TemplateOthers() {
 
     return (
         <>
@@ -46,8 +46,8 @@ export default function RegularServices() {
                                     <li><img src={star} /> Use of advanced cleaning materials and equipment at our expense</li>
                                     <li><img src={star} /> Tight supervision by a regional supervisor</li>
                                 </ul>
-                                <h4 className='mt-4'>2. Our packages- Regular Room Service</h4>
-                                <img src={packageEn} className='img-fluid' alt='Room Services' />
+                                <h4 className='mt-4'>2. Our packages- Other Services</h4>
+                                <p>This is a test line and it will be changed according to the other service</p>
                                 <h4 className='mt-4'>3. Cleaning Inside And Outside Windows At Any Height:</h4>
                                 <ul className='list-unstyled'>
                                     <li><img src={star} /> Professional cleaning of windows, blinds, rails, frames on a regular basis or on demand.</li>

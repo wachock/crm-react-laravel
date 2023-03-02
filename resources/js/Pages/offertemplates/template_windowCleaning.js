@@ -1,10 +1,9 @@
 import logo from "../../Assets/image/logo.png";
 import star from "../../Assets/image/icons/blue-star.png";
-import packageEn from "/images/regularServices.jpg";
 import footer from "../../Assets/image/bg-bottom-footer.png";
 import Moment from 'moment';
 
-export default function RegularServices() {
+export default function TemplateWindowCleaning() {
 
     return (
         <>
@@ -38,17 +37,8 @@ export default function RegularServices() {
                         <div className='we-have'>
                             <h3>What Do We Have To Offer?</h3>
                             <div className='shift-20'>
-                                <h4>1. Room Service On A Regular Basis Customized To Your Requirements:</h4>
-                                <ul className='list-unstyled'>
-                                    <li><img src={star} /> Service on a regular basis by the same professional staff</li>
-                                    <li><img src={star} /> Employing a legal and regulated employee</li>
-                                    <li><img src={star} /> Strict sorting of staff including reliability tests</li>
-                                    <li><img src={star} /> Use of advanced cleaning materials and equipment at our expense</li>
-                                    <li><img src={star} /> Tight supervision by a regional supervisor</li>
-                                </ul>
-                                <h4 className='mt-4'>2. Our packages- Regular Room Service</h4>
-                                <img src={packageEn} className='img-fluid' alt='Room Services' />
-                                <h4 className='mt-4'>3. Cleaning Inside And Outside Windows At Any Height:</h4>
+                                
+                                <h4 className='mt-4'>1. Cleaning Inside And Outside Windows At Any Height:</h4>
                                 <ul className='list-unstyled'>
                                     <li><img src={star} /> Professional cleaning of windows, blinds, rails, frames on a regular basis or on demand.</li>
                                     <li><img src={star} /> Cleaning all types of windows at all heights. </li>
@@ -56,7 +46,7 @@ export default function RegularServices() {
                                     <li><img src={star} /> Use of advanced cleaning materials and equipment at our expense.</li>
                                     <li><img src={star} /> Cleaning in rappelling by a professional team.</li>
                                 </ul>
-                                <h4 className='mt-4'>4. Laundry Services, Fabric Cleaning And Upholstery:</h4>
+                                <h4 className='mt-4'>2. Laundry Services, Fabric Cleaning And Upholstery:</h4>
                                 <ul className='list-unstyled'>
                                     <li><img src={star} /> Pick up on order day and return up to 48 hours</li>
                                     <li><img src={star} /> Laundry services </li>

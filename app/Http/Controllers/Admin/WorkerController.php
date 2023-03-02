@@ -129,11 +129,18 @@ class WorkerController extends Controller
         $worker->country       = $request->country;
         $worker->save();
 
-        \App::setLocale($worker->lng);
+     \App::setLocale($worker->lng);
       $worker= $worker->toArray();
+
       Mail::send('/Mails/Form101Mail',$worker,function($messages) use ($worker){
         $messages->to($worker['email']);
         $sub = __('mail.form_101.subject')."  ".__('mail.form_101.company');
+        $messages->subject($sub);
+      });
+
+      Mail::send('/Mails/WorkerContractMail',$worker,function($messages) use ($worker){
+        $messages->to($worker['email']);
+        $sub = __('mail.worker_contract.subject')."  ".__('mail.worker_contract.company');
         $messages->subject($sub);
       });
 
@@ -205,6 +212,21 @@ class WorkerController extends Controller
         $worker->status        = $request->status;
         $worker->country       = $request->country;
         $worker->save();
+
+             \App::setLocale($worker->lng);
+      $worker= $worker->toArray();
+      
+      Mail::send('/Mails/Form101Mail',$worker,function($messages) use ($worker){
+        $messages->to($worker['email']);
+        $sub = __('mail.form_101.subject')."  ".__('mail.form_101.company');
+        $messages->subject($sub);
+      });
+
+      Mail::send('/Mails/WorkerContractMail',$worker,function($messages) use ($worker){
+        $messages->to($worker['email']);
+        $sub = __('mail.worker_contract.subject')."  ".__('mail.worker_contract.company');
+        $messages->subject($sub);
+      });
 
         return response()->json([
             'message'       => 'Worker updated successfully',            
