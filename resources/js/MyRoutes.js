@@ -92,10 +92,12 @@ import RegularServiceTemplate from './Pages/offertemplates/template_regular';
 import OfficeCleaningTemplate from './Pages/offertemplates/template_officeCleaning';
 import AfterRenovationTemplate from './Pages/offertemplates/template_cleaningAfterRenovation';
 import ThoroughCleaningTemplate from './Pages/offertemplates/template_throughoutCleaning';
+import TemplateOthers from './Pages/offertemplates/template_others';
 import WorkerContract from './Pages/WorkerContract';
 import Form101 from './Pages/Form101';
 import Languages from './Admin/Pages/Languages/language';
 import EditLanguages from './Admin/Pages/Languages/EditLanguage';
+
 
 
 TimeAgo.addDefaultLocale(en)
@@ -195,6 +197,7 @@ export default function MyRoutes() {
                      <Route exact path="template/office-cleaning" element={<OfficeCleaningTemplate />} />
                      <Route exact path="template/after-renovation" element={<AfterRenovationTemplate />} />
                      <Route exact path="template/thorough-cleaning" element={<ThoroughCleaningTemplate />} />
+                     <Route exact path="template/others" element={<TemplateOthers />} />
                      <Route exact path="offered-price" element={<OfferPrice />} />
                      <Route exact path="add-offer" element={<AddOffer />} />
                      <Route exact path="edit-offer/:id" element={<EditOffer />} />

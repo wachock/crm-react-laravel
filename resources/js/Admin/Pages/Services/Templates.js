@@ -60,6 +60,16 @@ export default function Templates() {
                                 </Link>
                                 </td>
                             </tr>
+                            <tr>
+                                <td>Others</td>
+                                <td>
+                                <Link
+                                    to="/admin/template/others"
+                                    className="btn bg-yellow">
+                                    <i className="fa fa-eye"></i>
+                                </Link>
+                                </td>
+                            </tr>
                         </tbody>
                         
                         </table>
