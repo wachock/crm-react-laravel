@@ -53,10 +53,10 @@ export default function PriceOffer() {
                     btn[1].removeAttribute('disabled');
                     btn[1].value = ('Accept Offer');
                 } else {
-                    swal(res.data.message, '', 'success');
-                    setTimeout(() => {
-                        window.location.href = ('/client/login');
-                    }, 1000)
+                    btn[0].remove();
+                    btn[1].remove();
+                    let msg = 'Thank you for accepting the offer, Please check our next email for contract and fill  all the necessary details';
+                    swal(msg, '', 'success');
                 }
             })
 

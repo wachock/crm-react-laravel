@@ -59,9 +59,7 @@ export default function EditClient() {
             setAddress(place.getPlace().formatted_address);
             setLatitude(place.getPlace().geometry.location.lat());
             setLongitude(place.getPlace().geometry.location.lng());
-            //const addressArray = place.getPlace().address_components;
-            //setCity(getCity(addressArray) ? getCity(addressArray) : "");
-            //setLocation(getArea(addressArray) ? getArea(addressArray) : "");
+           
         }
     };
 
@@ -139,10 +137,9 @@ export default function EditClient() {
                 setStatus(response.data.client.status);
                 setAddress(response.data.client.geo_address);
                 if(response.data.client.color) {
-                 let clr = document.querySelectorAll('input[name="color"]');
+                 let clr = document.querySelectorAll('input[name="swatch_demo"]');
                  clr.forEach((e,i)=>{
-                    console.log(e.value);
-                    e.value == response.data.client.color
+                    e.getAttribute('color') == response.data.client.color
                     ? e.checked = true
                     :''
                  })
@@ -478,32 +475,32 @@ export default function EditClient() {
                                         <label class="form-check-label" for="title">Color</label>
                                     </div>
                                     <div className="swatch green">
-                                        <input type="radio" name="swatch_demo" id="swatch_2" value="2" onChange={(e) => setColor(e.target.value)} />
+                                        <input type="radio" name="swatch_demo" id="swatch_2" value="2" color="#28a745" onChange={(e) => setColor('#28a745')} />
                                         <label for="swatch_2"><i className="fa fa-check"></i></label>
                                         <span>Green</span>
                                     </div>
                                     <div className="swatch blue">
-                                        <input type="radio" name="swatch_demo" id="swatch_3" value="3" onChange={(e) => setColor(e.target.value)} />
+                                        <input type="radio" name="swatch_demo" id="swatch_3" value="3" color="#007bff" onChange={(e) => setColor('#007bff')} />
                                         <label for="swatch_3"><i className="fa fa-check"></i></label>
                                         <span>Blue</span>
                                     </div>
                                     <div className="swatch purple">
-                                        <input type="radio" name="swatch_demo" id="swatch_1" value="1" onChange={(e) => setColor(e.target.value)} />
+                                        <input type="radio" name="swatch_demo" id="swatch_1" value="1" color="#6f42c1" onChange={(e) => setColor('#6f42c1')} />
                                         <label for="swatch_1"><i className="fa fa-check"></i></label>
                                         <span>Voilet</span>
                                     </div>
                                     <div className="swatch red">
-                                        <input type="radio" name="swatch_demo" id="swatch_5" value="5" onChange={(e) => setColor(e.target.value)} />
+                                        <input type="radio" name="swatch_demo" id="swatch_5" value="5" color="#dc3545" onChange={(e) => setColor('#dc3545')} />
                                         <label for="swatch_5"><i className="fa fa-check"></i></label>
                                         <span>Red</span>
                                     </div>
                                     <div className="swatch orange">
-                                        <input type="radio" name="swatch_demo" id="swatch_4" value="4" onChange={(e) => setColor(e.target.value)} />
+                                        <input type="radio" name="swatch_demo" id="swatch_4" value="4" color="#fd7e14" onChange={(e) => setColor('#fd7e14')} />
                                         <label for="swatch_4"><i className="fa fa-check"></i></label>
                                         <span>Orange</span>
                                     </div>
                                     <div className="swatch yellow">
-                                        <input type="radio" name="swatch_demo" id="swatch_6" value="6" onChange={(e) => setColor(e.target.value)} />
+                                        <input type="radio" name="swatch_demo" id="swatch_6" value="6" color="#ffc107" onChange={(e) => setColor('#ffc107')} />
                                         <label for="swatch_6"><i className="fa fa-check"></i></label>
                                         <span>Yellow</span>
                                     </div>

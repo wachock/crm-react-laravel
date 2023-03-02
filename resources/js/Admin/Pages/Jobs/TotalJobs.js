@@ -223,13 +223,14 @@ export default function TotalJobs() {
                                                             <Td onClick={(e)=>handleNavigate(e,item.id)}>
                                                                 {Moment(item.start_date).format('DD MMM,Y')}
                                                             </Td>
-                                                            <Td>
+                                                            <Td><Link to={(item.worker) ? `/admin/view-worker/${item.worker.id}` : '#'}>
                                                                 <h6>{
                                                                     item.worker
                                                                         ? item.worker.firstname +
                                                                         " " + item.worker.lastname
                                                                         : "NA"
                                                                 }</h6>
+                                                                </Link>
                                                                 <div>Change Worker</div>
                                                                 <select name={item.id} className="form-control" value={(workers[`${item.id}`]) ? workers[`${item.id}`] : ""} onChange={e => handleChange(e, index)} >
                                                                     <option selected>select</option>
@@ -241,7 +242,7 @@ export default function TotalJobs() {
                                                                 </select>
 
                                                             </Td>
-                                                            <Td><Link to={`/admin/view-client/${item.client.id}`}>{
+                                                            <Td><Link to={ item.client ? `/admin/view-client/${item.client.id}` : '#'}>{
                                                                 item.client
                                                                     ? item.client.firstname +
                                                                     " " + item.client.lastname
@@ -257,11 +258,15 @@ export default function TotalJobs() {
                                                                 {(item.start_time != '') ? (`${item.start_time} to ${item.end_time}`) : ''}
 
                                                             </Td>
-                                                            <Td>{
+                                                            <Td><Link target='_blank' to={ (item.client.latitude && item.client.longitude)
+                                                                 ? `https://maps.google.com/?q=${(item.client.latitude+","+item.client.longitude)}` 
+                                                                 : '#' }>
+                                                                {
                                                                 item.client
                                                                     ? item.client.geo_address
                                                                     : "NA"
                                                             }
+                                                            </Link>
                                                             </Td>
                                                             <Td onClick={(e)=>handleNavigate(e,item.id)}>
                                                                 {
