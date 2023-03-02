@@ -155,6 +155,7 @@ export default function TotalJobs() {
                                                             }}
                                                         >
                                                             {item.status}
+                                                            {(item.status=='cancel')?`(With Cancellatiom fees ${item.rate} ILS)`:''}
                                                         </Td>
                                                         <Td>
                                                             {item.jobservice?item.jobservice.total:'0'} ILS + VAT

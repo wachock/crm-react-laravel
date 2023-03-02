@@ -30,6 +30,7 @@ export default function Services({services,job}) {
                                     <div className='form-group'>
                                         <label className='control-label'>Job Status</label>
                                         <p>{job.status}</p>
+                                        {(job.status=='cancel')?`(With Cancellatiom fees ${job.rate} ILS)`:''}
                                     </div>
                                 </div>
                                

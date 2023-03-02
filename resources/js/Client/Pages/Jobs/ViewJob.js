@@ -33,7 +33,7 @@ export default function ViewJob() {
                 setJobStatus(r.status);
                 setClient(r.client);
                 setWorker(r.worker);
-                setTotal(r.offer.subtotal);
+                setTotal(r.jobservice.total);
                 setServices(r.jobservice);
             });
     }
