@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
 use App\Models\Job;
+use App\Models\Admin;
 use App\Models\Offer;
 use App\Models\Schedule;
 use App\Models\Contract;
@@ -16,6 +17,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Image;
 use File;
+use Mail;
 
 class DashboardController extends Controller
 {
@@ -329,10 +331,25 @@ class DashboardController extends Controller
 
     }
     public function updateJobStatus(Request $request,$id){
-        $job = Job::find($id);
+        $job = Job::with('client','worker','jobservice')->find($id);
         $job->status = $request->status;
         $job->rate  = $request->total;
         $job->save();
+
+             $admin = Admin::find(1)->first();
+             \App::setLocale('en');
+             $data = array(
+                'email'      =>$admin->email,
+                'admin'      =>$admin->toArray(),
+                'job'        => $job->toArray(),
+             );
+
+             Mail::send('/ClientPanelMail/JobStatusNotification',$data,function($messages) use ($data){
+                $messages->to($data['email']);
+                $sub = __('mail.client_job_status.subject');
+                $messages->subject($sub);
+              });
+
          return response()->json([
             'job'        => $job,            
         ], 200);

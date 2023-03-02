@@ -93,5 +93,13 @@ return [
          'tel'         =>'טלפון'
     
      ],
+      'client_job_status' =>[
+        'subject'     =>'Client Cancel Job',
+        'hi'          =>'Hi',
+        'content'     =>'Client changed the Job status to ',
+        'cancellation_fee' =>'With Cancellation fees ',
+        'btn_txt'     =>'Check Contract',
+        'thanks_text'   =>'Thanks',
+    ],
 ];
 ?>

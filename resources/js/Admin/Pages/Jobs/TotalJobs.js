@@ -284,6 +284,9 @@ export default function TotalJobs() {
                                                                 }}
                                                             >
                                                                 {item.status}
+                                                                <p>
+                                                                {(item.status=='cancel')?`(With Cancellatiom fees ${item.rate} ILS)`:''}
+                                                                </p>
                                                             </Td>
                                                             <Td onClick={(e)=>handleNavigate(e,item.id)}>
                                                                 {item.jobservice
