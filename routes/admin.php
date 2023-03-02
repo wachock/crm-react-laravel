@@ -125,6 +125,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin-api', 'scopes:ad
     Route::post('add-file',[ClientController::class,'addfile'])->name('add-file');
     Route::post('get-files',[ClientController::class,'getfiles'])->name('get-files');
     Route::post('delete-file',[ClientController::class,'deletefile'])->name('delete-file');
+
+    //Report
+    Route::post('export_report',[JobController::class,'exportReport'])->name('export_report');
     
     // Reviews Api
     Route::resource('reviews', ReviewController::class);

@@ -8,7 +8,7 @@ import { useLocation } from 'react-router-dom'
 import Moment from "moment";
 import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table'
 import { useNavigate } from "react-router-dom";
-
+import { CSVLink } from "react-csv";
 export default function TotalJobs() {
 
     const [totalJobs, setTotalJobs] = useState([]);
@@ -171,6 +171,56 @@ export default function TotalJobs() {
         e.preventDefault();
         navigate(`/admin/view-job/${id}`);
     }
+    let time_difference = (start, end) => {
+        const timeDiff = (new Date(end).getTime() - new Date(start).getTime()) / 1000;
+        return calculateTime(timeDiff);
+
+    }
+    let calculateTime = (timeDiff) => {
+        let hours = Math.floor(timeDiff / 3600);
+        let minutes = Math.floor((timeDiff % 3600) / 60);
+        let seconds = Math.floor(timeDiff % 60);
+        hours = (hours < 10) ? '0' + hours : hours;
+        minutes = (minutes < 10) ? '0' + minutes : minutes;
+        seconds = (seconds < 10) ? '0' + seconds : seconds;
+        return `${hours}h:${minutes}m:${seconds}s`;
+
+    }
+
+    const header = [
+        { label: "Worker Name", key: "worker_name" },
+        { label: "Worker ID", key: "worker_id" },
+        { label: "Start Time", key: "start_time" },
+        { label: "End Time", key: "end_time" },
+        { label: "Total Time", key: "time_diffrence" },
+    ];
+
+
+    const [Alldata, setAllData] = useState([]);
+    const [filename, setFilename] = useState("");
+    const handleReport = (e) => {
+        e.preventDefault();
+        axios.post(`/api/admin/export_report`, { type:'all' }, { headers })
+            .then((res) => {
+                if (res.data.status_code == 404) {
+                    alert.error(res.data.msg);
+                } else {
+                    setFilename(res.data.filename);
+                    let rep = res.data.report;
+                    for( let r in rep){
+                        rep[r].time_diffrence = time_difference(rep[r].start_time,rep[r].end_time);
+                    }
+                    setAllData(rep);
+                    document.querySelector('#csv').click();
+                }
+            });
+    }
+
+    const csvReport = {
+        data: Alldata,
+        headers: header,
+        filename: filename
+    };
 
     return (
         <div id="container">
@@ -181,12 +231,16 @@ export default function TotalJobs() {
                         <div className="col-sm-6">
                             <h1 className="page-title">Jobs</h1>
                         </div>
-                        <div className="col-sm-6" style={{ display: "none" }}>
+                        <div className="col-sm-6">
                             <div className="search-data">
-                                <input type='text' className="form-control" placeholder="Search" />
+                            <div classname="App" style={{display:"none"}}>
+                                <CSVLink {...csvReport}  id="csv">Export to CSV</CSVLink>
+                            </div>
+                                <button className="btn btn-success addButton" onClick={(e)=>handleReport(e)}>Export Time Reports</button>
+                                {/*<input type='text' className="form-control" placeholder="Search" />
                                 <Link to="/admin/add-job" className="btn btn-pink addButton"><i className="btn-icon fas fa-plus-circle"></i>
                                     Add New
-                                </Link>
+                                </Link>*/}
                             </div>
                         </div>
                     </div>
