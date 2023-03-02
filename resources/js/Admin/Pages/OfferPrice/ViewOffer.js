@@ -78,10 +78,11 @@ export default function ViewOffer() {
                       <table class="table table-sm">
                         <thead>
                           <tr>
-                            <th style={{width:"30%"}}>Service</th>
+                            <th style={{width:"20%"}}>Service</th>
+                            <th>Type</th>
                             <th className='text-right'>Frequency</th>
                             <th className='text-right'>Job Hours</th>
-                            <th style={ ofr.type != 'fixed'? {display:"none"} : {}} className='text-right'>Job Price</th>
+                            <th style={ ofr.type != 'fixed'? {display:"none"} : {}} className='text-right'>Price</th>
                             <th style={ ofr.type == 'fixed'? {display:"none"} : {}} className='text-right'>Rate Per Hour</th>
                             <th style={ ofr.type == 'fixed'? {display:"none"} : {}} className='text-right'>Total Amount</th>
                           </tr>
@@ -91,12 +92,13 @@ export default function ViewOffer() {
                             return(
                             <tr>
                               <td>{s.name}</td>
+                              <td>{s.type}</td>
                               <td className='text-right'>{ s.freq_name }</td>
                               <td className='text-right'>{ s.jobHours } hour(s)</td>
                               {
                                 (ofr.type != 'fixed' ) ?
                                 <>
-                                  <td className='text-right'>{ s.rateperhour } ILS</td>
+                                  <td className='text-right'>{ s.rateperhour ? s.rateperhour +" ILS" : '--' } </td>
                                   <td className='text-right'>{ s.totalamount} ILS</td>
                                 </>
                               :
