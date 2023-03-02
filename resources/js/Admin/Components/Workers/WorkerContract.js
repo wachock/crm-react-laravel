@@ -1,7 +1,7 @@
 import React,{ useRef, useState,useEffect } from 'react'
-import star from "../Assets/image/icons/blue-star.png";
+import star from "../../../Assets/image/icons/blue-star.png";
 import SignatureCanvas from 'react-signature-canvas'
-import companySign from "../Assets/image/company-sign.png";
+import companySign from "../../../Assets/image/company-sign.png";
 import { useParams } from 'react-router-dom';
 import swal from 'sweetalert';
 import { useTranslation } from "react-i18next";
@@ -10,7 +10,7 @@ import i18next from 'i18next';
 export default function WorkerContract() {
 
     const { t } = useTranslation();
-    const param = useParams();
+    const params  = useParams();
     const sigRef2 = useRef();
     const [signature2, setSignature2] = useState(null);
 
@@ -18,6 +18,12 @@ export default function WorkerContract() {
     const [worker_name,setWorkerName] = useState("");
     const [worker_id,setWorkerId] = useState(0);
     const [address,setAddress] = useState('');
+
+    const headers = {
+        Accept: "application/json, text/plain, */*",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ` + localStorage.getItem("admin-token"),
+    };
 
     const handleSignatureEnd2 = () => {
         setSignature2(sigRef2.current.toDataURL());
@@ -33,23 +39,10 @@ export default function WorkerContract() {
             worker_id:worker_id,
             worker_contract:signature2
         }
-
-        axios
-        .post(`/api/work-contract`,data)
-        .then((res)=>{
-            if(res.data.error){
-                swal('',res.data.error,'error');
-            } else{
-            swal(res.data.message,'','success')
-            setTimeout(()=>{
-                window.location.href="/worker/login";
-            },1000)
-        }
-        })
     }
     const getWorker = () =>{
         axios
-        .post(`/api/worker-detail`,{'worker_id':param.id})
+        .get(`/api/admin/workers/${params.id}/edit`,{ headers })
         .then((res)=>{
 
             if(res.data.worker){
@@ -58,10 +51,6 @@ export default function WorkerContract() {
                setWorkerId(w.worker_id);
                setAddress(w.address);
                setSignature2(w.worker_contract);
-               i18next.changeLanguage(w.lng);
-               if(w.lng == 'heb'){
-                document.querySelector('html').setAttribute('dir','rtl');
-               }
             }
         })
     }
@@ -71,6 +60,7 @@ export default function WorkerContract() {
     },[]);
   return (
     <div className='container'>
+        {signature2 ? 
         <div className='send-offer worker-contract client-contract'>
             <div className='maxWidthControl dashBox mb-4'>
                 <h4 className='inHead'>Broom Service L.M. Ltd., Private Company no. 515184208</h4>
@@ -536,23 +526,16 @@ export default function WorkerContract() {
                         </div>
                         <div className='col-sm-6'>
                             <h5 className='mt-2'>The Employee</h5>
-                            <h6 style={{fontWeight: "600", fontSize: "14px"}}>Draw Signature with mouse or touch</h6>
-                            <SignatureCanvas 
-                                penColor="black"
-                                canvasProps={{className: 'sigCanvas'}}
-                                ref={sigRef2}
-                                onEnd={handleSignatureEnd2}
-                            />
-                            <button className='btn btn-warning' onClick={clearSignature2}>Clear</button>
-                        </div>
-                        <div className=' col-sm-12 mt-2 float-right'>
-                            <input className='btn btn-pink' onClick={handleAccept} value={t('work-contract.accept_contract')} />
+                            <img src={signature2} className='img-fluid' alt='Company' />
                         </div>
                     </div>
                     <div className='mb-4'>&nbsp;</div>
                 </div>
             </div>
         </div>
+     :
+       <p>Worker Not Signed/Accept The Contract Yet.</p>
+       }
     </div>
   )
 }

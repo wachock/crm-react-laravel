@@ -117,7 +117,7 @@ export default function MyRoutes() {
                <Route exact path="price-offer/:id" element={<PriceOffer />} />
                <Route exact path="work-contract/:id" element={<WorkContract />} />
                <Route exact path="form101" element={<Form101 />} />
-               <Route exact path="worker-contract" element={<WorkerContract />} />
+               <Route exact path="worker-contract/:id" element={<WorkerContract />} />
                <Route exact path="calendar" element={<CalendarTeam />} />
                <Route exact path="thankyou/:id/:response" element={<Thankyou />} />
 

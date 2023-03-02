@@ -456,6 +456,7 @@
         "settings":{
             "edit_account":"Edit Account",
             "manage_form":"Manage Form",
+            "view_contract":"View Contract",
             "f_name":"First Name",
             "l_name":"Last Name",
             "email":"Email",

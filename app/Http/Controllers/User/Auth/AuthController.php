@@ -141,5 +141,28 @@ class AuthController extends Controller
         $worker->save();
         return response()->json(['success' => true]);
     }
+    public function getWorkerDetail(Request $request){
+        $user = User::where('worker_id',$request->worker_id)->first();
+         return response()->json([
+        'worker'=>$user
+       ],200);
+
+    }
+    public function WorkContract(Request $request){
+     
+    try{
+      User::where('worker_id',$request->worker_id)->update($request->input());
+      return response()->json([
+        'message'=>"Thanks, for accepting contract"
+       ],200);
+
+    } catch(\Exception $e){
+      
+       return response()->json([
+        'error'=>$e->getMessage()
+       ],200);
+    }
+    
+  }
     
 }
