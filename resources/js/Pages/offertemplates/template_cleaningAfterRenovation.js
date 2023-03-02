@@ -36,39 +36,6 @@ export default function DemoRenovation() {
                             <p>Broom Service was founder by Lidor Mamou on 2013 The company employs a team of professionals in a wide variety of house cleaning and maintenance jobs. Our staff are regular and experienced employees Our staff are regular and experienced employees who receive a fair and proper reward and all the beneﬁts they receive according to the law Our clients are accustomed and well acquainted with the high standard of service used in the best luxury and boutique hotels in Israel and worldwide and we strive to meet this high quality standard. Our customer satisfaction, high level of service, attention to detail and personal attitude are the foundations on which we base our services.
                                 The company is registered as a legal cleaning company in the Ministry of Industry. License number: 4569 </p>
                         </div>
-                        <div className='services'>
-                            <h3 class="card-title">Services</h3>
-                            <div className="table-responsive">
-                                <table class="table table-sm">
-                                    <thead>
-                                        <tr>
-                                            <th style={{ width: "30%" }}>Service</th>
-                                            <th style={{ width: "22%" }}>Frequency of Services</th>
-                                            <th style={{ width: "16%" }}>Job Hours</th>
-                                            <th style={{ width: "16%" }}>Amount</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>Cleaning After Renovation</td>
-                                            <td>Once Time week</td>
-                                            <td>2 hours</td>
-                                            <td>20 ILS</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div className='total-amount'>
-                                <div className='row'>
-                                    <div className='col-sm-6'>
-                                        <h5>Total Amount</h5>
-                                    </div>
-                                    <div className='col-sm-6'>
-                                        <p className='float-right'>20 ILS</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                         <div className='we-have'>
                             <h3>What Do We Have To Offer?</h3>
                             <div className='shift-20'>
@@ -99,6 +66,33 @@ export default function DemoRenovation() {
                                     <li><img src={star} /> Ironing services</li>
                                     <li><img src={star} /> Cleaning of sofas, carpets and curtains</li>
                                 </ul>
+                            </div>
+                            <div className='services'>
+                                <h3 class="card-title">Price Summary</h3>
+                                <div className="table-responsive">
+                                    <table class="table table-sm table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th style={{ width: "20%" }}>Service Name</th>
+                                                <th style={{ width: "20%" }}>Type</th>
+                                                <th style={{ width: "22%" }}>Frequency of Services</th>
+                                                <th style={{ width: "16%" }}>Job Hours</th>
+                                                <th>Hourly Rate</th>
+                                                <th>Total Amount</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>2 star</td>
+                                                <td>Fixed</td>
+                                                <td>Once Time week</td>
+                                                <td>2 hours</td>
+                                                <td>20 ILS</td>
+                                                <td>40 ILS</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                             <h3 className='mt-4'>Our Services Here, And On Our Website: <a href='https://www.broomservice.co.il' target='_blank'>www.broomservice.co.il</a></h3>
                             <div className='shift-20'>
