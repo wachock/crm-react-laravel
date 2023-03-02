@@ -1440,19 +1440,18 @@ h1 {
 .swatch.yellow span{
   margin-left: 4px;
 }
-.fc-icon-chevron-left {
-    width: 49px !important;
-    font-size: 14px !important;
+.fc-icon-chevron-right,  .fc-icon-chevron-left{
+  position: relative;
+  top: -2px;
+  font-family: 'Open Sans' !important;
+  font-size: 17px !important;
+  width: 106px !important;
 }
-
 .fc-icon-chevron-left:before {
-    content: "previous" !important;
+    content: "Previous week" !important;
 }
-.fc-icon-chevron-right {
-    width: 49px !important;
-    font-size: 14px !important;
+.fc-icon-chevron-right:before {
+  content: "Next week" !important;
 }
 
-.fc-icon-chevron-right:before {
-    content: "next" !important;
-}
+
