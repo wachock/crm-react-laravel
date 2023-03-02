@@ -1,20 +1,11 @@
 import React,{ useRef, useState } from 'react'
 import star from "../Assets/image/icons/blue-star.png";
 import SignatureCanvas from 'react-signature-canvas'
+import companySign from "../Assets/image/company-sign.png";
 
 export default function WorkerContract() {
-    const sigRef = useRef();
     const sigRef2 = useRef();
-    const [signature, setSignature] = useState(null);
     const [signature2, setSignature2] = useState(null);
-
-    const handleSignatureEnd = () => {
-        setSignature(sigRef.current.toDataURL());
-    }
-    const clearSignature = () => {
-        sigRef.current.clear();
-        setSignature(null);
-    }
 
     const handleSignatureEnd2 = () => {
         setSignature2(sigRef2.current.toDataURL());
@@ -34,14 +25,14 @@ export default function WorkerContract() {
                 </div>
                 <div className='between'>
                     <p>Between:</p>
-                    <p>Sohrab Khan</p>
-                    <p>A-278, Laxmi Nagar, New Delhi</p>
+                    <p>Broom Service L.M. Ltd</p>
+                    <p>Bnei Dan St, Tel Aviv-Yafo, Israel</p>
                     <p>(Hereinafter: <strong>“the Company”</strong>)</p>
                 </div>
                 <h2 className='mb-2 text-center'>And</h2>
                 <div className='between'>
                     <p>&nbsp;</p>
-                    <p>John Doe, ID: #76123</p>
+                    <p>Sohrab Khan, ID: #76123</p>
                     <p>Of: 3699 Runolfsson ShoreLake Mozellhaven, OK 98971-9034</p>
                     <p>(Hereinafter: <strong>“the Employee”</strong>)</p>
                 </div>
@@ -486,13 +477,7 @@ export default function WorkerContract() {
                         <div className='col-sm-6'>
                             <h5 className='mt-2'>The Company</h5>
                             <h6 style={{fontWeight: "600", fontSize: "14px"}}>Draw Signature with mouse or touch</h6>
-                              <SignatureCanvas 
-                                    penColor="black"
-                                    canvasProps={{className: 'sigCanvas'}}
-                                    ref={sigRef}
-                                    onEnd={handleSignatureEnd}
-                                />
-                                <button className='btn btn-warning' onClick={clearSignature}>Clear</button>
+                            <img src={companySign} className='img-fluid' alt='Company' />
                         </div>
                         <div className='col-sm-6'>
                             <h5 className='mt-2'>The Employee</h5>
