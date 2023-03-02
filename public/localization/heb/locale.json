@@ -458,6 +458,7 @@
         "settings":{
             "edit_account":"ערוך חשבון",
             "manage_form":"נהל טופס",
+            "view_contract":"View Contract",
             "f_name":"שם פרטי",
             "l_name":"שם משפחה",
             "email":"אימייל",
