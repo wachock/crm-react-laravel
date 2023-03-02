@@ -121,6 +121,21 @@ export default function EditOffer() {
     }
   }
 
+  const handleType = (e) => {
+
+    let fixed_field    = e.target.parentNode.nextSibling.nextElementSibling.nextElementSibling;
+    let per_hour_field = e.target.parentNode.nextSibling.nextElementSibling.nextElementSibling.nextElementSibling;
+    
+    if(e.target.value == 'hourly'){
+        fixed_field.style.display = 'none';
+        per_hour_field.style.display='block';
+      } else  {
+        fixed_field.style.display = 'block';
+        per_hour_field.style.display='none';
+
+      }
+  }
+
   let handleUpdate = (event) => {
 
     event.preventDefault();
@@ -250,11 +265,12 @@ export default function EditOffer() {
                           <table class="table table-sm">
                             <thead>
                             <tr>
-                                <th style={ { width: "20" }}>Service</th>
+                                <th style={ { width: "20"  }}>Service</th>
+                                <th style={ { width: "20%" }}>Type</th>
                                 <th style={ { width: "20%" }}>Frequency</th>
                                 <th style={ { width: "20%" }}>Job Hours</th>
-                                <th style={ type =='fixed' ? { width: "20%" } :{ display: "none" } }>Job Price</th>
-                                <th style={ type =='fixed' ? { width: "20%", display: "none" } : { width: "20%"} }>Rate Per Hour</th>
+                                <th style={ { width: "20%" }}>Job Price</th>
+                                
                             </tr>
                             </thead>
                             <tbody>
@@ -271,13 +287,14 @@ export default function EditOffer() {
                                       })}
                                     </select>
                                   </td>
-                                  <td>
+                                  
                                   <td>
                                     <select name="type" className="form-control" value={element.type || ""} onChange={(e) => {handleChange(index, e);handleType(e)}} >
                                       <option selected value="fixed">Fixed</option>
                                       <option selected value="hourly">Hourly</option>
                                     </select>
                                   </td>
+                                  <td>
                                     <select name="frequency" className="form-control" value={element.frequency || ""} onChange={e => handleChange(index, e)} >
                                       <option selected value={0}> -- Please select --</option>
                                       {AllFreq && AllFreq.map((s, i) => {
@@ -290,10 +307,10 @@ export default function EditOffer() {
                                   <td>
                                     <input type="number" name="jobHours" value={element.jobHours || ""} onChange={e => handleChange(index, e)} className="form-control jobhr"  required placeholder="Enter job Hrs" />
                                   </td>
-                                  <td style={ (type == 'hourly') ? { "display": "none" } : {} }>
+                                  <td style={ (element.type == 'hourly') ? { "display": "none" } : {} }>
                                     <input type="number" name="fixed_price" value={element.fixed_price || ""} onChange={e => handleChange(index, e)} className="form-control jobprice" required placeholder="Enter job price" />
                                   </td>
-                                  <td style={ (type != 'hourly') ? { "display": "none" } : {} }>
+                                  <td style={ (element.type != 'hourly') ? { "display": "none" } : {} }>
                                     <input type="text" name="rateperhour" value={element.rateperhour || ""} onChange={e => handleChange(index, e)} className="form-control jobrate" required placeholder="Enter rate P/Hr" />
                                   </td>
                                   {/*<td>

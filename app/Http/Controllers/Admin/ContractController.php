@@ -137,13 +137,7 @@ class ContractController extends Controller
         Contract::where('id',$request->id)->update([
             'status'=>'verified'
         ]);
-        $contract = Contract::where('id',$request->id)->get()->first();
-        Job::create([
-            'client_id'=>$contract->client_id,
-            'offer_id'=>$contract->offer_id,
-            'contract_id'=>$request->id,
-            'status'=>'unscheduled',
-        ]);
+        
         return response()->json([
              'message' => 'Contract verified successfully'
         ]);
