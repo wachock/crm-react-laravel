@@ -61,6 +61,16 @@ export default function Templates() {
                                 </td>
                             </tr>
                             <tr>
+                                <td>Window Cleaning</td>
+                                <td>
+                                <Link
+                                    to="/admin/template/window-cleaning"
+                                    className="btn bg-yellow">
+                                    <i className="fa fa-eye"></i>
+                                </Link>
+                                </td>
+                            </tr>
+                            <tr>
                                 <td>Others</td>
                                 <td>
                                 <Link
