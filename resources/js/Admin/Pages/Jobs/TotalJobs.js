@@ -3,9 +3,7 @@ import ReactPaginate from "react-paginate";
 import axios from "axios";
 import Sidebar from "../../Layouts/Sidebar";
 import { Link } from "react-router-dom";
-import JobFilter from "../../Components/Filter/JobFilter";
 import { useAlert } from "react-alert";
-import Select from 'react-select';
 import { useLocation } from 'react-router-dom'
 import Moment from "moment";
 import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table'
