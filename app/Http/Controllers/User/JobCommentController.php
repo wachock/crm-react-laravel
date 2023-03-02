@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\User;
 
 use App\Models\Job;
+use App\Models\Admin;
 use App\Models\JobComments;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Mail;
 
 class JobCommentController extends Controller
 {
@@ -54,13 +56,32 @@ class JobCommentController extends Controller
         $comment->job_id=$request->job_id;
         $comment->role='worker';
         $comment->comment=$request->comment;
-        if($request->status == 'unscheduled'){
-            $job = Job::find($request->job_id);
+        
+        if(isset($request->status) && $request->status != ''){
+            $job = Job::with('client','worker','jobservice')->find($request->job_id);
             $job->status = $request->status;
             $job->save();
 
+             $admin = Admin::find(1)->first();
+             \App::setLocale('en');
+             $data = array(
+                'email'      =>$admin->email,
+                'admin'      =>$admin->toArray(),
+                'comment'    =>$request->comment,
+                'worker_name'=>$request->name,
+                'job'        => $job->toArray(),
+
+             );
+
+             Mail::send('/WorkerPanelMail/JobStatusNotification',$data,function($messages) use ($data){
+                $messages->to($data['email']);
+                $sub = __('mail.job_status.subject');
+                $messages->subject($sub);
+              });
+
         }
         $comment->save();
+       
 
         return response()->json([
             'message' => 'Comments has been created successfully'

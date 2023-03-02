@@ -62,6 +62,14 @@ return [
         'regards'     =>'Best Regards',
         'tel'         =>'Telephone'
 
+    ],
+    'job_status' =>[
+        'subject'     =>'Worker Changed Job Status',
+        'hi'          =>'Hi',
+        'content'     =>'Worker changed the Job status to ',
+        'reason'      =>'Due to',
+        'btn_txt'     =>'Check Contract',
+        'thanks_text'   =>'Thanks',
     ]
 ];
 ?>

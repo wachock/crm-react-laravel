@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\Job;
+use App\Models\Admin;
 use App\Models\User;
 use App\Models\Contract;
 use App\Models\serviceSchedules;
@@ -13,6 +14,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Mail;
 
 class JobController extends Controller
 {
@@ -85,10 +87,24 @@ class JobController extends Controller
      */
     public function update(Request $request, $id)
     {
-         $job = Job::find($id);
+         $job = Job::with('client','worker','jobservice')->find($id);
          //$this->invoice($id);
          $job->status ='completed';
          $job->save();
+          $admin = Admin::find(1)->first();
+             \App::setLocale('en');
+             $data = array(
+                'email'      =>$admin->email,
+                'admin'      =>$admin->toArray(),
+                'job'        => $job->toArray(),
+
+             );
+
+             Mail::send('/WorkerPanelMail/JobStatusNotification',$data,function($messages) use ($data){
+                $messages->to($data['email']);
+                $sub = __('mail.job_status.subject');
+                $messages->subject($sub);
+              });
 
         return response()->json([
             'message'        => 'job completed',            
