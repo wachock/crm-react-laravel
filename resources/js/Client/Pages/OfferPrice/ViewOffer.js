@@ -80,8 +80,9 @@ export default function ClientViewOffer() {
                     <Table class="table table-sm responsiveTable">
                         <Thead>
                           <Tr>
-                            <Th style={{width:"30%"}}>{t('client.offer.view.service')}</Th>
-                            <Th className='text-right'>{t('client.offer.view.frequency')}</Th>
+                            <Th style={{width:"20%"}}>{t('client.offer.view.service')}</Th>
+                            <Th style={{width:"20%"}}>{t('client.offer.view.type')}</Th>
+                            <Th >{t('client.offer.view.frequency')}</Th>
                             <Th className='text-right'>{t('client.offer.view.job_hr')}</Th>
                             <Th style={ ofr.type != 'fixed'? {display:"none"} : {}} className='text-right'>{t('client.offer.view.job_price')}</Th>
                             <Th style={ ofr.type == 'fixed'? {display:"none"} : {}} className='text-right'>{t('client.offer.view.rate_ph')}</Th>
@@ -93,12 +94,13 @@ export default function ClientViewOffer() {
                             return(
                             <Tr>
                               <Td>{s.name}</Td>
-                              <Td className='text-right'>{ s.freq_name }</Td>
+                              <Td >{ s.type }</Td>
+                              <Td >{ s.freq_name }</Td>
                               <Td className='text-right'>{ s.jobHours } {t('client.offer.view.hour_s')}</Td>
                               {
                                 (ofr.type != 'fixed' ) ?
                                 <>
-                                  <Td className='text-right'>{ s.rateperhour } ILS</Td>
+                                  <Td className='text-right'>{ s.rateperhour ? s.rateperhour+" ILS" : '--' }</Td>
                                   <Td className='text-right'>{ s.totalamount} ILS</Td>
                                 </>
                               :

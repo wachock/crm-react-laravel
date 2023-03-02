@@ -292,6 +292,7 @@
                 "title":"View Offer",
                 "to":"To",
                 "ofr_price":"Offer Price",
+                "type":"Type",
                 "ofr_id":"Offer Id",
                 "date":"Date",
                 "services":"Services",

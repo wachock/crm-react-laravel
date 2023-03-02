@@ -243,12 +243,13 @@ export default function TotalJobs() {
                                                                 </select>
 
                                                             </Td>
-                                                            <Td>{
+                                                            <Td><Link to={`/admin/view-client/${item.client.id}`}>{
                                                                 item.client
                                                                     ? item.client.firstname +
                                                                     " " + item.client.lastname
                                                                     : "NA"
                                                             }
+                                                            </Link>
                                                             </Td>
                                                             <Td onClick={(e)=>handleNavigate(e,item.id)}>{
                                                                item.jobservice
