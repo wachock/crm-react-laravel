@@ -3,9 +3,7 @@ import ReactPaginate from "react-paginate";
 import axios from "axios";
 import Sidebar from "../../Layouts/Sidebar";
 import { Link } from "react-router-dom";
-import JobFilter from "../../Components/Filter/JobFilter";
 import { useAlert } from "react-alert";
-import Select from 'react-select';
 import { useLocation } from 'react-router-dom'
 import Moment from "moment";
 import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table'
@@ -243,12 +241,13 @@ export default function TotalJobs() {
                                                                 </select>
 
                                                             </Td>
-                                                            <Td>{
+                                                            <Td><Link to={`/admin/view-client/${item.client.id}`}>{
                                                                 item.client
                                                                     ? item.client.firstname +
                                                                     " " + item.client.lastname
                                                                     : "NA"
                                                             }
+                                                            </Link>
                                                             </Td>
                                                             <Td onClick={(e)=>handleNavigate(e,item.id)}>{
                                                                item.jobservice

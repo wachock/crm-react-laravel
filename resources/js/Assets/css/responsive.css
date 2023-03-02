@@ -619,4 +619,7 @@ footer .copyright{
 .responsiveTable tbody tr td:last-child button.dropdown-toggle{
     margin-top: 25px;
 }
+.swatch{
+    margin-right: 6px;
+}
 } 
