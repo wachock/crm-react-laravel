@@ -477,42 +477,37 @@ export default function EditClient() {
                                     <div className="form-check form-check-inline1 pl-0" style={{paddingLeft: "0"}}>
                                         <label class="form-check-label" for="title">Color</label>
                                     </div>
-
-                                    <div className="form-check form-check-inline">
-                                        <input type="radio" name="color" value="#9400D3" onChange={(e) => setColor(e.target.value)} />
-                                        <label class="form-check-label" for="voilet">Voilet</label>
+                                    <div className="swatch green">
+                                        <input type="radio" name="swatch_demo" id="swatch_2" value="2" onChange={(e) => setColor(e.target.value)} />
+                                        <label for="swatch_2"><i className="fa fa-check"></i></label>
+                                        <span>Green</span>
+                                    </div>
+                                    <div className="swatch blue">
+                                        <input type="radio" name="swatch_demo" id="swatch_3" value="3" onChange={(e) => setColor(e.target.value)} />
+                                        <label for="swatch_3"><i className="fa fa-check"></i></label>
+                                        <span>Blue</span>
+                                    </div>
+                                    <div className="swatch purple">
+                                        <input type="radio" name="swatch_demo" id="swatch_1" value="1" onChange={(e) => setColor(e.target.value)} />
+                                        <label for="swatch_1"><i className="fa fa-check"></i></label>
+                                        <span>Voilet</span>
+                                    </div>
+                                    <div className="swatch red">
+                                        <input type="radio" name="swatch_demo" id="swatch_5" value="5" onChange={(e) => setColor(e.target.value)} />
+                                        <label for="swatch_5"><i className="fa fa-check"></i></label>
+                                        <span>Red</span>
+                                    </div>
+                                    <div className="swatch orange">
+                                        <input type="radio" name="swatch_demo" id="swatch_4" value="4" onChange={(e) => setColor(e.target.value)} />
+                                        <label for="swatch_4"><i className="fa fa-check"></i></label>
+                                        <span>Orange</span>
+                                    </div>
+                                    <div className="swatch yellow">
+                                        <input type="radio" name="swatch_demo" id="swatch_6" value="6" onChange={(e) => setColor(e.target.value)} />
+                                        <label for="swatch_6"><i className="fa fa-check"></i></label>
+                                        <span>Yellow</span>
                                     </div>
 
-                                    <div className="form-check form-check-inline">
-                                        <input type="radio" name="color" value="#4B0082" onChange={(e) => setColor(e.target.value)} />
-                                        <label class="form-check-label" for="voilet">Indigo</label>
-                                    </div>
-
-                                    <div className="form-check form-check-inline">
-                                        <input type="radio" name="color" value="#0000FF" onChange={(e) => setColor(e.target.value)} />
-                                        <label class="form-check-label" for="Blue">Blue</label>
-                                    </div>
-
-                                    <div className="form-check form-check-inline">
-                                        <input type="radio" name="color" value="#00FF00" onChange={(e) => setColor(e.target.value)} />
-                                        <label class="form-check-label" for="Green">Green</label>
-                                    </div>
-
-                                    <div className="form-check form-check-inline">
-                                        <input type="radio" name="color" value="#FFFF00" onChange={(e) => setColor(e.target.value)} />
-                                        <label class="form-check-label" for="Yellow">Yellow</label>
-                                    </div>
-
-                                    <div className="form-check form-check-inline">
-                                        <input type="radio" name="color" value="#FF7F00" onChange={(e) => setColor(e.target.value)} />
-                                        <label class="form-check-label" for="Orange">Orange</label>
-                                    </div>
-
-                                    <div className="form-check form-check-inline">
-                                        <input type="radio" name="color" value="#FF0000" onChange={(e) => setColor(e.target.value)} />
-                                        <label class="form-check-label" for="Red">Red</label>
-                                    </div>
-                                  
                                     {errors.color ? (
                                         <small className="text-danger mb-1">
                                             {errors.color}
@@ -524,7 +519,7 @@ export default function EditClient() {
 
 
 
-                                <div className="form-group">
+                                <div className="form-group mt-35">
                                     <label className="control-label">Status</label>
                                     <select
                                         className="form-control"
