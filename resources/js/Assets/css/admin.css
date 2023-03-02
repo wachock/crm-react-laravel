@@ -836,6 +836,9 @@ h1 {
   max-width: 770px;
   margin: 0 auto;
 }
+.maxWidth770{
+  max-width: 770px;
+}
 .sch-meet h1{
   color: #dc3545;
   font-size: 21px !important;
@@ -1164,7 +1167,7 @@ h1 {
 .fc-view-harness .fc-view {
   overflow-x: hidden;
 }
-.bg-success{
+.bg-success, .bg-success:hover{
   color: #fff;
 }
 .text-underline{
