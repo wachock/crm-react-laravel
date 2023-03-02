@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Mail;
+use Maatwebsite\Excel\Facades\Excel;
 
 class JobController extends Controller
 {
@@ -301,5 +302,46 @@ class JobController extends Controller
             'message'     => 'Job Time Deleted Successfully',   
             ], 200);
     }
+
+    public function exportReport(Request $request){
+      
+    if($request->type =='single'){
+      $jobs = JobHours::where('job_id',$request->id)->with('worker')->get();
+      $fileName = 'job_report_'.$request->id.'.csv';
+    }
+    else{
+      $jobs = JobHours::with('worker')->get();
+      $fileName = 'AllJob_report.csv';
+    }
+
+      if(empty($jobs)){
+        return response()->json([
+            'status_code'=>404,
+            'msg' => 'No work log is found!'
+        ]);
+      }
+      
+      $report = [];
+      $total=0;
+      foreach($jobs as $job){
+
+        $row['worker_name']      = $job->worker->firstname." ".$job->worker->lastname;
+        $row['worker_id']        = $job->worker->worker_id;
+        $row['start_time']       = $job->start_time;
+        $row['end_time']         = $job->end_time;
+        $row['time_diffrence']   = $job->time_diff;
+        $row['time_total']       = (int)$job->time_diff;
+        
+        array_push($report,$row);
+      }
+      
+      return response()->json([
+        'status_code'=> 200,
+        'filename'=>$fileName,
+        'report'=>$report
+      ]);
+
+    }
+    
 
 }
