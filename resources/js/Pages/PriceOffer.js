@@ -220,30 +220,24 @@ export default function PriceOffer() {
                                     <table class="table table-sm table-bordered table-striped">
                                         <thead>
                                             <tr>
-                                                <th style={{ width: "30%" }}>{t('price_offer.service_txt')}</th>
+                                                <th style={{ width: "20%" }}>{t('price_offer.service_txt')}</th>
+                                                <th style={{ width: "20%" }}>{t('price_offer.type')}</th>
                                                 <th style={{ width: "22%" }}>{t('price_offer.freq_s_txt')}</th>
                                                 <th style={{ width: "16%" }}>{t('price_offer.job_h_txt')}</th>
-                                                <th style={offer.type != 'hourly' ? { width: "16%" } : { display: "none" }}>{t('price_offer.job_price')}</th>
-                                                <th style={offer.type == 'hourly' ? { width: "16%" } : { display: "none" }}>{t('price_offer.hourly_rate')}</th>
-                                                <th style={offer.type == 'hourly' ? { width: "16%" } : { display: "none" }}>{t('price_offer.amount_txt')}</th>
+                                                <th >{t('price_offer.hourly_rate')}</th>
+                                                <th >{t('price_offer.amount_txt')}</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             {services && services.map((s, i) => {
                                                 return (<tr>
                                                     <td>{s.name}</td>
+                                                    <td>{s.type}</td>
                                                     <td>{s.freq_name}</td>
                                                     <td>{s.jobHours} {t('price_offer.hours')}</td>
-                                                    {(offer.type == 'hourly') ?
-                                                        <>
-                                                            <td>{s.rateperhour} ILS</td>
-                                                            <td>{s.totalamount} ILS</td>
-                                                        </>
-                                                        :
-                                                        <>
-                                                            <td>{s.fixed_price} ILS</td>
-                                                        </>
-                                                    }
+                                                    <td>{ s.rateperhour ? s.rateperhour+" ILS" : '--'}</td>
+                                                    <td>{s.totalamount} ILS</td>
+                                                            
 
                                                 </tr>
                                                 )

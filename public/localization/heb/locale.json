@@ -33,6 +33,7 @@
         "hourly_rate": "תעריף לשעה",
         "hours": "שעה (ות)",
         "amount": "כמות",
+        "type":"סוּג",
         "amount_txt": "הכמות הכוללת",
         "offer_title": "מה יש לנו להציע?",
         "laundary_service_price_title": "מחירון שירותי כביסה",
