@@ -86,6 +86,7 @@ export default function WorkerAvailabilty() {
      ['8am-16pm','full day- 8am-16pm'],
      ['8am-10am','morning1 - 8am-10am'],
      ['10am-12pm','morning 2 - 10am-12pm'],
+     ['8am-12pm','morning- 08am-12pm'],
      ['12pm-14pm','noon1 -12pm-14pm'],
      ['14pm-16pm','noon2 14pm-16pm'],
      ['12pm-16pm','noon 12pm-16pm'],
