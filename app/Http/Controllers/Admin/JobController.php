@@ -13,6 +13,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Mail;
 
 class JobController extends Controller
 {
@@ -223,13 +224,28 @@ class JobController extends Controller
             $service->total    = $s_total;
             $service->save();
 
-         }
+             $job = Job::with('client','worker','jobservice')->where('id',$new->id)->first();
+             $data = array(
+                'email'=> $job['worker']['email'],
+                'job'  => $job->toArray(),
+             );
+            \App::setLocale($job->worker->lng);
+            Mail::send('/Mails/NewJobMail',$data,function($messages) use ($data){
+                $messages->to($data['email']);
+                $sub = __('mail.worker_new_job.subject')."  ".__('mail.worker_new_job.company');
+                $messages->subject($sub);
+            });
+
+
+        }
+
 
         return response()->json([
             'message'=>'Job has been created successfully'
         ],200);
 
     }
+
     public function getJobTime(Request $request){
          $time = JobHours::where('job_id',$request->job_id)->get();
          $total=0;
