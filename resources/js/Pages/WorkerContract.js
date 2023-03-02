@@ -1,11 +1,23 @@
-import React,{ useRef, useState } from 'react'
+import React,{ useRef, useState,useEffect } from 'react'
 import star from "../Assets/image/icons/blue-star.png";
 import SignatureCanvas from 'react-signature-canvas'
 import companySign from "../Assets/image/company-sign.png";
+import { useParams } from 'react-router-dom';
+import swal from 'sweetalert';
+import { useTranslation } from "react-i18next";
+import i18next from 'i18next';
 
 export default function WorkerContract() {
+
+    const { t } = useTranslation();
+    const param = useParams();
     const sigRef2 = useRef();
     const [signature2, setSignature2] = useState(null);
+
+
+    const [worker_name,setWorkerName] = useState("");
+    const [worker_id,setWorkerId] = useState(0);
+    const [address,setAddress] = useState('');
 
     const handleSignatureEnd2 = () => {
         setSignature2(sigRef2.current.toDataURL());
@@ -14,6 +26,49 @@ export default function WorkerContract() {
         sigRef2.current.clear();
         setSignature2(null);
     }
+    const handleAccept = (e) =>{
+        if(!signature2){ swal('Please sign digital signature on the contract','','error'); return false;}
+
+        const data = {
+            worker_id:worker_id,
+            worker_contract:signature2
+        }
+
+        axios
+        .post(`/api/work-contract`,data)
+        .then((res)=>{
+            if(res.data.error){
+                swal('',res.data.error,'error');
+            } else{
+            swal(res.data.message,'','success')
+            setTimeout(()=>{
+                window.location.href="/worker/login";
+            },1000)
+        }
+        })
+    }
+    const getWorker = () =>{
+        axios
+        .post(`/api/worker-detail`,{'worker_id':param.id})
+        .then((res)=>{
+
+            if(res.data.worker){
+               let w = res.data.worker;
+               setWorkerName(w.firstname+' '+w.lastname);
+               setWorkerId(w.worker_id);
+               setAddress(w.address);
+               setSignature2(w.worker_contract);
+               i18next.changeLanguage(w.lng);
+               if(w.lng == 'heb'){
+                document.querySelector('html').setAttribute('dir','rtl');
+               }
+            }
+        })
+    }
+
+    useEffect(()=>{
+        getWorker();
+    },[]);
   return (
     <div className='container'>
         <div className='send-offer worker-contract client-contract'>
@@ -32,8 +87,8 @@ export default function WorkerContract() {
                 <h2 className='mb-2 text-center'>And</h2>
                 <div className='between'>
                     <p>&nbsp;</p>
-                    <p>Sohrab Khan, ID: #76123</p>
-                    <p>Of: 3699 Runolfsson ShoreLake Mozellhaven, OK 98971-9034</p>
+                    <p>{ worker_name }, ID: #{ worker_id }</p>
+                    <p>{ address }</p>
                     <p>(Hereinafter: <strong>“the Employee”</strong>)</p>
                 </div>
                 <div className='whereas mt-4'>
@@ -489,6 +544,9 @@ export default function WorkerContract() {
                                 onEnd={handleSignatureEnd2}
                             />
                             <button className='btn btn-warning' onClick={clearSignature2}>Clear</button>
+                        </div>
+                        <div className=' col-sm-12 mt-2 float-right'>
+                            <input className='btn btn-pink' onClick={handleAccept} value={t('work-contract.accept_contract')} />
                         </div>
                     </div>
                     <div className='mb-4'>&nbsp;</div>
