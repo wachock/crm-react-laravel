@@ -113,7 +113,10 @@ export default function ViewSchedule() {
         axios
             .get(`/api/admin/team`, { headers })
             .then((res) => {
-                setTotalTeam(res.data.team.data);
+                let team = res.data.team.data ? res.data.team.data.filter((e)=>{
+                 return e.name != 'superadmin'
+                }):[];
+                setTotalTeam(team);
             });
     }
 

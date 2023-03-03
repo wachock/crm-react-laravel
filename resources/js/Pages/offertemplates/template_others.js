@@ -81,8 +81,8 @@ export default function TemplateOthers() {
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td>2 star</td>
-                                                <td>Fixed</td>
+                                                <td>Others</td>
+                                                <td>Hourly</td>
                                                 <td>Once Time week</td>
                                                 <td>2 hours</td>
                                                 <td>20 ILS</td>
