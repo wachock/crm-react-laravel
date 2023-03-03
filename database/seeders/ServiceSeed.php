@@ -48,12 +48,12 @@ class ServiceSeed extends Seeder
         ]);
         Services::create([
             'name'         => '2 Star',
-            'template'     => 'reguar',
+            'template'     => 'regular',
             'status'       => 1                  
         ]);
         Services::create([
             'name'         => 'window cleaning',
-            'template'     => '',
+            'template'     => 'window_cleaning',
             'status'       => 1                  
         ]);
         Services::create([
@@ -63,7 +63,7 @@ class ServiceSeed extends Seeder
         ]);
         Services::create([
             'name'         => 'Others',
-            'template'     => '',
+            'template'     => 'others',
             'status'       => 1                  
         ]);
 

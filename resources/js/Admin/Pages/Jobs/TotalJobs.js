@@ -214,6 +214,18 @@ export default function TotalJobs() {
                     let rep = res.data.report;
                     for( let r in rep){
                         rep[r].time_diffrence = time_difference(rep[r].start_time,rep[r].end_time);
+
+                       /* if(r != 0 && rep[r].job_id != rep[parseInt(r)-1].job_id){
+                            console.log(parseInt(r));
+                            let ne = {};
+                            ne.worker_name='n';
+                            ne.worker_id='n';
+                            ne.start_time='n';
+                            ne.end_time='n';
+                            ne.job_id = rep[r].job_id;
+                            ne.time_diffrence=time_difference(rep[r].start_time, rep[r].end_time);
+                            rep.splice(parseInt(r), 0, ne);
+                        }*/
                     }
                     setAllData(rep);
                     document.querySelector('#csv').click();

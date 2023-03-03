@@ -74,6 +74,7 @@
             "oc1_p4": "Use of advanced cleaning materials and equipment at our expense.",
             "oc1_p5": "Tight supervision by a regional supervisor.",
             "oc2": "Our package- Regular Office cleaning:",
+            "oc2_img": "/images/officeCleaning.png",
             "laundary": "/images/laundary.jpeg"
         },
         "renovation": {
@@ -86,6 +87,10 @@
             "rn1_p6": "Payment will be made at the end of the work by credit card.",
             "rn2": "Our package- After renovation / Pre-occupation:",
             "rn2_img": "/images/renovation.jpg"
+        },
+        "others":{
+            "title":"Our packages- Other Services",
+            "p1":"This is a test line and it will be changed according to the other service."
         },
         "window_any_height": {
             "title": "Cleaning Inside And Outside Windows At Any Height:",
