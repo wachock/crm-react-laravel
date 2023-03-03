@@ -133,6 +133,11 @@ export default function TotalJobs() {
         let newWorkers = [...workers];
         newWorkers[e.target.name] = e.target.value;
         setWorkers(newWorkers);
+        let up = e.target.parentNode.parentNode.lastChild.lastChild;
+        setTimeout(()=>{
+            up.click();
+        },500)
+        
     }
 
     const handleform = (job_id, e) => {
@@ -358,7 +363,7 @@ export default function TotalJobs() {
                                                                         <button className="dropdown-item" onClick={() => handleDelete(item.id)}>Delete</button>
                                                                     </div>
                                                                 </div>
-                                                                <button type="button" className="btn btn-success" onClick={(e) => handleform(item.id, e)}>
+                                                                <button type="button" style={{display:'none'}} className="btn btn-success" onClick={(e) => handleform(item.id, e)}>
                                                                     Update
                                                                 </button>
                                                             </Td>
