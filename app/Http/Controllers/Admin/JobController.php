@@ -205,6 +205,8 @@ class JobController extends Controller
                       $s_total=$service['totalamount'];
 
          }
+         $client_mail=array();
+         $client_email='';
          foreach($request->workers as $worker){
             $new = new Job;
             $new->client_id     = $job->client_id;
@@ -237,13 +239,29 @@ class JobController extends Controller
                 $messages->subject($sub);
             });
 
+            $client_mail[] = $data;
+            $client_email  =  $job['client']['email'];
+            $client_name  =  $job['client']['firstname'].' '.$job['client']['lastname'];
+            $client_lng    = $job['client']['lng'];
+
 
         }
+        \App::setLocale($client_lng);
+        $client_data = array(
+            'email'=>$client_email,
+            'name' => $client_name,
+            'jobs' => $client_mail,
+        );
+         Mail::send('/Mails/NewJobClient',$client_data,function($messages) use ($client_data){
+                $messages->to($client_data['email']);
+                $sub = __('mail.client_new_job.subject')."  ".__('mail.client_new_job.company');
+                $messages->subject($sub);
+            });
 
 
         return response()->json([
             'message'=>'Job has been created successfully'
-        ],200);
+        ],500);
 
     }
 
