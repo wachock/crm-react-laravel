@@ -101,5 +101,33 @@ return [
         'btn_txt'     =>'Check Contract',
         'thanks_text'   =>'Thanks',
     ],
+     'worker_new_job' =>[
+        'subject'     =>'New Job with',
+        'hi'          =>'Hi',
+        'greetings'   =>'Greetings',
+        'from'        =>'from',
+        'company'     =>'Broom Services',
+        'content'     =>'New Job Assign.Please check the details.',
+        'below_txt'   =>'Click the below button to check the contract.',
+        'btn_txt'     =>'Check Contract',
+        'reply_txt'   =>'If you have any questions or concerns please don\'t hesitate to get in touch with us by replying to this email.',
+        'regards'     =>'Best Regards',
+        'tel'         =>'Telephone'
+
+    ],
+    'client_new_job' =>[
+        'subject'     =>'New Job with',
+        'hi'          =>'Hi',
+        'greetings'   =>'Greetings',
+        'from'        =>'from',
+        'company'     =>'Broom Services',
+        'content'     =>'New Job Created.Please check the details.',
+        'below_txt'   =>'Click the below button to check the contract.',
+        'btn_txt'     =>'Check Contract',
+        'reply_txt'   =>'If you have any questions or concerns please don\'t hesitate to get in touch with us by replying to this email.',
+        'regards'     =>'Best Regards',
+        'tel'         =>'Telephone'
+
+    ],
 ];
 ?>

@@ -13,6 +13,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Mail;
 use Maatwebsite\Excel\Facades\Excel;
 
 class JobController extends Controller
@@ -123,6 +124,8 @@ class JobController extends Controller
         $job->end_time      = $worker['end'];
         $job->status   = 'scheduled';
         $job->save();
+
+        $this->sendWorkerEmail($id);
         
         return response()->json([
             'message'=>'Job has been updated successfully'
@@ -185,6 +188,9 @@ class JobController extends Controller
             $job->comment=$request->comment;
         }
         $job->save();
+        if($request->worker != ''){
+          $this->sendWorkerEmail($id);
+        }
         return response()->json([
             'message'=>'Job has been updated successfully'
         ],200);
@@ -204,6 +210,8 @@ class JobController extends Controller
                       $s_total=$service['totalamount'];
 
          }
+         $client_mail=array();
+         $client_email='';
          foreach($request->workers as $worker){
             $new = new Job;
             $new->client_id     = $job->client_id;
@@ -224,13 +232,44 @@ class JobController extends Controller
             $service->total    = $s_total;
             $service->save();
 
-         }
+             $job = Job::with('client','worker','jobservice')->where('id',$new->id)->first();
+             $data = array(
+                'email'=> $job['worker']['email'],
+                'job'  => $job->toArray(),
+             );
+            \App::setLocale($job->worker->lng);
+            Mail::send('/Mails/NewJobMail',$data,function($messages) use ($data){
+                $messages->to($data['email']);
+                $sub = __('mail.worker_new_job.subject')."  ".__('mail.worker_new_job.company');
+                $messages->subject($sub);
+            });
+
+            $client_mail[] = $data;
+            $client_email  =  $job['client']['email'];
+            $client_name  =  $job['client']['firstname'].' '.$job['client']['lastname'];
+            $client_lng    = $job['client']['lng'];
+
+
+        }
+        \App::setLocale($client_lng);
+        $client_data = array(
+            'email'=>$client_email,
+            'name' => $client_name,
+            'jobs' => $client_mail,
+        );
+         Mail::send('/Mails/NewJobClient',$client_data,function($messages) use ($client_data){
+                $messages->to($client_data['email']);
+                $sub = __('mail.client_new_job.subject')."  ".__('mail.client_new_job.company');
+                $messages->subject($sub);
+            });
+
 
         return response()->json([
             'message'=>'Job has been created successfully'
         ],200);
 
     }
+
     public function getJobTime(Request $request){
          $time = JobHours::where('job_id',$request->job_id)->get();
          $total=0;
@@ -324,6 +363,21 @@ class JobController extends Controller
         'filename'=>$fileName,
         'report'=>$report
       ]);
+
+    }
+    public function sendWorkerEmail($job_id){
+            $job = Job::with('client','worker','jobservice')->where('id',$job_id)->first();
+             $data = array(
+                'email'=> $job['worker']['email'],
+                'job'  => $job->toArray(),
+             );
+            \App::setLocale($job->worker->lng);
+            Mail::send('/Mails/NewJobMail',$data,function($messages) use ($data){
+                $messages->to($data['email']);
+                $sub = __('mail.worker_new_job.subject')."  ".__('mail.worker_new_job.company');
+                $messages->subject($sub);
+            });
+            return true;
 
     }
     
