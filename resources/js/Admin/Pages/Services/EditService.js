@@ -108,6 +108,8 @@ export default function EditService() {
                                                 <option value="office_cleaning" selected={template == 'office_cleaning'}>Office Cleaning</option>
                                                 <option value="after_renovation" selected={template == 'after_renovation'}>After Renovation</option>
                                                 <option value="thorough_cleaning" selected={template == 'thorough_cleaning'}>Thorough Cleaning</option>
+                                                <option value="window_cleaning" selected={template == 'window_cleaning'}>Window Cleaning</option>
+                                                <option value="others" selected={template == 'others'}>Others</option>
                                             </select>
                                             {errors.template ? (
                                                 <small className="text-danger mb-1">

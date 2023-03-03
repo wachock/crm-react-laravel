@@ -353,10 +353,12 @@ class JobController extends Controller
         $row['start_time']       = $job->start_time;
         $row['end_time']         = $job->end_time;
         $row['time_diffrence']   = $job->time_diff;
+        $row['job_id']           = $job->job_id;
         $row['time_total']       = (int)$job->time_diff;
         
         array_push($report,$row);
       }
+      
       
       return response()->json([
         'status_code'=> 200,
