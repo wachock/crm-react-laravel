@@ -124,6 +124,8 @@ class JobController extends Controller
         $job->end_time      = $worker['end'];
         $job->status   = 'scheduled';
         $job->save();
+
+        $this->sendWorkerEmail($id);
         
         return response()->json([
             'message'=>'Job has been updated successfully'
@@ -186,6 +188,9 @@ class JobController extends Controller
             $job->comment=$request->comment;
         }
         $job->save();
+        if($request->worker != ''){
+          $this->sendWorkerEmail($id);
+        }
         return response()->json([
             'message'=>'Job has been updated successfully'
         ],200);
@@ -358,6 +363,21 @@ class JobController extends Controller
         'filename'=>$fileName,
         'report'=>$report
       ]);
+
+    }
+    public function sendWorkerEmail($job_id){
+            $job = Job::with('client','worker','jobservice')->where('id',$job_id)->first();
+             $data = array(
+                'email'=> $job['worker']['email'],
+                'job'  => $job->toArray(),
+             );
+            \App::setLocale($job->worker->lng);
+            Mail::send('/Mails/NewJobMail',$data,function($messages) use ($data){
+                $messages->to($data['email']);
+                $sub = __('mail.worker_new_job.subject')."  ".__('mail.worker_new_job.company');
+                $messages->subject($sub);
+            });
+            return true;
 
     }
     
