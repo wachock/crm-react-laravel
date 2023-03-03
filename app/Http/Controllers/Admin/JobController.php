@@ -261,7 +261,7 @@ class JobController extends Controller
 
         return response()->json([
             'message'=>'Job has been created successfully'
-        ],500);
+        ],200);
 
     }
 
