@@ -1453,5 +1453,36 @@ h1 {
 .fc-icon-chevron-right:before {
   content: "Next week" !important;
 }
+.customRTL{
+  text-align: right !important;
+  direction: rtl;
+}
+.pushRTL{
+  direction: rtl;
+}
+.whereasRTL .info-list .icons {
+  margin-right: 0;
+  margin-left: 100px;
+}
+.whereasRTL .info-text, .agg-list.pushRTL .agg-text{
+  text-align: right;
+}
+.agg-list.pushRTL .icons {
+  margin-right: 0;
+  margin-left: 10px;
+}
+.pushRTL.service-table table tr td:first-child{
+  text-align: right;
+}
+.clearBtn{
+  float: right;
+  margin-right: 46px;
+}
+.reset-button{
+  background: antiquewhite;
+  padding: 6px 12px;
+  border: 1px solid #e3bc88;
+  color: #222;
+}
 
 
