@@ -8,7 +8,6 @@ import interactionPlugin from '@fullcalendar/interaction';
 import moment from 'moment-timezone';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useAlert } from 'react-alert';
-import Select from 'react-select';
 
 
 export default function CreateJobCalender() {
@@ -224,102 +223,37 @@ export default function CreateJobCalender() {
 
     }
 
-    let curr = new Date 
-    let week = []
-    let nextweek = []
-    for (let i = 0; i <= 7; i++) {
-
-     if(i != 6){
-      let first = curr.getDate() - curr.getDay() + i 
-      if(first>=curr.getDate()){
-      let day = new Date(curr.setDate(first)).toISOString().slice(0, 10)
-      week.push(day)
-      }
-     }
-    }
-    
-    for (let i = 0; i < 7; i++) {
-      var today = new Date;
-       var first = today.getDate() - today.getDay() + 1 + 7+i;
-       var firstday = new Date(today.setDate(first)).toISOString().slice(0, 10)
-        nextweek.push(firstday)
-    }
-   const slot = [
-     ['8am-16pm','full day- 8am-16pm'],
-     ['8am-10am','morning1 - 8am-10am'],
-     ['10am-12pm','morning 2 - 10am-12pm'],
-     ['8am-12pm','morning- 08am-12pm'],
-     ['12pm-14pm','noon1 -12pm-14pm'],
-     ['14pm-16pm','noon2 14pm-16pm'],
-     ['12pm-16pm','noon 12pm-16pm'],
-     ['16pm-18pm','af1 16pm-18pm'],
-     ['18pm-20pm','af2 18pm-20pm'],
-     ['16pm-20pm','afternoon 16pm-20pm'],
-     ['20pm-22pm','ev1 20pm-22pm'],
-     ['22pm-24am','ev2 22pm-24pm'],
-     ['20pm-24am','evening 20pm-24am']
-    ]
-    const colourOptions = [
-  { value: 0, label: 'full day - 8am-16pm' },
-  { value: 1, label: 'morning - 8-12pm' },
-  { value: 2, label: 'morning1 - 8-10am' },
-  { value: 3, label: 'noon - 12pm-16pm' },
-  { value: 4, label: 'noon - 12pm-16pm' }
-]
-  const colourOptions1 = [
-  { value: 0, label: 'full day - 8am-16pm' },
-  { value: 1, label: 'morning - 8-12pm' },
-]
-const changeShift = (e) =>{
-      
-      let data='';
-      {e.map((user,index) => (
-
-          data += (index)?','+user['value']:user['value']
-      ))}
-     document.getElementById('job-shift-'+job_id).setAttribute('value',data);
-};
 
     return (
         <>
-           <table border="2" cellspacing="0" align="center" width="100%">
-              <tr>
-                <td align="center">
-                    Worker
-                </td>
-               {week.map((element, index) => (
-                       <td align="center">
-                           { moment(element).toString().slice(0,15) }
-                       </td>
-                    ))}
-              </tr>
-              {AllWorkers.map((w, index) => {
-                  let aval = (w.aval) ? w.aval : [];
-                    return (
-                        <tr>
-                           <td align="center">
-                               {w.firstname} {w.lastname}
-                           </td>
-                           {week.map((element, index) => (
-                               <td align="center">
-                                   {aval[element]}
-                                    <Select
-                                        defaultValue={colourOptions1}
-                                        isMulti
-                                        name="colors"
-                                        options={colourOptions}
-                                        className="basic-multi-select"
-                                        classNamePrefix="select"
-                                        onChange={(e)=>changeShift(item.id,e)}
-                                      />
-                               </td>
-                            ))}
-
-                         </tr>
-                     )
-                })}
-
-           </table>
+            <FullCalendar
+                selectable={true}
+                plugins={[dayGridPlugin, timeGridPlugin, resourceTimelinePlugin, interactionPlugin]}
+                initialView='resourceTimelineWeek'
+                resources={resources}
+                resourceAreaHeaderContent="Workers"
+                height={'auto'} // sets height to height of resources.
+                slotDuration={'00:30:00'}
+                events={events}
+                resourceAreaWidth={"15%"}
+                slotMinTime={startSlot}
+                slotMaxTime={endSlot}
+                hiddenDays={interval}
+                allDaySlot={false}
+                firstDay = {moment().day()}
+                eventClick={function (info) {
+                    if (info.event.title == 'Busy') {
+                        window.alert('Worker Not Available');
+                    } else {
+                        if (info.el.style.borderColor == 'red') {
+                            info.el.style.borderColor = 'rgb(0 255 0)';
+                        } else {
+                            info.el.style.borderColor = 'red';
+                        }
+                        handleEventClick(info.event,info.el);
+                    }
+                }}
+            />
             <div className="form-group text-center">
                 <input type='button' value='View Job' className="btn btn-pink" data-toggle="modal" data-target="#exampleModal" />
             </div>
