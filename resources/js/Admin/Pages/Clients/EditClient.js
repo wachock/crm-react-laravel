@@ -97,7 +97,7 @@ export default function EditClient() {
             email: email,
             phone: phoneClc,
             password: passcode,
-            status: status,
+            status: (!status) ?  1 : status,
         };
 
         axios
@@ -528,7 +528,6 @@ export default function EditClient() {
                                         value={status}
                                         onChange={(e) => setStatus(e.target.value)}
                                     >
-                                        <option>Please select</option>
                                         <option value="1" selected={status == 1}>Active</option>
                                         <option value="0" selected={status == 0}>Inactive</option>
                                     </select>
