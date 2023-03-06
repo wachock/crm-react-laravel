@@ -67,6 +67,7 @@ class WorkerController extends Controller
             $newworker=array();
             foreach($workers as $worker){
                   if(count($worker->availabilities)){
+                    $worker->aval = $this->workerAvl($worker->availabilities);
                     $newworker[] = $worker;
                   }
             }
@@ -79,6 +80,14 @@ class WorkerController extends Controller
         return response()->json([
             'workers'       => $workers,            
         ], 200);
+    }
+    public function workerAvl($availabilities){
+        $data=array();
+        foreach($availabilities as $avl){
+            $data[$avl->date]=$avl->working;
+        }
+        return $data;
+
     }
 
     /**
