@@ -237,9 +237,7 @@ export default function WorkContract() {
                                 <td style={{width: "60%"}}>{t('work-contract.location_txt')}</td>
                                 <td>
                                     {offer && offer.map((ofr,i)=>{
-                                        let address =  (ofr.client.city) ? (ofr.client.city)+", " : '';
-                                            address += (ofr.client.street_n_no) ? (ofr.client.street_n_no)+", " : '';
-                                            address += (ofr.client.zipcode) ? (ofr.client.zipcode)+", ": '';
+                                       let address = (ofr.client.geo_address) ? (ofr.client.geo_address) + ", " : '';
                                         return address;
                                     })}
 
@@ -285,10 +283,10 @@ export default function WorkContract() {
                                 <td style={{width: "60%"}}>{t('work-contract.card_type')}</td>
                                 <td>
                                     <select className='form-control'  onChange={(e)=>setCtype(e.target.value)}>
-                                        <option>{t('work-contract.option_select')}</option>
-                                        <option value={t('work-contract.option_visa')}>{t('work-contract.option_visa')}</option>
-                                        <option value={t('work-contract.option_master')}>{t('work-contract.option_master')}</option>
-                                        <option value={t('work-contract.option_american')}>{t('work-contract.option_american')}</option>
+                                    <option>Please Select</option>
+                                    <option value='Visa'>Visa</option>
+                                    <option value='Master Card'>Master Card</option>
+                                    <option value='American Express'>American Express</option>
                                     </select>
                                 </td>
                             </tr>
