@@ -622,4 +622,22 @@ footer .copyright{
 .swatch{
     margin-right: 6px;
 }
+.getjobslist{
+    padding: 0 !important;
+}
+.getjobslist table th{
+    font-size: 12px;
+    font-weight: 500;
+}
+.getjobslist table td{
+    font-size: 12px;
+}
+.getjobslist table h6{
+    font-size: 12px;
+    font-weight: normal;
+}
+.getjobslist table select{
+    font-size: 12px;
+    height: unset;
+}
 } 

@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 import { useAlert } from "react-alert";
 import { useLocation } from 'react-router-dom'
 import Moment from "moment";
-import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table'
 import { useNavigate } from "react-router-dom";
 import { CSVLink } from "react-csv";
 export default function TotalJobs() {
@@ -263,38 +262,38 @@ export default function TotalJobs() {
                     </div>
                 </div>
                 <div className="card">
-                    <div className="card-body">
+                    <div className="card-body getjobslist">
 
                         <div className="boxPanel">
                             <div className="table-responsive">
                                 {totalJobs.length > 0 ? (
-                                    <Table className="table table-bordered">
-                                        <Thead>
-                                            <Tr>
-                                                <Th scope="col">Job Dated</Th>
-                                                <Th scope="col">Worker Name</Th>
-                                                <Th scope="col">Client Name</Th>
-                                                <Th scope="col">Service Name</Th>
-                                                <Th scope="col">Shift</Th>
+                                    <table className="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Job Dated</th>
+                                                <th scope="col">Worker</th>
+                                                <th scope="col">Client</th>
+                                                <th scope="col">Service</th>
+                                                {/* <Th scope="col">Shift</Th>
                                                 <Th scope="col">Address</Th>
                                                 <Th scope="col">Complete Time</Th>
                                                 <Th scope="col">Status</Th>
-                                                <Th scope="col">Total</Th>
-                                                <Th scope="col">Action</Th>
-                                            </Tr>
-                                        </Thead>
-                                        <Tbody>
+                                                <Th scope="col">Total</Th> */}
+                                                <th className='text-center' scope="col">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
                                             {totalJobs &&
                                                 totalJobs.map((item, index) => {
 
                                                     let services = (item.offer.services) ? JSON.parse(item.offer.services) : [];
 
                                                     return (
-                                                        <Tr key={index} style={{"cursor":"pointer"}}>
-                                                            <Td onClick={(e)=>handleNavigate(e,item.id)}>
+                                                        <tr key={index} style={{"cursor":"pointer"}}>
+                                                            <td onClick={(e)=>handleNavigate(e,item.id)}>
                                                                 {Moment(item.start_date).format('DD MMM,Y')}
-                                                            </Td>
-                                                            <Td><Link to={(item.worker) ? `/admin/view-worker/${item.worker.id}` : '#'}>
+                                                            </td>
+                                                            <td><Link to={(item.worker) ? `/admin/view-worker/${item.worker.id}` : '#'}>
                                                                 <h6>{
                                                                     item.worker
                                                                         ? item.worker.firstname +
@@ -303,7 +302,7 @@ export default function TotalJobs() {
                                                                 }</h6>
                                                                 </Link>
                                                                 <div>Change Worker</div>
-                                                                <select name={item.id} className="form-control" value={(workers[`${item.id}`]) ? workers[`${item.id}`] : ""} onChange={e => handleChange(e, index)} >
+                                                                <select name={item.id} className="form-control mb-3 mt-1 form-control" value={(workers[`${item.id}`]) ? workers[`${item.id}`] : ""} onChange={e => handleChange(e, index)} >
                                                                     <option selected>select</option>
                                                                     {AllWorkers && AllWorkers.map((w, i) => {
                                                                         return (
@@ -312,20 +311,20 @@ export default function TotalJobs() {
                                                                     })}
                                                                 </select>
 
-                                                            </Td>
-                                                            <Td><Link to={ item.client ? `/admin/view-client/${item.client.id}` : '#'}>{
+                                                            </td>
+                                                            <td><Link to={ item.client ? `/admin/view-client/${item.client.id}` : '#'}>{
                                                                 item.client
                                                                     ? item.client.firstname +
                                                                     " " + item.client.lastname
                                                                     : "NA"
                                                             }
                                                             </Link>
-                                                            </Td>
-                                                            <Td onClick={(e)=>handleNavigate(e,item.id)}>{
+                                                            </td>
+                                                            <td onClick={(e)=>handleNavigate(e,item.id)}>{
                                                                item.jobservice
                                                                    ? item.jobservice.name:'NA'
-                                                            }</Td>
-                                                            <Td onClick={(e)=>handleNavigate(e,item.id)}>
+                                                            }</td>
+                                                            {/* <Td onClick={(e)=>handleNavigate(e,item.id)}>
                                                                 {(item.start_time != '') ? (`${item.start_time} to ${item.end_time}`) : ''}
 
                                                             </Td>
@@ -363,8 +362,8 @@ export default function TotalJobs() {
                                                                 {item.jobservice
                                                                    ? item.jobservice.total:'0'} ILS + VAT
                                                     
-                                                            </Td>
-                                                            <Td>
+                                                            </Td> */}
+                                                            <td className='text-center'>
                                                                 <div className="action-dropdown dropdown pb-2">
                                                                     <button type="button" className="btn btn-default dropdown-toggle" data-toggle="dropdown">
                                                                         <i className="fa fa-ellipsis-vertical"></i>
@@ -378,12 +377,12 @@ export default function TotalJobs() {
                                                                 <button type="button" style={{display:'none'}} className="btn btn-success" onClick={(e) => handleform(item.id, e)}>
                                                                     Update
                                                                 </button>
-                                                            </Td>
-                                                        </Tr>
+                                                            </td>
+                                                        </tr>
                                                     )
                                                 })}
-                                        </Tbody>
-                                    </Table>
+                                        </tbody>
+                                    </table>
                                 ) : (
                                     <p className="text-center mt-5">{loading}</p>
                                 )}
