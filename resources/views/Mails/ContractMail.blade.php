@@ -8,7 +8,12 @@
 	<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 	<title>Work Contract</title>
 </head>
+@if($client['lng'] == 'heb')
+<body style="font-family: 'Open Sans', sans-serif;color: #212529;background: #fcfcfc; direction:rtl">
+@else 
 <body style="font-family: 'Open Sans', sans-serif;color: #212529;background: #fcfcfc;">
+@endif
+
 	<div style="max-width: 650px;margin: 0 auto;margin-top: 30px;margin-bottom: 20px;background: #fff;border: 1px solid #e6e8eb;border-radius: 6px;padding: 20px;">
 		<table cellpadding="0" cellspacing="0" width="100%" >
 			<tr>
