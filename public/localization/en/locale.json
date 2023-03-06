@@ -89,8 +89,9 @@
             "rn2_img": "/images/renovation.png"
         },
         "others":{
-            "title":"Our packages- Other Services",
-            "p1":"This is a test line and it will be changed according to the other service."
+            "title":"Our packages-",
+            "p1":"This is a test line and it will be changed according to the other service.",
+            "o2_title":"Includes in -"
         },
         "window_any_height": {
             "title": "Cleaning Inside And Outside Windows At Any Height:",
