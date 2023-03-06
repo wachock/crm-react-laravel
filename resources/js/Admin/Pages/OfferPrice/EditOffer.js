@@ -21,6 +21,7 @@ export default function EditOffer() {
     fixed_price: "",
     jobHours: "",
     rateperhour: '',
+    other_title:'',
     totalamount: ''
   }])
   const [description, setDescription] = useState("");
@@ -59,6 +60,7 @@ export default function EditOffer() {
       fixed_price: "",
       jobHours: "",
       rateperhour: '',
+      other_title:'',
       totalamount: ''
     }])
   }
@@ -106,6 +108,7 @@ export default function EditOffer() {
       fixed_price: "",
       jobHours: "",
       rateperhour: '',
+      other_title:'',
       totalamount: ''
     }]);
     let v = e.target.value;
@@ -148,6 +151,7 @@ export default function EditOffer() {
         alert.error("One of the service is not selected");
         return false;
       }
+
       if (formValues[t].frequency == '' || formValues[t].frequency == 0) {
         alert.error("One of the frequency is not selected");
         return false;
@@ -176,8 +180,17 @@ export default function EditOffer() {
         formValues[t].totalamount = parseInt(formValues[t].fixed_price);
         to += parseInt(formValues[t].fixed_price);
       }
+      let ot = document.querySelector('#other_title'+t);
+      
+       if (formValues[t].service == '10' && ot != undefined) {
+          if (formValues[t].other_title == '') { alert.error('Other title cannot be blank'); return false; }
+          formValues[t].other_title = document.querySelector('#other_title'+t).value;
+          console.log(document.querySelector('#other_title'+t).value);
+      }
+     
 
     }
+    
     let tax = (taxper/100) * to;
     const data = {
       client_id: client,
@@ -239,6 +252,19 @@ export default function EditOffer() {
     getFrequency();
   }, []);
 
+  const handleOther = (e) => {
+   
+    let el = e.target.parentNode.lastChild;
+    if (e.target.value == 10) {
+     
+      el.style.display = 'block'
+      el.style.marginBlock = "3px";
+    } else {
+     
+      el.style.display = 'none'
+    }
+  }
+
   return (
     <div id="container">
       <Sidebar />
@@ -278,7 +304,7 @@ export default function EditOffer() {
                                 <tr key={index}>
 
                                   <td>
-                                    <select name="service" className="form-control" value={element.service || ""} onChange={e => handleChange(index, e)} >
+                                    <select name="service" className="form-control" value={element.service || ""} onChange={e => {handleChange(index, e); handleOther(e);}} >
                                       <option selected> -- select --</option>
                                       {AllServices && AllServices.map((s, i) => {
                                         return (
@@ -286,6 +312,7 @@ export default function EditOffer() {
                                         )
                                       })}
                                     </select>
+                                    <textarea type="text" name="other_title" id={`other_title_${index}`} placeholder='Other Title'   style={(!element.other_title) ? { "display": "none" } : {}} className="form-control" value={element.other_title || ""} onChange={e => handleChange(index, e)} />
                                   </td>
                                   
                                   <td>
