@@ -124,7 +124,7 @@ export default function PriceOffer() {
                         </div>
                         <div className='abt'>
                             <h2>{t('price_offer.about_title')}</h2>
-                            <p>{t('price_offer.about')}</p>
+                            <p style={{ whiteSpace: 'pre-wrap' }}>{t('price_offer.about')}</p>
                         </div>
 
                         <div className='we-have'>
