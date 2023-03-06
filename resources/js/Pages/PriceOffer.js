@@ -18,10 +18,10 @@ export default function PriceOffer() {
     const [services, setServices] = useState([]);
     const [client, setClient] = useState([]);
     const [template, setTemplate] = useState([]);
-    const [allTemplates,setAllTemplates] = useState([]);
-   
+    const [allTemplates, setAllTemplates] = useState([]);
+
     const getOffer = () => {
-        
+
         axios
             .post(`/api/client/get-offer`, { id: param.id })
             .then((res) => {
@@ -32,24 +32,24 @@ export default function PriceOffer() {
                 let serv = JSON.parse(res.data.offer[0].services);
                 let tm = [];
                 serv && serv.map(async (s, i) => {
-                    const d = await  axiosTemplate(s.service);
+                    const d = await axiosTemplate(s.service);
                     tm[i] = d.data.template.template;
-                    tm = tm.filter((v,i,a)=>{ return a.indexOf(v) === i});
+                    tm = tm.filter((v, i, a) => { return a.indexOf(v) === i });
                     setAllTemplates(tm);
                 });
-              
-                
+
+
             })
-            
+
     }
-   
-    const  axiosTemplate =async(id) =>{
+
+    const axiosTemplate = async (id) => {
         return await axios.post(`/api/client/get-service-template`, { id: id });
     }
-    
 
-    
-   
+
+
+
     const handleOffer = (e, id) => {
         e.preventDefault();
         let btn = document.querySelectorAll('.acpt');
@@ -77,15 +77,15 @@ export default function PriceOffer() {
             })
 
     };
-    
-    
+
+
     useEffect(() => {
-        getOffer();    
-        
+        getOffer();
+
     }, []);
 
     let src = '/images/regularServices.jpg';
-    
+
     let address = (client.city) ? (client.city) + ", " : '';
     address += (client.street_n_no) ? (client.street_n_no) + ", " : '';
     address += (client.zipcode) ? (client.zipcode) + ", " : '';
@@ -135,6 +135,7 @@ export default function PriceOffer() {
                                     <>
 
                                         <div className='shift-20'>
+                                            <h5 className='text-center ofrTitle'>Regular services</h5>
                                             <h4>1. {t('price_offer.regular_services.rs1')}</h4>
                                             <ul className='list-unstyled'>
                                                 <li><img src={star} /> {t('price_offer.regular_services.rs1_p1')}</li>
@@ -145,7 +146,7 @@ export default function PriceOffer() {
                                             </ul>
                                             <h4 className='mt-4'>2. {t('price_offer.regular_services.rs2')}</h4>
                                             <img src={t('price_offer.regular_services.rs2_img')} className='img-fluid' alt='Room Services' />
-                                          
+
                                         </div>
 
                                     </> : ''
@@ -156,6 +157,7 @@ export default function PriceOffer() {
                                 (allTemplates.includes('thorough_cleaning')) ?
                                     <>
                                         <div className='shift-20'>
+                                            <h5 className='text-center ofrTitle'>Thorough Cleaning</h5>
                                             <h4>1. {t('price_offer.thorough_cleaning.premium')}</h4>
                                             <ul className='list-unstyled'>
                                                 <li><img src={star} /> {t('price_offer.thorough_cleaning.s1_1')}</li>
@@ -194,7 +196,7 @@ export default function PriceOffer() {
                                                 <li><img src={star} /> {t('price_offer.thorough_cleaning.s1_9')}</li>
                                                 <li><img src={star} /> {t('price_offer.thorough_cleaning.s1_11')}</li>
                                             </ul>
-                                           
+
                                         </div>
                                     </> : ''
                             }
@@ -204,17 +206,27 @@ export default function PriceOffer() {
                                 (allTemplates.includes('office_cleaning')) ?
                                     <>
                                         <div className='shift-20'>
-                                            <h4>1. {t('price_offer.office_cleaning.oc1')}</h4>
-                                            <ul className='list-unstyled'>
-                                                <li><img src={star} /> {t('price_offer.office_cleaning.oc1_p1')}</li>
-                                                <li><img src={star} /> {t('price_offer.office_cleaning.oc1_p2')}</li>
-                                                <li><img src={star} /> {t('price_offer.office_cleaning.oc1_p3')}</li>
-                                                <li><img src={star} /> {t('price_offer.office_cleaning.oc1_p4')}</li>
-                                                <li><img src={star} /> {t('price_offer.office_cleaning.oc1_p5')}</li>
-                                            </ul>
-                                            <h4 className='mt-4'>2. {t('price_offer.office_cleaning.oc2')}</h4>
+                                            <h5 className='text-center ofrTitle'>Office Cleaning</h5>
+
+                                            {(allTemplates.includes('office_cleaning') && !allTemplates.includes('regular')) ?
+                                                <>
+                                                    <h4>1. {t('price_offer.office_cleaning.oc1')}</h4>
+                                                    <ul className='list-unstyled'>
+                                                        <li><img src={star} /> {t('price_offer.office_cleaning.oc1_p1')}</li>
+                                                        <li><img src={star} /> {t('price_offer.office_cleaning.oc1_p2')}</li>
+                                                        <li><img src={star} /> {t('price_offer.office_cleaning.oc1_p3')}</li>
+                                                        <li><img src={star} /> {t('price_offer.office_cleaning.oc1_p4')}</li>
+                                                        <li><img src={star} /> {t('price_offer.office_cleaning.oc1_p5')}</li>
+                                                    </ul>
+                                                    <h4 className='mt-4'>2. {t('price_offer.office_cleaning.oc2')}</h4>
+                                                </>
+                                                :
+                                                <>
+                                                    <h4 className='mt-4'>1. {t('price_offer.office_cleaning.oc2')}</h4>
+                                                </>
+                                            }
                                             <img src={t('price_offer.office_cleaning.oc2_img')} className='img-fluid' alt='Room Services' />
-                                          
+
                                         </div>
                                     </> : ''
                             }
@@ -223,6 +235,7 @@ export default function PriceOffer() {
                                 (allTemplates.includes('after_renovation')) ?
                                     <>
                                         <div className='shift-20'>
+                                            <h5 className='text-center ofrTitle'>Cleaning After Renovation</h5>
                                             <h4>1. {t('price_offer.renovation.rn1')}</h4>
                                             <ul className='list-unstyled'>
                                                 <li><img src={star} /> {t('price_offer.renovation.rn1_p1')}</li>
@@ -235,34 +248,48 @@ export default function PriceOffer() {
                                             </ul>
                                             <h4 className='mt-4'>2. {t('price_offer.renovation.rn2')}</h4>
                                             <img src={t('price_offer.renovation.rn2_img')} className='img-fluid' alt='Room Services' />
-                                            
+
                                         </div>
                                     </> : ''
                             }
 
-                          
+
 
                             {
                                 allTemplates.includes('others') ?
                                     <>
                                         <div className='shift-20'>
-                                            <h4>1. {t('price_offer.regular_services.rs1')}</h4>
-                                            <ul className='list-unstyled'>
-                                                <li><img src={star} /> {t('price_offer.regular_services.rs1_p1')}</li>
-                                                <li><img src={star} /> {t('price_offer.regular_services.rs1_p2')}</li>
-                                                <li><img src={star} /> {t('price_offer.regular_services.rs1_p3')}</li>
-                                                <li><img src={star} /> {t('price_offer.regular_services.rs1_p4')}</li>
-                                                <li><img src={star} /> {t('price_offer.regular_services.rs1_p5')}</li>
-                                            </ul>
-                                            <h4 className='mt-4'>2.  {t('price_offer.others.title')}</h4>
-                                            <p>{t('price_offer.others.p1')}</p>
-                                           
+
+                                            {services && services.map((s, i) => {
+
+                                                if (s.service == 10) {
+
+                                                    return (<>
+                                                        <h5 className='text-center ofrTitle'>{s.other_title}</h5>
+                                                        <h4 className='mt-4'>1.  {t('price_offer.others.title')} {s.other_title}</h4>
+
+                                                        <ul className='list-unstyled'>
+                                                            <li><img src={star} /> {t('price_offer.regular_services.rs1_p1')}</li>
+                                                            <li><img src={star} /> {t('price_offer.regular_services.rs1_p2')}</li>
+                                                            <li><img src={star} /> {t('price_offer.regular_services.rs1_p3')}</li>
+                                                            <li><img src={star} /> {t('price_offer.regular_services.rs1_p4')}</li>
+                                                            <li><img src={star} /> {t('price_offer.regular_services.rs1_p5')}</li>
+                                                        </ul>
+                                                        <h4 className='mt-4'>2. {t('price_offer.others.o2_title')} {s.other_title}</h4>
+                                                        <img src={t('price_offer.regular_services.rs2_img')} className='img-fluid' alt='Other Services' />
+                                                    </>)
+                                                }
+
+                                            })}
+
+
                                         </div>
                                     </>
                                     : ''
                             }
                             <div className='shift-20'>
-                            <h4 className='mt-4'>3. {t('price_offer.window_any_height.title')}</h4>
+                                <h5 className='text-center ofrTitle'>Window Cleaning</h5>
+                                <h4 className='mt-4'>3. {t('price_offer.window_any_height.title')}</h4>
                                 <ul className='list-unstyled'>
                                     <li><img src={star} /> {t('price_offer.window_any_height.p1')}</li>
                                     <li><img src={star} /> {t('price_offer.window_any_height.p2')} </li>
@@ -270,6 +297,7 @@ export default function PriceOffer() {
                                     <li><img src={star} /> {t('price_offer.window_any_height.p4')}</li>
                                     <li><img src={star} /> {t('price_offer.window_any_height.p5')}</li>
                                 </ul>
+                                <h5 className='text-center ofrTitle'>Laundary Service</h5>
                                 <h4 className='mt-4'>4. {t('price_offer.laundary.title')}</h4>
                                 <ul className='list-unstyled'>
                                     <li><img src={star} /> {t('price_offer.laundary.p1')}</li>
@@ -312,19 +340,7 @@ export default function PriceOffer() {
                                         </tbody>
                                     </table>
                                 </div>
-                                {/* <div className='total-amount'>
-                                    <div className='row'>
-                                        <div className='col-sm-6'>
-                                            <h5>{t('price_offer.amount_txt')}</h5>
-                                        </div>
-                                        <div className='col-sm-6'>
-                                            <p className='float-right'>{offer.subtotal} ILS + VAT</p>
-                                        </div>
-                                    </div>
-                                </div> 
-                                <h3 class="card-title">{t('price_offer.laundary_service_price_title')}</h3>
-                                <img src={t('price_offer.office_cleaning.laundary')} className='img-fluid' alt='Laundary Services' />
-                                */}
+
                             </div>
 
                             <h3 className='mt-4'>{t('price_offer.our_services.heading')} <a href='https://www.broomservice.co.il' target='_blank'>www.broomservice.co.il</a></h3>
