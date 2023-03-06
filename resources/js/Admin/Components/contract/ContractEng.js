@@ -443,7 +443,7 @@ export default function WorkContract() {
                         <div className='row'>
                             <div className='col-sm-6'>
                                 <h5 className='mt-2 mb-4'>The Tenant</h5>
-
+                           
                                 {contract && contract.map((c, i) => {
 
                                     return (

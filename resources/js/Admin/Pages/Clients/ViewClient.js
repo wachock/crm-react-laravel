@@ -4,6 +4,7 @@ import ProfileDetails from '../../Components/Clients/ProfileDetails'
 import Sidebar from '../../Layouts/Sidebar'
 import axios from 'axios'
 import { useParams } from 'react-router-dom'
+import { Link } from "react-router-dom";
 
 export default function ViewClient() {
 
@@ -24,9 +25,9 @@ export default function ViewClient() {
     axios
       .post(`/api/admin/latest-client-schedule`, { id: param.id }, { headers })
       .then((res) => {
-        (res.data.latestSchedule)?
-        setSchedulesStatus(res.data.latestSchedule.booking_status)
-        :setSchedulesStatus('Not Sent');
+        (res.data.latestSchedule) ?
+          setSchedulesStatus(res.data.latestSchedule.booking_status)
+          : setSchedulesStatus('Not Sent');
       });
   }
 
@@ -35,8 +36,8 @@ export default function ViewClient() {
       .post(`/api/admin/latest-client-offer`, { id: param.id }, { headers })
       .then((res) => {
         (res.data.latestOffer) ?
-        setOfferStatus(res.data.latestOffer.status)
-        :setOfferStatus('Not Sent');
+          setOfferStatus(res.data.latestOffer.status)
+          : setOfferStatus('Not Sent');
       });
   }
 
@@ -63,13 +64,25 @@ export default function ViewClient() {
     getLatestOffer();
     getContract();
   }, [])
- 
+
   return (
     <div id='container'>
       <Sidebar />
       <div id="content">
+        <div className="titleBox customer-title">
+                    <div className="row">
+                        <div className="col-sm-6">
+                            <h1 className="page-title">View Client</h1>
+                        </div>
+                        <div className="col-sm-6">
+                            <div className="search-data">
+                               
+                                <Link  to={`/admin/edit-client/${param.id}`} className="btn btn-pink addButton"><i className="btn-icon fas fa-pencil"></i>Edit</Link>
+                            </div>
+                        </div>
+                    </div>
+                </div>
         <div className='view-applicant'>
-          <h1 className="page-title viewAppli">View Client</h1>
           <ProfileDetails
             client={client}
             offerStatus={offerStatus}

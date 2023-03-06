@@ -93,11 +93,11 @@ export default function EditClient() {
             geo_address: address,
             latitude: latitude,
             longitude: longitude,
-            color: color,
+            color: (!color) ? '#fff': color,
             email: email,
             phone: phoneClc,
             password: passcode,
-            status: status,
+            status: (!status) ?  1 : status,
         };
 
         axios
@@ -474,6 +474,11 @@ export default function EditClient() {
                                     <div className="form-check form-check-inline1 pl-0" style={{paddingLeft: "0"}}>
                                         <label class="form-check-label" for="title">Color</label>
                                     </div>
+                                    <div className="swatch white">
+                                        <input type="radio" name="swatch_demo" id="swatch_2" value="0" color="#fff;" onChange={(e) => setColor('#fff')} />
+                                        <label for="swatch_2"><i className="fa fa-check"></i></label>
+                                        <span>white</span>
+                                    </div>
                                     <div className="swatch green">
                                         <input type="radio" name="swatch_demo" id="swatch_2" value="2" color="#28a745" onChange={(e) => setColor('#28a745')} />
                                         <label for="swatch_2"><i className="fa fa-check"></i></label>
@@ -523,7 +528,6 @@ export default function EditClient() {
                                         value={status}
                                         onChange={(e) => setStatus(e.target.value)}
                                     >
-                                        <option>Please select</option>
                                         <option value="1" selected={status == 1}>Active</option>
                                         <option value="0" selected={status == 0}>Inactive</option>
                                     </select>
