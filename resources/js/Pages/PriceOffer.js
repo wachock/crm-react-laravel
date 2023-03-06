@@ -117,7 +117,6 @@ export default function PriceOffer() {
 
                         <div className='grey-bd'>
                             <p>{t('price_offer.honour_of')}: <span style={{ color: "#3da7ef", fontWeight: "700" }}>{client.firstname + " " + client.lastname}</span> </p>
-                            <p>{t('price_offer.company_text')}: <span>Broom Service</span> </p>
 
                             <p>{t('price_offer.address_text')}: <span>Bnei Dan St, Tel Aviv-Yafo, Israel</span></p>
 
