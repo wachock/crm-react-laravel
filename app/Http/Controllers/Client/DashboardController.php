@@ -88,21 +88,21 @@ class DashboardController extends Controller
     //Offers
     public function offers(Request $request)
     {
-        $q = $request->q;
         $id = $request->id;
         $result = Offer::where('client_id',$id);  
          
-        if(!is_null($q)){
-
+        if(isset($request->q)){
+        $q = $request->q;
         $result->orWhere(function($qry) use($q,$id){
             $qry->where('status','like','%'.$q.'%')
-                    ->orWhere('total',   'like','%'.$q.'%')
-                    ->where('client_id',$id);
+                 ->orWhere('total',   'like','%'.$q.'%')
+                 ->where('client_id',$id);
+                 
         });
 
         }
         
-         $result = $result->orderBy('id', 'desc')->paginate(20);
+         $result = $result->orderBy('id', 'desc')->where('client_id',$id)->paginate(20);
  
         return response()->json([
             'offers'=>$result
