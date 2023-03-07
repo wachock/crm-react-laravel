@@ -64,6 +64,9 @@ export default function Sidebar() {
                 <li className="list-group-item">
                     <NavLink to="/admin/jobs"><i className="fa-solid fa-briefcase"></i>Jobs</NavLink>
                 </li>
+                <li className="list-group-item">
+                    <NavLink to="/admin/notifications"><i className="fa-solid fa-briefcase"></i>Notifications</NavLink>
+                </li>
                 
                 <li className="list-group-item">
                     <div id="myFence" className='fence commonDropdown'>

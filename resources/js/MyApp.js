@@ -18,7 +18,8 @@ i18n
     fallbackLng: "en",
     detection:{
       order: ['querystring','path','cookie','htmlTag',  'localStorage', 'sessionStorage',
-               'navigator',  'subdomain']
+               'navigator',  'subdomain'],
+      lookupQuerystring: 'lng'
     },
     backend:{
       loadPath: '/localization/{{lng}}/locale.json',
@@ -27,9 +28,17 @@ i18n
   
 });
 
+
 const lng = localStorage.getItem('i18nextLng');
 const url = window.location.href;
-if(lng == 'heb' && !url.includes('admin')){ 
+if(lng == 'heb' 
+    && !url.includes('admin')
+    && !url.includes('price-offer')
+    && !url.includes('work-contract')
+    
+  )
+    
+{ 
    import ('./Assets/css/rtl.css');
    document.querySelector('html').setAttribute('dir','rtl');
 } else {
