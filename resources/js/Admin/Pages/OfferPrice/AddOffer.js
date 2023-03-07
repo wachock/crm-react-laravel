@@ -164,9 +164,11 @@ export default function AddOffer() {
         return false;
       }
 
-      if (formValues[t].service == '10') {
+      let ot = document.querySelector('#other_title'+t);
+      
+       if (formValues[t].service == '10' && ot != undefined) {
         if (formValues[t].other_title == '') { alert.error('Other title cannot be blank'); return false; }
-        formValues[t].other_title = document.querySelector('#other_title').value;
+        formValues[t].other_title = document.querySelector('#other_title'+t).value;
       }
 
       if (formValues[t].frequency == '' || formValues[t].frequency == 0) {
@@ -240,7 +242,9 @@ export default function AddOffer() {
     if (e.target.value == 10) {
      
       el.style.display = 'block'
-      el.style.marginBlock = "3px";
+      el.style.marginBlock = "8px";
+      el.style.width="150%";
+      
     } else {
      
       el.style.display = 'none'
@@ -294,8 +298,8 @@ export default function AddOffer() {
                                         )
                                       })}
                                     </select>
-                                 
-                                    <textarea type="text" name="other_title" id="other_title" placeholder='Other Title' style={(element.other_title == '') ? { "display": "none" } : {}} className="form-control" value={element.other_title || ""} onChange={e => handleChange(index, e)} />
+                      
+                                    <textarea type="text" name="other_title" id={`other_title`+index} placeholder='Service Title' style={(element.other_title == '') ? { "display": "none" } : {}} className="form-control" value={element.other_title || ""} onChange={e => handleChange(index, e)} />
                                   </td>
                                   <td>
                                     <select name="type" className="form-control" value={element.type || ""} onChange={(e) => { handleChange(index, e); handleType(e) }} >

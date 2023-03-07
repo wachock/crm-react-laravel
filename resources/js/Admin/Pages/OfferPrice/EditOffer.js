@@ -258,7 +258,8 @@ export default function EditOffer() {
     if (e.target.value == 10) {
      
       el.style.display = 'block'
-      el.style.marginBlock = "3px";
+      el.style.marginBlock = "8px";
+      el.style.width="150%";
     } else {
      
       el.style.display = 'none'
@@ -312,7 +313,7 @@ export default function EditOffer() {
                                         )
                                       })}
                                     </select>
-                                    <textarea type="text" name="other_title" id={`other_title_${index}`} placeholder='Other Title'   style={(!element.other_title) ? { "display": "none" } : {}} className="form-control" value={element.other_title || ""} onChange={e => handleChange(index, e)} />
+                                    <textarea type="text" name="other_title" id={`other_title_${index}`} placeholder='Service Title'   style={(!element.other_title) ? { "display": "none" } : {marginBlock:"8px",width:"150%"}} className="form-control" value={element.other_title || ""} onChange={e => handleChange(index, e)} />
                                   </td>
                                   
                                   <td>
