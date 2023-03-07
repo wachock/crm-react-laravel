@@ -33,7 +33,7 @@ export default function PriceOffer() {
                 if(res.data.offer[0].client.lng == 'heb') {
                 import ('../Assets/css/rtl.css')
                 document.querySelector('html').setAttribute('dir','rtl')
-                } 
+                }
                 else
                  document.querySelector('html').removeAttribute('dir');
 
@@ -86,6 +86,34 @@ export default function PriceOffer() {
 
     };
 
+    const RejectOffer = (id) => {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You want to reject this offer!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, Reject",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                axios
+                    .post(`/api/client/reject-offer`,{id:id}, { headers })
+                    .then((response) => {
+                        Swal.fire(
+                            "Reject",
+                            "Offer has been rejected",
+                            "success"
+                        );
+                        setTimeout(() => {
+                            getclients();
+                        }, 1000);
+                    });
+            }
+        });
+    };
+    
+
 
     useEffect(() => {
         getOffer();
@@ -105,6 +133,11 @@ export default function PriceOffer() {
                             <div className='col-sm-6'>
                                 <div className='mt-2 float-right'>
                                     <input className='btn btn-pink acpt' onClick={(e) => handleOffer(e, offer.id)} value={t('price_offer.button')} />
+                                </div>
+                            </div>
+                            <div className='col-sm-6'>
+                                <div className='mt-2 float-right'>
+                                    <input className='btn btn-danger' onClick={(e) => RejectOffer(offer.id)} value={t('price_offer.button')} />
                                 </div>
                             </div>
                         </div>
@@ -380,6 +413,7 @@ export default function PriceOffer() {
                                     <li><img src={star} /> {t('price_offer.our_services.s4_p3')}</li>
                                     <li><img src={star} /> {t('price_offer.our_services.s4_p4')}</li>
                                     <li><img src={star} /> {t('price_offer.our_services.s4_p5')}</li>
+                                    <li><img src={star} /> {t('price_offer.our_services.s4_p6')}</li>
                                 </ul>
                                 <h4 className='mt-4'>5. {t('price_offer.our_services.s5')}</h4>
                                 <ul className='list-unstyled'>

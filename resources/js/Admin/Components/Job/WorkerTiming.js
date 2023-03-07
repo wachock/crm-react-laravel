@@ -161,11 +161,7 @@ export default function WorkerTiming({ job }) {
         var hours = parseInt(h, 10);
         var minutes = m ? parseInt(m, 10) : 0;
         var min = minutes / 60;
-        var spl = min.toString().split('.');
-        if (spl != undefined && spl != 0)
-            return hours + "." + (Math.round(spl[1] * 100) / 100).toString().substring(0, 2);
-        else
-            return hours + "." + min;
+        return hours + ":" + min.toString().substring(0, 4);
 
     }
 
