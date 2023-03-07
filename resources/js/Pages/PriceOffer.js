@@ -33,7 +33,7 @@ export default function PriceOffer() {
                 if(res.data.offer[0].client.lng == 'heb') {
                 import ('../Assets/css/rtl.css')
                 document.querySelector('html').setAttribute('dir','rtl')
-                } 
+                }
                 else
                  document.querySelector('html').removeAttribute('dir');
 
@@ -413,6 +413,7 @@ export default function PriceOffer() {
                                     <li><img src={star} /> {t('price_offer.our_services.s4_p3')}</li>
                                     <li><img src={star} /> {t('price_offer.our_services.s4_p4')}</li>
                                     <li><img src={star} /> {t('price_offer.our_services.s4_p5')}</li>
+                                    <li><img src={star} /> {t('price_offer.our_services.s4_p6')}</li>
                                 </ul>
                                 <h4 className='mt-4'>5. {t('price_offer.our_services.s5')}</h4>
                                 <ul className='list-unstyled'>
