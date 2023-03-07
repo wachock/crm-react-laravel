@@ -22,6 +22,7 @@ export default function CreateJobCalender() {
     const [endSlot, setEndSlot] = useState([]);
     const [interval, setTimeInterval] = useState([]);
     const [selected_service,setSelectedService]=useState(0);
+    const [data, setData] = useState([]);
 
     const headers = {
         Accept: "application/json, text/plain, */*",
@@ -43,22 +44,14 @@ export default function CreateJobCalender() {
     useEffect(() => {
         getJob();
     }, []);
-    let time_period;
-    let service_id;
-    {
-        services && services.map((item, index) => {
-            time_period = (item.jobHours);
-            service_id = parseInt(item.service);
-        })
-    }
-
-    const getWorkers = () => {
-        axios
-            .get(`/api/admin/all-workers?filter=true&contract_id=${params.id}`, { headers })
-            .then((res) => {
-                setAllWorkers(res.data.workers);
-            })
-    }
+    // let time_period;
+    // let service_id;
+    // {
+    //     services && services.map((item, index) => {
+    //         time_period = (item.jobHours);
+    //         service_id = parseInt(item.service);
+    //     })
+    // }
     const getJobs = () => {
         axios
             .get('/api/admin/get-all-jobs', { headers })
@@ -89,113 +82,114 @@ export default function CreateJobCalender() {
             })
     }
     useEffect(() => {
-        getWorkers();
         getJobs();
         getWorkerAvailabilty();
         getTime();
     }, []);
     
-    const resources = AllWorkers.map((w, i) => {
-        return { id: w.id, title: (w.firstname + ' ' + w.lastname) };
-    });
-    const events = AllJobs.map((j, i) => {
-        return {
-            id: j.id,
-            title: 'Busy',
-            start: moment(j.start_date + ' ' + j.start_time).toISOString(),
-            end: moment(j.start_date + ' ' + j.end_time).toISOString(),
-            resourceId: j.worker_id,
-            backgroundColor: '#ff0000',
-            borderColor: '#ff0000',
-        };
-    });
-    const events1 = AllWorkerAvailability.map((wa, i) => {
-        return {
-            id: wa.id,
-            title: 'Available',
-            start: moment(wa.date + ' ' + wa.start_time).toISOString(),
-            end: moment(wa.date + ' ' + wa.end_time).toISOString(),
-            resourceId: wa.worker_id,
-            textColor: wa.worker_id + '_' + wa.name,
-            backgroundColor: '#00FF00',
-            borderColor: '#00FF00',
-        };
-    });
-    Array.prototype.push.apply(events, events1);
+    // const resources = AllWorkers.map((w, i) => {
+    //     return { id: w.id, title: (w.firstname + ' ' + w.lastname) };
+    // });
+    // const events = AllJobs.map((j, i) => {
+    //     return {
+    //         id: j.id,
+    //         title: 'Busy',
+    //         start: moment(j.start_date + ' ' + j.start_time).toISOString(),
+    //         end: moment(j.start_date + ' ' + j.end_time).toISOString(),
+    //         resourceId: j.worker_id,
+    //         backgroundColor: '#ff0000',
+    //         borderColor: '#ff0000',
+    //     };
+    // });
+    // const events1 = AllWorkerAvailability.map((wa, i) => {
+    //     return {
+    //         id: wa.id,
+    //         title: 'Available',
+    //         start: moment(wa.date + ' ' + wa.start_time).toISOString(),
+    //         end: moment(wa.date + ' ' + wa.end_time).toISOString(),
+    //         resourceId: wa.worker_id,
+    //         textColor: wa.worker_id + '_' + wa.name,
+    //         backgroundColor: '#00FF00',
+    //         borderColor: '#00FF00',
+    //     };
+    // });
+    // Array.prototype.push.apply(events, events1);
 
-    const [data, setData] = useState([]);
+    
 
-    const handleEventClick = (e,s) => {
-        let str = e.startStr;
-        var parts = str.slice(0, -9).split('T');
-        var dateComponent = parts[0];
-        var timeComponent = parts[1];
-        var endtime = moment(parts[0] + ' ' + parts[1]).add(time_period, 'hours').format('HH:mm');
+    // const handleEventClick = (e,s) => {
+    //     let str = e.startStr;
+    //     var parts = str.slice(0, -9).split('T');
+    //     var dateComponent = parts[0];
+    //     var timeComponent = parts[1];
+    //     var endtime = moment(parts[0] + ' ' + parts[1]).add(time_period, 'hours').format('HH:mm');
 
-        const str1 = e.textColor;
-        var parts1 = str1.split('_');
+    //     const str1 = e.textColor;
+    //     var parts1 = str1.split('_');
         
-         let worker_start = moment(e.startStr).toISOString();
-         let worker_end = moment(parts[0] + ' ' + parts[1]).add(time_period, 'hours').toISOString();
-          let check_worker_start = true;
-          let check_worker_end = true;
-          AllWorkerAvailability.map((wa, i) => {
-               let new_date= moment(wa.date + ' ' + wa.start_time).toISOString();
-               let new_end_date =moment(wa.date + ' ' + wa.end_time).toISOString();
-               if(new_date == worker_start){
-                    check_worker_start=false;
-               }
-                if(new_end_date == worker_end){
-                    check_worker_end=false;
-               }
-          });
-        if(check_worker_start || check_worker_end){
-            window.alert('Worker not Available on This Time Period');
-            s.style.borderColor = 'rgb(0 255 0)';
-            return false;
-        }
-        if (data.length > 0) {
-            let new_data = [];
-            let found = true;
-            data.map((d) => {
-                if (d.worker_id == parts1[0] && d.date == dateComponent && d.start == timeComponent) {
-                    found = false;
-                } else {
-                    new_data.push(d)
-                }
+    //      let worker_start = moment(e.startStr).toISOString();
+    //      let worker_end = moment(parts[0] + ' ' + parts[1]).add(time_period, 'hours').toISOString();
+    //       let check_worker_start = true;
+    //       let check_worker_end = true;
+    //       AllWorkerAvailability.map((wa, i) => {
+    //            let new_date= moment(wa.date + ' ' + wa.start_time).toISOString();
+    //            let new_end_date =moment(wa.date + ' ' + wa.end_time).toISOString();
+    //            if(new_date == worker_start){
+    //                 check_worker_start=false;
+    //            }
+    //             if(new_end_date == worker_end){
+    //                 check_worker_end=false;
+    //            }
+    //       });
+        // if(check_worker_start || check_worker_end){
+        //     window.alert('Worker not Available on This Time Period');
+        //     s.style.borderColor = 'rgb(0 255 0)';
+        //     return false;
+        // }
+        // if (data.length > 0) {
+        //     let new_data = [];
+        //     let found = true;
+        //     data.map((d) => {
+        //         if (d.worker_id == parts1[0] && d.date == dateComponent && d.start == timeComponent) {
+        //             found = false;
+        //         } else {
+        //             new_data.push(d)
+        //         }
 
-            })
+        //     })
 
-            if (found) {
-                var newdata = [...data, {
-                    worker_id: parts1[0],
-                    worker_name: parts1[1],
-                    date: dateComponent,
-                    start: timeComponent,
-                    end: endtime
-                }]
-            } else {
-                var newdata = new_data;
-            }
+        //     if (found) {
+        //         var newdata = [...data, {
+        //             worker_id: parts1[0],
+        //             worker_name: parts1[1],
+        //             date: dateComponent,
+        //             start: timeComponent,
+        //             end: endtime
+        //         }]
+        //     } else {
+        //         var newdata = new_data;
+        //     }
 
-        } else {
-            var newdata = [...data, {
-                worker_id: parts1[0],
-                worker_name: parts1[1],
-                date: dateComponent,
-                start: timeComponent,
-                end: endtime
-            }]
-        }
-        setData(newdata);
-    }
+        // } else {
+    //         var newdata = [...data, {
+    //             worker_id: parts1[0],
+    //             worker_name: parts1[1],
+    //             date: dateComponent,
+    //             start: timeComponent,
+    //             end: endtime
+    //         }]
+    //     }
+    //     setData(newdata);
+    // }
+    let service_id;
     useEffect(() => {
-    (services.length>1)?($('#edit-work-time').modal('show')):'';
+    (services.length>1)?($('#edit-work-time').modal('show')):getWorkers();
     }, []);
 
     const handleServices = (value) => {
        const filtered = services.filter((s)=>{
             if(s.service == value){
+                service_id=value;
                 return s;
             }else{
                 $('.services-'+s.service).css('display','none');
@@ -203,8 +197,16 @@ export default function CreateJobCalender() {
         });
        setServices(filtered);
        setSelectedService(value);
+       getWorkers();
        $('#edit-work-time').modal('hide')
     } 
+    const getWorkers = () => {
+        axios
+            .get(`/api/admin/all-workers?filter=true&service_id=${service_id}`, { headers })
+            .then((res) => {
+                setAllWorkers(res.data.workers);
+            })
+    }
     const handleSubmit = () => {
 
         let formdata = { 'workers': data ,'services':services};
@@ -270,16 +272,38 @@ export default function CreateJobCalender() {
   { value: 0, label: 'full day - 8am-16pm' },
   { value: 1, label: 'morning - 8-12pm' },
 ]
-const changeShift = (e) =>{
-      
-      let data='';
-      {e.map((user,index) => (
-
-          data += (index)?','+user['value']:user['value']
-      ))}
-     document.getElementById('job-shift-'+job_id).setAttribute('value',data);
+const changeShift = (w_id,date,e) =>{
+    console.log(e);
+     let w_n = $('#worker-'+w_id).html();
+     let  filtered = data.filter((d)=>{
+            if(d.date != date){
+                return d;
+            }
+        });
+     let shifts = '';
+     e.map((v)=>{
+           if(shifts==''){
+             shifts=v.label;
+           }else{
+             shifts=shifts+','+v.label;
+           }
+     });
+     var newdata = [...filtered, {
+                    worker_id: w_id,
+                    worker_name: w_n,
+                    date: date,
+                    shifts: shifts,
+                }]
+         setData(newdata);
 };
-
+console.log(data);
+const person = {
+    '8am-16pm':"Full Day", 
+    '8am-12pm':"Morning", 
+    '12pm-16pm':'Afternoon',
+    '16pm-20pm':'Evening',
+    '20pm-24am':'Night'
+};
     return (
         <>
            <table border="2" cellspacing="0" align="center" width="100%">
@@ -295,22 +319,24 @@ const changeShift = (e) =>{
               </tr>
               {AllWorkers.map((w, index) => {
                   let aval = (w.aval) ? w.aval : [];
+                  let wjobs = (w.wjobs) ? w.wjobs : [];
                     return (
                         <tr>
-                           <td align="center">
+                           <td align="center" id={`worker-${w.id}`}>
                                {w.firstname} {w.lastname}
                            </td>
                            {week.map((element, index) => (
-                               <td align="center">
-                                   {aval[element]}
+                               <td align="center" >
+                                   <span className="text-success">{person[aval[element]]}</span>
+                                   <div className="text-danger">{wjobs[element]}</div>
+                                   <span id={`shift-${w.id}-${element}`}></span>
                                     <Select
-                                        defaultValue={colourOptions1}
                                         isMulti
                                         name="colors"
                                         options={colourOptions}
                                         className="basic-multi-select"
                                         classNamePrefix="select"
-                                        onChange={(e)=>changeShift(item.id,e)}
+                                        onChange={(e)=>changeShift(w.id,element,e)}
                                       />
                                </td>
                             ))}
@@ -376,8 +402,7 @@ const changeShift = (e) =>{
                                                 <tr>
                                                     <th scope="col">Worker Name</th>
                                                     <th scope="col">Data</th>
-                                                    <th scope="col">Start Time</th>
-                                                    <th scope="col">End Time</th>
+                                                    <th scope="col">Shifts</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -391,10 +416,7 @@ const changeShift = (e) =>{
                                                             {d.date}
                                                         </td>
                                                         <td>
-                                                            {d.start}
-                                                        </td>
-                                                        <td>
-                                                            {d.end}
+                                                            {d.shifts}
                                                         </td>
                                                     </tr>
                                                 )

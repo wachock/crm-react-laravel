@@ -91,7 +91,11 @@ export default function ViewOffer() {
                           { services && services.map((s,i)=>{
                             return(
                             <tr>
-                              <td>{s.name}</td>
+                              {(s.service == 10)
+                                ? <td> { s.other_title }</td>
+                                : <td>{s.name}</td>
+                              }
+                             
                               <td>{s.type}</td>
                               <td className='text-right'>{ s.freq_name }</td>
                               <td className='text-right'>{ s.jobHours } hour(s)</td>

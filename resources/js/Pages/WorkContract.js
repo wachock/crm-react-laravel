@@ -92,6 +92,14 @@ export default function WorkContract() {
                setClient(res.data.offer[0].client);
                setContract(res.data.contract);
                i18next.changeLanguage(res.data.offer[0].client.lng);
+
+               if(res.data.offer[0].client.lng == 'heb') {
+                import ('../Assets/css/rtl.css')
+                document.querySelector('html').setAttribute('dir','rtl')
+                } 
+                else
+                 document.querySelector('html').removeAttribute('dir');
+
                if(res.data.offer[0].client.lng == 'heb'){
                 document.querySelector('html').setAttribute('dir','rtl');
              }
@@ -225,11 +233,16 @@ export default function WorkContract() {
                                 <td style={{width: "60%"}}>{t('work-contract.the_service_txt')}</td>
                                 <td>
                                 {services && services.map((s,i)=>{
-                                    return (
-                                        (services.length -1) != i
-                                        ? s.name +", "
-                                        :s.name
-                                    )
+                                    
+                                
+                                       if((services.length -1) != i && services.service != 10)
+                                        return s.name +", ";
+                                        else if(services.service == 10) 
+                                        return s.other_title+" ";
+                                        else 
+                                        return s.name;
+                        
+                                    
                                 })}
                                 </td>
                             </tr>
@@ -253,7 +266,7 @@ export default function WorkContract() {
                                 <td>
                                 {services && services.map((s,i)=>{
                                     return (
-                                        (services.length -1) != i
+                                        ((services.length -1) != i)
                                         ? s.freq_name +", "
                                         :s.freq_name
                                     )
@@ -266,6 +279,14 @@ export default function WorkContract() {
                                 {services && services.map((s,i)=>{
                                   if((services.length)-1 != i )
                                   return s.totalamount + " ILS + VAT for " + s.name + ", " + s.freq_name+", ";
+                                  else if(services.service == 10){
+                                   
+                                      if((services.length)-1 != i )
+                                      return s.totalamount + " ILS + VAT for " + s.other_title + ", " + s.freq_name+", ";
+                                      else
+                                      return s.totalamount + " ILS + VAT for " + s.other_title + ", " + s.freq_name;
+
+                                  }
                                   else
                                   return s.totalamount + " ILS + VAT for " + s.name + ", " + s.freq_name;
                                 })}
