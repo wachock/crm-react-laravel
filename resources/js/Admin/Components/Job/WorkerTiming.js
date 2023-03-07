@@ -148,6 +148,27 @@ export default function WorkerTiming({ job }) {
 
     }
 
+    function toHoursAndMinutes(totalSeconds) {
+        const totalMinutes = Math.floor(totalSeconds / 60);
+        const s = totalSeconds % 60;
+        const h = Math.floor(totalMinutes / 60);
+        const m = totalMinutes % 60;
+        return decimalHours(h, m, s);
+    }
+
+    function decimalHours(h, m, s) {
+
+        var hours = parseInt(h, 10);
+        var minutes = m ? parseInt(m, 10) : 0;
+        var min = minutes / 60;
+        var spl = min.toString().split('.');
+        if (spl != undefined && spl != 0)
+            return hours + "." + (Math.round(spl[1] * 100) / 100).toString().substring(0, 2);
+        else
+            return hours + "." + min;
+
+    }
+
     const header = [
         { label: "Worker Name", key: "worker_name" },
         { label: "Worker ID", key: "worker_id" },
@@ -169,7 +190,7 @@ export default function WorkerTiming({ job }) {
                     setFilename(res.data.filename);
                     let rep = res.data.report;
                     for( let r in rep){
-                        rep[r].time_diffrence = time_difference(rep[r].start_time,rep[r].end_time);
+                        rep[r].time_diffrence = toHoursAndMinutes(rep[r].time_total);
                     }
                     setAllData(rep);
                     document.querySelector('#csv').click();
