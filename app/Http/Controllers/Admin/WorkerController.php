@@ -41,14 +41,14 @@ class WorkerController extends Controller
     }
 
     public function AllWorkers(Request $request){
-       
         $service='';
-        if($request->contract_id){
-           $contract=Contract::with('offer','client')->find($request->contract_id);
-           if($contract->offer){
-               $services=json_decode($contract->offer['services']);
-               $service=$services[0]->service;
-           }
+        if($request->service_id){
+           // $contract=Contract::with('offer','client')->find($request->contract_id);
+           // if($contract->offer){
+           //     $services=json_decode($contract->offer['services']);
+           //     $service=$services[0]->service;
+           // }
+             $service=$request->service_id;
         }
         if($request->job_id){
             $job=Job::with('offer')->find($request->job_id);
@@ -57,8 +57,14 @@ class WorkerController extends Controller
                $service=$services[0]->service;
            }
         }
-        $workers = User::with('availabilities');
+        $workers = User::with('availabilities','jobs');
         if($service != ''){
+           $workers = $workers->whereHas('availabilities', function ($query) {
+                    $query->where('date', '>=',Carbon::now()->toDateString());
+                });
+           // $workers = $workers->whereRelation('jobs', function ($query) {
+           //          $query->where('start_date', '>=',Carbon::now()->toDateString());
+           //      });
           $workers= $workers->where('skill',  'like','%'.$service.'%');
         }
         $workers = $workers->where('status',1)->get();
@@ -68,6 +74,7 @@ class WorkerController extends Controller
             foreach($workers as $worker){
                   if(count($worker->availabilities)){
                     $worker->aval = $this->workerAvl($worker->availabilities);
+                    $worker->wjobs = $this->workerJobs($worker->jobs);
                     $newworker[] = $worker;
                   }
             }
@@ -81,7 +88,19 @@ class WorkerController extends Controller
             'workers'       => $workers,            
         ], 200);
     }
-    public function workerAvl($availabilities){
+    public function workerJobs($jobs){
+        $data=array();
+        foreach($jobs as $job){
+            if(array_key_exists($job->start_date,$data)){
+              $data[$job->start_date] = $data[$job->start_date].','.$job->shifts;
+            }else{
+              $data[$job->start_date]=$job->shifts;
+            }
+        }
+        return $data;
+
+    }
+     public function workerAvl($availabilities){
         $data=array();
         foreach($availabilities as $avl){
             $data[$avl->date]=$avl->working;

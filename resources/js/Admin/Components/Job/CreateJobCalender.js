@@ -44,22 +44,14 @@ export default function CreateJobCalender() {
     useEffect(() => {
         getJob();
     }, []);
-    let time_period;
-    let service_id;
-    {
-        services && services.map((item, index) => {
-            time_period = (item.jobHours);
-            service_id = parseInt(item.service);
-        })
-    }
-
-    const getWorkers = () => {
-        axios
-            .get(`/api/admin/all-workers?filter=true&contract_id=${params.id}`, { headers })
-            .then((res) => {
-                setAllWorkers(res.data.workers);
-            })
-    }
+    // let time_period;
+    // let service_id;
+    // {
+    //     services && services.map((item, index) => {
+    //         time_period = (item.jobHours);
+    //         service_id = parseInt(item.service);
+    //     })
+    // }
     const getJobs = () => {
         axios
             .get('/api/admin/get-all-jobs', { headers })
@@ -90,15 +82,14 @@ export default function CreateJobCalender() {
             })
     }
     useEffect(() => {
-        getWorkers();
         getJobs();
         getWorkerAvailabilty();
         getTime();
     }, []);
     
-    const resources = AllWorkers.map((w, i) => {
-        return { id: w.id, title: (w.firstname + ' ' + w.lastname) };
-    });
+    // const resources = AllWorkers.map((w, i) => {
+    //     return { id: w.id, title: (w.firstname + ' ' + w.lastname) };
+    // });
     // const events = AllJobs.map((j, i) => {
     //     return {
     //         id: j.id,
@@ -190,13 +181,15 @@ export default function CreateJobCalender() {
     //     }
     //     setData(newdata);
     // }
+    let service_id;
     useEffect(() => {
-    (services.length>1)?($('#edit-work-time').modal('show')):'';
+    (services.length>1)?($('#edit-work-time').modal('show')):getWorkers();
     }, []);
 
     const handleServices = (value) => {
        const filtered = services.filter((s)=>{
             if(s.service == value){
+                service_id=value;
                 return s;
             }else{
                 $('.services-'+s.service).css('display','none');
@@ -204,8 +197,16 @@ export default function CreateJobCalender() {
         });
        setServices(filtered);
        setSelectedService(value);
+       getWorkers();
        $('#edit-work-time').modal('hide')
     } 
+    const getWorkers = () => {
+        axios
+            .get(`/api/admin/all-workers?filter=true&service_id=${service_id}`, { headers })
+            .then((res) => {
+                setAllWorkers(res.data.workers);
+            })
+    }
     const handleSubmit = () => {
 
         let formdata = { 'workers': data ,'services':services};
@@ -272,9 +273,37 @@ export default function CreateJobCalender() {
   { value: 1, label: 'morning - 8-12pm' },
 ]
 const changeShift = (w_id,date,e) =>{
-      
+    console.log(e);
+     let w_n = $('#worker-'+w_id).html();
+     let  filtered = data.filter((d)=>{
+            if(d.date != date){
+                return d;
+            }
+        });
+     let shifts = '';
+     e.map((v)=>{
+           if(shifts==''){
+             shifts=v.label;
+           }else{
+             shifts=shifts+','+v.label;
+           }
+     });
+     var newdata = [...filtered, {
+                    worker_id: w_id,
+                    worker_name: w_n,
+                    date: date,
+                    shifts: shifts,
+                }]
+         setData(newdata);
 };
-
+console.log(data);
+const person = {
+    '8am-16pm':"Full Day", 
+    '8am-12pm':"Morning", 
+    '12pm-16pm':'Afternoon',
+    '16pm-20pm':'Evening',
+    '20pm-24am':'Night'
+};
     return (
         <>
            <table border="2" cellspacing="0" align="center" width="100%">
@@ -290,15 +319,17 @@ const changeShift = (w_id,date,e) =>{
               </tr>
               {AllWorkers.map((w, index) => {
                   let aval = (w.aval) ? w.aval : [];
+                  let wjobs = (w.wjobs) ? w.wjobs : [];
                     return (
                         <tr>
-                           <td align="center">
+                           <td align="center" id={`worker-${w.id}`}>
                                {w.firstname} {w.lastname}
                            </td>
                            {week.map((element, index) => (
                                <td align="center" >
+                                   <span className="text-success">{person[aval[element]]}</span>
+                                   <div className="text-danger">{wjobs[element]}</div>
                                    <span id={`shift-${w.id}-${element}`}></span>
-                                   {aval[element]}
                                     <Select
                                         isMulti
                                         name="colors"
@@ -371,8 +402,7 @@ const changeShift = (w_id,date,e) =>{
                                                 <tr>
                                                     <th scope="col">Worker Name</th>
                                                     <th scope="col">Data</th>
-                                                    <th scope="col">Start Time</th>
-                                                    <th scope="col">End Time</th>
+                                                    <th scope="col">Shifts</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -386,10 +416,7 @@ const changeShift = (w_id,date,e) =>{
                                                             {d.date}
                                                         </td>
                                                         <td>
-                                                            {d.start}
-                                                        </td>
-                                                        <td>
-                                                            {d.end}
+                                                            {d.shifts}
                                                         </td>
                                                     </tr>
                                                 )

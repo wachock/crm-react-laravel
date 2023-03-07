@@ -219,8 +219,7 @@ class JobController extends Controller
             $new->offer_id      = $job->offer_id;
             $new->contract_id   = $id;
             $new->start_date    = $worker['date'];
-            $new->start_time    = $worker['start'];
-            $new->end_time      = $worker['end'];
+            $new->shifts        = $worker['shifts'];
             $new->schedule      = $repeat_value;
             $new->status        = 'scheduled';
             $new->save();
