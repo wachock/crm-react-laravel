@@ -117,6 +117,11 @@ export default function ProfileDetails({ client, offerStatus , scheduleStatus , 
                                                     {geo_address}</a></p>
                                             </div>
                                         </div>
+                                        <div className='col-sm-12'>
+                                            <div className='form-group'>
+                                                <p><a className='btn btn-success' href='#'>Edit client</a></p>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div id="tab-card-details" className="tab-pane" role="tab-panel" aria-labelledby="card-details">

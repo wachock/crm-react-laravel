@@ -76,7 +76,7 @@ export default function AdminDashboard() {
                     </div>
                     <div className="row">
                         <div className="col-sm-4 col-xs-6">
-                            <a href="/admin/jobs-posted">
+                            <a href="/admin/jobs">
                                 <div className="dashBox">
                                     <div className="dashIcon">
                                         <i class="fa-solid fa-suitcase"></i>
