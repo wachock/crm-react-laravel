@@ -200,14 +200,21 @@ class ScheduleController extends Controller
 
          $allServices = json_decode($services->services);
          foreach($allServices as $k=> $serv){
-
-            if($k != count($allServices)-1)
+           
+            if($k != count($allServices)-1 && $serv->service != 10)
             $str .= $serv->name.", ";
+                else if($serv->service == 10){
+                    if($k != count($allServices)-1)
+                    $str .= $serv->other_title.", ";
+                    else 
+                    $str .= $serv->other_title;
+                }
             else
             $str .= $serv->name;
          }
 
        } 
+        
         $sch['service_names'] = $str; 
         \App::setLocale($sch['client']['lng']);
         Mail::send('/Mails/MeetingMail',$sch,function($messages) use ($sch){
