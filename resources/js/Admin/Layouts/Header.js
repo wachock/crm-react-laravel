@@ -53,8 +53,75 @@ export default function AdminHeader() {
             <h1>Welcome Administrator</h1>
           </div>
           <div className="col-sm-6">
-            <div className="float-right">
-              <div className="dropdown show">
+            <div className="float-right d-flex">
+              <div className="dropdown notification-bell">
+                <span className="counter">3</span>
+                <button type="button" className="btn btn-link dropdown-toggle" data-toggle="dropdown">
+                  <i className="fas fa-bell"></i>
+                </button>
+                <ul className="dropdown-menu">
+                  <li className="dropdown-item">
+                    <div className="agg-list">
+                      <div className="icons"><i className="fas fa-check-circle"></i></div>
+                      <div className="agg-text">
+                        <h6><a href='#'>John Doe</a> has cancelled the job for <a href='#'>Office Cleaning</a>, <a href='#'>Cleaning after renovation</a>, <a href='#'>Window cleaning</a> service</h6>
+                        <p>15 Mar 2023, 02:25 PM</p>
+                      </div>
+                    </div>
+                  </li>
+
+                  <li className="dropdown-item">
+                    <div className="agg-list">
+                      <div className="icons"><i className="fas fa-check-circle"></i></div>
+                      <div className="agg-text">
+                        <h6>Meeting scheduled with <a href='#'>Michael</a> on 24-03-2023 at 11:30 AM for <a href="#">Thorough cleaning</a> service</h6>
+                        <p>16 Mar 2023, 04:15 PM</p>
+                      </div>
+                    </div>
+                  </li>
+
+                  <li className="dropdown-item">
+                    <div className="agg-list">
+                      <div className="icons"><i className="fas fa-check-circle"></i></div>
+                      <div className="agg-text">
+                        <h6><a href="#">Chris Bale</a> has approved the contract for <a href="#">Window Cleaning</a>, <a href="#">Thorough cleaning</a> service</h6>
+                        <p>15 Mar 2023, 12:45 PM</p>
+                      </div>
+                    </div>
+                  </li> 
+
+                  <li className="dropdown-item">
+                    <div className="agg-list">
+                      <div className="icons"><i className="fas fa-check-circle"></i></div>
+                      <div className="agg-text">
+                        <h6><a href="#">Diane V</a>  wants to reschedule the job for <a href="#">Window cleaning</a> service</h6>
+                        <p>15 Mar 2023, 12:45 PM</p>
+                      </div>
+                    </div>
+                  </li> 
+
+                  <li className="dropdown-item">
+                    <div className="agg-list">
+                      <div className="icons"><i className="fas fa-check-circle"></i></div>
+                      <div className="agg-text">
+                        <h6><a href="#">Kristine</a> has rejected the price offer for <a href="#">Cleaning after renovation</a> service</h6>
+                        <p>15 Mar 2023, 12:45 PM</p>
+                      </div>
+                    </div>
+                  </li> 
+
+                  {/* View all notification button */}
+
+                  <li className="dropdown-item">
+                    <div className="allNotification">
+                      <a style={{color: "#fff", display: "block"}} href='/admin/notifications' className='btn btn-pink'>See all</a>
+                    </div>
+                  </li>
+
+                </ul>
+                
+              </div>
+              <div className="userToggle dropdown show">
                 <Link className="dropdown-toggle" href="#!" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <img src={file} className='img-fluid' alt='Admin' />
                 </Link>

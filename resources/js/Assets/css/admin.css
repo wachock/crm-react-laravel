@@ -277,7 +277,8 @@ table tr td .dropdown-item{
   padding-right: 20px;
 }
 .AdminHeader .dropdown img{
-  max-width: 40px;
+  width: 40px;
+  height: 40px;
   border: 3px solid #fff;
   border-radius: 100px;
   outline: 1px solid #ccc;
@@ -286,13 +287,13 @@ table tr td .dropdown-item{
 .AdminHeader .dropdown-toggle{
   color: #444;
 }
-.AdminHeader .dropdown-toggle:after{
+.AdminHeader .userToggle .dropdown-toggle:after{
   top: 12px;
   position: relative;
   left: 4px;
 }
-.AdminHeader .dropdown .dropdown-menu{
-  left: -33px !important;
+.AdminHeader .userToggle .dropdown-menu{
+  left: -60px !important;
   top: 23px !important;
 }
 .AdminHeader h1 {
@@ -1484,5 +1485,64 @@ h1 {
   border: 1px solid #e3bc88;
   color: #222;
 }
-
+.notification-bell .dropdown-toggle{
+  font-size: 24px;
+  margin-top: 10px;
+}
+.notification-bell .dropdown-toggle::after{
+  font-size: 17px;
+  margin-left: 8px;
+  top: 2px;
+  position: relative;
+}
+.notification-bell .counter{
+  background: #ed3c64;
+  color: #fff;
+  font-weight: bold;
+  padding: 2px 6px;
+  border-radius: 50px;
+  font-size: 12px;
+  position: absolute;
+  margin-top: 7px;
+  margin-left: 25px;
+}
+.notification-bell .dropdown-menu{
+  left: -115px !important;
+  max-width: 400px;
+  min-width: 400px;
+}
+.notification-bell .dropdown-item{
+  white-space: unset;
+}
+.notification-bell .agg-list .icons{
+  float: left;
+}
+.notification-bell .agg-list .icons i{
+  color: #000;
+}
+.notification-bell .agg-text{
+  top: -4px;
+  position: relative;
+}
+.notification-bell .agg-text h6{
+  font-size: 13px;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 600;
+  line-height: 20px;
+  margin-bottom: 6px;
+  color: #000;
+}
+.notification-bell .agg-text h6 a{
+  color: blue;
+}
+.notification-bell .agg-text p{
+  color: #666;
+  font-size: 13px;
+}
+.notification-page .agg-list .icons i{
+  font-size: 24px;
+}
+.notification-page .agg-list h6{
+  font-weight: 500;
+} 
 
