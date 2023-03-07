@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Schedule;
 use App\Models\Offer;
 use App\Models\Services;
+use App\Models\notifications;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
@@ -177,6 +178,12 @@ class ScheduleController extends Controller
     
         $input  = $request->input(); 
         $sch = Schedule::create($input);
+        notifications::create([
+            'user_id'=>$request->client_id,
+            'module'=>'meeting',
+            'module_id'=>$sch->id,
+            'status' => $request->booking_status
+        ]);
         $schedule = Schedule::where('id',$sch->id)->with('client','team')->get()->first();
         $event_title = "Meeting with ".$schedule->client->firstname." ".$schedule->client->lastname;
         $event_date  = $request->start_date;

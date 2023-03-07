@@ -8,6 +8,7 @@ use App\Models\Schedule;
 use App\Models\Offer;
 use App\Models\Services;
 use App\Models\Contract;
+use App\Models\notifications;
 use Mail;
 
 class ClientEmailController extends Controller
@@ -62,7 +63,14 @@ class ClientEmailController extends Controller
        Offer::where('id',$request->id)->update([
         'status' =>'accepted'
       ]);
+      
       $ofr  = Offer::with('client')->where('id',$request->id)->get()->first()->toArray();
+      notifications::create([
+        'user_id'=>$ofr['client']['id'],
+        'module'=>'offer',
+        'module_id'=>$request->id,
+        'status' => 'accepted'
+    ]);
       $hash = md5($ofr['client']['email'].$ofr['id']); 
       
       $contract = Contract::create([
@@ -87,12 +95,35 @@ class ClientEmailController extends Controller
 
    }
 
-   public function AcceptMeeting(Request $request){
+   public function RejectOffer(Request $request)
+   {
+
+     Offer::where('id',$request->id)->update([
+      'status' =>'declined'
+    ]);
     
+    $ofr  = Offer::with('client')->where('id',$request->id)->get()->first()->toArray();
+    notifications::create([
+      'user_id'=>$ofr['client']['id'],
+      'module'=>'offer',
+      'module_id'=>$request->id,
+      'status' => 'declined'
+  ]);
+  }
+
+   public function AcceptMeeting(Request $request){
+   
     try{
       
     Schedule::where('id',$request->id)->update([
       'booking_status' => $request->response
+    ]);
+      $sch = Schedule::find($request->id)->get('client_id')->first();
+      notifications::create([
+        'user_id'=>$sch->client_id,
+        'module'=>'meeting',
+        'module_id'=>$request->id,
+        'status' => $request->response
     ]);
     return response()->json([
      'message' => 'Thanks, your meeting is '.$request->response
