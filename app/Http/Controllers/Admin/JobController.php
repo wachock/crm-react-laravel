@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Mail;
 use Maatwebsite\Excel\Facades\Excel;
-
+use Carbon;
 class JobController extends Controller
 {
     /**
@@ -333,7 +333,8 @@ class JobController extends Controller
       $fileName = 'job_report_'.$request->id.'.csv';
     }
     else{
-      $jobs = JobHours::with('worker')->get();
+      $jobs = JobHours::whereDate('created_at','>=',$request->from)
+              ->whereDate('created_at','<=',$request->to)->get();
       $fileName = 'AllJob_report.csv';
     }
 

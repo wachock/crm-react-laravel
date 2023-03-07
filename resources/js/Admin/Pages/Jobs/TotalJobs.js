@@ -16,6 +16,8 @@ export default function TotalJobs() {
     const [AllClients, setAllClients] = useState([]);
     const [AllServices, setAllServices] = useState([]);
     const [AllWorkers, setAllWorkers] = useState([]);
+    const [from,setFrom] = useState([]);
+    const [to,setTo] = useState([]);
     const alert = useAlert();
     const location = useLocation();
     const navigate = useNavigate();
@@ -133,10 +135,10 @@ export default function TotalJobs() {
         newWorkers[e.target.name] = e.target.value;
         setWorkers(newWorkers);
         let up = e.target.parentNode.parentNode.lastChild.lastChild;
-        setTimeout(()=>{
+        setTimeout(() => {
             up.click();
-        },500)
-        
+        }, 500)
+
     }
 
     const handleform = (job_id, e) => {
@@ -175,19 +177,25 @@ export default function TotalJobs() {
         e.preventDefault();
         navigate(`/admin/view-job/${id}`);
     }
-    let time_difference = (start, end) => {
-        const timeDiff = (new Date(end).getTime() - new Date(start).getTime()) / 1000;
-        return calculateTime(timeDiff);
 
+    function toHoursAndMinutes(totalSeconds) {
+        const totalMinutes = Math.floor(totalSeconds / 60);
+        const s = totalSeconds % 60;
+        const h = Math.floor(totalMinutes / 60);
+        const m = totalMinutes % 60;
+        return decimalHours(h, m, s);
     }
-    let calculateTime = (timeDiff) => {
-        let hours = Math.floor(timeDiff / 3600);
-        let minutes = Math.floor((timeDiff % 3600) / 60);
-        let seconds = Math.floor(timeDiff % 60);
-        hours = (hours < 10) ? '0' + hours : hours;
-        minutes = (minutes < 10) ? '0' + minutes : minutes;
-        seconds = (seconds < 10) ? '0' + seconds : seconds;
-        return `${hours}h:${minutes}m:${seconds}s`;
+
+    function decimalHours(h, m, s) {
+
+        var hours = parseInt(h, 10);
+        var minutes = m ? parseInt(m, 10) : 0;
+        var min = minutes / 60;
+        var spl = min.toString().split('.');
+        if (spl != undefined && spl != 0)
+            return hours + "." + (Math.round(spl[1] * 100) / 100).toString().substring(0, 2);
+        else
+            return hours + "." + min;
 
     }
 
@@ -204,27 +212,20 @@ export default function TotalJobs() {
     const [filename, setFilename] = useState("");
     const handleReport = (e) => {
         e.preventDefault();
-        axios.post(`/api/admin/export_report`, { type:'all' }, { headers })
+
+        if(!from) { window.alert("Please select form date!"); return false;}
+        if(!to) { window.alert("Please select to date!"); return false;}
+
+        axios.post(`/api/admin/export_report`, { type: 'all',from:from,to:to }, { headers })
             .then((res) => {
                 if (res.data.status_code == 404) {
                     alert.error(res.data.msg);
                 } else {
                     setFilename(res.data.filename);
                     let rep = res.data.report;
-                    for( let r in rep){
-                        rep[r].time_diffrence = time_difference(rep[r].start_time,rep[r].end_time);
+                    for (let r in rep) {
+                        rep[r].time_diffrence = toHoursAndMinutes(rep[r].time_total);
 
-                       /* if(r != 0 && rep[r].job_id != rep[parseInt(r)-1].job_id){
-                            console.log(parseInt(r));
-                            let ne = {};
-                            ne.worker_name='n';
-                            ne.worker_id='n';
-                            ne.start_time='n';
-                            ne.end_time='n';
-                            ne.job_id = rep[r].job_id;
-                            ne.time_diffrence=time_difference(rep[r].start_time, rep[r].end_time);
-                            rep.splice(parseInt(r), 0, ne);
-                        }*/
                     }
                     setAllData(rep);
                     document.querySelector('#csv').click();
@@ -249,10 +250,10 @@ export default function TotalJobs() {
                         </div>
                         <div className="col-sm-6">
                             <div className="search-data">
-                            <div classname="App" style={{display:"none"}}>
-                                <CSVLink {...csvReport}  id="csv">Export to CSV</CSVLink>
-                            </div>
-                                <button className="btn btn-success addButton" onClick={(e)=>handleReport(e)}>Export Time Reports</button>
+                                <div classname="App" style={{ display: "none" }}>
+                                    <CSVLink {...csvReport} id="csv">Export to CSV</CSVLink>
+                                </div>
+                                <button className="btn btn-success addButton"  data-toggle="modal" data-target="#exampleModal">Export Time Reports</button>
                                 {/*<input type='text' className="form-control" placeholder="Search" />
                                 <Link to="/admin/add-job" className="btn btn-pink addButton"><i className="btn-icon fas fa-plus-circle"></i>
                                     Add New
@@ -289,8 +290,8 @@ export default function TotalJobs() {
                                                     let services = (item.offer.services) ? JSON.parse(item.offer.services) : [];
 
                                                     return (
-                                                        <tr key={index} style={{"cursor":"pointer"}}>
-                                                            <td onClick={(e)=>handleNavigate(e,item.id)}>
+                                                        <tr key={index} style={{ "cursor": "pointer" }}>
+                                                            <td onClick={(e) => handleNavigate(e, item.id)}>
                                                                 {Moment(item.start_date).format('DD MMM,Y')}
                                                             </td>
                                                             <td><Link to={(item.worker) ? `/admin/view-worker/${item.worker.id}` : '#'}>
@@ -300,7 +301,7 @@ export default function TotalJobs() {
                                                                         " " + item.worker.lastname
                                                                         : "NA"
                                                                 }</h6>
-                                                                </Link>
+                                                            </Link>
                                                                 <div>Change Worker</div>
                                                                 <select name={item.id} className="form-control mb-3 mt-1 form-control" value={(workers[`${item.id}`]) ? workers[`${item.id}`] : ""} onChange={e => handleChange(e, index)} >
                                                                     <option selected>select</option>
@@ -312,7 +313,7 @@ export default function TotalJobs() {
                                                                 </select>
 
                                                             </td>
-                                                            <td><Link to={ item.client ? `/admin/view-client/${item.client.id}` : '#'}>{
+                                                            <td><Link to={item.client ? `/admin/view-client/${item.client.id}` : '#'}>{
                                                                 item.client
                                                                     ? item.client.firstname +
                                                                     " " + item.client.lastname
@@ -320,9 +321,9 @@ export default function TotalJobs() {
                                                             }
                                                             </Link>
                                                             </td>
-                                                            <td onClick={(e)=>handleNavigate(e,item.id)}>{
-                                                               item.jobservice
-                                                                   ? item.jobservice.name:'NA'
+                                                            <td onClick={(e) => handleNavigate(e, item.id)}>{
+                                                                item.jobservice
+                                                                    ? item.jobservice.name : 'NA'
                                                             }</td>
                                                             {/* <Td onClick={(e)=>handleNavigate(e,item.id)}>
                                                                 {(item.start_time != '') ? (`${item.start_time} to ${item.end_time}`) : ''}
@@ -369,12 +370,12 @@ export default function TotalJobs() {
                                                                         <i className="fa fa-ellipsis-vertical"></i>
                                                                     </button>
                                                                     <div className="dropdown-menu">
-                                                                            <Link to={`/admin/edit-job/${item.id}`} className="dropdown-item">Edit Job</Link>
+                                                                        <Link to={`/admin/edit-job/${item.id}`} className="dropdown-item">Edit Job</Link>
                                                                         <Link to={`/admin/view-job/${item.id}`} className="dropdown-item">View</Link>
                                                                         <button className="dropdown-item" onClick={() => handleDelete(item.id)}>Delete</button>
                                                                     </div>
                                                                 </div>
-                                                                <button type="button" style={{display:'none'}} className="btn btn-success" onClick={(e) => handleform(item.id, e)}>
+                                                                <button type="button" style={{ display: 'none' }} className="btn btn-success" onClick={(e) => handleform(item.id, e)}>
                                                                     Update
                                                                 </button>
                                                             </td>
@@ -411,6 +412,69 @@ export default function TotalJobs() {
                                 ) : (
                                     <></>
                                 )}
+                            </div>
+                        </div>
+
+                        <div className="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div className="modal-dialog" role="document">
+                                <div className="modal-content">
+                                    <div className="modal-header">
+                                        <h5 className="modal-title" id="exampleModalLabel">Export Records</h5>
+                                        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div className="modal-body">
+
+
+                                        <div className="row">
+                                           
+                                            <div className="col-sm-12">
+                                                <div className="form-group">
+                                                    <label className="control-label">
+                                                        From
+                                                    </label>
+                                                    <input
+                                                        type="date"
+                                                        onChange={(e) =>
+                                                            setFrom(e.target.value)
+                                                        }
+                                                        className="form-control"
+                                                        required
+
+                                                    />
+
+                                                </div>
+                                            </div>
+
+                                            <div className="col-sm-12">
+                                                <div className="form-group">
+                                                    <label className="control-label">
+                                                        To
+                                                    </label>
+                                                    <input
+                                                        type="date"
+                                                        onChange={(e) =>
+                                                            setTo(e.target.value)
+                                                        }
+                                                        className="form-control"
+                                                        required
+
+                                                    />
+
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+
+
+                                    </div>
+                                    <div className="modal-footer">
+                                        <button type="button" className="btn btn-secondary closeb" data-dismiss="modal">Close</button>
+                                        <button type="button" onClick={(e)=> handleReport(e)} className="btn btn-primary">Export</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
