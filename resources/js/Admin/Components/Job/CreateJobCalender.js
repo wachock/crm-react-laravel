@@ -230,21 +230,22 @@ export default function CreateJobCalender() {
     let week = []
     let nextweek = []
     for (let i = 0; i <= 7; i++) {
-
-     if(i != 6){
       let first = curr.getDate() - curr.getDay() + i 
       if(first>=curr.getDate()){
-      let day = new Date(curr.setDate(first)).toISOString().slice(0, 10)
-      week.push(day)
+         if(!interval.includes(i)){
+              let day = new Date(curr.setDate(first)).toISOString().slice(0, 10)
+              week.push(day)
+         }
       }
-     }
     }
     
     for (let i = 0; i < 7; i++) {
       var today = new Date;
        var first = today.getDate() - today.getDay() + 1 + 7+i;
+       if(!interval.includes(i+1)){
        var firstday = new Date(today.setDate(first)).toISOString().slice(0, 10)
         nextweek.push(firstday)
+       }
     }
    const slot = [
      ['8am-16pm','full day- 8am-16pm'],

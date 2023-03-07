@@ -1,8 +1,9 @@
 import React,{useState,useEffect} from 'react'
 import { useAlert } from "react-alert";
 import { useParams,useNavigate,Link } from "react-router-dom";
+import moment from 'moment-timezone';
 
-export default function WorkerAvailabilty() {
+export default function WorkerAvailabilty({interval}) {
     const [worker_aval, setWorkerAval] = useState([])
     const [errors, setErrors] = useState([])
     const params = useParams();
@@ -45,7 +46,7 @@ export default function WorkerAvailabilty() {
              newworker[w_date]=newarray;
         }
         setWorkerAval(newworker);
-        console.log(worker_aval);
+       
     }
     let handleSubmit = () =>{
         let worker_id = params.id;
@@ -71,16 +72,20 @@ export default function WorkerAvailabilty() {
     for (let i = 0; i <= 7; i++) {
       let first = curr.getDate() - curr.getDay() + i 
       if(first>=curr.getDate()){
-      let day = new Date(curr.setDate(first)).toISOString().slice(0, 10)
-      week.push(day)
+        if(!interval.includes(i)){
+            let day = new Date(curr.setDate(first)).toISOString().slice(0, 10)
+            week.push(day)
+        }
       }
     }
     
     for (let i = 0; i < 7; i++) {
       var today = new Date;
        var first = today.getDate() - today.getDay() + 1 + 7+i;
-       var firstday = new Date(today.setDate(first)).toISOString().slice(0, 10)
-        nextweek.push(firstday)
+        if(!interval.includes(i+1)){
+           var firstday = new Date(today.setDate(first)).toISOString().slice(0, 10)
+            nextweek.push(firstday)
+        }
     }
    // const slot = [
    //   ['8am-16pm','full day- 8am-16pm'],
@@ -130,7 +135,7 @@ export default function WorkerAvailabilty() {
                 <thead>
                   <tr>
                     {week.map((element, index) => (
-                       <th key={index}>{element}</th>
+                       <th key={index}> { moment(element).toString().slice(0,15) }</th>
                     ))}
                   </tr>
                 </thead>
@@ -159,7 +164,7 @@ export default function WorkerAvailabilty() {
                 <thead>
                   <tr>
                     {nextweek.map((element, index) => (
-                       <th key={index}>{element}</th>
+                       <th key={index}>{ moment(element).toString().slice(0,15) }</th>
                     ))}
                   </tr>
                 </thead>
