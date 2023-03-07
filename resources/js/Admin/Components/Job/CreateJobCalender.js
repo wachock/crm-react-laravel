@@ -261,13 +261,36 @@ export default function CreateJobCalender() {
      ['22pm-24am','ev2 22pm-24pm'],
      ['20pm-24am','evening 20pm-24am']
     ]
-    const colourOptions = [
-  { value: 0, label: 'full day - 8am-16pm' },
-  { value: 1, label: 'morning - 8-12pm' },
-  { value: 2, label: 'morning1 - 8-10am' },
-  { value: 3, label: 'noon - 12pm-16pm' },
-  { value: 4, label: 'noon - 12pm-16pm' }
-]
+    const colourOptions = {'8am-16pm':[
+          { value: 0, label: 'full day - 8am-16pm' },
+          { value: 1, label: 'morning1 - 8am-10am' },
+          { value: 2, label: 'morning 2 - 10am-12pm' },
+          { value: 3, label: 'morning- 08am-12pm' },
+          { value: 4, label: 'noon1 -12pm-14pm' },
+          { value: 5, label: 'noon2 14pm-16pm' },
+          { value: 6, label: 'noon 12pm-16pm' },
+        ],
+        '8am-12pm':[
+          { value: 0, label: 'morning1 - 8am-10am' },
+          { value: 1, label: 'morning2 - 10am-12pm' },
+          { value: 2, label: 'morning- 08am-12pm' },
+        ],
+        '12pm-16pm':[
+          { value: 0, label: 'noon1 -12pm-14pm' },
+          { value: 1, label: 'noon2 14pm-16pm' },
+          { value: 2, label: 'noon 12pm-16pm' },
+        ],
+        '16pm-20pm':[
+          { value: 0, label: 'af1 16pm-18pm' },
+          { value: 1, label: 'af2 18pm-20pm' },
+          { value: 2, label: 'afternoon 16pm-20pm' },
+        ],
+        '20pm-24am':[
+          { value: 0, label: 'ev1 20pm-22pm' },
+          { value: 1, label: 'ev2 22pm-24pm' },
+          { value: 2, label: 'evening 20pm-24pm' },
+        ],
+}
   const colourOptions1 = [
   { value: 0, label: 'full day - 8am-16pm' },
   { value: 1, label: 'morning - 8-12pm' },
@@ -306,46 +329,117 @@ const person = {
 };
     return (
         <>
-           <table border="2" cellspacing="0" align="center" width="100%">
-              <tr>
-                <td align="center">
-                    Worker
-                </td>
-               {week.map((element, index) => (
-                       <td align="center">
-                           { moment(element).toString().slice(0,15) }
-                       </td>
-                    ))}
-              </tr>
-              {AllWorkers.map((w, index) => {
-                  let aval = (w.aval) ? w.aval : [];
-                  let wjobs = (w.wjobs) ? w.wjobs : [];
-                    return (
-                        <tr>
-                           <td align="center" id={`worker-${w.id}`}>
-                               {w.firstname} {w.lastname}
+          <ul className="nav nav-tabs" role="tablist">
+            <li className="nav-item" role="presentation"><a id="worker-availability" className="nav-link active" data-toggle="tab" href="#tab-worker-availability" aria-selected="true" role="tab">Current Week</a></li>
+            <li className="nav-item" role="presentation"><a id="current-job" className="nav-link" data-toggle="tab" href="#tab-current-job" aria-selected="true" role="tab">Next Week</a></li>
+        </ul>
+        <div className='tab-content' style={{background: "#fff"}}>
+             <div id="tab-worker-availability" className="tab-pane active show" role="tab-panel" aria-labelledby="current-job">
+               <table border="2" cellspacing="0" align="center" width="100%">
+                  <tr>
+                    <td align="center">
+                        Worker
+                    </td>
+                   {week.map((element, index) => (
+                           <td align="center">
+                               { moment(element).toString().slice(0,15) }
                            </td>
-                           {week.map((element, index) => (
-                               <td align="center" >
-                                   <span className="text-success">{person[aval[element]]}</span>
-                                   <div className="text-danger">{wjobs[element]}</div>
-                                   <span id={`shift-${w.id}-${element}`}></span>
-                                    <Select
-                                        isMulti
-                                        name="colors"
-                                        options={colourOptions}
-                                        className="basic-multi-select"
-                                        classNamePrefix="select"
-                                        onChange={(e)=>changeShift(w.id,element,e)}
-                                      />
+                        ))}
+                  </tr>
+                  {AllWorkers.map((w, index) => {
+                      let aval = (w.aval) ? w.aval : [];
+                      let wjobs = (w.wjobs) ? w.wjobs : [];
+                        return (
+                            <tr>
+                               <td align="center" id={`worker-${w.id}`}>
+                                   {w.firstname} {w.lastname}
                                </td>
-                            ))}
+                               {week.map((element, index) => {
+                                   let shifts = (wjobs[element]) ? (wjobs[element]).split(",") : [];
+                                    return ( <td align="center" >
+                                       <span className="text-success">{person[aval[element]]}</span>
+                                      
+                                       {shifts.map((s,i)=>{
+                                        return <div className="text-danger">{s}</div>
+                                       })}
+                                       
+                                       <span id={`shift-${w.id}-${element}`}></span>
+                                       {(aval[element])?
+                                        <Select
+                                            isMulti
+                                            name="colors"
+                                            options={colourOptions[aval[element]]}
+                                            className="basic-multi-select"
+                                            classNamePrefix="select"
+                                            onChange={(e)=>changeShift(w.id,element,e)}
+                                          />
+                                          :
+                                          'Not Available'
+                                         }
+                                   </td>
+                                   )
+                                })}
 
-                         </tr>
-                     )
-                })}
+                             </tr>
+                         )
+                    })}
 
-           </table>
+              </table>
+           </div>
+               <div id="tab-current-job" className="tab-pane" role="tab-panel" aria-labelledby="current-job">
+                  <table border="2" cellspacing="0" align="center" width="100%">
+                  <tr>
+                    <td align="center">
+                        Worker
+                    </td>
+                   {nextweek.map((element, index) => (
+                           <td align="center">
+                               { moment(element).toString().slice(0,15) }
+                           </td>
+                        ))}
+                  </tr>
+                  {AllWorkers.map((w, index) => {
+                      let aval = (w.aval) ? w.aval : [];
+                      let wjobs = (w.wjobs) ? w.wjobs : [];
+                        return (
+                            <tr>
+                               <td align="center" id={`worker-${w.id}`}>
+                                   {w.firstname} {w.lastname}
+                               </td>
+                               {nextweek.map((element, index) => {
+                                   let shifts = (wjobs[element]) ? (wjobs[element]).split(",") : [];
+                                    return ( <td align="center" >
+                                       <span className="text-success">{person[aval[element]]}</span>
+                                      
+                                       {shifts.map((s,i)=>{
+                                        return <div className="text-danger">{s}</div>
+                                       })}
+                                       
+                                       <span id={`shift-${w.id}-${element}`}></span>
+                                        {(aval[element])?
+                                        <Select
+                                            isMulti
+                                            name="colors"
+                                            options={colourOptions[aval[element]]}
+                                            className="basic-multi-select"
+                                            classNamePrefix="select"
+                                            onChange={(e)=>changeShift(w.id,element,e)}
+                                          />
+                                          :
+                                          'Not Available'
+                                         }
+                                   </td>
+                                   )
+                                })}
+
+                             </tr>
+                         )
+                    })}
+
+              </table>
+
+               </div>
+           </div>
             <div className="form-group text-center">
                 <input type='button' value='View Job' className="btn btn-pink" data-toggle="modal" data-target="#exampleModal" />
             </div>
