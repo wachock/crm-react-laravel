@@ -6,10 +6,13 @@
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Hebrew:wght@400;500;600;700&display=swap" rel="stylesheet">
 	<title>Work Contract</title>
 </head>
 @if($client['lng'] == 'heb')
-<body style="font-family: 'Open Sans', sans-serif;color: #212529;background: #fcfcfc; direction:rtl">
+<body style="font-family: 'Noto Sans Hebrew', sans-serif;color: #212529;background: #fcfcfc; direction:rtl">
 @else 
 <body style="font-family: 'Open Sans', sans-serif;color: #212529;background: #fcfcfc;">
 @endif
