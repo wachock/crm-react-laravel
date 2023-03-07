@@ -202,7 +202,7 @@ export default function EditOffer() {
     }
     
 
-    event.target.setAttribute('disabled', true);
+    event.target.setAttribute('disabled1', true);
     event.target.value = (event.target.value == 'Save') ? ('Saving..') :('Sending..');
     axios
       .put(`/api/admin/offers/${param.id}`, data, { headers })
@@ -211,7 +211,7 @@ export default function EditOffer() {
           for (let e in response.data.errors) {
             alert.error(response.data.errors[e]);
           }
-          document.querySelector('.saveBtn').removeAttribute('disabled');
+          document.querySelector('.saveBtn').removeAttribute('disabled1');
           document.querySelector('.saveBtn').value = (event.target.value == 'Save') ? ('Save') : ('Save and Send');
         } else {
           alert.success(response.data.message);
