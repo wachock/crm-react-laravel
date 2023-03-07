@@ -18,6 +18,7 @@
     },
     "price_offer": {
         "button": "Accept Offer",
+        "button_reject": "Reject Offer",
         "title": "Price Offer No",
         "dateTxt": "Date",
         "honour_of": "In Honor Of",

@@ -98,7 +98,7 @@ export default function PriceOffer() {
         }).then((result) => {
             if (result.isConfirmed) {
                 axios
-                    .post(`/api/client/reject-offer`,{id:id}, { headers })
+                    .post(`/api/client/reject-offer`,{id:id})
                     .then((response) => {
                         Swal.fire(
                             "Reject",
@@ -106,7 +106,7 @@ export default function PriceOffer() {
                             "success"
                         );
                         setTimeout(() => {
-                            getclients();
+                           navigate('/client/login');
                         }, 1000);
                     });
             }
@@ -133,13 +133,10 @@ export default function PriceOffer() {
                             <div className='col-sm-6'>
                                 <div className='mt-2 float-right'>
                                     <input className='btn btn-pink acpt' onClick={(e) => handleOffer(e, offer.id)} value={t('price_offer.button')} />
+                                    <input className='btn btn-danger m-2' onClick={(e) => RejectOffer(offer.id)} value={t('price_offer.button_reject')} />
                                 </div>
                             </div>
-                            <div className='col-sm-6'>
-                                <div className='mt-2 float-right'>
-                                    <input className='btn btn-danger' onClick={(e) => RejectOffer(offer.id)} value={t('price_offer.button')} />
-                                </div>
-                            </div>
+                            
                         </div>
                         <div className='row'>
                             <div className='col-sm-6'>
