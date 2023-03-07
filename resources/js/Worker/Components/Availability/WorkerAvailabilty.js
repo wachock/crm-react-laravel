@@ -1,11 +1,13 @@
 import React,{useState,useEffect, useTransition} from 'react'
 import { useAlert } from "react-alert";
+import moment from 'moment-timezone';
 import { useParams,useNavigate,Link } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 
 export default function WorkerAvailabilty() {
     const [worker_aval, setWorkerAval] = useState([])
     const [errors, setErrors] = useState([])
+    const [interval, setTimeInterval] = useState([]);
     const params = useParams();
     const navigate = useNavigate();
     const alert = useAlert();
@@ -66,19 +68,23 @@ export default function WorkerAvailabilty() {
     let curr = new Date 
     let week = []
     let nextweek = []
-    for (let i = 0; i <= 7; i++) {
+    for (let i = 0; i < 7; i++) {
       let first = curr.getDate() - curr.getDay() + i 
       if(first>=curr.getDate()){
-      let day = new Date(curr.setDate(first)).toISOString().slice(0, 10)
-      week.push(day)
+        if(!interval.includes(i)){
+          let day = new Date(curr.setDate(first)).toISOString().slice(0, 10)
+          week.push(day)
+        }
       }
     }
     
     for (let i = 0; i < 7; i++) {
+      if(!interval.includes(i)){
       var today = new Date;
-       var first = today.getDate() - today.getDay() + 1 + 7+i;
+       var first = today.getDate() - today.getDay() + 7+i;
        var firstday = new Date(today.setDate(first)).toISOString().slice(0, 10)
         nextweek.push(firstday)
+     }
     }
    // const slot = [
    //   ['8am-16pm','full day- 8am-16pm'],
@@ -111,8 +117,22 @@ export default function WorkerAvailabilty() {
                 }
             });
     };
+    const getTime = () => {
+        axios
+            .get(`/api/get-time`, { headers })
+            .then((res) => {
+                if (res.data.time.length > 0) {
+                    let ar = JSON.parse(res.data.time[0].days);
+                    let ai = [];
+                    ar && ar.map((a, i) => (ai.push(parseInt(a))));
+                    var hid = [0, 1, 2, 3, 4, 5, 6].filter(function (obj) { return ai.indexOf(obj) == -1; });
+                    setTimeInterval(hid);
+                }
+            })
+    }
     useEffect(() => {
         getWorkerAvailabilty();
+        getTime();
     }, []);
   return (
     <div className="boxPanel">
@@ -127,7 +147,7 @@ export default function WorkerAvailabilty() {
                 <thead>
                   <tr>
                     {week.map((element, index) => (
-                       <th key={index}>{element}</th>
+                       <th key={index}>{ moment(element).toString().slice(0,15) }</th>
                     ))}
                   </tr>
                 </thead>
@@ -156,7 +176,7 @@ export default function WorkerAvailabilty() {
                 <thead>
                   <tr>
                     {nextweek.map((element, index) => (
-                       <th key={index}>{element}</th>
+                       <th key={index}>{ moment(element).toString().slice(0,15) }</th>
                     ))}
                   </tr>
                 </thead>
