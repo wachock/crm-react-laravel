@@ -133,11 +133,7 @@ export default function PriceOffer() {
                             <div className='col-sm-6'>
                                 <div className='mt-2 float-right'>
                                     <input className='btn btn-pink acpt' onClick={(e) => handleOffer(e, offer.id)} value={t('price_offer.button')} />
-                                </div>
-                            </div>
-                            <div className='col-sm-6'>
-                                <div className='mt-2 float-right'>
-                                    <input className='btn btn-danger' onClick={(e) => RejectOffer(offer.id)} value={t('price_offer.button')} />
+                                    <div><a href="javascript:void(0)" style={{marginTop: "10px", minWidth: "204px"}} className='btn btn-danger' onClick={(e) => RejectOffer(offer.id)}>{t('price_offer.button')}</a></div>
                                 </div>
                             </div>
                         </div>
