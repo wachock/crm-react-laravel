@@ -30,6 +30,7 @@ Route::post('work-contract', [AuthController::class, 'WorkContract']);
 Route::group( ['middleware' => ['auth:api','scopes:user'] ],function(){
     
     Route::post('dashboard', [DashboardController::class, 'dashboard']);
+    Route::get('get-time', [DashboardController::class, 'getTime']);
 
     Route::resource('jobs', JobController::class);
     Route::post('job-start-time', [JobController::class, 'JobStartTime']);

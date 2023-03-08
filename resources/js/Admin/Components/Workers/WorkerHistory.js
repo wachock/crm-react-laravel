@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useState,useEffect} from 'react'
 import { useParams,Link } from "react-router-dom";
 import CurrentJob from './CurrentJob'
 import PastJob from './PastJob'
@@ -8,6 +8,29 @@ import WorkerContract from './WorkerContract'
 
 export default function WorkerHistory() {
     const params = useParams();
+     const [interval, setTimeInterval] = useState([]);
+     const headers = {
+        Accept: "application/json, text/plain, */*",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ` + localStorage.getItem("admin-token"),
+    };
+     const getTime = () => {
+        axios
+            .get(`/api/admin/get-time`, { headers })
+            .then((res) => {
+                if (res.data.time.length > 0) {
+                    let ar = JSON.parse(res.data.time[0].days);
+                    let ai = [];
+                    ar && ar.map((a, i) => (ai.push(parseInt(a))));
+                    var hid = [0, 1, 2, 3, 4, 5, 6].filter(function (obj) { return ai.indexOf(obj) == -1; });
+                    setTimeInterval(hid);
+                }
+            })
+    }
+     useEffect(() => {
+        getTime();
+    }, []);
+    
   return (
     <div className='ClientHistory'>
         <ul className="nav nav-tabs" role="tablist">
@@ -18,7 +41,7 @@ export default function WorkerHistory() {
             <li className="nav-item" role="presentation"><a id="worker-contract" className="nav-link" data-toggle="tab" href="#tab-worker-contract" aria-selected="false" role="tab">Contract</a></li>
         </ul>
         <div className='tab-content' style={{background: "#fff"}}>
-             <div id="tab-worker-availability" className="tab-pane active show" role="tab-panel" aria-labelledby="current-job"><WorkerAvailabilty/></div>
+             <div id="tab-worker-availability" className="tab-pane active show" role="tab-panel" aria-labelledby="current-job"><WorkerAvailabilty interval={interval}/></div>
             <div id="tab-current-job" className="tab-pane" role="tab-panel" aria-labelledby="current-job"><CurrentJob/></div>
             <div id="tab-past-job" className="tab-pane" role="tab-panel" aria-labelledby="past-job"><PastJob/></div>
             <div id="tab-doucments" className="tab-pane" role="tab-panel" aria-labelledby="doucments"><Documents/></div>

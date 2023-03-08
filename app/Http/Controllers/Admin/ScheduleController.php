@@ -180,8 +180,8 @@ class ScheduleController extends Controller
         $sch = Schedule::create($input);
         notifications::create([
             'user_id'=>$request->client_id,
-            'module'=>'meeting',
-            'module_id'=>$sch->id,
+            'type'=>'sent-meeting',
+            'meet_id'=>$sch->id,
             'status' => $request->booking_status
         ]);
         $schedule = Schedule::where('id',$sch->id)->with('client','team')->get()->first();

@@ -10,8 +10,17 @@ class notifications extends Model
     use HasFactory;
     protected $fillable = [
         'user_id',
-        'module',
+        'type',
         'status',
-        'module_id'
+        'offer_id',
+        'job_id',
+        'contract_id',
+        'meet_id',
     ];
+
+    public function client(){
+       return $this->belongsTo(Client::class,'user_id');
+    }
+
+   
 }

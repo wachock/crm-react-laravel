@@ -18,6 +18,7 @@
     },
     "price_offer": {
         "button": "קבל הצעה",
+        "button_reject": "לדחות הצעה",
         "title": "הצעת מחיר מס'",
         "dateTxt": "תאריך",
         "honour_of": "פנינה מרגלית :לכבוד",

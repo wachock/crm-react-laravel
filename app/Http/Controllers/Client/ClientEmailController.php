@@ -67,8 +67,8 @@ class ClientEmailController extends Controller
       $ofr  = Offer::with('client')->where('id',$request->id)->get()->first()->toArray();
       notifications::create([
         'user_id'=>$ofr['client']['id'],
-        'module'=>'offer',
-        'module_id'=>$request->id,
+        'type'=>'accept-offer',
+        'offer_id'=>$request->id,
         'status' => 'accepted'
     ]);
       $hash = md5($ofr['client']['email'].$ofr['id']); 
@@ -105,8 +105,8 @@ class ClientEmailController extends Controller
     $ofr  = Offer::with('client')->where('id',$request->id)->get()->first()->toArray();
     notifications::create([
       'user_id'=>$ofr['client']['id'],
-      'module'=>'offer',
-      'module_id'=>$request->id,
+      'type'=>'reject-offer',
+      'offer_id'=>$request->id,
       'status' => 'declined'
   ]);
   }
@@ -119,12 +119,26 @@ class ClientEmailController extends Controller
       'booking_status' => $request->response
     ]);
       $sch = Schedule::find($request->id)->get('client_id')->first();
-      notifications::create([
-        'user_id'=>$sch->client_id,
-        'module'=>'meeting',
-        'module_id'=>$request->id,
-        'status' => $request->response
-    ]);
+      if($request->response =='confirmed'):
+
+            notifications::create([
+              'user_id'=>$sch->client_id,
+              'type'=>'accept-meeting',
+              'meet_id'=>$request->id,
+              'status' => $request->response
+          ]);
+
+        else:
+
+          notifications::create([
+            'user_id'=>$sch->client_id,
+            'type'=>'reject-meeting',
+            'meet_id'=>$request->id,
+            'status' => $request->response
+        ]);
+
+      endif;
+
     return response()->json([
      'message' => 'Thanks, your meeting is '.$request->response
     ],200);
@@ -139,8 +153,39 @@ class ClientEmailController extends Controller
      
     try{
       Contract::where('unique_hash',$request->unique_hash)->update($request->input());
+      $contract = Contract::with('client')->where('unique_hash',$request->unique_hash)->get()->first();
+      notifications::create([
+        'user_id'=>$contract->client_id,
+        'type'=>'contract-accept',
+        'contract_id'=>$contract->id,
+        'status' => 'accepted'
+      ]);
       return response()->json([
         'message'=>"Thanks, for accepting contract"
+       ],200);
+
+    } catch(\Exception $e){
+      
+       return response()->json([
+        'error'=>$e->getMessage()
+       ],200);
+    }
+    
+  }
+
+  public function RejectContract(Request $request){
+     
+    try{
+      Contract::where('unique_hash',$request->unique_hash)->update($request->input());
+      $contract = Contract::with('client')->where('unique_hash',$request->unique_hash)->get()->first();
+      notifications::create([
+        'user_id'=>$contract->client_id,
+        'type'=>'contract-reject',
+        'contract_id'=>$contract->id,
+        'status' => 'accepted'
+      ]);
+      return response()->json([
+        'message'=>"Contract has been rejected"
        ],200);
 
     } catch(\Exception $e){

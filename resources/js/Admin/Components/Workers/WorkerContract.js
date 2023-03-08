@@ -19,7 +19,6 @@ export default function WorkerContract() {
             if(res.data.worker){
                let w = res.data.worker;
                setSignature2(w.worker_contract);
-               setWorkerId(w.worker_id);
             }
         })
     }
