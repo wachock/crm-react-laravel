@@ -351,7 +351,7 @@ export default function PriceOffer() {
                                     <li><img src={star} /> {t('price_offer.window_any_height.p2')} </li>
                                     <li><img src={star} /> {t('price_offer.window_any_height.p3')}</li>
                                     <li><img src={star} /> {t('price_offer.window_any_height.p4')}</li>
-                                    <li><img src={star} /> {t('price_offer.window_any_height.p5')}</li>
+                                    {/* <li><img src={star} /> {t('price_offer.window_any_height.p5')}</li> */}
                                 </ul>
                                 <h5 className='text-center ofrTitle p-2 m-3'>Laundary Service</h5>
                                 <h4 className='mt-4'>3. {t('price_offer.laundary.title')}</h4>
@@ -399,7 +399,7 @@ export default function PriceOffer() {
 
                             </div>
 
-                            <h3 className='mt-4'>{t('price_offer.our_services.heading')} <a href='https://www.broomservice.co.il' target='_blank'>www.broomservice.co.il</a></h3>
+                            <h3 className='mt-4'>{t('price_offer.our_services.heading')} <a href='https://www.broomservice.co.il' target='_blank'></a></h3>
                             <div className='shift-20'>
                                 <h4 className='mt-4'>1. {t('price_offer.our_services.s1')}</h4>
                                 <ul className='list-unstyled'>
