@@ -158,7 +158,7 @@ export default function WorkContract() {
                     <div className='col-sm-6'>
                         <div className='mt-2 float-right'>
                             <input className='btn btn-pink' onClick={handleAccept} value={t('work-contract.accept_contract')} />
-                            <input className='btn btn-danger m-2' onClick={(e) => RejectContract(e,contract.id)} value={t('work-contract.button_reject')} />
+                            <input className='btn btn-danger mt-2' onClick={(e) => RejectContract(e,contract.id)} value={t('work-contract.button_reject')} />
                         </div>
                     </div>
                 </div>
