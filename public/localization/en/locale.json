@@ -35,7 +35,7 @@
         "hours": "hour(s)",
         "amount": "Amount",
         "type":"Type",
-        "amount_txt": "Total Amount",
+        "amount_txt": "Price per visit (Before VAT)",
         "offer_title": "What Do We Have To Offer?",
         "laundary_service_price_title": "Laundry Services Price List",
         "thorough_cleaning": {
