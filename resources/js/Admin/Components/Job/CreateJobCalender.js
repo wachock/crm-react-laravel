@@ -230,6 +230,7 @@ export default function CreateJobCalender() {
     let curr = new Date 
     let week = []
     let nextweek = []
+    let nextnextweek = []
     for (let i = 0; i < 7; i++) {
       let first = curr.getDate() - curr.getDay() + i 
       if(first>=curr.getDate()){
@@ -246,6 +247,14 @@ export default function CreateJobCalender() {
        var first = today.getDate() - today.getDay() + 7+i;
        var firstday = new Date(today.setDate(first)).toISOString().slice(0, 10)
         nextweek.push(firstday)
+     }
+    }
+     for (let i = 0; i < 7; i++) {
+      if(!interval.includes(i)){
+      var today = new Date;
+       var first = today.getDate() - today.getDay() + 14+i;
+       var firstday = new Date(today.setDate(first)).toISOString().slice(0, 10)
+        nextnextweek.push(firstday)
      }
     }
    const slot = [
@@ -380,6 +389,7 @@ const filterOptions = (options,shifts) =>{
           <ul className="nav nav-tabs" role="tablist">
             <li className="nav-item" role="presentation"><a id="worker-availability" className="nav-link active" data-toggle="tab" href="#tab-worker-availability" aria-selected="true" role="tab">Current Week</a></li>
             <li className="nav-item" role="presentation"><a id="current-job" className="nav-link" data-toggle="tab" href="#tab-current-job" aria-selected="true" role="tab">Next Week</a></li>
+            <li className="nav-item" role="presentation"><a id="current-next-job" className="nav-link" data-toggle="tab" href="#tab-current-next-job" aria-selected="true" role="tab">Next Next Week</a></li>
         </ul>
         <div className='tab-content' style={{background: "#fff"}}>
              <div id="tab-worker-availability" className="tab-pane active show" role="tab-panel" aria-labelledby="current-job">
@@ -462,6 +472,57 @@ const filterOptions = (options,shifts) =>{
                                        })}
                                        
                                         {(aval[element] && aval[element] != '')?
+                                        <Select
+                                            name="colors"
+                                            options={filterOptions(colourOptions[aval[element]],shifts)}
+                                            className="basic-single"
+                                            isClearable={true}
+                                            classNamePrefix="select"
+                                            onChange={(e)=>changeShift(w.id,element,e)}
+                                          />
+                                          :
+                                          <div className="text-danger">Not Available</div>
+                                         }
+                                   </td>
+                                   )
+                                })}
+
+                             </tr>
+                         )
+                    })}
+
+              </table>
+
+               </div>
+                <div id="tab-current-next-job" className="tab-pane" role="tab-panel" aria-labelledby="current-job">
+                  <table border="2" cellspacing="0" align="center" width="100%">
+                  <tr>
+                    <td align="center">
+                        Worker
+                    </td>
+                   {nextnextweek.map((element, index) => (
+                           <td align="center">
+                               { moment(element).toString().slice(0,15) }
+                           </td>
+                        ))}
+                  </tr>
+                  {AllWorkers.map((w, index) => {
+                      let aval = (w.aval) ? w.aval : [];
+                      let wjobs = (w.wjobs) ? w.wjobs : [];
+                        return (
+                            <tr>
+                               <td align="center" id={`worker-${w.id}`}>
+                                   {w.firstname} {w.lastname}
+                               </td>
+                               {nextnextweek.map((element, index) => {
+                                   let shifts = (wjobs[element]) ? (wjobs[element]).split(",") : [];
+                                    return ( <td align="center" >
+                                       <span className="text-success">{person[aval[element]]}</span>
+                                      
+                                       {shifts.map((s,i)=>{
+                                        return <div className="text-danger">{s}</div>
+                                       })}
+                                         {(aval[element] && aval[element] != '')?
                                         <Select
                                             name="colors"
                                             options={filterOptions(colourOptions[aval[element]],shifts)}
