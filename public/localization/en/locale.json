@@ -25,7 +25,7 @@
         "company_text": "Company Name",
         "address_text": "Address",
         "about_title": "About us",
-        "about": "Broom Service was founder by Lidor Mamou on 2013 The company employs a team of professionals in a wide variety of house cleaning and maintenance jobs. Our staff are regular and experienced employees Our staff are regular and experienced employees who receive a fair and proper reward and all the beneﬁts they receive according to the law Our clients are accustomed and well acquainted with the high standard of service used in the best luxury and boutique hotels in Israel and worldwide and we strive to meet this high quality standard. Our customer satisfaction, high level of service, attention to detail and personal attitude are the foundations on which we base our services. The company is registered as a legal cleaning company in the Ministry of Industry. License number: 4569",
+        "about": "Broom Service was founder by Lidor Mamou on 2013\nThe company employs a team of professionals in a wide variety of house cleaning\nand maintenance jobs.\nOur staff are regular and experienced employees\nOur staff are regular and experienced employees who receive a fair and proper reward and all the\nbeneﬁts they receive according to the law\nOur clients are accustomed and well acquainted with the high standard of service used in the best\nluxury and boutique hotels in Israel and worldwide and we strive to meet this high quality standard.\nOur customer satisfaction, high level of service, attention to detail and personal attitude are the\nfoundations on which we base our services.\n\nThe company is registered as a legal cleaning company in the Ministry of Industry. License number: 4569",
         "service_title": "Price Summary",
         "service_txt": "Service Name",
         "freq_s_txt": "Frequency of Services",
@@ -55,7 +55,18 @@
             "s2_5r": " Tasks: vents, air conditioners, lamps, electrical switches, panels, doors, handles and lintels.",
             "s2_8r": " Kitchen: kitchen cabinets (outside), thorough cleaning of the refrigerator, microwave, oven and gas, dishwasher and sink.",
             "basic": "Basic package which includes:",
-            "s3_8r": "Kitchen: kitchen cabinets (outside), microwave, oven and gas, dishwasher and sink."
+            "s3_8r": "Kitchen: kitchen cabinets (outside), microwave, oven and gas, dishwasher and sink.",
+            "cleaning_inside": "4. Cleaning Inside And Outside Windows At Any Height:",
+            "s4_1": "Professional cleaning of windows, blinds, rails, frames on a regular basis or on demand.",
+            "s4_2": "Cleaning all types of windows at all heights.",
+            "s4_3": "Nano coating option after cleaning the windows for clean windows over time.",
+            "s4_4": "Cleaning in rappelling by a professional team.",
+            "laundry_services": "5. Laundry Services, Fabric Cleaning And Upholstery:",
+            "s5_1": "Pick up on order day and return up to 48 hours",
+            "s5_2": "laundry services",
+            "s5_3": "Dry Cleaning",
+            "s5_4": "Ironing services",
+            "s5_5": "Cleaning of sofas, carpets and curtains"
         },
         "regular_services": {
             "rs1": "Room Service On A Regular Basis Customized To Your Requirements:",
@@ -94,13 +105,21 @@
             "p1":"This is a test line and it will be changed according to the other service.",
             "o2_title":"Includes in -"
         },
+        "room_service":{
+            "title": "1. Room Service On A Regular Basis Customized To Your Requirements:",
+            "s1": "Our packages- Regular Room Service",
+            "p1": "Service on a regular basis by the same professional staff",
+            "p2": "Employing a legal and regulated employee",
+            "p3": "Strict sorting of staff including reliability tests",
+            "p4": "Use of advanced cleaning materials and equipment at our expense",
+            "p5": "Tight supervision by a regional supervisor"
+        },
         "window_any_height": {
             "title": "Cleaning Inside And Outside Windows At Any Height:",
             "p1": "Professional cleaning of windows, blinds, rails, frames on a regular basis or on demand.",
             "p2": "Cleaning all types of windows at all heights.",
             "p3": "Nano coating option after cleaning the windows for clean windows over time.",
-            "p4": "Use of advanced cleaning materials and equipment at our expense.",
-            "p5": "Cleaning in rappelling by a professional team."
+            "p4": "Cleaning in rappelling by a professional team."
         },
         "laundary": {
             "service_name":"Laundary Service",
@@ -112,7 +131,7 @@
             "p5": "Cleaning of sofas, carpets and curtains."
         },
         "our_services": {
-            "heading": "Our Services Here, And On Our Website:",
+            "heading": "Our Services Here, And On Our Website:\nwww.broomservice.co.il",
             "s1": "Polishing & Renovating Floors & Surfaces.",
             "s1_p1": "Floor polishing services of all kinds.",
             "s1_p2": "Polishing and crystal polishing.",

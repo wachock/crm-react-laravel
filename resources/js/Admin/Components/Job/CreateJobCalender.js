@@ -365,7 +365,7 @@ const person = {
                                        })}
                                        
                                        <span id={`shift-${w.id}-${element}`}></span>
-                                       {(aval[element])?
+                                       {(aval[element] && aval[element] != '')?
                                         <Select
                                             isMulti
                                             name="colors"
@@ -375,7 +375,7 @@ const person = {
                                             onChange={(e)=>changeShift(w.id,element,e)}
                                           />
                                           :
-                                          'Not Available'
+                                          <div className="text-danger">Not Available</div>
                                          }
                                    </td>
                                    )
@@ -417,7 +417,7 @@ const person = {
                                        })}
                                        
                                        <span id={`shift-${w.id}-${element}`}></span>
-                                        {(aval[element])?
+                                        {(aval[element] && aval[element] != '')?
                                         <Select
                                             isMulti
                                             name="colors"
@@ -427,7 +427,7 @@ const person = {
                                             onChange={(e)=>changeShift(w.id,element,e)}
                                           />
                                           :
-                                          'Not Available'
+                                          <div className="text-danger">Not Available</div>
                                          }
                                    </td>
                                    )
