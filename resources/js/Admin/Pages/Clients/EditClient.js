@@ -528,8 +528,11 @@ export default function EditClient() {
                                         value={status}
                                         onChange={(e) => setStatus(e.target.value)}
                                     >
-                                        <option value="1" selected={status == 1}>Active</option>
-                                        <option value="0" selected={status == 0}>Inactive</option>
+                                        <option value="0" selected={status == 0}>Lead</option>
+                                        <option value="1" selected={status == 1}>Potential</option>
+                                        <option value="2" selected={status == 2}>Active</option>
+
+                                       
                                     </select>
                                     {errors.status ? (
                                         <small className="text-danger mb-1">
