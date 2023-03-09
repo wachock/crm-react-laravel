@@ -112,7 +112,7 @@ export default function PriceOffer() {
             }
         });
     };
-    
+
 
 
     useEffect(() => {
@@ -137,7 +137,7 @@ export default function PriceOffer() {
                                         <a href="javascript:void(0)" style={{marginTop: "10px", minWidth: "204px"}} className='btn btn-danger' onClick={(e) => RejectOffer(offer.id)}>{t('price_offer.button')}</a>
                                     </div>
                                 </div>
-                            </div> 
+                            </div>
                         </div>
                         <div className='row'>
                             <div className='col-sm-6'>
@@ -321,7 +321,16 @@ export default function PriceOffer() {
                             }
                             <div className='shift-20'>
                                 <h5 className='text-center ofrTitle p-2 m-3'>Window Cleaning</h5>
-                                <h4 className='mt-4'>3. {t('price_offer.window_any_height.title')}</h4>
+                                <h4 className='mt-4'>{t('price_offer.room_service.title')}</h4>
+                                <ul className='list-unstyled'>
+                                    <li><img src={star} /> {t('price_offer.room_service.p1')}</li>
+                                    <li><img src={star} /> {t('price_offer.room_service.p2')} </li>
+                                    <li><img src={star} /> {t('price_offer.room_service.p3')}</li>
+                                    <li><img src={star} /> {t('price_offer.room_service.p4')}</li>
+                                    <li><img src={star} /> {t('price_offer.room_service.p5')}</li>
+                                </ul>
+                                <h4 className='mt-4'>{t('price_offer.room_service.s1')}</h4>
+                                <h4 className='mt-4'>2. {t('price_offer.window_any_height.title')}</h4>
                                 <ul className='list-unstyled'>
                                     <li><img src={star} /> {t('price_offer.window_any_height.p1')}</li>
                                     <li><img src={star} /> {t('price_offer.window_any_height.p2')} </li>
@@ -330,7 +339,7 @@ export default function PriceOffer() {
                                     <li><img src={star} /> {t('price_offer.window_any_height.p5')}</li>
                                 </ul>
                                 <h5 className='text-center ofrTitle p-2 m-3'>Laundary Service</h5>
-                                <h4 className='mt-4'>4. {t('price_offer.laundary.title')}</h4>
+                                <h4 className='mt-4'>3. {t('price_offer.laundary.title')}</h4>
                                 <ul className='list-unstyled'>
                                     <li><img src={star} /> {t('price_offer.laundary.p1')}</li>
                                     <li><img src={star} /> {t('price_offer.laundary.p2')}</li>
