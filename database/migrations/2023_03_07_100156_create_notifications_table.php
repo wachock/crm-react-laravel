@@ -16,9 +16,22 @@ class CreateNotificationsTable extends Migration
         Schema::create('notifications', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->string('module');
+            $table->enum('type',[
+                'sent-meeting',
+                'accept-meeting',
+                'reject-meeting',
+                'accept-offer',
+                'reject-offer',
+                'contract-accept',
+                'contract-reject',
+                'client-cancel-job',
+                'worker-reschedule'
+            ]);
             $table->string('status');
-            $table->string('module_id')->nullable();
+            $table->string('meet_id')->nullable();
+            $table->string('offer_id')->nullable();
+            $table->string('contract_id')->nullable();
+            $table->string('job_id')->nullable();
             $table->timestamps();
         });
     }

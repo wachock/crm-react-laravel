@@ -137,7 +137,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin-api', 'scopes:ad
 
     // Tasks Api
     Route::resource('tasks', TaskController::class);
-
+    
+    //Notifications
+    Route::get('head-notice',[DashboardController::class,'headNotice'])->name('head-notice');
+    Route::post('notice',[DashboardController::class,'Notice'])->name('notice');
 
     //ManageTime
     Route::post('update-time',[DashboardController::class,'updateTime'])->name('update-time');

@@ -4,11 +4,13 @@ import { Link} from "react-router-link";
 import User from '../../Assets/image/user.png';
 import { useAlert } from "react-alert";
 import MobileHeader from "./MobileHeader";
+import Moment from 'moment';
 
 export default function AdminHeader() {
-  const alert = useAlert();
-   const navigate = useNavigate();
-    const [file,setFile] = useState("");4
+    const alert = useAlert();
+    const navigate = useNavigate();
+    const [file,setFile] = useState("");
+    const [notices,setNotices] = useState([]);
     const headers = {
       Accept: "application/json, text/plain, */*",
       "Content-Type": "application/json",
@@ -41,9 +43,18 @@ export default function AdminHeader() {
 
       });
   };
+
+  const headNotice = () =>{
+    axios.post('/api/admin/notice',{head:1},{headers})
+    .then((res)=>{
+      setNotices(res.data.notice);
+    })
+  }
   useEffect(() => {
       getSetting();
+      headNotice();
   }, []);
+ 
   return (
     <>
     <div className='AdminHeader hidden-xs'>
@@ -55,61 +66,26 @@ export default function AdminHeader() {
           <div className="col-sm-6">
             <div className="float-right d-flex">
               <div className="dropdown notification-bell">
-                <span className="counter">3</span>
+                <span className="counter">{notices.length}</span>
                 <button type="button" className="btn btn-link dropdown-toggle" data-toggle="dropdown">
                   <i className="fas fa-bell"></i>
                 </button>
                 <ul className="dropdown-menu">
-                  <li className="dropdown-item">
-                    <div className="agg-list">
-                      <div className="icons"><i className="fas fa-check-circle"></i></div>
-                      <div className="agg-text">
-                        <h6><a href='#'>John Doe</a> has cancelled the job for <a href='#'>Office Cleaning</a>, <a href='#'>Cleaning after renovation</a>, <a href='#'>Window cleaning</a> service</h6>
-                        <p>15 Mar 2023, 02:25 PM</p>
-                      </div>
-                    </div>
-                  </li>
 
-                  <li className="dropdown-item">
-                    <div className="agg-list">
-                      <div className="icons"><i className="fas fa-check-circle"></i></div>
-                      <div className="agg-text">
-                        <h6>Meeting scheduled with <a href='#'>Michael</a> on 24-03-2023 at 11:30 AM for <a href="#">Thorough cleaning</a> service</h6>
-                        <p>16 Mar 2023, 04:15 PM</p>
+                  {notices && notices.map((n,i)=>{
+                    return (
+                      <li className="dropdown-item">
+                      <div className="agg-list">
+                        <div className="icons"><i className="fas fa-check-circle"></i></div>
+                        <div className="agg-text">
+                          <h6 dangerouslySetInnerHTML={{__html:n.data}}/>
+                          <p>{Moment(n.created_at).format('DD MMM Y, HH:MM A')}</p>
+                        </div>
                       </div>
-                    </div>
-                  </li>
-
-                  <li className="dropdown-item">
-                    <div className="agg-list">
-                      <div className="icons"><i className="fas fa-check-circle"></i></div>
-                      <div className="agg-text">
-                        <h6><a href="#">Chris Bale</a> has approved the contract for <a href="#">Window Cleaning</a>, <a href="#">Thorough cleaning</a> service</h6>
-                        <p>15 Mar 2023, 12:45 PM</p>
-                      </div>
-                    </div>
-                  </li> 
-
-                  <li className="dropdown-item">
-                    <div className="agg-list">
-                      <div className="icons"><i className="fas fa-check-circle"></i></div>
-                      <div className="agg-text">
-                        <h6><a href="#">Diane V</a>  wants to reschedule the job for <a href="#">Window cleaning</a> service</h6>
-                        <p>15 Mar 2023, 12:45 PM</p>
-                      </div>
-                    </div>
-                  </li> 
-
-                  <li className="dropdown-item">
-                    <div className="agg-list">
-                      <div className="icons"><i className="fas fa-check-circle"></i></div>
-                      <div className="agg-text">
-                        <h6><a href="#">Kristine</a> has rejected the price offer for <a href="#">Cleaning after renovation</a> service</h6>
-                        <p>15 Mar 2023, 12:45 PM</p>
-                      </div>
-                    </div>
-                  </li> 
-
+                    </li>
+                    )
+                  })}
+                
                   {/* View all notification button */}
 
                   <li className="dropdown-item">
