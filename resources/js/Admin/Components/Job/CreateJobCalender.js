@@ -9,6 +9,7 @@ import moment from 'moment-timezone';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useAlert } from 'react-alert';
 import Select from 'react-select';
+import Swal from 'sweetalert2';
 
 
 export default function CreateJobCalender() {
@@ -263,33 +264,33 @@ export default function CreateJobCalender() {
      ['20pm-24am','evening 20pm-24am']
     ]
     const colourOptions = {'8am-16pm':[
-          { value: 0, label: 'full day - 8am-16pm' },
-          { value: 1, label: 'morning1 - 8am-10am' },
-          { value: 2, label: 'morning 2 - 10am-12pm' },
-          { value: 3, label: 'morning- 08am-12pm' },
-          { value: 4, label: 'noon1 -12pm-14pm' },
-          { value: 5, label: 'noon2 14pm-16pm' },
-          { value: 6, label: 'noon 12pm-16pm' },
+          { value: 0, label: 'full day -8am-16pm' },
+          { value: 1, label: 'morning1 -8am-10am' },
+          { value: 2, label: 'morning 2 -10am-12pm' },
+          { value: 3, label: 'morning -8am-12pm' },
+          { value: 4, label: 'noon1   -12pm-14pm' },
+          { value: 5, label: 'noon2 -14pm-16pm' },
+          { value: 6, label: 'noon -12pm-16pm' },
         ],
         '8am-12pm':[
-          { value: 0, label: 'morning1 - 8am-10am' },
-          { value: 1, label: 'morning2 - 10am-12pm' },
-          { value: 2, label: 'morning- 08am-12pm' },
+          { value: 0, label: 'morning1 -8am-10am' },
+          { value: 1, label: 'morning2 -10am-12pm' },
+          { value: 2, label: 'morning  -8am-12pm' },
         ],
         '12pm-16pm':[
-          { value: 0, label: 'noon1 -12pm-14pm' },
-          { value: 1, label: 'noon2 14pm-16pm' },
-          { value: 2, label: 'noon 12pm-16pm' },
+          { value: 0, label: 'af1 -12pm-14pm' },
+          { value: 1, label: 'af2 -14pm-16pm' },
+          { value: 2, label: 'afternoon -12pm-16pm' },
         ],
         '16pm-20pm':[
-          { value: 0, label: 'af1 16pm-18pm' },
-          { value: 1, label: 'af2 18pm-20pm' },
-          { value: 2, label: 'afternoon 16pm-20pm' },
+          { value: 0, label: 'ev1 -16pm-18pm' },
+          { value: 1, label: 'ev2 -18pm-20pm' },
+          { value: 2, label: 'Evening -16pm-20pm' },
         ],
         '20pm-24am':[
-          { value: 0, label: 'ev1 20pm-22pm' },
-          { value: 1, label: 'ev2 22pm-24pm' },
-          { value: 2, label: 'evening 20pm-24pm' },
+          { value: 0, label: 'night1 -20pm-22pm' },
+          { value: 1, label: 'night2 -22pm-24pm' },
+          { value: 2, label: 'night -20pm-24pm' },
         ],
 }
   const colourOptions1 = [
@@ -297,30 +298,40 @@ export default function CreateJobCalender() {
   { value: 1, label: 'morning - 8-12pm' },
 ]
 const changeShift = (w_id,date,e) =>{
-    console.log(e);
-     let w_n = $('#worker-'+w_id).html();
-     let  filtered = data.filter((d)=>{
-            if(d.date != date){
-                return d;
-            }
-        });
-     let shifts = '';
-     e.map((v)=>{
-           if(shifts==''){
-             shifts=v.label;
-           }else{
-             shifts=shifts+','+v.label;
-           }
-     });
-     var newdata = [...filtered, {
-                    worker_id: w_id,
-                    worker_name: w_n,
-                    date: date,
-                    shifts: shifts,
-                }]
-         setData(newdata);
+         console.log(e);
+         let w_n = $('#worker-'+w_id).html();
+         let  filtered = data.filter((d)=>{
+                if(d.date != date){
+                    return d;
+                }
+            });
+         let shifts = '';
+
+         // e.map((v)=>{
+         //       if(shifts==''){
+         //         shifts=v.label;
+         //       }else{
+         //         shifts=shifts+','+v.label;
+         //       }
+         // });
+         if(e != null){
+            shifts=e.label;
+         }
+         var newdata ;
+         if(shifts != ''){
+              newdata = [...filtered, {
+                            worker_id: w_id,
+                            worker_name: w_n,
+                            date: date,
+                            shifts: shifts,
+                        }]
+                 
+          }else{
+             newdata =[...filtered]
+          }
+          setData(newdata);
+          
 };
-console.log(data);
 const person = {
     '8am-16pm':"Full Day", 
     '8am-12pm':"Morning", 
@@ -328,6 +339,42 @@ const person = {
     '16pm-20pm':'Evening',
     '20pm-24am':'Night'
 };
+const filterOptions = (options,shifts) =>{
+    let new_options=[];
+    let new_s=[];
+    let new_end =[];
+    let full_day='';
+        shifts.map((s,i) =>{
+           if((s).split("-")[1] == '8am' && (s).split("-")[2] == '16pm'){
+                 full_day=s;
+           }
+              new_s.push((s).split("-")[1])
+               new_end.push((s).split("-")[2])
+        })
+    if(full_day == ''){
+            options.map((o,i) => {
+                let check =true;
+                if(options.length ==3 && i==2 && new_s.length>0){
+                      check=false;
+                 }
+                 if(options.length ==3 && new_s.length>0 && new_s.includes((options[2].label).split("-")[1]) && new_end.includes((options[2].label).split("-")[2])){
+                      check=false;
+                  }
+                    
+                  if(check){   
+                        if(!new_s.includes((o.label).split("-")[1])){
+                            new_options = [...new_options,{
+                                        value: o.value,
+                                        label: o.label,
+                                    }]
+                        }
+                   }
+                
+            })
+    }
+   return new_options;
+
+ }
     return (
         <>
           <ul className="nav nav-tabs" role="tablist">
@@ -363,14 +410,12 @@ const person = {
                                        {shifts.map((s,i)=>{
                                         return <div className="text-danger">{s}</div>
                                        })}
-                                       
-                                       <span id={`shift-${w.id}-${element}`}></span>
                                        {(aval[element] && aval[element] != '')?
                                         <Select
-                                            isMulti
                                             name="colors"
-                                            options={colourOptions[aval[element]]}
-                                            className="basic-multi-select"
+                                            options={filterOptions(colourOptions[aval[element]],shifts)}
+                                            className="basic-single"
+                                            isClearable={true}
                                             classNamePrefix="select"
                                             onChange={(e)=>changeShift(w.id,element,e)}
                                           />
@@ -416,13 +461,12 @@ const person = {
                                         return <div className="text-danger">{s}</div>
                                        })}
                                        
-                                       <span id={`shift-${w.id}-${element}`}></span>
                                         {(aval[element] && aval[element] != '')?
                                         <Select
-                                            isMulti
                                             name="colors"
-                                            options={colourOptions[aval[element]]}
-                                            className="basic-multi-select"
+                                            options={filterOptions(colourOptions[aval[element]],shifts)}
+                                            className="basic-single"
+                                            isClearable={true}
                                             classNamePrefix="select"
                                             onChange={(e)=>changeShift(w.id,element,e)}
                                           />
