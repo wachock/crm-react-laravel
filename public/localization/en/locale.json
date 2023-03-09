@@ -55,7 +55,18 @@
             "s2_5r": " Tasks: vents, air conditioners, lamps, electrical switches, panels, doors, handles and lintels.",
             "s2_8r": " Kitchen: kitchen cabinets (outside), thorough cleaning of the refrigerator, microwave, oven and gas, dishwasher and sink.",
             "basic": "Basic package which includes:",
-            "s3_8r": "Kitchen: kitchen cabinets (outside), microwave, oven and gas, dishwasher and sink."
+            "s3_8r": "Kitchen: kitchen cabinets (outside), microwave, oven and gas, dishwasher and sink.",
+            "cleaning_inside": "4. Cleaning Inside And Outside Windows At Any Height:",
+            "s4_1": "Professional cleaning of windows, blinds, rails, frames on a regular basis or on demand.",
+            "s4_2": "Cleaning all types of windows at all heights.",
+            "s4_3": "Nano coating option after cleaning the windows for clean windows over time.",
+            "s4_4": "Cleaning in rappelling by a professional team.",
+            "laundry_services": "5. Laundry Services, Fabric Cleaning And Upholstery:",
+            "s5_1": "Pick up on order day and return up to 48 hours",
+            "s5_2": "laundry services",
+            "s5_3": "Dry Cleaning",
+            "s5_4": "Ironing services",
+            "s5_5": "Cleaning of sofas, carpets and curtains"
         },
         "regular_services": {
             "rs1": "Room Service On A Regular Basis Customized To Your Requirements:",

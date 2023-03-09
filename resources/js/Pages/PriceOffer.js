@@ -228,6 +228,21 @@ export default function PriceOffer() {
                                                 <li><img src={star} /> {t('price_offer.thorough_cleaning.s1_9')}</li>
                                                 <li><img src={star} /> {t('price_offer.thorough_cleaning.s1_11')}</li>
                                             </ul>
+                                            <h4 className='mt-4'>{t('price_offer.thorough_cleaning.cleaning_inside')}</h4>
+                                            <ul className='list-unstyled'>
+                                                <li><img src={star} /> {t('price_offer.thorough_cleaning.s4_1')}</li>
+                                                <li><img src={star} /> {t('price_offer.thorough_cleaning.s4_2')}</li>
+                                                <li><img src={star} /> {t('price_offer.thorough_cleaning.s4_3')}</li>
+                                                <li><img src={star} /> {t('price_offer.thorough_cleaning.s4_4')}</li>
+                                            </ul>
+                                            <h4 className='mt-4'>{t('price_offer.thorough_cleaning.laundry_services')}</h4>
+                                            <ul className='list-unstyled'>
+                                                <li><img src={star} /> {t('price_offer.thorough_cleaning.s5_1')}</li>
+                                                <li><img src={star} /> {t('price_offer.thorough_cleaning.s5_2')}</li>
+                                                <li><img src={star} /> {t('price_offer.thorough_cleaning.s5_3')}</li>
+                                                <li><img src={star} /> {t('price_offer.thorough_cleaning.s5_4')}</li>
+                                                <li><img src={star} /> {t('price_offer.thorough_cleaning.s5_5')}</li>
+                                            </ul>
 
                                         </div>
                                     </> : ''
