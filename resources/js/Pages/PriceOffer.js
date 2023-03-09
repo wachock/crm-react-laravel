@@ -309,8 +309,7 @@ export default function PriceOffer() {
                                                     <li><img src={star} /> {t('price_offer.regular_services.rs1_p4')}</li>
                                                     <li><img src={star} /> {t('price_offer.regular_services.rs1_p5')}</li>
                                                 </ul>
-                                                <h4 className='mt-4'>2. {t('price_offer.others.o2_title')} {s.other_title}</h4>
-                                                <img src={t('price_offer.regular_services.rs2_img')} className='img-fluid' alt='Other Services' />
+                                                
 
                                             </div>
                                         </>)
@@ -336,25 +335,25 @@ export default function PriceOffer() {
                                         </>)
                                     }
 
-                                    
-                                        return (<>
-                                            <div>
-                                                <h5 className='text-center ofrTitle p-2 m-3'>{t('price_offer.laundary.service_name')}</h5>
-                                                <h4 className='mt-4'>4. {t('price_offer.laundary.title')}</h4>
-                                                <ul className='list-unstyled'>
-                                                    <li><img src={star} /> {t('price_offer.laundary.p1')}</li>
-                                                    <li><img src={star} /> {t('price_offer.laundary.p2')}</li>
-                                                    <li><img src={star} /> {t('price_offer.laundary.p3')}</li>
-                                                    <li><img src={star} /> {t('price_offer.laundary.p4')}</li>
-                                                    <li><img src={star} /> {t('price_offer.laundary.p5')}</li>
-                                                </ul>
-                                            </div>
-                                        </>)
+
+                                    return (<>
+                                        <div>
+                                            <h5 className='text-center ofrTitle p-2 m-3'>{t('price_offer.laundary.service_name')}</h5>
+                                            <h4 className='mt-4'>4. {t('price_offer.laundary.title')}</h4>
+                                            <ul className='list-unstyled'>
+                                                <li><img src={star} /> {t('price_offer.laundary.p1')}</li>
+                                                <li><img src={star} /> {t('price_offer.laundary.p2')}</li>
+                                                <li><img src={star} /> {t('price_offer.laundary.p3')}</li>
+                                                <li><img src={star} /> {t('price_offer.laundary.p4')}</li>
+                                                <li><img src={star} /> {t('price_offer.laundary.p5')}</li>
+                                            </ul>
+                                        </div>
+                                    </>)
                                 }
 
-                                    
 
-                                })};
+
+                            })};
 
                             <div className='services shift-20'>
                                 <h3 class="card-title">{t('price_offer.service_title')}</h3>
@@ -362,11 +361,10 @@ export default function PriceOffer() {
                                     <table class="table table-sm table-bordered table-striped">
                                         <thead>
                                             <tr>
-                                                <th style={{ width: "20%" }}>{t('price_offer.service_txt')}</th>
-                                                <th style={{ width: "20%" }}>{t('price_offer.type')}</th>
-                                                <th style={{ width: "22%" }}>{t('price_offer.freq_s_txt')}</th>
-                                                <th style={{ width: "16%" }}>{t('price_offer.job_h_txt')}</th>
-                                                <th >{t('price_offer.hourly_rate')}</th>
+                                                <th >{t('price_offer.service_txt')}</th>
+
+                                                <th>{t('price_offer.freq_s_txt')}</th>
+
                                                 <th >{t('price_offer.amount_txt')}</th>
                                             </tr>
                                         </thead>
@@ -374,17 +372,9 @@ export default function PriceOffer() {
                                             {services && services.map((s, i) => {
                                                 return (<tr>
                                                     <td>{s.name}</td>
-                                                    <td>{
-                                                        (i18next.language == 'heb')
-                                                            ? (s.type == 'hourly')
-                                                                ? 'מדי שעה' : 'תוקן'
-                                                            : (s.type == 'hourly')
-                                                                ? 'hourly' : 'fixed'
 
-                                                    }</td>
                                                     <td>{s.freq_name}</td>
-                                                    <td>{s.jobHours} {t('price_offer.hours')}</td>
-                                                    <td>{s.rateperhour ? s.rateperhour + " ILS" : '--'}</td>
+
                                                     <td>{s.totalamount} ILS</td>
 
 
