@@ -9,10 +9,12 @@ import swal from 'sweetalert';
 import Moment from 'moment';
 import { useTranslation } from "react-i18next";
 import i18next from 'i18next';
+import { useNavigate } from 'react-router-dom';
 
 export default function WorkContract() {
 
     const { t } = useTranslation();
+    const navigate = useNavigate();
     const [offer,setoffer]         = useState([]);
     const [services,setServices]   = useState([]);
     const [client,setClient]       = useState([]);
@@ -112,6 +114,34 @@ export default function WorkContract() {
         })
     }
 
+    const RejectContract = (e,id)=>{
+      e.preventDefault();
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You want to reject this Contract!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, Reject",
+    }).then((result) => {
+        if (result.isConfirmed) {
+            axios
+                .post(`/api/client/reject-contract`,{id:id})
+                .then((response) => {
+                    Swal.fire(
+                        "Reject",
+                        "Contract has been rejected",
+                        "success"
+                    );
+                    setTimeout(() => {
+                       navigate('/client/login');
+                    }, 1000);
+                });
+        }
+    });
+    }
+
     useEffect(()=>{
         getOffer();
     },[]);
@@ -128,6 +158,7 @@ export default function WorkContract() {
                     <div className='col-sm-6'>
                         <div className='mt-2 float-right'>
                             <input className='btn btn-pink' onClick={handleAccept} value={t('work-contract.accept_contract')} />
+                            <input className='btn btn-danger m-2' onClick={(e) => RejectContract(e,contract.id)} value={t('work-contract.button_reject')} />
                         </div>
                     </div>
                 </div>

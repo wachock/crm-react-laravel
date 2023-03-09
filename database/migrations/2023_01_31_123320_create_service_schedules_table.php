@@ -16,6 +16,7 @@ class CreateServiceSchedulesTable extends Migration
         Schema::create('service_schedules', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('name_heb');
             $table->integer('cycle');
             $table->string('period');
             $table->integer('status');

@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 export default function AddService() {
 
     const [service, setService]  = useState([]);
+    const [serviceHeb, setServiceHeb]  = useState([]);
     const [template,setTemplate] = useState([]);
     const [status, setStatus] = useState(0);
     const [errors, setErrors] = useState([]);
@@ -22,6 +23,7 @@ export default function AddService() {
         e.preventDefault();
         const data = {
             name: service,
+            heb_name:serviceHeb,
             template:template,
             status: status,
         };
@@ -53,7 +55,7 @@ export default function AddService() {
                                     <div className="col-sm-12">
                                         <div className="form-group">
                                             <label className="control-label">
-                                                Service *
+                                                Service- En*
                                             </label>
                                             <input
                                                 type="text"
@@ -67,7 +69,30 @@ export default function AddService() {
                                             />
                                             {errors.service ? (
                                                 <small className="text-danger mb-1">
-                                                    {errors.service}
+                                                    {errors.name}
+                                                </small>
+                                            ) : (
+                                                ""
+                                            )}
+                                        </div>
+
+                                        <div className="form-group">
+                                            <label className="control-label">
+                                                Service- Heb*
+                                            </label>
+                                            <input
+                                                type="text"
+                                                value={serviceHeb}
+                                                onChange={(e) =>
+                                                    setServiceHeb(e.target.value)
+                                                }
+                                                className="form-control"
+                                                required
+                                                placeholder="Enter service hebrew name"
+                                            />
+                                            {errors.service ? (
+                                                <small className="text-danger mb-1">
+                                                    {errors.heb_name}
                                                 </small>
                                             ) : (
                                                 ""

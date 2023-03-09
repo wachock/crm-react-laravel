@@ -43,14 +43,6 @@ class ClientEmailController extends Controller
       $id = $request->id;
       $offer = Offer::where('id',$id)->with('client')->get();
       $services = ($offer[0]->services != '') ? json_decode($offer[0]->services) : [];
-      if(isset($services)){
-
-          foreach( $services as $service){
-             $name = Services::where('id',$service->service)->get('name')->first()->toArray(); 
-             $service->name = $name['name'];
-          }
-          $offer[0]->services = json_encode($services);
-      }
      
       return response()->json([
           'offer' => $offer
@@ -176,13 +168,13 @@ class ClientEmailController extends Controller
   public function RejectContract(Request $request){
      
     try{
-      Contract::where('unique_hash',$request->unique_hash)->update($request->input());
-      $contract = Contract::with('client')->where('unique_hash',$request->unique_hash)->get()->first();
+      Contract::where('id',$request->id)->update(['status' =>'declined']);
+      $contract = Contract::with('client')->where('id',$request->id)->get()->first();
       notifications::create([
         'user_id'=>$contract->client_id,
         'type'=>'contract-reject',
         'contract_id'=>$contract->id,
-        'status' => 'accepted'
+        'status' => 'declined'
       ]);
       return response()->json([
         'message'=>"Contract has been rejected"

@@ -119,7 +119,7 @@ export default function ProfileDetails({ client, offerStatus , scheduleStatus , 
                                         </div>
                                         <div className='col-sm-12'>
                                             <div className='form-group'>
-                                                <p><a className='btn btn-success' href='#'>Edit client</a></p>
+                                                <p><Link to={`/admin/edit-client/${param.id}`} className="btn btn-success"> Edit Client</Link></p>
                                             </div>
                                         </div>
                                     </div>

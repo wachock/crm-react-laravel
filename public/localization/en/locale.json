@@ -103,6 +103,7 @@
             "p5": "Cleaning in rappelling by a professional team."
         },
         "laundary": {
+            "service_name":"Laundary Service",
             "title": "Laundry Services, Fabric Cleaning And Upholstery:",
             "p1": "Pick up on order day and return up to 48 hours.",
             "p2": "Laundry services.",
@@ -160,6 +161,7 @@
         "between": "Between:",
         "broom_service": "Broom Service L.M. Ltd Private Company no. 515184208",
         "from": "From 69 Jerusalem st. , Bat Yam (Hereinafter: the Company)",
+        "button_reject":"Reject Contract",
         "first_party_title": "Of the First Party",
         "full_name": "Full Name:",
         "city": "City:",

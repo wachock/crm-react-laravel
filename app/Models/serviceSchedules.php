@@ -10,6 +10,7 @@ class serviceSchedules extends Model
     use HasFactory;
     protected $fillable = [
         'name',
+        'name_heb',
         'cycle',
         'period',
         'status'

@@ -39,7 +39,7 @@ export default function Services() {
             .get("/api/admin/services?page=" + currentPage, { headers })
             .then((response) => {
                 if (response.data.services.data.length > 0) {
-                    setservices(response.data.services.data);
+                    setServices(response.data.services.data);
                     setPageCount(response.data.services.last_page);
                 } else {
                     setLoading("No service found");
@@ -128,9 +128,10 @@ export default function Services() {
                                         <Table className="table table-bordered">
                                             <Thead>
                                                 <Tr>
-                                                    <Th scope="col" onClick={(e)=>sortTable('id')}>ID</Th>
-                                                    <Th scope="col" onClick={(e)=>sortTable('name')}>Service</Th>
-                                                    <Th scope="col" onClick={(e)=>sortTable('status')}>Status</Th>
+                                                    <Th scope="col" >ID</Th>
+                                                    <Th scope="col" >Service - En </Th>
+                                                    <Th scope="col" >Service - Heb </Th>
+                                                    <Th scope="col" >Status</Th>
                                                     <Th scope="col">Action</Th>
                                                 </Tr>
                                             </Thead>
@@ -140,6 +141,7 @@ export default function Services() {
                                                         <Tr key={index}>
                                                             <Td>{item.id}</Td>
                                                             <Td>{item.name}</Td>
+                                                            <Td>{item.heb_name}</Td>
                                                             <Td>
                                                                 {item.status == 0
                                                                     ? "Inactive"
