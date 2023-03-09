@@ -177,7 +177,9 @@ export default function Contract() {
                                                                     <i className="fa fa-ellipsis-vertical"></i>
                                                                 </button>
                                                                 <div className="dropdown-menu">
+                                                                    { (c.status == 'verified') &&
                                                                     <Link to={`/admin/create-job/${c.id}`} className="dropdown-item">Create Job</Link>
+                                                                    }
                                                                     <Link to={`/admin/view-contract/${c.id}`} className="dropdown-item">View</Link>
                                                                     <button className="dropdown-item" onClick={() => handleDelete(c.id)}
                                                                     >Delete</button>
