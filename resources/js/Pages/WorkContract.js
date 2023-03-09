@@ -33,12 +33,12 @@ export default function WorkContract() {
 
     const handleAccept = (e) =>{
 
-        if(!ctype){ swal('Please select card type','','error'); return false;}
-        if(!cname){ swal('Please enter card holder name','','error'); return false;}
-        if(!cvv)  { swal('Please select card cvv','','error'); return false;}
-        if(!signature){ swal('Please sign the contract','','error'); return false;}
-        if(!signature2){ swal('Please enter signature on the card','','error'); return false;}
-        if(cvv.length < 3)  { swal('Invalid cvv','','error'); return false;}
+        if(!ctype){ swal(t('work-contract.messages.card_type_err'),'','error'); return false;}
+        if(!cname){ swal(t('work-contract.messages.card_holder_err'),'','error'); return false;}
+        if(!cvv)  { swal(t('work-contract.messages.cvv_err'),'','error'); return false;}
+        if(!signature2){ swal(t('work-contract.messages.sign_card_err'),'','error'); return false;}
+        if(!signature){ swal(t('work-contract.messages.sign_err'),'','error'); return false;}
+        if(cvv.length < 3)  { swal(t('work-contract.messages.invalid_cvv'),'','error'); return false;}
 
         const data = {
             unique_hash:param.id,
@@ -59,7 +59,7 @@ export default function WorkContract() {
             if(res.data.error){
                 swal('',res.data.error,'error');
             } else{
-            swal(res.data.message,'','success')
+            swal(t('work-contract.messages.success'),'','success')
             setTimeout(()=>{
                 window.location.href="/client/login";
             },1000)
@@ -117,21 +117,22 @@ export default function WorkContract() {
     const RejectContract = (e,id)=>{
       e.preventDefault();
       Swal.fire({
-        title: "Are you sure?",
-        text: "You want to reject this Contract!",
+        title: t('work-contract.messages.reject_title'),
+        text: t('work-contract.messages.reject_text'),
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, Reject",
+        cancelButtonText: t('work-contract.messages.cancel'),
+        confirmButtonText: t('work-contract.messages.yes_reject'),
     }).then((result) => {
         if (result.isConfirmed) {
             axios
                 .post(`/api/client/reject-contract`,{id:id})
                 .then((response) => {
                     Swal.fire(
-                        "Reject",
-                        "Contract has been rejected",
+                        t('work-contract.messages.reject'),
+                        t('work-contract.messages.reject_msg'),
                         "success"
                     );
                     setTimeout(() => {

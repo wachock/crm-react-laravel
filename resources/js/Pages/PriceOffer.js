@@ -79,7 +79,7 @@ export default function PriceOffer() {
                 } else {
                     btn[0].remove();
                     btn[1].remove();
-                    let msg = 'Thank you for accepting the offer, Please check our next email for contract and fill  all the necessary details';
+                    let msg = t('price_offer.messages.success');
                     swal(msg, '', 'success');
                 }
             })
@@ -88,21 +88,22 @@ export default function PriceOffer() {
 
     const RejectOffer = (id) => {
         Swal.fire({
-            title: "Are you sure?",
-            text: "You want to reject this offer!",
+            title: t('price_offer.messages.reject_title'),
+            text: t('price_offer.messages.reject_text'),
             icon: "warning",
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, Reject",
+            cancelButtonText:t('price_offer.messages.cancel'),
+            confirmButtonText: t('price_offer.messages.yes_reject'),
         }).then((result) => {
             if (result.isConfirmed) {
                 axios
                     .post(`/api/client/reject-offer`, { id: id })
                     .then((response) => {
                         Swal.fire(
-                            "Reject",
-                            "Offer has been rejected",
+                            t('price_offer.messages.reject'),
+                            t('price_offer.messages.reject_msg'),
                             "success"
                         );
                         setTimeout(() => {
@@ -300,7 +301,7 @@ export default function PriceOffer() {
                                             <div className='shift-20'>
 
                                                 <h5 className='text-center ofrTitle p-2 m-3'>{s.other_title}</h5>
-                                                <h4 className='mt-4'>1.  {t('price_offer.others.title')} {s.other_title}</h4>
+                                                <h4 className='mt-4'>1. {s.other_title}</h4>
 
                                                 <ul className='list-unstyled'>
                                                     <li><img src={star} /> {t('price_offer.regular_services.rs1_p1')}</li>
@@ -369,7 +370,13 @@ export default function PriceOffer() {
                                         <tbody>
                                             {services && services.map((s, i) => {
                                                 return (<tr>
-                                                    <td>{s.name}</td>
+                                                   
+                                                    <td>{
+                                                         (s.service == 10)
+                                                          ?s.other_title 
+                                                          :s.name
+                                                    
+                                                    }</td>
 
                                                     <td>{s.freq_name}</td>
 

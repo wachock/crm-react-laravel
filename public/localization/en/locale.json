@@ -172,6 +172,16 @@
             "s6": "Short-term Service Asset Management Quietly:",
             "s6_p1": "we offer short term airbnb services through Bell boy app for more details and registration:",
             "s6_p2": "https://www.bell-boy.com"
+        },
+        "messages":{
+            "success":"Thank you for accepting the offer, Please check our next email for contract and fill  all the necessary details",
+            "reject_title":"Are you sure?",
+            "reject_text":"You want to reject this Offer!",
+            "yes_reject":"Yes, Reject",
+            "cancel":"Cancel",
+            "reject":"Reject",
+            "reject_msg":"Offer has been rejected"
+
         }
     },
     "work-contract": {
@@ -254,7 +264,23 @@
         "the_tenant_subtitle": "The Tenant",
         "draw_signature": "Draw Signature with mouse or touch",
         "the_company": "The Company",
-        "accept_contract": "Accept Contract"
+        "accept_contract": "Accept Contract",
+        "messages":{
+            "card_type_err":"Please select card type",
+            "card_holder_err":"Please enter card holder name",
+            "cvv_err":"Please select card cvv",
+            "sign_card_err":"Please enter signature on the card",
+            "sign_err":"Please sign the contract",
+            "invalid_cvv":"Invalid cvv",
+            "success":"Thanks, for accepting contract",
+            "reject_title":"Are you sure?",
+            "reject_text":"You want to reject this Contract!",
+            "yes_reject":"Yes, Reject",
+            "cancel":"Cancel",
+            "reject":"Reject",
+            "reject_msg":"Contract has been rejected"
+            
+        }
     },
     "client": {
         "welcome": "welcome",
