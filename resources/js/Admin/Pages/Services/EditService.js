@@ -8,6 +8,7 @@ import axios from "axios";
 export default function EditService() {
 
     const [service, setService] = useState([]);
+    const [serviceHeb, setServiceHeb] = useState([]);
     const [template,setTemplate]= useState([]);
     const [status, setStatus] = useState(0);
     const [errors, setErrors] = useState([]);
@@ -25,6 +26,7 @@ export default function EditService() {
         e.preventDefault();
         const data = {
             name: service,
+            heb_name:serviceHeb,
             template:template,
             status: status,
         };
@@ -49,6 +51,7 @@ export default function EditService() {
             .get(`/api/admin/services/${params.id}/edit`, { headers })
             .then((res) => {
                 setService(res.data.service.name);
+                setServiceHeb(res.data.service.heb_name);
                 setTemplate(res.data.service.template);
                 setStatus(res.data.service.status);
             });
@@ -93,7 +96,33 @@ export default function EditService() {
                                                 ""
                                             )}
                                         </div>
+
+                                        <div className="form-group">
+                                            <label className="control-label">
+                                                Service- Heb*
+                                            </label>
+                                            <input
+                                                type="text"
+                                                value={serviceHeb}
+                                                onChange={(e) =>
+                                                    setServiceHeb(e.target.value)
+                                                }
+                                                className="form-control"
+                                                required
+                                                placeholder="Enter service hebrew name"
+                                            />
+                                            {errors.service ? (
+                                                <small className="text-danger mb-1">
+                                                    {errors.heb_name}
+                                                </small>
+                                            ) : (
+                                                ""
+                                            )}
+                                        </div>
+
                                     </div>
+
+                                 
 
                                     <div className="col-sm-12">
                                         <div className="form-group">

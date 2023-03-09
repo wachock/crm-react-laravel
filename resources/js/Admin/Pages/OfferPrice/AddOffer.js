@@ -83,24 +83,36 @@ export default function AddOffer() {
       })
 
   }
-  const getServices = () => {
+  const getServices = (lng) => {
     axios
-      .get('/api/admin/all-services', { headers })
+      .post('/api/admin/all-services',{lng}, { headers })
       .then((res) => {
         setAllServices(res.data.services);
       })
   }
-  const getFrequency = () => {
+  const getFrequency = (lng) => {
     axios
-      .get('/api/admin/all-service-schedule', { headers })
+      .post('/api/admin/all-service-schedule',{lng}, { headers })
       .then((res) => {
         setAllFreq(res.data.schedules);
       })
   }
+
+  const handleServiceLng = (client) =>{
+    axios
+    .get(`/api/admin/clients/${client}`,{headers})
+    .then((res)=>{
+      const lng = res.data.client.lng;
+      getServices(lng);
+      getFrequency(lng)
+    })
+  }
+
   useEffect(() => {
     getClients();
-    getServices();
-    getFrequency();
+    if(cid){
+    handleServiceLng(cid);
+  }
   }, []);
 
   const cData = AllClients.map((c, i) => {
@@ -265,7 +277,7 @@ export default function AddOffer() {
 
                     <div className="form-group">
                       <label className="control-label">Client Name</label>
-                      <SelectPicker data={cData} value={client} onChange={(value, event) => setClient(value)} size="lg" required />
+                      <SelectPicker data={cData} value={client} onChange={(value, event) => {setClient(value);handleServiceLng(value);}} size="lg" required />
                     </div>
 
                     <div className="card card-dark">

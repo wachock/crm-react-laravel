@@ -100,7 +100,8 @@ export default function ServiceSchedule() {
                                         <Thead>
                                             <Tr>
                                                 <Th scope="col">ID</Th>
-                                                <Th scope="col">Schedule</Th>
+                                                <Th scope="col">Schedule- En</Th>
+                                                <Th scope="col">Schedule- Heb</Th>
                                                 <Th scope="col">Status</Th>
                                                 <Th scope="col">Action</Th>
                                             </Tr>
@@ -111,6 +112,7 @@ export default function ServiceSchedule() {
                                                     <Tr key={index}>
                                                         <Td>{item.id}</Td>
                                                         <Td>{item.name}</Td>
+                                                        <Td>{item.name_heb}</Td>
                                                         <Td>
                                                             {item.status == 0
                                                                 ? "Inactive"

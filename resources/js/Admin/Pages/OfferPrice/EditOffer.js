@@ -85,12 +85,21 @@ export default function EditOffer() {
       })
 
   }
-  const getServices = () => {
+  const getServices = (lng) => {
     axios
-      .get('/api/admin/all-services', { headers })
+      .post('/api/admin/all-services',{lng}, { headers })
       .then((res) => {
         setAllServices(res.data.services);
       })
+  }
+
+  const handleServiceLng = (client) =>{
+    axios
+    .get(`/api/admin/clients/${client}`,{headers})
+    .then((res)=>{
+      getServices(res.data.client.lng);
+      getFrequency(res.data.client.lng);
+    })
   }
 
   const cData = AllClients.map((c, i) => {
@@ -229,6 +238,7 @@ export default function EditOffer() {
       .then((res) => {
         const d = res.data.offer[0];
         setClient(d.client_id);
+        handleServiceLng(d.client_id);
         setDescription(d.description);
         setStatus(d.status);
         setType(d.type);
@@ -237,19 +247,18 @@ export default function EditOffer() {
       });
   }
 
-  const getFrequency = () => {
+  const getFrequency = (lng) => {
     axios
-      .get('/api/admin/all-service-schedule', { headers })
+      .post('/api/admin/all-service-schedule',{lng}, { headers })
       .then((res) => {
         setAllFreq(res.data.schedules);
       })
   }
+ 
 
   useEffect(() => {
     getClients();
-    getServices();
     getOffer();
-    getFrequency();
   }, []);
 
   const handleOther = (e) => {
@@ -279,7 +288,7 @@ export default function EditOffer() {
                   <div className='col-sm-12'>
                     <div className="form-group">
                         <label className="control-label">Client Name</label>
-                        <SelectPicker data={cData} defaultValue={client} value={client} onChange={(value, event) => setClient(value)} size="lg" required />
+                        <SelectPicker data={cData} defaultValue={client} value={client} onChange={(value, event) => {setClient(value);handleServiceLng(value)}} size="lg" required />
                     </div>
                    
 

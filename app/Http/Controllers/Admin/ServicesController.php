@@ -34,6 +34,22 @@ class ServicesController extends Controller
         ], 200);
     }
 
+    public function AllServicesByLng(Request $request){
+        $services = Services::where('status',1)->get();
+        $result = [];
+        if(isset($services)){
+            foreach ($services as $service){
+                $res['name'] = ($request->lng == 'en') ? $service->name : $service->heb_name;
+                $res['id']  = $service->id;
+                array_push($result,$res);
+            }
+        }
+        return response()->json([
+            'services'       => $result,            
+        ], 200);
+        
+    }
+
     /**
      * Show the form for creating a new resource.
      *
