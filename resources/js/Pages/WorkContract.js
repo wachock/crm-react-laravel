@@ -9,10 +9,12 @@ import swal from 'sweetalert';
 import Moment from 'moment';
 import { useTranslation } from "react-i18next";
 import i18next from 'i18next';
+import { useNavigate } from 'react-router-dom';
 
 export default function WorkContract() {
 
     const { t } = useTranslation();
+    const navigate = useNavigate();
     const [offer,setoffer]         = useState([]);
     const [services,setServices]   = useState([]);
     const [client,setClient]       = useState([]);
@@ -31,12 +33,12 @@ export default function WorkContract() {
 
     const handleAccept = (e) =>{
 
-        if(!ctype){ swal('Please select card type','','error'); return false;}
-        if(!cname){ swal('Please enter card holder name','','error'); return false;}
-        if(!cvv)  { swal('Please select card cvv','','error'); return false;}
-        if(!signature){ swal('Please sign the contract','','error'); return false;}
-        if(!signature2){ swal('Please enter signature on the card','','error'); return false;}
-        if(cvv.length < 3)  { swal('Invalid cvv','','error'); return false;}
+        if(!ctype){ swal(t('work-contract.messages.card_type_err'),'','error'); return false;}
+        if(!cname){ swal(t('work-contract.messages.card_holder_err'),'','error'); return false;}
+        if(!cvv)  { swal(t('work-contract.messages.cvv_err'),'','error'); return false;}
+        if(!signature2){ swal(t('work-contract.messages.sign_card_err'),'','error'); return false;}
+        if(!signature){ swal(t('work-contract.messages.sign_err'),'','error'); return false;}
+        if(cvv.length < 3)  { swal(t('work-contract.messages.invalid_cvv'),'','error'); return false;}
 
         const data = {
             unique_hash:param.id,
@@ -57,7 +59,7 @@ export default function WorkContract() {
             if(res.data.error){
                 swal('',res.data.error,'error');
             } else{
-            swal(res.data.message,'','success')
+            swal(t('work-contract.messages.success'),'','success')
             setTimeout(()=>{
                 window.location.href="/client/login";
             },1000)
@@ -96,7 +98,7 @@ export default function WorkContract() {
                if(res.data.offer[0].client.lng == 'heb') {
                 import ('../Assets/css/rtl.css')
                 document.querySelector('html').setAttribute('dir','rtl')
-                } 
+                }
                 else
                  document.querySelector('html').removeAttribute('dir');
 
@@ -110,6 +112,35 @@ export default function WorkContract() {
                 setContract([]);
             };
         })
+    }
+
+    const RejectContract = (e,id)=>{
+      e.preventDefault();
+      Swal.fire({
+        title: t('work-contract.messages.reject_title'),
+        text: t('work-contract.messages.reject_text'),
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        cancelButtonText: t('work-contract.messages.cancel'),
+        confirmButtonText: t('work-contract.messages.yes_reject'),
+    }).then((result) => {
+        if (result.isConfirmed) {
+            axios
+                .post(`/api/client/reject-contract`,{id:id})
+                .then((response) => {
+                    Swal.fire(
+                        t('work-contract.messages.reject'),
+                        t('work-contract.messages.reject_msg'),
+                        "success"
+                    );
+                    setTimeout(() => {
+                       navigate('/client/login');
+                    }, 1000);
+                });
+        }
+    });
     }
 
     useEffect(()=>{
@@ -128,20 +159,22 @@ export default function WorkContract() {
                     <div className='col-sm-6'>
                         <div className='mt-2 float-right'>
                             <input className='btn btn-pink' onClick={handleAccept} value={t('work-contract.accept_contract')} />
+                            <input className='btn btn-danger mt-2' onClick={(e) => RejectContract(e,contract.id)} value={t('work-contract.button_reject')} />
                         </div>
                     </div>
                 </div>
-                <h4 className='inHead'>{t('work-contract.inHead')}</h4>
+                <h4 className='inHead' style={{ whiteSpace: 'pre-wrap' }}>{t('work-contract.inHead')}</h4>
                 <div className='signed'>
                     <p>{t('work-contract.signed')} <span>{client.city ? client.city : 'NA'}</span> on <span>{Moment(contract.created_at).format('DD MMMM,Y')}</span></p>
                 </div>
                 <div className='between'>
                     <p>{t('work-contract.between')}</p>
                     <p>{t('work-contract.broom_service')}</p>
-                    <p>{t('work-contract.from')}</p>
+                    <p style={{ whiteSpace: 'pre-wrap' }}>{t('work-contract.from')}</p>
                 </div>
                 <div className='first'>
                     <h2 className='mb-4'>{t('work-contract.first_party_title')}</h2>
+                    <p style={{ textAlign: 'center' }}>{t('work-contract.and')}</p>
                     {offer && offer.map((ofr,i)=>{
                     let cl = ofr.client;
 
@@ -167,6 +200,7 @@ export default function WorkContract() {
                         <li className='list-inline-item ml-2'>{t('work-contract.telephone')} <span>{ cl.phone }</span></li>
                         <li className='list-inline-item'>{t('work-contract.email')} <span>{ cl.email }</span></li>
                     </ul>
+                    <p style={{ textAlign: 'center' }}>{t('work-contract.from')}</p>
                     </>
                     )
 
@@ -233,16 +267,16 @@ export default function WorkContract() {
                                 <td style={{width: "60%"}}>{t('work-contract.the_service_txt')}</td>
                                 <td>
                                 {services && services.map((s,i)=>{
-                                    
-                                
+
+
                                        if((services.length -1) != i && services.service != 10)
                                         return s.name +", ";
-                                        else if(services.service == 10) 
+                                        else if(services.service == 10)
                                         return s.other_title+" ";
-                                        else 
+                                        else
                                         return s.name;
-                        
-                                    
+
+
                                 })}
                                 </td>
                             </tr>
@@ -280,7 +314,7 @@ export default function WorkContract() {
                                   if((services.length)-1 != i )
                                   return s.totalamount + " ILS + VAT for " + s.name + ", " + s.freq_name+", ";
                                   else if(services.service == 10){
-                                   
+
                                       if((services.length)-1 != i )
                                       return s.totalamount + " ILS + VAT for " + s.other_title + ", " + s.freq_name+", ";
                                       else
@@ -365,7 +399,7 @@ export default function WorkContract() {
                     <div className='agg-list'>
                         <div className='icons'><img src={star} /></div>
                         <div className='agg-text'>
-                            <p>{t('work-contract.tenant_txt_5')}</p>
+                            <p style={{ whiteSpace: 'pre-wrap' }}>{t('work-contract.tenant_txt_5')}</p>
                         </div>
                     </div>
                     <div className='agg-list'>
@@ -390,7 +424,7 @@ export default function WorkContract() {
                     <div className='agg-list'>
                         <div className='icons'><img src={star} /></div>
                         <div className='agg-text'>
-                            <p>{t('work-contract.company_txt_1')}</p>
+                            <p style={{ whiteSpace: 'pre-wrap' }}>{t('work-contract.company_txt_1')}</p>
                         </div>
                     </div>
                     <div className='agg-list'>

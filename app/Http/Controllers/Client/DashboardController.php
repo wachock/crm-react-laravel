@@ -10,6 +10,7 @@ use App\Models\Schedule;
 use App\Models\Contract;
 use App\Models\Files;
 use App\Models\Client;
+use App\Models\notifications;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -335,6 +336,13 @@ class DashboardController extends Controller
         $job->status = $request->status;
         $job->rate  = $request->total;
         $job->save();
+
+        notifications::create([
+            'user_id'=>$job->client->id,
+            'type'=>'client-cancel-job',
+            'job_id'=>$job->id,
+            'status' => 'declined'
+          ]);
 
              $admin = Admin::find(1)->first();
              \App::setLocale('en');

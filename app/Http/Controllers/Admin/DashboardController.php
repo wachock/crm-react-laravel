@@ -118,6 +118,13 @@ class DashboardController extends Controller
             "</a> has rejected the <a href='/admin/view-contract/".$contract->id."'> contract </a> for <a href='/admin/view-offer/".$contract->offer->id."'> offer</a>";
 
           }
+          if($notice->type == 'client-cancel-job'){
+
+            $job = Job::with('offer')->where('id',$notice->job_id)->get()->first();
+            $noticeAll[$k]->data = "<a href='/admin/view-client/".$notice->client->id."'>".$notice->client->firstname." ".$notice->client->lastname.
+            "</a> has cancelled the  <a href='/admin/view-job/".$notice->job_id."'> job </a>  for <a href='/admin/view-offer/".$job->offer->id."'> offer </a> ";
+
+          }
         }
       }
       return response()->json([

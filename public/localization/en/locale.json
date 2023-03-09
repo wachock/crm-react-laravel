@@ -25,7 +25,7 @@
         "company_text": "Company Name",
         "address_text": "Address",
         "about_title": "About us",
-        "about": "Broom Service was founder by Lidor Mamou on 2013 The company employs a team of professionals in a wide variety of house cleaning and maintenance jobs. Our staff are regular and experienced employees Our staff are regular and experienced employees who receive a fair and proper reward and all the beneﬁts they receive according to the law Our clients are accustomed and well acquainted with the high standard of service used in the best luxury and boutique hotels in Israel and worldwide and we strive to meet this high quality standard. Our customer satisfaction, high level of service, attention to detail and personal attitude are the foundations on which we base our services. The company is registered as a legal cleaning company in the Ministry of Industry. License number: 4569",
+        "about": "Broom Service was founder by Lidor Mamou on 2013\nThe company employs a team of professionals in a wide variety of house cleaning\nand maintenance jobs.\nOur staff are regular and experienced employees\nOur staff are regular and experienced employees who receive a fair and proper reward and all the\nbeneﬁts they receive according to the law\nOur clients are accustomed and well acquainted with the high standard of service used in the best\nluxury and boutique hotels in Israel and worldwide and we strive to meet this high quality standard.\nOur customer satisfaction, high level of service, attention to detail and personal attitude are the\nfoundations on which we base our services.\n\nThe company is registered as a legal cleaning company in the Ministry of Industry. License number: 4569",
         "service_title": "Price Summary",
         "service_txt": "Service Name",
         "freq_s_txt": "Frequency of Services",
@@ -35,7 +35,7 @@
         "hours": "hour(s)",
         "amount": "Amount",
         "type":"Type",
-        "amount_txt": "Total Amount",
+        "amount_txt": "Price per visit (Before VAT)",
         "offer_title": "What Do We Have To Offer?",
         "laundary_service_price_title": "Laundry Services Price List",
         "thorough_cleaning": {
@@ -55,7 +55,18 @@
             "s2_5r": " Tasks: vents, air conditioners, lamps, electrical switches, panels, doors, handles and lintels.",
             "s2_8r": " Kitchen: kitchen cabinets (outside), thorough cleaning of the refrigerator, microwave, oven and gas, dishwasher and sink.",
             "basic": "Basic package which includes:",
-            "s3_8r": "Kitchen: kitchen cabinets (outside), microwave, oven and gas, dishwasher and sink."
+            "s3_8r": "Kitchen: kitchen cabinets (outside), microwave, oven and gas, dishwasher and sink.",
+            "cleaning_inside": "4. Cleaning Inside And Outside Windows At Any Height:",
+            "s4_1": "Professional cleaning of windows, blinds, rails, frames on a regular basis or on demand.",
+            "s4_2": "Cleaning all types of windows at all heights.",
+            "s4_3": "Nano coating option after cleaning the windows for clean windows over time.",
+            "s4_4": "Cleaning in rappelling by a professional team.",
+            "laundry_services": "5. Laundry Services, Fabric Cleaning And Upholstery:",
+            "s5_1": "Pick up on order day and return up to 48 hours",
+            "s5_2": "laundry services",
+            "s5_3": "Dry Cleaning",
+            "s5_4": "Ironing services",
+            "s5_5": "Cleaning of sofas, carpets and curtains"
         },
         "regular_services": {
             "rs1": "Room Service On A Regular Basis Customized To Your Requirements:",
@@ -94,15 +105,24 @@
             "p1":"This is a test line and it will be changed according to the other service.",
             "o2_title":"Includes in -"
         },
+        "room_service":{
+            "title": "1. Room Service On A Regular Basis Customized To Your Requirements:",
+            "s1": "Our packages- Regular Room Service",
+            "p1": "Service on a regular basis by the same professional staff",
+            "p2": "Employing a legal and regulated employee",
+            "p3": "Strict sorting of staff including reliability tests",
+            "p4": "Use of advanced cleaning materials and equipment at our expense",
+            "p5": "Tight supervision by a regional supervisor"
+        },
         "window_any_height": {
             "title": "Cleaning Inside And Outside Windows At Any Height:",
             "p1": "Professional cleaning of windows, blinds, rails, frames on a regular basis or on demand.",
             "p2": "Cleaning all types of windows at all heights.",
             "p3": "Nano coating option after cleaning the windows for clean windows over time.",
-            "p4": "Use of advanced cleaning materials and equipment at our expense.",
-            "p5": "Cleaning in rappelling by a professional team."
+            "p4": "Cleaning in rappelling by a professional team."
         },
         "laundary": {
+            "service_name":"Laundary Service",
             "title": "Laundry Services, Fabric Cleaning And Upholstery:",
             "p1": "Pick up on order day and return up to 48 hours.",
             "p2": "Laundry services.",
@@ -111,7 +131,7 @@
             "p5": "Cleaning of sofas, carpets and curtains."
         },
         "our_services": {
-            "heading": "Our Services Here, And On Our Website:",
+            "heading": "Our Services Here, And On Our Website:\nwww.broomservice.co.il",
             "s1": "Polishing & Renovating Floors & Surfaces.",
             "s1_p1": "Floor polishing services of all kinds.",
             "s1_p2": "Polishing and crystal polishing.",
@@ -152,14 +172,26 @@
             "s6": "Short-term Service Asset Management Quietly:",
             "s6_p1": "we offer short term airbnb services through Bell boy app for more details and registration:",
             "s6_p2": "https://www.bell-boy.com"
+        },
+        "messages":{
+            "success":"Thank you for accepting the offer, Please check our next email for contract and fill  all the necessary details",
+            "reject_title":"Are you sure?",
+            "reject_text":"You want to reject this Offer!",
+            "yes_reject":"Yes, Reject",
+            "cancel":"Cancel",
+            "reject":"Reject",
+            "reject_msg":"Offer has been rejected"
+
         }
     },
     "work-contract": {
-        "inHead": "Broom Service L.M. Ltd Private Company no. 515184208 Exclusive Framework Agreement with Tenants/Clients",
+        "inHead": "Broom Service L.M. Ltd Private Company no. 515184208 \n Exclusive Framework Agreement with Tenants/Clients",
         "signed": "Made and Signed in :",
         "between": "Between:",
         "broom_service": "Broom Service L.M. Ltd Private Company no. 515184208",
+        "and": "And",
         "from": "From 69 Jerusalem st. , Bat Yam (Hereinafter: the Company)",
+        "button_reject":"Reject Contract",
         "first_party_title": "Of the First Party",
         "full_name": "Full Name:",
         "city": "City:",
@@ -171,6 +203,7 @@
         "dob": "DOB:",
         "telephone": "Telephone:",
         "email": "Email:",
+        "hereinafter": "(Hereinafter: the Tenant or the Client)",
         "second_party_title": "Of the Second Party",
         "whereas": "Whereas:",
         "whereas_info_text": "Broom Service L.M. Private Company no. 515184208 (hereinafter: the Company) is a company that provides, inter alia, services of maintenance, supply, and cleaning fortenants in various facilities across the State of Israel.",
@@ -231,7 +264,23 @@
         "the_tenant_subtitle": "The Tenant",
         "draw_signature": "Draw Signature with mouse or touch",
         "the_company": "The Company",
-        "accept_contract": "Accept Contract"
+        "accept_contract": "Accept Contract",
+        "messages":{
+            "card_type_err":"Please select card type",
+            "card_holder_err":"Please enter card holder name",
+            "cvv_err":"Please select card cvv",
+            "sign_card_err":"Please enter signature on the card",
+            "sign_err":"Please sign the contract",
+            "invalid_cvv":"Invalid cvv",
+            "success":"Thanks, for accepting contract",
+            "reject_title":"Are you sure?",
+            "reject_text":"You want to reject this Contract!",
+            "yes_reject":"Yes, Reject",
+            "cancel":"Cancel",
+            "reject":"Reject",
+            "reject_msg":"Contract has been rejected"
+            
+        }
     },
     "client": {
         "welcome": "welcome",

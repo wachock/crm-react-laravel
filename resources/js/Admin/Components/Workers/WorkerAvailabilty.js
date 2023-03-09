@@ -69,6 +69,7 @@ export default function WorkerAvailabilty({interval}) {
     let curr = new Date 
     let week = []
     let nextweek = []
+     let nextnextweek = []
     for (let i = 0; i < 7; i++) {
       let first = curr.getDate() - curr.getDay() + i 
       if(first>=curr.getDate()){
@@ -85,6 +86,14 @@ export default function WorkerAvailabilty({interval}) {
        var first = today.getDate() - today.getDay() + 7+i;
        var firstday = new Date(today.setDate(first)).toISOString().slice(0, 10)
         nextweek.push(firstday)
+     }
+    }
+    for (let i = 0; i < 7; i++) {
+      if(!interval.includes(i)){
+      var today = new Date;
+       var first = today.getDate() - today.getDay() + 14+i;
+       var firstday = new Date(today.setDate(first)).toISOString().slice(0, 10)
+        nextnextweek.push(firstday)
      }
     }
    // const slot = [
@@ -127,6 +136,7 @@ export default function WorkerAvailabilty({interval}) {
         <ul className="nav nav-tabs" role="tablist">
             <li className="nav-item" role="presentation"><a id="current-week" className="nav-link active" data-toggle="tab" href="#tab-current-week" aria-selected="true" role="tab">Current Week</a></li>
             <li className="nav-item" role="presentation"><a id="first-next-week" className="nav-link" data-toggle="tab" href="#tab-first-next-week" aria-selected="true" role="tab">Next Week</a></li>
+            <li className="nav-item" role="presentation"><a id="first-next-week" className="nav-link" data-toggle="tab" href="#tab-first-next-next-week" aria-selected="true" role="tab">Next Next Week</a></li>
         </ul>
          <div className='tab-content' style={{background: "#fff"}}>
          <div id="tab-current-week" className="tab-pane active show" role="tab-panel" aria-labelledby="current-week">
@@ -187,6 +197,35 @@ export default function WorkerAvailabilty({interval}) {
               </table>
             </div>
        </div>
+        <div id="tab-first-next-next-week" className="tab-pane" role="tab-panel" aria-labelledby="first-next-week">
+            <div className="table-responsive">
+              <table className="timeslots table">
+                <thead>
+                  <tr>
+                    {nextnextweek.map((element, index) => (
+                       <th key={index}>{ moment(element).toString().slice(0,15) }</th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                {slot.map((s, index) => (
+                 <tr key={index}>
+                    {nextnextweek.map((w, index) => (
+                    <td key={index}>
+                      <div className={w} >
+                        <label>
+                          <input type="checkbox" data-day="Sunday" className="btn-check" id={w+'-'+s['0']} data-value={w} value={s['0']} onChange={(e)=>handleChange(e,w,s['0'])} name={((worker_aval[`${w}`] !== undefined)?!worker_aval[`${w}`].includes(s['0']):true).toString()} />
+                          <span className={(worker_aval[`${w}`] !== undefined)?((worker_aval[`${w}`].includes(s['0']))?'forcustom checked_forcustom':'forcustom'):'forcustom'}>{s['1']}</span>
+                        </label>
+                      </div>
+                    </td>
+                    ))}
+                  </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+        </div>
       </div>
       <div className="text-center mt-3">
         <input type="button" value="Update availabilities" className="btn btn-pink" onClick={handleSubmit}/>

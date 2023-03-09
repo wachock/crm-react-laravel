@@ -496,8 +496,10 @@ export default function AddClient() {
                                         value={status}
                                         onChange={(e) => setStatus(e.target.value)}
                                     >
-                                        <option value="1">Active</option>
-                                        <option value="0">Inactive</option>
+                                        <option value="0">Lead</option>
+                                        <option value="1">Potential Customer</option>
+                                        <option value="2">Customer</option>
+                                       
                                     </select>
                                     {errors.status ? (
                                         <small className="text-danger mb-1">

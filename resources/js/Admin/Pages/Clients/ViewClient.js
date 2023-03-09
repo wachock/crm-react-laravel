@@ -70,18 +70,18 @@ export default function ViewClient() {
       <Sidebar />
       <div id="content">
         <div className="titleBox customer-title">
-                    <div className="row">
-                        <div className="col-sm-6">
-                            <h1 className="page-title">View Client</h1>
-                        </div>
-                        <div className="col-sm-6">
-                            <div className="search-data">
-                               
-                                <Link  to={`/admin/edit-client/${param.id}`} className="btn btn-pink addButton"><i className="btn-icon fas fa-pencil"></i>Edit</Link>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+          <div className="row">
+            <div className="col-sm-6">
+              <h1 className="page-title">View Client</h1>
+            </div>
+            <div className="col-sm-6">
+              <div className="search-data">
+
+                <Link to={`/admin/edit-client/${param.id}`} className="btn btn-pink addButton"><i className="btn-icon fas fa-pencil"></i>Edit</Link>
+              </div>
+            </div>
+          </div>
+        </div>
         <div className='view-applicant'>
           <ProfileDetails
             client={client}

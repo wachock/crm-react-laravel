@@ -9,6 +9,7 @@ import { SelectPicker } from 'rsuite';
 export default function EditServiceSchedule() {
 
     const [name, setName] = useState([]);
+    const [nameHeb, setNameHeb] = useState([]);
     const [cycle, setCycle] = useState([]);
     const [period, setPeriod] = useState([]);
     const [status, setStatus] = useState(0);
@@ -42,6 +43,7 @@ export default function EditServiceSchedule() {
         e.preventDefault();
         const data = {
             name: name,
+            name_heb:nameHeb,
             cycle: cycle,
             period: period,
             status: status,
@@ -67,6 +69,7 @@ export default function EditServiceSchedule() {
             .get(`/api/admin/service-schedule/${params.id}/edit`, { headers })
             .then((res) => {
                 setName(res.data.schedule.name);
+                setNameHeb(res.data.schedule.name_heb);
                 setCycle(res.data.schedule.cycle);
                 setPeriod(res.data.schedule.period);
                 setStatus(res.data.schedule.status);
@@ -91,7 +94,7 @@ export default function EditServiceSchedule() {
                                 <div className="col-sm-12">
                                     <div className="form-group">
                                         <label className="control-label">
-                                            schedule *
+                                            schedule - En*
                                         </label>
                                         <input
                                             type="text"
@@ -101,11 +104,36 @@ export default function EditServiceSchedule() {
                                             }
                                             className="form-control"
                                             required
-                                            placeholder="Enter cycle count"
+                                            placeholder="Enter schedule"
                                         />
                                         {errors.schedule ? (
                                             <small className="text-danger mb-1">
-                                                {errors.schedule}
+                                                {errors.name}
+                                            </small>
+                                        ) : (
+                                            ""
+                                        )}
+                                    </div>
+                                </div>
+
+                                <div className="col-sm-12">
+                                    <div className="form-group">
+                                        <label className="control-label">
+                                            schedule - Heb *
+                                        </label>
+                                        <input
+                                            type="text"
+                                            value={nameHeb}
+                                            onChange={(e) =>
+                                                setNameHeb(e.target.value)
+                                            }
+                                            className="form-control"
+                                            required
+                                            placeholder="Enter schedule hebrew name"
+                                        />
+                                        {errors.schedule ? (
+                                            <small className="text-danger mb-1">
+                                                {errors.name_heb}
                                             </small>
                                         ) : (
                                             ""

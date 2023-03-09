@@ -33,6 +33,20 @@ class ServiceSchedulesController extends Controller
             'schedules'       => $schedule,            
         ], 200);
     }
+    public function allSchedulesByLng(Request $request){
+        $schedules = serviceSchedules::where('status',1)->get();
+        $result = [];
+        if(isset($schedules)){
+           foreach($schedules as $schedule){
+             $res['name'] = ($request->lng == 'en') ? $schedule->name : $schedule->name_heb;
+             $res['id']   = $schedule->id; 
+             array_push($result,$res);
+           }
+        }
+        return response()->json([
+            'schedules'       => $result,            
+        ], 200);
+    }
 
     /**
      * Show the form for creating a new resource.
