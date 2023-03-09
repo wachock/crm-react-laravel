@@ -399,7 +399,7 @@ export default function WorkContract() {
                     <div className='agg-list'>
                         <div className='icons'><img src={star} /></div>
                         <div className='agg-text'>
-                            <p>{t('work-contract.tenant_txt_5')}</p>
+                            <p style={{ whiteSpace: 'pre-wrap' }}>{t('work-contract.tenant_txt_5')}</p>
                         </div>
                     </div>
                     <div className='agg-list'>
@@ -424,7 +424,7 @@ export default function WorkContract() {
                     <div className='agg-list'>
                         <div className='icons'><img src={star} /></div>
                         <div className='agg-text'>
-                            <p>{t('work-contract.company_txt_1')}</p>
+                            <p style={{ whiteSpace: 'pre-wrap' }}>{t('work-contract.company_txt_1')}</p>
                         </div>
                     </div>
                     <div className='agg-list'>

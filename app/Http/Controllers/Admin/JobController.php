@@ -202,7 +202,7 @@ class JobController extends Controller
          $s_hour='';
          $s_total='';
          foreach($request->services as $service){
-                  $service_schedules = serviceSchedules::where('name','=',$service['freq_name'])->first();
+                  $service_schedules = serviceSchedules::where('id','=',$service['frequency'])->first();
 
                       $repeat_value=$service_schedules->period;
                       $s_name=$service['name'];
