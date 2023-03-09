@@ -96,7 +96,7 @@ export default function WorkContract() {
                if(res.data.offer[0].client.lng == 'heb') {
                 import ('../Assets/css/rtl.css')
                 document.querySelector('html').setAttribute('dir','rtl')
-                } 
+                }
                 else
                  document.querySelector('html').removeAttribute('dir');
 
@@ -131,17 +131,18 @@ export default function WorkContract() {
                         </div>
                     </div>
                 </div>
-                <h4 className='inHead'>{t('work-contract.inHead')}</h4>
+                <h4 className='inHead' style={{ whiteSpace: 'pre-wrap' }}>{t('work-contract.inHead')}</h4>
                 <div className='signed'>
                     <p>{t('work-contract.signed')} <span>{client.city ? client.city : 'NA'}</span> on <span>{Moment(contract.created_at).format('DD MMMM,Y')}</span></p>
                 </div>
                 <div className='between'>
                     <p>{t('work-contract.between')}</p>
                     <p>{t('work-contract.broom_service')}</p>
-                    <p>{t('work-contract.from')}</p>
+                    <p style={{ whiteSpace: 'pre-wrap' }}>{t('work-contract.from')}</p>
                 </div>
                 <div className='first'>
                     <h2 className='mb-4'>{t('work-contract.first_party_title')}</h2>
+                    <p style={{ textAlign: 'center' }}>{t('work-contract.and')}</p>
                     {offer && offer.map((ofr,i)=>{
                     let cl = ofr.client;
 
@@ -167,6 +168,7 @@ export default function WorkContract() {
                         <li className='list-inline-item ml-2'>{t('work-contract.telephone')} <span>{ cl.phone }</span></li>
                         <li className='list-inline-item'>{t('work-contract.email')} <span>{ cl.email }</span></li>
                     </ul>
+                    <p style={{ textAlign: 'center' }}>{t('work-contract.from')}</p>
                     </>
                     )
 
@@ -233,16 +235,16 @@ export default function WorkContract() {
                                 <td style={{width: "60%"}}>{t('work-contract.the_service_txt')}</td>
                                 <td>
                                 {services && services.map((s,i)=>{
-                                    
-                                
+
+
                                        if((services.length -1) != i && services.service != 10)
                                         return s.name +", ";
-                                        else if(services.service == 10) 
+                                        else if(services.service == 10)
                                         return s.other_title+" ";
-                                        else 
+                                        else
                                         return s.name;
-                        
-                                    
+
+
                                 })}
                                 </td>
                             </tr>
@@ -280,7 +282,7 @@ export default function WorkContract() {
                                   if((services.length)-1 != i )
                                   return s.totalamount + " ILS + VAT for " + s.name + ", " + s.freq_name+", ";
                                   else if(services.service == 10){
-                                   
+
                                       if((services.length)-1 != i )
                                       return s.totalamount + " ILS + VAT for " + s.other_title + ", " + s.freq_name+", ";
                                       else

@@ -174,10 +174,11 @@
         }
     },
     "work-contract": {
-        "inHead": "Broom Service L.M. Ltd Private Company no. 515184208 Exclusive Framework Agreement with Tenants/Clients",
+        "inHead": "Broom Service L.M. Ltd Private Company no. 515184208 \n Exclusive Framework Agreement with Tenants/Clients",
         "signed": "Made and Signed in :",
         "between": "Between:",
         "broom_service": "Broom Service L.M. Ltd Private Company no. 515184208",
+        "and": "And",
         "from": "From 69 Jerusalem st. , Bat Yam (Hereinafter: the Company)",
         "first_party_title": "Of the First Party",
         "full_name": "Full Name:",
@@ -190,6 +191,7 @@
         "dob": "DOB:",
         "telephone": "Telephone:",
         "email": "Email:",
+        "hereinafter": "(Hereinafter: the Tenant or the Client)",
         "second_party_title": "Of the Second Party",
         "whereas": "Whereas:",
         "whereas_info_text": "Broom Service L.M. Private Company no. 515184208 (hereinafter: the Company) is a company that provides, inter alia, services of maintenance, supply, and cleaning fortenants in various facilities across the State of Israel.",
