@@ -531,7 +531,6 @@ export default function EditClient() {
                                         <option value="0" selected={status == 0}>Lead</option>
                                         <option value="1" selected={status == 1}>Potential</option>
                                         <option value="2" selected={status == 2}>Active</option>
-
                                        
                                     </select>
                                     {errors.status ? (
