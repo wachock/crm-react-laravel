@@ -27,8 +27,7 @@ class AuthController extends Controller
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->messages()]);
         }
-        $status = Client::where('email',$request->email)->get('status');
-        //dd($status);
+        
 
         if (Auth::guard('client')->attempt([
             'email'     => $request->email,
@@ -36,9 +35,17 @@ class AuthController extends Controller
         ])) {
 
             $Client        = Client::find(auth()->guard('client')->user()->id);
-            $Client->token = $Client->createToken('Client', ['client'])->accessToken;
+            if($Client->status == '2'):
 
-            return response()->json($Client, 200);
+                $Client->token = $Client->createToken('Client', ['client'])->accessToken;
+                return response()->json($Client, 200);
+
+            else:
+                return response()->json(['errors' => ['email' => 'These credentials are not authorized to login for now. Please contact administrator.']]);
+           
+            endif;
+
+
         } else {
             return response()->json(['errors' => ['email' => 'These credentials do not match our records.']]);
         }

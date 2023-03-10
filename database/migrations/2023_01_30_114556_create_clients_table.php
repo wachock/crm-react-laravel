@@ -34,7 +34,7 @@ class CreateClientsTable extends Migration
             $table->string('longitude')->nullable();
             $table->string('phone')->nullable();
             $table->string('email')->unique();
-            $table->integer('status')->default(1);
+            $table->integer('status')->default(0);
             $table->string('password');
             $table->string('avatar')->nullable();
             $table->rememberToken();
