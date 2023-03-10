@@ -196,7 +196,7 @@ export default function WorkContract() {
                                         {contract && contract.map((c, i) => {
 
                                             let address = (c.client.geo_address) ? (c.client.geo_address) + ", " : '';
-                                           
+
                                             if (c.additional_address) {
                                                 if (c.status == "not-signed") {
                                                     return (
@@ -206,7 +206,7 @@ export default function WorkContract() {
                                                             <input type='text' name="additional_address" onChange={(e) => setAaddress(e.target.value)} placeholder='Any other address?' className='form-control' />
                                                         </>
                                                     )
-                                                } else  {
+                                                } else {
 
                                                     return (
                                                         <>
@@ -241,10 +241,18 @@ export default function WorkContract() {
                                     <td style={{ width: "60%" }}>Consideration the Tenant will pay the Company, including the payment method and/or payment date<br />Prices does not include vat**</td>
                                     <td>
                                         {services && services.map((s, i) => {
-                                            if((services.length)-1 != i )
-                                            return s.totalamount + " ILS + VAT for " + s.name + ", " + s.freq_name+", ";
+                                            if ((services.length) - 1 != i)
+                                                return s.totalamount + t('work-contract.ils') + " + " + t('work-contract.vat') + " " + t('work-contract.for') + s.name + ", " + s.freq_name + ", ";
+                                            else if (services.service == 10) {
+
+                                                if ((services.length) - 1 != i)
+                                                    return s.totalamount + t('work-contract.ils') + " + " + t('work-contract.vat') + " " + t('work-contract.for') + s.other_title + ", " + s.freq_name + ", ";
+                                                else
+                                                    return s.totalamount + t('work-contract.ils') + " + " + t('work-contract.vat') + " " + t('work-contract.for') + s.other_title + ", " + s.freq_name;
+
+                                            }
                                             else
-                                            return s.totalamount + " ILS + VAT for " + s.name + ", " + s.freq_name;
+                                                return s.totalamount + t('work-contract.ils') + " + " + t('work-contract.vat') + " " + t('work-contract.for') + s.name + ", " + s.freq_name;
                                         })}
 
                                     </td>
@@ -292,11 +300,11 @@ export default function WorkContract() {
                                                 <tr>
                                                     <td>Signature on the Card</td>
                                                     <td> <SignatureCanvas
-                                                    penColor='black'
-                                                    canvasProps={{ className: 'sigCanvas' }}
-                                                    ref={sigRef}
-                                                    onEnd={handleSignatureEnd}
-                                                />&nbsp;</td>
+                                                        penColor='black'
+                                                        canvasProps={{ className: 'sigCanvas' }}
+                                                        ref={sigRef}
+                                                        onEnd={handleSignatureEnd}
+                                                    />&nbsp;</td>
                                                 </tr>
 
                                             </>
@@ -443,7 +451,7 @@ export default function WorkContract() {
                         <div className='row'>
                             <div className='col-sm-6'>
                                 <h5 className='mt-2 mb-4'>The Tenant</h5>
-                           
+
                                 {contract && contract.map((c, i) => {
 
                                     return (
