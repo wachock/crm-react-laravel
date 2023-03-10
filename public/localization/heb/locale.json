@@ -447,7 +447,8 @@
         "sidebar":{
             "dashboard":"לוּחַ מַחווָנִים",
             "jobs":"מקומות תעסוקה",
-            "schedule":"לוח זמנים"
+            "schedule":"לוח זמנים",
+            "not_available":"Not Available Dates"
         },
         "dashboard":{
             "recent_jobs":"משרות אחרונות",

@@ -183,9 +183,9 @@ export default function CreateJobCalender() {
     //     setData(newdata);
     // }
     let service_id;
-    useEffect(() => {
-    (services.length>1)?($('#edit-work-time').modal('show')):getWorkers();
-    }, []);
+    // useEffect(() => {
+    // (services.length>1)?($('#edit-work-time').modal('show')):getWorkers();
+    // }, []);
 
     const handleServices = (value) => {
        const filtered = services.filter((s)=>{

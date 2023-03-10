@@ -5,7 +5,7 @@ import { useAlert } from "react-alert";
 import Moment from 'moment';
 import Swal from 'sweetalert2';
 
-export default function WorkerNotAvailabilty() {
+export default function NotAvailabilty() {
 
     const [date,setDate] = useState("");
     const [AllDates,setAllDates] = useState([]);
