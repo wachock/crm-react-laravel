@@ -350,6 +350,7 @@ export default function WorkContract() {
                                 <td style={{width: "60%"}}>{t('work-contract.card_name')}</td>
                                 <td><input type='text' name="name_on_card"  onChange={(e)=>setCname(e.target.value)} className='form-control' placeholder={t('work-contract.card_name')} /></td>
                             </tr>
+
                             <tr>
                                 <td style={{width: "60%"}}>{t('work-contract.card_cvv')}</td>
                                 <td><input type='text' name="cvv"  onChange={(e)=>setCvv(e.target.value)} onKeyUp={(e)=>{if(e.target.value.length >= 3) e.target.value = e.target.value.slice(0, 3); }} className='form-control' placeholder={t('work-contract.card_cvv')} /></td>
