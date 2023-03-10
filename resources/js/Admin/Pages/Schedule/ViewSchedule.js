@@ -6,12 +6,11 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
-//import events from './events'
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Moment from 'moment';
 import { useAlert } from 'react-alert';
-import swal from 'sweetalert';
+
 
 export default function ViewSchedule() {
 
@@ -213,8 +212,25 @@ export default function ViewSchedule() {
         getEvents(id);
     }
     const matchTime = (time) =>{
-      console.log(time);
-      console.log(events);
+      if(events.length > 0){
+        let raw = (document.querySelector('#dateSel').value).split('/')
+        let pd = raw[2]+"-"+raw[1]+"-"+raw[0];
+        let dateSel = pd+" "+time;
+        for(let e in events){
+          
+            let cdt = Moment(dateSel).format('Y-MM-DD hh:mm:ss');
+            let st = Moment(events[e].start).format('Y-MM-DD hh:mm:ss');
+            let ed = Moment(events[e].end).format('Y-MM-DD hh:mm:ss');
+            let stime = Moment(events[e].start).format('hh:mm A');
+            let etime = Moment(events[e].end).format('hh:mm A');
+        
+            if(cdt >= st && cdt <= ed){
+                window.alert('Your meeting is already schedule on '+ document.querySelector('#dateSel').value +" between "+stime+" to "+etime);
+            }
+        }
+      }
+    
+      
     }
     return (
         <div id="container">
@@ -267,7 +283,7 @@ export default function ViewSchedule() {
                             <div className='col-sm-4'>
                                 <div className='form-group'>
                                     <label>Date</label>
-                                    <DatePicker dateFormat="dd/MM/Y" selected={startDate} onChange={(date) => { setStartDate(date); handleUpdate(date) }} />
+                                    <DatePicker dateFormat="dd/MM/Y" selected={startDate} id="dateSel" onChange={(date) => { setStartDate(date); handleUpdate(date) }} />
                                 </div>
                             </div>
                             <div className='col-sm-4'>

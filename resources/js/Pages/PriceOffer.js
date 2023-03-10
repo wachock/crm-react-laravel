@@ -295,7 +295,7 @@ export default function PriceOffer() {
                                                     <li><img src={star} /> {t('price_offer.renovation.rn1_p6')}</li>
 
                                                 </ul>
-                                                <h4 className='mt-4'>2. {t('price_offer.renovation.rn2')}</h4>
+                                                <h4 className='mt-4'>&bull; {t('price_offer.renovation.rn2')}</h4>
                                                 <img src={t('price_offer.renovation.rn2_img')} className='img-fluid' alt='Room Services' />
 
                                             </div>
