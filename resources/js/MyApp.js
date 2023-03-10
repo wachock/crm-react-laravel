@@ -35,6 +35,8 @@ if(lng == 'heb'
     && !url.includes('admin')
     && !url.includes('price-offer')
     && !url.includes('work-contract')
+    && !url.includes('meeting-status')
+    && !url.includes('thankyou')
     
   )
     

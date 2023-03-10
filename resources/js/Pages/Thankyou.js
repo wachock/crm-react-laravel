@@ -19,7 +19,15 @@ export default function Thankyou() {
     axios
       .post(`/api/client/meeting`, { id: param.id })
       .then((res) => {
-        i18next.changeLanguage(res.data.schedule.client.lng);
+        const lng = res.data.schedule.client.lng;
+        i18next.changeLanguage(lng);
+        if (lng == 'heb') {
+          import('../Assets/css/rtl.css')
+          document.querySelector('html').setAttribute('dir', 'rtl')
+      }
+      else
+          document.querySelector('html').removeAttribute('dir');
+
       })
   }
   

@@ -17,7 +17,7 @@ class ServiceScheduleSeed extends Seeder
         
         serviceSchedules::create([
             'name'         => 'One Time', 
-            'name_heb'     => 'פעם אחת',
+            'name_heb'     => 'חד פעמי',
             'cycle'        => 1,
             'period'       =>'na',  
             'status'       => 1             
@@ -31,7 +31,7 @@ class ServiceScheduleSeed extends Seeder
         ]);
         serviceSchedules::create([
             'name'         => 'Once Time week', 
-            'name_heb'     => 'פעם אחת שבוע זמן',
+            'name_heb'     => 'פעם בשבוע',
             'cycle'        => 1,
             'period'       =>'w',
             'status'       => 1                 
@@ -44,26 +44,34 @@ class ServiceScheduleSeed extends Seeder
             'status'       => 1                  
         ]);
         serviceSchedules::create([
-            'name'         => 'Three Time week',
-            'name_heb'     => 'שבוע שלוש פעמים',
+            'name'         => '3 times a week',
+            'name_heb'     => '3 פעמים בשבוע',
             'cycle'        => 3,
             'period'       =>'w',      
             'status'       => 1            
         ]);
         serviceSchedules::create([
-            'name'         => 'Four Time week', 
-            'name_heb'     => 'שבוע ארבע פעמים',
+            'name'         => '4 times a week', 
+            'name_heb'     => '4 פעמים בשבוע',
             'cycle'        => 4,
             'period'       =>'w',     
             'status'       => 1            
         ]);
         serviceSchedules::create([
-            'name'         => 'Five Time week',  
-            'name_heb'     => 'שבוע חמש פעמים',
+            'name'         => '5 times a week',  
+            'name_heb'     => '5 פעמים בשבוע',
             'cycle'        => 5,
             'period'       =>'w',    
             'status'       => 1            
         ]);
+        serviceSchedules::create([
+            'name'         => '6 times a week',  
+            'name_heb'     => '6 פעמים בשבוע',
+            'cycle'        => 6,
+            'period'       =>'w',    
+            'status'       => 1            
+        ]);
+
         serviceSchedules::create([
             'name'         => 'Once in every two weeks',
             'name_heb'     => 'פעם בשבועיים',
@@ -79,22 +87,22 @@ class ServiceScheduleSeed extends Seeder
             'status'       => 1            
         ]);
         serviceSchedules::create([
-            'name'         => 'Once in every Month',  
-            'name_heb'     => 'פעם בכל חודש',
+            'name'         => 'Once a month',  
+            'name_heb'     => 'פעם בחודש',
             'cycle'        => 1,
             'period'       =>'m',    
             'status'       => 1            
         ]);
         serviceSchedules::create([
-            'name'         => 'Once in 2 Months',
+            'name'         => 'Once every 2 Months',
             'name_heb'     => 'פעם בחודשיים',
             'cycle'        => 1,
             'period'       =>'2m',      
             'status'       => 1            
         ]);
         serviceSchedules::create([
-            'name'         => 'Once in every 3 Months', 
-            'name_heb'     => 'פעם ב-3 חודשים',
+            'name'         => 'Once every 3 Months', 
+            'name_heb'     => 'פעם ב3 חודשים',
             'cycle'        => 1,
             'period'       =>'3m',     
             'status'       => 1            

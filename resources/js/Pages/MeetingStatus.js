@@ -22,7 +22,14 @@ export default function MeetingStatus() {
       .then((res) => {
         setMeeting(res.data.schedule);
         setTeamName(res.data.schedule.team.name);
-        i18next.changeLanguage(res.data.schedule.client.lng);
+        const lng = res.data.schedule.client.lng;
+        i18next.changeLanguage(lng);
+        if (lng == 'heb') {
+          import('../Assets/css/rtl.css')
+          document.querySelector('html').setAttribute('dir', 'rtl')
+      }
+      else
+          document.querySelector('html').removeAttribute('dir');
       })
   }
   useEffect(() => {
