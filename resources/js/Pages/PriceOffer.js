@@ -165,7 +165,7 @@ export default function PriceOffer() {
 
                                 {
                                     let rg = [4, 5, 6, 7];
-                                    if (allTemplates.includes('regular') && rg.includes(s.service))
+                                    if (allTemplates.includes('regular') && rg.includes(parseInt(s.service))){
 
 
                                         return (<>
@@ -185,7 +185,7 @@ export default function PriceOffer() {
 
                                             </div>
 
-                                        </>)
+                                        </>)}
 
                                 }
 
@@ -318,33 +318,24 @@ export default function PriceOffer() {
                                     }
                                 }
 
-                                {
-
-                                    if (s.service == 8) {
-                                        return (<>
-                                            <div className='shift-20'>
-                                                <h5 className='text-center ofrTitle p-2 m-3'>Window Cleaning</h5>
-                                                <h4 className='mt-4'>3. {t('price_offer.window_any_height.title')}</h4>
-                                                <ul className='list-unstyled'>
-                                                    <li><img src={star} /> {t('price_offer.window_any_height.p1')}</li>
-                                                    <li><img src={star} /> {t('price_offer.window_any_height.p2')} </li>
-                                                    <li><img src={star} /> {t('price_offer.window_any_height.p3')}</li>
-                                                    <li><img src={star} /> {t('price_offer.window_any_height.p4')}</li>
-                                                    <li><img src={star} /> {t('price_offer.window_any_height.p5')}</li>
-                                                </ul>
-                                            </div>
-                                        </>)
-                                    }
-
-                                }
-
-
 
                             })};
 
                             <div className='shift-20'>
+                                <h5 className='text-center ofrTitle p-2 m-3'>Window Cleaning</h5>
+                                <h4 className='mt-4'>1. {t('price_offer.window_any_height.title')}</h4>
+                                <ul className='list-unstyled'>
+                                    <li><img src={star} /> {t('price_offer.window_any_height.p1')}</li>
+                                    <li><img src={star} /> {t('price_offer.window_any_height.p2')} </li>
+                                    <li><img src={star} /> {t('price_offer.window_any_height.p3')}</li>
+                                    <li><img src={star} /> {t('price_offer.window_any_height.p4')}</li>
+                                    <li><img src={star} /> {t('price_offer.window_any_height.p5')}</li>
+                                </ul>
+                            </div>
+
+                            <div className='shift-20'>
                                 <h5 className='text-center ofrTitle p-2 m-3'>{t('price_offer.laundary.service_name')}</h5>
-                                <h4 className='mt-4'>4. {t('price_offer.laundary.title')}</h4>
+                                <h4 className='mt-4'>1. {t('price_offer.laundary.title')}</h4>
                                 <ul className='list-unstyled'>
                                     <li><img src={star} /> {t('price_offer.laundary.p1')}</li>
                                     <li><img src={star} /> {t('price_offer.laundary.p2')}</li>

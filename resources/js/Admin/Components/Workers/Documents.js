@@ -51,7 +51,6 @@ export default function Documents() {
     useEffect(() => {
         getWorker();
     }, []);
-    console.log(file)
     return (
 
         <div className="tab-pane fade active show" id="customer-notes" role="tabpanel"

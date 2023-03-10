@@ -134,6 +134,13 @@ export default function Clients() {
                                                     
                                                     let address = (item.geo_address) ? item.geo_address : "NA";
                                                     let cords   = (item.latitude && item.longitude) ? item.latitude +","+ item.longitude :"";
+                                                    let status = '';
+                                                    if(item.status == 0)
+                                                    status =  "Lead";
+                                                    if(item.status == 1)
+                                                    status =  "Potential Customer";
+                                                    if(item.status == 2)
+                                                    status =  "Customer";
 
                                                     return(
                                                     <Tr style={{"cursor":"pointer"}}>
@@ -145,9 +152,9 @@ export default function Clients() {
                                                         <Td><a href={`https://maps.google.com?q=${cords}`} target='_blank'>{address}</a></Td>
                                                         <Td onClick={(e)=>handleNavigate(e,item.id)}>{  (item.phone) ? item.phone.toString().split(",").join(' | '): ''}</Td>
                                                         <Td onClick={(e)=>handleNavigate(e,item.id)}>
-                                                            {item.status == 0
-                                                                ? "Inactive"
-                                                                : "Active"}
+                                                            {
+                                                             status
+                                                            }
                                                         </Td>
                                                         <Td>
                                                             <div className="action-dropdown dropdown">

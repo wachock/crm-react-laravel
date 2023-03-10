@@ -3,14 +3,15 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
+use App\Models\User;
 use App\Models\WorkerAvialibilty;
 use App\Models\Job;
 use App\Models\Contract;
+use App\Models\WorkerNotAvailbleDate;
 use Carbon\Carbon;
 use Mail;
 
@@ -394,5 +395,31 @@ class WorkerController extends Controller
         $worker->form_101 = $filename;
         $worker->save();
         return response()->json(['success' => true]);
+    }
+
+    public function addNotAvailableDates(Request $request){
+        $validator = Validator::make($request->all(),[
+            'date'     =>'required',
+            'worker_id'  =>'required',
+        ]);
+        if($validator->fails()){
+            return response()->json(['errors'=>$validator->messages()]);
+        }
+        $date          = new WorkerNotAvailbleDate;
+        $date->user_id = $request->worker_id;
+        $date->date    = $request->date;
+        $date->status  = $request->status;
+        $date->save();
+        return response()->json(['message'=>'Date added']);
+    }
+
+    public function getNotAvailableDates(Request $request){
+        $dates = WorkerNotAvailbleDate::where(['user_id'=>$request->id])->get();
+        return response()->json(['dates'=>$dates]);
+    }
+
+    public function deleteNotAvailableDates(Request $request){
+        WorkerNotAvailbleDate::find($request->id)->delete();
+        return response()->json(['message'=>'date deleted']);
     }
 }

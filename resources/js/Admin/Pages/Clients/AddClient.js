@@ -84,7 +84,7 @@ export default function AddClient() {
             zipcode: zip,
             dob: dob,
             passcode: passcode,
-            lng: (lng != 0) ? lng : 'heb',
+            lng: (lng) ? lng : 'heb',
             color: (!color) ? '#fff': color,
             geo_address: address,
             latitude: latitude,
@@ -92,7 +92,7 @@ export default function AddClient() {
             email: email,
             phone: phoneClc,
             password: passcode,
-            status: (!status) ?  1 : status,
+            status: (!status) ?  0 : parseInt(status),
         };
 
         axios
@@ -432,7 +432,6 @@ export default function AddClient() {
                                         value={lng}
                                         onChange={(e) => setLng(e.target.value)}
                                     >
-                                        <option value={0}>Please select language</option>
                                         <option value="heb">Hebrew</option>
                                         <option value="en">English</option>
                                     </select>

@@ -41,6 +41,12 @@ export default function ProfileDetails({ client, offerStatus , scheduleStatus , 
      if(offerStatus == 'accepted') {ocolor = 'green'} 
      if(offerStatus == 'declined') {ocolor = 'red'}  
 
+     let cstatus = "";
+     if(client.status == '0') {cstatus = 'Lead'} 
+     if(client.status == '1') {cstatus = 'Potential Customer'} 
+     if(client.status == '2') {cstatus = 'Customer'}  
+
+    
      const handleTab = (e)=>{
         e.preventDefault();
         let id = (e.target.getAttribute('id'));
@@ -103,6 +109,7 @@ export default function ProfileDetails({ client, offerStatus , scheduleStatus , 
                                                 <p><span>Email:</span> {email}</p>
                                                 <p><span>Password:</span> {passcode}</p>
                                             </div>
+                                            
                                         </div>
                                         <div className='col-sm-4'>
                                             <div className='form-group'>
@@ -116,6 +123,14 @@ export default function ProfileDetails({ client, offerStatus , scheduleStatus , 
                                                 <p><a href={`https://maps.google.com?q=${ cords}`} target='_blank'>
                                                     {geo_address}</a></p>
                                             </div>
+                                            
+                                        </div>
+                                        <div className='col-sm-4'>
+                                            <div className='form-group'>
+                                                <label>status</label>
+                                                <p>{ cstatus }</p>
+                                            </div>
+                                            
                                         </div>
                                         <div className='col-sm-12'>
                                             <div className='form-group'>
