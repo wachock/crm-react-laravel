@@ -445,7 +445,8 @@
         "sidebar":{
             "dashboard":"Dashboard",
             "jobs":"Jobs",
-            "schedule":"Schedule"
+            "schedule":"Schedule",
+            "not_available":"Not Available Dates"
         },
         "dashboard":{
             "recent_jobs":"Recent Jobs",

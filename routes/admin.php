@@ -82,6 +82,11 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin-api', 'scopes:ad
     Route::post('update_availability/{id}', [WorkerController::class,'updateAvailability']);
     Route::post('upload/{id}', [WorkerController::class,'upload']);
 
+    //not Available date
+    Route::post('get-not-available-dates', [WorkerController::class,'getNotAvailableDates']);
+    Route::post('add-not-available-date', [WorkerController::class,'addNotAvailableDates']);
+    Route::post('delete-not-available-date', [WorkerController::class,'deleteNotAvailableDates']);
+
 
     // Clients Api
     Route::resource('clients', ClientController::class);

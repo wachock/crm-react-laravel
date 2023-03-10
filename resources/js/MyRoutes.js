@@ -36,6 +36,7 @@ import WorkerDashboard from './Worker/WorkerDashboard';
 import WorkerTotalJobs from './Worker/Pages/Job/WorkerTotalJobs';
 import WorkerViewJob    from './Worker/Pages/Job/WorkerViewJob';
 import Availability    from './Worker/Pages/Availability/Availability';
+import NotAvailability    from './Worker/Pages/Availability/NotAvailability';
 
 
 // Admin Routes
@@ -164,6 +165,7 @@ export default function MyRoutes() {
                      <Route exact path="jobs" element={<WorkerTotalJobs />} />
                      <Route exact path="view-job/:id" element={<WorkerViewJob />} />
                      <Route exact path="schedule" element={<Availability />} />
+                     <Route exact path="not-available" element={<NotAvailability />} />
                   </Route>
                </Route>
                {/* Worker Routes End  */}

@@ -6,6 +6,7 @@ import moment from 'moment-timezone';
 export default function WorkerAvailabilty({interval}) {
     const [worker_aval, setWorkerAval] = useState([])
     const [errors, setErrors] = useState([])
+    const [AllDates,setAllDates] = useState([]);
     const params = useParams();
     const navigate = useNavigate();
     const alert = useAlert();
@@ -17,6 +18,10 @@ export default function WorkerAvailabilty({interval}) {
     let handleChange = (event,w_date, slot) => {
      
          let newworker = worker_aval;
+         if(not_available_date.includes(w_date)){
+           alert.error("Worker Not Available this Date.");
+            return false;
+         }
          
          Array.from(document.getElementsByClassName(w_date)).forEach(
               function(element, index, array) {
@@ -128,9 +133,21 @@ export default function WorkerAvailabilty({interval}) {
                 }
             });
     };
+    const getDates = () =>{
+      axios
+      .post(`/api/admin/get-not-available-dates`,{id:parseInt(params.id)},{ headers })
+      .then((res)=>{
+        setAllDates(res.data.dates);
+      })
+    }
     useEffect(() => {
         getWorkerAvailabilty();
+         getDates();
     }, []);
+    let not_available_date = [];
+    AllDates.map((d)=>{
+          not_available_date.push(d.date); 
+    });
   return (
     <div className="boxPanel">
         <ul className="nav nav-tabs" role="tablist">

@@ -28,7 +28,6 @@ export default function () {
         .get(`/api/admin/contract/${params.id}`,{headers})
         .then((res)=>{
             const r = res.data.contract;
-            console.log(r);
             setClient(r.client.firstname+' '+r.client.lastname);
             setAddress(r.client.geo_address);
             setServices(JSON.parse(r.offer.services));
@@ -37,18 +36,18 @@ export default function () {
      useEffect(()=>{
         getJob();
     },[]);
-    (services.length>1)?($('#edit-work-time').modal('show')):'';
+    (services.length)?($('#edit-work-time').modal('show')):'';
 
-    const handleServices = (value) => {
-       const filtered = services.filter((s)=>{
-            if(s.service == value){
-                return s;
-            }
-        });
-       setServices(filtered);
-       setSelectedService(value);
-       document.querySelector('.closee').click();
-    } 
+    // const handleServices = (value) => {
+    //    const filtered = services.filter((s)=>{
+    //         if(s.service == value){
+    //             return s;
+    //         }
+    //     });
+    //    setServices(filtered);
+    //    setSelectedService(value);
+    //    document.querySelector('.closee').click();
+    // } 
     
   return (
     <div id="container">
