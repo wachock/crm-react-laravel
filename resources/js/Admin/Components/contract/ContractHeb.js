@@ -19,7 +19,7 @@ export default function WorkContractRHS() {
     const [client, setClient] = useState([]);
     const param = useParams();
     const sigRef = useRef();
-    const {t} = useTranslation();
+    const { t } = useTranslation();
     const headers = {
         Accept: "application/json, text/plain, */*",
         "Content-Type": "application/json",
@@ -229,7 +229,7 @@ export default function WorkContractRHS() {
                                                             <>
                                                                 <span>{address}</span>
                                                                 <span style={{ fontWeight: "600" }} className='d-block mt-2'>{t('work-contract.other_address_txt')}</span> <br />
-                                                                <input type='text' name="additional_address" onChange={(e) => setAaddress(e.target.value)} placeholder={t('work-contract.placeholder_address')}  className='form-control' />
+                                                                <input type='text' name="additional_address" onChange={(e) => setAaddress(e.target.value)} placeholder={t('work-contract.placeholder_address')} className='form-control' />
                                                             </>
                                                         )
                                                     } else {
@@ -258,24 +258,32 @@ export default function WorkContractRHS() {
                                     <Tr>
                                         <Td style={{ width: "60%" }}>{t('work-contract.frequency_txt')}</Td>
                                         <Td>
-                                        {services && services.map((s, i) => {
-                                            return (
-                                                (services.length - 1) != i
-                                                    ? s.freq_name + ", "
-                                                    : s.freq_name
-                                            )
-                                        })}
+                                            {services && services.map((s, i) => {
+                                                return (
+                                                    (services.length - 1) != i
+                                                        ? s.freq_name + ", "
+                                                        : s.freq_name
+                                                )
+                                            })}
                                         </Td>
                                     </Tr>
                                     <Tr>
                                         <Td style={{ width: "60%" }}>{t('work-contract.consideration_txt')}</Td>
                                         <Td>
-                                        {services && services.map((s, i) => {
-                                            if((services.length)-1 != i )
-                                            return s.totalamount + " ILS + VAT for " + s.name + ", " + s.freq_name+", ";
-                                            else
-                                            return s.totalamount + " ILS + VAT for " + s.name + ", " + s.freq_name;
-                                        })}
+                                            {services && services.map((s, i) => {
+                                                if ((services.length) - 1 != i)
+                                                    return s.totalamount + t('work-contract.ils') + " + " + t('work-contract.vat') + " " + t('work-contract.for') + s.name + ", " + s.freq_name + ", ";
+                                                else if (services.service == 10) {
+
+                                                    if ((services.length) - 1 != i)
+                                                        return s.totalamount + t('work-contract.ils') + " + " + t('work-contract.vat') + " " + t('work-contract.for') + s.other_title + ", " + s.freq_name + ", ";
+                                                    else
+                                                        return s.totalamount + t('work-contract.ils') + " + " + t('work-contract.vat') + " " + t('work-contract.for') + s.other_title + ", " + s.freq_name;
+
+                                                }
+                                                else
+                                                    return s.totalamount + t('work-contract.ils') + " + " + t('work-contract.vat') + " " + t('work-contract.for') + s.name + ", " + s.freq_name;
+                                            })}
                                         </Td>
                                     </Tr>
                                     <Tr>
@@ -287,62 +295,62 @@ export default function WorkContractRHS() {
                                         <Td>&nbsp;</Td>
                                     </Tr>
                                     {contract && contract.map((c, i) => {
-                                    return (
-                                        (c.status == "not-signed") ?
-                                            <>
-                                                <Tr>
-                                                    <Td style={{ width: "60%" }}>{t('work-contract.card_type')}</Td>
-                                                    <Td>
-                                                        <select className='form-control' onChange={(e) => setCtype(e.target.value)}>
-                                                            <option>Please Select</option>
-                                                            <option value='Visa'>Visa</option>
-                                                            <option value='Master Card'>Master Card</option>
-                                                            <option value='American Express'>American Express</option>
-                                                        </select>
-                                                    </Td>
-                                                </Tr>
-                                                <Tr>
-                                                    <Td style={{ width: "60%" }}>{t('work-contract.card_name')}</Td>
-                                                    <Td><input type='text' name="name_on_card" onChange={(e) => setCname(e.target.value)} className='form-control' placeholder={t('work-contract.card_name')}/></Td>
-                                                </Tr>
-                                               
-                                                <Tr>
-                                                    <Td style={{ width: "60%" }}>{t('work-contract.card_cvv')}</Td>
-                                                    <Td><input type='text' name="cvv" onChange={(e) => setCvv(e.target.value)} onKeyUp={(e) => { if (e.target.value.length >= 3) e.target.value = e.target.value.slice(0, 3); }} className='form-control' placeholder={t('work-contract.card_cvv')} /></Td>
-                                                </Tr>
-                                                <Tr>
-                                                    <td>{t('work-contract.signature')}</td>
-                                                    <td> <SignatureCanvas
-                                                    penColor='black'
-                                                    canvasProps={{ className: 'sigCanvas' }}
-                                                    ref={sigRef}
-                                                    onEnd={handleSignatureEnd}
-                                                />&nbsp;</td>
-                                                </Tr>
+                                        return (
+                                            (c.status == "not-signed") ?
+                                                <>
+                                                    <Tr>
+                                                        <Td style={{ width: "60%" }}>{t('work-contract.card_type')}</Td>
+                                                        <Td>
+                                                            <select className='form-control' onChange={(e) => setCtype(e.target.value)}>
+                                                                <option>Please Select</option>
+                                                                <option value='Visa'>Visa</option>
+                                                                <option value='Master Card'>Master Card</option>
+                                                                <option value='American Express'>American Express</option>
+                                                            </select>
+                                                        </Td>
+                                                    </Tr>
+                                                    <Tr>
+                                                        <Td style={{ width: "60%" }}>{t('work-contract.card_name')}</Td>
+                                                        <Td><input type='text' name="name_on_card" onChange={(e) => setCname(e.target.value)} className='form-control' placeholder={t('work-contract.card_name')} /></Td>
+                                                    </Tr>
 
-                                            </>
-                                            :
-                                            <>
-                                                <Tr>
-                                                    <Td style={{ width: "60%" }}>{t('work-contract.card_type')}</Td>
-                                                    <Td><span className='form-control'>{c.card_type}</span></Td>
-                                                </Tr>
-                                                <Tr>
-                                                    <Td style={{ width: "60%" }}>{t('work-contract.card_name')}</Td>
-                                                    <Td><span className='form-control'>{c.name_on_card}</span></Td>                            
-                                                </Tr>
-                                                <Tr>
-                                                    <Td style={{ width: "60%" }}>{t('work-contract.card_cvv')}</Td>
-                                                    <Td ><span className='form-control'>{c.cvv}</span></Td>
-                                                </Tr>
-                                                <Tr>
-                                                    <Td style={{ width: "60%" }}>{t('work-contract.card_cvv')}</Td>
-                                                    <img src={c.card_sign} className='img-fluid' alt='Company' />
-                                                </Tr>
-                                            </>
+                                                    <Tr>
+                                                        <Td style={{ width: "60%" }}>{t('work-contract.card_cvv')}</Td>
+                                                        <Td><input type='text' name="cvv" onChange={(e) => setCvv(e.target.value)} onKeyUp={(e) => { if (e.target.value.length >= 3) e.target.value = e.target.value.slice(0, 3); }} className='form-control' placeholder={t('work-contract.card_cvv')} /></Td>
+                                                    </Tr>
+                                                    <Tr>
+                                                        <td>{t('work-contract.signature')}</td>
+                                                        <td> <SignatureCanvas
+                                                            penColor='black'
+                                                            canvasProps={{ className: 'sigCanvas' }}
+                                                            ref={sigRef}
+                                                            onEnd={handleSignatureEnd}
+                                                        />&nbsp;</td>
+                                                    </Tr>
 
-                                    )
-                                })}
+                                                </>
+                                                :
+                                                <>
+                                                    <Tr>
+                                                        <Td style={{ width: "60%" }}>{t('work-contract.card_type')}</Td>
+                                                        <Td><span className='form-control'>{c.card_type}</span></Td>
+                                                    </Tr>
+                                                    <Tr>
+                                                        <Td style={{ width: "60%" }}>{t('work-contract.card_name')}</Td>
+                                                        <Td><span className='form-control'>{c.name_on_card}</span></Td>
+                                                    </Tr>
+                                                    <Tr>
+                                                        <Td style={{ width: "60%" }}>{t('work-contract.card_cvv')}</Td>
+                                                        <Td ><span className='form-control'>{c.cvv}</span></Td>
+                                                    </Tr>
+                                                    <Tr>
+                                                        <Td style={{ width: "60%" }}>{t('work-contract.card_cvv')}</Td>
+                                                        <img src={c.card_sign} className='img-fluid' alt='Company' />
+                                                    </Tr>
+                                                </>
+
+                                        )
+                                    })}
 
                                     <Tr>
                                         <Td style={{ width: "60%" }}>{t('work-contract.miscellaneous_txt')}</Td>
@@ -531,27 +539,27 @@ export default function WorkContractRHS() {
                                 </div>
                                 {contract && contract.map((c, i) => {
 
-                                if (c.status == "un-verified") {
-                                    return (
-                                        <>
-                                            <div className='col-sm-6'>
-                                                <div className='mt-2 '>
-                                                    <input className='btn btn-warning' onClick={handleVerify} value='Verify' />
+                                    if (c.status == "un-verified") {
+                                        return (
+                                            <>
+                                                <div className='col-sm-6'>
+                                                    <div className='mt-2 '>
+                                                        <input className='btn btn-warning' onClick={handleVerify} value='Verify' />
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </>
-                                    )
-                                } else if (c.status == 'verified') {
-                                    return (
-                                        <>
-                                            <div className='col-sm-6'>
-                                                <div className='mt-2 '>
-                                                    <input className='btn btn-success' value='Verified' />
+                                            </>
+                                        )
+                                    } else if (c.status == 'verified') {
+                                        return (
+                                            <>
+                                                <div className='col-sm-6'>
+                                                    <div className='mt-2 '>
+                                                        <input className='btn btn-success' value='Verified' />
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </>
-                                    )
-                                }
+                                            </>
+                                        )
+                                    }
                                 })}
                             </div>
                             <div className="mb-4">&nbsp;</div>

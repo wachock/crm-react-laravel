@@ -312,17 +312,17 @@ export default function WorkContract() {
                                 <td>
                                 {services && services.map((s,i)=>{
                                   if((services.length)-1 != i )
-                                  return s.totalamount + " ILS + VAT for " + s.name + ", " + s.freq_name+", ";
+                                  return s.totalamount + t('work-contract.ils')+" + "+ t('work-contract.vat') +" "+ t('work-contract.for')+ s.name + ", " + s.freq_name+", ";
                                   else if(services.service == 10){
 
                                       if((services.length)-1 != i )
-                                      return s.totalamount + " ILS + VAT for " + s.other_title + ", " + s.freq_name+", ";
+                                      return s.totalamount + t('work-contract.ils')+" + "+ t('work-contract.vat') +" "+ t('work-contract.for') + s.other_title + ", " + s.freq_name+", ";
                                       else
-                                      return s.totalamount + " ILS + VAT for " + s.other_title + ", " + s.freq_name;
+                                      return s.totalamount + t('work-contract.ils')+" + "+ t('work-contract.vat') +" "+ t('work-contract.for') + s.other_title + ", " + s.freq_name;
 
                                   }
                                   else
-                                  return s.totalamount + " ILS + VAT for " + s.name + ", " + s.freq_name;
+                                  return s.totalamount + t('work-contract.ils')+" + "+ t('work-contract.vat') +" "+ t('work-contract.for') + s.name + ", " + s.freq_name;
                                 })}
                                 </td>
                             </tr>

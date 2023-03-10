@@ -226,6 +226,9 @@
         "as_agreed_txt": "As agreed between the parties",
         "frequency_txt": "Frequency of the service and/or work",
         "consideration_txt": "Consideration the Tenant will pay the Company, including the payment method and/or payment date \n Prices does not include vat**",
+        "vat": "VAT",
+        "ils": "ILS",
+        "for": "for",
         "payment_method": "Payment method:",
         "hereby_permit_txt": "I the undersigned hereby permit Broom Service L.M. Ltd to charge my credit card account (the details of which are listed below) for the services I will receive from the Company, in the amounts and on the dates specified in this agreement between Broom Service L.M. Ltd and me.",
         "card_type": "Card Type:",
@@ -279,7 +282,7 @@
             "cancel":"Cancel",
             "reject":"Reject",
             "reject_msg":"Contract has been rejected"
-            
+
         }
     },
     "client": {
