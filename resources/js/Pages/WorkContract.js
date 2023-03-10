@@ -327,12 +327,13 @@ export default function WorkContract() {
                                 </td>
                             </tr>
                             <tr>
-                                <td style={{width: "60%"}}>{t('work-contract.payment_method')}</td>
-                                <td>&nbsp;</td>
+                            {/* <td style={{width: "60%"}}>{t('work-contract.payment_method')}</td> */}
+                                <td colSpan="2">{t('work-contract.payment_method')}</td>
+                                {/* <td>&nbsp;</td> */}
                             </tr>
                             <tr>
-                                <td style={{width: "60%"}}>{t('work-contract.hereby_permit_txt')}</td>
-                                <td>&nbsp;</td>
+                                <td colSpan="2">{t('work-contract.hereby_permit_txt')}</td>
+                                {/* <td>&nbsp;</td> */}
                             </tr>
                             <tr>
                                 <td style={{width: "60%"}}>{t('work-contract.card_type')}</td>

@@ -87,7 +87,7 @@ export default function EditClient() {
             apt_no: Apt,
             entrence_code: enterance,
             zipcode: zip,
-            lng: (lng != 0) ? lng : 'heb',
+            lng: (lng) ? lng : 'heb',
             dob: dob,
             passcode: passcode,
             geo_address: address,
@@ -465,7 +465,6 @@ export default function EditClient() {
                                         value={lng}
                                         onChange={(e) => setLng(e.target.value)}
                                     >
-                                        <option value={0}>Please select language</option>
                                         <option value="heb" selected={lng == "heb"}>Hebrew</option>
                                         <option value="en" selected={lng == "en"}>English</option>
                                     </select>
