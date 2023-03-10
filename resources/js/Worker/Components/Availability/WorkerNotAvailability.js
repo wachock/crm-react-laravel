@@ -1,5 +1,6 @@
-import axios from "axios";
-import React, { useState, useEffect } from "react";
+
+import { useState, useEffect } from "react";
+import axios from "axios"; 
 import { useParams, useNavigate } from "react-router-dom";
 import { useAlert } from "react-alert";
 import Moment from 'moment';
@@ -89,11 +90,6 @@ export default function WorkerNotAvailability() {
 
         <div className="tab-pane fade active show" id="customer-notes" role="tabpanel"
             aria-labelledby="customer-notes-tab">
-            <div className="text-right pb-3">
-                <button type="button" className="btn btn-pink" data-toggle="modal" data-target="#exampleModalNote">
-                    Add Date
-                </button>
-            </div>
             {AllDates && AllDates.map((n,i)=>{
                 return (
 
@@ -103,19 +99,17 @@ export default function WorkerNotAvailability() {
                     <div className="row">
                         
                         <div className="col-sm-10 col-10">
-                
-                            
+                            <p style={{fontSize: "16px", fontWeight: "600"}}>
+                                {
+                                (n.date) ? n.date : 'NA'
+                                }
+                            </p>
                         </div>
                         <div className="col-sm-2 col-2">
                             <div className="float-right noteUser">
                             <button className="ml-2 btn bg-red" onClick={(e)=>handleDelete(e,n.id)}><i className="fa fa-trash"></i></button>
                                 &nbsp;
                             </div>
-                        </div>
-                        <div className="col-sm-12">
-                        {
-                          (n.date) ? n.date : 'NA'
-                        }
                         </div>
                     </div>
                 </div>
