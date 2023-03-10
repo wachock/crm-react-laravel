@@ -1,11 +1,12 @@
-import axios from "axios";
-import React, { useState, useEffect } from "react";
+
+import { useState, useEffect } from "react";
+import axios from "axios"; 
 import { useParams, useNavigate } from "react-router-dom";
 import { useAlert } from "react-alert";
 import Moment from 'moment';
 import Swal from 'sweetalert2';
 
-export default function WorkerNotAvailabilty() {
+export default function WorkerNotAvailability() {
 
     const [date,setDate] = useState("");
     const [AllDates,setAllDates] = useState([]);
@@ -14,8 +15,9 @@ export default function WorkerNotAvailabilty() {
     const headers = {
         Accept: "application/json, text/plain, */*",
         "Content-Type": "application/json",
-        Authorization: `Bearer ` + localStorage.getItem("admin-token"),
+        Authorization: `Bearer ` + localStorage.getItem("worker-token"),
     };
+    let worker_id=localStorage.getItem("worker-id")
 
    
     const handleDate = (e) =>{
@@ -23,12 +25,12 @@ export default function WorkerNotAvailabilty() {
       e.preventDefault();
       const data ={
         'date':date,
-        'worker_id':parseInt(param.id),
+        'worker_id':worker_id,
         'status':1
       }
       
       axios
-      .post(`/api/admin/add-not-available-date`,data,{  headers  })
+      .post(`/api/add-not-available-date`,data,{  headers  })
       .then((res)=>{
         if(res.data.errors){
             for( let e in res.data.errors){
@@ -58,7 +60,7 @@ export default function WorkerNotAvailabilty() {
         }).then((result) => {
             if (result.isConfirmed) {
                 axios
-                    .post(`/api/admin/delete-not-available-date`,{id:id},{ headers })
+                    .post(`/api/delete-not-available-date`,{id:id},{ headers })
                     .then((response) => {
                         Swal.fire(
                             "Deleted!",
@@ -75,7 +77,7 @@ export default function WorkerNotAvailabilty() {
 
     const getDates = () =>{
       axios
-      .post(`/api/admin/get-not-available-dates`,{id:parseInt(param.id)},{ headers })
+      .post(`/api/get-not-available-dates`,{id:parseInt(worker_id)},{ headers })
       .then((res)=>{
         setAllDates(res.data.dates);
       })
@@ -88,11 +90,6 @@ export default function WorkerNotAvailabilty() {
 
         <div className="tab-pane fade active show" id="customer-notes" role="tabpanel"
             aria-labelledby="customer-notes-tab">
-            <div className="text-right pb-3">
-                <button type="button" className="btn btn-pink" data-toggle="modal" data-target="#exampleModalNote">
-                    Add Date
-                </button>
-            </div>
             {AllDates && AllDates.map((n,i)=>{
                 return (
 
@@ -102,9 +99,11 @@ export default function WorkerNotAvailabilty() {
                     <div className="row">
                         
                         <div className="col-sm-10 col-10">
-                            <p style={{fontSize: "16px", fontWeight: "600"}}>{
-                            (n.date) ? n.date : 'NA'
-                            }</p>
+                            <p style={{fontSize: "16px", fontWeight: "600"}}>
+                                {
+                                (n.date) ? n.date : 'NA'
+                                }
+                            </p>
                         </div>
                         <div className="col-sm-2 col-2">
                             <div className="float-right noteUser">

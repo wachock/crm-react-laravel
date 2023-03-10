@@ -1355,6 +1355,7 @@ h1 {
   border-radius: 60px;
   line-height: 40px;
   display: inline-block;
+  border: 1px solid #e6e8eb;
 }
 .swatch > [type="radio"], .swatch > [type="checkbox"] {
   position: absolute;
