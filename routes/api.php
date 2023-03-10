@@ -31,6 +31,11 @@ Route::group( ['middleware' => ['auth:api','scopes:user'] ],function(){
     
     Route::post('dashboard', [DashboardController::class, 'dashboard']);
     Route::get('get-time', [DashboardController::class, 'getTime']);
+     //not Available date
+    Route::post('get-not-available-dates', [DashboardController::class,'getNotAvailableDates']);
+    Route::post('add-not-available-date', [DashboardController::class,'addNotAvailableDates']);
+    Route::post('delete-not-available-date', [DashboardController::class,'deleteNotAvailableDates']);
+
 
     Route::resource('jobs', JobController::class);
     Route::post('job-start-time', [JobController::class, 'JobStartTime']);
@@ -45,6 +50,7 @@ Route::group( ['middleware' => ['auth:api','scopes:user'] ],function(){
     Route::post('logout', [AuthController::class, 'logout']);
     Route::get('details',[AuthController::class, 'details']); 
     Route::post('update_details/{id}',[AuthController::class, 'updateWorker']); 
+
 
 
 });
