@@ -102,19 +102,15 @@ export default function WorkerNotAvailabilty() {
                     <div className="row">
                         
                         <div className="col-sm-10 col-10">
-                
-                            
+                            <p style={{fontSize: "16px", fontWeight: "600"}}>{
+                            (n.date) ? n.date : 'NA'
+                            }</p>
                         </div>
                         <div className="col-sm-2 col-2">
                             <div className="float-right noteUser">
                             <button className="ml-2 btn bg-red" onClick={(e)=>handleDelete(e,n.id)}><i className="fa fa-trash"></i></button>
                                 &nbsp;
                             </div>
-                        </div>
-                        <div className="col-sm-12">
-                        {
-                          (n.date) ? n.date : 'NA'
-                        }
                         </div>
                     </div>
                 </div>
