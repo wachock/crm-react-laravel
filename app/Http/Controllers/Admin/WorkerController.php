@@ -400,17 +400,16 @@ class WorkerController extends Controller
     public function addNotAvailableDates(Request $request){
         $validator = Validator::make($request->all(),[
             'date'     =>'required',
-            'user_id'  =>'required',
+            'worker_id'  =>'required',
         ]);
         if($validator->fails()){
             return response()->json(['errors'=>$validator->messages()]);
         }
-        WorkerNotAvailbleDate::create([
-            'user_id'=>(int)$request->user_id,
-            'date'   =>$request->date,
-            'status' =>$request->status,
-            
-        ]);
+        $date          = new WorkerNotAvailbleDate;
+        $date->user_id = $request->worker_id;
+        $date->date    = $request->date;
+        $date->status  = $request->status;
+        $date->save();
         return response()->json(['message'=>'Date added']);
     }
 
@@ -420,7 +419,7 @@ class WorkerController extends Controller
     }
 
     public function deleteNotAvailableDates(Request $request){
-        WorkerNotAvailbleDate::where(['id'=>$request->id])->delete();
+        WorkerNotAvailbleDate::find($request->id)->delete();
         return response()->json(['message'=>'date deleted']);
     }
 }

@@ -15,8 +15,7 @@ class CreateWorkerNotAvailbleDatesTable extends Migration
     {
         Schema::create('worker_not_availble_dates', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->date('date')->nullable();
             $table->enum('status', ['0', '1'])->default('1');
             $table->timestamps();

@@ -23,12 +23,12 @@ export default function WorkerNotAvailabilty() {
       e.preventDefault();
       const data ={
         'date':date,
-        'user_id':param.id,
+        'worker_id':parseInt(param.id),
         'status':1
       }
       
       axios
-      .post(`/api/admin/add-not-available-dates`,data,{  headers  })
+      .post(`/api/admin/add-not-available-date`,data,{  headers  })
       .then((res)=>{
         if(res.data.errors){
             for( let e in res.data.errors){
@@ -58,7 +58,7 @@ export default function WorkerNotAvailabilty() {
         }).then((result) => {
             if (result.isConfirmed) {
                 axios
-                    .post(`/api/admin/delete-not-available-dates`,{id:id},{ headers })
+                    .post(`/api/admin/delete-not-available-date`,{id:id},{ headers })
                     .then((response) => {
                         Swal.fire(
                             "Deleted!",
@@ -138,7 +138,7 @@ export default function WorkerNotAvailabilty() {
                                 <div className="col-sm-12">
                                     <div className="form-group">
                                         <label className="control-label">
-                                            Note
+                                            Date
                                         </label>
                                         <input
                                             type="date"
@@ -148,7 +148,7 @@ export default function WorkerNotAvailabilty() {
                                             }
                                             className="form-control"
                                             required
-                                            placeholder="Enter Note"
+                                            placeholder="Enter Date"
                                         />
 
                                     </div>
@@ -160,7 +160,7 @@ export default function WorkerNotAvailabilty() {
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn btn-secondary closeb1" data-dismiss="modal">Close</button>
-                            <button type="button"  onClick={handleDate} className="btn btn-primary">Save Note</button>
+                            <button type="button"  onClick={handleDate} className="btn btn-primary">Save Date</button>
                         </div>
                     </div>
                 </div>
