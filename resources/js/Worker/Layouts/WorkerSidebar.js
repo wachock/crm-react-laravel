@@ -52,6 +52,9 @@ export default function WorkerSidebar() {
                  <li className="list-group-item">
                     <NavLink to="/worker/schedule"><i className="fa-solid fa-clipboard-list"></i>{t('worker.sidebar.schedule')}</NavLink>
                 </li>
+                 <li className="list-group-item">
+                    <NavLink to="/worker/not-available"><i className="fa-solid fa-clipboard-list"></i>{t('worker.sidebar.not_available')}</NavLink>
+                </li>
                 <li className="list-group-item">
                     <NavLink to="/worker/my-account"><i className="fa-solid fa-user"></i>{t('worker.my_account')}</NavLink>
                 </li>
