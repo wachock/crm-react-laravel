@@ -204,7 +204,7 @@ export default function WorkerViewJob() {
                                     <div className='col-sm-2 col-6'>
                                      {!isRunning && (
                                            <>
-                                          <button onClick={startTimer} className="btn btn-primary">{job_time.length > 0 ? t('worker.jobs.view.resbtn') : t('worker.jobs.view.c_details') }</button>
+                                          <button onClick={startTimer} className="btn btn-primary">{job_time.length > 0 ? t('worker.jobs.view.resbtn') : t('worker.jobs.view.startbtn') }</button>
                                           <h4>{job_time.length > 0 ? calculateTime(total_time) :'' }</h4>
                                            </>
                                         )}
