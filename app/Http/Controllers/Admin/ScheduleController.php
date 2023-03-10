@@ -219,14 +219,14 @@ class ScheduleController extends Controller
             else
             $str .= $serv->name;
          }
-
+ 
        } 
         
         $sch['service_names'] = $str; 
         \App::setLocale($sch['client']['lng']);
         Mail::send('/Mails/MeetingMail',$sch,function($messages) use ($sch){
             $messages->to($sch['client']['email']);
-            $sub = __('mail.meeting.subject')." ".__('mail.meeting.from')." ".__('mail.meeting.company');
+            $sub = __('mail.meeting.subject')." ".__('mail.meeting.from')." ".__('mail.meeting.company')." #".$sch['id'];
             $messages->subject($sub);
         });
     }
