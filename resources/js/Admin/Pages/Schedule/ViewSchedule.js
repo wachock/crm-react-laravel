@@ -209,7 +209,13 @@ export default function ViewSchedule() {
 
     }
 
-
+    const changeTeam = (id)=>{
+        getEvents(id);
+    }
+    const matchTime = (time) =>{
+      console.log(time);
+      console.log(events);
+    }
     return (
         <div id="container">
             <Sidebar />
@@ -246,7 +252,7 @@ export default function ViewSchedule() {
                         <div className='col-sm-6'>
                             <div className='form-group'>
                                 <label className='control-label'>Meeting Attender</label>
-                                <select className='form-control' name="team_id" id="team" onChange={(e) => { setTeam(e.target.value); handleUpdate(e) }}>
+                                <select className='form-control' name="team_id" id="team" onChange={(e) => { setTeam(e.target.value); handleUpdate(e);changeTeam(e.target.value) }}>
                                     <option value="0">Please Select</option>
                                     {totalTeam && totalTeam.map((t, i) => {
                                         return <option value={t.id} selected={team == t.id}> {t.name} </option>
@@ -267,7 +273,7 @@ export default function ViewSchedule() {
                             <div className='col-sm-4'>
                                 <div className='form-group'>
                                     <label>Start Time</label>
-                                    <select name="start_time" id="start_time" onChange={(e) => { setStartTime(e.target.value); handleUpdate(e) }} className="form-control">
+                                    <select name="start_time" id="start_time" onChange={(e) => { setStartTime(e.target.value); handleUpdate(e);matchTime(e.target.value) }} className="form-control">
                                         <option>Choose start time</option>
                                         {time && time.map((t, i) => {
                                             return (<option value={t} selected={t == startTime}>{t}</option>);
