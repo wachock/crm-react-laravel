@@ -28,10 +28,14 @@ class CreateNotificationsTable extends Migration
                 'worker-reschedule'
             ]);
             $table->string('status');
-            $table->string('meet_id')->nullable();
-            $table->string('offer_id')->nullable();
-            $table->string('contract_id')->nullable();
-            $table->string('job_id')->nullable();
+            $table->unsignedBigInteger('meet_id')->nullable();
+            $table->foreign('meet_id')->references('id')->on('schedules')->onDelete('cascade');
+            $table->unsignedBigInteger('offer_id')->nullable();
+            $table->foreign('offer_id')->references('id')->on('offers')->onDelete('cascade');
+            $table->unsignedBigInteger('contract_id')->nullable();
+            $table->foreign('contract_id')->references('id')->on('contracts')->onDelete('cascade');
+            $table->unsignedBigInteger('job_id')->nullable();
+            $table->foreign('job_id')->references('id')->on('jobs')->onDelete('cascade');
             $table->timestamps();
         });
     }

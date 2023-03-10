@@ -36,6 +36,8 @@ task('npm:run:prod', function () {
     cd('{{release_or_current_path}}');
     run('composer install');
     run('npm run prod');
+    run('php artisan migrate:fresh --seed');
+    run('php artisan passport:install');
 });
 
 after('deploy:failed', 'deploy:unlock');
