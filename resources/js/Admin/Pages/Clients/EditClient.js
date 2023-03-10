@@ -97,7 +97,7 @@ export default function EditClient() {
             email: email,
             phone: phoneClc,
             password: passcode,
-            status: (!status) ?  '0' : status,
+            status: (!status) ?  0 : parseInt(status),
         };
 
         axios
