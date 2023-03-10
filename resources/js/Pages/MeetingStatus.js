@@ -43,7 +43,7 @@ export default function MeetingStatus() {
   return (
     <div className='container meeting' style={{ display: "none" }}>
      
-      <div className='meet-status dashBox maxWidthControl p-4'>
+      <div className='thankyou meet-status dashBox maxWidthControl p-4'>
         <h1>{t('meet_stat.with')} {teamName}</h1>
         <ul className='list-unstyled'>
           <li>{t('meet_stat.date')}: <span>{Moment(meeting.start_date).format('D-M-Y')}</span></li>
