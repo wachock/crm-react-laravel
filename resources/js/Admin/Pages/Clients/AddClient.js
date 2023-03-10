@@ -92,7 +92,7 @@ export default function AddClient() {
             email: email,
             phone: phoneClc,
             password: passcode,
-            status: (!status) ?  1 : status,
+            status: (!status) ?  0 : parseInt(status),
         };
 
         axios

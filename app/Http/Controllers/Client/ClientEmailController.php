@@ -113,15 +113,17 @@ class ClientEmailController extends Controller
       $sch = Schedule::find($request->id)->get('client_id')->first();
       if($request->response =='confirmed'):
 
-            notifications::create([
-              'user_id'=>$sch->client_id,
-              'type'=>'accept-meeting',
-              'meet_id'=>$request->id,
-              'status' => $request->response
-          ]);
+          Client::where('id',$sch->client_id)->update(['status'=>1]);
+          notifications::create([
+            'user_id'=>$sch->client_id,
+            'type'=>'accept-meeting',
+            'meet_id'=>$request->id,
+            'status' => $request->response
+        ]);
 
         else:
 
+          Client::where('id',$sch->client_id)->update(['status'=>0]);
           notifications::create([
             'user_id'=>$sch->client_id,
             'type'=>'reject-meeting',
@@ -144,8 +146,10 @@ class ClientEmailController extends Controller
    public function AcceptContract(Request $request){
      
     try{
+
       Contract::where('unique_hash',$request->unique_hash)->update($request->input());
       $contract = Contract::with('client')->where('unique_hash',$request->unique_hash)->get()->first();
+      Client::where('id',$contract->client_id)->update(['status'=>2]);
       notifications::create([
         'user_id'=>$contract->client_id,
         'type'=>'contract-accept',
@@ -170,6 +174,7 @@ class ClientEmailController extends Controller
     try{
       Contract::where('id',$request->id)->update(['status' =>'declined']);
       $contract = Contract::with('client')->where('id',$request->id)->get()->first();
+      Client::where('id',$contract->client_id)->update(['status'=>1]);
       notifications::create([
         'user_id'=>$contract->client_id,
         'type'=>'contract-reject',
