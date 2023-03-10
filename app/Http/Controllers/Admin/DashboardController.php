@@ -67,6 +67,9 @@ class DashboardController extends Controller
 
     public function Notice(Request $request){
       
+      $count = notifications::count();
+      if($count > 0) :
+
       if($request->head)
       $noticeAll = notifications::with('client')->orderBy('id', 'desc')->take(5)->get();
       if($request->all)
@@ -130,5 +133,14 @@ class DashboardController extends Controller
       return response()->json([
         'notice'=>$noticeAll
       ]);
+
+      else :
+        
+        return response()->json([
+          'notice'=> []
+        ]);
+
+      endif;
+      
     }
 }
