@@ -64,7 +64,9 @@ export default function ViewSchedule() {
     };
 
     const sendMeeting = () => {
-
+         
+        const match = matchTime(startTime);
+        if(match == 0) return;
         let st = document.querySelector('#status').value;
         const data = {
             client_id: param.id,
@@ -226,6 +228,7 @@ export default function ViewSchedule() {
         
             if(cdt >= st && cdt <= ed){
                 window.alert('Your meeting is already schedule on '+ document.querySelector('#dateSel').value +" between "+stime+" to "+etime);
+                return 0;
             }
         }
       }

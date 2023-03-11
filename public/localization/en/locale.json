@@ -1,4 +1,8 @@
 {
+    "global":{
+        "vat": "VAT",
+        "currency": "ILS"
+    },
     "res_txt": "Thankyou for your response",
     "meet_accept": {
         "cnct_txt": "Our team will contact you shortly"

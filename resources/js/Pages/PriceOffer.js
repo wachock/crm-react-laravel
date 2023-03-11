@@ -18,7 +18,7 @@ export default function PriceOffer() {
     const [services, setServices] = useState([]);
     const [client, setClient] = useState([]);
     const [allTemplates, setAllTemplates] = useState([]);
-    
+    const [status,setStatus] = useState('');
 
     const getOffer = () => {
 
@@ -26,6 +26,7 @@ export default function PriceOffer() {
             .post(`/api/client/get-offer`, { id: param.id })
             .then((res) => {
                 setOffer(res.data.offer[0]);
+                setStatus(res.data.offer[0].status);
                 setServices(JSON.parse(res.data.offer[0].services));
                 setClient(res.data.offer[0].client);
                 i18next.changeLanguage(res.data.offer[0].client.lng);
@@ -40,14 +41,14 @@ export default function PriceOffer() {
                 let serv = JSON.parse(res.data.offer[0].services);
                 let tm = [];
                 serv && serv.map(async (s, i) => {
-                
+
                     const d = await axiosTemplate(s.service);
                     tm[i] = d.data.template.template;
                     tm = tm.filter((v, i, a) => { return a.indexOf(v) === i });
                     setAllTemplates(tm);
                 });
-           
-               
+
+
 
             })
 
@@ -79,10 +80,11 @@ export default function PriceOffer() {
                     btn[1].removeAttribute('disabled');
                     btn[1].value = ('Accept Offer');
                 } else {
-                    btn[0].remove();
-                    btn[1].remove();
+                  
+                    setStatus('accepted');
                     let msg = t('price_offer.messages.success');
                     swal(msg, '', 'success');
+                    
                 }
             })
 
@@ -96,7 +98,7 @@ export default function PriceOffer() {
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
-            cancelButtonText:t('price_offer.messages.cancel'),
+            cancelButtonText: t('price_offer.messages.cancel'),
             confirmButtonText: t('price_offer.messages.yes_reject'),
         }).then((result) => {
             if (result.isConfirmed) {
@@ -108,9 +110,7 @@ export default function PriceOffer() {
                             t('price_offer.messages.reject_msg'),
                             "success"
                         );
-                        setTimeout(() => {
-                            navigate('/client/login');
-                        }, 1000);
+                        setStatus('declined');
                     });
             }
         });
@@ -121,8 +121,14 @@ export default function PriceOffer() {
     useEffect(() => {
         getOffer();
     }, []);
-    let rg = [4, 5, 6, 7,10];
-
+    let rg = [4, 5, 6, 7, 10];
+    services && services.filter((s,i,a)=>{
+        if(i == 0 && s.service == '10' && a.length >= 2 && rg.includes(parseInt(s.service))){
+            [ a[0], a[a.length-1] ] = [ a[a.length-1], a[0] ]; 
+            return a;
+        }
+    })
+    
     return (
         <>
 
@@ -134,10 +140,26 @@ export default function PriceOffer() {
                                 <img src={logo} className='img-fluid offer-logo' alt='Broom Service' />
                             </div>
                             <div className='col-sm-6'>
-                                <div className='mt-2 float-right'>
+                                {
+                                (status == 'sent') ?
+                                 (<>
+                                <div className='mt-2 float-right headBtns'>
                                     <input className='btn btn-pink acpt' onClick={(e) => handleOffer(e, offer.id)} value={t('price_offer.button')} />
-                                    <input className='btn btn-danger mt-2' onClick={(e) => RejectOffer(offer.id)} value={t('price_offer.button_reject')} />
+                                    <input className='btn btn-danger mt-2 rjct' onClick={(e) => RejectOffer(offer.id)} value={t('price_offer.button_reject')} />
                                 </div>
+                                </>)
+                                :
+                                <>
+                                <div className='mt-2 float-right headMsg'>
+                                    {
+                                     (status == 'accepted') ?
+                                    <h4 className='btn btn-success'>Accepted</h4>
+                                    :
+                                     <h4 className='btn btn-danger'>Rejected</h4>
+                                    }
+                                </div>
+                                </>
+                                }
                             </div>
 
                         </div>
@@ -165,22 +187,22 @@ export default function PriceOffer() {
                             <h3>{t('price_offer.offer_title')}</h3>
                             {services && services.map((s, i) => {
 
-                                 let sid = parseInt(s.service);
+                                let sid = parseInt(s.service);
                                 {
-                                   
+
                                     if (
-                                        rg.includes(sid) && sid == 4 
-                                        || rg.includes(sid) && sid == 5 
+                                        rg.includes(sid) && sid == 4
+                                        || rg.includes(sid) && sid == 5
                                         || rg.includes(sid) && sid == 6
                                         || rg.includes(sid) && sid == 7
                                         && !rg.includes(sid) && sid == 10
-                                    
-                                    ){
+
+                                    ) {
                                         rg = [];
                                         return (<>
 
                                             <div className='shift-20'>
-                                            
+
                                                 <h4>&bull; {t('price_offer.regular_services.rs1')}</h4>
                                                 <ul className='list-unstyled'>
                                                     <li><img src={star} /> {t('price_offer.regular_services.rs1_p1')}</li>
@@ -189,14 +211,14 @@ export default function PriceOffer() {
                                                     <li><img src={star} /> {t('price_offer.regular_services.rs1_p4')}</li>
                                                     <li><img src={star} /> {t('price_offer.regular_services.rs1_p5')}</li>
                                                 </ul>
-                                           
+
                                                 <h4 className='mt-4'>&bull; {t('price_offer.regular_services.rs2')}</h4>
-                                                <img src={t('price_offer.regular_services.rs2_img')} className='img-fluid' alt='Room Services' /> 
-                                            
+                                                <img src={t('price_offer.regular_services.rs2_img')} className='img-fluid' alt='Room Services' />
+
                                             </div>
 
                                         </>)
-                                         
+
                                     }
 
                                 }
@@ -206,7 +228,7 @@ export default function PriceOffer() {
 
                                         return (<>
                                             <div className='shift-20'>
-                                                
+
                                                 <h4>&bull; {t('price_offer.thorough_cleaning.premium')}</h4>
                                                 <ul className='list-unstyled'>
                                                     <li><img src={star} /> {t('price_offer.thorough_cleaning.s1_1')}</li>
@@ -256,7 +278,7 @@ export default function PriceOffer() {
 
                                         return (<>
                                             <div className='shift-20'>
-                                              
+
                                                 {(allTemplates.includes('office_cleaning') && !allTemplates.includes('regular')) ?
                                                     <>
                                                         <h4>&bull; {t('price_offer.office_cleaning.oc1')}</h4>
@@ -306,15 +328,15 @@ export default function PriceOffer() {
 
                                 {
                                     if (
-                                        
-                                        (!rg.includes(sid) && sid == 4 )
-                                        && (!rg.includes(sid) && sid == 5 )
-                                        && (!rg.includes(sid) && sid == 6 )
-                                        && (!rg.includes(sid) && sid == 7 )
-                                        || (rg.includes(sid) && sid == 10 )
-                                    
-                                    ){
-                                        
+
+                                        (!rg.includes(sid) && sid == 4)
+                                        && (!rg.includes(sid) && sid == 5)
+                                        && (!rg.includes(sid) && sid == 6)
+                                        && (!rg.includes(sid) && sid == 7)
+                                        || (rg.includes(sid) && sid == 10)
+
+                                    ) {
+
                                         //rg = [];
 
                                         return (<>
@@ -376,17 +398,17 @@ export default function PriceOffer() {
                                         <tbody>
                                             {services && services.map((s, i) => {
                                                 return (<tr>
-                                                   
+
                                                     <td>{
-                                                         (s.service == 10)
-                                                          ?s.other_title 
-                                                          :s.name
-                                                    
+                                                        (s.service == 10)
+                                                            ? s.other_title
+                                                            : s.name
+
                                                     }</td>
 
                                                     <td>{s.freq_name}</td>
 
-                                                    <td>{s.totalamount} ILS</td>
+                                                    <td>{s.totalamount} {t('global.currency')}</td>
 
 
                                                 </tr>
