@@ -120,6 +120,9 @@ export default function PriceOffer() {
 
     useEffect(() => {
         getOffer();
+        setTimeout(()=>{
+            document.querySelector('.parent').style.display = 'block';
+        },500);
     }, []);
     let rg = [4, 5, 6, 7, 10];
     services && services.filter((s,i,a)=>{
@@ -132,7 +135,7 @@ export default function PriceOffer() {
     return (
         <>
 
-            <div className='container'>
+            <div className='container parent' style={{display:'none'}}>
                 <div className='send-offer sendOfferRtl'>
                     <div className='maxWidthControl dashBox mb-4'>
                         <div className='row'>
