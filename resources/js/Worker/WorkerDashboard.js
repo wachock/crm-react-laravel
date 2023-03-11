@@ -70,8 +70,7 @@ export default function WorkerDashboard() {
                                                 <Th>{t('worker.dashboard.client_name')}</Th>
                                                 <Th>{t('worker.dashboard.service_name')}</Th>
                                                 <Th>{t('worker.dashboard.date')}</Th>
-                                                <Th>{t('worker.dashboard.start_time')}</Th>
-                                                <Th>{t('worker.dashboard.end_time')}</Th>
+                                                <Th>{t('worker.dashboard.shift')}</Th>
                                                 <Th>{t('worker.dashboard.status')}</Th>
                                                 <Th>{t('worker.dashboard.total')}</Th>
                                                 <Th>{t('worker.dashboard.action')}</Th>
@@ -100,10 +99,7 @@ export default function WorkerDashboard() {
                                                             {item.start_date}
                                                         </Td>
                                                         <Td>
-                                                            {item.start_time}
-                                                        </Td>
-                                                        <Td>
-                                                            {item.end_time}
+                                                            {item.shifts}
                                                         </Td>
 
                                                         <Td

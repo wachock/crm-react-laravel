@@ -125,7 +125,7 @@ export default function WorkerTotalJobs() {
                                                            item.jobservice.name
                                                         }</Td>
                                                         <Td>
-                                                             {(item.start_time !='')?(`${item.start_time} to ${item.end_time}`):''}
+                                                             {item.shifts}
                                                            
                                                         </Td>
                                                         <Td>{

@@ -31,7 +31,7 @@ export default function Services({services,job}) {
                                 <div className='col-sm-3'>
                                     <div className='form-group'>
                                         <label className='control-label'>{t('worker.jobs.view.shift')}</label>
-                                        <p>{job.start_time} to {job.end_time}</p>
+                                        <p>{job.shifts}</p>
                                     </div>
                                 </div>
                                

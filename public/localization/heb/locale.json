@@ -463,6 +463,7 @@
             "client_name":"שם הלקוח",
             "service_name":"שם השירות",
             "date":"תַאֲרִיך",
+            "shift":"Shift",
             "start_time":"שעת התחלה",
             "end_time":"שעת סיום",
             "status":"סטָטוּס",
