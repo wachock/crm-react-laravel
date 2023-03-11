@@ -227,7 +227,7 @@ export default function PriceOffer() {
                                 }
 
                                 {
-                                    if (allTemplates.includes('thorough_cleaning') && s.service == 3)
+                                    if (s.service == 3)
 
                                         return (<>
                                             <div className='shift-20'>
@@ -277,12 +277,12 @@ export default function PriceOffer() {
 
 
                                 {
-                                    if (allTemplates.includes('office_cleaning') && s.service == 1)
+                                    if (s.service == 1)
 
                                         return (<>
                                             <div className='shift-20'>
 
-                                                {(allTemplates.includes('office_cleaning') && !allTemplates.includes('regular')) ?
+                                                {(s.service == 1 && !allTemplates.includes('regular')) ?
                                                     <>
                                                         <h4>&bull; {t('price_offer.office_cleaning.oc1')}</h4>
                                                         <ul className='list-unstyled'>
@@ -306,7 +306,7 @@ export default function PriceOffer() {
                                 }
 
                                 {
-                                    if (allTemplates.includes('after_renovation') && s.service == 2)
+                                    if (s.service == 2)
                                         return (<>
                                             <div className='shift-20'>
 
