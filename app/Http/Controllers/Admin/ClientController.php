@@ -42,7 +42,7 @@ class ClientController extends Controller
 
     public function AllClients(){
         
-        $clients = Client::where('status',2)->get();
+        $clients = Client::all();
         return response()->json([
             'clients'       => $clients,            
         ], 200);

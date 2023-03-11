@@ -77,7 +77,7 @@ class ClientEmailController extends Controller
       
       Mail::send('/Mails/ContractMail',$ofr,function($messages) use ($ofr){
         $messages->to($ofr['client']['email']);
-        $sub = __('mail.contract.subject')."  ".__('mail.contract.company');
+        $sub = __('mail.contract.subject')."  ".__('mail.contract.company')." for offer #".$ofr['id'];
         $messages->subject($sub);
       });
       
