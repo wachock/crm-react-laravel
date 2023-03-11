@@ -114,8 +114,7 @@ export default function ClientDashboard() {
                                                 <Th>{t('client.dashboard.client_name')}</Th>
                                                 <Th>{t('client.dashboard.service_name')}</Th>
                                                 <Th>{t('client.dashboard.date')}</Th>
-                                                <Th>{t('client.dashboard.start_time')}</Th>
-                                                <Th>{t('client.dashboard.end_time')}</Th>
+                                                <Th>{t('client.dashboard.shift')}</Th>
                                                 <Th>{t('client.dashboard.assigned_worker')}</Th>
                                                 <Th>{t('client.dashboard.status')}</Th>
                                                 <Th>{t('client.dashboard.total')}</Th>
@@ -145,10 +144,7 @@ export default function ClientDashboard() {
                                                                     {item.start_date}
                                                                 </Td>
                                                                 <Td>
-                                                                    {item.start_time}
-                                                                </Td>
-                                                                <Td>
-                                                                    {item.end_time}
+                                                                    {item.shifts}
                                                                 </Td>
                                                                 <Td>{
                                                                     item.worker
