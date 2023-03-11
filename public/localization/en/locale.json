@@ -457,6 +457,7 @@
             "client_name":"Client Name",
             "service_name":"Service Name",
             "date":"Date",
+            "shift":"Shift",
             "start_time":"Start Time",
             "end_time":"End Time",
             "status":"Status",
