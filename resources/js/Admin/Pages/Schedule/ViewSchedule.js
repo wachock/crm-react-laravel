@@ -260,10 +260,11 @@ export default function ViewSchedule() {
                     <div className='row mt-4'>
                         <div className='col-sm-6'>
                             <div className='form-group'>
-                                <label className='control-label'>Booking Status</label>
+                                <label className='control-label'>Meeting Status</label>
                                 <select className='form-control' name="booking_status" id="status" onChange={(e) => { setBstatus(e.target.value); handleUpdate(e) }}>
                                     <option value='pending' selected={bstatus == 'pending'}>Pending</option>
                                     <option value='confirmed' selected={bstatus == 'confirmed'}>Confirmed</option>
+                                    <option value='completed' selected={bstatus == 'declined'}>Declined</option>
                                     <option value='completed' selected={bstatus == 'completed'}>Completed</option>
                                 </select>
                             </div>

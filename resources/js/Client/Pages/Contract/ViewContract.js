@@ -19,7 +19,7 @@ export default function WorkContract() {
     const param = useParams();
     const sigRef = useRef();
     const sigRef2 = useRef();
-    const {t} = useTranslation();
+    const { t } = useTranslation();
     const [signature, setSignature] = useState(null);
     const [signature2, setSignature2] = useState(null);
     const [Aaddress, setAaddress] = useState(null);
@@ -39,7 +39,7 @@ export default function WorkContract() {
         if (!cname) { swal('Please enter card holder name', '', 'error'); return false; }
         if (!cvv) { swal('Please select card cvv', '', 'error'); return false; }
         if (!signature) { swal('Please sign the contract', '', 'error'); return false; }
-        if(!signature2){ swal('Please enter signature on the card','','error'); return false;}
+        if (!signature2) { swal('Please enter signature on the card', '', 'error'); return false; }
         if (cvv.length < 3) { swal('Invalid cvv', '', 'error'); return false; }
 
         const data = {
@@ -47,12 +47,12 @@ export default function WorkContract() {
             offer_id: offer[0].id,
             client_id: offer[0].client.id,
             additional_address: Aaddress,
-            card_type:ctype,
-            name_on_card:cname,
-            cvv:cvv.substring(0,3),
-            status:'un-verified',
-            signature:signature,
-            card_sign:signature2
+            card_type: ctype,
+            name_on_card: cname,
+            cvv: cvv.substring(0, 3),
+            status: 'un-verified',
+            signature: signature,
+            card_sign: signature2
         }
 
         axios
@@ -253,7 +253,7 @@ export default function WorkContract() {
                                         {contract && contract.map((c, i) => {
 
                                             let address = (c.client.geo_address) ? (c.client.geo_address) + ", " : '';
-                                        
+
 
                                             if (c.additional_address) {
 
@@ -301,9 +301,17 @@ export default function WorkContract() {
                                     <td>
                                         {services && services.map((s, i) => {
                                             if ((services.length) - 1 != i)
-                                                return s.totalamount + " ILS + VAT for " + s.name + ", " + s.freq_name + ", ";
+                                                return s.totalamount + t('work-contract.ils') + " + " + t('work-contract.vat') + " " + t('work-contract.for') + s.name + ", " + s.freq_name + ", ";
+                                            else if (services.service == 10) {
+
+                                                if ((services.length) - 1 != i)
+                                                    return s.totalamount + t('work-contract.ils') + " + " + t('work-contract.vat') + " " + t('work-contract.for') + s.other_title + ", " + s.freq_name + ", ";
+                                                else
+                                                    return s.totalamount + t('work-contract.ils') + " + " + t('work-contract.vat') + " " + t('work-contract.for') + s.other_title + ", " + s.freq_name;
+
+                                            }
                                             else
-                                                return s.totalamount + " ILS + VAT for " + s.name + ", " + s.freq_name;
+                                                return s.totalamount + t('work-contract.ils') + " + " + t('work-contract.vat') + " " + t('work-contract.for') + s.name + ", " + s.freq_name;
                                         })}
 
                                     </td>
@@ -331,7 +339,7 @@ export default function WorkContract() {
                                                         </select>
                                                     </td>
                                                 </tr>
-                                               
+
                                                 <tr>
                                                     <td style={{ width: "60%" }}>Name on the Card</td>
                                                     <td><input type='text' name="name_on_card" onChange={(e) => setCname(e.target.value)} className='form-control' placeholder='Name on the Card' /></td>
@@ -341,15 +349,15 @@ export default function WorkContract() {
                                                     <td><input type='text' name="cvv" onChange={(e) => setCvv(e.target.value)} onKeyUp={(e) => { if (e.target.value.length >= 3) e.target.value = e.target.value.slice(0, 3); }} className='form-control' placeholder='CVV' /></td>
                                                 </tr>
                                                 <tr>
-                                                    <td style={{width: "60%"}}>Signature on the Card</td>
+                                                    <td style={{ width: "60%" }}>Signature on the Card</td>
                                                     <td>
-                                                    <SignatureCanvas 
-                                                        penColor="black"
-                                                        canvasProps={{className: 'sigCanvas'}}
-                                                        ref={sigRef2}
-                                                        onEnd={handleSignatureEnd2}
-                                                    />
-                                                    <button className='btn btn-warning' onClick={clearSignature2}>Clear</button>
+                                                        <SignatureCanvas
+                                                            penColor="black"
+                                                            canvasProps={{ className: 'sigCanvas' }}
+                                                            ref={sigRef2}
+                                                            onEnd={handleSignatureEnd2}
+                                                        />
+                                                        <button className='btn btn-warning' onClick={clearSignature2}>Clear</button>
                                                     </td>
                                                 </tr>
 
@@ -362,7 +370,7 @@ export default function WorkContract() {
                                                 </tr>
                                                 <tr>
                                                     <td style={{ width: "60%" }}>Name on the Card</td>
-                                                    <td><span className='form-control'>{c.name_on_card}</span></td>                            
+                                                    <td><span className='form-control'>{c.name_on_card}</span></td>
                                                 </tr>
                                                 <tr>
                                                     <td style={{ width: "60%" }}>CVV</td>

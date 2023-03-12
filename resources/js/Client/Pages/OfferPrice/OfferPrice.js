@@ -122,7 +122,7 @@ export default function ClientOfferPrice() {
 
                                             </Td>
                                             <Td>{ofr.status}</Td>
-                                            <Td>{ofr.total} ILS + VAT</Td>
+                                            <Td>{ofr.total} {t('global.currency')+" + "+t('global.vat')}</Td>
                                             <Td>
                                                <Link to={`/client/view-offer/${ofr.id}`} className="ml-2 btn bg-yellow"><i className="fa fa-eye"></i></Link>
                                             </Td>

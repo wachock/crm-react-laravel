@@ -160,10 +160,10 @@ export default function ClientDashboard() {
                                                                     }}
                                                                 >
                                                                     {item.status}
-                                                                    {(item.status=='cancel')?`(With Cancellatiom fees ${item.rate} ILS)`:''}
+                                                                    {(item.status=='cancel')?`(With Cancellatiom fees ${item.rate} ${t('global.currency')} )`:''}
                                                                 </Td>
                                                                 <Td>
-                                                                    {item.jobservice ? item.jobservice.total : ''}
+                                                                    {item.jobservice ? item.jobservice.total +" "+ t('global.currency'): ''}
                                                                 </Td>
                                                                 <Td>
                                                                     <div className="d-flex">

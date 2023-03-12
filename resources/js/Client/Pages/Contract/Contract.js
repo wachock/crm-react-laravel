@@ -112,7 +112,7 @@ export default function Contract() {
                                             })}
                                             </Td>
                                             <Td>{ c.status }</Td>
-                                            <Td>{ c.offer.total } ILS + VAT</Td>
+                                            <Td>{ c.offer.total } {t('global.currency')+" "+t('global.vat')}</Td>
                                             <Td>
                                             <Link to={`/client/view-contract/${c.id}/${c.unique_hash}`} className="ml-2 btn bg-yellow"><i className="fa fa-eye"></i></Link>
                                             </Td>

@@ -100,12 +100,12 @@ export default function ClientViewOffer() {
                               {
                                 (ofr.type != 'fixed' ) ?
                                 <>
-                                  <Td className='text-right'>{ s.rateperhour ? s.rateperhour+" ILS" : '--' }</Td>
-                                  <Td className='text-right'>{ s.totalamount} ILS</Td>
+                                  <Td className='text-right'>{ s.rateperhour ? s.rateperhour+" "+t('global.currency') : '--' }</Td>
+                                  <Td className='text-right'>{ s.totalamount} {t('global.currency')}</Td>
                                 </>
                               :
                                 <>
-                                  <Td className='text-right'>{ s.fixed_price } ILS</Td>
+                                  <Td className='text-right'>{ s.fixed_price } {t('global.currency')}</Td>
                                 </>
                               }
                             </Tr>
@@ -123,7 +123,7 @@ export default function ClientViewOffer() {
                             <tfoot>
                               <tr>
                                 <Td width="65%" class="text-right">{t('client.offer.view.total')}</Td>
-                                <Td class="text-right"><span>{ofr.subtotal} </span>ILS + VAT</Td> 
+                                <Td class="text-right"><span>{ofr.subtotal} </span>{t('global.currency')+" + "+t('global.vat')}</Td> 
                               </tr>
                             </tfoot>
                           </table>

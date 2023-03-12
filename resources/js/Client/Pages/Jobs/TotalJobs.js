@@ -155,10 +155,10 @@ export default function TotalJobs() {
                                                             }}
                                                         >
                                                             {item.status}
-                                                            {(item.status=='cancel')?`(With Cancellatiom fees ${item.rate} ILS)`:''}
+                                                            {(item.status=='cancel')?`(With Cancellatiom fees ${item.rate} +" "+${t('global.currency')})`:''}
                                                         </Td>
                                                         <Td>
-                                                            {item.jobservice?item.jobservice.total:'0'} ILS + VAT
+                                                            {item.jobservice?item.jobservice.total+" "+t('global.currency')+" + "+t('global.vat'):'0'} 
                                                         </Td>
                                                         <Td>
                                                             <Link to={`/client/view-job/${item.id}`} className="btn btn-primary">{t('client.jobs.view_btn')}</Link>

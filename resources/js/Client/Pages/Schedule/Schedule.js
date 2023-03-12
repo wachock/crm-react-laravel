@@ -5,6 +5,7 @@ import axios from 'axios';
 import ReactPaginate from "react-paginate";
 import Moment from 'moment';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 
 export default function Schedule() {
 
@@ -123,7 +124,7 @@ export default function Schedule() {
                               <span style={{ color: "red" }}>{"End   :" + item.end_time}</span>
                             </Td>
                             <Td>{item.booking_status}</Td>
-                            <Td><a href={`/client/files/${item.id}`}><i className='fa fa-image' style={{"font-size":"36px"}}></i></a></Td>
+                            <Td><Link to={`/client/files/${item.id}`}><i className='fa fa-image' style={{"font-size":"36px"}}></i></Link></Td>
                           </Tr>
                         )
                       })}
