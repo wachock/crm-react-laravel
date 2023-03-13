@@ -2,7 +2,9 @@ import React  from 'react'
 import { useTranslation } from 'react-i18next'
 
 export default function Services({services,job}) {
-    const {t} = useTranslation();
+    const {t,i18n } = useTranslation();
+    const w_lng = i18n.language;
+
   return (
     <>
                     <h2 className="text-custom">{t('worker.jobs.view.s_details')}</h2>
@@ -12,7 +14,12 @@ export default function Services({services,job}) {
                                 <div className='col-sm-3'>
                                     <div className='form-group'>
                                         <label className='control-label'>{t('worker.jobs.view.services')}</label>
-                                          <p>{services.name}</p>
+                                          <p>{
+                                            (w_lng=='en')
+                                             ? (services.name)
+                                             :
+                                            (services.heb_name)
+                                        }</p>
                                     </div>
                                 </div>
                                 <div className='col-sm-3'>

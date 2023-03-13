@@ -124,11 +124,13 @@ export default function WorkerViewJob() {
             .post(`/api/get-job-time`,data, { headers })
             .then((res) => {
                 let t =res.data.time;
+             if(t){
                 if(Object.keys(t).length){
                     setTimeId(t.id);
                     setStartTime(t.start_time);
                     setIsRunning(true);
                 }
+            }
                  
             });
                 
