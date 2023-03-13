@@ -300,8 +300,8 @@ const filterOptions = (options,shifts) =>{
                         let wjobs = (w.wjobs) ? w.wjobs : [];
                             return (
                                 <Tr>
-                                <Td id={`worker-${w.id}`}>
-                                    {w.firstname} {w.lastname}
+                                <Td>
+                                    <span id={`worker-${w.id}`}>{w.firstname} {w.lastname}</span>
                                 </Td>
                                 {week.map((element, index) => {
                                     let shifts = (wjobs[element]) ? (wjobs[element]).split(",") : [];
@@ -351,8 +351,8 @@ const filterOptions = (options,shifts) =>{
                       let wjobs = (w.wjobs) ? w.wjobs : [];
                         return (
                             <Tr>
-                               <Td align="center" id={`worker-${w.id}`}>
-                                   {w.firstname} {w.lastname}
+                               <Td align="center">
+                                   <span id={`worker-${w.id}`}>{w.firstname} {w.lastname}</span>
                                </Td>
                                {nextweek.map((element, index) => {
                                    let shifts = (wjobs[element]) ? (wjobs[element]).split(",") : [];
@@ -404,8 +404,8 @@ const filterOptions = (options,shifts) =>{
                       let wjobs = (w.wjobs) ? w.wjobs : [];
                         return (
                             <Tr>
-                               <Td align="center" id={`worker-${w.id}`}>
-                                   {w.firstname} {w.lastname}
+                               <Td align="center">
+                                  <span id={`worker-${w.id}`}>{w.firstname} {w.lastname}</span>
                                </Td>
                                {nextnextweek.map((element, index) => {
                                    let shifts = (wjobs[element]) ? (wjobs[element]).split(",") : [];
