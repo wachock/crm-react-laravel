@@ -28,6 +28,8 @@ export default function ViewSchedule() {
     const [startSlot, setStartSlot] = useState([]);
     const [endSlot, setEndSlot] = useState([]);
     const [interval, setInterval] = useState([]);
+    const [purpose, setPurpose] = useState(null);
+    const [purposeText, setPurposeText] = useState(null);
 
     const param = useParams();
     const alert = useAlert();
@@ -64,9 +66,15 @@ export default function ViewSchedule() {
     };
 
     const sendMeeting = () => {
-         
+
         const match = matchTime(startTime);
-        if(match == 0) return;
+        if (match == 0) return;
+
+        let purps = '';
+        if (purpose == null) { purps = 'Price offer'; }
+        else if (purpose == 'Other') { purps = purposeText; } 
+        else { purps = purpose; }
+
         let st = document.querySelector('#status').value;
         const data = {
             client_id: param.id,
@@ -76,9 +84,10 @@ export default function ViewSchedule() {
             end_time: endTime,
             meet_via: meetVia,
             meet_link: meetLink,
+            purpose: purps,
             booking_status: st,
         }
-    
+
         let btn = document.querySelector('.sendBtn');
         btn.setAttribute('disabled', true);
         btn.innerHTML = "Sending..";
@@ -114,9 +123,9 @@ export default function ViewSchedule() {
         axios
             .get(`/api/admin/team`, { headers })
             .then((res) => {
-                let team = res.data.team.data ? res.data.team.data.filter((e)=>{
-                 return e.name != 'superadmin'
-                }):[];
+                let team = res.data.team.data ? res.data.team.data.filter((e) => {
+                    return e.name != 'superadmin'
+                }) : [];
                 setTotalTeam(team);
             });
     }
@@ -135,6 +144,9 @@ export default function ViewSchedule() {
                 setEndTime(d.end_time);
                 setMeetVia(d.meet_via);
                 setMeetLink(d.meet_link);
+                setPurpose(d.purpose);
+                if(d.purpose != 'Price offer' && d.purpose != 'Quality check')
+                { setPurposeText(d.purpose);}
 
             });
     }
@@ -191,10 +203,15 @@ export default function ViewSchedule() {
             if (e.target == undefined) {
                 data.name = "start_date";
                 data.value = e;
-            } else {
+            } else if (e.target.value == 'Other') { 
                 data.name = e.target.name;
+                data.value = document.querySelector('#purpose_text').value;
+             } else {
+                data.name = e.target.name == 'purpose_text' ? 'purpose' : e.target.name;
                 data.value = e.target.value;
             }
+           
+
             axios
                 .put(`/api/admin/schedule/${sid}`, data, { headers })
                 .then((res) => {
@@ -210,31 +227,40 @@ export default function ViewSchedule() {
 
     }
 
-    const changeTeam = (id)=>{
+    const changeTeam = (id) => {
         getEvents(id);
     }
-    const matchTime = (time) =>{
-      if(events.length > 0){
-        let raw = (document.querySelector('#dateSel').value).split('/')
-        let pd = raw[2]+"-"+raw[1]+"-"+raw[0];
-        let dateSel = pd+" "+time;
-        for(let e in events){
-          
-            let cdt = Moment(dateSel).format('Y-MM-DD hh:mm:ss');
-            let st = Moment(events[e].start).format('Y-MM-DD hh:mm:ss');
-            let ed = Moment(events[e].end).format('Y-MM-DD hh:mm:ss');
-            let stime = Moment(events[e].start).format('hh:mm A');
-            let etime = Moment(events[e].end).format('hh:mm A');
-        
-            if(cdt >= st && cdt <= ed){
-                window.alert('Your meeting is already schedule on '+ document.querySelector('#dateSel').value +" between "+stime+" to "+etime);
-                return 0;
+    const matchTime = (time) => {
+        if (events.length > 0) {
+            let raw = (document.querySelector('#dateSel').value).split('/')
+            let pd = raw[2] + "-" + raw[1] + "-" + raw[0];
+            let dateSel = pd + " " + time;
+            for (let e in events) {
+
+                let cdt = Moment(dateSel).format('Y-MM-DD hh:mm:ss');
+                let st = Moment(events[e].start).format('Y-MM-DD hh:mm:ss');
+                let ed = Moment(events[e].end).format('Y-MM-DD hh:mm:ss');
+                let stime = Moment(events[e].start).format('hh:mm A');
+                let etime = Moment(events[e].end).format('hh:mm A');
+
+                if (cdt >= st && cdt <= ed) {
+                    window.alert('Your meeting is already schedule on ' + document.querySelector('#dateSel').value + " between " + stime + " to " + etime);
+                    return 0;
+                }
             }
         }
-      }
-    
-      
+
+
     }
+    const handlePurpose = (e) => {
+        let pt = document.querySelector('#purpose_text');
+        if (e.target.value == 'Other') {
+            pt.style.display = 'block';
+        } else {
+            pt.style.display = 'none';
+        }
+    }
+    
     return (
         <div id="container">
             <Sidebar />
@@ -264,7 +290,7 @@ export default function ViewSchedule() {
                                 <select className='form-control' name="booking_status" id="status" onChange={(e) => { setBstatus(e.target.value); handleUpdate(e) }}>
                                     <option value='pending' selected={bstatus == 'pending'}>Pending</option>
                                     <option value='confirmed' selected={bstatus == 'confirmed'}>Confirmed</option>
-                                    <option value='completed' selected={bstatus == 'declined'}>Declined</option>
+                                    <option value='declined' selected={bstatus == 'declined'}>Declined</option>
                                     <option value='completed' selected={bstatus == 'completed'}>Completed</option>
                                 </select>
                             </div>
@@ -272,12 +298,33 @@ export default function ViewSchedule() {
                         <div className='col-sm-6'>
                             <div className='form-group'>
                                 <label className='control-label'>Meeting Attender</label>
-                                <select className='form-control' name="team_id" id="team" onChange={(e) => { setTeam(e.target.value); handleUpdate(e);changeTeam(e.target.value) }}>
+                                <select className='form-control' name="team_id" id="team" onChange={(e) => { setTeam(e.target.value); handleUpdate(e); changeTeam(e.target.value) }}>
                                     <option value="0">Please Select</option>
                                     {totalTeam && totalTeam.map((t, i) => {
                                         return <option value={t.id} selected={team == t.id}> {t.name} </option>
                                     })}
                                 </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div className='row mt-4'>
+                        <div className='col-sm-6'>
+                            <div className='form-group'>
+                                <label className='control-label'>Meeting Purpose</label>
+                                <select className='form-control' name="purpose" id="purpose" onChange={(e) => { setPurpose(e.target.value); handlePurpose(e); handleUpdate(e); }}>
+                                    <option value='Price offer' selected={purpose == 'Price offer'}>Price offer</option>
+                                    <option value='Quality check' selected={purpose == 'Quality check'}>Quality check</option>
+                                    <option value='Other' selected={purpose != 'Quality check' && purpose != 'Price offer' && purpose != null}>Other</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div className='col-sm-6'>
+                            <div className='form-group'>
+                                <div className='form-group'>
+                                    <label>&nbsp;</label>
+                                    <input type="text" name="purpose_text" id="purpose_text" value={purposeText}  style={purpose != 'Quality check' && purpose != 'Price offer' &&  purpose != null ? { display: 'block' } : { display: 'none' }} onChange={(e) => {setPurposeText(e.target.value)}} onBlur={(e)=>handleUpdate(e)} placeholder='Enter purpose please' className='form-control' />
+                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -293,7 +340,7 @@ export default function ViewSchedule() {
                             <div className='col-sm-4'>
                                 <div className='form-group'>
                                     <label>Start Time</label>
-                                    <select name="start_time" id="start_time" onChange={(e) => { setStartTime(e.target.value); handleUpdate(e);matchTime(e.target.value) }} className="form-control">
+                                    <select name="start_time" id="start_time" onChange={(e) => { setStartTime(e.target.value); handleUpdate(e); matchTime(e.target.value) }} className="form-control">
                                         <option>Choose start time</option>
                                         {time && time.map((t, i) => {
                                             return (<option value={t} selected={t == startTime}>{t}</option>);
@@ -349,7 +396,7 @@ export default function ViewSchedule() {
                                 hiddenDays={interval}
                                 selectable={true}
                                 height={'auto'}
-                                slotEventOverlap = {false}
+                                slotEventOverlap={false}
                                 plugins={[timeGridPlugin]}
                                 events={events}
                             />

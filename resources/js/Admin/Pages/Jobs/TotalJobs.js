@@ -320,8 +320,12 @@ export default function TotalJobs() {
                                                             </Link>
                                                             </td>
                                                             <td onClick={(e) => handleNavigate(e, item.id)}>{
-                                                                item.jobservice
-                                                                    ? item.jobservice.name : 'NA'
+                                                                
+                                                                (item.jobservice) ?
+                                                                    item.jobservice == '10' 
+                                                                        ? item.jobservice.other_title :item.jobservice.name 
+                                                                : 'NA'
+
                                                             }</td>
                                                             {/* <Td onClick={(e)=>handleNavigate(e,item.id)}>
                                                                 {(item.start_time != '') ? (`${item.start_time} to ${item.end_time}`) : ''}

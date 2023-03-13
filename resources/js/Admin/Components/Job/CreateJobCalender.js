@@ -22,7 +22,7 @@ export default function CreateJobCalender() {
     const [startSlot, setStartSlot] = useState([]);
     const [endSlot, setEndSlot] = useState([]);
     const [interval, setTimeInterval] = useState([]);
-    const [selected_service,setSelectedService]=useState(0);
+    const [selected_service, setSelectedService] = useState(0);
     const [data, setData] = useState([]);
 
     const headers = {
@@ -79,24 +79,24 @@ export default function CreateJobCalender() {
         getWorkerAvailabilty();
         getTime();
     }, []);
-    
-  
+
+
     let service_id;
 
     const handleServices = (value) => {
-       const filtered = services.filter((s)=>{
-            if(s.service == value){
-                service_id=value;
+        const filtered = services.filter((s) => {
+            if (s.service == value) {
+                service_id = value;
                 return s;
-            }else{
-                $('.services-'+s.service).css('display','none');
+            } else {
+                $('.services-' + s.service).css('display', 'none');
             }
         });
-       setServices(filtered);
-       setSelectedService(value);
-       getWorkers();
-       $('#edit-work-time').modal('hide')
-    } 
+        setServices(filtered);
+        setSelectedService(value);
+        getWorkers();
+        $('#edit-work-time').modal('hide')
+    }
     const getWorkers = () => {
         axios
             .get(`/api/admin/all-workers?filter=true&service_id=${service_id}`, { headers })
@@ -106,7 +106,7 @@ export default function CreateJobCalender() {
     }
     const handleSubmit = () => {
 
-        let formdata = { 'workers': data ,'services':services};
+        let formdata = { 'workers': data, 'services': services };
         if (data.length > 0) {
             axios
                 .post(`/api/admin/create-job/${params.id}`, formdata, { headers })
@@ -123,328 +123,327 @@ export default function CreateJobCalender() {
 
     }
 
-    let curr = new Date 
+    let curr = new Date
     let week = []
     let nextweek = []
     let nextnextweek = []
     for (let i = 0; i < 7; i++) {
-      let first = curr.getDate() - curr.getDay() + i 
-      if(first>=curr.getDate()){
-        if(!interval.includes(i)){
-          let day = new Date(curr.setDate(first)).toISOString().slice(0, 10)
-          week.push(day)
+        let first = curr.getDate() - curr.getDay() + i
+        if (first >= curr.getDate()) {
+            if (!interval.includes(i)) {
+                let day = new Date(curr.setDate(first)).toISOString().slice(0, 10)
+                week.push(day)
+            }
         }
-      }
     }
-    
+
     for (let i = 0; i < 7; i++) {
-      if(!interval.includes(i)){
-      var today = new Date;
-       var first = today.getDate() - today.getDay() + 7+i;
-       var firstday = new Date(today.setDate(first)).toISOString().slice(0, 10)
-        nextweek.push(firstday)
-     }
+        if (!interval.includes(i)) {
+            var today = new Date;
+            var first = today.getDate() - today.getDay() + 7 + i;
+            var firstday = new Date(today.setDate(first)).toISOString().slice(0, 10)
+            nextweek.push(firstday)
+        }
     }
-     for (let i = 0; i < 7; i++) {
-      if(!interval.includes(i)){
-      var today = new Date;
-       var first = today.getDate() - today.getDay() + 14+i;
-       var firstday = new Date(today.setDate(first)).toISOString().slice(0, 10)
-        nextnextweek.push(firstday)
-     }
+    for (let i = 0; i < 7; i++) {
+        if (!interval.includes(i)) {
+            var today = new Date;
+            var first = today.getDate() - today.getDay() + 14 + i;
+            var firstday = new Date(today.setDate(first)).toISOString().slice(0, 10)
+            nextnextweek.push(firstday)
+        }
     }
-   const slot = [
-     ['8am-16pm','full day- 8am-16pm'],
-     ['8am-10am','morning1 - 8am-10am'],
-     ['10am-12pm','morning 2 - 10am-12pm'],
-     ['8am-12pm','morning- 08am-12pm'],
-     ['12pm-14pm','noon1 -12pm-14pm'],
-     ['14pm-16pm','noon2 14pm-16pm'],
-     ['12pm-16pm','noon 12pm-16pm'],
-     ['16pm-18pm','af1 16pm-18pm'],
-     ['18pm-20pm','af2 18pm-20pm'],
-     ['16pm-20pm','afternoon 16pm-20pm'],
-     ['20pm-22pm','ev1 20pm-22pm'],
-     ['22pm-24am','ev2 22pm-24pm'],
-     ['20pm-24am','evening 20pm-24am']
+    const slot = [
+        ['8am-16pm', 'full day- 8am-16pm'],
+        ['8am-10am', 'morning1 - 8am-10am'],
+        ['10am-12pm', 'morning 2 - 10am-12pm'],
+        ['8am-12pm', 'morning- 08am-12pm'],
+        ['12pm-14pm', 'noon1 -12pm-14pm'],
+        ['14pm-16pm', 'noon2 14pm-16pm'],
+        ['12pm-16pm', 'noon 12pm-16pm'],
+        ['16pm-18pm', 'af1 16pm-18pm'],
+        ['18pm-20pm', 'af2 18pm-20pm'],
+        ['16pm-20pm', 'afternoon 16pm-20pm'],
+        ['20pm-22pm', 'ev1 20pm-22pm'],
+        ['22pm-24am', 'ev2 22pm-24pm'],
+        ['20pm-24am', 'evening 20pm-24am']
     ]
-    const colourOptions = {'8am-16pm':[
-          { value: 0, label: 'full day -8am-16pm' },
-          { value: 1, label: 'morning1 -8am-10am' },
-          { value: 2, label: 'morning 2 -10am-12pm' },
-          { value: 3, label: 'morning -8am-12pm' },
-          { value: 4, label: 'noon1   -12pm-14pm' },
-          { value: 5, label: 'noon2 -14pm-16pm' },
-          { value: 6, label: 'noon -12pm-16pm' },
+    const colourOptions = {
+        '8am-16pm': [
+            { value: 0, label: 'full day -8am-16pm' },
+            { value: 1, label: 'morning1 -8am-10am' },
+            { value: 2, label: 'morning 2 -10am-12pm' },
+            { value: 3, label: 'morning -8am-12pm' },
+            { value: 4, label: 'noon1   -12pm-14pm' },
+            { value: 5, label: 'noon2 -14pm-16pm' },
+            { value: 6, label: 'noon -12pm-16pm' },
         ],
-        '8am-12pm':[
-          { value: 0, label: 'morning1 -8am-10am' },
-          { value: 1, label: 'morning2 -10am-12pm' },
-          { value: 2, label: 'morning  -8am-12pm' },
+        '8am-12pm': [
+            { value: 0, label: 'morning1 -8am-10am' },
+            { value: 1, label: 'morning2 -10am-12pm' },
+            { value: 2, label: 'morning  -8am-12pm' },
         ],
-        '12pm-16pm':[
-          { value: 0, label: 'af1 -12pm-14pm' },
-          { value: 1, label: 'af2 -14pm-16pm' },
-          { value: 2, label: 'afternoon -12pm-16pm' },
+        '12pm-16pm': [
+            { value: 0, label: 'af1 -12pm-14pm' },
+            { value: 1, label: 'af2 -14pm-16pm' },
+            { value: 2, label: 'afternoon -12pm-16pm' },
         ],
-        '16pm-20pm':[
-          { value: 0, label: 'ev1 -16pm-18pm' },
-          { value: 1, label: 'ev2 -18pm-20pm' },
-          { value: 2, label: 'Evening -16pm-20pm' },
+        '16pm-20pm': [
+            { value: 0, label: 'ev1 -16pm-18pm' },
+            { value: 1, label: 'ev2 -18pm-20pm' },
+            { value: 2, label: 'Evening -16pm-20pm' },
         ],
-        '20pm-24am':[
-          { value: 0, label: 'night1 -20pm-22pm' },
-          { value: 1, label: 'night2 -22pm-24pm' },
-          { value: 2, label: 'night -20pm-24pm' },
+        '20pm-24am': [
+            { value: 0, label: 'night1 -20pm-22pm' },
+            { value: 1, label: 'night2 -22pm-24pm' },
+            { value: 2, label: 'night -20pm-24pm' },
         ],
-}
-  const colourOptions1 = [
-  { value: 0, label: 'full day - 8am-16pm' },
-  { value: 1, label: 'morning - 8-12pm' },
-]
-const changeShift = (w_id,date,e) =>{
-         // console.log(e);
-         let w_n = $('#worker-'+w_id).html();
-         let  filtered = data.filter((d)=>{
-                if(d.date != date){
-                    return d;
-                }
-            });
-         let shifts = '';
-
-         e.map((v)=>{
-               if(shifts==''){
-                 shifts=v.label;
-               }else{
-                 shifts=shifts+','+v.label;
-               }
-         });
-         // if(e != null){
-         //    shifts=e.label;
-         // }
-         var newdata ;
-         if(shifts != ''){
-              newdata = [...filtered, {
-                            worker_id: w_id,
-                            worker_name: w_n,
-                            date: date,
-                            shifts: shifts,
-                        }]
-                 
-          }else{
-             newdata =[...filtered]
-          }
-          setData(newdata);
-          
-};
-const person = {
-    '8am-16pm':"Full Day", 
-    '8am-12pm':"Morning", 
-    '12pm-16pm':'Afternoon',
-    '16pm-20pm':'Evening',
-    '20pm-24am':'Night'
-};
-const filterOptions = (options,shifts) =>{
-    let new_options=[];
-    let new_s=[];
-    let new_end =[];
-    let full_day='';
-        shifts.map((s,i) =>{
-           if((s).split("-")[1] == '8am' && (s).split("-")[2] == '16pm'){
-                 full_day=s;
-           }
-              new_s.push((s).split("-")[1])
-               new_end.push((s).split("-")[2])
-        })
-    if(full_day == ''){
-            options.map((o,i) => {
-                let check =true;
-                if(options.length ==3 && i==2 && new_s.length>0){
-                      check=false;
-                 }
-                 if(options.length ==3 && new_s.length>0 && new_s.includes((options[2].label).split("-")[1]) && new_end.includes((options[2].label).split("-")[2])){
-                      check=false;
-                  }
-                    
-                  if(check){   
-                        if(!new_s.includes((o.label).split("-")[1])){
-                            new_options = [...new_options,{
-                                        value: o.value,
-                                        label: o.label,
-                                    }]
-                        }
-                   }
-                
-            })
     }
-   return new_options;
+    const colourOptions1 = [
+        { value: 0, label: 'full day - 8am-16pm' },
+        { value: 1, label: 'morning - 8-12pm' },
+    ]
+    const changeShift = (w_id, date, e) => {
+       
+        let w_n = $('#worker-' + w_id).html();
+        let filtered = data.filter((d) => {
+            if (d.date != date) {
+                return d;
+            }
+        });
+        let shifts = '';
 
- }
+        e.map((v) => {
+            if (shifts == '') {
+                shifts = v.label;
+            } else {
+                shifts = shifts + ',' + v.label;
+            }
+        });
+       
+        var newdata;
+        if (shifts != '') {
+            newdata = [...filtered, {
+                worker_id: w_id,
+                worker_name: w_n,
+                date: date,
+                shifts: shifts,
+            }]
+
+        } else {
+            newdata = [...filtered]
+        }
+        setData(newdata);
+
+    };
+    const person = {
+        '8am-16pm': "Full Day",
+        '8am-12pm': "Morning",
+        '12pm-16pm': 'Afternoon',
+        '16pm-20pm': 'Evening',
+        '20pm-24am': 'Night'
+    };
+    const filterOptions = (options, shifts) => {
+        let new_options = [];
+        let new_s = [];
+        let new_end = [];
+        let full_day = '';
+        shifts.map((s, i) => {
+            if ((s).split("-")[1] == '8am' && (s).split("-")[2] == '16pm') {
+                full_day = s;
+            }
+            new_s.push((s).split("-")[1])
+            new_end.push((s).split("-")[2])
+        })
+        if (full_day == '') {
+            options.map((o, i) => {
+                let check = true;
+                if (options.length == 3 && i == 2 && new_s.length > 0) {
+                    check = false;
+                }
+                if (options.length == 3 && new_s.length > 0 && new_s.includes((options[2].label).split("-")[1]) && new_end.includes((options[2].label).split("-")[2])) {
+                    check = false;
+                }
+
+                if (check) {
+                    if (!new_s.includes((o.label).split("-")[1])) {
+                        new_options = [...new_options, {
+                            value: o.value,
+                            label: o.label,
+                        }]
+                    }
+                }
+
+            })
+        }
+        return new_options;
+
+    }
     return (
         <>
-          <ul className="nav nav-tabs" role="tablist">
-            <li className="nav-item" role="presentation"><a id="worker-availability" className="nav-link active" data-toggle="tab" href="#tab-worker-availability" aria-selected="true" role="tab">Current Week</a></li>
-            <li className="nav-item" role="presentation"><a id="current-job" className="nav-link" data-toggle="tab" href="#tab-current-job" aria-selected="true" role="tab">Next Week</a></li>
-            <li className="nav-item" role="presentation"><a id="current-next-job" className="nav-link" data-toggle="tab" href="#tab-current-next-job" aria-selected="true" role="tab">Next Next Week</a></li>
-        </ul>
-        <div className='tab-content' style={{background: "#fff"}}>
-             <div id="tab-worker-availability" className="tab-pane active show" role="tab-panel" aria-labelledby="current-job">
-               <table border="2" cellspacing="0" align="center" width="100%">
-                  <tr>
-                    <td align="center">
-                        Worker
-                    </td>
-                   {week.map((element, index) => (
-                           <td align="center">
-                               { moment(element).toString().slice(0,15) }
-                           </td>
-                        ))}
-                  </tr>
-                  {AllWorkers.map((w, index) => {
-                      let aval = (w.aval) ? w.aval : [];
-                      let wjobs = (w.wjobs) ? w.wjobs : [];
-                        return (
-                            <tr>
-                               <td align="center" id={`worker-${w.id}`}>
-                                   {w.firstname} {w.lastname}
-                               </td>
-                               {week.map((element, index) => {
-                                   let shifts = (wjobs[element]) ? (wjobs[element]).split(",") : [];
-                                    return ( <td align="center" >
-                                       <span className="text-success">{person[aval[element]]}</span>
-                                      
-                                       {shifts.map((s,i)=>{
-                                        return <div className="text-danger">{s}</div>
-                                       })}
-                                       {(aval[element] && aval[element] != '')?
-                                        <Select
-                                            isMulti
-                                            name="colors"
-                                            options={filterOptions(colourOptions[aval[element]],shifts)}
-                                            className="basic-multi-single"
-                                            isClearable={true}
-                                            classNamePrefix="select"
-                                            onChange={(e)=>changeShift(w.id,element,e)}
-                                          />
-                                          :
-                                          <div className="text-danger">Not Available</div>
-                                         }
-                                   </td>
-                                   )
-                                })}
+            <ul className="nav nav-tabs" role="tablist">
+                <li className="nav-item" role="presentation"><a id="worker-availability" className="nav-link active" data-toggle="tab" href="#tab-worker-availability" aria-selected="true" role="tab">Current Week</a></li>
+                <li className="nav-item" role="presentation"><a id="current-job" className="nav-link" data-toggle="tab" href="#tab-current-job" aria-selected="true" role="tab">Next Week</a></li>
+                <li className="nav-item" role="presentation"><a id="current-next-job" className="nav-link" data-toggle="tab" href="#tab-current-next-job" aria-selected="true" role="tab">Next Next Week</a></li>
+            </ul>
+            <div className='tab-content' style={{ background: "#fff" }}>
+                <div id="tab-worker-availability" className="tab-pane active show" role="tab-panel" aria-labelledby="current-job">
+                    <table border="2" cellspacing="0" align="center" width="100%">
+                        <tr>
+                            <td align="center">
+                                Worker
+                            </td>
+                            {week.map((element, index) => (
+                                <td align="center">
+                                    {moment(element).toString().slice(0, 15)}
+                                </td>
+                            ))}
+                        </tr>
+                        {AllWorkers.map((w, index) => {
+                            let aval = (w.aval) ? w.aval : [];
+                            let wjobs = (w.wjobs) ? w.wjobs : [];
+                            return (
+                                <tr>
+                                    <td align="center" id={`worker-${w.id}`}>
+                                        {w.firstname} {w.lastname}
+                                    </td>
+                                    {week.map((element, index) => {
+                                        let shifts = (wjobs[element]) ? (wjobs[element]).split(",") : [];
+                                        return (<td align="center" >
+                                            <span className="text-success">{person[aval[element]]}</span>
 
-                             </tr>
-                         )
-                    })}
+                                            {shifts.map((s, i) => {
+                                                return <div className="text-danger">{s}</div>
+                                            })}
+                                            {(aval[element] && aval[element] != '') ?
+                                                <Select
+                                                    isMulti
+                                                    name="colors"
+                                                    options={filterOptions(colourOptions[aval[element]], shifts)}
+                                                    className="basic-multi-single"
+                                                    isClearable={true}
+                                                    classNamePrefix="select"
+                                                    onChange={(e) => changeShift(w.id, element, e)}
+                                                />
+                                                :
+                                                <div className="text-danger">Not Available</div>
+                                            }
+                                        </td>
+                                        )
+                                    })}
 
-              </table>
-           </div>
-               <div id="tab-current-job" className="tab-pane" role="tab-panel" aria-labelledby="current-job">
-                  <table border="2" cellspacing="0" align="center" width="100%">
-                  <tr>
-                    <td align="center">
-                        Worker
-                    </td>
-                   {nextweek.map((element, index) => (
-                           <td align="center">
-                               { moment(element).toString().slice(0,15) }
-                           </td>
-                        ))}
-                  </tr>
-                  {AllWorkers.map((w, index) => {
-                      let aval = (w.aval) ? w.aval : [];
-                      let wjobs = (w.wjobs) ? w.wjobs : [];
-                        return (
-                            <tr>
-                               <td align="center" id={`worker-${w.id}`}>
-                                   {w.firstname} {w.lastname}
-                               </td>
-                               {nextweek.map((element, index) => {
-                                   let shifts = (wjobs[element]) ? (wjobs[element]).split(",") : [];
-                                    return ( <td align="center" >
-                                       <span className="text-success">{person[aval[element]]}</span>
-                                      
-                                       {shifts.map((s,i)=>{
-                                        return <div className="text-danger">{s}</div>
-                                       })}
-                                       
-                                        {(aval[element] && aval[element] != '')?
-                                        <Select
-                                            isMulti
-                                            name="colors"
-                                            options={filterOptions(colourOptions[aval[element]],shifts)}
-                                            className="basic-multi-single"
-                                            isClearable={true}
-                                            classNamePrefix="select"
-                                            onChange={(e)=>changeShift(w.id,element,e)}
-                                          />
-                                          :
-                                          <div className="text-danger">Not Available</div>
-                                         }
-                                   </td>
-                                   )
-                                })}
+                                </tr>
+                            )
+                        })}
 
-                             </tr>
-                         )
-                    })}
+                    </table>
+                </div>
+                <div id="tab-current-job" className="tab-pane" role="tab-panel" aria-labelledby="current-job">
+                    <table border="2" cellspacing="0" align="center" width="100%">
+                        <tr>
+                            <td align="center">
+                                Worker
+                            </td>
+                            {nextweek.map((element, index) => (
+                                <td align="center">
+                                    {moment(element).toString().slice(0, 15)}
+                                </td>
+                            ))}
+                        </tr>
+                        {AllWorkers.map((w, index) => {
+                            let aval = (w.aval) ? w.aval : [];
+                            let wjobs = (w.wjobs) ? w.wjobs : [];
+                            return (
+                                <tr>
+                                    <td align="center" id={`worker-${w.id}`}>
+                                        {w.firstname} {w.lastname}
+                                    </td>
+                                    {nextweek.map((element, index) => {
+                                        let shifts = (wjobs[element]) ? (wjobs[element]).split(",") : [];
+                                        return (<td align="center" >
+                                            <span className="text-success">{person[aval[element]]}</span>
 
-              </table>
+                                            {shifts.map((s, i) => {
+                                                return <div className="text-danger">{s}</div>
+                                            })}
 
-               </div>
+                                            {(aval[element] && aval[element] != '') ?
+                                                <Select
+                                                    isMulti
+                                                    name="colors"
+                                                    options={filterOptions(colourOptions[aval[element]], shifts)}
+                                                    className="basic-multi-single"
+                                                    isClearable={true}
+                                                    classNamePrefix="select"
+                                                    onChange={(e) => changeShift(w.id, element, e)}
+                                                />
+                                                :
+                                                <div className="text-danger">Not Available</div>
+                                            }
+                                        </td>
+                                        )
+                                    })}
+
+                                </tr>
+                            )
+                        })}
+
+                    </table>
+
+                </div>
                 <div id="tab-current-next-job" className="tab-pane" role="tab-panel" aria-labelledby="current-job">
-                  <table border="2" cellspacing="0" align="center" width="100%">
-                  <tr>
-                    <td align="center">
-                        Worker
-                    </td>
-                   {nextnextweek.map((element, index) => (
-                           <td align="center">
-                               { moment(element).toString().slice(0,15) }
-                           </td>
-                        ))}
-                  </tr>
-                  {AllWorkers.map((w, index) => {
-                      let aval = (w.aval) ? w.aval : [];
-                      let wjobs = (w.wjobs) ? w.wjobs : [];
-                        return (
-                            <tr>
-                               <td align="center" id={`worker-${w.id}`}>
-                                   {w.firstname} {w.lastname}
-                               </td>
-                               {nextnextweek.map((element, index) => {
-                                   let shifts = (wjobs[element]) ? (wjobs[element]).split(",") : [];
-                                    return ( <td align="center" >
-                                       <span className="text-success">{person[aval[element]]}</span>
-                                      
-                                       {shifts.map((s,i)=>{
-                                        return <div className="text-danger">{s}</div>
-                                       })}
-                                         {(aval[element] && aval[element] != '')?
-                                        <Select
-                                            isMulti
-                                            name="colors"
-                                            options={filterOptions(colourOptions[aval[element]],shifts)}
-                                            className="basic-multi-single"
-                                            isClearable={true}
-                                            classNamePrefix="select"
-                                            onChange={(e)=>changeShift(w.id,element,e)}
-                                          />
-                                          :
-                                          <div className="text-danger">Not Available</div>
-                                         }
-                                   </td>
-                                   )
-                                })}
+                    <table border="2" cellspacing="0" align="center" width="100%">
+                        <tr>
+                            <td align="center">
+                                Worker
+                            </td>
+                            {nextnextweek.map((element, index) => (
+                                <td align="center">
+                                    {moment(element).toString().slice(0, 15)}
+                                </td>
+                            ))}
+                        </tr>
+                        {AllWorkers.map((w, index) => {
+                            let aval = (w.aval) ? w.aval : [];
+                            let wjobs = (w.wjobs) ? w.wjobs : [];
+                            return (
+                                <tr>
+                                    <td align="center" id={`worker-${w.id}`}>
+                                        {w.firstname} {w.lastname}
+                                    </td>
+                                    {nextnextweek.map((element, index) => {
+                                        let shifts = (wjobs[element]) ? (wjobs[element]).split(",") : [];
+                                        return (<td align="center" >
+                                            <span className="text-success">{person[aval[element]]}</span>
 
-                             </tr>
-                         )
-                    })}
+                                            {shifts.map((s, i) => {
+                                                return <div className="text-danger">{s}</div>
+                                            })}
+                                            {(aval[element] && aval[element] != '') ?
+                                                <Select
+                                                    isMulti
+                                                    name="colors"
+                                                    options={filterOptions(colourOptions[aval[element]], shifts)}
+                                                    className="basic-multi-single"
+                                                    isClearable={true}
+                                                    classNamePrefix="select"
+                                                    onChange={(e) => changeShift(w.id, element, e)}
+                                                />
+                                                :
+                                                <div className="text-danger">Not Available</div>
+                                            }
+                                        </td>
+                                        )
+                                    })}
 
-              </table>
+                                </tr>
+                            )
+                        })}
 
-               </div>
-           </div>
+                    </table>
+
+                </div>
+            </div>
             <div className="form-group text-center">
                 <input type='button' value='View Job' className="btn btn-pink" data-toggle="modal" data-target="#exampleModal" />
             </div>
@@ -474,10 +473,13 @@ const filterOptions = (options,shifts) =>{
                                         <tbody>
                                             <td>{clientname}</td>
                                             <td> {services &&
-                                                services.map((item, index) => (
+                                                services.map((item, index) => {
 
-                                                    <p>{item.name}</p>
-                                                )
+                                                    if(item.service == '10')
+                                                    return(<p>{item.other_title}</p>)
+                                                    else
+                                                    return(<p>{item.name}</p>)
+                                                }
                                                 )}</td>
                                             <td>{services &&
                                                 services.map((item, index) => (
@@ -536,7 +538,7 @@ const filterOptions = (options,shifts) =>{
                     </div>
                 </div>
             </div>
-              <div className="modal fade" id="edit-work-time" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div className="modal fade" id="edit-work-time" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div className="modal-dialog" role="document">
                     <div className="modal-content">
                         <div className="modal-header">
@@ -545,22 +547,28 @@ const filterOptions = (options,shifts) =>{
                         <div className="modal-body">
                             <div className="row">
                                 <div className="col-sm-12">
-                                   <label className="control-label">
-                                            Services
-                                        </label>
-                                        <select value={selected_service} onChange={(e) =>
-                                                handleServices(e.target.value)
-                                            } className="form-control">
+                                    <label className="control-label">
+                                        Services
+                                    </label>
+                                    <select value={selected_service} onChange={(e) =>
+                                        handleServices(e.target.value)
+                                    } className="form-control">
                                         <option value="">Please Select Service</option>
-                                       {services &&
-                                                services.map((item, index) => (
-                                                
-                                                 <option value={item.service}>{item.name} hours</option>
-                                                )
+                                        {services &&
+                                            services.map((item, index) => {
+                                                if (item.service != '10')
+                                                    return (
+                                                        <option value={item.service}>{item.name} </option>
+                                                    )
+                                                else
+                                                    return (
+                                                        <option value={item.service}>{item.other_title} </option>
+                                                    )
+                                            }
                                             )}
-                                        </select>
+                                    </select>
                                 </div>
-                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

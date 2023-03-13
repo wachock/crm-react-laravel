@@ -88,6 +88,12 @@ export default function OfferedPrice() {
                         ? ofr.client.zipcode
                         :"";
 
+                        let color =  "";         
+                        if(ofr.status == 'sent') { color = 'purple' }
+                        else if(ofr.status == 'accepted') { color =  'green'}
+                        else {color = 'red'}
+
+
                         return ( 
                         <tr>
                         <td>
@@ -105,7 +111,7 @@ export default function OfferedPrice() {
                         
                         </td>
                         <td>{ ofr.client.phone }</td>
-                        <td>{ofr.status}</td>
+                        <td style={{color}}>{ofr.status}</td>
                         <td>{ofr.subtotal} NIS + VAT</td>
                         <td>
                             <div className="d-flex">

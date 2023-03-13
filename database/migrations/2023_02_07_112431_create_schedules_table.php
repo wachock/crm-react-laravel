@@ -19,6 +19,7 @@ class CreateSchedulesTable extends Migration
             $table->integer('team_id')->nullable();
             $table->enum('booking_status',['pending','completed','confirmed','declined'])->default('pending');
             $table->string('start_date');
+            $table->string('purpose')->nullable();
             $table->string('start_time')->nullable();
             $table->string('end_time')->nullable();
             $table->string('meet_via')->nullable();

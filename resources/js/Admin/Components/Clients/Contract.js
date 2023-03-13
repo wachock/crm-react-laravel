@@ -55,6 +55,12 @@ export default function Contract({ contracts }) {
                 <tbody>
                     { contracts && contracts.map((c,i)=>{
                           let services = c.offer ? JSON.parse(c.offer.services) : [];
+
+                          let color =  "";         
+                          if(c.status == 'un-verified' || c.status == 'not-signed') { color = 'purple' }
+                          else if(c.status == 'verified') { color =  'green'}
+                          else {color = 'red'}
+
                         return (
                     <tr>
                         <td>#{c.id}</td>
@@ -63,14 +69,15 @@ export default function Contract({ contracts }) {
                                
                                 return(
                                     (services.length-1 != j) ?
-                                    s.name+" | "
+                                        (s.service == '10') ? s.other_title+" | " : 
+                                        s.name+" | "
                                     : s.name
                                 )
                             })}
                         </td>
                         <td>{ c.offer? c.offer.subtotal : 'NA' } ILS + VAT</td>
                         <td>{Moment(c.created_at).format('MMMM DD, Y')}</td>
-                        <td>{ c.status }</td>
+                        <td style={{color}}>{ c.status }</td>
                         <td>
                             <div className="d-flex">
                                  { (c.status == 'verified') &&

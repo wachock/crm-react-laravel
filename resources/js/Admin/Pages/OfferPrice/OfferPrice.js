@@ -148,6 +148,11 @@ export default function OfferPrice() {
                                                     var address = (ofr.client.geo_address) ? ofr.client.geo_address : 'NA';
                                                     var cords = (ofr.client.latitude && ofr.client.longitude)
                                                         ? ofr.client.latitude + "," + ofr.client.longitude : 'NA';
+                                                let color =  "";         
+                                                if(ofr.status == 'sent') { color = 'purple' }
+                                                else if(ofr.status == 'accepted') { color =  'green'}
+                                                else {color = 'red'}
+
                                                     return (
                                                         <Tr style={{"cursor":"pointer"}}>
                                                             <Td><Link to={`/admin/view-client/${ofr.client.id}`}>
@@ -162,7 +167,7 @@ export default function OfferPrice() {
                                                             <Td onClick={(e)=>handleNavigate(e,ofr.id)}>{ofr.client.email}</Td>
                                                             <Td><Link to={`https://maps.google.com?q=${cords}`}>{address}</Link></Td>
                                                             <Td onClick={(e)=>handleNavigate(e,ofr.id)}>{ofr.client.phone}</Td>
-                                                            <Td onClick={(e)=>handleNavigate(e,ofr.id)}>{ofr.status}</Td>
+                                                            <Td style={{color}} onClick={(e)=>handleNavigate(e,ofr.id)}>{ofr.status}</Td>
                                                             <Td onClick={(e)=>handleNavigate(e,ofr.id)}>{ofr.subtotal} ILS + VAT</Td>
                                                             <Td>
                                                                 <div className="action-dropdown dropdown">
