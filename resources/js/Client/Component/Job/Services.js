@@ -3,6 +3,38 @@ import { useTranslation } from 'react-i18next'
 export default function Services({services,job}) {
     const {t,i18n } = useTranslation();
     const c_lng = i18n.language;
+     const show_shift = [
+        "Full Day",
+        "Morning",
+        'Afternoon',
+        'Evening',
+        'Night'
+    ];
+    const getShift = (shifts) =>{
+        let s = (shifts).split(",");
+        let check='';
+        let new_shift='';
+            show_shift.map((p)=>{
+                     if(p == 'Afternoon'){
+                        check ='noon';
+                     }else{
+                         check =p;
+                     }
+                     s.map((sh)=>{
+                        if(sh.includes(check.toLowerCase())){
+                            if(new_shift==''){
+                                new_shift=p;
+                            }else{
+                                if(!new_shift.includes(p)){
+                                   new_shift=new_shift+','+p;
+                                 }
+                            }
+                            
+                        }
+                     })
+            })
+             return new_shift;
+    }
   return (
     <>
                     <h2 className="text-custom">Service Details</h2>
@@ -24,7 +56,7 @@ export default function Services({services,job}) {
                                 <div className='col-sm-3'>
                                     <div className='form-group'>
                                         <label className='control-label'>{t('client.jobs.view.shift')}</label>
-                                        <p>{job.shifts}</p>
+                                        <p>{ (job.shifts) ? getShift(job.shifts) : '' }</p>
                                     </div>
                                 </div>
                                  <div className='col-sm-3'>
