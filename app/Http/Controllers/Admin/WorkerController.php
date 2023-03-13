@@ -132,7 +132,7 @@ class WorkerController extends Controller
             'firstname' => ['required', 'string', 'max:255'],
             'address'   => ['required', 'string'],
             'phone'     => ['required'],
-            'worker_id' => ['required','unique:users'],
+            'worker_id' => ['required'],
             'status'    => ['required'],
         ]);
 
