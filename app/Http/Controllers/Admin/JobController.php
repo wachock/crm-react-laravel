@@ -208,8 +208,13 @@ class JobController extends Controller
                   $ser = Services::where('id','=',$service['service'])->first();
 
                       $repeat_value=$service_schedules->period;
-                      $s_name=$ser->name;
-                      $s_heb_name=$ser->heb_name;
+                      if($service['service'] == 10){
+                         $s_name=$service['other_title'];
+                         $s_heb_name=$service['other_title'];
+                      }else{
+                         $s_name=$ser->name;
+                         $s_heb_name=$ser->heb_name;
+                      }
                       $s_hour=$service['jobHours'];
                       $s_total=$service['totalamount'];
 
