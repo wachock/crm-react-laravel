@@ -149,6 +149,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin-api', 'scopes:ad
     Route::get('head-notice',[DashboardController::class,'headNotice'])->name('head-notice');
     Route::post('notice',[DashboardController::class,'Notice'])->name('notice');
 
+    //View Password
+    Route::post('viewpass',[DashboardController::class,'viewPass'])->name('viewpass');
+
     //ManageTime
     Route::post('update-time',[DashboardController::class,'updateTime'])->name('update-time');
     Route::get('get-time',[DashboardController::class,'getTime'])->name('get-time');

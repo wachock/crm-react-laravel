@@ -417,7 +417,13 @@
                 "hour_s":"שעות",
                 "cancel":"בטל",
                 "back":"חזור",
-                "add_cmt":"הוסף תגובה"
+                "add_cmt":"הוסף תגובה",
+                "full_cancel_text":"תשלום מלא יוחזר כדמי ביטול",
+                "half_cancel_text":"מחצית מהתשלום תוחזר כדמי ביטול",
+                "cancel_warning":"אתה בטוח?",
+                "confirm_cancel_btn":"כן, בטל עבודה",
+                "updated_msg":"איוב עודכן.",
+                "updated":"מעודכן!"
            }
         },
         "settings":{
