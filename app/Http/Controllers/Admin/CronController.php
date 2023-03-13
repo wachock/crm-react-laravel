@@ -100,7 +100,7 @@ class CronController extends Controller
                 return  $availabiltities;
     }
     public function sendUnscheduledMail(){
-        $startDate = Carbon::now()->startOfWeek()->addDays(6);;
+        $startDate = Carbon::now()->startOfWeek()->addDays(6);
         $endDate = $startDate ->addDays(6);
         $jobs = Job::query()->with('offer','contract')->where('status','unscheduled')->whereBetween('start_date',[$startDate, $endDate]);
         $jobs = $jobs->whereHas('contract', function ($query) {
