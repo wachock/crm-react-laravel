@@ -192,7 +192,7 @@ export default function TotalJobs() {
                                                             }}
                                                         >
                                                             {item.status}
-                                                            {(item.status=='cancel')?`(With Cancellatiom fees ${item.rate} +" "+${t('global.currency')})`:''}
+                                                            {(item.status=='cancel')?`(With Cancellation fees ${item.rate} +" "+${t('global.currency')})`:''}
                                                         </Td>
                                                         <Td>
                                                             {item.jobservice?item.jobservice.total+" "+t('global.currency')+" + "+t('global.vat'):'0'} 

@@ -51,30 +51,31 @@ export default function ViewJob() {
          let warning_text ='';
          let new_total=total;
          if(time_diff<24){
-               warning_text='Full Payment Will be Recieved as Cancellation Fee( '+total+' ILS).';
+               warning_text=t('client.jobs.view.full_cancel_text')   +" ( "+total +" ) "+ t('global.currency');
 
          }else{
-             warning_text='Half Payment Will be Recieved as Cancellation Fee( '+(total/2)+' ILS).';
+             warning_text=t('client.jobs.view.half_cancel_text') + " ( "+(total/2)+" ) "+ t('global.currency');
              new_total=total/2;
          }
          let data = {'status':'cancel','total':new_total};
 
         Swal.fire({
-            title: "Are you sure?",
+            title: t('client.jobs.view.cancel_warning'),
             text: warning_text,
             icon: "warning",
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, Cancel Job",
+            cancelButtonText:t('client.jobs.view.cancel'),
+            confirmButtonText: t('client.jobs.view.confirm_cancel_btn'),
         }).then((result) => {
             if (result.isConfirmed) {
                 axios
                     .post(`/api/client/update-job-status/${params.id}`,data,{ headers })
                     .then((response) => {
                         Swal.fire(
-                            "Updated!",
-                            "Job has been updated.",
+                            t('client.jobs.view.updated'),
+                            t('client.jobs.view.updated_msg'),
                             "success"
                         );
                         setTimeout(() => {

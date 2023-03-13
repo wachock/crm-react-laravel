@@ -3,61 +3,85 @@ import { Link, Navigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import Moment from 'moment';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
-export default function ProfileDetails({ client, offerStatus , scheduleStatus , latestContract }) {
-    
+export default function ProfileDetails({ client, offerStatus, scheduleStatus, latestContract }) {
+
     const navigate = useNavigate();
     const firstname = client.firstname;
     const lastname = client.lastname;
     const email = client.email;
-    const phone = (client.phone) ? client.phone.toString().split(",").join(' | '): '';
+    const phone = (client.phone) ? client.phone.toString().split(",").join(' | ') : '';
     const city = client.city;
     const streetNumber = client.street_n_no;
     const floor = client.floor;
     const Apt = client.apt_no;
     const enterance = client.entrence_code;
-    const lang = (client.lng =='heb') ? 'Hebrew' : 'English';
-    
+    const lang = (client.lng == 'heb') ? 'Hebrew' : 'English';
+
     let geo_address = (client.geo_address) ? client.geo_address : "NA";
-    let cords   = (client.latitude && client.longitude) ? client.latitude +","+ client.longitude :"";
+    let cords = (client.latitude && client.longitude) ? client.latitude + "," + client.longitude : "";
 
     const zip = client.zipcode;
     const passcode = client.passcode;
-    const joined = Moment(client.created_at).format('DD/MM/Y')+" "+Moment(client.created_at).format('dddd');
-    
-    const  cardType    = (latestContract) ? latestContract.card_type : '';
-    const nameOnCard   = (latestContract) ? latestContract.name_on_card : '';
-    const cvv          = (latestContract) ? latestContract.cvv: '';
-    const signature    = (latestContract) ? <a href={latestContract.card_sign} target="_blank">view</a>  : '';
+    const joined = Moment(client.created_at).format('DD/MM/Y') + " " + Moment(client.created_at).format('dddd');
+
+    const cardType = (latestContract) ? latestContract.card_type : '';
+    const nameOnCard = (latestContract) ? latestContract.name_on_card : '';
+    const cvv = (latestContract) ? latestContract.cvv : '';
+    const signature = (latestContract) ? <a href={latestContract.card_sign} target="_blank">view</a> : '';
     const param = useParams();
-    
+
     let scolor = '', ocolor = '';
-     if(scheduleStatus == 'pending' || scheduleStatus == 'Not Sent') {scolor = '#7e7e56'} 
-     if(scheduleStatus == 'confirmed') {scolor = 'green'} 
-     if(scheduleStatus == 'completed') {scolor = 'lightblue'} 
-     if(scheduleStatus == 'declined') {scolor = 'red'} 
+    if (scheduleStatus == 'pending' || scheduleStatus == 'Not Sent') { scolor = '#7e7e56' }
+    if (scheduleStatus == 'confirmed') { scolor = 'green' }
+    if (scheduleStatus == 'completed') { scolor = 'lightblue' }
+    if (scheduleStatus == 'declined') { scolor = 'red' }
 
-     if(offerStatus == 'sent' || offerStatus == 'Not Sent') {ocolor = '#7e7e56'} 
-     if(offerStatus == 'accepted') {ocolor = 'green'} 
-     if(offerStatus == 'declined') {ocolor = 'red'}  
+    if (offerStatus == 'sent' || offerStatus == 'Not Sent') { ocolor = '#7e7e56' }
+    if (offerStatus == 'accepted') { ocolor = 'green' }
+    if (offerStatus == 'declined') { ocolor = 'red' }
 
-     let cstatus = "";
-     if(client.status == '0') {cstatus = 'Lead'} 
-     if(client.status == '1') {cstatus = 'Potential Customer'} 
-     if(client.status == '2') {cstatus = 'Customer'}  
+    let cstatus = "";
+    if (client.status == '0') { cstatus = 'Lead' }
+    if (client.status == '1') { cstatus = 'Potential Customer' }
+    if (client.status == '2') { cstatus = 'Customer' }
 
-    
-     const handleTab = (e)=>{
+
+    const handleTab = (e) => {
         e.preventDefault();
         let id = (e.target.getAttribute('id'));
-        if(id == "ms")
-        document.querySelector('#schedule-meeting').click();
-        if(id == "os")
-        document.querySelector('#offered-price').click();
-        if(id == "cs")
-        document.querySelector('#contract').click();
+        if (id == "ms")
+            document.querySelector('#schedule-meeting').click();
+        if (id == "os")
+            document.querySelector('#offered-price').click();
+        if (id == "cs")
+            document.querySelector('#contract').click();
 
-     }
+    }
+
+    const headers = {
+        Accept: "application/json, text/plain, */*",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ` + localStorage.getItem("admin-token"),
+    };
+
+    const [pass, setPass] = useState(null);
+    const [passVal, setPassVal] = useState(null);
+    const viewPass = () => {
+        if (!passVal) { window.alert('Please enter your password'); return; }
+        axios
+            .post(`/api/admin/viewpass`, { id: localStorage.getItem('admin-id'), pass: passVal }, { headers })
+            .then((res) => {
+                if (res.data.response == false) {
+                    window.alert('Wrong password!');
+                } else {
+                    setPass(passcode);
+                    document.querySelector('.closeb1').click();
+                }
+            })
+    }
+
     return (
         <>
 
@@ -76,7 +100,7 @@ export default function ProfileDetails({ client, offerStatus , scheduleStatus , 
                                         <div className='col-sm-4'>
                                             <div className='form-group'>
                                                 <label>Color</label>
-                                                <span style={{ background: (client.color) ? client.color: "#000" , height: "24px", width: "34px", display: "block", borderRadius: "4px" }}>&nbsp;</span>
+                                                <span style={{ background: (client.color) ? client.color : "#000", height: "24px", width: "34px", display: "block", borderRadius: "4px" }}>&nbsp;</span>
                                             </div>
                                         </div>
                                         <div className='col-sm-4'>
@@ -107,9 +131,16 @@ export default function ProfileDetails({ client, offerStatus , scheduleStatus , 
                                             <div className='form-group'>
                                                 <label>Login details</label>
                                                 <p><span>Email:</span> {email}</p>
-                                                <p><span>Password:</span> {passcode}</p>
+                                                <p><span>Password:</span>
+                                                    {
+                                                        pass == null ?
+                                                            <span style={{ cursor: 'pointer' }} data-toggle="modal" data-target="#exampleModalPass">******** &#128274;</span>
+                                                            :
+                                                            <span>{pass}</span>
+                                                    }
+                                                </p>
                                             </div>
-                                            
+
                                         </div>
                                         <div className='col-sm-4'>
                                             <div className='form-group'>
@@ -120,17 +151,17 @@ export default function ProfileDetails({ client, offerStatus , scheduleStatus , 
                                         <div className='col-sm-4'>
                                             <div className='form-group'>
                                                 <label>Google address</label>
-                                                <p><a href={`https://maps.google.com?q=${ cords}`} target='_blank'>
+                                                <p><a href={`https://maps.google.com?q=${cords}`} target='_blank'>
                                                     {geo_address}</a></p>
                                             </div>
-                                            
+
                                         </div>
                                         <div className='col-sm-4'>
                                             <div className='form-group'>
                                                 <label>status</label>
-                                                <p>{ cstatus }</p>
+                                                <p>{cstatus}</p>
                                             </div>
-                                            
+
                                         </div>
                                         <div className='col-sm-12'>
                                             <div className='form-group'>
@@ -157,24 +188,64 @@ export default function ProfileDetails({ client, offerStatus , scheduleStatus , 
 
                             <div className='form-group'>
                                 <label className='d-block'>Meeting Status</label>
-                                <span onClick={(e)=>handleTab(e)} id="ms"  className='dashStatus' style={{ background: scolor,cursor:"pointer" }}>{scheduleStatus}</span>
+                                <span onClick={(e) => handleTab(e)} id="ms" className='dashStatus' style={{ background: scolor, cursor: "pointer" }}>{scheduleStatus}</span>
                             </div>
 
                             <div className='form-group'>
                                 <label className='d-block'>Price Offer</label>
-                                <span  onClick={(e)=>handleTab(e)} id="os" className='dashStatus' style={{ background: ocolor,cursor:"pointer" }}>{offerStatus}</span>
+                                <span onClick={(e) => handleTab(e)} id="os" className='dashStatus' style={{ background: ocolor, cursor: "pointer" }}>{offerStatus}</span>
                             </div>
 
                             <div className='form-group mb-0'>
                                 <label className='d-block'>Contract</label>
-                                <span  onClick={(e)=>handleTab(e)} id="cs" className='dashStatus' style={{ background: (latestContract && latestContract.status == 'Signed') ? 'green' : '#7e7e56',"cursor":"pointer" }}>{(latestContract) ? latestContract.status : 'Not Sent'}</span>
-                         </div>
-                           
+                                <span onClick={(e) => handleTab(e)} id="cs" className='dashStatus' style={{ background: (latestContract && latestContract.status == 'Signed') ? 'green' : '#7e7e56', "cursor": "pointer" }}>{(latestContract) ? latestContract.status : 'Not Sent'}</span>
+                            </div>
+
                         </div>
-                        
+
                         <div className='buttonBlocks dashBox mt-3 p-4'>
                             <Link to={`/admin/view-schedule/${param.id}`}><i className="fas fa-hand-point-right"></i> Schedule Meeting</Link>
                             <Link to={`/admin/add-offer?c=${param.id}`}><i className="fas fa-hand-point-right"></i> Send Offer</Link>
+                        </div>
+                    </div>
+                </div>
+                <div className="modal fade" id="exampleModalPass" tabindex="-1" role="dialog" aria-labelledby="exampleModalPass" aria-hidden="true">
+                    <div className="modal-dialog" role="document">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div className="modal-body">
+
+                                <div className="row">
+                                    <div className="col-sm-12">
+                                        <div className="form-group">
+                                            <label className="control-label">
+                                                Enter your password
+                                            </label>
+                                            <input
+                                                type="password"
+                                                onChange={(e) =>
+                                                    setPassVal(e.target.value)
+                                                }
+                                                className="form-control"
+                                                required
+                                                placeholder="Enter your password"
+                                            />
+
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+                            <div className="modal-footer">
+                                <button type="button" className="btn btn-secondary closeb1" data-dismiss="modal">Close</button>
+                                <button type="button" onClick={viewPass} className="btn btn-primary">Submit</button>
+                            </div>
                         </div>
                     </div>
                 </div>
