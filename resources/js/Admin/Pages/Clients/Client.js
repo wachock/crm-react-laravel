@@ -3,11 +3,11 @@ import Sidebar from "../../Layouts/Sidebar";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import ReactPaginate from "react-paginate";
-import {Table, Thead, Tbody, Tr, Th, Td} from 'react-super-responsive-table'
+import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table'
 import { useNavigate } from "react-router-dom";
 
 export default function Clients() {
-    
+
     const [clients, setClients] = useState([]);
     const [pageCount, setPageCount] = useState(0);
     const [loading, setLoading] = useState("Loading...");
@@ -20,7 +20,7 @@ export default function Clients() {
 
     const getclients = () => {
         axios.get("/api/admin/clients", { headers }).then((response) => {
-            
+
             if (response.data.clients.data.length > 0) {
                 setClients(response.data.clients.data);
                 setPageCount(response.data.clients.last_page);
@@ -29,24 +29,26 @@ export default function Clients() {
             }
         });
     };
+
+    
     useEffect(() => {
         getclients();
     }, []);
 
-   
-    const filterClients = (e) =>{
+
+    const filterClients = (e) => {
         axios
-        .get(`/api/admin/clients?q=${e.target.value}`,{ headers })
-        .then((response)=>{
-            if (response.data.clients.data.length > 0) {
-                setClients(response.data.clients.data);
-                setPageCount(response.data.clients.last_page);
-            } else {
-                setClients([]);
-                setPageCount(response.data.clients.last_page);
-                setLoading("No client found");
-            }
-        })
+            .get(`/api/admin/clients?q=${e.target.value}`, { headers })
+            .then((response) => {
+                if (response.data.clients.data.length > 0) {
+                    setClients(response.data.clients.data);
+                    setPageCount(response.data.clients.last_page);
+                } else {
+                    setClients([]);
+                    setPageCount(response.data.clients.last_page);
+                    setLoading("No client found");
+                }
+            })
     }
 
     const handlePageClick = async (data) => {
@@ -89,15 +91,15 @@ export default function Clients() {
             }
         });
     };
-    const handleNavigate = (e,id) =>{
-      e.preventDefault();
-      navigate(`/admin/view-client/${id}`);
+    const handleNavigate = (e, id) => {
+        e.preventDefault();
+        navigate(`/admin/view-client/${id}`);
     }
 
 
     return (
         <div id="container">
-            <Sidebar /> 
+            <Sidebar />
             <div id="content">
                 <div className="titleBox customer-title">
                     <div className="row">
@@ -115,45 +117,46 @@ export default function Clients() {
                 <div className="card">
                     <div className="card-body">
                         <div className="boxPanel">
-                                {clients.length > 0 ? (
-                                    <Table className='table table-bordered'>
-                                        <Thead>
-                                            <Tr>
-                                                <Th>ID</Th>
-                                                <Th>Client Name</Th>
-                                                <Th>Email</Th>
-                                                <Th>Address</Th>
-                                                <Th>Phone</Th>
-                                                <Th>Status</Th>
-                                                <Th>Action</Th>
-                                            </Tr>
-                                        </Thead>
-                                        <Tbody>
-                                            {clients &&
-                                                clients.map((item, index) => {
-                                                    
-                                                    let address = (item.geo_address) ? item.geo_address : "NA";
-                                                    let cords   = (item.latitude && item.longitude) ? item.latitude +","+ item.longitude :"";
-                                                    let status = '';
-                                                    if(item.status == 0)
-                                                    status =  "Lead";
-                                                    if(item.status == 1)
-                                                    status =  "Potential Customer";
-                                                    if(item.status == 2)
-                                                    status =  "Customer";
+                            {clients.length > 0 ? (
+                                <Table className='table table-bordered'>
+                                    <Thead>
+                                        <Tr>
+                                            <Th>ID</Th>
+                                            <Th>Client Name</Th>
+                                            <Th>Email</Th>
+                                            <Th>Address</Th>
+                                            <Th>Phone</Th>
+                                            <Th>Status</Th>
+                                            <Th>Action</Th>
+                                        </Tr>
+                                    </Thead>
+                                    <Tbody>
+                                        {clients &&
+                                            clients.map((item, index) => {
 
-                                                    return(
-                                                    <Tr style={{"cursor":"pointer"}}>
-                                                        <Td onClick={(e)=>handleNavigate(e,item.id)}>{item.id}</Td>
+                                                let address = (item.geo_address) ? item.geo_address : "NA";
+                                                let cords = (item.latitude && item.longitude) ? item.latitude + "," + item.longitude : "";
+                                                let status = '';
+                                                if (item.status == 0)
+                                                    status = "Lead";
+                                                if (item.status == 1)
+                                                    status = "Potential Customer";
+                                                if (item.status == 2)
+                                                    status = "Customer";
+                                               
+                                                console.log(item.id);
+                                                return (
+                                                    <Tr style={{ "cursor": "pointer" }}>
+                                                        <Td onClick={(e) => handleNavigate(e, item.id)}>{item.id}</Td>
                                                         <Td>
-                                                            <Link to={`/admin/view-client/${item.id}`}>{item.firstname}{" "}{item.lastname}</Link>  
+                                                            <Link to={`/admin/view-client/${item.id}`}>{item.firstname}{" "}{item.lastname}</Link>
                                                         </Td>
-                                                        <Td onClick={(e)=>handleNavigate(e,item.id)}>{item.email}</Td>
+                                                        <Td onClick={(e) => handleNavigate(e, item.id)}>{item.email}</Td>
                                                         <Td><a href={`https://maps.google.com?q=${cords}`} target='_blank'>{address}</a></Td>
-                                                        <Td onClick={(e)=>handleNavigate(e,item.id)}>{  (item.phone) ? item.phone.toString().split(",").join(' | '): ''}</Td>
-                                                        <Td onClick={(e)=>handleNavigate(e,item.id)}>
+                                                        <Td onClick={(e) => handleNavigate(e, item.id)}>{(item.phone) ? item.phone.toString().split(",").join(' | ') : ''}</Td>
+                                                        <Td onClick={(e) => handleNavigate(e, item.id)}>
                                                             {
-                                                             status
+                                                                status
                                                             }
                                                         </Td>
                                                         <Td>
@@ -162,6 +165,12 @@ export default function Clients() {
                                                                     <i className="fa fa-ellipsis-vertical"></i>
                                                                 </button>
                                                                 <div className="dropdown-menu">
+                                                                    {
+                                                                        item.latest_contract != 0 
+                                                                        ? <Link to={`/admin/create-job/${item.latest_contract}`} className="dropdown-item">Create Job</Link>
+                                                                        :''
+                                                                    }
+                                                                    
                                                                     <Link to={`/admin/edit-client/${item.id}`} className="dropdown-item">Edit</Link>
                                                                     <Link to={`/admin/view-client/${item.id}`} className="dropdown-item">View</Link>
                                                                     <button className="dropdown-item" onClick={() => handleDelete(item.id)}
@@ -170,37 +179,37 @@ export default function Clients() {
                                                             </div>
                                                         </Td>
                                                     </Tr>)
-                                                })}
-                                        </Tbody>
-                                    </Table>
-                                ) : (
-                                    <p className="text-center mt-5">{loading}</p>
-                                )}
-                                {clients.length > 0 ? (
-                                    <ReactPaginate
-                                        previousLabel={"Previous"}
-                                        nextLabel={"Next"}
-                                        breakLabel={"..."}
-                                        pageCount={pageCount}
-                                        marginPagesDisplayed={2}
-                                        pageRangeDisplayed={3}
-                                        onPageChange={handlePageClick}
-                                        containerClassName={
-                                            "pagination justify-content-end mt-3"
-                                        }
-                                        pageClassName={"page-item"}
-                                        pageLinkClassName={"page-link"}
-                                        previousClassName={"page-item"}
-                                        previousLinkClassName={"page-link"}
-                                        nextClassName={"page-item"}
-                                        nextLinkClassName={"page-link"}
-                                        breakClassName={"page-item"}
-                                        breakLinkClassName={"page-link"}
-                                        activeClassName={"active"}
-                                    />
-                                ) : (
-                                    <></>
-                                )}
+                                            })}
+                                    </Tbody>
+                                </Table>
+                            ) : (
+                                <p className="text-center mt-5">{loading}</p>
+                            )}
+                            {clients.length > 0 ? (
+                                <ReactPaginate
+                                    previousLabel={"Previous"}
+                                    nextLabel={"Next"}
+                                    breakLabel={"..."}
+                                    pageCount={pageCount}
+                                    marginPagesDisplayed={2}
+                                    pageRangeDisplayed={3}
+                                    onPageChange={handlePageClick}
+                                    containerClassName={
+                                        "pagination justify-content-end mt-3"
+                                    }
+                                    pageClassName={"page-item"}
+                                    pageLinkClassName={"page-link"}
+                                    previousClassName={"page-item"}
+                                    previousLinkClassName={"page-link"}
+                                    nextClassName={"page-item"}
+                                    nextLinkClassName={"page-link"}
+                                    breakClassName={"page-item"}
+                                    breakLinkClassName={"page-link"}
+                                    activeClassName={"active"}
+                                />
+                            ) : (
+                                <></>
+                            )}
                         </div>
                     </div>
                 </div>

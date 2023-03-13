@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Client;
 use App\Models\Files;
 use App\Models\Note;
+use App\Models\Contract;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -34,7 +35,17 @@ class ClientController extends Controller
         $result->orWhere('email',      'like','%'.$q.'%');
 
         $result = $result->orderBy('id', 'desc')->paginate(20);
-
+        if(isset($result)){
+            foreach($result as $k => $res){
+                $contract = Contract::where('client_id',$res->id)->get()->last();
+                if($contract != null){
+                    $result[$k]->latest_contract = $contract->id;
+                } else {
+                    $result[$k]->latest_contract = 0;
+                }
+            }
+        }
+       
         return response()->json([
             'clients'       => $result,            
         ], 200);
