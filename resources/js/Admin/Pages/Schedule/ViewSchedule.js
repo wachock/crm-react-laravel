@@ -368,7 +368,6 @@ export default function ViewSchedule() {
                                 <div className='form-group'>
                                     <label>Meet Via</label>
                                     <select name="meet_via" id="meet_via" selected={meetVia} onChange={(e) => { setMeetVia(e.target.value); handleUpdate(e) }} className="form-control">
-                                        <option>Please select</option>
                                         <option value="on-site" selected={meetVia == 'on-site'}>On site</option>
                                         <option value='off-site' selected={meetVia == 'off-site'}>Off site</option>
                                     </select>
