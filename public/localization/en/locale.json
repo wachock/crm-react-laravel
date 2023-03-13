@@ -180,7 +180,7 @@
             "s6_p2": "https://www.bell-boy.com"
         },
         "messages":{
-            "success":"Thank you for accepting the offer, Please check our next email for contract and fill  all the necessary details",
+            "success":"Thank you for accepting the offer, one of our representives will call you shortly",
             "reject_title":"Are you sure?",
             "reject_text":"You want to reject this Offer!",
             "yes_reject":"Yes, Reject",

@@ -1,15 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import FullCalendar from "@fullcalendar/react";
-import dayGridPlugin from "@fullcalendar/daygrid";
-import timeGridPlugin from '@fullcalendar/timegrid';
-import { resourceTimeGridPlugin } from '@fullcalendar/resource-timegrid'
-import resourceTimelinePlugin from '@fullcalendar/resource-timeline'
-import interactionPlugin from '@fullcalendar/interaction';
 import moment from 'moment-timezone';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useAlert } from 'react-alert';
 import Select from 'react-select';
-import Swal from 'sweetalert2';
+import {Table, Thead, Tbody, Tr, Th, Td} from 'react-super-responsive-table'
 
 
 export default function CreateJobCalender() {
@@ -282,86 +276,87 @@ const filterOptions = (options,shifts) =>{
  }
     return (
         <>
-          <ul className="nav nav-tabs" role="tablist">
+          <ul className="nav nav-tabs mb-2" role="tablist">
             <li className="nav-item" role="presentation"><a id="worker-availability" className="nav-link active" data-toggle="tab" href="#tab-worker-availability" aria-selected="true" role="tab">Current Week</a></li>
             <li className="nav-item" role="presentation"><a id="current-job" className="nav-link" data-toggle="tab" href="#tab-current-job" aria-selected="true" role="tab">Next Week</a></li>
             <li className="nav-item" role="presentation"><a id="current-next-job" className="nav-link" data-toggle="tab" href="#tab-current-next-job" aria-selected="true" role="tab">Next Next Week</a></li>
         </ul>
         <div className='tab-content' style={{background: "#fff"}}>
              <div id="tab-worker-availability" className="tab-pane active show" role="tab-panel" aria-labelledby="current-job">
-               <table border="2" cellspacing="0" align="center" width="100%">
-                  <tr>
-                    <td align="center">
-                        Worker
-                    </td>
-                   {week.map((element, index) => (
-                           <td align="center">
+               <Table className='table table-bordered crt-jb'>
+                <Thead>
+                    <Tr>
+                        <Th>Worker</Th>
+                        {week.map((element, index) => (
+                           <Td>
                                { moment(element).toString().slice(0,15) }
-                           </td>
+                           </Td>
                         ))}
-                  </tr>
-                  {AllWorkers.map((w, index) => {
-                      let aval = (w.aval) ? w.aval : [];
-                      let wjobs = (w.wjobs) ? w.wjobs : [];
-                        return (
-                            <tr>
-                               <td align="center" id={`worker-${w.id}`}>
-                                   {w.firstname} {w.lastname}
-                               </td>
-                               {week.map((element, index) => {
-                                   let shifts = (wjobs[element]) ? (wjobs[element]).split(",") : [];
-                                    return ( <td align="center" >
-                                       <span className="text-success">{person[aval[element]]}</span>
-                                      
-                                       {shifts.map((s,i)=>{
-                                        return <div className="text-danger">{s}</div>
-                                       })}
-                                       {(aval[element] && aval[element] != '')?
-                                        <Select
-                                            isMulti
-                                            name="colors"
-                                            options={filterOptions(colourOptions[aval[element]],shifts)}
-                                            className="basic-multi-single"
-                                            isClearable={true}
-                                            classNamePrefix="select"
-                                            onChange={(e)=>changeShift(w.id,element,e)}
-                                          />
-                                          :
-                                          <div className="text-danger">Not Available</div>
-                                         }
-                                   </td>
-                                   )
-                                })}
+                    </Tr>
+                </Thead>
+                <Tbody>
+                    {AllWorkers.map((w, index) => {
+                        let aval = (w.aval) ? w.aval : [];
+                        let wjobs = (w.wjobs) ? w.wjobs : [];
+                            return (
+                                <Tr>
+                                <Td id={`worker-${w.id}`}>
+                                    {w.firstname} {w.lastname}
+                                </Td>
+                                {week.map((element, index) => {
+                                    let shifts = (wjobs[element]) ? (wjobs[element]).split(",") : [];
+                                        return ( <Td align="center" >
+                                        <span className="text-success">{person[aval[element]]}</span>
+                                        
+                                        {shifts.map((s,i)=>{
+                                            return <div className="text-danger">{s}</div>
+                                        })}
+                                        {(aval[element] && aval[element] != '')?
+                                            <Select
+                                                isMulti
+                                                name="colors"
+                                                options={filterOptions(colourOptions[aval[element]],shifts)}
+                                                className="basic-multi-single"
+                                                isClearable={true}
+                                                classNamePrefix="select"
+                                                onChange={(e)=>changeShift(w.id,element,e)}
+                                            />
+                                            :
+                                            <div className="text-danger">Not Available</div>
+                                            }
+                                    </Td>
+                                    )
+                                    })}
 
-                             </tr>
-                         )
-                    })}
-
-              </table>
+                                </Tr>
+                            )
+                        })}
+                </Tbody>
+              </Table>
            </div>
                <div id="tab-current-job" className="tab-pane" role="tab-panel" aria-labelledby="current-job">
-                  <table border="2" cellspacing="0" align="center" width="100%">
-                  <tr>
-                    <td align="center">
+                  <Table className='table table-bordered crt-jb'>
+                  <Tr>
+                    <Td align="center">
                         Worker
-                    </td>
+                    </Td>
                    {nextweek.map((element, index) => (
-                           <td align="center">
+                           <Td align="center">
                                { moment(element).toString().slice(0,15) }
-                           </td>
+                           </Td>
                         ))}
-                  </tr>
+                  </Tr>
                   {AllWorkers.map((w, index) => {
                       let aval = (w.aval) ? w.aval : [];
                       let wjobs = (w.wjobs) ? w.wjobs : [];
                         return (
-                            <tr>
-                               <td align="center" id={`worker-${w.id}`}>
+                            <Tr>
+                               <Td align="center" id={`worker-${w.id}`}>
                                    {w.firstname} {w.lastname}
-                               </td>
+                               </Td>
                                {nextweek.map((element, index) => {
                                    let shifts = (wjobs[element]) ? (wjobs[element]).split(",") : [];
-                                    return ( <td align="center" >
+                                    return ( <Td align="center" >
                                        <span className="text-success">{person[aval[element]]}</span>
                                       
                                        {shifts.map((s,i)=>{
@@ -381,40 +376,40 @@ const filterOptions = (options,shifts) =>{
                                           :
                                           <div className="text-danger">Not Available</div>
                                          }
-                                   </td>
+                                   </Td>
                                    )
                                 })}
 
-                             </tr>
+                             </Tr>
                          )
                     })}
 
-              </table>
+              </Table>
 
                </div>
                 <div id="tab-current-next-job" className="tab-pane" role="tab-panel" aria-labelledby="current-job">
-                  <table border="2" cellspacing="0" align="center" width="100%">
-                  <tr>
-                    <td align="center">
+                  <Table className='table table-bordered crt-jb'>
+                  <Tr>
+                    <Td align="center">
                         Worker
-                    </td>
+                    </Td>
                    {nextnextweek.map((element, index) => (
-                           <td align="center">
+                           <Td align="center">
                                { moment(element).toString().slice(0,15) }
-                           </td>
+                           </Td>
                         ))}
-                  </tr>
+                  </Tr>
                   {AllWorkers.map((w, index) => {
                       let aval = (w.aval) ? w.aval : [];
                       let wjobs = (w.wjobs) ? w.wjobs : [];
                         return (
-                            <tr>
-                               <td align="center" id={`worker-${w.id}`}>
+                            <Tr>
+                               <Td align="center" id={`worker-${w.id}`}>
                                    {w.firstname} {w.lastname}
-                               </td>
+                               </Td>
                                {nextnextweek.map((element, index) => {
                                    let shifts = (wjobs[element]) ? (wjobs[element]).split(",") : [];
-                                    return ( <td align="center" >
+                                    return ( <Td align="center" >
                                        <span className="text-success">{person[aval[element]]}</span>
                                       
                                        {shifts.map((s,i)=>{
@@ -433,15 +428,15 @@ const filterOptions = (options,shifts) =>{
                                           :
                                           <div className="text-danger">Not Available</div>
                                          }
-                                   </td>
+                                   </Td>
                                    )
                                 })}
 
-                             </tr>
+                             </Tr>
                          )
                     })}
 
-              </table>
+              </Table>
 
                </div>
            </div>

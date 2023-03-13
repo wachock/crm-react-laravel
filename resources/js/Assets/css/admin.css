@@ -1309,6 +1309,9 @@ h1 {
 .responsiveTable tbody tr td:last-child{
   padding: 5px !important;
 } 
+.crt-jb.responsiveTable tbody tr td:last-child{
+  padding-top: 11px !important;
+}
 .fc-license-message{
   display: none;
 }
