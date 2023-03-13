@@ -13,7 +13,8 @@ export default function WorkerDashboard() {
     const [contracts, setContract] = useState([]);
     const [loading, setLoading] = useState("Loading...");
     const id = localStorage.getItem('worker-id');
-    const {t} = useTranslation();
+    const {t,i18n } = useTranslation();
+    const w_lng = i18n.language;
     const headers = {
         Accept: "application/json, text/plain, */*",
         "Content-Type": "application/json",
@@ -93,7 +94,10 @@ export default function WorkerDashboard() {
                                                         }
                                                         </Td>
                                                         <Td>{
-                                                           item.jobservice.name
+                                                           (w_lng=='en')
+                                                           ? (item.jobservice.name)
+                                                           :
+                                                           (item.jobservice.heb_name)
                                                         }</Td>
                                                         <Td>
                                                             {item.start_date}

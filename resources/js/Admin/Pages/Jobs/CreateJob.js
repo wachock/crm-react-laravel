@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import Sidebar from '../../Layouts/Sidebar'
-import { SelectPicker } from 'rsuite';
 import 'rsuite/dist/rsuite.min.css';
 import axios from 'axios';
 import { useAlert } from 'react-alert';
@@ -48,20 +47,20 @@ export default function () {
     //    setSelectedService(value);
     //    document.querySelector('.closee').click();
     // } 
-
-    return (
-        <div id="container">
-            <Sidebar />
-            <div id="content">
-                <div className="edit-customer">
-                    <h1 className="page-title editJob">Add Job</h1>
-                    <div id='calendar'></div>
-                    <div className='card'>
-                        <div className='card-body'>
-                            <form>
-                                <div className='row'>
-                                    <div className='col-sm-2'>
-                                        <div className='form-group'>
+    
+  return (
+    <div id="container">
+        <Sidebar/>
+        <div id="content">
+            <div className="view-applicant">
+                <h1 className="page-title editJob">Add Job</h1>
+                <div id='calendar'></div>
+                <div className='card'>
+                    <div className='card-body'>
+                        <form>     
+                            <div className='row'>
+                                <div className='col-sm-2'>
+                                          <div className='form-group'>
                                             <label>Client</label>
                                             <p>{client}</p>
                                         </div>

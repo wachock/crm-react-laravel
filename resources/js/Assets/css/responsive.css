@@ -13,6 +13,10 @@
 .hidden-xs{
     display: none;
 }
+.crt-jb.responsiveTable tbody tr td:last-child .tdBefore{
+    display: block;
+    position: unset;
+}
 .navbar-toggler{
     border: 1px solid #ccc;
     padding: 3px 8px;

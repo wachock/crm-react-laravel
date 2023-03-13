@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Job;
 use App\Models\User;
 use App\Models\Contract;
+use App\Models\Services;
 use App\Models\serviceSchedules;
 use App\Models\JobHours;
 use App\Models\JobService;
@@ -199,13 +200,16 @@ class JobController extends Controller
          $job = Contract::with('offer')->find($id);
          $repeat_value='';
          $s_name='';
+         $s_heb_name='';
          $s_hour='';
          $s_total='';
          foreach($request->services as $service){
                   $service_schedules = serviceSchedules::where('id','=',$service['frequency'])->first();
+                  $ser = Services::where('id','=',$service['service'])->first();
 
                       $repeat_value=$service_schedules->period;
-                      $s_name=$service['name'];
+                      $s_name=$ser->name;
+                      $s_heb_name=$ser->heb_name;
                       $s_hour=$service['jobHours'];
                       $s_total=$service['totalamount'];
 
@@ -227,6 +231,7 @@ class JobController extends Controller
             $service           = new JobService;
             $service->job_id   = $new->id;
             $service->name     = $s_name;
+            $service->heb_name = $s_heb_name;
             $service->job_hour = $s_hour;
             $service->total    = $s_total;
             $service->save();
