@@ -14,7 +14,8 @@ export default function ClientDashboard() {
     const [contracts, setContract] = useState([]);
     const [loading, setLoading] = useState("Loading...");
     const id = localStorage.getItem('client-id');
-    const {t} = useTranslation();
+    const {t,i18n } = useTranslation();
+    const c_lng = i18n.language;
     const headers = {
         Accept: "application/json, text/plain, */*",
         "Content-Type": "application/json",
@@ -136,9 +137,10 @@ export default function ClientDashboard() {
                                                                 }
                                                                 </Td>
                                                                 <Td>{
-                                                                    item.jobservice
-                                                                        ? item.jobservice.name
-                                                                        : "NA"
+                                                                    (c_lng=='en')
+                                                                     ? (item.jobservice.name)
+                                                                     :
+                                                                    (item.jobservice.heb_name)
                                                                 }</Td>
                                                                 <Td>
                                                                     {item.start_date}

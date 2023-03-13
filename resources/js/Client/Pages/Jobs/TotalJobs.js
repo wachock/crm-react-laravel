@@ -17,7 +17,8 @@ export default function TotalJobs() {
     const [AllWorkers, setAllWorkers] = useState([]);
     const alert = useAlert();
     const cid = localStorage.getItem('client-id'); 
-    const {t} = useTranslation();
+     const {t,i18n } = useTranslation();
+    const c_lng = i18n.language;
     const headers = {
         Accept: "application/json, text/plain, */*",
         "Content-Type": "application/json",
@@ -129,7 +130,10 @@ export default function TotalJobs() {
                                                         }
                                                         </Td>
                                                         <Td>{
-                                                           item.jobservice?item.jobservice.name:''
+                                                           (c_lng=='en')
+                                                                     ? (item.jobservice.name)
+                                                                     :
+                                                                    (item.jobservice.heb_name)
                                                         }</Td>
                                                         <Td>
                                                              {item.shifts}
