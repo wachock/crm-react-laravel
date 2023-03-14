@@ -1554,11 +1554,89 @@ h1 {
 }
 /*******Insurance**********/
 .insurance-eng .maxWidthControl{
-    max-width: 850px;
+    max-width: 870px;
     margin: 0 auto;
   }
 .insurance-eng p {
     text-align: left !important;
-    direction: rtl;
+    direction: ltr;
+}
+.insurance-eng .dashBox {
+    padding-bottom: 20px !important;
+}
+.please-select {
+    text-align: right;
+    margin-top: 10px;
+}
+.please-select h4 {
+    letter-spacing: -0.8px;
+    font-weight: 700;
+    color: #000;
+    margin-bottom: 10px;
+    font-size: 20px;
+}
+.please-select ul {
+    padding-right: 20px;
+}
+.please-select ul li {
+    list-style-type: circle;
+    line-height: 26px;
+}
+.please-select ul li span {
+    font-size: 15px;
+    color: #000;
+    font-weight: 500;
+}
+.insuranceform p {
+    text-align: center !important;
+    margin-bottom: 20px;
+}
+.insurancetable {
+    overflow: hidden;
+}
+.insurancetable .table {
+    margin-bottom: 0px;
+}
+.insurancetable .table thead th {
+    background-color: #000;
+    color: #fff;
+    font-size: 18px;
+    letter-spacing: .5px;
+}
+.insurancetable .table tr td {
+    text-align: right;
+}
+.insurancetable .table tr td label {
+    display: block;
+    font-weight: 500;
+    color: #000;
+    direction: ltr;
+}
+.insurancetable .table tr td input{
+    font-size: 14px;
+}
+.gender {
+    display: inline-flex;
+}
+.gender label {
+    margin-right: 5px;
+}
+.insurancetable .table tr td p {
+    text-align: left !important;
+    margin-bottom: 0px !important;
+    direction: ltr;
+}
+.insurancetable .table tr td p b {
+    font-size: 18px;
+    letter-spacing: .5px;
+}
+.insurancetable .sigCanvas {
+    border: 1px solid #ccc;
+    max-width: 300px !important;
+    display: block;
+    margin-bottom: 10px;
+}
+.insurancetable .table tr td p span {
+    font-weight: bold;
 }
 /*******End*************/
