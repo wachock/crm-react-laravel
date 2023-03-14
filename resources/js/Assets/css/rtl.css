@@ -9,6 +9,7 @@ body:dir(rtl) {
 .thankyou{
     text-align: right;
     direction: rtl;
+    font-family: 'Noto Sans Hebrew', sans-serif;
 }
 .sendOfferRtl {
     font-family: 'Noto Sans Hebrew', sans-serif;

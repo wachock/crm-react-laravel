@@ -6,7 +6,7 @@ export default function WorkerProfile() {
     const [firstname, setFirstName] = useState('');
     const [lastname, setLastName] = useState('');
     const [phone, setPhone] = useState('');
-    const [email, setEmail] = useState('test123@gmail.com');
+    const [email, setEmail] = useState('');
     const [renewal_date, setRenewalDate] = useState('');
     const [gender, setGender] = useState('male');
     const [payment_hour, setPaymentHour] = useState(0);
@@ -53,6 +53,7 @@ export default function WorkerProfile() {
                 setSkill(response.data.worker.skill);
                 setAddress(response.data.worker.address);
                 setItemStatus(response.data.worker.status);
+                setEmail(response.data.worker.email);
             });
     };
     useEffect(() => {
@@ -99,6 +100,12 @@ export default function WorkerProfile() {
                                 <div className='form-group'>
                                     <label className='control-label'>Worker Id</label>
                                     <input disabled type='text' value={worker_id} onChange={(e) => setLastName(e.target.value)} className='form-control' placeholder='Enter Last Name' />
+                                </div>
+                            </div>
+                            <div className='col-sm-4'>
+                                <div className='form-group'>
+                                    <label className='control-label'>Worker email</label>
+                                    <input disabled type='text' value={email} onChange={(e) => setLastName(e.target.value)} className='form-control' />
                                 </div>
                             </div>
                             <div className='col-sm-4'>

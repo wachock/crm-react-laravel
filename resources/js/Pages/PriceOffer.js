@@ -131,7 +131,7 @@ export default function PriceOffer() {
             return a;
         }
     })
-    console.log(allTemplates);
+    
     return (
         <>
 
@@ -416,7 +416,7 @@ export default function PriceOffer() {
 
                             </div>
 
-                            <h3 className='mt-4'>{t('price_offer.our_services.heading')} <a href='https://www.broomservice.co.il' target='_blank'>www.broomservice.co.il</a></h3>
+                            <h3 className='mt-4'><a href='https://www.broomservice.co.il' target='_blank'>{t('price_offer.our_services.heading')}</a></h3>
                             <div className='shift-20'>
                                 <h4 className='mt-4'>&bull; {t('price_offer.our_services.s1')}</h4>
                                 <ul className='list-unstyled'>
@@ -469,7 +469,7 @@ export default function PriceOffer() {
                                 <h4 className='mt-4'>&bull; {t('price_offer.our_services.s6')}</h4>
                                 <ul className='list-unstyled'>
                                     <li><img src={star} /> {t('price_offer.our_services.s6_p1')}</li>
-                                    <li><img src={star} /> <a href='https://www.bell-boy.com/' target='_blank'>{t('price_offer.our_services.s6_p2')}</a> </li>
+                                    <li><img src={star} /> <a href='https://bell-boy.com/' target='_blank'>{t('price_offer.our_services.s6_p2')}</a> </li>
                                 </ul>
                             </div>
                         </div>

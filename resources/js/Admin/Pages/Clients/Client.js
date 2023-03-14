@@ -144,7 +144,7 @@ export default function Clients() {
                                                 if (item.status == 2)
                                                     status = "Customer";
                                                
-                                                console.log(item.id);
+                                               
                                                 return (
                                                     <Tr style={{ "cursor": "pointer" }}>
                                                         <Td onClick={(e) => handleNavigate(e, item.id)}>{item.id}</Td>

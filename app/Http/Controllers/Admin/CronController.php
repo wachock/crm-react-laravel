@@ -117,4 +117,34 @@ class CronController extends Controller
         });
 
     }
+    public function WorkerUpdate(){
+        $workers = User::get();
+        foreach($workers as $worker){
+            $i=1;
+            $j=0;
+            $check_friday=1;
+            while($i==1){
+                  $current = Carbon::now();
+                  $day=$current->addDays($j);
+                  if($this->isWeekend($day->toDateString())){
+                    $check_friday++;
+                  }else{
+                     $w_a = new WorkerAvialibilty;
+                     $w_a->user_id = $worker->id;
+                     $w_a->date = $day->toDateString();
+                     $w_a->working=array('8am-16pm');
+                     $w_a->status=1;
+                     $w_a->save();
+                  }
+                  $j++;
+                  if($check_friday == 6){
+                    $i=2;
+                  }
+            }
+        }
+    }
+    public function isWeekend($date) {
+        $weekDay = date('w', strtotime($date));
+        return ($weekDay == 5 || $weekDay == 6);
+    }
 }

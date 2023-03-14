@@ -821,7 +821,7 @@ table tr td .dropdown-item{
   color: #fff;
 }
 .min-414{
-  min-height: 414px;
+  min-height: 471px;
 }
 .client-view .dashStatus{
   color: rgb(255, 255, 255);
@@ -1238,11 +1238,8 @@ h1 {
   text-transform: uppercase;
 }
 .meet-status .cta p{
-  font-size: 20px;
+  font-size: 17px;
   margin-top: 25px;
-  color: #000;
-  letter-spacing: -0.8px;
-  font-style: italic;
 }
 .meet-status .cta a{
   margin-top: 10px;
@@ -1447,6 +1444,10 @@ h1 {
 }
 .swatch.yellow span{
   margin-left: 4px;
+}
+.inline-buttons{
+  display: flex;
+  float: right;
 }
 .fc-icon-chevron-right,  .fc-icon-chevron-left{
   position: relative;

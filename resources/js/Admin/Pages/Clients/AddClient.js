@@ -218,7 +218,7 @@ export default function AddClient() {
                                                 Password *
                                             </label>
                                             <input
-                                                type="text"
+                                                type="password"
                                                 value={passcode}
                                                 onChange={(e) =>
                                                     setPassCode(e.target.value)

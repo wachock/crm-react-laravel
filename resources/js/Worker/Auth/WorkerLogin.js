@@ -51,7 +51,7 @@ export default function Login() {
                                         type="text"
                                         name="email"
                                         className="form-control"
-                                        placeholder="Enter Worker id"
+                                        placeholder="Enter Worker id or Email"
                                         onChange={(e) =>
                                             setWorker(e.target.value)
                                         }

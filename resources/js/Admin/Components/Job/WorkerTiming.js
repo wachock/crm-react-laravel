@@ -204,24 +204,24 @@ export default function WorkerTiming({ job }) {
         <>
             <div className="col-sm-12">
                 <div className="row">
-                    <div className="col-sm-9">
+                    <div className="col-sm-6">
                         <h2 className="text-custom">Work Time</h2>
                     </div>
-                    <div className="col-sm-2">
-                        <div>
+                    <div className="col-sm-6">
+                        <div className='inline-buttons'>
                             <div classname="App" style={{display:"none"}}>
                                 <CSVLink {...csvReport}  id="csv">Export to CSV</CSVLink>
                             </div>
-                            <button type="button" className="btn btn-success" onClick={(e)=>handleReport(e)}>
-                                Export Report
-                            </button>
-                        </div>
-                    </div>
-                    <div className="col-sm-1">
-                        <div className='float-right'>
-                            <button type="button" className="btn btn-pink" data-toggle="modal" data-target="#add-work-time">
-                                Add Timing
-                            </button>
+                            <div className='ml-2'>
+                                <button type="button" className="btn btn-success" onClick={(e)=>handleReport(e)} style={{height: "38px"}}>
+                                    Export Report
+                                </button>
+                            </div>
+                            <div className='ml-2'>
+                                <button type="button" className="btn btn-pink" data-toggle="modal" data-target="#add-work-time">
+                                    Add Timing
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
