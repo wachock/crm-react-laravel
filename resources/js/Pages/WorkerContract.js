@@ -4,8 +4,8 @@ import SignatureCanvas from 'react-signature-canvas'
 import companySign from "../Assets/image/company-sign.png";
 import { useParams } from 'react-router-dom';
 import swal from 'sweetalert';
-import { useTranslation } from "react-i18next";
 import i18next from 'i18next';
+import { useTranslation } from "react-i18next";
 
 export default function WorkerContract() {
 
@@ -73,114 +73,114 @@ export default function WorkerContract() {
     <div className='container'>
         <div className='send-offer worker-contract client-contract'>
             <div className='maxWidthControl dashBox mb-4'>
-                <h4 className='inHead'>Broom Service L.M. Ltd., Private Company no. 515184208</h4>
-                <h4 className='inHead'>Personal Employment Agreement</h4>
+                <h4 className='inHead'>{ t('worker_contract.company') }</h4>
+                <h4 className='inHead'>{ t('worker_contract.p_e_a') }</h4>
                 <div className='signed'>
-                    <p>Made and Signed in: <span>New Delhi</span> on <span>22-02-2023</span></p>
+                    <p>{ t('worker_contract.made_in') } <span>{ t('worker_contract.state') }</span>  <span>22-02-2023</span></p>
                 </div>
                 <div className='between'>
-                    <p>Between:</p>
-                    <p>Broom Service L.M. Ltd</p>
-                    <p>Bnei Dan St, Tel Aviv-Yafo, Israel</p>
-                    <p>(Hereinafter: <strong>“the Company”</strong>)</p>
+                    <p>{ t('worker_contract.between') }</p>
+                    <p>{ t('worker_contract.company_name') }</p>
+                    <p>{ t('worker_contract.company_address') }</p>
+                    <p>({ t('worker_contract.hereinafter') } <strong>{ t('worker_contract.the_company') }</strong>)</p>
                 </div>
-                <h2 className='mb-2 text-center'>And</h2>
+                <h2 className='mb-2 text-center'>{ t('worker_contract.and') }</h2>
                 <div className='between'>
                     <p>&nbsp;</p>
                     <p>{ worker_name }, ID: #{ worker_id }</p>
                     <p>{ address }</p>
-                    <p>(Hereinafter: <strong>“the Employee”</strong>)</p>
+                    <p>({ t('worker_contract.hereinafter') } <strong>{ t('worker_contract.the_employee') }</strong>)</p>
                 </div>
                 <div className='whereas mt-4'>
                     <div className='info-list'>
                         <div className='icons'>
-                            <h4>Whereas:</h4>
+                            <h4>{ t('worker_contract.whereas') }</h4>
                         </div>
                         <div className='info-text'>
-                            <p>the Employee is interested in being employed by the Company, under the terms and stipulations set forth in this contract</p>
+                            <p>{ t('worker_contract.employee_text') }</p>
                         </div>
                     </div>
                     <div className='info-list'>
                         <div className='icons'>
-                            <h4>And whereas:</h4>
+                            <h4>{ t('worker_contract.and') } { t('worker_contract.whereas') }</h4>
                         </div>
                         <div className='info-text'>
-                            <p>the Company is interested in employing the Employee, under the terms and stipulations set forth in this contract</p>
+                            <p>{ t('worker_contract.compant_text') }</p>
                         </div>
                     </div>
                     <div className='info-list'>
                         <div className='icons'>
-                            <h4>And whereas:</h4>
+                            <h4>{ t('worker_contract.and') } { t('worker_contract.whereas') }</h4>
                         </div>
                         <div className='info-text'>
-                            <p>the parties wish to arrange the employment terms of the Employee with the Company, in a written personal employment contract, to which no terms of any collective agreement whatsoever shall apply</p>
+                            <p>{ t('worker_contract.both_party_text') }</p>
                         </div>
                     </div>
                 </div>
-                <h2 className='text-center mb-4'>Therefore it was declared, stipulated and agreed between the parties as follows:</h2>
+                <h2 className='text-center mb-4'>{ t('worker_contract.term_condition') }</h2>
                 <div className='shift-30'>
-                    <h6 className='text-underline'>1. Preamble, appendixes and titles</h6>
+                    <h6 className='text-underline'>{ t('worker_contract.heading_1') }</h6>
                     <div className='agg-list'>
                         <div className='icons'><img src={star} /></div>
                         <div className='agg-text'>
-                            <p>1.1	The preamble to this agreement and the appendixes thereto, whether attached to the agreement or not, constitute an inseparable part thereof and are as binding as its other terms.</p>
+                            <p>{ t('worker_contract.heading_1_1') }</p>
                         </div>
                     </div>
                     <div className='agg-list'>
                         <div className='icons'><img src={star} /></div>
                         <div className='agg-text'>
-                            <p>1.2	The titles in this agreement are for orientation and convenience purposes only, are not fundamental stipulations and shall not serve in its interpretation.</p>
+                            <p>{ t('worker_contract.heading_1_2') }</p>
                         </div>
                     </div>
                     <div className='agg-list'>
                         <div className='icons'><img src={star} /></div>
                         <div className='agg-text'>
-                            <p>1.3	This agreement replaces any previous agreement or memorandum, whether oral or written.</p>
-                        </div>
-                    </div>
-                </div>
-                <div className='shift-30'>
-                    <h6 className='text-underline'>2. Personal work agreement</h6>
-                    <div className='agg-list'>
-                        <div className='icons'><img src={star} /></div>
-                        <div className='agg-text'>
-                            <p>2.1 The Employee undertakes towards the company to work in the Company as a foreman and maintenance manager, and the Company undertakes towards the Employee to employ him in the Company, all subject to the provisions of this personal employment contract</p>
+                            <p>{ t('worker_contract.heading_1_3') }</p>
                         </div>
                     </div>
                 </div>
                 <div className='shift-30'>
-                    <h6 className='text-underline'>3. The employment term</h6>
+                    <h6 className='text-underline'>{ t('worker_contract.heading_2') }</h6>
                     <div className='agg-list'>
                         <div className='icons'><img src={star} /></div>
                         <div className='agg-text'>
-                            <p>3.1.	The Employee’s employment term in accordance with this contract is as of <strong className='text-underline'>26-02-2023</strong></p>
+                            <p>{ t('worker_contract.heading_2_1') }</p>
                         </div>
                     </div>
                 </div>
                 <div className='shift-30'>
-                    <h6 className='text-underline'>4. Advance notice</h6>
+                    <h6 className='text-underline'>{ t('worker_contract.heading_3') }</h6>
                     <div className='agg-list'>
                         <div className='icons'><img src={star} /></div>
                         <div className='agg-text'>
-                            <p>4.1.	The termination of this employment contract, the expiry of its validity and the employment of the Employee in accordance therewith shall be done by giving notice by each party, in advance and in writing in accordance with the stated in the Advance Notice for Dismissal and Resignation Law, 5761-2001.</p>
+                            <p>{ t('worker_contract.heading_3_1') }</p>
+                        </div>
+                    </div>
+                </div>
+                <div className='shift-30'>
+                    <h6 className='text-underline'>{ t('worker_contract.heading_4') }</h6>
+                    <div className='agg-list'>
+                        <div className='icons'><img src={star} /></div>
+                        <div className='agg-text'>
+                            <p>{ t('worker_contract.heading_4_1') }</p>
                         </div>
                     </div>
                     <div className='agg-list'>
                         <div className='icons'><img src={star} /></div>
                         <div className='agg-text'>
-                            <p>4.2.	Throughout the advance notice term, the Employee shall be paid his regular salary and all accompanying benefits in accordance with the contract</p>
+                            <p>{ t('worker_contract.heading_4_2') }</p>
                         </div>
                     </div>
                     <div className='agg-list'>
                         <div className='icons'><img src={star} /></div>
                         <div className='agg-text'>
-                            <p>4.3.	If the Company has given the Employee an advance notice regarding the termination of his employment – it shall be entitled to instruct him to not show up at work during the advance notice term, and to pay him all amounts which would have been due to him had he worked during the advance notice term, subject to returning the car, telephone, laptop and any other equipment he has received from the Company.</p>
+                            <p>{ t('worker_contract.heading_4_3') }</p>
                         </div>
                     </div>
                     <div className='agg-list'>
                         <div className='icons'><img src={star} /></div>
                         <div className='agg-text'>
-                            <p>4.4.	Despite the foregoing, the Company shall be entitled to terminate the term of this contract and the Employee’s employment in accordance therewith immediately, without giving severance pay and without any advance notice, in case of a founded suspicion that the Employee has performed and action and/or omission of a criminal nature and/or the Employee has breached the duty of care towards the Company and/or the Employee has been grossly negligent in performing his work for the Company, and/or if the Employee has refused to correct any breaching of the agreement after being given an extension of 14 days and/or a shorter extension, as the case may be, to do so, or if he has fundamentally breached the agreement. In this case, all of the Company’s undertaking towards the Employee in accordance with this contract and/or by any law shall terminate immediately</p>
+                            <p>{ t('worker_contract.heading_4_4') }</p>
                         </div>
                     </div>
                 </div>

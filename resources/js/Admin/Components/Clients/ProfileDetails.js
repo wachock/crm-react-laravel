@@ -186,7 +186,7 @@ export default function ProfileDetails({ client, offerStatus, scheduleStatus, la
                                             <li><strong>Card Type: </strong>{cardType}</li>
                                             <li><strong>Name on card: </strong>{nameOnCard}</li>
                                             <li><strong>Cvv: </strong>{cvv}</li>
-                                            <li><strong>Signature: </strong>{signature}</li>
+                                            {/* <li><strong>Signature: </strong>{signature}</li> */}
                                         </ul>
                                     </div>
                                 </div>
