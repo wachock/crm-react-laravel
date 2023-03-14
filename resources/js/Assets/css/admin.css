@@ -1238,11 +1238,8 @@ h1 {
   text-transform: uppercase;
 }
 .meet-status .cta p{
-  font-size: 20px;
+  font-size: 17px;
   margin-top: 25px;
-  color: #000;
-  letter-spacing: -0.8px;
-  font-style: italic;
 }
 .meet-status .cta a{
   margin-top: 10px;
