@@ -17,7 +17,7 @@ return [
         'reschedule'  =>'קבע מחדש',
         'below_line'  =>'אם יש לך שאלות או בקשות, אל תהסס ליצור איתנו קשר על ידי מענה למייל זה.',
         'best_regards'=>'תודה',
-        'company'     =>'Broom Services',
+        'company'     =>'ברום סרוויס',
         'tel'         =>'טלפון',
      ],
      'cancel_meeting'=>[
@@ -39,7 +39,7 @@ return [
         'reschedule'  =>'קבע מחדש',
         'below_line'  =>'אם יש לך שאלות או בקשות, אל תהסס ליצור איתנו קשר על ידי מענה למייל זה.',
         'best_regards'=>'תודה',
-        'company'     =>'Broom Services',
+        'company'     =>'ברום סרוויס',
         'tel'         =>'טלפון',
      ],
      'offer'=>[
@@ -49,9 +49,9 @@ return [
          'from'        =>'מ',
          'company'     =>'ברום סרוויס',
          'price_offer'=>'מצ"ב הצעת מחיר עבור',
-         'service_s'  =>'שירותינו',
+         'service_s'  =>'שירות',
          'approve_txt'=>'לאחר אישורכם, יישלח אליכם הסכם התקשרות אותו תצטרכו למלא ולחתום למטה ואז נהיה מוכנים להתחיל בעבודה.',
-         'below_txt'  => 'לחץ על הכפתור למטה כדי לראות את הצעת המחיר.',
+         'below_txt'  => 'לחץ על הכפתור למטה כדי לצפות בהצעת המחיר.',
          'btn_txt'    =>'הצעת מחיר',
          'reply_txt'  =>'אם יש לך שאלות או בקשות, אל תהסס ליצור איתנו קשר על ידי מענה למייל זה.',
          'regards'    =>'תודה מראש',
@@ -102,7 +102,7 @@ return [
          'hi'          =>'היי',
          'greetings'   =>'הודעה',
          'from'        =>'מ',
-         'company'     =>'Broom Services',
+         'company'     =>'ברום סרוויס',
          'content'     =>'מצ"ב הסכם התקשרות. נא מלא את הפרטים הנדרשים, וחתום במקומות הנדרשים.
     לפרטי התשלום יש למלא את הcvv,תוקף, סוג הכרטיס וחתימתו של בעל הכרטיס.
     לשאר הפרטים ניצור אתכם קשר טלפוני על מנת לשמור על פרטי האשראי שלכם בצורכה מאובטחת.
@@ -128,7 +128,7 @@ return [
         'hi'          =>'Hi',
         'greetings'   =>'Greetings',
         'from'        =>'from',
-        'company'     =>'Broom Services',
+        'company'     =>'ברום סרוויס',
         'content'     =>'New service request.Please check the details.',
         'below_txt'   =>'Click the below button to check the contract.',
         'btn_txt'     =>'Check Contract',
