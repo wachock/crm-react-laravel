@@ -226,7 +226,9 @@ class ScheduleController extends Controller
         \App::setLocale($sch['client']['lng']);
         Mail::send('/Mails/MeetingMail',$sch,function($messages) use ($sch){
             $messages->to($sch['client']['email']);
-            $sub = __('mail.meeting.subject')." ".__('mail.meeting.from')." ".__('mail.meeting.company')." #".$sch['id'];
+            $sch['client']['lng'] == 'en' ?
+            $sub = __('mail.meeting.subject')." ".__('mail.meeting.from')." ".__('mail.meeting.company')." #".$sch['id']
+            :  $sub = $sch['id']."# ".__('mail.meeting.subject')." ".__('mail.meeting.from')." ".__('mail.meeting.company');
             $messages->subject($sub);
         });
     }
@@ -246,7 +248,7 @@ class ScheduleController extends Controller
     }
 
     public function getEvents(Request $request){
-        $events = Schedule::where('team_id',$request->tid)->get();
+        $events = Schedule::where('team_id',$request->tid)->where('booking_status','!=','declined')->get();
         $evn = [];
         if(isset($events)):
         foreach($events as $event):

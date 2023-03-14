@@ -5,13 +5,13 @@ return [
         'hi'          =>'היי',
         'greetings'    =>'תזכורת',
         'from'        =>'מ',
-        'appointment' =>'רצינו לתזכר אותכם על הפגישה שקבענו',
+        'appointment' =>'רצינו לתזכר אותכם על הפגישה שנקבעה לכם',
         'with'        =>'עם',
-        'on'          =>'עַל',
+        'on'          =>'ב',
         'between'     =>'בין',
         'to'          =>'ל',
-        'for'         =>'ל',
-        'service'     =>'שירות',
+        'for'         =>'לצורך',
+        'service'     =>'הצעת מחיר',
         'accept'      =>'אשר',
         'reject'      =>'דחה',
         'reschedule'  =>'קבע מחדש',
@@ -49,22 +49,22 @@ return [
          'from'        =>'מ',
          'company'     =>'Broom Services',
          'price_offer'=>'מצ"ב הצעת מחיר עבור',
-         'service_s'  =>'שירות(ים)',
+         'service_s'  =>'שירותים',
          'approve_txt'=>'לאחר אישורכם, יישלח אליכם הסכם התקשרות אותו תצטרכו למלא ולחתום למטה ואז נהיה מוכנים להתחיל בעבודה.',
          'below_txt'  => 'לחץ על הכפתור למטה כדי לראות את הצעת המחיר.',
          'btn_txt'    =>'הצעת מחיר',
          'reply_txt'  =>'אם יש לך שאלות או בקשות, אל תהסס ליצור איתנו קשר על ידי מענה למייל זה.',
-         'regards'    =>'כל טוב',
+         'regards'    =>'תודה מראש',
          'tel'         =>'טלפון',
      ],
      'contract' =>[
-         'subject'     =>'חוזה עם',
+         'subject'     =>'הסכם עם',
          'hi'          =>'היי',
-         'greetings'   =>'הודעה',
+         'greetings'   =>'שלום רב',
          'from'        =>'מ',
-         'company'     =>'Broom Services',
-         'content'     =>'מצ"ב הסכם התקשרות. נא מלא את הפרטים הנדרשים, וחתום במקומות הנדרשים.
-    לפרטי התשלום יש למלא את הcvv,תוקף, סוג הכרטיס וחתימתו של בעל הכרטיס.
+         'company'     =>'Broom Service',
+         'content'     =>'מצ"ב הסכם התקשרות. נא מלא את כל הפרטים וחתום במקומות הנדרשים.
+    לפרטי התשלום יש למלא את הcvv,שם בעל הכרטיס, תוקף, סוג הכרטיס וחתימתו של בעל הכרטיס.
     לשאר הפרטים ניצור אתכם קשר טלפוני על מנת לשמור על פרטי האשראי שלכם בצורכה מאובטחת.
     לכל שאלה אנא השיבו למייל זה או צרו איתנו קשר בטלפון: 03-525-70-60
     .',
@@ -138,17 +138,17 @@ return [
 
     ],
     'client_new_job' =>[
-        'subject'     =>'New Job with',
-        'hi'          =>'Hi',
-        'greetings'   =>'Greetings',
-        'from'        =>'from',
+        'subject'     =>'עבודה חדשה עם',
+        'hi'          =>'היי',
+        'greetings'   =>'מילות ברכה',
+        'from'        =>'מ',
         'company'     =>'Broom Services',
-        'content'     =>'New Job Created.Please check the details.',
-        'below_txt'   =>'Click the below button to check the contract.',
-        'btn_txt'     =>'Check Contract',
-        'reply_txt'   =>'If you have any questions or concerns please don\'t hesitate to get in touch with us by replying to this email.',
-        'regards'     =>'Best Regards',
-        'tel'         =>'Telephone'
+        'content'     =>'עבודה חדשה שנוצרה.אנא בדוק את הפרטים.',
+        'below_txt'   =>'לחץ על הלחצן למטה כדי לבדוק את החוזה.',
+        'btn_txt'     =>'בדוק חוזה',
+        'reply_txt'   =>'אם יש לך שאלות או חששות, אנא אל תהסס ליצור איתנו קשר על ידי מענה לדוא"ל זה.',
+        'regards'     =>'שא ברכה',
+        'tel'         =>'טלפון'
 
     ],
 ];

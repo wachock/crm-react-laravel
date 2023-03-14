@@ -7,6 +7,7 @@ import i18next from 'i18next';
 export default function Thankyou() {
 
   const [status, setStatus] = useState([]);
+  const [instatus, setInstatus] = useState([]);
   const param = useParams();
   const { t } = useTranslation();
   const updateMeeting = () => {
@@ -20,8 +21,13 @@ export default function Thankyou() {
       .then((res) => {
 
         const stat = res.data.schedule.booking_status;
+        let instat = (param.response == "accept") ? 'confirmed' : 'declined';
         setStatus(stat);
-        if (stat == 'pending') { updateMeeting(); }
+        setInstatus(instat);
+        if (stat == 'pending' || instat != stat) {
+          updateMeeting();
+        }
+
 
         const lng = res.data.schedule.client.lng;
         i18next.changeLanguage(lng);
@@ -38,30 +44,32 @@ export default function Thankyou() {
   useEffect(() => {
     getMeeting();
   }, []);
+
   return (
 
     <div className='container'>
       <div className='thankyou dashBox maxWidthControl p-4'>
         <img src={logo} alt='Broom Service' />
         {
-          (status == 'pending') ?
+          (status == 'pending' || instatus != status) ?
 
             <div>
 
-              <h3>{t('res_txt')}</h3>
               {
                 (param.response == "accept") ?
                   <>
-                    <p> {t('meet_accept.cnct_txt')}</p>
+                    <h3>{t('res_txt')}</h3>
                   </>
                   :
                   <>
+                    <h3>{t('res_txt')}</h3>
                     <p className='mb-3'>{t('meet_reject.txt')}</p>
                     <a className='btn btn-pink' href='mailto:office@broomservice.co.il'>{t('meet_reject.btn_txt')}</a>
                   </>
               }
             </div>
             :
+
             (status == 'confirmed') ?
               <>
                 <p> {t('meet_stat.accepted_text')} </p>
@@ -76,6 +84,7 @@ export default function Thankyou() {
 
 
         }
+
 
       </div>
     </div>
