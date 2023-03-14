@@ -8,7 +8,13 @@
 	<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 	<title>Job Details</title>
 </head>
+
+@if($lng == 'heb')
+<body style="font-family: 'Noto Sans Hebrew', sans-serif;color: #212529;background: #fcfcfc; direction:rtl">
+@else 
 <body style="font-family: 'Open Sans', sans-serif;color: #212529;background: #fcfcfc;">
+@endif
+
 	<div style="max-width: 650px;margin: 0 auto;margin-top: 30px;margin-bottom: 20px;background: #fff;border: 1px solid #e6e8eb;border-radius: 6px;padding: 20px;">
 		<table cellpadding="0" cellspacing="0" width="100%" >
 			<tr>
@@ -22,12 +28,12 @@
 		<table cellpadding="0" cellspacing="0" width="100%">
 			 <thead>
 				<tr>
-					<th width="" style="text-align:left;border: 1px solid #dee2e6;font-size: 14px;padding: 8px">Date</th>
-					<th width="" style="text-align:left;border: 1px solid #dee2e6;font-size: 14px;padding: 8px">Worker</th>
-					<th width="" style="text-align:left;border: 1px solid #dee2e6;font-size: 14px;padding: 8px">Service</th>
-					<th width="" style="text-align:left;border: 1px solid #dee2e6;font-size: 14px;padding: 8px">Shift</th>
-					<th width="" style="text-align:left;border: 1px solid #dee2e6;font-size: 14px;padding: 8px">Status</th>
-					<th width="" style="text-align:left;border: 1px solid #dee2e6;font-size: 14px;padding: 8px">Action</th>
+					<th width="" style="text-align:left;border: 1px solid #dee2e6;font-size: 14px;padding: 8px">{{__('mail.client_new_job.date')}}</th>
+					<th width="" style="text-align:left;border: 1px solid #dee2e6;font-size: 14px;padding: 8px">{{__('mail.client_new_job.worker')}}</th>
+					<th width="" style="text-align:left;border: 1px solid #dee2e6;font-size: 14px;padding: 8px">{{__('mail.client_new_job.service')}}</th>
+					<th width="" style="text-align:left;border: 1px solid #dee2e6;font-size: 14px;padding: 8px">{{__('mail.client_new_job.shift')}}</th>
+					<th width="" style="text-align:left;border: 1px solid #dee2e6;font-size: 14px;padding: 8px">{{__('mail.client_new_job.status')}}</th>
+					<th width="" style="text-align:left;border: 1px solid #dee2e6;font-size: 14px;padding: 8px">{{__('mail.client_new_job.action')}}</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -36,10 +42,10 @@
 					<td style="border: 1px solid #dee2e6;font-size: 14px;padding: 8px">{{ \Carbon\Carbon::parse($job['job']['start_date'])->format('M d Y') }}</td>
 					<td style="border: 1px solid #dee2e6;font-size: 14px;padding: 8px">{{ $job["job"]['worker']['firstname'] }} {{ $job["job"]['worker']['lastname'] }}</td>
 					<td style="border: 1px solid #dee2e6;font-size: 14px;padding: 8px">{{ $job["job"]['jobservice']['name'] }}</td>
-					<td style="border: 1px solid #dee2e6;font-size: 14px;padding: 8px">{{ $job["job"]['start_time'] }} to {{ $job["job"]['end_time'] }}</td>
-					<td style="border: 1px solid #dee2e6;font-size: 14px;padding: 8px">{{ ucfirst($job["job"]['status']) }}</td>
+					<td style="border: 1px solid #dee2e6;font-size: 14px;padding: 8px">{{ $job["job"]['start_time'] }} {{__('mail.client_new_job.to')}} {{ $job["job"]['end_time'] }}</td>
+					<td style="border: 1px solid #dee2e6;font-size: 14px;padding: 8px">{{__('mail.client_new_job.scheduled')}}</td>
 					<td style="border: 1px solid #dee2e6;font-size: 14px;padding: 8px;display:flex;height: 38px">
-						<a href='{{ url("client/view-job/".$job["job"]["id"] ) }}' style="font-size: 13px;color: #007bff;min-width: 51px">View Job</a>
+						<a href='{{ url("client/view-job/".$job["job"]["id"] ) }}' style="font-size: 13px;color: #007bff;min-width: 51px">{{__('mail.client_new_job.view_job')}}</a>
 					</td>
 				</tr>
 				@endforeach
