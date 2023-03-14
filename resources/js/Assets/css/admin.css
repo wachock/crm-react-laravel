@@ -1448,6 +1448,10 @@ h1 {
 .swatch.yellow span{
   margin-left: 4px;
 }
+.inline-buttons{
+  display: flex;
+  float: right;
+}
 .fc-icon-chevron-right,  .fc-icon-chevron-left{
   position: relative;
   top: -2px;
