@@ -19,7 +19,6 @@ export default function Acc() {
     const [lng,setLng]               = useState("");
     const [zipcode,setZipcode]       = useState("");
     const [file, setFile]            = useState("");
-    const [color,setColor]           = useState("");
     const [avatar, setAvatar]        = useState("");
     const [errors, setErrors]        = useState([]);
     const {t}                        = useTranslation();
@@ -51,7 +50,6 @@ export default function Acc() {
         formData.append("lng",(lng == 0)? 'heb' : lng);
         formData.append("zipcode", zipcode);
         formData.append("email", email);
-        formData.append("color",color);
         formData.append("avatar", avatar);
         formData.append("phone",phone);
         axios
@@ -80,7 +78,6 @@ export default function Acc() {
             setFloor(response.data.account.floor);
             setLng(response.data.account.lng);
             setZipcode(response.data.account.zipcode);
-            setColor(response.data.account.color);
             setEmail(response.data.account.email);
             setPhone(response.data.account.phone);
             setFile(response.data.account.avatar);
@@ -284,15 +281,6 @@ export default function Acc() {
                   <option value="heb" selected={ lng == 'heb'}>Hebrew</option>
                   <option value="en" selected={ lng == 'en'}>English</option>
                 </select>
-            </div>
-            <div className="form-group">
-                <label className="control-label">{t('client.settings.color')}</label>
-                <input
-                    type="color"
-                    className="form-control"
-                    value={color}
-                    onChange={(e) => setColor(e.target.value)}
-                />
             </div>
             <div className="form-group">
                 <label className="control-label" style={{ display: "block" }}>
