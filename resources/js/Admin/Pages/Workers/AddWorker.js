@@ -187,7 +187,7 @@ export default function AddWorker() {
                                 <div className='col-sm-6'>
                                     <div className='form-group'>
                                         <label className='control-label'>Password *</label>
-                                        <input type='text' value={password} onChange={(e) => setPassword(e.target.value)} className='form-control' required placeholder='Password' />
+                                        <input type='password' value={password} onChange={(e) => setPassword(e.target.value)} className='form-control' required placeholder='Password' />
                                     </div>
                                 </div>
                                 <div className='col-sm-6'>

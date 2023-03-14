@@ -15,7 +15,7 @@ a:hover{
     min-height: 100%;
     width: 100%;
     position: relative;
-} 
+}
 #column-left{
   width: 260px;
   height: 100%;
@@ -58,7 +58,7 @@ a:hover{
 #column-left .list-group-item.active a{
   background: #f1f0ff;
   color: #7366FF;
-} 
+}
 #column-left .list-group-item.active a i{
   color: #7366FF;
 }
@@ -138,7 +138,7 @@ a:hover{
   text-align: center;
   font-weight: 700;
   letter-spacing: -1.2px;
-  
+
   color: #484343;
   margin-bottom: 0;
 }
@@ -385,7 +385,7 @@ table tr td .dropdown-item{
 }
 .sideAdmin ul li p{
   margin-bottom: 0;
-  
+
   font-size: 15px;
 }
 .sideAdmin ul li span{
@@ -1238,11 +1238,8 @@ h1 {
   text-transform: uppercase;
 }
 .meet-status .cta p{
-  font-size: 20px;
+  font-size: 17px;
   margin-top: 25px;
-  color: #000;
-  letter-spacing: -0.8px;
-  font-style: italic;
 }
 .meet-status .cta a{
   margin-top: 10px;
@@ -1308,7 +1305,7 @@ h1 {
 }
 .responsiveTable tbody tr td:last-child{
   padding: 5px !important;
-} 
+}
 .crt-jb.responsiveTable tbody tr td:last-child{
   padding-top: 11px !important;
 }
@@ -1448,6 +1445,10 @@ h1 {
 .swatch.yellow span{
   margin-left: 4px;
 }
+.inline-buttons{
+  display: flex;
+  float: right;
+}
 .fc-icon-chevron-right,  .fc-icon-chevron-left{
   position: relative;
   top: -2px;
@@ -1551,5 +1552,14 @@ h1 {
 }
 .notification-page .agg-list h6{
   font-weight: 500;
-} 
-
+}
+/*******Insurance**********/
+.insurance-eng .maxWidthControl{
+    max-width: 850px;
+    margin: 0 auto;
+  }
+.insurance-eng p {
+    text-align: left !important;
+    direction: rtl;
+}
+/*******End*************/

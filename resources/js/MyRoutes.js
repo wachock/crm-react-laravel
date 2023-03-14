@@ -82,6 +82,8 @@ import Schedule from './Admin/Pages/Schedule/Schedule';
 import ViewSchedule from './Admin/Pages/Schedule/ViewSchedule';
 import CreateContract from './Admin/Pages/Contract/CreateContract';
 import PriceOffer from './Pages/PriceOffer';
+import InsuranceEng from './Pages/Insurance/InsuranceEng';
+import InsuranceHeb from './Pages/Insurance/InsuranceHeb';
 import WorkContract from './Pages/WorkContract';
 import MeetingStatus from './Pages/MeetingStatus';
 import CalendarTeam from './Pages/CalendarTeam';
@@ -107,6 +109,8 @@ import Notification from './Admin/Pages/Notification/Notification';
 
 
 
+
+
 TimeAgo.addDefaultLocale(en)
 const options = {
    timeout: 2000,
@@ -124,6 +128,8 @@ export default function MyRoutes() {
                <Route exact path="worker/login" element={<WorkerLogin />} />
                <Route exact path="meeting-status/:id" element={<MeetingStatus />} />
                <Route exact path="price-offer/:id" element={<PriceOffer />} />
+               <Route exact path="insurance-eng" element={<InsuranceEng />} />
+               <Route exact path="insurance-heb" element={<InsuranceHeb />} />
                <Route exact path="work-contract/:id" element={<WorkContract />} />
                <Route exact path="work-contract2" element={<WorkContractRHS />} />
                <Route exact path="form101" element={<Form101 />} />
@@ -132,7 +138,7 @@ export default function MyRoutes() {
                <Route exact path="thankyou/:id/:response" element={<Thankyou />} />
 
                {/* Client Routes Start  */}
-               
+
                <Route element={<ClientProtectedRoutes />}>
                   <Route path="client" element={<Client />} >
                      <Route exact path="dashboard" element={<ClientDashboard/>} />
@@ -144,17 +150,17 @@ export default function MyRoutes() {
                      <Route exact path="/client/files/:meetId" element={<ClientFiles/>}/>
                      <Route exact path="/client/jobs" element={<ClientJobs/>}/>
                      <Route exact path="/client/view-job/:id" element={<ClientJobView/>}/>
-                     
+
                      <Route exact path="/client/settings" element={<ClientSetting />} />
 
                   </Route>
                </Route>
                {/* Client Routes End  */}
 
-                  
+
                {/* Worker Routes Start  */}
                <Route exact path="worker/login" element={<WorkerLogin />} />
-               
+
                <Route path="worker" element={<Worker/>} >
 
                </Route>
@@ -225,7 +231,7 @@ export default function MyRoutes() {
                      <Route exact path="notifications" element={<Notification />} />
                      <Route exact path="Languages" element={<Languages />} />
                      <Route exact path="edit-language/:id" element={<EditLanguages />} />
-                     
+
                   </Route>
                </Route>
                {/* Admin Routes End  */}
