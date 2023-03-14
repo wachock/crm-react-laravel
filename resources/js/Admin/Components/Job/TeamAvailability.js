@@ -117,7 +117,7 @@ export default function TeamAvailability() {
      Array.prototype.push.apply(events,events1);
      let time_period;
      
-                 time_period = services.job_hour;
+                 time_period = services ? services.job_hour : 0;
      const [data,setData]=useState([]);
      const handleEventClick = (e,s) =>{
            let str=e.startStr;
@@ -236,12 +236,12 @@ export default function TeamAvailability() {
                                            <td>{clientname}</td>
                                            <td>
                                                 
-                                                 <p>{services.name}</p>
+                                                 <p>{services ? services.name: "NA"}</p>
                                                </td>
                                             
                                             <td>
                                                 
-                                                 <p>{services.job_hour} hours</p>
+                                                 <p>{services ? services.job_hour+" hours": 'NA'} </p>
                                                 </td>
                                          </tbody>
                                     </table>

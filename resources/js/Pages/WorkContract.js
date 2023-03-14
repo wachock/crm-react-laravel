@@ -407,19 +407,19 @@ export default function WorkContract() {
                     <div className='agg-list'>
                         <div className='icons'><img src={star} /></div>
                         <div className='agg-text'>
-                            <p>{t('work-contract.tenant_txt_6')}</p>
+                            <p style={{ backgroundColor: 'yellow' }}>{t('work-contract.tenant_txt_6')}</p>
                         </div>
                     </div>
                     <div className='agg-list'>
                         <div className='icons'><img src={star} /></div>
                         <div className='agg-text'>
-                            <p>{t('work-contract.tenant_txt_7')}</p>
+                            <p style={{ backgroundColor: 'yellow' }}>{t('work-contract.tenant_txt_7')}</p>
                         </div>
                     </div>
                     <div className='agg-list'>
                         <div className='icons'><img src={star} /></div>
                         <div className='agg-text'>
-                            <p>{t('work-contract.tenant_txt_8')}</p>
+                            <p style={{ backgroundColor: 'yellow' }}>{t('work-contract.tenant_txt_8')}</p>
                         </div>
                     </div>
                     <h6 className='text-underline'>{t('work-contract.company_subtitle')}</h6>

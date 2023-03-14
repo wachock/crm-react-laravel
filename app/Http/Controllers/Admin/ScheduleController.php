@@ -320,6 +320,14 @@ class ScheduleController extends Controller
      */
     public function destroy($id)
     {
+        $sch = Schedule::with('client')->where('id',$id)->get()->first()->toArray();
+        \App::setLocale($sch['client']['lng']);
+        Mail::send('/Mails/DeleteMeetingMail',$sch,function($messages) use ($sch){
+            $messages->to($sch['client']['email']);
+            $sub = __('mail.cancel_meeting.subject')." ".__('mail.cancel_meeting.from')." ".__('mail.cancel_meeting.company')." #".$sch['id'];
+            $messages->subject($sub);
+        });
+
         Schedule::where('id',$id)->delete();
         return response()->json([
             'message'=> 'Meeting has been deleted'

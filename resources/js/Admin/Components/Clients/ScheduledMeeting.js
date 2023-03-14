@@ -74,6 +74,12 @@ export default function ScheduledMeeting() {
                 </thead>
                 <tbody>   
                     { schedules && schedules.map((item,i)=>{
+
+                        let color =  "";         
+                        if(item.booking_status == 'pending') { color = 'purple' }
+                        else if(item.booking_status == 'confirmed' || item.booking_status == 'completed') { color =  'green'}
+                        else {color = 'red'}
+
                         return (
                     <tr>
                         <td>#{item.id}</td>
@@ -101,7 +107,7 @@ export default function ScheduledMeeting() {
                                 "End : " + item.end_time
                             }
                         </td>
-                        <td>{ item.booking_status}</td>
+                        <td style={{color}}>{ item.booking_status}</td>
                         <td>
                             <div className="d-flex">   
                                 <Link to={`/admin/view-schedule/${param.id}?sid=${item.id}`} className="btn bg-yellow"><i className="fa fa-eye"></i></Link>

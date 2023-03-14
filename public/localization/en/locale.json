@@ -416,7 +416,13 @@
                  "hour_s":"hour(s)",
                  "cancel":"Cancel",
                  "back":"Back",
-                 "add_cmt":"Add Comment"
+                 "add_cmt":"Add Comment",
+                 "full_cancel_text":"Full Payment Will be Recieved as Cancellation Fee",
+                 "half_cancel_text":"Half Payment Will be Recieved as Cancellation Fee",
+                 "cancel_warning":"Are you sure?",
+                 "confirm_cancel_btn":"Yes, Cancel Job",
+                 "updated_msg":"Job has been updated.",
+                 "updated":"Updated!"
             }
         },
         "settings":{
@@ -513,7 +519,7 @@
                 "cmt_box":"Enter Comment",
                 "save_cmt":"Save Comment",
                 "close":"Close"
-
+                
             }
         },
         "schedule":{

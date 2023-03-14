@@ -98,6 +98,7 @@ export default function Schedule() {
     e.preventDefault();
     navigate(`/admin/view-schedule/${cid}?sid=${id}`);
   }
+
   
   return (
     <div id="container">
@@ -140,6 +141,11 @@ export default function Schedule() {
                         let address = (item.client.geo_address != null) ? item.client.geo_address : 'NA';
                         let cords  = (item.client.latitude && item.client.longitude) ?
                                      item.client.latitude +","+ item.client.longitude:"NA";
+                        let color =  "";         
+                        if(item.booking_status == 'pending') { color = 'purple' }
+                        else if(item.booking_status == 'confirmed' || item.booking_status == 'completed') { color =  'green'}
+                        else {color = 'red'}
+                            
                         return (
                           <Tr style={{"cursor":"pointer"}}>
                             <Td onClick={(e)=>handleNavigate(e,item.client.id,item.id)}>{item.id}</Td>
@@ -175,7 +181,8 @@ export default function Schedule() {
                               <br />
                               <span style={{ color: "red" }}>{"End   :" + item.end_time}</span>
                             </Td>
-                            <Td onClick={(e)=>handleNavigate(e,item.client.id,item.id)}>{item.booking_status}</Td>
+                           
+                              <Td style={{color}} onClick={(e)=>handleNavigate(e,item.client.id,item.id)}>{item.booking_status}</Td>
                             <Td>
                               <div className="action-dropdown dropdown">
                                 <button type="button" className="btn btn-default dropdown-toggle" data-toggle="dropdown">

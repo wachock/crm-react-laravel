@@ -10,10 +10,12 @@ use App\Models\Offer;
 use App\Models\Schedule;
 use App\Models\Contract;
 use App\Models\notifications;
+use App\Models\Admin;
 use App\Models\ManageTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Carbon\Carbon;
 
 class DashboardController extends Controller
@@ -142,5 +144,13 @@ class DashboardController extends Controller
 
       endif;
       
+    }
+    public function viewPass(Request $request){
+      $user = Admin::where('id',$request->id)->get()->first();
+      $response = Hash::check($request->pass,$user->password);
+      return response()->json([
+        'response'=>$response
+      ]);
+
     }
 }

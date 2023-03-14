@@ -39,6 +39,38 @@ export default function ClientDashboard() {
     useEffect(() => {
         GetDashboardData();
     }, []);
+     const show_shift = [
+        "Full Day",
+        "Morning",
+        'Afternoon',
+        'Evening',
+        'Night'
+    ];
+    const getShift = (shifts) =>{
+        let s = (shifts).split(",");
+        let check='';
+        let new_shift='';
+            show_shift.map((p)=>{
+                     if(p == 'Afternoon'){
+                        check ='noon';
+                     }else{
+                         check =p;
+                     }
+                     s.map((sh)=>{
+                        if(sh.includes(check.toLowerCase())){
+                            if(new_shift==''){
+                                new_shift=p;
+                            }else{
+                                if(!new_shift.includes(p)){
+                                   new_shift=new_shift+','+p;
+                                 }
+                            }
+                            
+                        }
+                     })
+            })
+        return new_shift;
+    }
 
 
     return (
@@ -146,7 +178,7 @@ export default function ClientDashboard() {
                                                                     {item.start_date}
                                                                 </Td>
                                                                 <Td>
-                                                                    {item.shifts}
+                                                                    { getShift(item.shifts) }
                                                                 </Td>
                                                                 <Td>{
                                                                     item.worker

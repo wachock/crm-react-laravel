@@ -17,7 +17,7 @@ body{
     color: #3f3f3f;
     font-weight: 500;
     padding: 0px 30px;
-    
+
 }
 .navbar-expand-lg .navbar-nav a.nav-link:hover{
     color: #3f3f3f;
@@ -31,7 +31,7 @@ body{
     border-color: #f4a583;
     color: #fff !important;
     padding: 8px 25px !important;
-    
+
     font-weight: 500 !important;
     font-family: 'Montserrat';
 }
@@ -78,7 +78,7 @@ body{
 }
 .loginform h1 {
     font-size: 30px;
-    
+
 
     text-align: center;
     color: #3b3b3b;
@@ -172,7 +172,7 @@ body{
     font-weight: normal;
     padding-top: 40px;
     padding-bottom: 40px;
-    
+
     letter-spacing: -1px;
 }
 .register h1 b{
@@ -181,7 +181,7 @@ body{
 }
 .register .loginform h2 {
     font-size: 24px;
-    
+
     text-align: center;
     color: #3b3b3b;
     margin-bottom: 40px;
@@ -204,7 +204,7 @@ body{
     border-top-left-radius: 0.25rem;
     border-top-right-radius: 0.25rem;
     background: #fff;
-    
+
     font-weight: 500;
     padding: 12px;
 }
@@ -359,7 +359,7 @@ body{
     background: #f7d1c1;
     border: 1px solid #F4A583;
  }
- 
+
  .specify .btn-primary {
     width: auto;
     margin: 0 auto;
@@ -471,13 +471,13 @@ body{
     text-align: center;
     margin-bottom: 40px;
     font-weight: 600;
-    
+
 }
 .Plansname h2 {
     font-size: 24px;
     text-align: left;
     color: #f4a583;
-    
+
 }
 .Plansname p {
     font-size: 13px;
@@ -492,7 +492,7 @@ body{
 .plansprice span.plansamount {
     font-size: 56px;
     margin-bottom: 0px;
-    
+
     font-weight: 800;
 }
 .plansprice span.currency-symbol {
@@ -500,13 +500,13 @@ body{
     top: -35px;
     font-size: 17px;
     color: #000;
-    
+
     margin-right: 4px;
 }
 .plansprice span.plansmonth {
     font-size: 14px;
     color: #000;
-    
+
     font-weight: 600;
 }
 .plansprice p {
@@ -570,13 +570,13 @@ body{
     font-weight: 700;
     color: #000;
     margin-bottom: 0px;
-    
+
     line-height: 30px;
 }
 .profileinfo .Grid-Box p {
     font-size: 13px;
     color: #444;
-    font-weight: 500;  
+    font-weight: 500;
     text-transform: uppercase;
     letter-spacing: .3px;
     margin-bottom: 0px;
@@ -617,7 +617,7 @@ body{
     font-size: 16px;
     font-weight: 700;
     margin-bottom: 10px;
-    
+
 }
 .messagebtn .btn-primary {
     width: 100%;
@@ -868,7 +868,7 @@ body{
     background-color: #fff;
 }
 .employerDash .tab-dash h2{
-    
+
     font-size: 17px;
     letter-spacing: -0.4px;
     line-height: 24px;
@@ -923,7 +923,7 @@ body{
 }
 .tab-dash ul li h4{
     font-size: 24px;
-    
+
 }
 .tab-dash ul li p{
     color: #F4A583 !important;
@@ -981,3 +981,4 @@ body{
     font-size: 16px;
 }
 .ofrTitle{ background: #70809014!important;}
+

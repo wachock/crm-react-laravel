@@ -132,7 +132,7 @@ class WorkerController extends Controller
             'firstname' => ['required', 'string', 'max:255'],
             'address'   => ['required', 'string'],
             'phone'     => ['required'],
-            'worker_id' => ['required','unique:users'],
+            'worker_id' => ['required'],
             'status'    => ['required'],
         ]);
 
@@ -158,20 +158,42 @@ class WorkerController extends Controller
         $worker->country       = $request->country;
         $worker->save();
 
-     \App::setLocale($worker->lng);
-      $worker= $worker->toArray();
+        $i=1;
+        $j=0;
+        $check_friday=1;
+        while($i==1){
+              $current = Carbon::now();
+              $day=$current->addDays($j);
+              if($this->isWeekend($day->toDateString())){
+                $check_friday++;
+              }else{
+                 $w_a = new WorkerAvialibilty;
+                 $w_a->user_id = $worker->id;
+                 $w_a->date = $day->toDateString();
+                 $w_a->working=array('8am-16pm');
+                 $w_a->status=1;
+                 $w_a->save();
+              }
+              $j++;
+              if($check_friday == 6){
+                $i=2;
+              }
+        }
 
-      Mail::send('/Mails/Form101Mail',$worker,function($messages) use ($worker){
-        $messages->to($worker['email']);
-        $sub = __('mail.form_101.subject')."  ".__('mail.form_101.company');
-        $messages->subject($sub);
-      });
+         \App::setLocale($worker->lng);
+          $worker= $worker->toArray();
 
-      Mail::send('/Mails/WorkerContractMail',$worker,function($messages) use ($worker){
-        $messages->to($worker['email']);
-        $sub = __('mail.worker_contract.subject')."  ".__('mail.worker_contract.company');
-        $messages->subject($sub);
-      });
+          Mail::send('/Mails/Form101Mail',$worker,function($messages) use ($worker){
+            $messages->to($worker['email']);
+            $sub = __('mail.form_101.subject')."  ".__('mail.form_101.company');
+            $messages->subject($sub);
+          });
+
+          Mail::send('/Mails/WorkerContractMail',$worker,function($messages) use ($worker){
+            $messages->to($worker['email']);
+            $sub = __('mail.worker_contract.subject')."  ".__('mail.worker_contract.company');
+            $messages->subject($sub);
+          });
 
         return response()->json([
             'message'       => 'Worker updated successfully',            
@@ -210,8 +232,13 @@ class WorkerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+     public function isWeekend($date) {
+        $weekDay = date('w', strtotime($date));
+        return ($weekDay == 5 || $weekDay == 6);
+    }
     public function update(Request $request, $id)
     {
+
         $validator = Validator::make($request->all(), [
             'firstname' => ['required', 'string', 'max:255'],
             'address'   => ['required', 'string'],

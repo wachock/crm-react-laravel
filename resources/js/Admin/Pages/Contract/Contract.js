@@ -140,6 +140,10 @@ export default function Contract() {
                                                 let cords = (c.client.latitude && c.client.longitude)
                                                             ? (c.client.latitude +","+ c.client.longitude):"";
                                                 let services = JSON.parse(c.offer.services);
+                                                let color =  "";         
+                                                if(c.status == 'un-verified' || c.status == 'not-signed') { color = 'purple' }
+                                                else if(c.status == 'verified') { color =  'green'}
+                                                else {color = 'red'}
 
                                                 return (
 
@@ -160,15 +164,16 @@ export default function Contract() {
                                                         <Td onClick={(e)=>handleNavigate(e,c.id)}>{c.client.phone}</Td>
                                                         <Td onClick={(e)=>handleNavigate(e,c.id)}>
                                                             {services && services.map((s, j) => {
-
+                                                               
                                                                 return (
                                                                     (services.length - 1 != j) ?
+                                                                    s.service == '10' ? s.other_title+" | ":
                                                                         s.name + " | "
                                                                         : s.name
                                                                 )
                                                             })}
                                                         </Td>
-                                                        <Td onClick={(e)=>handleNavigate(e,c.id)}>{c.status}</Td>
+                                                        <Td style={{color}} onClick={(e)=>handleNavigate(e,c.id)}>{c.status}</Td>
                                                         <Td onClick={(e)=>handleNavigate(e,c.id)}>{c.offer.total} ILS + VAT</Td>
                                                         <Td onClick={(e)=>handleNavigate(e,c.id)}>{(c.job_status) ? 'Active' : 'InActive'}</Td>
                                                         <Td>

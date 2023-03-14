@@ -53,6 +53,39 @@ export default function TotalJobs() {
                 }
             });
     };
+     const show_shift = [
+        "Full Day",
+        "Morning",
+        'Afternoon',
+        'Evening',
+        'Night'
+    ];
+    const getShift = (shifts) =>{
+        let s = (shifts).split(",");
+        let check='';
+        let new_shift='';
+            show_shift.map((p)=>{
+                     if(p == 'Afternoon'){
+                        check ='noon';
+                     }else{
+                         check =p;
+                     }
+                     s.map((sh)=>{
+                        if(sh.includes(check.toLowerCase())){
+                            if(new_shift==''){
+                                new_shift=p;
+                            }else{
+                                if(!new_shift.includes(p)){
+                                   new_shift=new_shift+','+p;
+                                 }
+                            }
+                            
+                        }
+                     })
+            })
+        return new_shift;
+    }
+
 
     return (
         <div id="container">
@@ -136,7 +169,7 @@ export default function TotalJobs() {
                                                                     (item.jobservice.heb_name)
                                                         }</Td>
                                                         <Td>
-                                                             {item.shifts}
+                                                             {getShift(item.shifts)}
                                                            
                                                         </Td>
                                                         <Td>{
@@ -159,7 +192,7 @@ export default function TotalJobs() {
                                                             }}
                                                         >
                                                             {item.status}
-                                                            {(item.status=='cancel')?`(With Cancellatiom fees ${item.rate} +" "+${t('global.currency')})`:''}
+                                                            {(item.status=='cancel')?`(With Cancellation fees ${item.rate} +" "+${t('global.currency')})`:''}
                                                         </Td>
                                                         <Td>
                                                             {item.jobservice?item.jobservice.total+" "+t('global.currency')+" + "+t('global.vat'):'0'} 

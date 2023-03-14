@@ -12,6 +12,7 @@ class Schedule extends Model
         'client_id',
         'team_id',
         'booking_status',
+        'purpose',
         'start_time',
         'end_time',
         'start_date',

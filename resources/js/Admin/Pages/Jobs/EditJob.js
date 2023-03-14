@@ -57,7 +57,7 @@ export default function AddJob() {
                                           <div className='form-group'>
                                             <label>Services</label>
                                                 
-                                                 <p>{services.name}</p>
+                                                 <p>{services ? services.name: 'NA'}</p>
                                         </div>
                                 </div>
                                  <div className='col-sm-2'>
@@ -65,7 +65,7 @@ export default function AddJob() {
                                             <label>Complete Time</label>
                                              
                                                 
-                                                 <p>{services.job_hour} hours</p>
+                                                 <p>{ services ? services.job_hour+" hours" : 'NA'}</p>
                                         </div>
                                 </div>
                                  <div className='col-sm-4'>

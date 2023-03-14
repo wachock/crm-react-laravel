@@ -18,7 +18,7 @@ export default function PriceOffer() {
     const [services, setServices] = useState([]);
     const [client, setClient] = useState([]);
     const [allTemplates, setAllTemplates] = useState([]);
-    const [status,setStatus] = useState('');
+    const [status, setStatus] = useState('');
 
     const getOffer = () => {
 
@@ -80,11 +80,11 @@ export default function PriceOffer() {
                     btn[1].removeAttribute('disabled');
                     btn[1].value = ('Accept Offer');
                 } else {
-                  
+
                     setStatus('accepted');
                     let msg = t('price_offer.messages.success');
                     swal(msg, '', 'success');
-                    
+
                 }
             })
 
@@ -120,22 +120,22 @@ export default function PriceOffer() {
 
     useEffect(() => {
         getOffer();
-        setTimeout(()=>{
+        setTimeout(() => {
             document.querySelector('.parent').style.display = 'block';
-        },500);
+        }, 500);
     }, []);
     let rg = [4, 5, 6, 7, 10];
-    services && services.filter((s,i,a)=>{
-        if(i == 0 && s.service == '10' && a.length >= 2 && rg.includes(parseInt(s.service))){
-            [ a[0], a[a.length-1] ] = [ a[a.length-1], a[0] ]; 
+    services && services.filter((s, i, a) => {
+        if (i == 0 && s.service == '10' && a.length >= 2 && rg.includes(parseInt(s.service))) {
+            [a[0], a[a.length - 1]] = [a[a.length - 1], a[0]];
             return a;
         }
     })
-    
+    console.log(allTemplates);
     return (
         <>
 
-            <div className='container parent' style={{display:'none'}}>
+            <div className='container parent' style={{ display: 'none' }}>
                 <div className='send-offer sendOfferRtl'>
                     <div className='maxWidthControl dashBox mb-4'>
                         <div className='row'>
@@ -144,24 +144,24 @@ export default function PriceOffer() {
                             </div>
                             <div className='col-sm-6'>
                                 {
-                                (status == 'sent') ?
-                                 (<>
-                                <div className='mt-2 float-right headBtns'>
-                                    <input className='btn btn-pink acpt' onClick={(e) => handleOffer(e, offer.id)} value={t('price_offer.button')} />
-                                    <input className='btn btn-danger mt-2 rjct' onClick={(e) => RejectOffer(offer.id)} value={t('price_offer.button_reject')} />
-                                </div>
-                                </>)
-                                :
-                                <>
-                                <div className='mt-2 float-right headMsg'>
-                                    {
-                                     (status == 'accepted') ?
-                                    <h4 className='btn btn-success'>Accepted</h4>
-                                    :
-                                     <h4 className='btn btn-danger'>Rejected</h4>
-                                    }
-                                </div>
-                                </>
+                                    (status == 'sent') ?
+                                        (<>
+                                            <div className='mt-2 float-right headBtns'>
+                                                <input className='btn btn-pink acpt' onClick={(e) => handleOffer(e, offer.id)} value={t('price_offer.button')} />
+                                                <input className='btn btn-danger mt-2 rjct' onClick={(e) => RejectOffer(offer.id)} value={t('price_offer.button_reject')} />
+                                            </div>
+                                        </>)
+                                        :
+                                        <>
+                                            <div className='mt-2 float-right headMsg'>
+                                                {
+                                                    (status == 'accepted') ?
+                                                        <h4 className='btn btn-success'>Accepted</h4>
+                                                        :
+                                                        <h4 className='btn btn-danger'>Rejected</h4>
+                                                }
+                                            </div>
+                                        </>
                                 }
                             </div>
 
@@ -188,48 +188,75 @@ export default function PriceOffer() {
 
                         <div className='we-have'>
                             <h3>{t('price_offer.offer_title')}</h3>
-                            {services && services.map((s, i) => {
 
-                                let sid = parseInt(s.service);
-                                {
+                            { /*rg.includes(sid) && sid == 4
+                                || rg.includes(sid) && sid == 5
+                                || rg.includes(sid) && sid == 6
+                                || rg.includes(sid) && sid == 7
+                                && !rg.includes(sid) && sid == 10*/
+                            }
 
-                                    if (
-                                        rg.includes(sid) && sid == 4
-                                        || rg.includes(sid) && sid == 5
-                                        || rg.includes(sid) && sid == 6
-                                        || rg.includes(sid) && sid == 7
-                                        && !rg.includes(sid) && sid == 10
+                            {
+                                allTemplates.includes('regular') ?
 
-                                    ) {
-                                        rg = [];
-                                        return (<>
+                                    (<>
 
-                                            <div className='shift-20'>
+                                        <div className='shift-20'>
 
-                                                <h4>&bull; {t('price_offer.regular_services.rs1')}</h4>
-                                                <ul className='list-unstyled'>
-                                                    <li><img src={star} /> {t('price_offer.regular_services.rs1_p1')}</li>
-                                                    <li><img src={star} /> {t('price_offer.regular_services.rs1_p2')}</li>
-                                                    <li><img src={star} /> {t('price_offer.regular_services.rs1_p3')}</li>
-                                                    <li><img src={star} /> {t('price_offer.regular_services.rs1_p4')}</li>
-                                                    <li><img src={star} /> {t('price_offer.regular_services.rs1_p5')}</li>
-                                                </ul>
+                                            <h4>&bull; {t('price_offer.regular_services.rs1')}</h4>
+                                            <ul className='list-unstyled'>
+                                                <li><img src={star} /> {t('price_offer.regular_services.rs1_p1')}</li>
+                                                <li><img src={star} /> {t('price_offer.regular_services.rs1_p2')}</li>
+                                                <li><img src={star} /> {t('price_offer.regular_services.rs1_p3')}</li>
+                                                <li><img src={star} /> {t('price_offer.regular_services.rs1_p4')}</li>
+                                                <li><img src={star} /> {t('price_offer.regular_services.rs1_p5')}</li>
+                                            </ul>
 
-                                                <h4 className='mt-4'>&bull; {t('price_offer.regular_services.rs2')}</h4>
-                                                <img src={t('price_offer.regular_services.rs2_img')} className='img-fluid' alt='Room Services' />
+                                            <h4 className='mt-4'>&bull; {t('price_offer.regular_services.rs2')}</h4>
+                                            <img src={t('price_offer.regular_services.rs2_img')} className='img-fluid' alt='Room Services' />
 
-                                            </div>
+                                        </div>
 
-                                        </>)
+                                    </>) : ''
 
-                                    }
 
+
+                            }
+                            {
+                            /*(!rg.includes(sid) && sid == 4)
+                                && (!rg.includes(sid) && sid == 5)
+                                && (!rg.includes(sid) && sid == 6)
+                                && (!rg.includes(sid) && sid == 7)
+                                || (rg.includes(sid) && sid == 10)*/
+                            }
+
+
+                            {services && services.map((s, i, a) => {
+                                if (s.service == '10' && allTemplates.includes('others') && !allTemplates.includes('regular')) {
+                                    return (
+                                        <div className='shift-20'>
+                                            <h4 className='mt-4'>&bull; {s.other_title}</h4>
+
+                                            <ul className='list-unstyled'>
+                                                <li><img src={star} /> {t('price_offer.regular_services.rs1_p1')}</li>
+                                                <li><img src={star} /> {t('price_offer.regular_services.rs1_p2')}</li>
+                                                <li><img src={star} /> {t('price_offer.regular_services.rs1_p3')}</li>
+                                                <li><img src={star} /> {t('price_offer.regular_services.rs1_p4')}</li>
+                                                <li><img src={star} /> {t('price_offer.regular_services.rs1_p5')}</li>
+                                            </ul>
+
+
+                                        </div>
+                                    )
                                 }
+                            })}
 
+
+                            <>
                                 {
-                                    if (s.service == 3)
+                                    (allTemplates.includes('thorough_cleaning')) ?
 
-                                        return (<>
+                                        (<>
                                             <div className='shift-20'>
 
                                                 <h4>&bull; {t('price_offer.thorough_cleaning.premium')}</h4>
@@ -272,17 +299,17 @@ export default function PriceOffer() {
                                                 </ul>
 
                                             </div>
-                                        </>)
+                                        </>) : ''
                                 }
 
 
                                 {
-                                    if (s.service == 1)
+                                    (allTemplates.includes('office_cleaning')) ?
 
-                                        return (<>
+                                        (<>
                                             <div className='shift-20'>
 
-                                                {(s.service == 1 && !allTemplates.includes('regular')) ?
+                                                {(!allTemplates.includes('regular')) ?
                                                     <>
                                                         <h4>&bull; {t('price_offer.office_cleaning.oc1')}</h4>
                                                         <ul className='list-unstyled'>
@@ -302,12 +329,12 @@ export default function PriceOffer() {
                                                 <img src={t('price_offer.office_cleaning.oc2_img')} className='img-fluid' alt='Room Services' />
 
                                             </div>
-                                        </>)
+                                        </>) : ''
                                 }
 
                                 {
-                                    if (s.service == 2)
-                                        return (<>
+                                    (allTemplates.includes('after_renovation')) ?
+                                        (<>
                                             <div className='shift-20'>
 
                                                 <h4>&bull; {t('price_offer.renovation.rn1')}</h4>
@@ -324,45 +351,10 @@ export default function PriceOffer() {
                                                 <img src={t('price_offer.renovation.rn2_img')} className='img-fluid' alt='Room Services' />
 
                                             </div>
-                                        </>)
+                                        </>) : ''
                                 }
+                            </>
 
-
-
-                                {
-                                    if (
-
-                                        (!rg.includes(sid) && sid == 4)
-                                        && (!rg.includes(sid) && sid == 5)
-                                        && (!rg.includes(sid) && sid == 6)
-                                        && (!rg.includes(sid) && sid == 7)
-                                        || (rg.includes(sid) && sid == 10)
-
-                                    ) {
-
-                                        //rg = [];
-
-                                        return (<>
-                                            <div className='shift-20'>
-                                                <h4 className='mt-4'>&bull; {s.other_title}</h4>
-
-                                                <ul className='list-unstyled'>
-                                                    <li><img src={star} /> {t('price_offer.regular_services.rs1_p1')}</li>
-                                                    <li><img src={star} /> {t('price_offer.regular_services.rs1_p2')}</li>
-                                                    <li><img src={star} /> {t('price_offer.regular_services.rs1_p3')}</li>
-                                                    <li><img src={star} /> {t('price_offer.regular_services.rs1_p4')}</li>
-                                                    <li><img src={star} /> {t('price_offer.regular_services.rs1_p5')}</li>
-                                                </ul>
-
-
-                                            </div>
-                                        </>)
-
-                                    }
-                                }
-
-
-                            })}
 
                             <div className='shift-20'>
                                 <h4 className='mt-4'>&bull; {t('price_offer.window_any_height.title')}</h4>
