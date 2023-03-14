@@ -402,8 +402,10 @@ export default function PriceOffer() {
                                                     }</td>
 
                                                     <td>{s.freq_name}</td>
-
+                                                    {(s.type == "fixed") ?
                                                     <td>{s.totalamount} {t('global.currency')}</td>
+                                                    :<td>{s.rateperhour +"/hour"} {t('global.currency')}</td>
+                                                    }
 
 
                                                 </tr>
