@@ -1640,4 +1640,7 @@ h1 {
 .insurancetable .table tr td p span {
     font-weight: bold;
 }
+.insurance-eng img {
+    margin-bottom: 20px;
+}
 /*******End*************/

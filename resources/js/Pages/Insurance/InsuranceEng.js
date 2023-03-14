@@ -1,5 +1,7 @@
 import React,{ useRef } from 'react'
-import SignatureCanvas from 'react-signature-canvas'
+import SignatureCanvas from 'react-signature-canvas';
+import logo from "../../Assets/image/logo.png";
+import insurancelogo from "../../Assets/image/insurance-logo.png";
 
 export default function InsuranceEng() {
     const sigRef2 = useRef();
@@ -48,6 +50,14 @@ export default function InsuranceEng() {
       <div className='container'>
         <div className='send-offer insurance-eng'>
             <div className='maxWidthControl dashBox mb-4'>
+            <div className='row'>
+                <div className='col-sm-6'>
+                    <img src={insurancelogo} className='img-fluid' alt='Insurance Logo' />
+                </div>
+                <div className='col-sm-6'>
+                    <img src={logo} className='img-fluid' alt='Broom Service' />
+                </div>
+            </div>
                 <h1>Meno Medic Top - Insurance Health for Proposal</h1>
                 <p>All questions must be answered clearly and fully. Do not use lines or symbols instead of words.
                 The form is for both men and women.</p>
@@ -788,6 +798,9 @@ Mr/Ms___________________________, to handle on my behalf and for me all matters 
 
 
                         </table>
+                    </div>
+                    <div className='button mt-4 text-center'>
+                        <input class="btn btn-pink" value="Save" />
                     </div>
                 </div>
             </div>
