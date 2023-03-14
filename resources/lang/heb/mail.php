@@ -26,14 +26,14 @@ return [
         'hi'          =>'היי',
         'greetings'    =>'תזכורת',
         'from'        =>'מ',
-        'appointment' =>'רק תזכורת ידידותית שהפגישה שלך',
+        'appointment' =>'רציני להזכיר לך שהפגישה שלך',
         'with'        =>'עם',
-        'on'          =>'עַל',
+        'on'          =>'ב',
         'between'     =>'בין',
         'to'          =>'ל',
         'cancel_text' =>'has cancelled now.',
         'for'         =>'ל',
-        'service'     =>'שירות',
+        'service'     =>'הצעת מחיר',
         'accept'      =>'אשר',
         'reject'      =>'דחה',
         'reschedule'  =>'קבע מחדש',
@@ -47,9 +47,9 @@ return [
          'hi'          =>'היי',
          'greetings'   =>'הודעה',
          'from'        =>'מ',
-         'company'     =>'Broom Services',
+         'company'     =>'ברום סרוויס',
          'price_offer'=>'מצ"ב הצעת מחיר עבור',
-         'service_s'  =>'שירותים',
+         'service_s'  =>'שירותינו',
          'approve_txt'=>'לאחר אישורכם, יישלח אליכם הסכם התקשרות אותו תצטרכו למלא ולחתום למטה ואז נהיה מוכנים להתחיל בעבודה.',
          'below_txt'  => 'לחץ על הכפתור למטה כדי לראות את הצעת המחיר.',
          'btn_txt'    =>'הצעת מחיר',
@@ -62,8 +62,8 @@ return [
          'hi'          =>'היי',
          'greetings'   =>'שלום רב',
          'from'        =>'מ',
-         'company'     =>'Broom Service',
-         'content'     =>'מצ"ב הסכם התקשרות. נא מלא את כל הפרטים וחתום במקומות הנדרשים.
+         'company'     =>'ברום סרוויס',
+         'content'     =>'מצ"ב הסכם התקשרות. נא מלאו את כל הפרטים וחתמו במקומות הנדרשים.
     לפרטי התשלום יש למלא את הcvv,שם בעל הכרטיס, תוקף, סוג הכרטיס וחתימתו של בעל הכרטיס.
     לשאר הפרטים ניצור אתכם קשר טלפוני על מנת לשמור על פרטי האשראי שלכם בצורכה מאובטחת.
     לכל שאלה אנא השיבו למייל זה או צרו איתנו קשר בטלפון: 03-525-70-60
@@ -129,7 +129,7 @@ return [
         'greetings'   =>'Greetings',
         'from'        =>'from',
         'company'     =>'Broom Services',
-        'content'     =>'New Job Assign.Please check the details.',
+        'content'     =>'New service request.Please check the details.',
         'below_txt'   =>'Click the below button to check the contract.',
         'btn_txt'     =>'Check Contract',
         'reply_txt'   =>'If you have any questions or concerns please don\'t hesitate to get in touch with us by replying to this email.',
@@ -138,16 +138,16 @@ return [
 
     ],
     'client_new_job' =>[
-        'subject'     =>'תזכורת לגבי שיבוץ קרוב עם',
+        'subject'     =>'תזכורת לגבי שירות שהזמנתם',
         'hi'          =>'היי',
-        'greetings'   =>'מילות ברכה',
-        'from'        =>'מ',
-        'company'     =>'ברום סרוויס',
-        'content'     =>'עבודה חדשה שנוצרה.אנא בדוק את הפרטים.',
-        'below_txt'   =>'לחץ על הלחצן למטה כדי לבדוק את החוזה.',
-        'btn_txt'     =>'בדוק חוזה',
-        'reply_txt'   =>'אם יש לך שאלות או חששות, אנא אל תהסס ליצור איתנו קשר על ידי מענה לדוא"ל זה.',
-        'regards'     =>'שא ברכה',
+        'greetings'   =>'לקוח יקר',
+        'from'        =>'',
+        'company'     =>'',
+        'content'     =>'שירות שהזמנת. לצפיה בפרטים.',
+        'below_txt'   =>'לחץ על הלחצן למטה כדי לבדוק את ההסכם.',
+        'btn_txt'     =>'בדוק הסכם',
+        'reply_txt'   =>'אם יש לך שאלות או בקשות, אנא אל תהסס ליצור איתנו קשר על ידי מענה לדוא"ל זה.',
+        'regards'     =>'בברכה',
         'tel'         =>'טלפון',
         'date'        => 'תאריך',
         'worker'      => 'עובד',
@@ -155,9 +155,9 @@ return [
         'shift'       => 'משמרת',
         'status'      => 'סטטוס',
         'action'      => 'פעולה',
-        'scheduled'   => 'מתוזמנת',
+        'scheduled'   => 'שובץ',
         'to'          => 'ל',
-        'view_job'    =>'הצג עבודה'
+        'view_job'    =>'הצג פרטים'
 
     ],
 ];
