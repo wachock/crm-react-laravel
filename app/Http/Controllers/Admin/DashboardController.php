@@ -83,6 +83,7 @@ class DashboardController extends Controller
           if($notice->type == 'sent-meeting'){
 
             $sch = Schedule::where('id',$notice->meet_id)->get()->first();
+            if($sch)
             $noticeAll[$k]->data = "<a href='/admin/view-schedule/".$notice->client->id."?sid=".$sch->id."'> Meeting </a> scheduled with <a href='/admin/view-client/".$notice->client->id."'>".$notice->client->firstname." ".$notice->client->lastname.
                             "</a> on " .Carbon::parse($sch->start_date)->format('d-m-Y') ." at ".($sch->start_time);
 
@@ -90,6 +91,7 @@ class DashboardController extends Controller
           if($notice->type == 'accept-meeting'){
 
             $sch = Schedule::where('id',$notice->meet_id)->get()->first();
+            if($sch)
             $noticeAll[$k]->data = "<a href='/admin/view-schedule/".$notice->client->id."?sid=".$sch->id."'> Meeting </a> with <a href='/admin/view-client/".$notice->client->id."'>".$notice->client->firstname." ".$notice->client->lastname.
                             "</a> has been confirmed now on " .Carbon::parse($sch->start_date)->format('d-m-Y')  ." at ".($sch->start_time);
 
@@ -97,6 +99,7 @@ class DashboardController extends Controller
           if($notice->type == 'reject-meeting'){
 
             $sch = Schedule::where('id',$notice->meet_id)->get()->first();
+            if($sch)
             $noticeAll[$k]->data = "<a href='/admin/view-schedule/".$notice->meet_id."?sid=".$sch->id."'> Meeting </a> with <a href='/admin/view-client/".$notice->client->id."'>".$notice->client->firstname." ".$notice->client->lastname.
                             "</a> which on " .Carbon::parse($sch->start_date)->format('d-m-Y')  ." at ".($sch->start_time)." has cancelled now.";
 
@@ -105,6 +108,7 @@ class DashboardController extends Controller
           if($notice->type == 'accept-offer'){
 
             $ofr = Offer::where('id',$notice->offer_id)->get()->first();
+            if($ofr)
             $noticeAll[$k]->data = "<a href='/admin/view-client/".$notice->client->id."'>".$notice->client->firstname." ".$notice->client->lastname.
                             "</a> has accepted the <a href='/admin/view-offer/".$notice->offer_id."'> price offer </a>";
 
@@ -113,6 +117,7 @@ class DashboardController extends Controller
           if($notice->type == 'reject-offer'){
 
             $ofr = Offer::where('id',$notice->offer_id)->get()->first();
+            if($ofr)
             $noticeAll[$k]->data = "<a href='/admin/view-client/".$notice->client->id."'>".$notice->client->firstname." ".$notice->client->lastname.
                             "</a> has rejected <a href='/admin/view-offer/".$notice->offer_id."'>the price offer </a>";
           }
@@ -120,32 +125,38 @@ class DashboardController extends Controller
           if($notice->type == 'contract-accept'){
             
             $contract = Contract::with('offer')->where('id',$notice->contract_id)->get()->first();
-            $noticeAll[$k]->data = "<a href='/admin/view-client/".$contract->client->id."'>".$contract->client->firstname." ".$contract->client->lastname.
-            "</a> has approved the <a href='/admin/view-contract/".$contract->id."'> contract </a>";
-            if($contract->offer){
-              $noticeAll[$k]->data .= "for <a href='/admin/view-offer/".$contract->offer->id."'> offer</a>";
-            }
-            
+            if($contract):
+              $noticeAll[$k]->data = "<a href='/admin/view-client/".$contract->client->id."'>".$contract->client->firstname." ".$contract->client->lastname.
+              "</a> has approved the <a href='/admin/view-contract/".$contract->id."'> contract </a>";
+              if($contract->offer){
+                $noticeAll[$k]->data .= "for <a href='/admin/view-offer/".$contract->offer->id."'> offer</a>";
+              }
+            endif;
+
           }
            
           if($notice->type == 'contract-reject'){
 
             $contract = Contract::with('offer')->where('id',$notice->contract_id)->get()->first();
-            $noticeAll[$k]->data = "<a href='/admin/view-client/".$notice->client->id."'>".$notice->client->firstname." ".$notice->client->lastname.
-            "</a> has rejected the <a href='/admin/view-contract/".$contract->id."'> contract </a>";
-            if($contract->offer){
-              $noticeAll[$k]->data .= "for <a href='/admin/view-offer/".$contract->offer->id."'> offer</a>";
-            }
+            if($contract):
+              $noticeAll[$k]->data = "<a href='/admin/view-client/".$notice->client->id."'>".$notice->client->firstname." ".$notice->client->lastname.
+              "</a> has rejected the <a href='/admin/view-contract/".$contract->id."'> contract </a>";
+              if($contract->offer){
+                $noticeAll[$k]->data .= "for <a href='/admin/view-offer/".$contract->offer->id."'> offer</a>";
+              }
+          endif;
 
           }
           if($notice->type == 'client-cancel-job'){
 
             $job = Job::with('offer')->where('id',$notice->job_id)->get()->first();
+            if($job):
             $noticeAll[$k]->data = "<a href='/admin/view-client/".$notice->client->id."'>".$notice->client->firstname." ".$notice->client->lastname.
             "</a> has cancelled the  <a href='/admin/view-job/".$notice->job_id."'> job </a>";
             if($job->offer){
             $noticeAll[$k]->data .= "for <a href='/admin/view-offer/".$job->offer->id."'> offer </a> ";
             }
+          endif;
 
           }
         }

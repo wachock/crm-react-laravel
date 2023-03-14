@@ -18,7 +18,7 @@ i18n
     fallbackLng: "en",
     detection:{
       order: ['querystring','path','cookie','htmlTag',  'localStorage', 'sessionStorage',
-               'navigator',  'subdomain'],
+               'navigator', 'subdomain'],
       lookupQuerystring: 'lng'
     },
     backend:{
