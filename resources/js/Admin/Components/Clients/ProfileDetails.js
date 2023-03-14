@@ -88,7 +88,6 @@ export default function ProfileDetails({ client, offerStatus, scheduleStatus, la
                 let bookBtn = document.querySelector('#bookBtn');
                 bookBtn.style.display = 'block';
             }
-            
         },200)
     },[client]);
     
@@ -223,7 +222,13 @@ export default function ProfileDetails({ client, offerStatus, scheduleStatus, la
                             }
                             
                             </Link>
-                            <Link to={`/admin/add-offer?c=${param.id}`}><i className="fas fa-hand-point-right"></i> Send Offer</Link>
+                            <Link to={`/admin/add-offer?c=${param.id}`}><i className="fas fa-hand-point-right"></i> 
+                            {
+                                offerStatus == 'Not Sent' || offerStatus == 'sent'
+                                ? 'Send Offer'
+                                : 'Re-send Offer'
+                            }
+                            </Link>
                             <Link to={`/admin/create-job/${client.latest_contract}`} id="bookBtn" style={{display:'none'}} ><i className="fas fa-hand-point-right"></i> Book Client</Link>
                         </div>
                     </div>

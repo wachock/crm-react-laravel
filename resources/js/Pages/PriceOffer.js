@@ -131,7 +131,7 @@ export default function PriceOffer() {
             return a;
         }
     })
-    console.log(allTemplates);
+    
     return (
         <>
 
