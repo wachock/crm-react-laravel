@@ -206,6 +206,12 @@ export default function ProfileDetails({ client, offerStatus, scheduleStatus, la
                         <div className='buttonBlocks dashBox mt-3 p-4'>
                             <Link to={`/admin/view-schedule/${param.id}`}><i className="fas fa-hand-point-right"></i> Schedule Meeting</Link>
                             <Link to={`/admin/add-offer?c=${param.id}`}><i className="fas fa-hand-point-right"></i> Send Offer</Link>
+                            {
+                                client.latest_contract != 0 
+                                ? <Link to={`/admin/create-job/${client.latest_contract}`}><i className="fas fa-hand-point-right"></i> Book Client</Link>
+                                :''
+                            }
+                            
                         </div>
                     </div>
                 </div>

@@ -55,10 +55,10 @@ export default function AddWorker() {
         "gender": gender,
         "payment_hour": payment_hour,
         "worker_id": worker_id,
-        "lng":(lng != 0) ? lng :'heb',
+        "lng":(!lng) ? 'en':lng,
         "password": password,
         "skill": skill,
-        "status": itemStatus,
+        "status": (!itemStatus)? 1 : 0,
         "country":country,
     }
      axios
@@ -199,9 +199,9 @@ export default function AddWorker() {
                                             value={lng}
                                             onChange={(e) => setLng(e.target.value)}
                                         >
-                                            <option value={0}>Please select language</option>
-                                            <option value="heb">Hebrew</option>
                                             <option value="en">English</option>
+                                            <option value="heb">Hebrew</option>
+                                            
                                         </select>
                                     </div>
                                </div>
@@ -260,8 +260,7 @@ export default function AddWorker() {
                         <div className='form-group mt-4'>
                             <label className='control-label'>Status</label>
                             <select className='form-control' value={itemStatus} onChange={(e) => setItemStatus(e.target.value)}>
-                                <option>Please select</option>
-                                <option value="1">Enable</option>
+                                <option value="1" >Enable</option>
                                 <option value="0">Disable</option>
                             </select>
                              {errors.status ? (

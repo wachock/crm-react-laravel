@@ -37,7 +37,7 @@ class ClientController extends Controller
         $result = $result->orderBy('id', 'desc')->paginate(20);
         if(isset($result)){
             foreach($result as $k => $res){
-                $contract = Contract::where('client_id',$res->id)->get()->last();
+                $contract = Contract::where('client_id',$res->id)->where('status','verified')->get()->last();
                 if($contract != null){
                     $result[$k]->latest_contract = $contract->id;
                 } else {
@@ -98,6 +98,16 @@ class ClientController extends Controller
     public function show($id)
     {
         $client               = Client::find($id);
+        if(isset($client)){
+          
+                $contract = Contract::where('client_id',$client->id)->where('status','verified')->get()->last();
+                if($contract != null){
+                    $client->latest_contract = $contract->id;
+                } else {
+                    $client->latest_contract = 0;
+                }
+            
+        }
         return response()->json([
             'client'        => $client,            
         ], 200);
