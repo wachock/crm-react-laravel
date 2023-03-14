@@ -257,7 +257,7 @@ export default function EditClient() {
                                                 Password *
                                             </label>
                                             <input
-                                                type="text"
+                                                type="password"
                                                 onChange={(e) =>
                                                     setPassCode(e.target.value)
                                                 }
