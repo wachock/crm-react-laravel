@@ -139,7 +139,9 @@ export default function Contract() {
                                                 let address = (c.client.geo_address) ? c.client.geo_address : 'NA';
                                                 let cords = (c.client.latitude && c.client.longitude)
                                                             ? (c.client.latitude +","+ c.client.longitude):"";
-                                                let services = JSON.parse(c.offer.services);
+                                              
+                                                let services = ( (c.offer) ) ? JSON.parse(c.offer.services) : [];
+                                                //let services = [];
                                                 let color =  "";         
                                                 if(c.status == 'un-verified' || c.status == 'not-signed') { color = 'purple' }
                                                 else if(c.status == 'verified') { color =  'green'}
@@ -174,7 +176,7 @@ export default function Contract() {
                                                             })}
                                                         </Td>
                                                         <Td style={{color}} onClick={(e)=>handleNavigate(e,c.id)}>{c.status}</Td>
-                                                        <Td onClick={(e)=>handleNavigate(e,c.id)}>{c.offer.total} ILS + VAT</Td>
+                                                        <Td onClick={(e)=>handleNavigate(e,c.id)}>{c.offer ? c.offer.total+" ILS + VAT" : 'NA'} </Td>
                                                         <Td onClick={(e)=>handleNavigate(e,c.id)}>{(c.job_status) ? 'Active' : 'InActive'}</Td>
                                                         <Td>
                                                             <div className="action-dropdown dropdown">
