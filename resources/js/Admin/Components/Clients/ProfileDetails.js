@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, Navigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import Moment from 'moment';
@@ -81,7 +81,17 @@ export default function ProfileDetails({ client, offerStatus, scheduleStatus, la
                 }
             })
     }
-
+    
+    useEffect(()=>{
+        setTimeout(()=>{
+            if(client.latest_contract != 0 && client.latest_contract != undefined){
+                let bookBtn = document.querySelector('#bookBtn');
+                bookBtn.style.display = 'block';
+            }
+            
+        },200)
+    },[client]);
+    
     return (
         <>
 
@@ -204,14 +214,17 @@ export default function ProfileDetails({ client, offerStatus, scheduleStatus, la
                         </div>
 
                         <div className='buttonBlocks dashBox mt-3 p-4'>
-                            <Link to={`/admin/view-schedule/${param.id}`}><i className="fas fa-hand-point-right"></i> Schedule Meeting</Link>
-                            <Link to={`/admin/add-offer?c=${param.id}`}><i className="fas fa-hand-point-right"></i> Send Offer</Link>
+                            <Link to={`/admin/view-schedule/${param.id}`}><i className="fas fa-hand-point-right"></i> 
+
                             {
-                                client.latest_contract != 0 
-                                ? <Link to={`/admin/create-job/${client.latest_contract}`}><i className="fas fa-hand-point-right"></i> Book Client</Link>
-                                :''
+                                scheduleStatus == 'Not Sent' || scheduleStatus == 'sent'
+                                ? 'Schedule Meeting'
+                                : 'Re-schedule Meeting'
                             }
                             
+                            </Link>
+                            <Link to={`/admin/add-offer?c=${param.id}`}><i className="fas fa-hand-point-right"></i> Send Offer</Link>
+                            <Link to={`/admin/create-job/${client.latest_contract}`} id="bookBtn" style={{display:'none'}} ><i className="fas fa-hand-point-right"></i> Book Client</Link>
                         </div>
                     </div>
                 </div>

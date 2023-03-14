@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react'
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import ContractEng from '../../Components/contract/ContractEng'
 import ContractHeb from '../../Components/contract/ContractHeb'
 export default function WorkContract() {
@@ -26,7 +26,6 @@ export default function WorkContract() {
     }, [])
 
     return (
-
         (lng == 'heb') ? <ContractHeb />: <ContractEng />
 
     )
