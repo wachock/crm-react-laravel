@@ -140,7 +140,16 @@ return [
         'btn_txt'     =>'Check Contract',
         'reply_txt'   =>'If you have any questions or concerns please don\'t hesitate to get in touch with us by replying to this email.',
         'regards'     =>'Best Regards',
-        'tel'         =>'Telephone'
+        'tel'         =>'Telephone',
+        'date'        => 'Date',
+        'worker'      => 'Worker',
+        'service'     => 'Service',
+        'shift'       => 'Shift',
+        'status'      => 'Status',
+        'action'      => 'Action',
+        'scheduled'   => 'Scheduled',
+        'to'          => 'to',
+        'view_job'    =>'view job'
 
     ],
 ];
