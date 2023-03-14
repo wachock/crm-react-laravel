@@ -115,10 +115,6 @@ export default function WorkContract() {
                                 <li className='list-inline-item'>Enterance Code: <span>{client.entrence_code ? client.entrence_code : 'NA'}</span></li>
                             </ul>
                             <ul className='list-inline'>
-                                <li className='list-inline-item'>Zip code: <span>{client.zipcode ? client.zipcode : 'NA'}</span></li>
-                                <li className='list-inline-item'>DOB: <span>{client.dob ? client.dob : 'NA'}</span></li>
-                            </ul>
-                            <ul className='list-inline'>
                                 <li className='list-inline-item'>Telephone: <span>{client.phone ? client.phone : 'NA'}</span></li>
                                 <li className='list-inline-item'>Email: <span>{client.email ? client.email : 'NA'}</span></li>
                             </ul>
