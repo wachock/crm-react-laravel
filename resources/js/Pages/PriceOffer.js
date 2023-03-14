@@ -392,6 +392,7 @@ export default function PriceOffer() {
                                         </thead>
                                         <tbody>
                                             {services && services.map((s, i) => {
+                                                console.log(s);
                                                 return (<tr>
 
                                                     <td>{
@@ -404,7 +405,7 @@ export default function PriceOffer() {
                                                     <td>{s.freq_name}</td>
                                                     {(s.type == "fixed") ?
                                                     <td>{s.totalamount} {t('global.currency')}</td>
-                                                    :<td>{s.rateperhour +"/hour"} {t('global.currency')}</td>
+                                                    :<td>{s.rateperhour} {t('global.currency')} {t('global.perhour')}  {`X`+s.jobHours} </td>
                                                     }
 
 

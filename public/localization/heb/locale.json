@@ -1,7 +1,8 @@
 {
     "global":{
         "vat": "מע'מ",
-        "currency": "ש'ח"
+        "currency": "ש'ח",
+        "perhour":"לשעה"
     },
     "res_txt": "תודה עבור תגובתך",
     "meet_accept": {

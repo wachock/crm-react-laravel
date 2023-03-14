@@ -1,7 +1,8 @@
 {
     "global":{
         "vat": "VAT",
-        "currency": "ILS"
+        "currency": "ILS",
+        "perhour":"per hour"
     },
     "res_txt": "Thankyou for your response",
     "meet_accept": {
