@@ -20,6 +20,7 @@ export default function MeetingStatus() {
     axios
       .post(`/api/client/meeting`, { id: param.id })
       .then((res) => {
+        console.log(res.data.schedule)
         setMeeting(res.data.schedule);
         setTeamName(res.data.schedule.team.name);
         const lng = res.data.schedule.client.lng;
