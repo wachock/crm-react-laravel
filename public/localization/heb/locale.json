@@ -2,7 +2,11 @@
     "global":{
         "vat": "מע'מ",
         "currency": "ש'ח",
-        "perhour":"לשעה"
+        "perhour":"לשעה",
+        "morning":"בוקר",
+        "noon":"צהריים",
+        "afternoon":"אחהצ",
+        "evening":"ערב"
     },
     "res_txt": "תודה עבור תגובתך",
     "meet_accept": {

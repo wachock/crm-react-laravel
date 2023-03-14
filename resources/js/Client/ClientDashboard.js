@@ -62,14 +62,19 @@ export default function ClientDashboard() {
                                 new_shift=p;
                             }else{
                                 if(!new_shift.includes(p)){
-                                   new_shift=new_shift+','+p;
+                                   new_shift=t('global.'+(new_shift).toLowerCase())+' | '+t('global.'+p.toLowerCase());
                                  }
                             }
                             
                         }
                      })
             })
+        if(new_shift == 'Morning') return t('global.morning');
+        if(new_shift == 'Noon') return t('global.noon');
+        if(new_shift == 'Afternoon') return t('global.afternoon');
+        if(new_shift == 'Evening') return t('global.evening');
         return new_shift;
+
     }
 
 
