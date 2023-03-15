@@ -51,10 +51,10 @@ export default function ViewJob() {
          let warning_text ='';
          let new_total=total;
          if(time_diff<24){
-               warning_text=t('client.jobs.view.full_cancel_text')   +" ( "+total +" ) "+ t('global.currency');
+               warning_text=t('client.jobs.view.cancel_text')   +" ( "+total +" ) "+ t('global.currency');
 
          }else{
-             warning_text=t('client.jobs.view.half_cancel_text') + " ( "+(total/2)+" ) "+ t('global.currency');
+             warning_text=t('client.jobs.view.cancel_text') + " ( "+(total/2)+" ) "+ t('global.currency');
              new_total=total/2;
          }
          let data = {'status':'cancel','total':new_total};

@@ -6,7 +6,8 @@
         "morning":"Morning",
         "noon":"Noon",
         "afternoon":"Afternoon",
-        "evening":"Evening"
+        "evening":"Evening",
+        "fullday":"Full Day"
 
 
     },
@@ -299,6 +300,16 @@
 
         }
     },
+    "j_status":{
+                
+        "not-started":"Not started",
+        "progress":"progress",
+        "scheduled":"Scheduled",
+        "completed":"Completed",
+        "unscheduled":"Un scheduled",
+        "re-scheduled":"Re scheduled",
+        "cancel":"Cancel"
+   },
     "client": {
         "welcome": "welcome",
         "logout": "Logout",
@@ -424,12 +435,12 @@
                  "cancel":"Cancel",
                  "back":"Back",
                  "add_cmt":"Add Comment",
-                 "full_cancel_text":"Full Payment Will be Recieved as Cancellation Fee",
-                 "half_cancel_text":"Half Payment Will be Recieved as Cancellation Fee",
+                 "cancel_text":"cancalation fee may apply are you sure you would like to cancel and pay the fee of",
                  "cancel_warning":"Are you sure?",
                  "confirm_cancel_btn":"Yes, Cancel Job",
                  "updated_msg":"Job has been updated.",
                  "updated":"Updated!"
+                 
             }
         },
         "settings":{

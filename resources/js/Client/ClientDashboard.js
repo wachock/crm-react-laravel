@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import ClientSidebar from "./Layouts/ClientSidebar";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import {Table, Thead, Tbody, Tr, Th, Td} from 'react-super-responsive-table'
+import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table'
 import { useTranslation } from "react-i18next";
 
 export default function ClientDashboard() {
@@ -14,7 +14,7 @@ export default function ClientDashboard() {
     const [contracts, setContract] = useState([]);
     const [loading, setLoading] = useState("Loading...");
     const id = localStorage.getItem('client-id');
-    const {t,i18n } = useTranslation();
+    const { t, i18n } = useTranslation();
     const c_lng = i18n.language;
     const headers = {
         Accept: "application/json, text/plain, */*",
@@ -39,40 +39,41 @@ export default function ClientDashboard() {
     useEffect(() => {
         GetDashboardData();
     }, []);
-     const show_shift = [
+    const show_shift = [
         "Full Day",
         "Morning",
         'Afternoon',
         'Evening',
         'Night'
     ];
-    const getShift = (shifts) =>{
+    const getShift = (shifts) => {
         let s = (shifts).split(",");
-        let check='';
-        let new_shift='';
-            show_shift.map((p)=>{
-                     if(p == 'Afternoon'){
-                        check ='noon';
-                     }else{
-                         check =p;
-                     }
-                     s.map((sh)=>{
-                        if(sh.includes(check.toLowerCase())){
-                            if(new_shift==''){
-                                new_shift=p;
-                            }else{
-                                if(!new_shift.includes(p)){
-                                   new_shift=t('global.'+(new_shift).toLowerCase())+' | '+t('global.'+p.toLowerCase());
-                                 }
-                            }
-                            
+        let check = '';
+        let new_shift = '';
+        show_shift.map((p) => {
+            if (p == 'Afternoon') {
+                check = 'noon';
+            } else {
+                check = p;
+            }
+            s.map((sh) => {
+                if (sh.includes(check.toLowerCase())) {
+                    if (new_shift == '') {
+                        new_shift = p;
+                    } else {
+                        if (!new_shift.includes(p)) {
+                            new_shift = t('global.' + (new_shift).toLowerCase()) + ' | ' + t('global.' + p.toLowerCase());
                         }
-                     })
+                    }
+
+                }
             })
-        if(new_shift == 'Morning') return t('global.morning');
-        if(new_shift == 'Noon') return t('global.noon');
-        if(new_shift == 'Afternoon') return t('global.afternoon');
-        if(new_shift == 'Evening') return t('global.evening');
+        })
+        if (new_shift == 'Full Day') return t('global.fullday');
+        if (new_shift == 'Morning') return t('global.morning');
+        if (new_shift == 'Noon') return t('global.noon');
+        if (new_shift == 'Afternoon') return t('global.afternoon');
+        if (new_shift == 'Evening') return t('global.evening');
         return new_shift;
 
     }
@@ -149,11 +150,11 @@ export default function ClientDashboard() {
                                     <Table className="table table-bordered responsiveTable">
                                         <Thead>
                                             <Tr>
-                                                <Th style={{ display:'none' }}>{t('client.dashboard.client_name')}</Th>
+                                                <Th style={{ display: 'none' }}>{t('client.dashboard.client_name')}</Th>
                                                 <Th>{t('client.dashboard.service_name')}</Th>
                                                 <Th>{t('client.dashboard.date')}</Th>
                                                 <Th>{t('client.dashboard.shift')}</Th>
-                                                <Th style={{ display:'none' }}>{t('client.dashboard.assigned_worker')}</Th>
+                                                <Th style={{ display: 'none' }}>{t('client.dashboard.assigned_worker')}</Th>
                                                 <Th>{t('client.dashboard.status')}</Th>
                                                 <Th>{t('client.dashboard.total')}</Th>
                                                 <Th>{t('client.dashboard.action')}</Th>
@@ -164,9 +165,18 @@ export default function ClientDashboard() {
                                                 latestJobs.map(
                                                     (item, index) => {
 
+                                                        let status = item.status;
+                                                        if (status == "not-started") { status = t("j_status.not-started"); }
+                                                        if (status == "progress") { status = t("j_status.progress"); }
+                                                        if (status == "completed") { status = t("j_status.completed"); }
+                                                        if (status == "scheduled") { status = t("j_status.scheduled"); }
+                                                        if (status == "unscheduled") { status = t("j_status.unscheduled"); }
+                                                        if (status == "re-scheduled") { status = t("j_status.re-scheduled"); }
+                                                        if (status == "cancel") { status = t("j_status.cancel"); }
+
                                                         return (
                                                             <Tr key={index}>
-                                                                <Td style={{ display:'none' }}>{
+                                                                <Td style={{ display: 'none' }}>{
                                                                     item.client
                                                                         ? item.client.firstname +
                                                                         " " + item.client.lastname
@@ -174,35 +184,30 @@ export default function ClientDashboard() {
                                                                 }
                                                                 </Td>
                                                                 <Td>{
-                                                                    (c_lng=='en')
-                                                                     ? (item.jobservice.name)
-                                                                     :
-                                                                    (item.jobservice.heb_name)
+                                                                    (c_lng == 'en')
+                                                                        ? (item.jobservice.name)
+                                                                        :
+                                                                        (item.jobservice.heb_name)
                                                                 }</Td>
                                                                 <Td>
-                                                                    {item.start_date}
+                                                                    {status}
                                                                 </Td>
                                                                 <Td>
-                                                                    { getShift(item.shifts) }
+                                                                    {getShift(item.shifts)}
                                                                 </Td>
-                                                                <Td style={{ display:'none' }}>{
+                                                                <Td style={{ display: 'none' }}>{
                                                                     item.worker
                                                                         ? item.worker.firstname +
                                                                         " " + item.worker.lastname
                                                                         : "NA"
                                                                 }</Td>
 
-                                                                <Td
-                                                                    style={{
-                                                                        textTransform:
-                                                                            "capitalize",
-                                                                    }}
-                                                                >
-                                                                    {item.status}
-                                                                    {(item.status=='cancel')?`(With Cancellatiom fees ${item.rate} ${t('global.currency')} )`:''}
+                                                                <Td>
+                                                                    {status}
+                                                                    {(item.status == 'cancel') ? `(With Cancellatiom fees ${item.rate} ${t('global.currency')} )` : ''}
                                                                 </Td>
                                                                 <Td>
-                                                                    {item.jobservice ? item.jobservice.total +" "+ t('global.currency'): ''}
+                                                                    {item.jobservice ? item.jobservice.total + " " + t('global.currency') : ''}
                                                                 </Td>
                                                                 <Td>
                                                                     <div className="d-flex">

@@ -83,7 +83,7 @@ export default function TotalJobs() {
                         }
                      })
             })
-            
+            if(new_shift == 'Full Day') return t('global.fullday');
             if(new_shift == 'Morning') return t('global.morning');
             if(new_shift == 'Noon') return t('global.noon');
             if(new_shift == 'Afternoon') return t('global.afternoon');
@@ -146,6 +146,14 @@ export default function TotalJobs() {
                                                         }
                                                     
                                                     }
+                                                    let status = item.status;
+                                                        if (status == "not-started") { status = t("j_status.not-started"); }
+                                                        if (status == "progress") { status = t("j_status.progress"); }
+                                                        if (status == "completed") { status = t("j_status.completed"); }
+                                                        if (status == "scheduled") { status = t("j_status.scheduled"); }
+                                                        if (status == "unscheduled") { status = t("j_status.unscheduled"); }
+                                                        if (status == "re-scheduled") { status = t("j_status.re-scheduled"); }
+                                                        if (status == "cancel") { status = t("j_status.cancel"); }
                                                     return(
                                                     <Tr key={index}>
                                                         <Td>
@@ -191,13 +199,8 @@ export default function TotalJobs() {
                                                              :"NA"
                                                             }
                                                         </Td>
-                                                        <Td
-                                                            style={{
-                                                                textTransform:
-                                                                    "capitalize",
-                                                            }}
-                                                        >
-                                                            {item.status}
+                                                        <Td>
+                                                            {status}
                                                             {(item.status=='cancel')?`(With Cancellation fees ${item.rate} +" "+${t('global.currency')})`:''}
                                                         </Td>
                                                         <Td>
