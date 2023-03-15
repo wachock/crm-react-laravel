@@ -21,7 +21,7 @@ export default function PriceOffer() {
     const [status, setStatus] = useState('');
 
     const getOffer = () => {
-
+       
         axios
             .post(`/api/client/get-offer`, { id: param.id })
             .then((res) => {
@@ -41,12 +41,11 @@ export default function PriceOffer() {
                 let serv = JSON.parse(res.data.offer[0].services);
                 let tm = [];
                 serv && serv.map(async (s, i) => {
-
-                    const d = await axiosTemplate(s.service);
-                    tm[i] = d.data.template.template;
+                    //const d  = await axiosTemplate(s.service);
+                    tm[i] = s.template;
                     tm = tm.filter((v, i, a) => { return a.indexOf(v) === i });
-                    setAllTemplates(tm);
                 });
+                setAllTemplates(tm);
 
 
 
@@ -124,14 +123,13 @@ export default function PriceOffer() {
             document.querySelector('.parent').style.display = 'block';
         }, 500);
     }, []);
-    let rg = [4, 5, 6, 7, 10];
     services && services.filter((s, i, a) => {
         if (i == 0 && s.service == '10' && a.length >= 2 && rg.includes(parseInt(s.service))) {
             [a[0], a[a.length - 1]] = [a[a.length - 1], a[0]];
             return a;
         }
     })
-    
+   
     return (
         <>
 
@@ -392,7 +390,7 @@ export default function PriceOffer() {
                                         </thead>
                                         <tbody>
                                             {services && services.map((s, i) => {
-                                                console.log(s);
+                                               
                                                 return (<tr>
 
                                                     <td>{
