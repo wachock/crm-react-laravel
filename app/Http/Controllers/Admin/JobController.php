@@ -303,16 +303,16 @@ class JobController extends Controller
     }
     public function getShifts($shift){
     $show_shift = array(
-        "Full Day",
-        "Morning",
-        'Afternoon',
-        'Evening',
-        'Night'
+        "Full Day"=>array('Full Day',''),
+        "Morning"=>array('Morning',''),
+        'Afternoon'=>array('Afternoon',''),
+        'Evening'=>array('Evening',''),
+        'Night'=>array('Night',''),
     );
     $shifts = explode(',', $shift);
     $check='';
     $new_shift='';
-    foreach($show_shift as $s_s){
+    foreach($show_shift as $s_s => $value){
          if($s_s == 'Afternoon'){
             $check ='noon';
          }else{
@@ -321,7 +321,12 @@ class JobController extends Controller
          foreach($shifts as $shift){
                if(str_contains($shift, strtolower($check))){
                    if($new_shift==''){
-                        $new_shift=$s_s;
+                        if($lng=='heb'){
+                           $new_shift=$value[1];
+                        }else{
+                           $new_shift=$value[0];
+                        }
+                        
                     }else{
                         if(!str_contains($new_shift, $s_s)){
                             $new_shift=$new_shift.' | '.$s_s;

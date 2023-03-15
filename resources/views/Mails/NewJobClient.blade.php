@@ -41,7 +41,12 @@
 				<tr>
 					<td style="border: 1px solid #dee2e6;font-size: 14px;padding: 8px">{{ \Carbon\Carbon::parse($job['job']['start_date'])->format('M d Y') }}</td>
 					<td style="border: 1px solid #dee2e6;font-size: 14px;padding: 8px">{{ $job["job"]['worker']['firstname'] }} {{ $job["job"]['worker']['lastname'] }}</td>
-					<td style="border: 1px solid #dee2e6;font-size: 14px;padding: 8px">{{ $job["job"]['jobservice']['name'] }}</td>
+					<td style="border: 1px solid #dee2e6;font-size: 14px;padding: 8px">@if($lng == 'heb')
+						{{ $job["job"]['jobservice']['heb_name'] }}
+					@else
+				          {{ $job["job"]['jobservice']['name'] }}
+				    @endif
+				      </td>
 					<td style="border: 1px solid #dee2e6;font-size: 14px;padding: 8px">{{ $job["job"]['shifts'] }} </td>
 					<td style="border: 1px solid #dee2e6;font-size: 14px;padding: 8px">{{__('mail.client_new_job.scheduled')}}</td>
 					<td style="border: 1px solid #dee2e6;font-size: 14px;padding: 8px;display:flex;height: 38px">
