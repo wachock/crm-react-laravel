@@ -8,6 +8,7 @@ import Moment from 'moment';
 export default function ViewOffer() {
 
   const [offer,setOffer] = useState([]);
+  const [perhour,setPerHour] = useState(0);
   const param            = useParams();
   const headers = {
     Accept: "application/json, text/plain, */*",
@@ -21,6 +22,7 @@ export default function ViewOffer() {
     .then((res)=>{
       let ar =[];
       ar.push(res.data.offer);
+      setPerHour(res.data.offer.perhour);
       setOffer(ar);
     });
  }
@@ -85,7 +87,7 @@ export default function ViewOffer() {
                             <th className='text-right'>Frequency</th>
                             <th className='text-right'>Job Hours</th>
                             <th style={ ofr.type != 'fixed'? {display:"none"} : {}} className='text-right'>Price</th>
-                            <th style={ ofr.type == 'fixed'? {display:"none"} : {}} className='text-right'>Rate Per Hour</th>
+                            <th style={ perhour == 0 ? {display:"none"} : {}} className='text-right'>Rate Per Hour</th>
                             <th style={ ofr.type == 'fixed'? {display:"none"} : {}} className='text-right'>Total Amount</th>
                           </tr>
                         </thead>
@@ -102,7 +104,7 @@ export default function ViewOffer() {
                               <td className='text-right'>{ s.freq_name }</td>
                               <td className='text-right'>{ s.jobHours } hour(s)</td>
                               {
-                                (ofr.type != 'fixed' ) ?
+                                (s.type != 'fixed' || perhour == 1 ) ?
                                 <>
                                   <td className='text-right'>{ s.rateperhour ? s.rateperhour +" ILS" : '--' } </td>
                                   <td className='text-right'>{ s.totalamount} ILS</td>

@@ -113,6 +113,18 @@ class DashboardController extends Controller
     public function viewOffer(Request $request){
         
         $offer = Offer::where('id',$request->id)->with('client')->get()->first();
+        if(isset($offer)){
+            $perhour = false;
+            $services = json_decode($offer->services);
+            if(isset($services)){
+                foreach($services as $service){
+                    if($service->type == 'hourly'){
+                        $perhour = true;
+                    }
+                }
+            }
+            ($perhour == true) ? $offer->perhour = 1 : $offer->perhour = 0;
+        }
         return response()->json([
             'offer' => $offer
         ]);
