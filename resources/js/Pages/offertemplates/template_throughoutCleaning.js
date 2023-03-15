@@ -1,4 +1,4 @@
-import logo from "../../Assets/image/logo.png";
+import logo from "../../Assets/image/sample.svg";
 import star from "../../Assets/image/icons/blue-star.png";
 import footer from "../../Assets/image/bg-bottom-footer.png";
 import Moment from 'moment';
@@ -12,9 +12,11 @@ export default function Throughout() {
             <div className='container'>
                 <div className='send-offer'>
                     <div className='maxWidthControl dashBox mb-4'>
-                    <div className='row'>
+                    <div className='row mb-3'>
                             <div className='col-sm-6'>
-                                <img src={logo} className='img-fluid offer-logo' alt='Broom Service' />
+                                <svg width="250" height="94" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">       
+                                    <image xlinkHref={logo} width="250" height="94"></image>
+                                </svg>
                             </div>
                         </div>
                         <div className='row'>

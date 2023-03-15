@@ -1,14 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import Form from "react-bootstrap/Form";
-import { Container } from "react-bootstrap";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Button from "react-bootstrap/Button";
-//import Footer from "../Worker/Layouts/Footer";
-//import Header from "../Worker/Layouts/Header";
-import ReCAPTCHA from "react-google-recaptcha";
-import logo from ".././Assets/image/logo.png";
+import logo from ".././Assets/image/sample.svg";
 
 export default function Login() {
     const [worker, setWorker] = useState("");
@@ -45,7 +36,9 @@ export default function Login() {
            <div id="loginPage">
             <div className="container adminLogin">
                 <div className="formSide"> 
-                    <img src={logo} className="img-fluid" />
+                    <svg width="250" height="94" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">       
+                        <image xlinkHref={logo} width="250" height="94"></image>
+                    </svg>
                     <h1 className="page-title">Worker Login</h1>
                     <form>
                         <div className="form-group">

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import logo from "../Assets/image/logo.png";
+import logo from "../Assets/image/sample.svg";
 import { useParams } from 'react-router-dom';
 import { useSSR, useTranslation } from "react-i18next";
 import i18next from 'i18next';
@@ -49,7 +49,9 @@ export default function Thankyou() {
 
     <div className='container'>
       <div className='thankyou dashBox maxWidthControl p-4'>
-        <img src={logo} alt='Broom Service' />
+        <svg width="190" height="77" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">       
+          <image xlinkHref={logo} width="190" height="77"></image>
+        </svg>
         {
           (status == 'pending' || instatus != status) ?
 

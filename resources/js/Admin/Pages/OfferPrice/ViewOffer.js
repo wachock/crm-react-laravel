@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Sidebar from '../../Layouts/Sidebar'
-import logo from "../../../Assets/image/logo.png";
+import logo from "../../../Assets/image/sample.svg";
 import Dropdown from 'react-bootstrap/Dropdown';
 import { useParams } from 'react-router-dom';
 import Moment from 'moment';
@@ -43,7 +43,9 @@ export default function ViewOffer() {
                 
              return(
               <div className='ViewOffer'>
-                <img src={logo} className="img-fluid" alt="Logo" />
+                  <svg width="190" height="77" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">       
+                    <image xlinkHref={logo} width="190" height="77"></image>
+                  </svg>
                 <div className='row'>
                   <div className='col-sm-5'>
                     <h2>Broom Service</h2>
