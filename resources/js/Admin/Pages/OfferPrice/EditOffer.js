@@ -22,7 +22,8 @@ export default function EditOffer() {
     jobHours: "",
     rateperhour: '',
     other_title:'',
-    totalamount: ''
+    totalamount: '',
+    template:''
   }])
   const [description, setDescription] = useState("");
   const [status, setStatus] = useState("");
@@ -44,6 +45,7 @@ export default function EditOffer() {
     newFormValues[i][e.target.name] = e.target.value;
     if (e.target.name == 'service') {
       newFormValues[i]['name'] = e.target.options[e.target.selectedIndex].getAttribute('name');
+      newFormValues[i]['template'] = e.target.options[e.target.selectedIndex].getAttribute('template');
     }
     if (e.target.name == 'frequency') {
       newFormValues[i]['freq_name'] = e.target.options[e.target.selectedIndex].getAttribute('name');
@@ -61,7 +63,8 @@ export default function EditOffer() {
       jobHours: "",
       rateperhour: '',
       other_title:'',
-      totalamount: ''
+      totalamount: '',
+      template:''
     }])
   }
 
@@ -196,10 +199,10 @@ export default function EditOffer() {
           formValues[t].other_title = document.querySelector('#other_title'+t).value;
           console.log(document.querySelector('#other_title'+t).value);
       }
-     
+      
 
     }
-    
+   
     let tax = (taxper/100) * to;
     const data = {
       client_id: client,
@@ -211,7 +214,7 @@ export default function EditOffer() {
     }
     
 
-    event.target.setAttribute('disabled1', true);
+    event.target.setAttribute('disabled', true);
     event.target.value = (event.target.value == 'Save') ? ('Saving..') :('Sending..');
     axios
       .put(`/api/admin/offers/${param.id}`, data, { headers })
@@ -220,7 +223,7 @@ export default function EditOffer() {
           for (let e in response.data.errors) {
             alert.error(response.data.errors[e]);
           }
-          document.querySelector('.saveBtn').removeAttribute('disabled1');
+          document.querySelector('.saveBtn').removeAttribute('disabled');
           document.querySelector('.saveBtn').value = (event.target.value == 'Save') ? ('Save') : ('Save and Send');
         } else {
           alert.success(response.data.message);
@@ -318,7 +321,7 @@ export default function EditOffer() {
                                       <option selected> -- select --</option>
                                       {AllServices && AllServices.map((s, i) => {
                                         return (
-                                          <option name={s.name} value={s.id}> {s.name} </option>
+                                          <option name={s.name} template={s.template} value={s.id}> {s.name} </option>
                                         )
                                       })}
                                     </select>
