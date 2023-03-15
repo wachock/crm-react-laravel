@@ -99,7 +99,25 @@ export default function Schedule() {
     navigate(`/admin/view-schedule/${cid}?sid=${id}`);
   }
 
-  
+  const copy = [...schedules];
+  const [order,setOrder] = useState('ASC');
+  const sortTable = (col) =>{
+      
+      if(order == 'ASC'){
+          const sortData = [...copy].sort((a, b) => (a[col] < b[col] ? 1 : -1));
+          setSchedules(sortData);
+          console.log(sortData);
+          setOrder('DESC');
+      }
+      if(order == 'DESC'){
+          const sortData = [...copy].sort((a, b) => (a[col] < b[col] ? -1 : 1));
+          setSchedules(sortData);
+          setOrder('ASC');
+      }
+      
+  }
+
+ 
   return (
     <div id="container">
       <Sidebar />
@@ -123,13 +141,13 @@ export default function Schedule() {
                 {schedules.length > 0 ? (
                   <Table className="table table-bordered">
                     <Thead>
-                      <Tr>
-                        <Th>ID</Th>
-                        <Th>Client</Th>
-                        <Th>Contact</Th>
-                        <Th>Address</Th>
-                        <Th>Meeting Attender</Th>
-                        <Th>Scheduled</Th>
+                      <Tr style={{cursor:"pointer"}} >
+                        <Th onClick={(e)=>{sortTable('id')}} >ID</Th>
+                        <Th onClick={(e)=>{sortTable('[client][firstname]')}} >Client</Th>
+                        <Th onClick={(e)=>{sortTable('client.phone')}} >Contact</Th>
+                        <Th onClick={(e)=>{sortTable('client.address')}} >Address</Th>
+                        <Th onClick={(e)=>{sortTable('[team][0][name]')}} >Meeting Attender</Th>
+                        <Th onClick={(e)=>{sortTable('start_date')}}>Scheduled</Th>
                         <Th>Booking Status</Th>
                         <Th>Action</Th>
                       </Tr>

@@ -1,5 +1,5 @@
 import React,{ useRef, useState, useEffect } from 'react'
-import logo from "../Assets/image/logo.png";
+import logo from "../Assets/image/sample.svg";
 import star from "../Assets/image/icons/blue-star.png";
 import SignatureCanvas from 'react-signature-canvas'
 import companySign from "../Assets/image/company-sign.png";
@@ -154,7 +154,9 @@ export default function WorkContract() {
             <div className='maxWidthControl dashBox mb-4'>
                 <div className='row'>
                     <div className='col-sm-6'>
-                        <img src={logo} className='img-fluid offer-logo' alt='Broom Service' />
+                        <svg width="190" height="77" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">       
+                            <image xlinkHref={logo} width="190" height="77"></image>
+                        </svg>
                     </div>
                     <div className='col-sm-6'>
                         <div className='mt-2 float-right'>

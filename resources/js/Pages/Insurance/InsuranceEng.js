@@ -1,6 +1,6 @@
 import React,{ useRef } from 'react'
 import SignatureCanvas from 'react-signature-canvas';
-import logo from "../../Assets/image/logo.png";
+import logo from "../../Assets/image/sample.svg";
 import insurancelogo from "../../Assets/image/insurance-logo.png";
 
 export default function InsuranceEng() {
@@ -55,7 +55,9 @@ export default function InsuranceEng() {
                     <img src={insurancelogo} className='img-fluid' alt='Insurance Logo' />
                 </div>
                 <div className='col-sm-6'>
-                    <img src={logo} className='img-fluid' alt='Broom Service' />
+                    <svg width="250" height="94" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">       
+                        <image xlinkHref={logo} width="250" height="94"></image>
+                    </svg>
                 </div>
             </div>
                 <h1>Meno Medic Top - Insurance Health for Proposal</h1>

@@ -96,6 +96,23 @@ export default function Clients() {
         navigate(`/admin/view-client/${id}`);
     }
 
+    const copy = [...clients];
+    const [order,setOrder] = useState('ASC');
+    const sortTable = (col) =>{
+        
+        if(order == 'ASC'){
+            const sortData = [...copy].sort((a, b) => (a[col] < b[col] ? 1 : -1));
+            setClients(sortData);
+            setOrder('DESC');
+        }
+        if(order == 'DESC'){
+            const sortData = [...copy].sort((a, b) => (a[col] < b[col] ? -1 : 1));
+            setClients(sortData);
+            setOrder('ASC');
+        }
+        
+    }
+
 
     return (
         <div id="container">
@@ -120,12 +137,12 @@ export default function Clients() {
                             {clients.length > 0 ? (
                                 <Table className='table table-bordered'>
                                     <Thead>
-                                        <Tr>
-                                            <Th>ID</Th>
-                                            <Th>Client Name</Th>
-                                            <Th>Email</Th>
-                                            <Th>Address</Th>
-                                            <Th>Phone</Th>
+                                        <Tr style={{cursor:'pointer'}}>
+                                            <Th onClick={(e)=>{sortTable('id')}} >ID</Th>
+                                            <Th onClick={(e)=>{sortTable('firstname')}}>Client Name</Th>
+                                            <Th onClick={(e)=>{sortTable('email')}}>Email</Th>
+                                            <Th onClick={(e)=>{sortTable('address')}}>Address</Th>
+                                            <Th onClick={(e)=>{sortTable('phone')}}>Phone</Th>
                                             <Th>Status</Th>
                                             <Th>Action</Th>
                                         </Tr>

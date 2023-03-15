@@ -1,5 +1,5 @@
 import React from 'react'
-import logo from "../../Assets/image/logo.png";
+import logo from "../../Assets/image/sample.svg";
 import bars from "../../Assets/image/icons/bars.svg";
 import { useAlert } from "react-alert";
 import { useNavigate } from "react-router-dom";
@@ -37,7 +37,11 @@ export default function MobileHeader() {
   return (
     <div className='mobileNav hidden-xl'>
         <nav className="navbar navbar-expand-lg navbar-dark fixed-top">
-            <a className="navbar-brand" href="/admin/dashboard"><img src={logo} className='img-fluid' /></a>
+            <a className="navbar-brand" href="/admin/dashboard">
+                <svg width="190" height="77" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">       
+                    <image xlinkHref={logo} width="190" height="77"></image>
+                </svg>
+            </a>
             <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span className="icon-bar">
                     <svg width="30" height="30" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">       

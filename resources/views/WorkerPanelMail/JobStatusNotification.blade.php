@@ -13,7 +13,9 @@
 		<table cellpadding="0" cellspacing="0" width="100%" >
 			<tr>
 				<td width="100%">
-					<img src="http://broom-service.n2rtech.com/images/logo.png" style="margin: 0 auto;display: block">
+					<svg style="display: block;margin: 0 auto;" width="333" height="135" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">       
+						<image xlink:href="http://broom-service.n2rtech.com/images/sample.svg" width="333" height="135"></image>
+					</svg>
 				</td>
 			</tr>
 		</table>

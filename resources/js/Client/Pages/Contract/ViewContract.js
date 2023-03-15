@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react'
 import Sidebar from '../../Layouts/ClientSidebar';
-import logo from "../../../Assets/image/logo.png";
+import logo from "../../../Assets/image/sample.svg";
 import star from "../../../Assets/image/icons/blue-star.png";
 import SignatureCanvas from 'react-signature-canvas'
 import companySign from "../../../Assets/image/company-sign.png";
@@ -111,9 +111,11 @@ export default function WorkContract() {
             <Sidebar />
             <div className='send-offer client-contract'>
                 <div className='maxWidthControl dashBox mb-4'>
-                    <div className='row'>
+                    <div className='row mb-4'>
                         <div className='col-sm-6'>
-                            <img src={logo} className='img-fluid offer-logo' alt='Broom Service' />
+                        <svg width="333" height="135" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">       
+                            <image xlinkHref={logo} width="333" height="135"></image>
+                        </svg>
                         </div>
                         {contract && contract.map((c, i) => {
 
@@ -121,14 +123,14 @@ export default function WorkContract() {
                                 (c.status == "Not signed") ?
                                     (
                                         <div className='col-sm-6'>
-                                            <div className='mt-2 float-right'>
+                                            <div className='acptButn float-right'>
                                                 <input className='btn btn-pink' onClick={handleAccept} value='Accept Contract' />
                                             </div>
                                         </div>
                                     )
                                     :
                                     <div className='col-sm-6'>
-                                        <div className='mt-2 float-right'>
+                                        <div className='acptButn float-right'>
                                             <input className='btn btn-success' value='Accepted' />
                                         </div>
                                     </div>
