@@ -270,7 +270,7 @@ class JobController extends Controller
                 $sub = __('mail.worker_new_job.subject')."  ".__('mail.worker_new_job.company');
                 $messages->subject($sub);
             });
-
+            $data['job']['shifts']=$this->getShifts($worker['shifts']);
             $client_mail[] = $data;
             $client_email  =  $job['client']['email'];
             $client_name  =  $job['client']['firstname'].' '.$job['client']['lastname'];
@@ -301,6 +301,38 @@ class JobController extends Controller
         ],200);
 
     }
+    public function getShifts($shift){
+    $show_shift = array(
+        "Full Day",
+        "Morning",
+        'Afternoon',
+        'Evening',
+        'Night'
+    );
+    $shifts = explode(',', $shift);
+    $check='';
+    $new_shift='';
+    foreach($show_shift as $s_s){
+         if($s_s == 'Afternoon'){
+            $check ='noon';
+         }else{
+            $check =$s_s;
+         }
+         foreach($shifts as $shift){
+               if(str_contains($shift, strtolower($check))){
+                   if($new_shift==''){
+                        $new_shift=$s_s;
+                    }else{
+                        if(!str_contains($new_shift, $s_s)){
+                            $new_shift=$new_shift.' | '.$s_s;
+                         }
+                    }
+               }
+         }
+    }
+     return $new_shift;
+
+ }
 
     public function getJobTime(Request $request){
          $time = JobHours::where('job_id',$request->job_id)->get();
