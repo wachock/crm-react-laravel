@@ -30,6 +30,21 @@ class JobController extends Controller
         $q =  $request->q;
         $jobs = Job::with('worker', 'client','offer','jobservice');
         $jobs = $jobs->orderBy('id', 'desc')->paginate(20);
+        foreach($jobs as $job){
+           $ava_workers = User::with('availabilities','jobs')->where('skill',  'like','%'.$job->jobservice->service_id.'%');
+           $ava_workers = $ava_workers->whereHas('availabilities', function ($query) use ($job) {
+                    $query->where('date', '=',$job->start_date);
+                });
+           $ava_workers = $ava_workers->where('status',1)->get();
+           $ava_worker = array();
+           foreach($ava_workers as $w){
+                $check_worker_job =  Job::where('worker_id',$w->id)->where('start_date',$job->start_date)->first();
+                if(!$check_worker_job){
+                   $ava_worker[]=$w;
+                }
+           }
+           $job->avl_worker=$ava_worker;
+        }
         return response()->json([
             'jobs'       => $jobs,        
         ], 200);
@@ -203,6 +218,7 @@ class JobController extends Controller
          $s_heb_name='';
          $s_hour='';
          $s_total='';
+         $s_id=0;
          foreach($request->services as $service){
                   $service_schedules = serviceSchedules::where('id','=',$service['frequency'])->first();
                   $ser = Services::where('id','=',$service['service'])->first();
@@ -217,6 +233,7 @@ class JobController extends Controller
                       }
                       $s_hour=$service['jobHours'];
                       $s_total=$service['totalamount'];
+                      $s_id=$service['service'];
 
          }
          $client_mail=array();
@@ -235,6 +252,7 @@ class JobController extends Controller
 
             $service           = new JobService;
             $service->job_id   = $new->id;
+            $service->service_id=$s_id;
             $service->name     = $s_name;
             $service->heb_name = $s_heb_name;
             $service->job_hour = $s_hour;
@@ -252,7 +270,7 @@ class JobController extends Controller
                 $sub = __('mail.worker_new_job.subject')."  ".__('mail.worker_new_job.company');
                 $messages->subject($sub);
             });
-
+            $data['job']['shifts']=$this->getShifts($worker['shifts']);
             $client_mail[] = $data;
             $client_email  =  $job['client']['email'];
             $client_name  =  $job['client']['firstname'].' '.$job['client']['lastname'];
@@ -283,6 +301,43 @@ class JobController extends Controller
         ],200);
 
     }
+    public function getShifts($shift){
+    $show_shift = array(
+        "Full Day"=>array('Full Day',''),
+        "Morning"=>array('Morning',''),
+        'Afternoon'=>array('Afternoon',''),
+        'Evening'=>array('Evening',''),
+        'Night'=>array('Night',''),
+    );
+    $shifts = explode(',', $shift);
+    $check='';
+    $new_shift='';
+    foreach($show_shift as $s_s => $value){
+         if($s_s == 'Afternoon'){
+            $check ='noon';
+         }else{
+            $check =$s_s;
+         }
+         foreach($shifts as $shift){
+               if(str_contains($shift, strtolower($check))){
+                   if($new_shift==''){
+                        if($lng=='heb'){
+                           $new_shift=$value[1];
+                        }else{
+                           $new_shift=$value[0];
+                        }
+                        
+                    }else{
+                        if(!str_contains($new_shift, $s_s)){
+                            $new_shift=$new_shift.' | '.$s_s;
+                         }
+                    }
+               }
+         }
+    }
+     return $new_shift;
+
+ }
 
     public function getJobTime(Request $request){
          $time = JobHours::where('job_id',$request->job_id)->get();
