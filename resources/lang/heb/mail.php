@@ -17,7 +17,7 @@ return [
         'reschedule'  =>'קבע מחדש',
         'below_line'  =>'אם יש לך שאלות או בקשות, אל תהסס ליצור איתנו קשר על ידי מענה למייל זה.',
         'best_regards'=>'תודה',
-        'company'     =>'Broom Services',
+        'company'     =>'ברום סרוויס',
         'tel'         =>'טלפון',
      ],
      'cancel_meeting'=>[
@@ -26,20 +26,20 @@ return [
         'hi'          =>'היי',
         'greetings'    =>'תזכורת',
         'from'        =>'מ',
-        'appointment' =>'רק תזכורת ידידותית שהפגישה שלך',
+        'appointment' =>'רציני להזכיר לך שהפגישה שלך',
         'with'        =>'עם',
-        'on'          =>'עַל',
+        'on'          =>'ב',
         'between'     =>'בין',
         'to'          =>'ל',
         'cancel_text' =>'has cancelled now.',
         'for'         =>'ל',
-        'service'     =>'שירות',
+        'service'     =>'הצעת מחיר',
         'accept'      =>'אשר',
         'reject'      =>'דחה',
         'reschedule'  =>'קבע מחדש',
         'below_line'  =>'אם יש לך שאלות או בקשות, אל תהסס ליצור איתנו קשר על ידי מענה למייל זה.',
         'best_regards'=>'תודה',
-        'company'     =>'Broom Services',
+        'company'     =>'ברום סרוויס',
         'tel'         =>'טלפון',
      ],
      'offer'=>[
@@ -47,11 +47,11 @@ return [
          'hi'          =>'היי',
          'greetings'   =>'הודעה',
          'from'        =>'מ',
-         'company'     =>'Broom Services',
+         'company'     =>'ברום סרוויס',
          'price_offer'=>'מצ"ב הצעת מחיר עבור',
-         'service_s'  =>'שירותים',
+         'service_s'  =>'שירות',
          'approve_txt'=>'לאחר אישורכם, יישלח אליכם הסכם התקשרות אותו תצטרכו למלא ולחתום למטה ואז נהיה מוכנים להתחיל בעבודה.',
-         'below_txt'  => 'לחץ על הכפתור למטה כדי לראות את הצעת המחיר.',
+         'below_txt'  => 'לחץ על הכפתור למטה כדי לצפות בהצעת המחיר.',
          'btn_txt'    =>'הצעת מחיר',
          'reply_txt'  =>'אם יש לך שאלות או בקשות, אל תהסס ליצור איתנו קשר על ידי מענה למייל זה.',
          'regards'    =>'תודה מראש',
@@ -60,10 +60,10 @@ return [
      'contract' =>[
          'subject'     =>'הסכם עם',
          'hi'          =>'היי',
-         'greetings'   =>'שלום רב',
-         'from'        =>'מ',
-         'company'     =>'Broom Service',
-         'content'     =>'מצ"ב הסכם התקשרות. נא מלא את כל הפרטים וחתום במקומות הנדרשים.
+         'greetings'   =>'לקוח יקר',
+         'from'        =>'',
+         'company'     =>'',
+         'content'     =>'מצ"ב הסכם התקשרות. נא מלאו את כל הפרטים וחתמו במקומות הנדרשים.
     לפרטי התשלום יש למלא את הcvv,שם בעל הכרטיס, תוקף, סוג הכרטיס וחתימתו של בעל הכרטיס.
     לשאר הפרטים ניצור אתכם קשר טלפוני על מנת לשמור על פרטי האשראי שלכם בצורכה מאובטחת.
     לכל שאלה אנא השיבו למייל זה או צרו איתנו קשר בטלפון: 03-525-70-60
@@ -102,7 +102,7 @@ return [
          'hi'          =>'היי',
          'greetings'   =>'הודעה',
          'from'        =>'מ',
-         'company'     =>'Broom Services',
+         'company'     =>'ברום סרוויס',
          'content'     =>'מצ"ב הסכם התקשרות. נא מלא את הפרטים הנדרשים, וחתום במקומות הנדרשים.
     לפרטי התשלום יש למלא את הcvv,תוקף, סוג הכרטיס וחתימתו של בעל הכרטיס.
     לשאר הפרטים ניצור אתכם קשר טלפוני על מנת לשמור על פרטי האשראי שלכם בצורכה מאובטחת.
@@ -128,8 +128,8 @@ return [
         'hi'          =>'Hi',
         'greetings'   =>'Greetings',
         'from'        =>'from',
-        'company'     =>'Broom Services',
-        'content'     =>'New Job Assign.Please check the details.',
+        'company'     =>'ברום סרוויס',
+        'content'     =>'New service request.Please check the details.',
         'below_txt'   =>'Click the below button to check the contract.',
         'btn_txt'     =>'Check Contract',
         'reply_txt'   =>'If you have any questions or concerns please don\'t hesitate to get in touch with us by replying to this email.',
@@ -138,17 +138,26 @@ return [
 
     ],
     'client_new_job' =>[
-        'subject'     =>'עבודה חדשה עם',
+        'subject'     =>'תזכורת לגבי שירות שהזמנתם',
         'hi'          =>'היי',
-        'greetings'   =>'מילות ברכה',
-        'from'        =>'מ',
-        'company'     =>'Broom Services',
-        'content'     =>'עבודה חדשה שנוצרה.אנא בדוק את הפרטים.',
-        'below_txt'   =>'לחץ על הלחצן למטה כדי לבדוק את החוזה.',
-        'btn_txt'     =>'בדוק חוזה',
-        'reply_txt'   =>'אם יש לך שאלות או חששות, אנא אל תהסס ליצור איתנו קשר על ידי מענה לדוא"ל זה.',
-        'regards'     =>'שא ברכה',
-        'tel'         =>'טלפון'
+        'greetings'   =>'לקוח יקר',
+        'from'        =>'',
+        'company'     =>'',
+        'content'     =>'שירות שהזמנת. לצפיה בפרטים.',
+        'below_txt'   =>'לחץ על הלחצן למטה כדי לבדוק את ההסכם.',
+        'btn_txt'     =>'בדוק הסכם',
+        'reply_txt'   =>'אם יש לך שאלות או בקשות, אנא אל תהסס ליצור איתנו קשר על ידי מענה לדוא"ל זה.',
+        'regards'     =>'בברכה',
+        'tel'         =>'טלפון',
+        'date'        => 'תאריך',
+        'worker'      => 'עובד',
+        'service'     => 'שירות',
+        'shift'       => 'משמרת',
+        'status'      => 'סטטוס',
+        'action'      => 'פעולה',
+        'scheduled'   => 'שובץ',
+        'to'          => 'ל',
+        'view_job'    =>'הצג פרטים'
 
     ],
 ];

@@ -193,10 +193,6 @@ export default function WorkContract() {
                         <li className='list-inline-item'>{t('work-contract.enterance_code')} <span>{ cl.entrence_code }</span></li>
                     </ul>
                     <ul className='list-inline'>
-                        <li className='list-inline-item ml-2'>{t('work-contract.zip_code')} <span>{ cl.zipcode }</span></li>
-                        <li className='list-inline-item'>{t('work-contract.dob')} <span>{ cl.dob }</span></li>
-                    </ul>
-                    <ul className='list-inline'>
                         <li className='list-inline-item ml-2'>{t('work-contract.telephone')} <span>{ cl.phone }</span></li>
                         <li className='list-inline-item'>{t('work-contract.email')} <span>{ cl.email }</span></li>
                     </ul>

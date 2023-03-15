@@ -1,7 +1,14 @@
 {
     "global":{
         "vat": "VAT",
-        "currency": "ILS"
+        "currency": "ILS",
+        "perhour":"per hour",
+        "morning":"Morning",
+        "noon":"Noon",
+        "afternoon":"Afternoon",
+        "evening":"Evening"
+
+
     },
     "res_txt": "Thankyou for your response",
     "meet_accept": {
