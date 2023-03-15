@@ -800,7 +800,7 @@ Mr/Ms___________________________, to handle on my behalf and for me all matters 
                         </table>
                     </div>
                     <div className='button mt-4 text-center'>
-                        <input class="btn btn-pink" value="Save" />
+                        <input class="btn btn-pink" value="Submit" />
                     </div>
                 </div>
             </div>
