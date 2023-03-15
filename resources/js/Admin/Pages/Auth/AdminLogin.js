@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useAlert } from "react-alert";
-import loginbg from "../../../Assets/image/loginbg.jpeg";
-import logo from "../../../Assets/image/logo.png";
+import logo from "../../../Assets/image/sample.svg";
 
 export default function AdminLogin() {
     const alert = useAlert();
@@ -34,7 +33,16 @@ export default function AdminLogin() {
         <div id="loginPage">
             <div className="container adminLogin">
                 <div className="formSide"> 
-                    <img src={logo} className="img-fluid" />
+                    <div className="hidden-xs ifRTL">
+                        <svg width="333" height="135" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">       
+                            <image xlinkHref={logo} width="333" height="135"></image>
+                        </svg>
+                    </div>
+                    <div className="hidden-xl ifRTL">
+                        <svg width="250" height="94" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">       
+                            <image xlinkHref={logo} width="250" height="94"></image>
+                        </svg>
+                    </div>
                     <h1 className="page-title">Admin Login</h1>
                     <form>
                         <div className="form-group">

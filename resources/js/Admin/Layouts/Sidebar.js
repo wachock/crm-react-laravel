@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useAlert } from "react-alert";
 import { useNavigate } from "react-router-dom";
-import logo from "../../Assets/image/logo.png";
+import logo from "../../Assets/image/sample.svg";
 import { NavLink } from 'react-router-dom';
 
 export default function Sidebar() {
@@ -39,7 +39,9 @@ export default function Sidebar() {
         <div id="column-left">
             <div className="sideLogo">
                 <Link to="/admin/dashboard">
-                    <img src={logo} className="img-fluid" alt="Logo" />
+                  <svg width="190" height="77" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">       
+                    <image xlinkHref={logo} width="190" height="77"></image>
+                  </svg>
                 </Link>
             </div>
             <ul className="list-group">

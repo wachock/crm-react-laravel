@@ -8,6 +8,9 @@
 .hidden-xl{
     display: none;
 }
+.acptButn{
+    margin-top: 75px;
+}
 }
 @media (max-width: 767px){
 .hidden-xs{
@@ -539,7 +542,7 @@ footer .copyright{
 }
 .navbar{
     background: #fff;
-    padding: 10px;
+    padding: 0px 10px;
 }
 .navbar-brand img{
     max-width: 210px;
