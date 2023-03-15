@@ -106,7 +106,6 @@ export default function Schedule() {
       if(order == 'ASC'){
           const sortData = [...copy].sort((a, b) => (a[col] < b[col] ? 1 : -1));
           setSchedules(sortData);
-          console.log(sortData);
           setOrder('DESC');
       }
       if(order == 'DESC'){
@@ -146,7 +145,7 @@ export default function Schedule() {
                         <Th onClick={(e)=>{sortTable('[client][firstname]')}} >Client</Th>
                         <Th onClick={(e)=>{sortTable('client.phone')}} >Contact</Th>
                         <Th onClick={(e)=>{sortTable('client.address')}} >Address</Th>
-                        <Th onClick={(e)=>{sortTable('[team][0][name]')}} >Meeting Attender</Th>
+                        <Th onClick={(e)=>{sortTable('schedules.team.name')}} >Meeting Attender</Th>
                         <Th onClick={(e)=>{sortTable('start_date')}}>Scheduled</Th>
                         <Th>Booking Status</Th>
                         <Th>Action</Th>
