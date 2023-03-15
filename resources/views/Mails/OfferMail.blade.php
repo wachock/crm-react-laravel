@@ -21,9 +21,7 @@
 		<table cellpadding="0" cellspacing="0" width="100%" >
 			<tr>
 				<td width="100%">
-					<svg style="display: block;margin: 0 auto;" width="333" height="135" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">       
-						<image xlink:href="http://broom-service.n2rtech.com/images/sample.svg" width="333" height="135"></image>
-					</svg>
+					<img src="http://broom-service.n2rtech.com/images/sample.png" style="margin: 0 auto;display: block">
 				</td>
 			</tr>
 		</table>
@@ -32,7 +30,7 @@
 	
 		<p style="text-align: center;margin-bottom: 20px">{{__('mail.offer.below_txt')}}</p>
 		<div style="text-align: center;">
-			<a href='{{ url("price-offer/".$id)}}' target="_blank" style="text-decoration: none;background: #ef6c6b;color: #fff;border: 1px solid #ef6c6b;font-size: 16px;padding: 10px 24px;border-radius: 4px;cursor: pointer">{{__('mail.offer.btn_txt')}}</a> 
+			<a href='{{ url("price-offer/".base64_encode($id))}}' target="_blank" style="text-decoration: none;background: #ef6c6b;color: #fff;border: 1px solid #ef6c6b;font-size: 16px;padding: 10px 24px;border-radius: 4px;cursor: pointer">{{__('mail.offer.btn_txt')}}</a> 
 		</div>
 		<p style="margin-top: 40px">{{__('mail.offer.reply_txt')}}</p>
 		<p style="font-weight: 700;margin-bottom: 0;">{{__('mail.offer.regards')}}</p>

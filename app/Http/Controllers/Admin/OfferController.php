@@ -115,7 +115,7 @@ class OfferController extends Controller
         Mail::send('/Mails/OfferMail',$offer,function($messages) use ($offer){
             $messages->to($offer['client']['email']);
             ($offer['client']['lng'] == 'en') ?
-            $sub = __('mail.offer.subject')." ".__('mail.offer.from')." ".__('mail.offer.company')." #".$offer['id']
+            $sub = __('mail.offer.subject')." ".__('mail.offer.from')." ".__('mail.offer.company')." #".base64_encode($offer['id'])
             : $sub = $offer['id']."# ". __('mail.offer.subject')." ".__('mail.offer.from')." ".__('mail.offer.company');
             $messages->subject($sub);
         });
