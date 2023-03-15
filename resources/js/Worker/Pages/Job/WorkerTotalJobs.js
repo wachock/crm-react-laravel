@@ -100,7 +100,6 @@ export default function WorkerTotalJobs() {
                                                 <Th scope="col">{t('worker.jobs.address')}</Th>
                                                 <Th scope="col">{t('worker.jobs.c_time')}</Th>
                                                 <Th scope="col">{t('worker.jobs.status')}</Th>
-                                                <Th scope="col">{t('worker.jobs.total')}</Th>
                                                 <Th scope="col">{t('worker.jobs.action')}</Th>
                                             </Tr>
                                         </Thead>
@@ -155,9 +154,6 @@ export default function WorkerTotalJobs() {
                                                             }}
                                                         >
                                                             {item.status}
-                                                        </Td>
-                                                        <Td>
-                                                            {item.jobservice.total} ILS 
                                                         </Td>
                                                         <Td>
                                                             <Link to={`/worker/view-job/${item.id}`} className="btn btn-primary">{t('worker.jobs.viewbtn')}</Link>
