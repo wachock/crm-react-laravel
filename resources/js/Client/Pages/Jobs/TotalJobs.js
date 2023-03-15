@@ -118,8 +118,8 @@ export default function TotalJobs() {
                                         <Thead>
                                             <Tr>
                                                 <Th scope="col">{t('client.jobs.job_date')}</Th>
-                                                <Th scope="col">{t('client.jobs.worker_name')}</Th>
-                                                <Th scope="col">{t('client.jobs.client_name')}</Th>
+                                                <Th scope="col" style={{ display:'none' }}>{t('client.jobs.worker_name')}</Th>
+                                                <Th scope="col" style={{ display:'none' }}>{t('client.jobs.client_name')}</Th>
                                                 <Th scope="col">{t('client.jobs.service_name')}</Th>
                                                 <Th scope="col">{t('client.jobs.shift')}</Th>
                                                 <Th scope="col">{t('client.jobs.address')}</Th>
@@ -151,7 +151,7 @@ export default function TotalJobs() {
                                                         <Td>
                                                            {Moment(item.start_date).format('DD MMM,Y')}
                                                         </Td>
-                                                        <Td>
+                                                        <Td style={{ display:'none' }}>
                                                             <h6>{
                                                                 item.worker
                                                                     ? item.worker.firstname +
@@ -161,7 +161,7 @@ export default function TotalJobs() {
                                                             
                                                            
                                                         </Td>
-                                                        <Td>{
+                                                        <Td style={{ display:'none' }}>{
                                                             item.client
                                                                 ? item.client.firstname +
                                                                 " " + item.client.lastname
