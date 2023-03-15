@@ -20,10 +20,10 @@ export default function files() {
         Authorization: `Bearer ` + localStorage.getItem("admin-token"),
     };
 
-    const handleFileChange = (e) =>{
+    const handleFileChange = (e) => {
         let type = e.target.files[0].type.split('/')[1];
-        let allow = ['jpeg','png','jpg','mp4','webm'];
-        if(allow.includes(type)){
+        let allow = ['jpeg', 'png', 'jpg', 'mp4', 'webm'];
+        if (allow.includes(type)) {
             setFile(e.target.files[0]);
         } else {
             setFile([]);
@@ -129,6 +129,7 @@ export default function files() {
                 </button>
             </div>
             {AllFiles && AllFiles.map((f, i) => {
+                console.log(f.type);
                 return (
 
                     <div className="card card-widget widget-user-2" style={{ "box-shadow": "none" }}>
@@ -139,7 +140,24 @@ export default function files() {
                                     <span className="noteDate" style={{ "font-weight": "600" }}>
                                         {Moment(f.created_at).format('DD-MM-Y h:sa')} <br />
                                         <span className="badge badge-warning text-dark">
-                                            <a href={f.path} >{f.file}</a>
+                                            <a  onClick={(e)=>{
+                                                let show =document.querySelector('.showFile');
+                                                let showvideo = document.querySelector('.showvideo');
+                                                if(f.type == "image"){
+                                                    show.setAttribute('src',f.path);
+                                                    show.style.display = 'block'
+                                                    showvideo.style.display='none'
+                                                }
+                                                else{
+                                                    showvideo.setAttribute('src',f.path);
+                                                    showvideo.style.display = 'block'
+                                                    show.style.display='none'
+                                                }
+                                            
+                                            }} 
+                                            data-toggle="modal" 
+                                            data-target="#exampleModalFile" 
+                                            style={{cursor:'pointer'}}>{f.file}</a>
                                         </span>
                                     </span>
                                 </div>
@@ -248,6 +266,36 @@ export default function files() {
                             <button type="button" className="btn btn-secondary closeb" data-dismiss="modal">Close</button>
                             <button type="button" onClick={handleFile} className="btn btn-primary">Save File</button>
                         </div>
+                    </div>
+                </div>
+            </div>
+
+            <div className="modal fade" id="exampleModalFile" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div className="modal-dialog" role="document">
+                    <div className="modal-content" style={{width:'130%'}}>
+                        <div className="modal-header">
+                            <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div className="modal-body">
+
+                            <div className="row">
+                                <div className="col-sm-12">
+                                    <div className="form-group">
+                                        <img src="" className="showFile form-control"/>
+                                        <video className="form-control showvideo" controls>
+                                        <source src="" type="video/mp4" />    
+                                        </video>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                       
                     </div>
                 </div>
             </div>

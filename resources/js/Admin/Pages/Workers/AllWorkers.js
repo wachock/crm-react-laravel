@@ -95,6 +95,23 @@ export default function AllWorkers() {
         navigate(`/admin/view-worker/${id}`);
     }
 
+    const copy = [...workers];
+    const [order,setOrder] = useState('ASC');
+    const sortTable = (col) =>{
+        
+        if(order == 'ASC'){
+            const sortData = [...copy].sort((a, b) => (a[col] < b[col] ? 1 : -1));
+            setWorkers(sortData);
+            setOrder('DESC');
+        }
+        if(order == 'DESC'){
+            const sortData = [...copy].sort((a, b) => (a[col] < b[col] ? -1 : 1));
+            setWorkers(sortData);
+            setOrder('ASC');
+        }
+        
+    }
+
     return (
         <div id="container">
             <Sidebar />
@@ -121,11 +138,11 @@ export default function AllWorkers() {
                                     <Table className='table table-bordered'>
                                         <Thead>
                                             <Tr style={{"cursor":"pointer"}}>
-                                                <Th>ID</Th>
-                                                <Th>Worker Name</Th>
-                                                <Th>Email</Th>
-                                                <Th>Address</Th>
-                                                <Th>Phone</Th>
+                                                <Th onClick={(e)=>{sortTable('id')}} >ID</Th>
+                                                <Th onClick={(e)=>{sortTable('firstname')}} >Worker Name</Th>
+                                                <Th onClick={(e)=>{sortTable('email')}} >Email</Th>
+                                                <Th onClick={(e)=>{sortTable('address')}} >Address</Th>
+                                                <Th onClick={(e)=>{sortTable('phone')}}>Phone</Th>
                                                 <Th>Status</Th>
                                                 <Th>Action</Th>
                                             </Tr>
