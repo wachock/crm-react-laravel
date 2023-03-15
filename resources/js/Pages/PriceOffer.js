@@ -8,6 +8,8 @@ import swal from 'sweetalert'
 import axios from 'axios';
 import { useTranslation } from "react-i18next";
 import i18next from 'i18next';
+import { Base64 } from "js-base64";
+
 
 export default function PriceOffer() {
 
@@ -23,7 +25,7 @@ export default function PriceOffer() {
     const getOffer = () => {
        
         axios
-            .post(`/api/client/get-offer`, { id: param.id })
+            .post(`/api/client/get-offer`, { id: Base64.decode(param.id) })
             .then((res) => {
                 setOffer(res.data.offer[0]);
                 setStatus(res.data.offer[0].status);
