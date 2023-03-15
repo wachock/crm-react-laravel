@@ -1562,6 +1562,19 @@ h1 {
     text-align: left !important;
     direction: ltr;
 }
+.insurance-heb {
+    text-align: right !important;
+    direction: rtl;
+}
+.insurance-heb p {
+    text-align: right !important;
+    direction: rtl;
+}
+.insurance-heb .insurancetable .table tr td p{
+    text-align: right !important;
+    margin-bottom: 0px !important;
+    direction: rtl;
+}
 .insurance-eng .dashBox {
     padding-bottom: 20px !important;
 }
@@ -1634,7 +1647,7 @@ h1 {
 .insurancetable .sigCanvas {
     border: 1px solid #ccc;
     max-width: 300px !important;
-    display: block;
+    display: inherit;
     margin-bottom: 10px;
 }
 .insurancetable .table tr td p span {
