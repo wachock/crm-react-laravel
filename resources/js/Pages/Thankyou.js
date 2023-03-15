@@ -3,6 +3,7 @@ import logo from "../Assets/image/sample.svg";
 import { useParams } from 'react-router-dom';
 import { useSSR, useTranslation } from "react-i18next";
 import i18next from 'i18next';
+import { Base64 } from "js-base64";
 
 export default function Thankyou() {
 
@@ -13,11 +14,11 @@ export default function Thankyou() {
   const updateMeeting = () => {
     let res = (param.response == "accept") ? 'confirmed' : 'declined';
     axios
-      .post(`/api/client/accept-meeting`, { id: param.id, response: res })
+      .post(`/api/client/accept-meeting`, { id: Base64.decode(param.id), response: res })
   }
   const getMeeting = () => {
     axios
-      .post(`/api/client/meeting`, { id: param.id })
+      .post(`/api/client/meeting`, { id: Base64.decode(param.id) })
       .then((res) => {
 
         const stat = res.data.schedule.booking_status;
