@@ -23,7 +23,7 @@ export default function PriceOffer() {
     const [status, setStatus] = useState('');
 
     const getOffer = () => {
-       
+
         axios
             .post(`/api/client/get-offer`, { id: Base64.decode(param.id) })
             .then((res) => {
@@ -131,7 +131,7 @@ export default function PriceOffer() {
             return a;
         }
     })
-   
+
     return (
         <>
 
@@ -140,7 +140,7 @@ export default function PriceOffer() {
                     <div className='maxWidthControl dashBox mb-4'>
                         <div className='row'>
                             <div className='col-sm-6'>
-                                <svg width="250" height="94" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">       
+                                <svg width="250" height="94" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
                                     <image xlinkHref={logo} width="250" height="94"></image>
                                 </svg>
                             </div>
@@ -225,11 +225,11 @@ export default function PriceOffer() {
 
                             }
                             {
-                            /*(!rg.includes(sid) && sid == 4)
-                                && (!rg.includes(sid) && sid == 5)
-                                && (!rg.includes(sid) && sid == 6)
-                                && (!rg.includes(sid) && sid == 7)
-                                || (rg.includes(sid) && sid == 10)*/
+                                /*(!rg.includes(sid) && sid == 4)
+                                    && (!rg.includes(sid) && sid == 5)
+                                    && (!rg.includes(sid) && sid == 6)
+                                    && (!rg.includes(sid) && sid == 7)
+                                    || (rg.includes(sid) && sid == 10)*/
                             }
 
 
@@ -394,7 +394,7 @@ export default function PriceOffer() {
                                         </thead>
                                         <tbody>
                                             {services && services.map((s, i) => {
-                                               
+
                                                 return (<tr>
 
                                                     <td>{
@@ -406,8 +406,8 @@ export default function PriceOffer() {
 
                                                     <td>{s.freq_name}</td>
                                                     {(s.type == "fixed") ?
-                                                    <td>{s.totalamount} {t('global.currency')}</td>
-                                                    :<td>{s.rateperhour} {t('global.currency')} {t('global.perhour')}  {`X`+s.jobHours} </td>
+                                                        <td>{s.totalamount} {t('global.currency')}</td>
+                                                        : <td>{s.rateperhour} {t('global.currency')} {t('global.perhour')}  {`X` + s.jobHours} </td>
                                                     }
 
 
@@ -478,9 +478,17 @@ export default function PriceOffer() {
                                 </ul>
                             </div>
                         </div>
-                        <div className='text-center mt-3 mb-3'>
-                            <input className='btn btn-pink acpt' onClick={(e) => handleOffer(e, offer.id)} value={t('price_offer.button')} />
-                        </div>
+                        {
+                            (status == 'sent') ?
+                                <>
+                                    <div className='text-center mt-3 mb-3'>
+                                        <input className='btn btn-pink acpt' onClick={(e) => handleOffer(e, offer.id)} value={t('price_offer.button')} />
+                                    </div>
+                                </>
+
+                                : ''
+                        }
+
                         <footer className='mt-4'>
                             <img src={footer} className='img-fluid' alt='Footer' />
                         </footer>
