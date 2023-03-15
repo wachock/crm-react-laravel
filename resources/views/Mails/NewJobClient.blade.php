@@ -19,7 +19,9 @@
 		<table cellpadding="0" cellspacing="0" width="100%" >
 			<tr>
 				<td width="100%">
-					<img src="http://broom-service.n2rtech.com/images/logo.png" style="margin: 0 auto;display: block">
+					<svg width="250" height="94" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">       
+						<image xlinkHref="http://broom-service.n2rtech.com/images/sample.svg" width="250" height="94"></image>
+					</svg>
 				</td>
 			</tr>
 		</table>
