@@ -114,7 +114,9 @@ class OfferController extends Controller
         \App::setLocale($offer['client']['lng']);
         Mail::send('/Mails/OfferMail',$offer,function($messages) use ($offer){
             $messages->to($offer['client']['email']);
-            $sub = __('mail.offer.subject')." ".__('mail.offer.from')." ".__('mail.offer.company')." #".$offer['id'];
+            ($offer['client']['lng'] == 'en') ?
+            $sub = __('mail.offer.subject')." ".__('mail.offer.from')." ".__('mail.offer.company')." #".$offer['id']
+            : $sub = $offer['id']."# ". __('mail.offer.subject')." ".__('mail.offer.from')." ".__('mail.offer.company');
             $messages->subject($sub);
         });
 

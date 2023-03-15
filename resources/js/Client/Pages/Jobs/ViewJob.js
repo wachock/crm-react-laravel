@@ -96,7 +96,7 @@ export default function ViewJob() {
                             <div className="col-sm-12">
                                 <div className="row">
                                    <div className="col-sm-8 ">
-                                      <h2 className="text-custom">{t('client.jobs.view.worker_details')}</h2>
+                                      <h2 className="text-custom" style={{ display:'none' }}>{t('client.jobs.view.worker_details')}</h2>
                                     </div>
                                     <div className="col-sm-2 text-right">
                                     {t('client.jobs.view.job_status')} : <h6 className="text-custom" style={{textTransform: "capitalize"}}>{job.status}</h6>
@@ -106,7 +106,7 @@ export default function ViewJob() {
                                     </div>
                                 </div>
                                
-                                <WorkerDetails worker={worker} />
+                                
                             </div>
                             <div className="col-sm-12">
                                 <Services services={services} job={job} />

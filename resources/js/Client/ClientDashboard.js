@@ -62,14 +62,19 @@ export default function ClientDashboard() {
                                 new_shift=p;
                             }else{
                                 if(!new_shift.includes(p)){
-                                   new_shift=new_shift+','+p;
+                                   new_shift=t('global.'+(new_shift).toLowerCase())+' | '+t('global.'+p.toLowerCase());
                                  }
                             }
                             
                         }
                      })
             })
+        if(new_shift == 'Morning') return t('global.morning');
+        if(new_shift == 'Noon') return t('global.noon');
+        if(new_shift == 'Afternoon') return t('global.afternoon');
+        if(new_shift == 'Evening') return t('global.evening');
         return new_shift;
+
     }
 
 
@@ -144,11 +149,11 @@ export default function ClientDashboard() {
                                     <Table className="table table-bordered responsiveTable">
                                         <Thead>
                                             <Tr>
-                                                <Th>{t('client.dashboard.client_name')}</Th>
+                                                <Th style={{ display:'none' }}>{t('client.dashboard.client_name')}</Th>
                                                 <Th>{t('client.dashboard.service_name')}</Th>
                                                 <Th>{t('client.dashboard.date')}</Th>
                                                 <Th>{t('client.dashboard.shift')}</Th>
-                                                <Th>{t('client.dashboard.assigned_worker')}</Th>
+                                                <Th style={{ display:'none' }}>{t('client.dashboard.assigned_worker')}</Th>
                                                 <Th>{t('client.dashboard.status')}</Th>
                                                 <Th>{t('client.dashboard.total')}</Th>
                                                 <Th>{t('client.dashboard.action')}</Th>
@@ -161,7 +166,7 @@ export default function ClientDashboard() {
 
                                                         return (
                                                             <Tr key={index}>
-                                                                <Td>{
+                                                                <Td style={{ display:'none' }}>{
                                                                     item.client
                                                                         ? item.client.firstname +
                                                                         " " + item.client.lastname
@@ -180,7 +185,7 @@ export default function ClientDashboard() {
                                                                 <Td>
                                                                     { getShift(item.shifts) }
                                                                 </Td>
-                                                                <Td>{
+                                                                <Td style={{ display:'none' }}>{
                                                                     item.worker
                                                                         ? item.worker.firstname +
                                                                         " " + item.worker.lastname

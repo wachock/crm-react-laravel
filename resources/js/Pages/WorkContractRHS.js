@@ -79,12 +79,6 @@ export default function WorkContractRHS() {
                         </li>
                     </ul>
                     <ul className="list-inline customRTL">
-                        <li className="list-inline-item ml-2">Zip code: <span>110044</span>
-                        </li>
-                        <li className="list-inline-item">DOB: <span>1997-03-21</span>
-                        </li>
-                    </ul>
-                    <ul className="list-inline customRTL">
                         <li className="list-inline-item ml-2">Telephone: <span>9238478214</span>
                         </li>
                         <li className="list-inline-item">Email: <span>itsmsohrabkhan@gmail.com</span>

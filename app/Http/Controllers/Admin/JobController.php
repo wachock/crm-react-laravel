@@ -271,7 +271,7 @@ class JobController extends Controller
          Mail::send('/Mails/NewJobClient',$client_data,function($messages) use ($client_data){
                 $messages->to($client_data['email']);
                 $id = $client_data['jobs'][0]['job']['id'];
-                ($client_data) ?
+                ($client_data['lng'] == 'en') ?
                 $sub = __('mail.client_new_job.subject')."  ".__('mail.client_new_job.company')." #".$id:
                 $sub = $id."# ".__('mail.client_new_job.subject')."  ".__('mail.client_new_job.company');
                 $messages->subject($sub);

@@ -185,34 +185,34 @@ export default function WorkerContract() {
                     </div>
                 </div>
                 <div className='shift-30'>
-                    <h6 className='text-underline'>5. Role definition</h6>
+                    <h6 className='text-underline'>{ t('worker_contract.heading_5') }</h6>
                     <div className='agg-list'>
                         <div className='icons'><img src={star} /></div>
                         <div className='agg-text'>
-                            <p>5.1.	The Company shall employ the Employee, and the Employee undertakes to work for the Company as a foreman and maintenance manager</p>
+                            <p>{ t('worker_contract.heading_5_1') }</p>
                         </div>
                     </div>
                     <div className='agg-list'>
                         <div className='icons'><img src={star} /></div>
                         <div className='agg-text'>
-                            <p>5.2.	The description of the Employee’s roles, his fields of occupation and his authorities shall be determined from time to time by the Company management, throughout the agreement term, as it is defined hereinafter:</p>
+                            <p>{ t('worker_contract.heading_5_2') }</p>
                             <div className='shift-30'>
                                 <div className='agg-list'>
                                     <div className='icons'><img src={star} /></div>
                                     <div className='agg-text'>
-                                        <p>5.2.1 Housekeeping</p>
+                                        <p>{ t('worker_contract.heading_5_2_1') }</p>
                                     </div>
                                 </div>
                                 <div className='agg-list'>
                                     <div className='icons'><img src={star} /></div>
                                     <div className='agg-text'>
-                                        <p>5.2.2 Working to the satisfaction of the Company’s clients and at the Company’s standards.</p>
+                                        <p>{ t('worker_contract.heading_5_2_2') }</p>
                                     </div>
                                 </div>
                                 <div className='agg-list'>
                                     <div className='icons'><img src={star} /></div>
                                     <div className='agg-text'>
-                                        <p>5.2.3 Responsibility and keeping the Company’s equipment and the cleaning materials which the Company shall provide the Employee.</p>
+                                        <p>{ t('worker_contract.heading_5_2_3') }</p>
                                     </div>
                                 </div>
                             </div>
@@ -220,17 +220,17 @@ export default function WorkerContract() {
                     </div>
                 </div>
                 <div className='shift-30'>
-                    <h6 className='text-underline'>6 Work days and working hours</h6>
+                    <h6 className='text-underline'>{ t('worker_contract.heading_6') }</h6>
                     <div className='agg-list'>
                         <div className='icons'><img src={star} /></div>
                         <div className='agg-text'>
-                            <p>6.1 The Employee’s work days and working house shall be as follows: at most: Sunday to Thursday, about 9 hours a day.</p>
+                            <p>{ t('worker_contract.heading_6_1') }</p>
                         </div>
                     </div>
                     <div className='agg-list'>
                         <div className='icons'><img src={star} /></div>
                         <div className='agg-text'>
-                            <p>6.2 Fridays if necessary.</p>
+                            <p>{ t('worker_contract.heading_6_2') }</p>
                         </div>
                     </div>
                 </div>

@@ -28,7 +28,7 @@ export default function ProfileDetails({ client, offerStatus, scheduleStatus, la
 
     const cardType = (latestContract) ? latestContract.card_type : '';
     const nameOnCard = (latestContract) ? latestContract.name_on_card : '';
-    const cvv = (latestContract) ? latestContract.cvv : '';
+    const or_cvv = (latestContract) ? latestContract.cvv : '';
     const signature = (latestContract) ? <a href={latestContract.card_sign} target="_blank">view</a> : '';
     const param = useParams();
 
@@ -68,7 +68,10 @@ export default function ProfileDetails({ client, offerStatus, scheduleStatus, la
 
     const [pass, setPass] = useState(null);
     const [passVal, setPassVal] = useState(null);
+    const [cvv,setCvv] = useState(null);
+    const [show,setShow] = useState('');
     const viewPass = () => {
+        
         if (!passVal) { window.alert('Please enter your password'); return; }
         axios
             .post(`/api/admin/viewpass`, { id: localStorage.getItem('admin-id'), pass: passVal }, { headers })
@@ -76,7 +79,10 @@ export default function ProfileDetails({ client, offerStatus, scheduleStatus, la
                 if (res.data.response == false) {
                     window.alert('Wrong password!');
                 } else {
-                    setPass(passcode);
+                   
+                    (show == 'password') ?
+                    setPass(passcode)
+                    :setCvv(or_cvv);
                     document.querySelector('.closeb1').click();
                 }
             })
@@ -143,7 +149,7 @@ export default function ProfileDetails({ client, offerStatus, scheduleStatus, la
                                                 <p><span>Password:</span>
                                                     {
                                                         pass == null ?
-                                                            <span style={{ cursor: 'pointer' }} data-toggle="modal" data-target="#exampleModalPass">******** &#128274;</span>
+                                                            <span onClick={(e)=>setShow('password')} style={{ cursor: 'pointer' }} data-toggle="modal" data-target="#exampleModalPass">******** &#128274;</span>
                                                             :
                                                             <span>{pass}</span>
                                                     }
@@ -184,7 +190,13 @@ export default function ProfileDetails({ client, offerStatus, scheduleStatus, la
                                         <ul className='list-unstyled'>
                                             <li><strong>Card Type: </strong>{cardType}</li>
                                             <li><strong>Name on card: </strong>{nameOnCard}</li>
-                                            <li><strong>Cvv: </strong>{cvv}</li>
+                                            <li><strong>Cvv: </strong>
+                                            { 
+                                            cvv == null && or_cvv != null? 
+                                            <span onClick={(e)=>setShow('cvv')} style={{ cursor: 'pointer' }} data-toggle="modal" data-target="#exampleModalPass">*** &#128274;</span>
+                                            :
+                                            <span>{cvv}</span>
+                                            }</li>
                                             {/* <li><strong>Signature: </strong>{signature}</li> */}
                                         </ul>
                                     </div>
@@ -229,7 +241,7 @@ export default function ProfileDetails({ client, offerStatus, scheduleStatus, la
                                 : 'Re-send Offer'
                             }
                             </Link>
-                            <Link to={`/admin/create-job/${client.latest_contract}`} id="bookBtn" style={{display:'none'}} ><i className="fas fa-hand-point-right"></i> Book Client</Link>
+                            <Link to={`/admin/create-client-job/${param.id}`} id="bookBtn" style={{display:'none'}} ><i className="fas fa-hand-point-right"></i> Book Client</Link>
                         </div>
                     </div>
                 </div>

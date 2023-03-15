@@ -73,7 +73,6 @@ export default function WorkerDashboard() {
                                                 <Th>{t('worker.dashboard.date')}</Th>
                                                 <Th>{t('worker.dashboard.shift')}</Th>
                                                 <Th>{t('worker.dashboard.status')}</Th>
-                                                <Th>{t('worker.dashboard.total')}</Th>
                                                 <Th>{t('worker.dashboard.action')}</Th>
                                             </Tr>
                                         </Thead>
@@ -113,9 +112,6 @@ export default function WorkerDashboard() {
                                                             }}
                                                         >
                                                             {item.status}
-                                                        </Td>
-                                                        <Td>
-                                                           {item.jobservice.total} ILS
                                                         </Td>
                                                             <Td>
                                                                 <div className="d-flex">

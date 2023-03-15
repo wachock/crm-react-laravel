@@ -45,7 +45,7 @@ export default function Jobs() {
                 <tbody>       
                     { jobs && jobs.map((j,i)=>{
                         let services = (j.offer.services) ? JSON.parse(j.offer.services) : [];
-                        console.log(services)
+                        
                         return(
                         <tr>
                             <td>#{j.job_id}</td>

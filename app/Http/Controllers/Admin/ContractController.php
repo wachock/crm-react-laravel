@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Contract;
+use App\Models\Client;
 use App\Models\Job;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -141,5 +142,16 @@ class ContractController extends Controller
         return response()->json([
              'message' => 'Contract verified successfully'
         ]);
+    }
+    public function getContractByClient($id)
+    {
+        
+        $contracts = Contract::with('offer')->where('client_id',$id)->where('status','verified')->get();
+        $client  = Client::find($id);
+        return response()->json([
+            'contract'     => $contracts,
+            'client'       =>$client        
+        ], 200);
+
     }
 }
