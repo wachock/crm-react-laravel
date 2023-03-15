@@ -44,6 +44,7 @@ import Admin from './Admin/Admin';
 import AdminDashboard from './Admin/Dashboard';
 import TotalJobs from './Admin/Pages/Jobs/TotalJobs';
 import CreateJob from './Admin/Pages/Jobs/CreateJob';
+import CreateClientJob from './Admin/Pages/Jobs/CreateClientJob';
 import AddJob from './Admin/Pages/Jobs/AddJob';
 import ViewJob from './Admin/Pages/Jobs/ViewJob';
 import EditJob from './Admin/Pages/Jobs/EditJob'
@@ -185,6 +186,7 @@ export default function MyRoutes() {
                      <Route exact path="dashboard" element={<AdminDashboard />} />
                      <Route exact path="jobs" element={<TotalJobs />} />
                      <Route exact path="create-job/:id" element={<CreateJob />} />
+                     <Route exact path="create-client-job/:id" element={<CreateClientJob />} />
                      <Route exact path="add-job" element={<AddJob />} />
                      <Route exact path="view-job/:id" element={<ViewJob />} />
                      <Route exact path="add-job" element={<AddJob />} />

@@ -128,12 +128,6 @@ export default function WorkContractRHS() {
                                     </li>
                                 </ul>
                                 <ul className="list-inline customRTL">
-                                    <li className="list-inline-item ml-2">{t('work-contract.zip_code')}  <span>{client.zipcode ? client.zipcode : 'NA'}</span>
-                                    </li>
-                                    <li className="list-inline-item">{t('work-contract.dob')} <span>{client.dob ? client.dob : 'NA'}</span>
-                                    </li>
-                                </ul>
-                                <ul className="list-inline customRTL">
                                     <li className="list-inline-item ml-2">{t('work-contract.telephone')} <span>{client.phone ? client.phone : 'NA'}</span>
                                     </li>
                                     <li className="list-inline-item">{t('work-contract.email')} <span>{client.email ? client.email : 'NA'}</span>

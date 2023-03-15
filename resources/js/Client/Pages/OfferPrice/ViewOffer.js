@@ -115,21 +115,6 @@ export default function ClientViewOffer() {
                         </Tbody>
                       </Table>
                     </div>
-                    <div className='row'>
-                      <div className='col-sm-6'></div>
-                      <div className='col-sm-6'>
-                        <div className="table-responsive">
-                        <table class="table table-sm table-bordered ">
-                            <tfoot>
-                              <tr>
-                                <Td width="65%" class="text-right">{t('client.offer.view.total')}</Td>
-                                <Td class="text-right"><span>{ofr.subtotal} </span>{t('global.currency')+" + "+t('global.vat')}</Td> 
-                              </tr>
-                            </tfoot>
-                          </table>
-                        </div>
-                      </div>
-                    </div>
                   </div>
                 </div>
                

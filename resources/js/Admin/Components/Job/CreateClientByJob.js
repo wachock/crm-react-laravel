@@ -6,7 +6,7 @@ import Select from 'react-select';
 import {Table, Thead, Tbody, Tr, Th, Td} from 'react-super-responsive-table'
 
 
-export default function CreateJobCalender() {
+export default function CreateClientByJob() {
     const params = useParams();
     const navigate = useNavigate();
     const alert = useAlert();
@@ -29,11 +29,15 @@ export default function CreateJobCalender() {
     const [clientname, setClientName] = useState('');
     const getJob = () => {
         axios
-            .get(`/api/admin/contract/${params.id}`, { headers })
+            .get(`/api/admin/get-contract-by-client/${params.id}`, { headers })
             .then((res) => {
                 const r = res.data.contract;
-                setClientName(r.client.firstname + ' ' + r.client.lastname);
-                setServices(JSON.parse(r.offer.services));
+                setClientName(res.data.client.firstname + ' ' + res.data.client.lastname);
+                let data=[];
+                r.map((c)=>{
+                    Array.prototype.push.apply(data,JSON.parse(c.offer.services))
+                })
+                setServices(data);
             });
     }
     useEffect(() => {
@@ -200,6 +204,7 @@ export default function CreateJobCalender() {
     const changeShift = (w_id, date, e) => {
        
         let w_n = $('#worker-' + w_id).html();
+        
         let filtered = data.filter((d) => {
                 if (d.date == date && d.worker_id == w_id) {
                     return false;

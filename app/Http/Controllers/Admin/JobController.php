@@ -30,6 +30,21 @@ class JobController extends Controller
         $q =  $request->q;
         $jobs = Job::with('worker', 'client','offer','jobservice');
         $jobs = $jobs->orderBy('id', 'desc')->paginate(20);
+        foreach($jobs as $job){
+           $ava_workers = User::with('availabilities','jobs')->where('skill',  'like','%'.$job->jobservice->service_id.'%');
+           $ava_workers = $ava_workers->whereHas('availabilities', function ($query) use ($job) {
+                    $query->where('date', '=',$job->start_date);
+                });
+           $ava_workers = $ava_workers->where('status',1)->get();
+           $ava_worker = array();
+           foreach($ava_workers as $w){
+                $check_worker_job =  Job::where('worker_id',$w->id)->where('start_date',$job->start_date)->first();
+                if(!$check_worker_job){
+                   $ava_worker[]=$w;
+                }
+           }
+           $job->avl_worker=$ava_worker;
+        }
         return response()->json([
             'jobs'       => $jobs,        
         ], 200);
@@ -203,6 +218,7 @@ class JobController extends Controller
          $s_heb_name='';
          $s_hour='';
          $s_total='';
+         $s_id=0;
          foreach($request->services as $service){
                   $service_schedules = serviceSchedules::where('id','=',$service['frequency'])->first();
                   $ser = Services::where('id','=',$service['service'])->first();
@@ -217,6 +233,7 @@ class JobController extends Controller
                       }
                       $s_hour=$service['jobHours'];
                       $s_total=$service['totalamount'];
+                      $s_id=$service['service'];
 
          }
          $client_mail=array();
@@ -235,6 +252,7 @@ class JobController extends Controller
 
             $service           = new JobService;
             $service->job_id   = $new->id;
+            $service->service_id=$s_id;
             $service->name     = $s_name;
             $service->heb_name = $s_heb_name;
             $service->job_hour = $s_hour;

@@ -241,7 +241,7 @@ export default function ProfileDetails({ client, offerStatus, scheduleStatus, la
                                 : 'Re-send Offer'
                             }
                             </Link>
-                            <Link to={`/admin/create-job/${client.latest_contract}`} id="bookBtn" style={{display:'none'}} ><i className="fas fa-hand-point-right"></i> Book Client</Link>
+                            <Link to={`/admin/create-client-job/${param.id}`} id="bookBtn" style={{display:'none'}} ><i className="fas fa-hand-point-right"></i> Book Client</Link>
                         </div>
                     </div>
                 </div>
