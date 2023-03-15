@@ -31,7 +31,6 @@ sonarqube-check:
   only:
     - production # or the name of your main branch
 
-
 unit_test:
   stage: test
   script:

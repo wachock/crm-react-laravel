@@ -13,7 +13,7 @@
 		<table cellpadding="0" cellspacing="0" width="100%" >
 			<tr>
 				<td width="100%">
-					<img src="http://broom-service.n2rtech.com/images/logo.png" style="margin: 0 auto;display: block">
+					<img src="http://broom-service.n2rtech.com/images/sample.png" style="margin: 0 auto;display: block">
 				</td>
 			</tr>
 		</table>
@@ -34,7 +34,13 @@
 				<tr>
 					<td style="border: 1px solid #dee2e6;font-size: 14px;padding: 8px">{{ \Carbon\Carbon::parse($job['start_date'])->format('M d Y') }}</td>
 					<td style="border: 1px solid #dee2e6;font-size: 14px;padding: 8px">{{ $job['client']['firstname'] }} {{ $job['client']['lastname'] }}</td>
-					<td style="border: 1px solid #dee2e6;font-size: 14px;padding: 8px">{{ $job['jobservice']['name'] }}</td>
+					<td style="border: 1px solid #dee2e6;font-size: 14px;padding: 8px">
+					@if($job['worker']['lng'] == 'heb')
+					   {{ $job['jobservice']['heb_name'] }}
+					@else
+					   {{ $job['jobservice']['name'] }}
+					@endif
+				   </td>
 					<td style="border: 1px solid #dee2e6;font-size: 14px;padding: 8px">{{ $job['shifts'] }}</td>
 					<td style="border: 1px solid #dee2e6;font-size: 14px;padding: 8px">{{ ucfirst($job['status']) }}</td>
 					<td style="border: 1px solid #dee2e6;font-size: 14px;padding: 8px;display:flex;height: 38px">

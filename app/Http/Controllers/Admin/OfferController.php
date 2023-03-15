@@ -115,7 +115,7 @@ class OfferController extends Controller
         Mail::send('/Mails/OfferMail',$offer,function($messages) use ($offer){
             $messages->to($offer['client']['email']);
             ($offer['client']['lng'] == 'en') ?
-            $sub = __('mail.offer.subject')." ".__('mail.offer.from')." ".__('mail.offer.company')." #".$offer['id']
+            $sub = __('mail.offer.subject')." ".__('mail.offer.from')." ".__('mail.offer.company')." #".base64_encode($offer['id'])
             : $sub = $offer['id']."# ". __('mail.offer.subject')." ".__('mail.offer.from')." ".__('mail.offer.company');
             $messages->subject($sub);
         });
@@ -132,6 +132,18 @@ class OfferController extends Controller
     public function show($id)
     {
         $offer = Offer::where('id',$id)->with('client')->get()->first();
+        if(isset($offer)){
+            $perhour = false;
+            $services = json_decode($offer->services);
+            if(isset($services)){
+                foreach($services as $service){
+                    if($service->type == 'hourly'){
+                        $perhour = true;
+                    }
+                }
+            }
+            ($perhour == true) ? $offer->perhour = 1 : $offer->perhour = 0;
+        }
         return response()->json([
             'offer' => $offer
         ]);

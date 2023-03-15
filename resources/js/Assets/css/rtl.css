@@ -6,6 +6,14 @@ body:dir(rtl) {
     text-align: right;
     font-size: 16px;
 }
+.ifRTL{
+    text-align: right;
+    direction: rtl;
+} 
+.acptButn{
+    float: left !important;
+    direction: rtl;
+}  
 .thankyou{
     text-align: right;
     direction: rtl;

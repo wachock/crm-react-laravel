@@ -23,7 +23,7 @@
 		<table cellpadding="0" cellspacing="0" width="100%" >
 			<tr>
 				<td width="100%">
-					<img src="http://broom-service.n2rtech.com/images/logo.png" style="margin: 0 auto;display: block">
+					<img src="http://broom-service.n2rtech.com/images/sample.png" style="margin: 0 auto;display: block">
 				</td>
 			</tr>
 		</table>
@@ -35,8 +35,8 @@
 		{{__('mail.cancel_meeting.with')}}      <span style="color:#0130c6;font-weight:700;">{{$team['name']}}</span>
 		 @endif
 		 {{__('mail.cancel_meeting.on')}}       <span style="color:#0130c6;font-weight:700;">{{ \Carbon\Carbon::parse($start_date)->format('d-m-Y')}}</span>
-		 {{__('mail.cancel_meeting.between')}}  <span style="color:#0130c6;font-weight:700;">{{$start_time}}</span>
-		 {{__('mail.cancel_meeting.to')}}       <span style="color:#0130c6;font-weight:700;">{{$end_time}}</span>
+		 {{__('mail.cancel_meeting.between')}}  <span style="color:#0130c6;font-weight:700;">{{date("H:i", strtotime($start_time))}}</span>
+		 {{__('mail.cancel_meeting.to')}}       <span style="color:#0130c6;font-weight:700;">{{date("H:i", strtotime($end_time))}}</span>
 		
          <b>{{__('mail.cancel_meeting.cancel_text')}}</b>
 	

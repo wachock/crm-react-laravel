@@ -22,7 +22,7 @@
 		<table cellpadding="0" cellspacing="0" width="100%" >
 			<tr>
 				<td width="100%">
-					<img src="http://broom-service.n2rtech.com/images/logo.png" style="margin: 0 auto;display: block">
+					<img src="http://broom-service.n2rtech.com/images/sample.png" style="margin: 0 auto;display: block">
 				</td>
 			</tr>
 		</table>
@@ -34,8 +34,8 @@
 		{{__('mail.meeting.with')}}      <span style="color:#0130c6;font-weight:700;">{{$team['name']}}</span>
 		 @endif
 		 {{__('mail.meeting.on')}}       <span style="color:#0130c6;font-weight:700;">{{ \Carbon\Carbon::parse($start_date)->format('d-m-Y')}}</span>
-		 {{__('mail.meeting.between')}}  <span style="color:#0130c6;font-weight:700;">PM 2:00</span>
-		 {{__('mail.meeting.to')}}       <span style="color:#0130c6;font-weight:700;">PM 5:00</span>
+		 {{__('mail.meeting.between')}}  <span style="color:#0130c6;font-weight:700;">{{date("H:i", strtotime($start_time))}}</span>
+		 {{__('mail.meeting.to')}}       <span style="color:#0130c6;font-weight:700;">{{date("H:i", strtotime($end_time))}}</span>
 		 {{__('mail.meeting.for')}}      <span style="color:#0130c6;font-weight:700;">{{$service_names}}&nbsp;</span>{{__('mail.meeting.service')}}</p>
         
 		@if(!empty($meet_link))
@@ -43,9 +43,9 @@
 		@endif
 
 		<div style="display:flex;justify-content: center">
-			<a href='{{ url("thankyou/$id/accept")}}' target='_blank' style="background: green;color: #fff;border: 1px solid green;font-size: 16px;padding: 10px 24px;border-radius: 4px;cursor: pointer;text-decoration: none;min-width:135px;text-align: center">{{__('mail.meeting.accept')}}</a>
-			<a href='{{ url("thankyou/$id/reject")}}' style="background: red;color: #fff;border: 1px solid red;font-size: 16px;padding: 10px 24px;border-radius: 4px;cursor: pointer;text-decoration: none;min-width:135px;margin: 0 15px;text-align: center">{{__('mail.meeting.reject')}}</a>
-			<a href='{{ url("meeting-status/$id")}}' target='_blank' style="background: #4385f5;color: #fff;border: 1px solid #4385f5;font-size: 16px;padding: 10px 24px;border-radius: 4px;cursor: pointer;text-decoration: none;text-align: center">{{__('mail.meeting.reschedule')}}</a>
+			<a href='{{ url("thankyou/".base64_encode($id)."/accept")}}' target='_blank' style="background: green;color: #fff;border: 1px solid green;font-size: 16px;padding: 10px 24px;border-radius: 4px;cursor: pointer;text-decoration: none;min-width:135px;text-align: center">{{__('mail.meeting.accept')}}</a>
+			<a href='{{ url("thankyou/".base64_encode($id)."/reject")}}' style="background: red;color: #fff;border: 1px solid red;font-size: 16px;padding: 10px 24px;border-radius: 4px;cursor: pointer;text-decoration: none;min-width:135px;margin: 0 15px;text-align: center">{{__('mail.meeting.reject')}}</a>
+			<a href='{{ url("meeting-status/".base64_encode($id)."")}}' target='_blank' style="background: #4385f5;color: #fff;border: 1px solid #4385f5;font-size: 16px;padding: 10px 24px;border-radius: 4px;cursor: pointer;text-decoration: none;text-align: center">{{__('mail.meeting.reschedule')}}</a>
 		</div>
 		<p style="margin-top: 20px">{{__('mail.meeting.below_line')}}</p>
 		<p style="font-weight: 700;margin-bottom: 0;">{{__('mail.meeting.best_regards')}}</p>
