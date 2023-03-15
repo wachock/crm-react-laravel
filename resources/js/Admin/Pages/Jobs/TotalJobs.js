@@ -303,7 +303,7 @@ export default function TotalJobs() {
                                                                 <div>Change Worker</div>
                                                                 <select name={item.id} className="form-control mb-3 mt-1 form-control" value={(workers[`${item.id}`]) ? workers[`${item.id}`] : ""} onChange={e => handleChange(e, index)} >
                                                                     <option selected>select</option>
-                                                                    {AllWorkers && AllWorkers.map((w, i) => {
+                                                                    {item.avl_worker && item.avl_worker.map((w, i) => {
                                                                         return (
                                                                             <option value={w.id} key={i}> {w.firstname}  {w.lastname}</option>
                                                                         )
