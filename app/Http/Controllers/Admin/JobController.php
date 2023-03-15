@@ -270,7 +270,7 @@ class JobController extends Controller
                 $sub = __('mail.worker_new_job.subject')."  ".__('mail.worker_new_job.company');
                 $messages->subject($sub);
             });
-            $data['job']['shifts']=$this->getShifts($worker['shifts']);
+            $data['job']['shifts']=$this->getShifts($worker['shifts'],$job['client']['lng']);
             $client_mail[] = $data;
             $client_email  =  $job['client']['email'];
             $client_name  =  $job['client']['firstname'].' '.$job['client']['lastname'];
@@ -301,18 +301,18 @@ class JobController extends Controller
         ],200);
 
     }
-    public function getShifts($shift){
+    public function getShifts($shift,$lng='en'){
     $show_shift = array(
-        "Full Day"=>array('Full Day',''),
-        "Morning"=>array('Morning',''),
-        'Afternoon'=>array('Afternoon',''),
-        'Evening'=>array('Evening',''),
-        'Night'=>array('Night',''),
+        "Full Day",
+        "Morning",
+        'Afternoon',
+        'Evening',
+        'Night',
     );
     $shifts = explode(',', $shift);
     $check='';
     $new_shift='';
-    foreach($show_shift as $s_s => $value){
+    foreach($show_shift as $s_s){
          if($s_s == 'Afternoon'){
             $check ='noon';
          }else{
@@ -321,11 +321,7 @@ class JobController extends Controller
          foreach($shifts as $shift){
                if(str_contains($shift, strtolower($check))){
                    if($new_shift==''){
-                        if($lng=='heb'){
-                           $new_shift=$value[1];
-                        }else{
-                           $new_shift=$value[0];
-                        }
+                           $new_shift=$s_s;
                         
                     }else{
                         if(!str_contains($new_shift, $s_s)){
@@ -334,6 +330,13 @@ class JobController extends Controller
                     }
                }
          }
+    }
+    if($lng=='heb'){
+       $new_shift=str_replace("Full Day","יום שלם",$new_shift);
+       $new_shift=str_replace("Morning","וקר",$new_shift);
+       $new_shift=str_replace("Afternoon","חהצ",$new_shift);
+       $new_shift=str_replace("Evening","רב",$new_shift);
+       $new_shift=str_replace("Night","לַיום שלם",$new_shift);
     }
      return $new_shift;
 
