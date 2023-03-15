@@ -4,6 +4,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import Moment from 'moment';
 import { useTranslation } from "react-i18next";
 import i18next from 'i18next';
+import { Base64 } from "js-base64";
 
 export default function MeetingStatus() {
 
@@ -18,7 +19,7 @@ export default function MeetingStatus() {
   };
   const getMeeting = () => {
     axios
-      .post(`/api/client/meeting`, { id: param.id })
+      .post(`/api/client/meeting`, { id: Base64.decode(param.id) })
       .then((res) => {
         setMeeting(res.data.schedule);
         setTeamName(res.data.schedule.team.name);
