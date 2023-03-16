@@ -5,6 +5,7 @@ import Moment from 'moment';
 import { useTranslation } from "react-i18next";
 import i18next from 'i18next';
 import { Base64 } from "js-base64";
+import logo from "../Assets/image/sample.svg";
 
 export default function MeetingStatus() {
 
@@ -63,6 +64,9 @@ export default function MeetingStatus() {
     <div className='container meeting' style={{ display: "none" }}>
 
       <div className='thankyou meet-status dashBox maxWidthControl p-4'>
+        <svg width="190" height="77" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">       
+          <image xlinkHref={logo} width="190" height="77"></image>
+        </svg>
         <h1>{t('meet_stat.with')} {teamName}</h1>
         <ul className='list-unstyled'>
           <li>{t('meet_stat.date')}: <span>{dt}</span></li>

@@ -79,6 +79,9 @@ export default function WorkContract() {
         sigRef2.current.clear();
         setSignature2(null);
     }
+    useEffect(() => {
+        console.log(signature);
+      }, [signature]);
 
     const getOffer = () => {
         axios

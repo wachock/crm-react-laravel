@@ -1191,7 +1191,7 @@ h1 {
 .client-contract .sigCanvas{
   border: 1px solid #ccc;
   max-width: 300px !important;
-  min-width: 300px;
+  width: 300px;
   height: 115px;
 }
 .search-data{
