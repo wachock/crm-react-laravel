@@ -213,7 +213,9 @@ class JobController extends Controller
     }
     public function createJob(Request $request,$id){
          if(isset($request->client_page) && $request->client_page){
-         $job = Contract::with('offer')->find($id);
+        
+         }else{
+             $job = Contract::with('offer')->find($id);
          }
          $repeat_value='';
          $s_name='';
@@ -244,13 +246,13 @@ class JobController extends Controller
             $new = new Job;
             $new->worker_id     = $worker['worker_id'];
             if(isset($request->client_page) && $request->client_page){
-            $new->client_id     = $job->client_id;
-            $new->offer_id      = $job->offer_id;
-            $new->contract_id   = $id;
+                $new->client_id     = $id;
+                $new->offer_id      = 0;
+                $new->contract_id   = 0;
             }else{
-            $new->client_id     = $id;
-            $new->offer_id      = 0;
-            $new->contract_id   = 0;
+                $new->client_id     = $job->client_id;
+                $new->offer_id      = $job->offer_id;
+                $new->contract_id   = $id;
             }
             $new->start_date    = $worker['date'];
             $new->shifts        = $worker['shifts'];
