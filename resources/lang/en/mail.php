@@ -15,7 +15,7 @@ return [
        'accept'      =>'Accept',
        'reject'      =>'Reject',
        'reschedule'  =>'Reschedule',
-       'below_line'  =>'If you have any questions or concerns please don\'\t hesitate to get in touch with us by replying to this email.',
+       'below_line'  =>'If you have any questions or concerns please do not hesitate to get in touch with us by replying to this email.',
        'best_regards'=>'Best Regards',
        'company'     =>'Broom Services',
        'tel'         =>'Telephone',
