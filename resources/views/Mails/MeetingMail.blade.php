@@ -36,8 +36,13 @@
 		 {{__('mail.meeting.on')}}       <span style="color:#0130c6;font-weight:700;">{{ \Carbon\Carbon::parse($start_date)->format('d-m-Y')}}</span>
 		 {{__('mail.meeting.between')}}  <span style="color:#0130c6;font-weight:700;">{{date("H:i", strtotime($start_time))}}</span>
 		 {{__('mail.meeting.to')}}       <span style="color:#0130c6;font-weight:700;">{{date("H:i", strtotime($end_time))}}</span>
-		 {{__('mail.meeting.for')}}      <span style="color:#0130c6;font-weight:700;">{{$service_names}}&nbsp;</span>{{__('mail.meeting.service')}}</p>
-        
+		 <!--<span style="color:#0130c6;font-weight:700;">{{$service_names}}&nbsp;</span>{{__('mail.meeting.service')}}</p>-->
+		
+		 @if($purpose)
+		 {{__('mail.meeting.for')}}     
+		 <span style="color:#0130c6;font-weight:700;">{{ $purpose }}&nbsp;</span></p>
+		 @endif
+
 		@if(!empty($meet_link))
 		<p style="text-align: center;">{{$meet_link}}</p>
 		@endif
