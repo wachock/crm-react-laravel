@@ -217,7 +217,7 @@ export default function AdminDashboard() {
                                                                 <div className="d-flex">
                                                                     <Link
                                                                         to={`/admin/edit-job/${item.id}`}
-                                                                        className="btn bg-purple"
+                                                                        className="btn bg-purple d-none"
                                                                     >
                                                                         <i className="fa fa-edit"></i>
                                                                     </Link>
