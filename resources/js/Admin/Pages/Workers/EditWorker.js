@@ -223,6 +223,9 @@ export default function EditWorker() {
                                     >
                                         <option value="heb" selected={lng == "heb"}>Hebrew</option>
                                         <option value="en" selected={lng == "en"}>English</option>
+                                        <option value="ru" selected={lng == "ru"}>Russian</option>
+                                        <option value="spa" selected={lng == "spa"}>Spanish</option>
+
                                     </select>
                                     </div>
                                 </div>

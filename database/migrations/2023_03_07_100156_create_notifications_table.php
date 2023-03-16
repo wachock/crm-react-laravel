@@ -16,6 +16,7 @@ class CreateNotificationsTable extends Migration
         Schema::create('notifications', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('clients')->onDelete('cascade');
             $table->enum('type',[
                 'sent-meeting',
                 'accept-meeting',

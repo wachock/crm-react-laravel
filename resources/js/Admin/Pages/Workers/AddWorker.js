@@ -201,6 +201,8 @@ export default function AddWorker() {
                                         >
                                             <option value="en">English</option>
                                             <option value="heb">Hebrew</option>
+                                            <option value="ru">Russian</option>
+                                            <option value="spa">Spanish</option>
                                             
                                         </select>
                                     </div>
