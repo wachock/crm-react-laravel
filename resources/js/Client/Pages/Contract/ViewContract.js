@@ -113,9 +113,9 @@ export default function WorkContract() {
                 <div className='maxWidthControl dashBox mb-4'>
                     <div className='row mb-4'>
                         <div className='col-sm-6'>
-                        <svg width="333" height="135" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">       
-                            <image xlinkHref={logo} width="333" height="135"></image>
-                        </svg>
+                            <svg width="333" height="135" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
+                                <image xlinkHref={logo} width="333" height="135"></image>
+                            </svg>
                         </div>
                         {contract && contract.map((c, i) => {
 
@@ -237,9 +237,7 @@ export default function WorkContract() {
                                     <td>
                                         {services && services.map((s, i) => {
                                             return (
-                                                (services.length - 1) != i
-                                                    ? s.name + ", "
-                                                    : s.name
+                                                <p>{(s.service != '10') ? s.name: s.other_title }</p>
                                             )
                                         })}
                                     </td>
@@ -287,9 +285,9 @@ export default function WorkContract() {
                                     <td>
                                         {services && services.map((s, i) => {
                                             return (
-                                                (services.length - 1) != i
-                                                    ? s.freq_name + ", "
-                                                    : s.freq_name
+
+                                                <p>{s.freq_name}</p>
+
                                             )
                                         })}
                                     </td>
@@ -298,18 +296,7 @@ export default function WorkContract() {
                                     <td style={{ width: "60%" }}>Consideration the Tenant will pay the Company, including the payment method and/or payment date<br />Prices does not include vat**</td>
                                     <td>
                                         {services && services.map((s, i) => {
-                                            if ((services.length) - 1 != i)
-                                                return s.totalamount + t('work-contract.ils') + " + " + t('work-contract.vat') + " " + t('work-contract.for') + s.name + ", " + s.freq_name + ", ";
-                                            else if (services.service == 10) {
-
-                                                if ((services.length) - 1 != i)
-                                                    return s.totalamount + t('work-contract.ils') + " + " + t('work-contract.vat') + " " + t('work-contract.for') + s.other_title + ", " + s.freq_name + ", ";
-                                                else
-                                                    return s.totalamount + t('work-contract.ils') + " + " + t('work-contract.vat') + " " + t('work-contract.for') + s.other_title + ", " + s.freq_name;
-
-                                            }
-                                            else
-                                                return s.totalamount + t('work-contract.ils') + " + " + t('work-contract.vat') + " " + t('work-contract.for') + s.name + ", " + s.freq_name;
+                                            return <p>{s.totalamount + t('work-contract.ils') + " + " + t('work-contract.vat') + " " + t('work-contract.for') + " " + ((s.service != '10') ? s.name: s.other_title)  + ", " + s.freq_name}</p>
                                         })}
 
                                     </td>

@@ -59,7 +59,7 @@ export default function WorkContractRHS() {
 
     return (
         <>
-          
+
             <div className='rhs-work'>
 
                 <div className="container">
@@ -94,7 +94,7 @@ export default function WorkContractRHS() {
                                 })}
                                 <div className="col-sm-6">
                                     <div className='float-right'>
-                                        <svg width="250" height="94" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">       
+                                        <svg width="250" height="94" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
                                             <image xlinkHref={logo} width="250" height="94"></image>
                                         </svg>
                                     </div>
@@ -127,7 +127,7 @@ export default function WorkContractRHS() {
                                     <li className="list-inline-item ml-2">{t('work-contract.apt_number')} <span>{client.apt_no ? client.apt_no : 'NA'}</span>
                                     </li>
                                     <li className="list-inline-item">{t('work-contract.enterance_code')} <span>{client.entrence_code ? client.entrence_code : 'NA'}</span>
-                                    </li>
+                                    </li> s.name
                                 </ul>
                                 <ul className="list-inline customRTL">
                                     <li className="list-inline-item ml-2">{t('work-contract.telephone')} <span>{client.phone ? client.phone : 'NA'}</span>
@@ -207,9 +207,8 @@ export default function WorkContractRHS() {
 
                                                 {services && services.map((s, i) => {
                                                     return (
-                                                        (services.length - 1) != i
-                                                            ? s.name + ", "
-                                                            : s.name
+                                                       
+                                                            <p>{(s.service != '10') ? s.name: s.other_title }</p>
                                                     )
                                                 })}
 
@@ -259,9 +258,9 @@ export default function WorkContractRHS() {
                                             <Td>
                                                 {services && services.map((s, i) => {
                                                     return (
-                                                        (services.length - 1) != i
-                                                            ? s.freq_name + ", "
-                                                            : s.freq_name
+
+                                                        <p> {s.freq_name}</p>
+
                                                     )
                                                 })}
                                             </Td>
@@ -270,18 +269,7 @@ export default function WorkContractRHS() {
                                             <Td style={{ width: "60%" }}>{t('work-contract.consideration_txt')}</Td>
                                             <Td>
                                                 {services && services.map((s, i) => {
-                                                    if ((services.length) - 1 != i)
-                                                        return s.totalamount + t('work-contract.ils') + " + " + t('work-contract.vat') + " " + t('work-contract.for') + s.name + ", " + s.freq_name + ", ";
-                                                    else if (services.service == 10) {
-
-                                                        if ((services.length) - 1 != i)
-                                                            return s.totalamount + t('work-contract.ils') + " + " + t('work-contract.vat') + " " + t('work-contract.for') + s.other_title + ", " + s.freq_name + ", ";
-                                                        else
-                                                            return s.totalamount + t('work-contract.ils') + " + " + t('work-contract.vat') + " " + t('work-contract.for') + s.other_title + ", " + s.freq_name;
-
-                                                    }
-                                                    else
-                                                        return s.totalamount + t('work-contract.ils') + " + " + t('work-contract.vat') + " " + t('work-contract.for') + s.name + ", " + s.freq_name;
+                                                    return <p>{s.totalamount + t('work-contract.ils') + " + " + t('work-contract.vat') + " " + t('work-contract.for') + " " + ((s.service != '10') ? s.name: s.other_title) + ", " + s.freq_name}</p>
                                                 })}
                                             </Td>
                                         </Tr>

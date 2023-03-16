@@ -296,6 +296,7 @@ class JobController extends Controller
             'lng' => $client_lng
         );
         
+        
          Mail::send('/Mails/NewJobClient',$client_data,function($messages) use ($client_data){
                 $messages->to($client_data['email']);
                 $id = $client_data['jobs'][0]['job']['id'];
@@ -343,10 +344,11 @@ class JobController extends Controller
     }
     if($lng=='heb'){
        $new_shift=str_replace("Full Day","יום שלם",$new_shift);
-       $new_shift=str_replace("Morning","וקר",$new_shift);
-       $new_shift=str_replace("Afternoon","חהצ",$new_shift);
-       $new_shift=str_replace("Evening","רב",$new_shift);
-       $new_shift=str_replace("Night","לַיום שלם",$new_shift);
+       $new_shift=str_replace("Morning","בוקר",$new_shift);
+       $new_shift=str_replace("Noon","צהריים",$new_shift);
+       $new_shift=str_replace("Afternoon","אחהצ",$new_shift);
+       $new_shift=str_replace("Evening","ערב",$new_shift);
+       $new_shift=str_replace("Night","לילה",$new_shift);
     }
      return $new_shift;
 
