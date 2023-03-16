@@ -89,8 +89,7 @@ export default function CurrentJob() {
                                                 <th>Client Name</th>
                                                 <th>Service Name</th>
                                                 <th>Date</th>
-                                                <th>Start Time</th>
-                                                <th>End Time</th>
+                                                <th>Shift</th>
                                                 <th>Total</th>
                                                 <th>Status</th>
                                                 <th>Action</th>
@@ -118,10 +117,7 @@ export default function CurrentJob() {
                                                             {item.start_date}
                                                         </td>
                                                         <td>
-                                                            {item.start_time}
-                                                        </td>
-                                                        <td>
-                                                            {item.end_time}
+                                                            {item.shifts}
                                                         </td>
                                                         <td>
                                                             {item.jobservice
