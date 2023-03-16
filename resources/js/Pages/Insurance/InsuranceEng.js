@@ -651,6 +651,9 @@ in the "Yes" or "No" column For each question place a check mark " and if the fi
                                 </td>
                             </tr>
                             <tr>
+                                <td colSpan={3}><p><b>Details of positive findings </b></p></td>
+                            </tr>
+                            <tr>
 
                                 <td>
                                     <label for="label" className="form-label">Signature of the Insurance Candidate</label>

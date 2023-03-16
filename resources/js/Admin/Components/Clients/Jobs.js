@@ -44,19 +44,13 @@ export default function Jobs() {
                 </thead>
                 <tbody>       
                     { jobs && jobs.map((j,i)=>{
-                        let services = (j.offer.services) ? JSON.parse(j.offer.services) : [];
+                       // let services = (j.offer.services) ? JSON.parse(j.offer.services) : [];
                         
                         return(
                         <tr>
                             <td>#{j.job_id}</td>
                             <td>{
-                               services && services.map((s,i)=>{
-                                return(
-                                (services.length) -1 != i ?
-                                 s.name+" | "
-                                 :s.name
-                                )
-                               })
+                             (j.jobservice)?j.jobservice.name:'NA'
                             }
                             </td>
                             <td>{
@@ -65,7 +59,7 @@ export default function Jobs() {
                                 +" "+ j.worker.lastname
                                 :"NA" 
                              }</td>
-                            <td>{j.offer.subtotal} ILS + VAT</td>
+                            <td> {(j.jobservice)? j.jobservice.total : 0 } ILS + VAT</td>
                             <td>{Moment(j.created_at).format('DD MMM,Y')}</td>
                             <td>{j.status}</td>
                             <td>

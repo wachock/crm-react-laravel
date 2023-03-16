@@ -284,9 +284,6 @@ export default function TotalJobs() {
                                         <tbody>
                                             {totalJobs &&
                                                 totalJobs.map((item, index) => {
-
-                                                    let services = (item.offer.services) ? JSON.parse(item.offer.services) : [];
-
                                                     return (
                                                         <tr key={index} style={{ "cursor": "pointer" }}>
                                                             <td onClick={(e) => handleNavigate(e, item.id)}>

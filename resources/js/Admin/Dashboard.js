@@ -165,8 +165,7 @@ export default function AdminDashboard() {
                                                 <th>Client Name</th>
                                                 <th>Service Name</th>
                                                 <th>Date</th>
-                                                <th>Start Time</th>
-                                                <th>End Time</th>
+                                                <th>Shift</th>
                                                 <th>Assigned Worker</th>
                                                 <th>Status</th>
                                                 <th>Total</th>
@@ -186,18 +185,15 @@ export default function AdminDashboard() {
                                                         }
                                                         </td>
                                                         <td>{
-                                                            item.service
-                                                                ? item.service.name
+                                                            item.jobservice
+                                                                ? item.jobservice.name
                                                                 : "NA"
                                                         }</td>
                                                         <td>
                                                             {item.start_date}
                                                         </td>
                                                         <td>
-                                                            {item.start_time}
-                                                        </td>
-                                                        <td>
-                                                            {item.end_time}
+                                                            {item.shifts}
                                                         </td>
                                                         <td>{
                                                             item.worker
@@ -215,13 +211,13 @@ export default function AdminDashboard() {
                                                             {item.status}
                                                         </td>
                                                         <td>
-                                                            {item.rate}
+                                                            {item.jobservice.total} ILS
                                                         </td>
                                                             <td>
                                                                 <div className="d-flex">
                                                                     <Link
                                                                         to={`/admin/edit-job/${item.id}`}
-                                                                        className="btn bg-purple"
+                                                                        className="btn bg-purple d-none"
                                                                     >
                                                                         <i className="fa fa-edit"></i>
                                                                     </Link>
