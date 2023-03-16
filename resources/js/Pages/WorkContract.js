@@ -133,9 +133,9 @@ export default function WorkContract() {
                             t('work-contract.messages.reject_msg'),
                             "success"
                         );
-                        
+
                     });
-                    setStatus('declined');
+                setStatus('declined');
             }
         });
     }
@@ -144,12 +144,18 @@ export default function WorkContract() {
         getOffer();
         setTimeout(() => {
             document.querySelector('.parent').style.display = 'block';
+            var c = document.querySelectorAll("canvas");
+            c.forEach((e,i)=>{
+                e.setAttribute('width','300px');
+                e.setAttribute('height','115px');
+            })
+           
         }, 500);
     }, []);
 
     return (
 
-        <div className='container parent' style={{display:"none"}}>
+        <div className='container parent' style={{ display: "none" }}>
             <div className='send-offer client-contract sendOfferRtl'>
                 <div className='maxWidthControl dashBox mb-4'>
                     <div className='row'>
@@ -279,7 +285,7 @@ export default function WorkContract() {
                                     <td>
                                         {services && services.map((s, i) => {
 
-                                            return <p>{((s.service != '10') ? s.name: s.other_title) }</p>
+                                            return <p>{((s.service != '10') ? s.name : s.other_title)}</p>
                                         })}
                                     </td>
                                 </tr>
@@ -301,21 +307,21 @@ export default function WorkContract() {
                                 <tr>
                                     <td style={{ width: "60%" }}>{t('work-contract.frequency_txt')}</td>
                                     <td>
-                                       
+
                                         {services && services.map((s, i) => {
-                                            return (    
-                                                    <p> {s.freq_name}</p>
+                                            return (
+                                                <p> {s.freq_name}</p>
                                             )
                                         })}
-                                        
+
                                     </td>
                                 </tr>
                                 <tr>
                                     <td style={{ width: "60%" }}>{t('work-contract.consideration_txt')}</td>
                                     <td>
                                         {services && services.map((s, i) => {
-                                               
-                                                return <p>{s.totalamount + t('work-contract.ils') + " + " + t('work-contract.vat') + " " + t('work-contract.for') +" "+((s.service != '10') ? s.name: s.other_title) + ", " + s.freq_name}</p>
+
+                                            return <p>{s.totalamount + t('work-contract.ils') + " + " + t('work-contract.vat') + " " + t('work-contract.for') + " " + ((s.service != '10') ? s.name : s.other_title) + ", " + s.freq_name}</p>
                                         })}
                                     </td>
                                 </tr>

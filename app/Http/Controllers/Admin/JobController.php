@@ -270,9 +270,15 @@ class JobController extends Controller
             $service->save();
 
              $job = Job::with('client','worker','jobservice')->where('id',$new->id)->first();
+             $_timeShift = $worker['shifts'];
+             if($_timeShift != ''){
+                $_timeShift = explode('-',$_timeShift)[1];
+                
+            }
              $data = array(
                 'email'=> $job['worker']['email'],
                 'job'  => $job->toArray(),
+                'start_time'=>$_timeShift
              );
             \App::setLocale($job->worker->lng);
             Mail::send('/Mails/NewJobMail',$data,function($messages) use ($data){
@@ -281,6 +287,7 @@ class JobController extends Controller
                 $messages->subject($sub);
             });
             $data['job']['shifts']=$this->getShifts($worker['shifts'],$job['client']['lng']);
+          
             $client_mail[] = $data;
             $client_email  =  $job['client']['email'];
             $client_name  =  $job['client']['firstname'].' '.$job['client']['lastname'];
@@ -288,15 +295,18 @@ class JobController extends Controller
 
 
         }
+      
+       
         \App::setLocale($client_lng);
         $client_data = array(
             'email'=>$client_email,
             'name' => $client_name,
             'jobs' => $client_mail,
-            'lng' => $client_lng
+            'lng' => $client_lng,
+            'start_time'=>$_timeShift
         );
         
-        
+         
          Mail::send('/Mails/NewJobClient',$client_data,function($messages) use ($client_data){
                 $messages->to($client_data['email']);
                 $id = $client_data['jobs'][0]['job']['id'];
