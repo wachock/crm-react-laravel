@@ -124,25 +124,11 @@ return [
         'thanks_text'   =>'Thanks',
     ],
      'worker_new_job' =>[
-        'subject'     =>'New Job with',
-        'hi'          =>'Hi',
-        'greetings'   =>'Greetings',
-        'from'        =>'from',
-        'company'     =>'ברום סרוויס',
-        'content'     =>'New service request.Please check the details.',
-        'below_txt'   =>'Click the below button to check the contract.',
-        'btn_txt'     =>'Check Contract',
-        'reply_txt'   =>'If you have any questions or concerns please don\'t hesitate to get in touch with us by replying to this email.',
-        'regards'     =>'Best Regards',
-        'tel'         =>'Telephone'
-
-    ],
-    'client_new_job' =>[
         'subject'     =>'תזכורת לגבי שירות שהזמנתם',
         'hi'          =>'היי',
         'greetings'   =>'לקוח יקר',
-        'from'        =>'',
-        'company'     =>'',
+        'from'        =>'מ',
+        'company'     =>'Broom Services',
         'content'     =>'שירות שהזמנת. לצפיה בפרטים.',
         'below_txt'   =>'לחץ על הלחצן למטה כדי לבדוק את ההסכם.',
         'btn_txt'     =>'בדוק הסכם',
@@ -157,7 +143,32 @@ return [
         'action'      => 'פעולה',
         'scheduled'   => 'שובץ',
         'to'          => 'ל',
-        'view_job'    =>'הצג פרטים'
+        'view_job'    =>'הצג פרטים',
+        'start_time'  =>'שעת התחלה'
+
+    ],
+    'client_new_job' =>[
+        'subject'     =>'תזכורת לגבי שירות שהזמנתם',
+        'hi'          =>'היי',
+        'greetings'   =>'לקוח יקר',
+        'from'        =>'מ',
+        'company'     =>'Broom Services',
+        'content'     =>'שירות שהזמנת. לצפיה בפרטים.',
+        'below_txt'   =>'לחץ על הלחצן למטה כדי לבדוק את ההסכם.',
+        'btn_txt'     =>'בדוק הסכם',
+        'reply_txt'   =>'אם יש לך שאלות או בקשות, אנא אל תהסס ליצור איתנו קשר על ידי מענה לדוא"ל זה.',
+        'regards'     =>'בברכה',
+        'tel'         =>'טלפון',
+        'date'        => 'תאריך',
+        'worker'      => 'עובד',
+        'service'     => 'שירות',
+        'shift'       => 'משמרת',
+        'status'      => 'סטטוס',
+        'action'      => 'פעולה',
+        'scheduled'   => 'שובץ',
+        'to'          => 'ל',
+        'view_job'    =>'הצג פרטים',
+        'start_time'  =>'שעת התחלה'
 
     ],
 ];
