@@ -104,7 +104,7 @@ export default function CreateClientByJob() {
     }
     const handleSubmit = () => {
 
-        let formdata = { 'workers': data, 'services': services };
+        let formdata = { 'workers': data, 'services': services ,'client_page':true};
         if (data.length > 0) {
             axios
                 .post(`/api/admin/create-job/${params.id}`, formdata, { headers })

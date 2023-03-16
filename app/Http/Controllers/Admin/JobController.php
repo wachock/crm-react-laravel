@@ -164,7 +164,7 @@ class JobController extends Controller
 
     public function getJobByClient(Request $request){
        
-       $jobs = Job::with('offer','worker')->where('client_id',$request->cid)->get();
+       $jobs = Job::with('offer','worker','jobservice')->where('client_id',$request->cid)->get();
        return response()->json([
         'jobs' => $jobs
     ]);
@@ -212,7 +212,9 @@ class JobController extends Controller
         ],200);
     }
     public function createJob(Request $request,$id){
+         if(isset($request->client_page) && $request->client_page){
          $job = Contract::with('offer')->find($id);
+         }
          $repeat_value='';
          $s_name='';
          $s_heb_name='';
@@ -240,10 +242,16 @@ class JobController extends Controller
          $client_email='';
          foreach($request->workers as $worker){
             $new = new Job;
-            $new->client_id     = $job->client_id;
             $new->worker_id     = $worker['worker_id'];
+            if(isset($request->client_page) && $request->client_page){
+            $new->client_id     = $job->client_id;
             $new->offer_id      = $job->offer_id;
             $new->contract_id   = $id;
+            }else{
+            $new->client_id     = $id;
+            $new->offer_id      = 0;
+            $new->contract_id   = 0;
+            }
             $new->start_date    = $worker['date'];
             $new->shifts        = $worker['shifts'];
             $new->schedule      = $repeat_value;

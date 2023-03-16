@@ -16,7 +16,7 @@ export default function Notification() {
     const headNotice = () => {
         axios.post('/api/admin/notice', { all: 1 }, { headers })
             .then((res) => {
-                if (res.data.notice.data.length > 0) {
+                if (res.data.notice.data) {
                     setNotices(res.data.notice.data);
                     setPageCount(res.data.notice.last_page);
                 } else {
@@ -30,7 +30,7 @@ export default function Notification() {
         axios
             .post("/api/admin/notice?page=" + currentPage,{all:1}, { headers })
             .then((response) => {
-                if (response.data.notice.data.length > 0) {
+                if (response.data.notice.data) {
                     setNotices(response.data.notice.data);
                     setPageCount(response.data.notice.last_page);
                 } else {
