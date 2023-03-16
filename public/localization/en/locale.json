@@ -7,7 +7,8 @@
         "noon":"Noon",
         "afternoon":"Afternoon",
         "evening":"Evening",
-        "fullday":"Full Day"
+        "fullday":"Full Day",
+        "night":"Night"
 
 
     },

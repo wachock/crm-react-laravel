@@ -213,7 +213,9 @@ class JobController extends Controller
     }
     public function createJob(Request $request,$id){
          if(isset($request->client_page) && $request->client_page){
-         $job = Contract::with('offer')->find($id);
+        
+         }else{
+             $job = Contract::with('offer')->find($id);
          }
          $repeat_value='';
          $s_name='';
@@ -244,13 +246,13 @@ class JobController extends Controller
             $new = new Job;
             $new->worker_id     = $worker['worker_id'];
             if(isset($request->client_page) && $request->client_page){
-            $new->client_id     = $job->client_id;
-            $new->offer_id      = $job->offer_id;
-            $new->contract_id   = $id;
+                $new->client_id     = $id;
+                $new->offer_id      = 0;
+                $new->contract_id   = 0;
             }else{
-            $new->client_id     = $id;
-            $new->offer_id      = 0;
-            $new->contract_id   = 0;
+                $new->client_id     = $job->client_id;
+                $new->offer_id      = $job->offer_id;
+                $new->contract_id   = $id;
             }
             $new->start_date    = $worker['date'];
             $new->shifts        = $worker['shifts'];
@@ -293,6 +295,7 @@ class JobController extends Controller
             'jobs' => $client_mail,
             'lng' => $client_lng
         );
+        
         
          Mail::send('/Mails/NewJobClient',$client_data,function($messages) use ($client_data){
                 $messages->to($client_data['email']);
@@ -341,10 +344,11 @@ class JobController extends Controller
     }
     if($lng=='heb'){
        $new_shift=str_replace("Full Day","יום שלם",$new_shift);
-       $new_shift=str_replace("Morning","וקר",$new_shift);
-       $new_shift=str_replace("Afternoon","חהצ",$new_shift);
-       $new_shift=str_replace("Evening","רב",$new_shift);
-       $new_shift=str_replace("Night","לַיום שלם",$new_shift);
+       $new_shift=str_replace("Morning","בוקר",$new_shift);
+       $new_shift=str_replace("Noon","צהריים",$new_shift);
+       $new_shift=str_replace("Afternoon","אחהצ",$new_shift);
+       $new_shift=str_replace("Evening","ערב",$new_shift);
+       $new_shift=str_replace("Night","לילה",$new_shift);
     }
      return $new_shift;
 

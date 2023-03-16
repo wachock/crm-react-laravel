@@ -26,7 +26,7 @@
 			</tr>
 		</table>
 		<h1 style="text-align: center;">{{__('mail.offer.hi')}}, {{$client['firstname']}} {{$client['lastname']}}</h1>
-		<p style="text-align: center;">{{__('mail.offer.greetings')}} {{__('mail.offer.from')}} {{__('mail.offer.company')}}. {{__('mail.offer.price_offer')}} <span style="color:#0130c6;font-weight:700;">{{$service_names}}</span> {{__('mail.offer.service_s')}}. {{__('mail.offer.approve_txt')}}</p>
+		<p style="text-align: center;">{{__('mail.offer.greetings')}} {{__('mail.offer.from')}} {{__('mail.offer.company')}}. {{__('mail.offer.price_offer')}} <span style="color:#0130c6;font-weight:700;">{{__('mail.offer.service_s')}} {{$service_names}}</span> . {{__('mail.offer.approve_txt')}}</p>
 	
 		<p style="text-align: center;margin-bottom: 20px">{{__('mail.offer.below_txt')}}</p>
 		<div style="text-align: center;">

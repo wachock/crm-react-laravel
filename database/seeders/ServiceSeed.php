@@ -18,7 +18,7 @@ class ServiceSeed extends Seeder
        
         Services::create([
             'name'         => 'Office Cleaning',
-            'heb_name'     => 'משרד ניקוי',  
+            'heb_name'     => 'ניקיון משרד',  
             'template'     => 'office_cleaning',
             'status'       => 1                
         ]);
@@ -60,7 +60,7 @@ class ServiceSeed extends Seeder
         ]);
         Services::create([
             'name'         => 'window cleaning',
-            'heb_name'     => 'ניקוי חלון',  
+            'heb_name'     => 'ניקוי חלונות',  
             'template'     => 'window_cleaning',
             'status'       => 1                  
         ]);

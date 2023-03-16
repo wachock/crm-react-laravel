@@ -282,15 +282,7 @@ export default function WorkContract() {
                                     <td>
                                         {services && services.map((s, i) => {
 
-
-                                            if ((services.length - 1) != i && services.service != 10)
-                                                return s.name + ", ";
-                                            else if (services.service == 10)
-                                                return s.other_title + " ";
-                                            else
-                                                return s.name;
-
-
+                                            return <p>{((s.service != '10') ? s.name: s.other_title) }</p>
                                         })}
                                     </td>
                                 </tr>
@@ -312,31 +304,21 @@ export default function WorkContract() {
                                 <tr>
                                     <td style={{ width: "60%" }}>{t('work-contract.frequency_txt')}</td>
                                     <td>
+                                       
                                         {services && services.map((s, i) => {
-                                            return (
-                                                ((services.length - 1) != i)
-                                                    ? s.freq_name + ", "
-                                                    : s.freq_name
+                                            return (    
+                                                    <p> {s.freq_name}</p>
                                             )
                                         })}
+                                        
                                     </td>
                                 </tr>
                                 <tr>
                                     <td style={{ width: "60%" }}>{t('work-contract.consideration_txt')}</td>
                                     <td>
                                         {services && services.map((s, i) => {
-                                            if ((services.length) - 1 != i)
-                                                return s.totalamount + t('work-contract.ils') + " + " + t('work-contract.vat') + " " + t('work-contract.for') + s.name + ", " + s.freq_name + ", ";
-                                            else if (services.service == 10) {
-
-                                                if ((services.length) - 1 != i)
-                                                    return s.totalamount + t('work-contract.ils') + " + " + t('work-contract.vat') + " " + t('work-contract.for') + s.other_title + ", " + s.freq_name + ", ";
-                                                else
-                                                    return s.totalamount + t('work-contract.ils') + " + " + t('work-contract.vat') + " " + t('work-contract.for') + s.other_title + ", " + s.freq_name;
-
-                                            }
-                                            else
-                                                return s.totalamount + t('work-contract.ils') + " + " + t('work-contract.vat') + " " + t('work-contract.for') + s.name + ", " + s.freq_name;
+                                               
+                                                return <p>{s.totalamount + t('work-contract.ils') + " + " + t('work-contract.vat') + " " + t('work-contract.for') +" "+((s.service != '10') ? s.name: s.other_title) + ", " + s.freq_name}</p>
                                         })}
                                     </td>
                                 </tr>
