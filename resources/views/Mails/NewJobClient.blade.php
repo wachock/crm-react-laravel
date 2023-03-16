@@ -49,7 +49,7 @@
 				    @endif
 				      </td>
 					<td style="border: 1px solid #dee2e6;font-size: 14px;padding: 8px">{{ $job['job']['shifts'] }} </td>
-					<td style="border: 1px solid #dee2e6;font-size: 14px;padding: 8px">{{ $start_time }} </td>
+					<td style="border: 1px solid #dee2e6;font-size: 14px;padding: 8px">{{ $job['start_time'] }} </td>
 					<td style="border: 1px solid #dee2e6;font-size: 14px;padding: 8px">{{__('mail.client_new_job.scheduled')}}</td>
 					<td style="border: 1px solid #dee2e6;font-size: 14px;padding: 8px;display:flex;height: 38px">
 						<a href='{{ url("client/view-job/".$job["job"]["id"] ) }}' style="font-size: 13px;color: #007bff;min-width: 51px">{{__('mail.client_new_job.view_job')}}</a>
