@@ -537,7 +537,7 @@ export default function WorkerContract() {
                         <div className='col-sm-6'>
                             <h5 className='mt-2'>The Employee</h5>
                             <h6 style={{fontWeight: "600", fontSize: "14px"}}>Draw Signature with mouse or touch</h6>
-                            <SignatureCanvas 
+                            <SignatureCanvas
                                 penColor="black"
                                 canvasProps={{className: 'sigCanvas'}}
                                 ref={sigRef2}

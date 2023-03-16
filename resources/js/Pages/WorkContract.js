@@ -79,6 +79,9 @@ export default function WorkContract() {
         sigRef2.current.clear();
         setSignature2(null);
     }
+    useEffect(() => {
+        console.log(signature);
+      }, [signature]);
 
     const getOffer = () => {
         axios
@@ -359,7 +362,7 @@ export default function WorkContract() {
                                     <td>
                                         <SignatureCanvas
                                             penColor="black"
-                                            canvasProps={{ className: 'sigCanvas' }}
+                                            canvasProps={{ className: 'sigCanvas', width: 300, height: 115 }}
                                             ref={sigRef2}
                                             onEnd={handleSignatureEnd2}
                                         />

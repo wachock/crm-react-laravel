@@ -1191,8 +1191,6 @@ h1 {
 .client-contract .sigCanvas{
   border: 1px solid #ccc;
   max-width: 300px !important;
-  min-width: 300px;
-  height: 115px;
 }
 .search-data{
   display: flex;
@@ -1653,6 +1651,8 @@ h1 {
     margin-bottom: 10px;
     min-width: 300px;
     height: 115px;
+    position: relative;
+    z-index: 999;
 }
 .insurancetable .table tr td p span {
     font-weight: bold;

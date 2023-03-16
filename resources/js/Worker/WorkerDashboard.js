@@ -80,6 +80,8 @@ export default function WorkerDashboard() {
                                             {latestJobs &&
                                                 latestJobs.map(
                                                     (item, index) => {
+                                                       let services =  (item.offer) ? JSON.parse(item.offer.services) : [];
+                                                   
                                                     return (
 
                                                         <Tr key={index}>
