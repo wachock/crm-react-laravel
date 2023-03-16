@@ -80,7 +80,6 @@ export default function WorkerDashboard() {
                                             {latestJobs &&
                                                 latestJobs.map(
                                                     (item, index) => {
-                                                     
                                                     return (
 
                                                         <Tr key={index}>
