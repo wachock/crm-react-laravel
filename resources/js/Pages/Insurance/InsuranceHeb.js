@@ -686,24 +686,22 @@ export default function InsuranceHeb() {
                     <div className='insurancetable table-responsive'>
                         <table className='table table-bordered'>
                             <thead>
-                                <th>H. Receipt of all the information in the Policy</th>
+                                <th>ח. אישור המועמד לביטוח לפעילות סוכן</th>
                             </thead>
                             <tr>
                                 <td>
                                     <p>
-                                    I hereby permit my insurance agent for the Policy,
-Mr/Ms___________________________, to handle on my behalf and for me all matters related to this claim, including submitting to Menora and receiving from Menora on my behalf and for me all correspondence and/or documents. related to a claim, and to serve as my representative for all intents and purposes related to this claim.
-
+                                    מאשר לסוכן הביטוח שלי בפוליסה, מר/גב׳ ____________________לטפל בשמי ועבורי לטפל בשמי ועבורי בכל הקשור לתביעה <br/>זו ובכלל זאת להגיש ל"מנורה" ולקבל מ"מנורה" בשמי ועבורי את כל התכתובות ו/או המסמכים<br/>הקשורים לתביעה, ולשמש כשלוחי לכל דבר ועניין הנוגע לתביעה זו.
                                     </p>
                                     <p>
-                                    <label for="label" className="form-label">Signature of the Insured</label>
+                                    <label for="label" className="form-label">חתימת המועמד לביטוח</label>
                                     <SignatureCanvas
                                     penColor="black"
                                     canvasProps={{className: 'sigCanvas'}}
                                     ref={sigRef5}
                                     onEnd={handleSignatureEnd5}
                                 />
-                                <button className='btn btn-warning' onClick={clearSignature5}>Clear</button>
+                                <button className='btn btn-warning' onClick={clearSignature5}>ברור</button>
                                     </p>
 
                                 </td>
@@ -715,21 +713,27 @@ Mr/Ms___________________________, to handle on my behalf and for me all matters 
                     <div className='insurancetable table-responsive'>
                         <table className='table table-bordered'>
                             <thead>
-                                <th>I. Applicant / insurance candidate declaration</th>
+                                <th>ט. הצהרת המבקש/ המועמד לביטוח</th>
                             </thead>
                             <tr>
                                 <td>
                                     <p>
-                                    I the undersigned, the insurance candidate, hereby request the insurer to insured the insurance candidate pursuant to the details in this form (hereinafter: “the Proposal”).
+                                    אני החתום מטה, המועמד לביטוח, מבקש בזה לבטח את המועמד לביטוח לפי<br/>רישום בטופס זה (להלן: "ההצעה)"
                                     </p>
                                     <p>
-                                    <span>I hereby represent, agree and undertake that:</span>
+                                    <span>אני מצהיר מסכים ומתחייב בזה כי:</span>
                                     </p>
-                                    <p>1.	All of the answers specified in the proposal and/or in the health declaration are correct and complete, and I did not conceal from the insurer anything that may affect the insurer's decision to accept the insurance proposal.</p>
-                                    <p>2.	The answers specified in the proposal and any other information in writing to be given to the insurer by me, as well as the insurer's customary terms in this matter, shall serve as the terms of the insurance contract between me and the insurer and shall constitute an integral part thereof.</p>
-                                    <p>3.	I hereby confirm and agree that the acceptance or rejection of my proposal is at the sole discretion of the insurer and it is entitled to decide whether to accept or reject the proposal subject to the law.</p>
-                                    <p>4.	I agree that the insurance policy of the insurance plans requested in this proposal be delivered to me by means of the agent whose details appear at the beginning of this proposal.</p>
-                                    <p>5.	If you wish to receive the policy and/or the information in the framework. of the underwriting procedure and the procedure of joining this policy directly, as well, you may contact menora at any time by phoning menora 03-7107460.</p>
+                                    <p>1.   כל התשובות המפורטות בהצעה ו/או בהצהרת הבריאות הן נכונות ומלאות, ולא העלמתי מן המבטח דבר העלול להשפיע על החלטתו לקבל את ההצעה
+לביטוח.</p>
+                                    <p>2.	התשובות המפורטות בהצעה וכן כל מידע אחר בכתב שימסר למבטח על-ידי וכן התנאים המקובלים אצל המבטח לעניין זה ישמשו תנאי לחוזה
+הביטוח ביני לבין המבטח ויהוו חלק בלתי נפרד ממנו. </p>
+                                    <p>3.	אני מאשר ומסכים בזה כי קיבולה או דחייתה של הצעתי זו נתון לשיקול דעתו הבלעדי של המבטח והוא ראשי להחליט על קבלת ההצעה או דחייתה
+בכפוף להוראות הדין.
+</p>
+                                    <p>4.	אני מסכים כי פוליסת הביטוח של תכניות הביטוח המבוקשות בהצעה זו
+תימסר לי באמצעות הסוכן שפרטיו מופיעים בתחילת הצעה זו. </p>
+                                    <p>5.	 מידה וברצונך לקבל את הפוליסה ו/או את המידע במסגרת הליך החיתום והליך ההצטרפות לפוליסה זו גם ישירות אליך, ביכולתך לפנות למנורה בכל
+עת בטלפון מס' 03-7107460.</p>
 
                                 </td>
                             </tr>
@@ -740,12 +744,14 @@ Mr/Ms___________________________, to handle on my behalf and for me all matters 
                     <div className='insurancetable table-responsive'>
                         <table className='table table-bordered'>
                             <thead>
-                                <th>J. Waiver of medical confidentiality</th>
+                                <th>י. ויתור כל סודיות רפואית</th>
                             </thead>
                             <tr>
                                 <td>
                                     <p>
-                                    I, the undersigned, hereby permit the medical institution and/or your employees and/or any person working on your behalf or as your agent, to provide Menora Mivtachim Insurance Ltd. )hereinafter: the "Requester"( with all details, with no exception, regarding my medical condition and/or any disease from which I suffered in the past and/or from which I suffer at present, including information on psychiatric or other mental therapy that I underwent, in the manner requested by the Requester, and I hereby release you and/or your employees and/or any person working on your behalf or as your agent from the duty of medical confidentiality on all matters related to my medical condition and/or diseases as foregoing, and I waive such confidentiality with respect to the Requester, and shall have no claim or demand against you in connection to the foregoing, including claims by virtue of the Privacy Protection Law and/or the Patient's Rights Law regarding medical confidentiality and/or any other law.
+                                    אני החתום מטה נותן בזה רשות למוסד הרפואי ו/או לעובדיכם ו/או לכל מי
+שפועל מטעמכם או בשליחותכם למסור ל"מנורה מבטחים ביטוח בע"מ" (להלן: "המבקש)" את כל הפרטים, ללא יוצא מן הכלל, על מצב בריאותי ו/או על כל מחלה שחליתי בה בעבר ו/או שהנני חולה בה כעת, לרבות מידע על טיפולים פסיכיאטריים או נפשיים אחרים שקיבלתי ובאופן שידרש על ידי המבקש והנני משחרר  אתכם  ו/או  את  עובדיכם  ו/או  כל  מי  שפועל  מטעמכם  או  בשליחותכם מחובת שמירה על סודיות רפואית בכל הנוגע למצב בריאותי ו/או מחלותיי כן"ל ומוותר על סודיות זו כלפי המבקש ולא תהיינה לי אליכם כל טענה או תביעה מסוג כלשהוא בקשר לנ"ל, לרבות טענות מכוח
+<br/>חוק הגנת הפרטיות ו/או חוק זכויות<br/>החולה לעניין סודיות רפואית ו/או כל דין אחר.
                                     </p>
                                 </td>
                             </tr>
@@ -756,21 +762,27 @@ Mr/Ms___________________________, to handle on my behalf and for me all matters 
                     <div className='insurancetable table-responsive'>
                         <table className='table table-bordered'>
                             <thead>
-                                <th>K. Information for the Insurance Candidate</th>
+                                <th>יא. מידע למועמד לביטוח</th>
                             </thead>
                             <tr>
                                 <td>
                                     <p>
-                                        1.  According to the terms of the Policy, in the period of 90 days from the date of termination of the insurance period, it is possible to extend the insurance period continuously, subject to payment of insurance fees for the period between the end of the insurance period and extension of the insurance, provided that you continue to work as a foreign worker. After the passage of 90 days from the date of termination of the insurance period, new inclusion in the Policy will involve an underwriting procedure.
+                                        1.  בהתאם לתנאי הפוליסה, במהלך 90 ימים ממועד סיום תקופת הביטוח ניתן להאריך את תקופת הביטוח ברצף, בכפוף לתשלום דמי ביטוח בגין התקופה שבין סיום תקופת הביטוח לבין הארכת הביטוח וכל עוד הינך ממשיך לעבוד כעובד זר. לאחר חלוף 90 ימים ממועד סיום תקופת הביטוח, הצטרפות
+לפוליסה חדשה תהיה כרוכה בהליך חיתום.
+
                                     </p>
                                     <p>
-                                        2.	Insofar as you are a person with disabilities, as defined in the Equal Rights for Persons with Disabilities Law, 5748 - 1998, that is, "a person with a physical, mental or intellectual, including cognitive impairment, whether permanent or temporary, which significantly limits his functioning in one or more of the central spheres of life," please notify us of this through your insurance agent, whose details appear at the beginning of this proposal.
+                                        2.	ככל  שהינך  אדם  עם  מוגבלות,  כהגדרתו  בחוק  שוויון  זכויות  לאנשים  עם מוגבלות, תשנ"ח– ,1998 קרי "אדם עם לקות פיסית, נפשית או שכלית לרבות קוגניטיבית, קבועה או זמנית, אשר בשלה מוגבל תפקודו באופן
+מהותי בתחום אחד או יותר מתחומי החיים העיקריים," אנא עדכן אותנו על
+כך באמצעות סוכן הביטוח שלך, שפרטיו מופיעים בתחילת הצעה זו.
+
                                     </p>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <p><span>I confirm that I have read and understood the contents of this proposal, including the representations therein.</span></p>
+                                    <p><span>אני מאשר כי קראתי והבנתי את האמור בהצעה זו, לרבות ההצהרות
+המופיעות בה.</span></p>
                                 </td>
                             </tr>
 
@@ -780,30 +792,30 @@ Mr/Ms___________________________, to handle on my behalf and for me all matters 
                     <div className='insurancetable table-responsive'>
                         <table className='table table-bordered'>
                             <thead>
-                                <th colSpan={4}>Signature for the Insurance Candidate</th>
+                                <th colSpan={4}>חתימת המועמד לביטוח</th>
                             </thead>
                             <tr>
 
                                 <td>
-                                    <label for="label" className="form-label">Signature of the Insurance Candidate</label>
+                                    <label for="label" className="form-label">חתימה</label>
                                     <SignatureCanvas
                                     penColor="black"
                                     canvasProps={{className: 'sigCanvas'}}
                                     ref={sigRef6}
                                     onEnd={handleSignatureEnd6}
                                 />
-                                <button className='btn btn-warning' onClick={clearSignature6}>Clear</button>
+                                <button className='btn btn-warning' onClick={clearSignature6}>ברור</button>
                                 </td>
                                 <td>
-                                    <label for="label" className="form-label">Passport no.</label>
+                                    <label for="label" className="form-label">מס׳  דרכון</label>
                                     <input type="text" className="form-control" />
                                 </td>
                                 <td>
-                                    <label for="label" className="form-label">Insurance Candidate name</label>
+                                    <label for="label" className="form-label">שם המועמד לביטוח</label>
                                     <input type="text" className="form-control" />
                                 </td>
                                 <td>
-                                    <label for="label" className="form-label">Date</label>
+                                    <label for="label" className="form-label">תאריך </label>
                                     <input type="date" className="form-control" />
                                 </td>
                             </tr>
@@ -812,7 +824,7 @@ Mr/Ms___________________________, to handle on my behalf and for me all matters 
                         </table>
                     </div>
                     <div className='button mt-4 text-center'>
-                        <input class="btn btn-pink" value="Submit" />
+                        <input class="btn btn-pink" value="שלח" />
                     </div>
                 </div>
             </div>

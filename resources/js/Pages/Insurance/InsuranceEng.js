@@ -55,7 +55,7 @@ export default function InsuranceEng() {
                     <img src={insurancelogo} className='img-fluid' alt='Insurance Logo' />
                 </div>
                 <div className='col-sm-6'>
-                    <svg width="250" height="94" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">       
+                    <svg width="250" height="94" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
                         <image xlinkHref={logo} width="250" height="94"></image>
                     </svg>
                 </div>
@@ -778,7 +778,7 @@ Mr/Ms___________________________, to handle on my behalf and for me all matters 
                             <tr>
 
                                 <td>
-                                    <label for="label" className="form-label">Signature of the Insurance Candidate</label>
+                                    <label for="label" className="form-label">Signature </label>
                                     <SignatureCanvas
                                     penColor="black"
                                     canvasProps={{className: 'sigCanvas'}}
