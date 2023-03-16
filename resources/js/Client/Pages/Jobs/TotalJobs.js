@@ -133,7 +133,7 @@ export default function TotalJobs() {
                                         {totalJobs &&
                                                 totalJobs.map((item, index) => {
 
-                                                    let services =  (item.offer.services) ? JSON.parse(item.offer.services) : [];
+                                                    //let services =  (item.offer.services) ? JSON.parse(item.offer.services) : [];
                                                     let address = (item.client.geo_address) ? (item.client.geo_address) : 0;
                                                     let Ad = [];
                                                     if(address){
