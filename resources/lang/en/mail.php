@@ -116,7 +116,7 @@ return [
         'thanks_text'   =>'Thanks',
     ],
      'worker_new_job' =>[
-        'subject'     =>'New Job with',
+        'subject'     =>'Job Details with',
         'hi'          =>'Hi',
         'greetings'   =>'Greetings',
         'from'        =>'from',
@@ -126,7 +126,17 @@ return [
         'btn_txt'     =>'Check Contract',
         'reply_txt'   =>'If you have any questions or concerns please don\'t hesitate to get in touch with us by replying to this email.',
         'regards'     =>'Best Regards',
-        'tel'         =>'Telephone'
+        'tel'         =>'Telephone',
+        'date'        => 'Date',
+        'worker'      => 'Worker',
+        'service'     => 'Service',
+        'shift'       => 'Shift',
+        'status'      => 'Status',
+        'action'      => 'Action',
+        'scheduled'   => 'Scheduled',
+        'to'          => 'to',
+        'view_job'    =>'view job',
+        'start_time'  =>'Start Time'
 
     ],
     'client_new_job' =>[
@@ -149,7 +159,8 @@ return [
         'action'      => 'Action',
         'scheduled'   => 'Scheduled',
         'to'          => 'to',
-        'view_job'    =>'view job'
+        'view_job'    =>'view job',
+        'start_time'  =>'Start Time'
 
     ],
 ];
