@@ -80,7 +80,6 @@ class Client extends Authenticatable
              Schedule::where('client_id',$Client->id)->delete();
              Offer::where('client_id',$Client->id)->delete();
              Contract::where('client_id',$Client->id)->delete();
-             notification::where('user_id',$Client->id)->delete();
         });
     }
 

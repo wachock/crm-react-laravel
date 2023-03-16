@@ -101,7 +101,10 @@ export default function CreateJobCalender() {
     const handleSubmit = () => {
 
         let formdata = { 'workers': data, 'services': services };
+        let viewbtn = document.querySelector('.viewBtn');
         if (data.length > 0) {
+            viewbtn.setAttribute('disabled',true);
+            viewbtn.value = 'please wait ...'
             axios
                 .post(`/api/admin/create-job/${params.id}`, formdata, { headers })
                 .then((res) => {
@@ -112,7 +115,9 @@ export default function CreateJobCalender() {
 
                 });
         } else {
-            alert("Please Select the Workers");
+            viewbtn.removeAttribute('disabled');
+            viewbtn.value = 'View Job'
+            alert.error("Please Select the Workers");
         }
 
     }
@@ -442,7 +447,7 @@ export default function CreateJobCalender() {
                </div>
            </div>
             <div className="form-group text-center">
-                <input type='button' value='View Job' className="btn btn-pink" data-toggle="modal" data-target="#exampleModal" />
+                <input type='button' value='View Job' className="btn btn-pink viewBtn" data-toggle="modal" data-target="#exampleModal" />
             </div>
             <div className="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div className="modal-dialog modal-lg" role="document">

@@ -169,7 +169,7 @@ export default function WorkContract() {
                                     :
                                     <div className='mt-2 float-right headMsg'>
                                         {
-                                            (status == 'un-verified') ?
+                                            (status == 'un-verified' || status == 'verified') ?
                                                 <h4 className='btn btn-success'>Accepted</h4>
                                                 :
                                                 <h4 className='btn btn-danger'>Rejected</h4>
