@@ -1193,6 +1193,7 @@ h1 {
   max-width: 300px !important;
   width: 300px;
   height: 115px;
+  touch-action: auto !important;
 }
 .search-data{
   display: flex;
