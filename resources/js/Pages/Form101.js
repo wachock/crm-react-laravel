@@ -1,32 +1,147 @@
-import React, {useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import logo from "../Assets/image/logo.png";
 import check from "../Assets/image/icons/check-mark.png";
 import SignatureCanvas from 'react-signature-canvas'
-
+import { useParams, useNavigate } from 'react-router-dom';
+import { Base64 } from "js-base64";
+import { useAlert } from 'react-alert';
+import axios from 'axios';
+const data = {};
 export default function Form101() {
+
   const [selected, setSelected] = useState("");
-  const changeHandler = e => {
-    setSelected(e.target.value);
-  };
-  console.log(selected);
+  const param = useParams();
+  const id = Base64.decode(param.id);
+  const alert = useAlert();
   const [file, setFile] = useState();
   const [file2, setFile2] = useState();
-  function handleChange(e) {
-      console.log(e.target.files);
-      setFile(URL.createObjectURL(e.target.files[0]));
-  }
-  function handleChange2(e) {
-    console.log(e.target.files);
-    setFile2(URL.createObjectURL(e.target.files[0]));
-  }
+
   const sigRef = useRef();
   const [signature, setSignature] = useState(null);
   const handleSignatureEnd = () => {
     setSignature(sigRef.current.toDataURL());
   }
   const clearSignature = () => {
-      sigRef.current.clear();
-      setSignature(null);
+    sigRef.current.clear();
+    setSignature(null);
+  }
+
+  const handleSubmit = (e) => {
+
+    let country = document.querySelector('select[name="p-country"]');
+    let pset = document.querySelector('select[name="p-settlement"]');
+    if (e.target.name == 'income') {
+      const ik = {};
+      let incm = document.querySelectorAll('input[name="income"]:checked');
+      incm.forEach((e, i) => {
+        (i == 0) ?
+          ik['income'] = e.value + " | "
+          : ik['income'] += e.value + " | "
+
+      })
+      data['income'] = ik;
+
+    } else {
+      data[e.target.name] = e.target.value;
+      if (country != null)
+        data['country'] = country.options[country.selectedIndex].value;
+      if (pset != null)
+        data['p-settlement'] = pset.options[pset.selectedIndex].value;
+
+    }
+
+  }
+  const finalSubmit = () => {
+
+    const Data = {
+      ...data,
+      "photocopy_id_appendix": (file != undefined) ? file : '',
+      "p-file": (file2 != undefined) ? file2 : '',
+      "signature": signature
+    }
+
+    let success = true;
+
+    if(!Data.name){alert.error('Please enter name'); success = false; return false; }
+    if(!Data.phone_number){alert.error('Please enter phone number'); success = false; return false; }
+    if(!Data.first_name){alert.error('Please enter first name'); success = false; return false; }
+    if(!Data.last_name){alert.error('Please enter lastname'); success = false; return false; }
+    
+    if (!Data.identification) { alert.error('Please choose identification'); success = false ; return false; }
+    else if (Data.identification == 'byId') {
+      let bid = document.querySelectorAll('.bid');
+      let bidr = document.querySelectorAll('.bidr');
+      bid.forEach((e,i)=>{
+        if(e.value == ''){
+          let name= e.name.split('-')[1];
+          if(name != undefined){
+          name = name.replace('_',' '); 
+          alert.error('Please enter '+name);
+          success = false;
+          return false;
+        }
+      }
+      })
+     /* 
+      COMMENTED RADIO BUTTONS NOT MANDATORY
+
+     bidr.forEach((e,i)=>{
+        console.log(e.checked)
+        if(e.checked == false){
+          let name= e.name.split('-')[1];
+          if(name != undefined){
+          name = name.replace('_',' '); 
+          alert.error('Please choose '+name);
+          success = false;
+          return false;
+        }
+      }
+      })*/
+
+    } else {
+
+      let pid = document.querySelectorAll('.pid');
+      let pidr = document.querySelectorAll('.pidr');
+      pid.forEach((e,i)=>{
+        if(e.value == ''){
+          let name= e.name.split('-')[1];
+          if(name != undefined){
+          name = name.replace('_',' '); 
+          alert.error('Please enter '+name);
+          success = false;
+          return false;
+        }
+      }
+      })
+     /* pidr.forEach((e,i)=>{
+        if(!e.checked){
+          let name= e.name.split('-')[1];
+          if(name != undefined){
+          name = name.replace('_',' '); 
+          alert.error('Please choose '+name);
+          success = false;
+          return false;
+        }
+      }
+      })*/
+
+
+    }
+    if(!Data.income){alert.error('Please choose income details'); success = false; return false; }
+    if(!Data.taxDate){alert.error('Please enter date of commencement '); success = false; return false; }
+    if(!Data.signature || Data.signature == null){alert.error('Please sign form'); success = false; return false; }
+
+    if(success == true){
+      axios
+      .post(`/api/form101`,{id:id,data:Data})
+      .then((res)=>{
+        if(res.data.success_code == 200){
+          alert.success(res.msg)
+        } else {
+          window.alert('something went wrong ! please try again')
+        }
+      })
+    }
   }
   return (
     <div className='container'>
@@ -35,72 +150,72 @@ export default function Form101() {
         <h1 className='text-center'>Form 101</h1>
         <p className='text-center max600'>Employee card - and a request for tax relief and coordination by the employer according to the Income Tax Regulations (deduction from salary and wages), 1993</p>
         <p className='text-center max600'>This form will be filled out by each employee upon starting his job, as well as at the beginning of each tax year (unless the manager has approved otherwise). The form is a reference for the employer to provide tax relief and to make tax adjustments in the calculation of the employee's salary. If there is a change in the details - this must be declared within a week.</p>
-        <hr/>
+        <hr />
         <div className='agg-list'>
           <div className='icons'><img src={check} /></div>
           <div className='agg-text'>
-              <p>Fill out the form and at the bottom of the page you can Download a PDF file with the details you filled out. The file you will receive is a normal and standard Form 101.</p>
+            <p>Fill out the form and at the bottom of the page you can Download a PDF file with the details you filled out. The file you will receive is a normal and standard Form 101.</p>
           </div>
         </div>
         <div className='agg-list'>
           <div className='icons'><img src={check} /></div>
           <div className='agg-text'>
-              <p>Send the form by email to you and the employer.</p>
+            <p>Send the form by email to you and the employer.</p>
           </div>
         </div>
         <div className='agg-list'>
           <div className='icons'><img src={check} /></div>
           <div className='agg-text'>
-              <p>Save a draft of the form and continue later.</p>
+            <p>Save a draft of the form and continue later.</p>
           </div>
         </div>
         <div className='agg-list'>
           <div className='icons'><img src={check} /></div>
           <div className='agg-text'>
-              <p>The form is a free service operated by the Broom Service and not operated by the Tax Authority and is not approved by it.</p>
+            <p>The form is a free service operated by the Broom Service and not operated by the Tax Authority and is not approved by it.</p>
           </div>
-        </div> 
+        </div>
         <div className='agg-list'>
           <div className='icons'><img src={check} /></div>
           <div className='agg-text'>
-              <p>Note! If your employer uses a different system for forms 101 - you must fill out the form there. It is recommended to check with the employer.</p>
+            <p>Note! If your employer uses a different system for forms 101 - you must fill out the form there. It is recommended to check with the employer.</p>
           </div>
-        </div> 
+        </div>
         <div className='agg-list'>
           <div className='icons'><img src={check} /></div>
           <div className='agg-text'>
-              <p>Your privacy is important to us. We do not use your information and do not transfer it to third parties.</p>
+            <p>Your privacy is important to us. We do not use your information and do not transfer it to third parties.</p>
           </div>
-        </div> 
+        </div>
         <div className='box-heading'>
           <h2>Tax year</h2>
           <p><strong>2023</strong> (The form can only be filled out for the current tax year. Except in the month of December, when the form can also be filled out for the next tax year and in the month of January, when the form can be filled out also for the previous tax year, for the benefit of employees who did not have time to fill out the form in time.)</p>
-        </div>  
+        </div>
         <div className='box-heading'>
           <h2>A. Employer details</h2>
           <div className='row'>
             <div className='col-sm-3 col-xs-6'>
               <div className='form-group'>
                 <label className='control-label'>Name*</label>
-                <input type='text' className='form-control' placeholder='Name' required />
+                <input type='text' className='form-control man' onChange={(e) => handleSubmit(e)} name="name" placeholder='Name' required />
               </div>
             </div>
             <div className='col-sm-3 col-xs-6'>
               <div className='form-group'>
                 <label className='control-label'>Address</label>
-                <input type='text' className='form-control' placeholder='Address' />
+                <input type='text' className='form-control man' onChange={(e) => handleSubmit(e)} name="address" placeholder='Address' />
               </div>
             </div>
             <div className='col-sm-3 col-xs-6'>
               <div className='form-group'>
                 <label className='control-label'>Phone Number*</label>
-                <input type='tel' className='form-control' placeholder='Phone Number' required />
+                <input type='tel' className='form-control man' onChange={(e) => handleSubmit(e)} placeholder='Phone Number' name="phone_number" required />
               </div>
             </div>
             <div className='col-sm-3 col-xs-6'>
               <div className='form-group'>
                 <label className='control-label'>Deduction file ID</label>
-                <input type='text' className='form-control' placeholder='Deduction file ID' />
+                <input type='text' className='form-control man' onChange={(e) => handleSubmit(e)} name="deduction_fileId" placeholder='Deduction file ID' />
               </div>
             </div>
           </div>
@@ -108,88 +223,89 @@ export default function Form101() {
         <div className='box-heading'>
           <h2>B. Employee details</h2>
           <div className='row'>
-            <div className='col-sm-4 col-xs-6'>
-                <div className='form-group'>
-                  <label className='control-label'>First name*</label>
-                  <input type='text' className='form-control' placeholder='First name' required />
-                </div>
-            </div>
-            <div className='col-sm-4 col-xs-6'>
-                <div className='form-group'>
-                  <label className='control-label'>Last name*</label>
-                  <input type='text' className='form-control' placeholder='Last name' required />
-                </div>
-            </div>
-            <div className='col-sm-4 col-xs-6'>
-                <div className='form-group'>
-                  <label className='control-label d-block'>Identification by*</label>
+          <div className='col-sm-4 col-xs-6'>
+              <div className='form-group'>
+                <label className='control-label d-block'>Identification by*</label>
 
-                  <input className='mr-1' type="radio" name="identification" value="byId" id="byId" checked={selected === "byId"} onChange={changeHandler}/>
-                  <label className='mr-2' htmlFor="byId">ID</label>
-                    
-                  <input className='mr-1' type="radio" value="passport" id="passport" checked={selected === "passport"} name="identification" onChange={changeHandler}/>
-                  <label className='mr-2' ohtmlFor="passport">Passport (for a foreign citizen)</label>
-                  
-                </div>
+                <input className='mr-1' type="radio" name="identification" value="byId" id="byId" checked={selected === "byId"} onChange={(e) => { handleSubmit(e); setSelected(e.target.value); }} />
+                <label className='mr-2' htmlFor="byId">ID</label>
+
+                <input className='mr-1' type="radio" value="passport" id="passport" checked={selected === "passport"} name="identification" onChange={(e) => { handleSubmit(e); setSelected(e.target.value); }} />
+                <label className='mr-2' ohtmlFor="passport">Passport (for a foreign citizen)</label>
+
+              </div>
             </div>
+            <div className='col-sm-4 col-xs-6'>
+              <div className='form-group'>
+                <label className='control-label'>First name*</label>
+                <input type='text' onChange={(e) => handleSubmit(e)} name="first_name" className='form-control man' placeholder='First name' required />
+              </div>
+            </div>
+            <div className='col-sm-4 col-xs-6'>
+              <div className='form-group'>
+                <label className='control-label'>Last name*</label>
+                <input type='text' onChange={(e) => handleSubmit(e)} name="last_name" className='form-control man' placeholder='Last name' required />
+              </div>
+            </div>
+           
             <div className='col-sm-12'>
               <div aria-hidden={selected !== "byId" ? true : false}>
                 <div className='row'>
                   <div className='col-sm-4 col-xs-6'>
                     <div className='form-group'>
                       <label className="control-label">ID Number*</label>
-                      <input type='text' className="form-control" placeholder="" required />
+                      <input type='text' onChange={(e) => handleSubmit(e)} name="bid-id_number" className="form-control bid" placeholder="" required />
                     </div>
                   </div>
                   <div className='col-sm-4 col-xs-6'>
                     <div className='form-group'>
                       <label className="control-label">Photocopy of ID card and appendix</label>
-                      <input type="file" onChange={handleChange} style={{display: "block"}} />
-                      <img src={file} className="img-fluid" style={{maxWidth: "70px", marginTop: "10px"}} />
+                      <input type="file" name="photocopy_id_appendix" className='bid' onChange={(e) => { setFile(e.target.files[0]) }} style={{ display: "block" }} />
+                      <img src={file} className="img-fluid" style={{ maxWidth: "70px", marginTop: "10px" }} />
                     </div>
                   </div>
                   <div className='col-sm-4 col-xs-6'>
                     <div className='form-group'>
                       <label className="control-label">Date of Birth*</label>
-                      <input type='date' className="form-control" placeholder="" required />
+                      <input type='date' onChange={(e) => handleSubmit(e)} name="bid-dob" className="form-control bid" placeholder="" required />
                     </div>
                   </div>
                   <div className='col-sm-4 col-xs-6'>
                     <div className='form-group'>
                       <label className="control-label">Date of immigration</label>
-                      <input type='date' className="form-control" placeholder="" />
+                      <input type='date' onChange={(e) => handleSubmit(e)} name="bid-date_of_immigration" className="form-control bid" placeholder="" />
                     </div>
                   </div>
                   <div className='col-sm-4 col-xs-6'>
                     <div className='form-group'>
                       <label className="control-label">Address</label>
-                      <input type='text' className="form-control" placeholder="Address" />
+                      <input type='text' onChange={(e) => handleSubmit(e)} name="bid-address" className="form-control bid" placeholder="Address" />
                     </div>
                   </div>
                   <div className='col-sm-4 col-xs-6'>
                     <div className='form-group'>
                       <label className="control-label">Mobile number*</label>
-                      <input type='tel' className="form-control" placeholder="Mobile number" required />
+                      <input type='tel' onChange={(e) => handleSubmit(e)} name="bid-mobile_number" className="form-control bid" placeholder="Mobile number" required />
                     </div>
                   </div>
                   <div className='col-sm-4 col-xs-6'>
                     <div className='form-group'>
                       <label className="control-label">Phone number</label>
-                      <input type='tel' className="form-control" placeholder="Phone number" />
+                      <input type='tel' onChange={(e) => handleSubmit(e)} name="bid-phone_number" className="form-control bid" placeholder="Phone number" />
                     </div>
                   </div>
                   <div className='col-sm-4 col-xs-6'>
                     <div className='form-group'>
                       <label className="control-label">Email*</label>
-                      <input type='email' className="form-control" placeholder="Email" required/>
+                      <input type='email' onChange={(e) => handleSubmit(e)} name="bid-email" className="form-control bid" placeholder="Email" required />
                     </div>
                   </div>
                   <div className='col-sm-4 col-xs-6'>
                     <div className='form-group'>
                       <label className="control-label d-block">Sex*</label>
-                      <input className='mr-1' type="radio" name="sex" value="Male" id="Male" checked />
+                      <input className='mr-1 bidr' onChange={(e) => handleSubmit(e)} name="bid-sex" type="radio" value="Male" id="Male" checked />
                       <label className='mr-2' htmlFor="Male">Male</label>
-                      <input className='mr-1' type="radio" value="Female" id="Female" name="sex" />
+                      <input className='mr-1 bidr' onChange={(e) => handleSubmit(e)} name="bid-sex" type="radio" value="Female" id="Female" />
                       <label className='mr-2' ohtmlFor="Female">Female</label>
                     </div>
                   </div>
@@ -199,23 +315,23 @@ export default function Form101() {
                         <div className='form-group'>
                           <label className="control-label">Martial Status</label>
                           <div class="form-check">
-                            <input class="form-check-input" type="radio" name="martial" id="mstatus" value="Single"/>
+                            <input class="form-check-input bidr" type="radio" onChange={(e) => handleSubmit(e)} name="bid-martial" id="mstatus" value="Single" />
                             <label class="form-check-label" for="Single">Single</label>
                           </div>
                           <div class="form-check">
-                            <input class="form-check-input" type="radio" name="martial" id="mstatus" value="Married"/>
+                            <input class="form-check-input bidr" type="radio" onChange={(e) => handleSubmit(e)} name="bid-martial" id="mstatus" value="Married" />
                             <label class="form-check-label" for="Married">Married</label>
                           </div>
                           <div class="form-check">
-                            <input class="form-check-input" type="radio" name="martial" id="mstatus" value="Divorcee"/>
+                            <input class="form-check-input bidr" type="radio" onChange={(e) => handleSubmit(e)} name="bid-martial" id="mstatus" value="Divorcee" />
                             <label class="form-check-label" for="Divorcee">Divorcee</label>
                           </div>
                           <div class="form-check">
-                            <input class="form-check-input" type="radio" name="martial" id="mstatus" value="A widower"/>
+                            <input class="form-check-input bidr" type="radio" onChange={(e) => handleSubmit(e)} name="bid-martial" id="mstatus" value="A widower" />
                             <label class="form-check-label" for="widower">A widower</label>
                           </div>
                           <div class="form-check">
-                            <input class="form-check-input" type="radio" name="martial" id="mstatus" value="Separated"/>
+                            <input class="form-check-input bidr" type="radio" onChange={(e) => handleSubmit(e)} name="bid-martial" id="mstatus" value="Separated" />
                             <label class="form-check-label" for="Separated">Separated</label>
                           </div>
                         </div>
@@ -224,11 +340,11 @@ export default function Form101() {
                         <div className='form-group'>
                           <label className="control-label">Israeli resident</label>
                           <div class="form-check">
-                            <input class="form-check-input" type="radio" name="israeli" id="resident" value="Yes"/>
+                            <input class="form-check-input bidr" type="radio" onChange={(e) => handleSubmit(e)} name="bid-israeli" id="resident" value="Yes" />
                             <label class="form-check-label" for="Yes">Yes</label>
                           </div>
                           <div class="form-check">
-                            <input class="form-check-input" type="radio" name="israeli" id="resident" value="No"/>
+                            <input class="form-check-input bidr" type="radio" onChange={(e) => handleSubmit(e)} name="bid-israeli" id="resident" value="No" />
                             <label class="form-check-label" for="No">No</label>
                           </div>
                         </div>
@@ -237,11 +353,11 @@ export default function Form101() {
                         <div className='form-group'>
                           <label className="control-label">Member of a kibbutz / cooperative session</label>
                           <div class="form-check">
-                            <input class="form-check-input" type="radio" name="member" id="session" value="Yes"/>
+                            <input class="form-check-input bidr" type="radio" onChange={(e) => handleSubmit(e)} name="bid-member" id="session" value="Yes" />
                             <label class="form-check-label" for="Yes">Yes</label>
                           </div>
                           <div class="form-check">
-                            <input class="form-check-input" type="radio" name="member" id="session" value="No"/>
+                            <input class="form-check-input" type="radio" name="bid-member" onChange={(e) => handleSubmit(e)} id="session" value="No" />
                             <label class="form-check-label" for="No">No</label>
                           </div>
                         </div>
@@ -250,11 +366,11 @@ export default function Form101() {
                         <div className='form-group'>
                           <label className="control-label">HMO member</label>
                           <div class="form-check">
-                            <input class="form-check-input" type="radio" name="hmo" id="member" value="Yes"/>
+                            <input class="form-check-input bidr" type="radio" onChange={(e) => handleSubmit(e)} name="bid-hmo" id="member" value="Yes" />
                             <label class="form-check-label" for="Yes">Yes</label>
                           </div>
                           <div class="form-check">
-                            <input class="form-check-input" type="radio" name="hmo" id="member" value="No"/>
+                            <input class="form-check-input bidr" type="radio" onChange={(e) => handleSubmit(e)} name="bid-hmo" id="member" value="No" />
                             <label class="form-check-label" for="No">No</label>
                           </div>
                         </div>
@@ -270,7 +386,7 @@ export default function Form101() {
                   <div className='col-sm-4'>
                     <div className='form-group'>
                       <label className='control-label'>Country of the Passport</label>
-                      <select id="country" name="country" class="form-control">
+                      <select id="country" name="p-country" onChange={(e) => handleSubmit(e)} class="form-control">
                         <option value="Afghanistan">Afghanistan</option>
                         <option value="Åland Islands">Åland Islands</option>
                         <option value="Albania">Albania</option>
@@ -521,26 +637,26 @@ export default function Form101() {
                   <div className='col-sm-4'>
                     <div className='form-group'>
                       <label className='control-label'>Passport number*</label>
-                      <input type='text' className='form-control' placeholder='Passport Number' />
+                      <input type='text' className='form-control pid' onChange={(e) => handleSubmit(e)} name="p-passport_number" placeholder='Passport Number' />
                     </div>
                   </div>
                   <div className='col-sm-4'>
                     <div className='form-group'>
                       <label className='control-label'>Passport photo</label>
-                      <input type="file" onChange={handleChange2} style={{display: "block"}} />
-                      <img src={file2} className="img-fluid" style={{maxWidth: "70px", marginTop: "10px"}} />
+                      <input type="file" onChange={e => { setFile2(e.target.files[0]) }} name="p-file" style={{ display: "block" }} />
+                      <img src={file2} className="img-fluid pid" style={{ maxWidth: "70px", marginTop: "10px" }} />
                     </div>
                   </div>
                   <div className='col-sm-4'>
                     <div className='form-group'>
                       <label className='control-label'>Date of Birth*</label>
-                      <input type="date" className='form-control'/>
+                      <input type="date" onChange={(e) => handleSubmit(e)} name="p-dob" className='form-control pid' />
                     </div>
                   </div>
                   <div className='col-sm-4'>
                     <div className='form-group'>
                       <label className='control-label'>Settlement*</label>
-                      <select className='form-control'>
+                      <select className='form-control pid' onChange={(e) => handleSubmit(e)} name="p-settlement">
                         <option value='Jerusalem'>Jerusalem</option>
                         <option value='Tel Aviv Jaffa'>Tel Aviv Jaffa</option>
                         <option value='Haifa'>Haifa</option>
@@ -557,48 +673,48 @@ export default function Form101() {
                   <div className='col-sm-4'>
                     <div className='form-group'>
                       <label className='control-label'>Street*</label>
-                      <input type="text" className='form-control' placeholder='Street' required/>
+                      <input type="text" className='form-control pid' onChange={(e) => handleSubmit(e)} name="p-street" placeholder='Street' required />
                     </div>
                   </div>
                   <div className='col-sm-4'>
                     <div className='form-group'>
                       <label className='control-label'>House Number*</label>
-                      <input type="text" className='form-control' placeholder='House Number' required/>
+                      <input type="text" className='form-control pid' onChange={(e) => handleSubmit(e)} name="p-house_number" placeholder='House Number' required />
                     </div>
                   </div>
                   <div className='col-sm-4'>
                     <div className='form-group'>
                       <label className='control-label'>Postal Code</label>
-                      <input type="text" className='form-control' placeholder='Postal Code'/>
+                      <input type="text" className='form-control pid' onChange={(e) => handleSubmit(e)} name="p-postal_code" placeholder='Postal Code' />
                     </div>
                   </div>
                   <div className='col-sm-4'>
                     <div className='form-group'>
                       <label className='control-label'>Mobile number*</label>
-                      <input type="text" className='form-control' placeholder='Mobile number' required />
+                      <input type="text" className='form-control pid' onChange={(e) => handleSubmit(e)} name="p-mobile_number" placeholder='Mobile number' required />
                     </div>
                   </div>
                   <div className='col-sm-4'>
                     <div className='form-group'>
                       <label className='control-label'>Phone number</label>
-                      <input type="text" className='form-control' placeholder='Phone number' />
+                      <input type="text" className='form-control pid' onChange={(e) => handleSubmit(e)} name="p-phone_number" placeholder='Phone number' />
                     </div>
                   </div>
                   <div className='col-sm-4'>
                     <div className='form-group'>
                       <label className='control-label'>E-mail address*</label>
-                      <input type="email" className='form-control' placeholder='E-mail address' required />
+                      <input type="email" className='form-control pid' onChange={(e) => handleSubmit(e)} name="p-email" placeholder='E-mail address' required />
                     </div>
                   </div>
                   <div className='col-sm-4'>
                     <div className='form-group'>
                       <label className="control-label">Sex</label>
                       <div class="form-check">
-                        <input class="form-check-input" type="radio" name="sex" id="sex" value="Male"/>
+                        <input class="form-check-input pidr" type="radio" onChange={(e) => handleSubmit(e)} name="p-sex" id="sex" value="Male" />
                         <label class="form-check-label" for="Male">Male</label>
                       </div>
                       <div class="form-check">
-                        <input class="form-check-input" type="radio" name="sex" id="sex" value="Female"/>
+                        <input class="form-check-input pidr" type="radio" onChange={(e) => handleSubmit(e)} name="p-sex" id="sex" value="Female" />
                         <label class="form-check-label" for="Female">Female</label>
                       </div>
                     </div>
@@ -607,23 +723,23 @@ export default function Form101() {
                     <div className='form-group'>
                       <label className="control-label">Martial Status</label>
                       <div class="form-check">
-                        <input class="form-check-input" type="radio" name="martial2" id="mstatus2" value="Single"/>
+                        <input class="form-check-input pidr" type="radio" onChange={(e) => handleSubmit(e)} name="p-martial" id="mstatus2" value="Single" />
                         <label class="form-check-label" for="Single">Single</label>
                       </div>
                       <div class="form-check">
-                        <input class="form-check-input" type="radio" name="martial2" id="mstatus2" value="Married"/>
+                        <input class="form-check-input pidr" type="radio" onChange={(e) => handleSubmit(e)} name="p-martial" id="mstatus2" value="Married" />
                         <label class="form-check-label" for="Married">Married</label>
                       </div>
                       <div class="form-check">
-                        <input class="form-check-input" type="radio" name="martial2" id="mstatus2" value="Divorcee"/>
+                        <input class="form-check-input pidr" type="radio" onChange={(e) => handleSubmit(e)} name="p-martial" id="mstatus2" value="Divorcee" />
                         <label class="form-check-label" for="Divorcee">Divorcee</label>
                       </div>
                       <div class="form-check">
-                        <input class="form-check-input" type="radio" name="martial2" id="mstatus2" value="A widower"/>
+                        <input class="form-check-input pidr" type="radio" onChange={(e) => handleSubmit(e)} name="p-martial" id="mstatus2" value="A widower" />
                         <label class="form-check-label" for="widower">A widower</label>
                       </div>
                       <div class="form-check">
-                        <input class="form-check-input" type="radio" name="martial2" id="mstatus2" value="Separated"/>
+                        <input class="form-check-input pidr" type="radio" onChange={(e) => handleSubmit(e)} name="p-martial" id="mstatus2" value="Separated" />
                         <label class="form-check-label" for="Separated">Separated</label>
                       </div>
                     </div>
@@ -632,11 +748,11 @@ export default function Form101() {
                     <div className='form-group'>
                       <label className="control-label">HMO member</label>
                       <div class="form-check">
-                        <input class="form-check-input" type="radio" name="hmo2" id="hmoMember" value="Yes"/>
+                        <input class="form-check-input pidr" type="radio" onChange={(e) => handleSubmit(e)} name="p-hmo2" id="hmoMember" value="Yes" />
                         <label class="form-check-label" for="Yes">Yes</label>
                       </div>
                       <div class="form-check">
-                        <input class="form-check-input" type="radio" name="hmo2" id="hmoMember" value="No"/>
+                        <input class="form-check-input pidr" type="radio" onChange={(e) => handleSubmit(e)} name="p-hmo2" id="hmoMember" value="No" />
                         <label class="form-check-label" for="No">No</label>
                       </div>
                     </div>
@@ -654,38 +770,38 @@ export default function Form101() {
             <div className='row'>
               <div className='col-sm-4'>
                 <div className='form-group'>
-                  <input type='checkbox' value='A month salary' name='income' /> A month salary
+                  <input type='checkbox' value='A month salary' onChange={(e) => handleSubmit(e)} name='income' /> A month salary
                 </div>
               </div>
               <div className='col-sm-4'>
                 <div className='form-group'>
-                  <input type='checkbox' value='Salary for an additional position' name='income' /> Salary for an additional position
+                  <input type='checkbox' value='Salary for an additional position' onChange={(e) => handleSubmit(e)} name='income' /> Salary for an additional position
                 </div>
               </div>
               <div className='col-sm-4'>
                 <div className='form-group'>
-                  <input type='checkbox' value='Partial salary' name='income' /> Partial salary
+                  <input type='checkbox' value='Partial salary' onChange={(e) => handleSubmit(e)} name='income' /> Partial salary
                 </div>
               </div>
               <div className='col-sm-4'>
                 <div className='form-group'>
-                  <input type='checkbox' value='Scholarship' name='income' /> Scholarship
+                  <input type='checkbox' value='Scholarship' onChange={(e) => handleSubmit(e)} name='income' /> Scholarship
                 </div>
               </div>
               <div className='col-sm-4'>
                 <div className='form-group'>
-                  <input type='checkbox' value='Allowance' name='income' /> Allowance
-                </div> 
+                  <input type='checkbox' value='Allowance' onChange={(e) => handleSubmit(e)} name='income' /> Allowance
+                </div>
               </div>
               <div className='col-sm-4'>
                 <div className='form-group'>
-                  <input type='checkbox' value='Wages (Daily worker)' name='income' /> Wages (Daily worker)
+                  <input type='checkbox' value='Wages (Daily worker)' onChange={(e) => handleSubmit(e)} name='income' /> Wages (Daily worker)
                 </div>
               </div>
               <div className='col-sm-6'>
                 <div className='form-group'>
                   <label className='control-label'>Date of commencement of employment in the tax year*</label>
-                  <input type='date' className='form-control' name='taxDate' />
+                  <input type='date' className='form-control' onChange={(e) => handleSubmit(e)} name='taxDate' />
                 </div>
               </div>
             </div>
@@ -696,17 +812,17 @@ export default function Form101() {
           <p>I declare that the details I provided in this form are complete and correct. I know that omitting or providing incorrect information is a violation of the Income Tax Ordinance.</p>
           <p>I undertake to inform the employer of any change that will apply to my personal details and the details above within a week from the date of the change.</p>
           <p>
-            <SignatureCanvas 
-                penColor="black"
-                canvasProps={{className: 'sign101'}}
-                ref={sigRef}
-                onEnd={handleSignatureEnd}
+            <SignatureCanvas
+              penColor="black"
+              canvasProps={{ className: 'sign101' }}
+              ref={sigRef}
+              onEnd={handleSignatureEnd}
             />
             <p><button className='btn btn-warning' onClick={clearSignature}>Clear</button></p>
           </p>
         </div>
         <div className='mt-4 text-center'>
-          <button className='btn btn-success'>Submit</button>
+          <button className='btn btn-success' onClick={finalSubmit}>Submit</button>
         </div>
       </div>
     </div>

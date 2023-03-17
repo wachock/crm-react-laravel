@@ -14,8 +14,8 @@ class AddFormToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('form_101')->nullable();
-            $table->string('form_insurance')->nullable();
+            $table->longText('form_101')->nullable();
+            $table->longText('form_insurance')->nullable();
         });
     }
 

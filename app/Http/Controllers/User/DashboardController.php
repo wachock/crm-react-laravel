@@ -55,4 +55,5 @@ class DashboardController extends Controller
         WorkerNotAvailbleDate::find($request->id)->delete();
         return response()->json(['message'=>'date deleted']);
     }
+   
 }

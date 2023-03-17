@@ -31,7 +31,7 @@ return [
         'on'          =>'ב',
         'between'     =>'בין',
         'to'          =>'ל',
-        'cancel_text' =>'has cancelled now.',
+        'cancel_text' =>'ביטל עכשיו.',
         'for'         =>'ל',
         'service'     =>'הצעת מחיר',
         'accept'      =>'אשר',

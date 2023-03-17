@@ -23,7 +23,7 @@ Route::post('register', [AuthController::class, 'register']);
 Route::get('showPdf/{id}', [AuthController::class, 'showPdf']);
 Route::post('worker-detail',[AuthController::class, 'getWorkerDetail']); 
 Route::post('work-contract', [AuthController::class, 'WorkContract']);
-
+Route::post('form101',[AuthController::class, 'form101']); 
 
 
 // Authenticated Routes
@@ -50,6 +50,7 @@ Route::group( ['middleware' => ['auth:api','scopes:user'] ],function(){
     Route::post('logout', [AuthController::class, 'logout']);
     Route::get('details',[AuthController::class, 'details']); 
     Route::post('update_details/{id}',[AuthController::class, 'updateWorker']); 
+   
 
 
 
