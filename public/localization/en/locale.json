@@ -7,8 +7,7 @@
         "noon":"Noon",
         "afternoon":"Afternoon",
         "evening":"Evening",
-        "fullday":"Full Day",
-        "night":"Night"
+        "fullday":"Full Day"
 
 
     },
@@ -302,7 +301,7 @@
         }
     },
     "j_status":{
-                
+
         "not-started":"Not started",
         "progress":"progress",
         "scheduled":"Scheduled",
@@ -441,7 +440,7 @@
                  "confirm_cancel_btn":"Yes, Cancel Job",
                  "updated_msg":"Job has been updated.",
                  "updated":"Updated!"
-                 
+
             }
         },
         "settings":{
@@ -590,6 +589,10 @@
         "the_employee":"“the Employee”",
         "whereas":"Whereas:",
         "employee_text":"the Employee is interested in being employed by the Company, under the terms and stipulations set forth in this contract",
+        "and_whereas": "And whereas:",
+        "and_whereas_info_text": "The Tenant is interested in making an agreement with the Company in order to receive the services requested in this agreement, for the consideration specified in this agreement.",
+        "and_whereas_2": "And whereas:",
+        "and_whereas_2_info_text": "The Tenant is aware that in order to receive the service and/or work from the Company, he/she must sign this agreement and comply with all the terms and conditions of this agreement, with no exception, in connection with the service and/or work and/or the materials and/or the products the Tenant is interested in receiving from the Company.",
         "compant_text":"the Company is interested in employing the Employee, under the terms and stipulations set forth in this contract",
         "both_party_text":"the parties wish to arrange the employment terms of the Employee with the Company, in a written personal employment contract, to which no terms of any collective agreement whatsoever shall apply",
         "term_condition":"Therefore it was declared, stipulated and agreed between the parties as follows:",

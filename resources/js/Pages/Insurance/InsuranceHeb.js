@@ -51,12 +51,13 @@ export default function InsuranceHeb() {
         <div className='send-offer insurance-eng insurance-heb'>
             <div className='maxWidthControl dashBox mb-4'>
             <div className='row'>
+            <div className='col-sm-6'>
+                    <img src={logo} className='img-fluid' alt='Broom Service' />
+                </div>
                 <div className='col-sm-6'>
                     <img src={insurancelogo} className='img-fluid' alt='Insurance Logo' />
                 </div>
-                <div className='col-sm-6'>
-                    <img src={logo} className='img-fluid' alt='Broom Service' />
-                </div>
+
             </div>
                 <h1>הצעה לביטוח עובדים זרים</h1>
                 <p>יש לענות על כל השאלות באופן ברור ומלא. אין להשתמש בקוים<br/>או בסימנים במקום מילים.<br/>הטופס מיועד לנשים ולגברים כאחד.</p>
