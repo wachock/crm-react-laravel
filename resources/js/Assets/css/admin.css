@@ -1554,6 +1554,9 @@ h1 {
   font-weight: 500;
 }
 /*******Insurance**********/
+.insurance-eng{
+    direction: ltr;
+}
 .insurance-eng .maxWidthControl{
     max-width: 870px;
     margin: 0 auto;
@@ -1579,7 +1582,7 @@ h1 {
     padding-bottom: 20px !important;
 }
 .please-select {
-    text-align: right;
+    /* text-align: right; */
     margin-top: 10px;
 }
 .please-select h4 {
@@ -1591,6 +1594,7 @@ h1 {
 }
 .please-select ul {
     padding-right: 20px;
+    padding-left: 20px;
 }
 .please-select ul li {
     list-style-type: circle;

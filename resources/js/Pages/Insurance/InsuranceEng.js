@@ -51,14 +51,15 @@ export default function InsuranceEng() {
         <div className='send-offer insurance-eng'>
             <div className='maxWidthControl dashBox mb-4'>
             <div className='row'>
-                <div className='col-sm-6'>
-                    <img src={insurancelogo} className='img-fluid' alt='Insurance Logo' />
-                </div>
-                <div className='col-sm-6'>
+            <div className='col-sm-6'>
                     <svg width="250" height="94" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
                         <image xlinkHref={logo} width="250" height="94"></image>
                     </svg>
                 </div>
+                <div className='col-sm-6'>
+                    <img src={insurancelogo} className='img-fluid' alt='Insurance Logo' />
+                </div>
+
             </div>
                 <h1>Meno Medic Top - Insurance Health for Proposal</h1>
                 <p>All questions must be answered clearly and fully. Do not use lines or symbols instead of words.
