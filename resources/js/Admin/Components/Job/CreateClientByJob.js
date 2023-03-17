@@ -18,6 +18,7 @@ export default function CreateClientByJob() {
     const [interval, setTimeInterval] = useState([]);
     const [selected_service, setSelectedService] = useState(0);
     const [data, setData] = useState([]);
+    const [c_time, setCTime] = useState(0);
 
     const headers = {
         Accept: "application/json, text/plain, */*",
@@ -80,16 +81,19 @@ export default function CreateClientByJob() {
 
 
     let service_id;
+    let complete_time;
 
     const handleServices = (value) => {
         const filtered = services.filter((s) => {
             if (s.service == value) {
                 service_id = value;
+                complete_time=parseFloat(s.jobHours);
                 return s;
             } else {
                 $('.services-' + s.service).css('display', 'none');
             }
         });
+        setCTime(complete_time);
         setServices(filtered);
         setSelectedService(value);
         getWorkers();
@@ -264,6 +268,16 @@ export default function CreateClientByJob() {
                 }
                 if (options.length == 3 && new_s.length > 0 && new_s.includes((options[2].label).split("-")[1]) && new_end.includes((options[2].label).split("-")[2])) {
                     check = false;
+                }
+                if(c_time <= 2){
+                    if(i==0||i==3||i==6){
+                    check = false;
+                    }
+                }
+                if(c_time > 2 && c_time <= 4){
+                   if(i==0||i==1||i==2||i==4||i==5){
+                     check = false;
+                   }
                 }
 
                 if (check) {

@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Mail;
 use Maatwebsite\Excel\Facades\Excel;
-use Carbon;
+use Carbon\Carbon;
 class JobController extends Controller
 {
     /**
@@ -242,58 +242,68 @@ class JobController extends Controller
          }
          $client_mail=array();
          $client_email='';
-         foreach($request->workers as $worker){
-            $new = new Job;
-            $new->worker_id     = $worker['worker_id'];
-            if(isset($request->client_page) && $request->client_page){
-                $new->client_id     = $id;
-                $new->offer_id      = 0;
-                $new->contract_id   = 0;
-            }else{
-                $new->client_id     = $job->client_id;
-                $new->offer_id      = $job->offer_id;
-                $new->contract_id   = $id;
-            }
-            $new->start_date    = $worker['date'];
-            $new->shifts        = $worker['shifts'];
-            $new->schedule      = $repeat_value;
-            $new->status        = 'scheduled';
-            $new->save();
+        foreach($request->workers as $worker){
+           for($i=0;$i<3;$i++){
+                $date = Carbon::createFromDate($worker['date']);
+                $j=0;
+                if($i==1){
+                  $j=7;  
+                }
+               if($i==2){
+                  $j=14;  
+                } 
+                $new = new Job;
+                $new->worker_id     = $worker['worker_id'];
+                if(isset($request->client_page) && $request->client_page){
+                    $new->client_id     = $id;
+                    $new->offer_id      = 0;
+                    $new->contract_id   = 0;
+                }else{
+                    $new->client_id     = $job->client_id;
+                    $new->offer_id      = $job->offer_id;
+                    $new->contract_id   = $id;
+                }
+                $new->start_date    = $date->addDays($j)->toDateString();
+                $new->shifts        = $worker['shifts'];
+                $new->schedule      = $repeat_value;
+                $new->status        = 'scheduled';
+                $new->save();
 
-            $service           = new JobService;
-            $service->job_id   = $new->id;
-            $service->service_id=$s_id;
-            $service->name     = $s_name;
-            $service->heb_name = $s_heb_name;
-            $service->job_hour = $s_hour;
-            $service->total    = $s_total;
-            $service->save();
+                $service           = new JobService;
+                $service->job_id   = $new->id;
+                $service->service_id=$s_id;
+                $service->name     = $s_name;
+                $service->heb_name = $s_heb_name;
+                $service->job_hour = $s_hour;
+                $service->total    = $s_total;
+                $service->save();
+            
+            if($i == 0){
+                 $job = Job::with('client','worker','jobservice')->where('id',$new->id)->first();
+                  $_timeShift = $worker['shifts'];
+                 if($_timeShift != ''){
+                    $_timeShift = explode('-',$_timeShift)[1];
+                    
+                }
+                 $data = array(
+                    'email'=> $job['worker']['email'],
+                    'job'  => $job->toArray(),
+                    'start_time'=>$_timeShift
+                 );
+                \App::setLocale($job->worker->lng);
+                Mail::send('/Mails/NewJobMail',$data,function($messages) use ($data){
+                    $messages->to($data['email']);
+                    $sub = __('mail.worker_new_job.subject')."  ".__('mail.worker_new_job.company');
+                    $messages->subject($sub);
+                });
+                $data['job']['shifts']=$this->getShifts($worker['shifts'],$job['client']['lng']);
+                $client_mail[] = $data;
+                $client_email  =  $job['client']['email'];
+                $client_name  =  $job['client']['firstname'].' '.$job['client']['lastname'];
+                $client_lng    = $job['client']['lng'];
+             } 
 
-             $job = Job::with('client','worker','jobservice')->where('id',$new->id)->first();
-             $_timeShift = $worker['shifts'];
-             if($_timeShift != ''){
-                $_timeShift = explode('-',$_timeShift)[1];
-                
-            }
-             $data = array(
-                'email'=> $job['worker']['email'],
-                'job'  => $job->toArray(),
-                'start_time'=>$_timeShift
-             );
-            \App::setLocale($job->worker->lng);
-            Mail::send('/Mails/NewJobMail',$data,function($messages) use ($data){
-                $messages->to($data['email']);
-                $sub = __('mail.worker_new_job.subject')."  ".__('mail.worker_new_job.company');
-                $messages->subject($sub);
-            });
-            $data['job']['shifts']=$this->getShifts($worker['shifts'],$job['client']['lng']);
-          
-            $client_mail[] = $data;
-            $client_email  =  $job['client']['email'];
-            $client_name  =  $job['client']['firstname'].' '.$job['client']['lastname'];
-            $client_lng    = $job['client']['lng'];
-
-
+           }
         }
       
        
