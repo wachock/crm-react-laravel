@@ -71,7 +71,6 @@
         "reactstrap": "^9.1.5",
         "rsuite": "^5.25.0",
         "sweetalert": "^2.1.2",
-        "sweetalert2": "^11.7.1",
-        "universal-cookie": "^4.0.4"
+        "sweetalert2": "^11.7.1"
     }
 }
