@@ -58,7 +58,7 @@ export default function AddWorker() {
         "lng":(!lng) ? 'en':lng,
         "password": password,
         "skill": skill,
-        "status": (!itemStatus)? 1 : 0,
+        "status": (!itemStatus)? 1 : parseInt(itemStatus),
         "country":country,
     }
      axios
@@ -189,6 +189,13 @@ export default function AddWorker() {
                                         <label className='control-label'>Password *</label>
                                         <input type='password' value={password} onChange={(e) => setPassword(e.target.value)} className='form-control' required placeholder='Password' />
                                     </div>
+                                    {errors.password ? (
+                                            <small className="text-danger mb-1">
+                                                {errors.password}
+                                            </small>
+                                        ) : (
+                                            ""
+                                        )}
                                 </div>
                                 <div className='col-sm-6'>
                                         <div className="form-group">

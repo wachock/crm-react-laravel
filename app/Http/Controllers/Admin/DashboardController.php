@@ -70,8 +70,9 @@ class DashboardController extends Controller
     public function Notice(Request $request){
       
       $count = notifications::count();
+      $seenCount = notifications::where('seen',0)->count();
       if($count > 0) :
-
+      
       if($request->head)
       $noticeAll = notifications::with('client')->orderBy('id', 'desc')->take(5)->get();
       if($request->all)
@@ -162,7 +163,8 @@ class DashboardController extends Controller
         }
       }
       return response()->json([
-        'notice'=>$noticeAll
+        'notice'=>$noticeAll,
+        'count'=>$seenCount
       ]);
 
       else :
@@ -181,5 +183,11 @@ class DashboardController extends Controller
         'response'=>$response
       ]);
 
+    }
+    public function seen(){
+      notifications::where('seen',0)->update(['seen'=>1]);
+    }
+    public function clearNotices(){
+      notifications::truncate(); 
     }
 }

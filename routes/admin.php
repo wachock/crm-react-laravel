@@ -150,6 +150,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin-api', 'scopes:ad
     //Notifications
     Route::get('head-notice',[DashboardController::class,'headNotice'])->name('head-notice');
     Route::post('notice',[DashboardController::class,'Notice'])->name('notice');
+    Route::post('seen',[DashboardController::class,'seen'])->name('seen');
+    Route::post('clear-notices',[DashboardController::class,'clearNotices'])->name('clear-notices');
 
     //View Password
     Route::post('viewpass',[DashboardController::class,'viewPass'])->name('viewpass');

@@ -57,9 +57,10 @@ export default function EditWorker() {
         "worker_id": worker_id,
         "password": password,
         "skill": skill,
-        "status": (!itemStatus) ? 1 : 0,
+        "status": (!itemStatus) ? 1 : parseInt(itemStatus),
         "country":country,
     }
+   
 
         axios
             .put(`/api/admin/workers/${params.id}`, data ,{ headers })

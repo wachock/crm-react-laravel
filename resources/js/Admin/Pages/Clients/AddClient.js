@@ -116,9 +116,6 @@ export default function AddClient() {
         document.querySelector('.phone').innerHTML += (htm);
     }
 
-    useEffect(() => {
-
-    });
     return (
         <div id="container">
             <Sidebar />

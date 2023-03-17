@@ -134,6 +134,7 @@ class WorkerController extends Controller
             'phone'     => ['required'],
             'worker_id' => ['required'],
             'status'    => ['required'],
+            'password'  => ['required']
         ]);
 
         if ($validator->fails()) {
@@ -185,13 +186,17 @@ class WorkerController extends Controller
 
           Mail::send('/Mails/Form101Mail',$worker,function($messages) use ($worker){
             $messages->to($worker['email']);
-            $sub = __('mail.form_101.subject')."  ".__('mail.form_101.company');
+            ($worker['lng'] == 'heb') ?
+            $sub = $worker['id']."# ".__('mail.form_101.subject')."  ".__('mail.form_101.company'):
+            $sub = __('mail.form_101.subject')."  ".__('mail.form_101.company')." #".$worker['id'];
             $messages->subject($sub);
           });
 
           Mail::send('/Mails/WorkerContractMail',$worker,function($messages) use ($worker){
             $messages->to($worker['email']);
-            $sub = __('mail.worker_contract.subject')."  ".__('mail.worker_contract.company');
+            ($worker['lng'] == 'heb') ?
+            $sub = $worker['id']."# ".__('mail.worker_contract.subject')."  ".__('mail.worker_contract.company'):
+            $sub = __('mail.worker_contract.subject')."  ".__('mail.worker_contract.company')." #".$worker['id'];
             $messages->subject($sub);
           });
 

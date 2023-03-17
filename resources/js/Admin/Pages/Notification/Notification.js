@@ -28,7 +28,7 @@ export default function Notification() {
     const handlePageClick = async (data) => {
         let currentPage = data.selected + 1;
         axios
-            .post("/api/admin/notice?page=" + currentPage,{all:1}, { headers })
+            .post("/api/admin/notice?page=" + currentPage, { all: 1 }, { headers })
             .then((response) => {
                 if (response.data.notice.data) {
                     setNotices(response.data.notice.data);
@@ -38,6 +38,33 @@ export default function Notification() {
                 }
             });
     };
+    const clearAll = (e) => {
+        e.preventDefault();
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, Delete Notices!",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                axios
+                    .post(`/api/admin/clear-notices`, { all: 1 },{ headers })
+                    .then((response) => {
+                        Swal.fire(
+                            "Deleted!",
+                            "All notices has been deleted.",
+                            "success"
+                        );
+                        setTimeout(() => {
+                           window.location.reload(1);
+                        }, 1000);
+                    });
+            }
+        });
+    }
     useEffect(() => {
         headNotice();
     }, []);
@@ -46,7 +73,17 @@ export default function Notification() {
         <div id="container">
             <Sidebar />
             <div id="content">
-                <h1 className="page-title">Notifications</h1>
+                <div className="titleBox customer-title">
+                    <div className="row">
+                        <div className="col-sm-6">
+                            <h1 className="page-title">Notifications</h1>
+                        </div>
+                        <div className="col-sm-6">
+                            <button onClick={(e) => clearAll(e)} className="btn btn-danger float-right addButton">Clear All</button>
+                        </div>
+                    </div>
+                </div>
+
                 <div className='notification-page'>
                     <div className='card'>
                         <div className='card-body'>

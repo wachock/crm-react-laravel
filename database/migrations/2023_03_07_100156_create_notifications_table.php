@@ -29,6 +29,7 @@ class CreateNotificationsTable extends Migration
                 'worker-reschedule'
             ]);
             $table->string('status');
+            $table->integer('seen')->default(0);
             $table->unsignedBigInteger('meet_id')->nullable();
             $table->foreign('meet_id')->references('id')->on('schedules')->onDelete('cascade');
             $table->unsignedBigInteger('offer_id')->nullable();
