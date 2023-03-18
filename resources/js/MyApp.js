@@ -38,6 +38,7 @@ if(lng == 'heb'
     && !url.includes('meeting-status')
     && !url.includes('thankyou')
     && !url.includes('form101')
+    && !url.includes('worker-contract')
     
   )
     

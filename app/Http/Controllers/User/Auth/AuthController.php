@@ -185,5 +185,14 @@ class AuthController extends Controller
         'msg'=>'Form 101 signed successfully.'
     ]);
 }
+
+  public function get101($id){
+    $form = User::where('id',$id)->get('form_101');
+    return response()->json([
+        'success_code' => 200,
+        'form'=>$form
+    ]);
+}
+
     
 }

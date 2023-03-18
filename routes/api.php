@@ -24,6 +24,7 @@ Route::get('showPdf/{id}', [AuthController::class, 'showPdf']);
 Route::post('worker-detail',[AuthController::class, 'getWorkerDetail']); 
 Route::post('work-contract', [AuthController::class, 'WorkContract']);
 Route::post('form101',[AuthController::class, 'form101']); 
+Route::get('get101/{id}',[AuthController::class, 'get101']); 
 
 
 // Authenticated Routes
