@@ -19,6 +19,8 @@ return [
        'best_regards'=>'Best Regards',
        'company'     =>'Broom Services',
        'tel'         =>'Telephone',
+       'price_offer' => 'Price offer',
+       'quality_check'=>'Quality check'
     ],
     'cancel_meeting'=>[
 

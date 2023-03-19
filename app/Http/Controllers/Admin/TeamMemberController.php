@@ -24,13 +24,23 @@ class TeamMemberController extends Controller
         ]);*/
         $q = $request->q;
         $result =Admin::query();
-        $result->where('name',    'like','%'.$q.'%');
+       /* $result->where('name',    'like','%'.$q.'%');
         $result->orWhere('phone',      'like','%'.$q.'%');
         $result->orWhere('status',     'like','%'.$q.'%');
-        $result->orWhere('email',      'like','%'.$q.'%');
-
-        $result = $result->orderBy('id', 'desc')->paginate(20);
-
+        $result->orWhere('email',      'like','%'.$q.'%');*/
+        if(isset($request->q)){
+            $q = $request->q;
+        $result->orWhere(function($qry) use($q){
+            $qry->where('name','like','%'.$q.'%')
+                 ->orWhere('phone',   'like','%'.$q.'%')
+                 ->orWhere('status', 'like','%'.$q.'%')
+                 ->orWhere('email', 'like','%'.$q.'%')
+                 ->where('name','!=','superadmin');
+        });
+    }
+        
+        $result = $result->orderBy('id', 'desc')->where('name' ,'!=','superadmin')->paginate(20);
+       
         return response()->json([
             'team'       => $result,            
         ], 200);
@@ -109,7 +119,7 @@ class TeamMemberController extends Controller
             'name' =>['required'],
             'email'     => ['required', 'string', 'email', 'max:255', 'unique:admins,email,'.$id],
             'phone'=>['required'],
-            'password'=>['required','min:6','required_with:confirmation','same:confirmation'],
+            'password'=>$request->password ? ['min:6','required_with:confirmation','same:confirmation'] : [],
             'status' =>['required'],
         ]);
         if($validator->fails()){
@@ -117,7 +127,10 @@ class TeamMemberController extends Controller
         }
         
         $request = $request->except(['confirmation']);
+        if($request['password'] != null)
         $request['password'] = Hash::make($request['password']);
+        else 
+        unset($request['password']);
         
         Admin::where('id',$id)->update($request);
         return response()->json([

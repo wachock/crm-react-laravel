@@ -85,7 +85,7 @@ export default function ManageTeam() {
         } else {
             setItem([]);
             setPageCount(response.data.team.last_page);
-            setLoading("No meeting found");
+            setLoading("No member found");
         }
         })
     }

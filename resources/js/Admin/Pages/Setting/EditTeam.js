@@ -6,15 +6,16 @@ import axios from 'axios';
 
 export default function EditTeam() {
 
-    const [name, setName] = useState([]);
-    const [email, setEmail] = useState([]);
-    const [phone, setPhone] = useState([]);
-    const [address, setAddress] = useState([]);
-    const [password, setPassword] = useState([]);
-    const [confirmPassword, setConfirmPassword] = useState([]);
-    const [status, setStatus] = useState([]);
-    const [color, setColor] = useState([]);
-    const [permission, setPermission] = useState([]);
+    const [name, setName] = useState(null);
+    const [hebname, setHebName] = useState(null);
+    const [email, setEmail] = useState(null);
+    const [phone, setPhone] = useState(null);
+    const [address, setAddress] = useState(null);
+    const [password, setPassword] = useState(null);
+    const [confirmPassword, setConfirmPassword] = useState(null);
+    const [status, setStatus] = useState(null);
+    const [color, setColor] = useState(null);
+    const [permission, setPermission] = useState(null);
 
     const alert = useAlert();
     const param = useParams();
@@ -29,13 +30,14 @@ export default function EditTeam() {
         let perm = document.querySelector('input[name="role"]:checked').value;
         const data = {
             name: name,
+            heb_name:hebname,
             email: email,
             phone: phone,
             address, address,
-            color: color,
+            color: (!color) ? '#fff' : color,
             password: password,
             confirmation: confirmPassword,
-            status: status,
+            status: (!status) ? 1 : status,
             role: perm
         }
 
@@ -62,20 +64,20 @@ export default function EditTeam() {
             .then((res) => {
                 const d = res.data.member[0];
                 setName(d.name);
+                setHebName(d.heb_name);
                 setEmail(d.email);
                 setPhone(d.phone);
                 setAddress(d.address);
                 setStatus(d.status);
                 setPermission(d.role);
-                if(d.color) {
-                    let clr = document.querySelectorAll('input[name="color"]');
-                    clr.forEach((e,i)=>{
-                       console.log(e.value);
-                       e.value == d.color
-                       ? e.checked = true
-                       :''
+                if (d.color) {
+                    let clr = document.querySelectorAll('input[name="swatch_demo"]');
+                    clr.forEach((e, i) => {
+                        e.getAttribute('color') == d.color
+                            ? e.checked = true
+                            : ''
                     })
-                   }
+                }
             })
     };
     useEffect(() => {
@@ -94,6 +96,10 @@ export default function EditTeam() {
                                 <input type='text' className='form-control' onChange={(e) => setName(e.target.value)} value={name} placeholder='Name' />
                             </div>
                             <div className='form-group'>
+                                <label className='control-label'>Name in hebrew</label>
+                                <input type='text' className='form-control' onChange={(e) => setHebName(e.target.value)} value={hebname} placeholder='Hebrew Name' />
+                            </div>
+                            <div className='form-group'>
                                 <label className='control-label'>Email</label>
                                 <input type='email' className='form-control' onChange={(e) => setEmail(e.target.value)} value={email} placeholder='Email' />
                             </div>
@@ -110,44 +116,45 @@ export default function EditTeam() {
                     <div className='col-sm-6'>
                         <div className='dashBox p-4'>
                             <div className="form-group">
-                                <div className="form-check form-check-inline1 pl-0">
+                                <div className="form-check form-check-inline1 pl-0" style={{ paddingLeft: "0" }}>
                                     <label class="form-check-label" for="title">Color</label>
                                 </div>
-
-                                <div className="form-check form-check-inline">
-                                    <input className='mr-1' type="radio" name="color" value="#9400D3" onChange={(e) => setColor(e.target.value)} />
-                                    <label class="form-check-label" for="voilet">Voilet</label>
+                                <div className="swatch white">
+                                    <input type="radio" name="swatch_demo" id="swatch_2" value="0" color="#fff" onChange={(e) => setColor('#fff')} />
+                                    <label for="swatch_2"><i className="fa fa-check"></i></label>
+                                    <span>white</span>
+                                </div>
+                                <div className="swatch green">
+                                    <input type="radio" name="swatch_demo" id="swatch_2" value="2" color="#28a745" onChange={(e) => setColor('#28a745')} />
+                                    <label for="swatch_2"><i className="fa fa-check"></i></label>
+                                    <span>Green</span>
+                                </div>
+                                <div className="swatch blue">
+                                    <input type="radio" name="swatch_demo" id="swatch_3" value="3" color="#007bff" onChange={(e) => setColor('#007bff')} />
+                                    <label for="swatch_3"><i className="fa fa-check"></i></label>
+                                    <span>Blue</span>
+                                </div>
+                                <div className="swatch purple">
+                                    <input type="radio" name="swatch_demo" id="swatch_1" value="1" color="#6f42c1" onChange={(e) => setColor('#6f42c1')} />
+                                    <label for="swatch_1"><i className="fa fa-check"></i></label>
+                                    <span>Voilet</span>
+                                </div>
+                                <div className="swatch red">
+                                    <input type="radio" name="swatch_demo" id="swatch_5" value="5" color="#dc3545" onChange={(e) => setColor('#dc3545')} />
+                                    <label for="swatch_5"><i className="fa fa-check"></i></label>
+                                    <span>Red</span>
+                                </div>
+                                <div className="swatch orange">
+                                    <input type="radio" name="swatch_demo" id="swatch_4" value="4" color="#fd7e14" onChange={(e) => setColor('#fd7e14')} />
+                                    <label for="swatch_4"><i className="fa fa-check"></i></label>
+                                    <span>Orange</span>
+                                </div>
+                                <div className="swatch yellow">
+                                    <input type="radio" name="swatch_demo" id="swatch_6" value="6" color="#ffc107" onChange={(e) => setColor('#ffc107')} />
+                                    <label for="swatch_6"><i className="fa fa-check"></i></label>
+                                    <span>Yellow</span>
                                 </div>
 
-                                <div className="form-check form-check-inline">
-                                    <input className='mr-1' type="radio" name="color" value="#4B0082" onChange={(e) => setColor(e.target.value)} />
-                                    <label class="form-check-label" for="voilet">Indigo</label>
-                                </div>
-
-                                <div className="form-check form-check-inline">
-                                    <input className='mr-1' type="radio" name="color" value="#0000FF" onChange={(e) => setColor(e.target.value)} />
-                                    <label class="form-check-label" for="Blue">Blue</label>
-                                </div>
-
-                                <div className="form-check form-check-inline">
-                                    <input className='mr-1' type="radio" name="color" value="#00FF00" onChange={(e) => setColor(e.target.value)} />
-                                    <label class="form-check-label" for="Green">Green</label>
-                                </div>
-
-                                <div className="form-check form-check-inline">
-                                    <input className='mr-1' type="radio" name="color" value="#FFFF00" onChange={(e) => setColor(e.target.value)} />
-                                    <label class="form-check-label" for="Yellow">Yellow</label>
-                                </div>
-
-                                <div className="form-check form-check-inline">
-                                    <input className='mr-1' type="radio" name="color" value="#FF7F00" onChange={(e) => setColor(e.target.value)} />
-                                    <label class="form-check-label" for="Orange">Orange</label>
-                                </div>
-
-                                <div className="form-check form-check-inline">
-                                    <input className='mr-1' type="radio" name="color" value="#FF0000" onChange={(e) => setColor(e.target.value)} />
-                                    <label class="form-check-label" for="Red">Red</label>
-                                </div>
                             </div>
 
 
@@ -162,8 +169,8 @@ export default function EditTeam() {
                             <div className='form-group'>
                                 <label className='control-label'>Status</label>
                                 <select className='form-control' onChange={(e) => setStatus(e.target.value)}>
-                                    <option value='1' selected={status == 1} >Enable</option>
-                                    <option value='0' selected={status == 0}>Disable</option>
+                                    <option value={1} selected={status == 1} >Enable</option>
+                                    <option value={0} selected={status == 0}>Disable</option>
                                 </select>
                             </div>
                         </div>

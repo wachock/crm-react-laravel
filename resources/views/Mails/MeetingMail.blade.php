@@ -31,17 +31,27 @@
 		<p style="text-align: center;">{{__('mail.meeting.greetings')}} {{__('mail.meeting.from')}} {{__('mail.meeting.company')}}. {{__('mail.meeting.appointment')}}
 		
 		@if(!empty($team['name'])) 
-		{{__('mail.meeting.with')}}      <span style="color:#0130c6;font-weight:700;">{{$team['name']}}</span>
+		{{__('mail.meeting.with')}}      <span style="color:#0130c6;font-weight:700;">{{ $client['lng'] == 'heb' ? $team['heb_name'] : $team['name']}}</span>
 		 @endif
+
 		 {{__('mail.meeting.on')}}       <span style="color:#0130c6;font-weight:700;">{{ \Carbon\Carbon::parse($start_date)->format('d-m-Y')}}</span>
 		 {{__('mail.meeting.between')}}  <span style="color:#0130c6;font-weight:700;">{{date("H:i", strtotime($start_time))}}</span>
 		 {{__('mail.meeting.to')}}       <span style="color:#0130c6;font-weight:700;">{{date("H:i", strtotime($end_time))}}</span>
 		 <!--<span style="color:#0130c6;font-weight:700;">{{$service_names}}&nbsp;</span>{{__('mail.meeting.service')}}</p>-->
 		
-		 @if($purpose) 
-		 {{__('mail.meeting.for')}}     
+		 @if($purpose != '') 
+         {{__('mail.meeting.for')}}  
+
+		 @if($purpose == 'Price offer')   
+		 <span style="color:#0130c6;font-weight:700;">{{ __('mail.meeting.price_offer') }}&nbsp;</span></p>
+		 @elseif($purpose == "Quality check")
+		 <span style="color:#0130c6;font-weight:700;">{{ __('mail.meeting.quality_check') }}&nbsp;</span></p>
+		 @else
 		 <span style="color:#0130c6;font-weight:700;">{{ $purpose }}&nbsp;</span></p>
 		 @endif
+
+		 @endif
+
 
 		@if(!empty($meet_link))
 		<p style="text-align: center;">{{$meet_link}}</p>

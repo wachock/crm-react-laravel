@@ -473,7 +473,7 @@ export default function EditClient() {
                                         <label class="form-check-label" for="title">Color</label>
                                     </div>
                                     <div className="swatch white">
-                                        <input type="radio" name="swatch_demo" id="swatch_2" value="0" color="#fff;" onChange={(e) => setColor('#fff')} />
+                                        <input type="radio" name="swatch_demo" id="swatch_2" value="0" color="#fff" onChange={(e) => setColor('#fff')} />
                                         <label for="swatch_2"><i className="fa fa-check"></i></label>
                                         <span>white</span>
                                     </div>

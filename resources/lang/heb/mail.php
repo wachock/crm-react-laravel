@@ -19,6 +19,8 @@ return [
         'best_regards'=>'בברכה',
         'company'     =>'ברום סרוויס',
         'tel'         =>'טלפון',
+        'price_offer' => 'הצעת מחיר',
+        'quality_check'=>'בקרת איכות'
      ],
      'cancel_meeting'=>[
 
