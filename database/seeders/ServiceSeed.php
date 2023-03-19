@@ -30,7 +30,7 @@ class ServiceSeed extends Seeder
         ]);
         Services::create([
             'name'         => 'Thorough Cleaning',     
-            'heb_name'     => 'ניקוי יסודי',  
+            'heb_name'     => 'ניקיון יסודי',  
             'template'     => 'thorough_cleaning', 
             'status'       => 1           
         ]);
