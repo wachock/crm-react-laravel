@@ -127,7 +127,7 @@ export default function WorkContractRHS() {
                                     <li className="list-inline-item ml-2">{t('work-contract.apt_number')} <span>{client.apt_no ? client.apt_no : 'NA'}</span>
                                     </li>
                                     <li className="list-inline-item">{t('work-contract.enterance_code')} <span>{client.entrence_code ? client.entrence_code : 'NA'}</span>
-                                    </li> s.name
+                                    </li>
                                 </ul>
                                 <ul className="list-inline customRTL">
                                     <li className="list-inline-item ml-2">{t('work-contract.telephone')} <span>{client.phone ? client.phone : 'NA'}</span>
