@@ -140,10 +140,10 @@ class WorkerController extends Controller
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->messages()]);
         }
-
+        
         $worker                = new User;
         $worker->firstname     = $request->firstname;
-        $worker->lastname      = $request->lastname;
+        $worker->lastname      = ($request->lastname)?$request->lastname:'';
         $worker->phone         = $request->phone;
         $worker->email         = $request->email;
         $worker->address       = $request->address;
@@ -258,7 +258,7 @@ class WorkerController extends Controller
 
         $worker                = User::find($id);
         $worker->firstname     = $request->firstname;
-        $worker->lastname      = $request->lastname;
+        $worker->lastname      = ($request->lastname)?$request->lastname:'';
         $worker->phone         = $request->phone;
         $worker->email         = $request->email;
         $worker->address       = $request->address;

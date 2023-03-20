@@ -113,7 +113,7 @@ class AuthController extends Controller
 
         $worker                = User::find($id);
         $worker->firstname     = $request->firstname;
-        $worker->lastname      = $request->lastname;
+        $worker->lastname      = ($request->lastname)?$request->lastname:'';
         $worker->phone         = $request->phone;
         $worker->email         = $request->email;
         $worker->address       = $request->address;

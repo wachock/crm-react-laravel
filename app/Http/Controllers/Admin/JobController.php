@@ -288,7 +288,11 @@ class JobController extends Controller
          $client_mail=array();
          $client_email='';
         foreach($request->workers as $worker){
-           for($i=0;$i<3;$i++){
+           $count=3;
+           if($repeat_value=='na'){
+              $count=1;
+           }
+           for($i=0;$i<$count;$i++){
                 $date = Carbon::createFromDate($worker['date']);
                 $j=0;
                 if($i==1){
