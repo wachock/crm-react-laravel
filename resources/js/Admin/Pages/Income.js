@@ -6,28 +6,56 @@ import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table'
 import axios from "axios";
 
 export default function income() {
-    const [tasks,setTasks] = useState([]);
-    const [loading,setLoading] = useState("Loading...");
+
+    const [tasks, setTasks] = useState([]);
+    const [loading, setLoading] = useState("Loading...");
+    const [totalTask,setTotalTask] = useState(0);
+    const [income,setIncome] = useState(0);
+
     const headers = {
         Accept: "application/json, text/plain, */*",
         "Content-Type": "application/json",
         Authorization: `Bearer ` + localStorage.getItem("admin-token"),
     };
-    const getTasks = () =>{
+    const getTasks = (duration) => {
         axios
-        .get('/api/admin/income',{headers})
-        .then((res)=>{
-          if(res.data.tasks.length > 0){
-            setTasks(res.data.tasks);
-          } else {
-            setTasks([]);
-            setLoading('No Completed Tasks found.');
-          }
-        });
+            .post('/api/admin/income', {duration},{ headers })
+            .then((res) => {
+                if (res.data.tasks.length > 0) {
+                    setTasks(res.data.tasks);
+                    setTotalTask(res.data.total_tasks);
+                    setIncome(res.data.income);
+                } else {
+                    setTasks([]);
+                    setLoading('No Completed Tasks found.');
+                }
+            });
     }
-    useEffect(()=>{
+    function toHoursAndMinutes(totalSeconds) {
+        const totalMinutes = Math.floor(totalSeconds / 60);
+        const s = totalSeconds % 60;
+        const h = Math.floor(totalMinutes / 60);
+        const m = totalMinutes % 60;
+        return decimalHours(h, m, s);
+    }
+
+    function decimalHours(h, m, s) {
+
+        var hours = parseInt(h, 10);
+        var minutes = m ? parseInt(m, 10) : 0;
+        var min = minutes / 60;
+        return hours + ":" + min.toString().substring(0, 4);
+
+
+    }
+    const filter = (e,duration) =>{
+        e.preventDefault();
+        getTasks(duration);
+    }
+    useEffect(() => {
         getTasks();
-    },[])
+    }, [])
+   
     return (
         <div id="container">
             <Sidebar />
@@ -35,16 +63,16 @@ export default function income() {
                 <div className="titleBox card card-body p-3 m-3">
                     <div className="row">
                         <div className="col-sm-6">
-                            <h4 className="page-title">Total Jobs : 0</h4>
-                            <h4 className="page-title">Income : 0</h4>
+                            <h4 className="page-title">Total Jobs : {totalTask}</h4>
+                            <h4 className="page-title">Income : {income}</h4>
                             <h4 className="page-title">Outcome : 0</h4>
                         </div>
                         <div className="col-sm-6">
                             <div className="search-data" style={{ cursor: "pointer" }}>
-                                <span className="p-2">Day</span>
-                                <span className="p-2">Week</span>
-                                <span className="p-2">Month</span>
-                                <span className="p-2">All</span>
+                                <span className="p-2" onClick={e=>filter(e,'day')}>Day</span>
+                                <span className="p-2" onClick={e=>filter(e,'week')}>Week</span>
+                                <span className="p-2" onClick={e=>filter(e,'month')}>Month</span>
+                                <span className="p-2" onClick={e=>filter(e,'all')}>All</span>
                             </div>
                         </div>
                     </div>
@@ -68,19 +96,19 @@ export default function income() {
                                     <Tbody>
                                         {tasks &&
                                             tasks.map((item, index) => {
-
+                                                let time = (item.total_sec != null) ? toHoursAndMinutes(item.total_sec) : 0;
                                                 return (
                                                     <Tr>
                                                         <Td >{item.id}</Td>
                                                         <Td>
 
-                                                           {item.worker.firstname}{" "}{item.worker.lastname}
+                                                            {item.worker.firstname}{" "}{item.worker.lastname}
                                                         </Td>
                                                         <Td > {item.client.firstname}{" "}{item.client.lastname}</Td>
-                                                        <Td>{0}</Td>
-                                                        <Td >{ item.offer ? item.offer.subtotal+"ILS + VAT " : ''}</Td>
+                                                        <Td>{time}</Td>
+                                                        <Td >{item.offer ? item.offer.subtotal + " ILS + VAT " : ''}</Td>
                                                         <Td >{0}</Td>
-                                                       
+
                                                     </Tr>)
                                             })}
                                     </Tbody>

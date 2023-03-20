@@ -190,10 +190,47 @@ class DashboardController extends Controller
     public function clearNotices(){
       notifications::truncate(); 
     }
-    public function income(){
-      $tasks = Job::with('client','worker','offer')->where('status','completed')->get();
+    public function income(Request $request){
+      
+      $tasks = Job::with('client','worker','offer','hours')->where('status','completed');
+      if(empty($request->duration) || $request->duration == 'all')
+      $tasks = $tasks->get();
+
+      if($request->duration == 'day')
+      $tasks = $tasks->whereDate('created_at',Carbon::today())->get();
+
+      if($request->duration == 'month')
+      $tasks = $tasks->whereMonth('created_at',Carbon::now()->month)->get();
+
+      if($request->duration == 'week')
+      $tasks = $tasks->whereBetween('created_at',[Carbon::now()->startOfWeek(),Carbon::now()->endOfWeek()])->get();
+
+      $inc = 0;
+      if(isset($tasks)){
+        foreach($tasks as $t1 => $task){
+
+          if(isset($task->hours)){
+            $tsec = 0;
+            foreach($task->hours as $t => $hour){
+            $tsec += $hour->time_diff;
+            }
+            $tasks[$t1]->total_sec = $tsec; 
+          }
+
+          if(isset($task->offer)){
+           
+              $inc += $task->offer->subtotal;
+          }
+
+
+        }
+      }
       return response()->json([
-        'tasks' =>$tasks
+        'tasks' =>$tasks,
+        'total_tasks' => $tasks->count(),
+        'income'=>$inc,
       ]);
     }
+
+   
 }
