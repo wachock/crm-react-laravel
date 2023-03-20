@@ -28,10 +28,50 @@ class JobController extends Controller
     {   
         
         $q =  $request->q;
+        $w = $request->filter_week;
         $jobs = Job::with('worker', 'client','offer','jobservice');
+       
+        if($q != ''){
+            $jobs = $jobs->orWhereHas('worker',function ($qr) use ($q){
+                     $qr->where(function($qr) use ($q) {
+                     $qr->where(DB::raw('firstname'), 'like','%'.$q.'%');
+                     $qr->orWhere(DB::raw('lastname'), 'like','%'.$q.'%');
+                 });
+             });
+            $jobs = $jobs->orWhereHas('client',function ($qr) use ($q){
+                     $qr->where(function($qr) use ($q) {
+                     $qr->where(DB::raw('firstname'), 'like','%'.$q.'%');
+                     $qr->orWhere(DB::raw('lastname'), 'like','%'.$q.'%');
+                 });
+             });
+            $jobs = $jobs->orWhereHas('jobservice',function ($qr) use ($q){
+                     $qr->where(function($qr) use ($q) {
+                     $qr->where(DB::raw('name'), 'like','%'.$q.'%');
+                     $qr->orWhere(DB::raw('heb_name'), 'like','%'.$q.'%');
+                 });
+             });
+        }
+         if($w != ''){
+          if($w == 'current'){
+              $startDate = Carbon::now()->startOfWeek()->subDays(1)->toDateString();
+              $endDate = Carbon::now()->startOfWeek()->addDays(5)->toDateString(); 
+          }
+           if($w == 'next'){
+              $startDate = Carbon::now()->startOfWeek()->addDays(6)->toDateString();
+              $endDate = Carbon::now()->startOfWeek()->addDays(12)->toDateString(); 
+             
+          }
+           if($w == 'nextnext'){
+              $startDate = Carbon::now()->startOfWeek()->addDays(13)->toDateString();
+              $endDate = Carbon::now()->startOfWeek()->addDays(19)->toDateString();
+          }
+           //$jobs = $jobs->whereBetween('start_date',[$startDate, $endDate]);
+           $jobs = $jobs->whereDate('start_date','>=',$startDate);
+           $jobs = $jobs->whereDate('start_date','<=',$endDate);
+        }
+
         $jobs = $jobs->orderBy('start_date', 'desc')->paginate(20);
         if(isset($jobs)):
-
         foreach($jobs as $job){
            $ava_workers = User::with('availabilities','jobs')->where('skill',  'like','%'.$job->jobservice->service_id.'%');
            $ava_workers = $ava_workers->whereHas('availabilities', function ($query) use ($job) {

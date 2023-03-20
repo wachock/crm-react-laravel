@@ -179,6 +179,7 @@ class AuthController extends Controller
   }
   public function form101(Request $request){
     $data = json_encode($request->all());
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
     User::where('id',$request->id)->update(['form_101'=>$data]);
     return response()->json([
         'success_code' => 200,
