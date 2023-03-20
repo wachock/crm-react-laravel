@@ -136,7 +136,7 @@ export default function Form101() {
 
     if (success == true) {
       axios
-        .post(`/api/form101`, { id: id, data: Data })
+        .post(`/api/form101`, { id: 20, data: Data })
         .then((res) => {
           if (res.data.success_code == 200) {
             alert.success('Successfuly signed');
@@ -183,7 +183,7 @@ export default function Form101() {
     }
   }, 1000)
 
-  useState(() => {
+  useEffect(() => {
     getForm();
   }, []);
 

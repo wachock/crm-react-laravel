@@ -236,7 +236,47 @@ export default function TotalJobs() {
         headers: header,
         filename: filename
     };
+    const copy = [...totalJobs];
+    const [order,setOrder] = useState('ASC');
+    const sortTable = (col) =>{
+        
+        if(order == 'ASC'){
+            const sortData = [...copy].sort((a, b) => (a[col] < b[col] ? 1 : -1));
+            setTotalJobs(sortData);
+            setOrder('DESC');
+        }
+        if(order == 'DESC'){
+            const sortData = [...copy].sort((a, b) => (a[col] < b[col] ? -1 : 1));
+            setTotalJobs(sortData);
+            setOrder('ASC');
+        }
+        
+    }
+    const filterJobs = (e) => {
+       filterJobs1();
+    }
 
+    const filterJobDate = (w) => {
+        $('#filter-week').val(w)
+        filterJobs1();
+    }
+    const filterJobs1 = () => {
+        let filter_value = $('#search-field').val();
+        let filter_week = $('#filter-week').val();
+        axios
+            .get(`/api/admin/jobs?filter_week=${filter_week}&q=${filter_value}`, { headers })
+            .then((response) => {
+                if (response.data.jobs.data.length > 0) {
+                    setTotalJobs(response.data.jobs.data);
+                    setPageCount(response.data.jobs.last_page);
+                } else {
+                    setTotalJobs([]);
+                    setPageCount(response.data.jobs.last_page);
+                    setLoading("No Jobs found");
+                }
+            })
+    }
+   
     return (
         <div id="container">
             <Sidebar />
@@ -244,7 +284,17 @@ export default function TotalJobs() {
                 <div className="titleBox customer-title">
                     <div className="row">
                         <div className="col-sm-6">
-                            <h1 className="page-title">Jobs</h1>
+                            <div className="row">
+                              <div className="col-sm-2">
+                                <h1 className="page-title">Jobs</h1>
+                              </div>
+                              <div className="col-sm-10">
+                                <input type="hidden" id="filter-week" />
+                                <button className="btn btn-success" onClick={(e)=>{filterJobDate('current')}}> Current </button>
+                                <button className="btn btn-success" onClick={(e)=>{filterJobDate('next')}}> Next </button>
+                                <button className="btn btn-success" onClick={(e)=>{filterJobDate('nextnext')}}> Next Next </button>
+                               </div>
+                             </div>
                         </div>
                         <div className="col-sm-6">
                             <div className="search-data">
@@ -252,8 +302,8 @@ export default function TotalJobs() {
                                     <CSVLink {...csvReport} id="csv">Export to CSV</CSVLink>
                                 </div>
                                 <button className="btn btn-success addButton"  data-toggle="modal" data-target="#exampleModal">Export Time Reports</button>
-                                {/*<input type='text' className="form-control" placeholder="Search" />
-                                <Link to="/admin/add-job" className="btn btn-pink addButton"><i className="btn-icon fas fa-plus-circle"></i>
+                               <input type='text' id="search-field" className="form-control" placeholder="Search" onChange={filterJobs}/>
+                                 {/*<Link to="/admin/add-job" className="btn btn-pink addButton"><i className="btn-icon fas fa-plus-circle"></i>
                                     Add New
                                 </Link>*/}
                             </div>
@@ -269,7 +319,7 @@ export default function TotalJobs() {
                                     <table className="table table-bordered">
                                         <thead>
                                             <tr>
-                                                <th scope="col">Job Dated</th>
+                                                <th scope="col" onClick={(e)=>{sortTable('start_date')}}>Job Dated</th>
                                                 <th scope="col">Worker</th>
                                                 <th scope="col">Client</th>
                                                 <th scope="col">Service</th>

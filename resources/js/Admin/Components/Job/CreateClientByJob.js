@@ -179,6 +179,12 @@ export default function CreateClientByJob() {
             { value: 4, label: 'noon1   -12pm-14pm' },
             { value: 5, label: 'noon2 -14pm-16pm' },
             { value: 6, label: 'noon -12pm-16pm' },
+            { value: 7, label: 'evening1 -16pm-18pm' },
+            { value: 8, label: 'evening2 -18pm-20pm' },
+            { value: 9, label: 'evening -16pm-20pm' },
+            { value: 10, label: 'night1 -20pm-22pm' },
+            { value: 11, label: 'night2 -22pm-24pm' },
+            { value: 12, label: 'night -20pm-24pm' },
         ],
         '8am-12pm': [
             { value: 0, label: 'morning1 -8am-10am' },
@@ -270,12 +276,12 @@ export default function CreateClientByJob() {
                     check = false;
                 }
                 if(c_time <= 2){
-                    if(i==0||i==3||i==6){
+                    if([0,3,6,9,12].includes(i)){
                     check = false;
                     }
                 }
                 if(c_time > 2 && c_time <= 4){
-                   if(i==0||i==1||i==2||i==4||i==5){
+                   if([0,1,2,4,5,7,8,10,11].includes(i)){
                      check = false;
                    }
                 }
