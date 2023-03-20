@@ -16,7 +16,7 @@ export default function CreateClientByJob() {
     const [startSlot, setStartSlot] = useState([]);
     const [endSlot, setEndSlot] = useState([]);
     const [interval, setTimeInterval] = useState([]);
-    const [selected_service, setSelectedService] = useState(0);
+    const [selected_service, setSelectedService] = useState('');
     const [data, setData] = useState([]);
     const [c_time, setCTime] = useState(0);
 
@@ -84,13 +84,13 @@ export default function CreateClientByJob() {
     let complete_time;
 
     const handleServices = (value) => {
-        const filtered = services.filter((s) => {
-            if (s.service == value) {
-                service_id = value;
+        const filtered = services.filter((s,i) => {
+            if (i == value) {
+                service_id = s.service;
                 complete_time=parseFloat(s.jobHours);
                 return s;
             } else {
-                $('.services-' + s.service).css('display', 'none');
+                $('.services-' + i).css('display', 'none');
             }
         });
         setCTime(complete_time);
@@ -99,6 +99,7 @@ export default function CreateClientByJob() {
         getWorkers();
         $('#edit-work-time').modal('hide')
     }
+    console.log(services);
     const getWorkers = () => {
         axios
             .get(`/api/admin/all-workers?filter=true&service_id=${service_id}`, { headers })
@@ -580,11 +581,11 @@ export default function CreateClientByJob() {
                                             services.map((item, index) => {
                                                 if (item.service != '10')
                                                     return (
-                                                        <option value={item.service}>{item.name} </option>
+                                                        <option value={index}>{item.name} </option>
                                                     )
                                                 else
                                                     return (
-                                                        <option value={item.service}>{item.other_title} </option>
+                                                        <option value={index}>{item.other_title} </option>
                                                     )
                                             }
                                             )}

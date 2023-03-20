@@ -320,6 +320,7 @@ export default function TotalJobs() {
                                     <table className="table table-bordered">
                                         <thead>
                                             <tr>
+                                                 <th scope="col">Id</th>
                                                 <th scope="col" onClick={(e)=>{sortTable('start_date')}}>Job Dated</th>
                                                 <th scope="col">Worker</th>
                                                 <th scope="col">Client</th>
@@ -327,8 +328,11 @@ export default function TotalJobs() {
                                                 {/* <Th scope="col">Shift</Th>
                                                 <Th scope="col">Address</Th>
                                                 <Th scope="col">Complete Time</Th>
-                                                <Th scope="col">Status</Th>
-                                                <Th scope="col">Total</Th> */}
+                                                */}
+                                                <th scope="col">Status</th>
+                                               {/*  
+                                               <Th scope="col">Total</Th> 
+                                                   */}
                                                 <th className='text-center' scope="col">Action</th>
                                             </tr>
                                         </thead>
@@ -337,6 +341,7 @@ export default function TotalJobs() {
                                                 totalJobs.map((item, index) => {
                                                     return (
                                                         <tr key={index} style={{ "cursor": "pointer" }}>
+                                                            <td>#{item.id}</td>
                                                             <td onClick={(e) => handleNavigate(e, item.id)}>
                                                                 {Moment(item.start_date).format('DD MMM,Y')}
                                                             </td>
@@ -397,18 +402,20 @@ export default function TotalJobs() {
                                                                         + " Hours"
                                                                         : "NA"
                                                                 }
-                                                            </Td>
-                                                            <Td onClick={(e)=>handleNavigate(e,item.id)}
+                                                            </Td>*/}
+                                                            <td onClick={(e)=>handleNavigate(e,item.id)}
                                                                 style={{
                                                                     textTransform:
                                                                         "capitalize",
                                                                 }}
+
                                                             >
                                                                 {item.status}
                                                                 <p>
                                                                 {(item.status=='cancel')?`(With Cancellatiom fees ${item.rate} ILS)`:''}
                                                                 </p>
-                                                            </Td>
+                                                            </td>
+                                                            {/* 
                                                             <Td onClick={(e)=>handleNavigate(e,item.id)}>
                                                                 {item.jobservice
                                                                    ? item.jobservice.total:'0'} ILS + VAT

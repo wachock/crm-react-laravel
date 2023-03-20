@@ -70,7 +70,7 @@ class JobController extends Controller
            $jobs = $jobs->whereDate('start_date','<=',$endDate);
         }
 
-        $jobs = $jobs->orderBy('start_date', 'desc')->paginate(20);
+        $jobs = $jobs->orderBy('id', 'desc')->paginate(20);
         if(isset($jobs)):
         foreach($jobs as $job){
            $ava_workers = User::with('availabilities','jobs')->where('skill',  'like','%'.$job->jobservice->service_id.'%');
@@ -288,9 +288,9 @@ class JobController extends Controller
          $client_mail=array();
          $client_email='';
         foreach($request->workers as $worker){
-           $count=3;
-           if($repeat_value=='na'){
-              $count=1;
+           $count=1;
+           if($repeat_value=='w'){
+              $count=3;
            }
            for($i=0;$i<$count;$i++){
                 $date = Carbon::createFromDate($worker['date']);
@@ -300,7 +300,12 @@ class JobController extends Controller
                 }
                if($i==2){
                   $j=14;  
-                } 
+                }
+                $job_date=$date->addDays($j)->toDateString();
+                $status='scheduled';
+                if(Job::where('start_date',$job_date)->where('worker_id',$worker['worker_id'])->exists()){
+                    $status='unscheduled';
+                }
                 $new = new Job;
                 $new->worker_id     = $worker['worker_id'];
                 if(isset($request->client_page) && $request->client_page){
@@ -312,10 +317,10 @@ class JobController extends Controller
                     $new->offer_id      = $job->offer_id;
                     $new->contract_id   = $id;
                 }
-                $new->start_date    = $date->addDays($j)->toDateString();
+                $new->start_date    = $job_date;
                 $new->shifts        = $worker['shifts'];
                 $new->schedule      = $repeat_value;
-                $new->status        = 'scheduled';
+                $new->status        = $status;
                 $new->save();
 
                 $service           = new JobService;

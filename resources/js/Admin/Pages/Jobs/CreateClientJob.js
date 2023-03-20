@@ -64,9 +64,9 @@ export default function CreateClientJob() {
                                             {services &&
                                                 services.map((item, index) => {
                                                     if (item.service == '10')
-                                                        return (<p className={`services-${item.service}`}>{item.other_title}</p>)
+                                                        return (<p className={`services-${index}`}>{item.other_title}</p>)
                                                     else
-                                                        return (<p className={`services-${item.service}`}>{item.name}</p>)
+                                                        return (<p className={`services-${index}`}>{item.name}</p>)
 
                                                 }
                                                 )}
@@ -78,7 +78,7 @@ export default function CreateClientJob() {
                                             {services &&
                                                 services.map((item, index) => (
 
-                                                    <p className={`services-${item.service}`}>{item.freq_name}</p>
+                                                    <p className={`services-${index}`}>{item.freq_name}</p>
                                                 )
                                                 )}
                                         </div>
@@ -89,7 +89,7 @@ export default function CreateClientJob() {
                                             {services &&
                                                 services.map((item, index) => (
 
-                                                    <p className={`services-${item.service}`}>{item.jobHours} hours</p>
+                                                    <p className={`services-${index}`}>{item.jobHours} hours</p>
                                                 )
                                                 )}
                                         </div>
