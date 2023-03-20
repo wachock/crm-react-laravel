@@ -70,7 +70,8 @@ class JobController extends Controller
            $jobs = $jobs->whereDate('start_date','<=',$endDate);
         }
 
-        $jobs = $jobs->orderBy('id', 'desc')->paginate(20);
+        $jobs = $jobs->orderBy('start_date', 'desc')->paginate(20);
+        if(isset($jobs)):
         foreach($jobs as $job){
            $ava_workers = User::with('availabilities','jobs')->where('skill',  'like','%'.$job->jobservice->service_id.'%');
            $ava_workers = $ava_workers->whereHas('availabilities', function ($query) use ($job) {
@@ -86,6 +87,9 @@ class JobController extends Controller
            }
            $job->avl_worker=$ava_worker;
         }
+
+        endif;
+
         return response()->json([
             'jobs'       => $jobs,        
         ], 200);

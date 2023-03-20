@@ -146,6 +146,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin-api', 'scopes:ad
 
     // Tasks Api
     Route::resource('tasks', TaskController::class);
+
+    //Income 
+    Route::get('income',[DashboardController::class,'income'])->name('income');
     
     //Notifications
     Route::get('head-notice',[DashboardController::class,'headNotice'])->name('head-notice');

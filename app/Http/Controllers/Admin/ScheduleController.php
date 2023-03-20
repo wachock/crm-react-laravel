@@ -224,6 +224,7 @@ class ScheduleController extends Controller
         
         $sch['service_names'] = $str; 
         \App::setLocale($sch['client']['lng']);
+        
         Mail::send('/Mails/MeetingMail',$sch,function($messages) use ($sch){
             $messages->to($sch['client']['email']);
             $sch['client']['lng'] == 'en' ?

@@ -113,6 +113,10 @@ export default function AddService() {
                                                 <option value="office_cleaning">Office Cleaning</option>
                                                 <option value="after_renovation">After Renovation</option>
                                                 <option value="thorough_cleaning">Thorough Cleaning</option>
+                                                <option value="window_cleaning">Window Cleaning</option>
+                                                <option value="polish">Polish</option>
+                                                <option value="others">Others</option>
+                                                
                                             </select>
                                             {errors.template ? (
                                                 <small className="text-danger mb-1">

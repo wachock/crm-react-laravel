@@ -29,8 +29,20 @@ class ServiceSeed extends Seeder
             'status'       => 1                 
         ]);
         Services::create([
-            'name'         => 'Thorough Cleaning',     
-            'heb_name'     => 'ניקיון יסודי',  
+            'name'         => 'Thorough Cleaning - Basic',     
+            'heb_name'     => 'בייסיק',  
+            'template'     => 'thorough_cleaning', 
+            'status'       => 1           
+        ]);
+        Services::create([
+            'name'         => 'Thorough Cleaning - Standard',     
+            'heb_name'     => 'סטנדרט',  
+            'template'     => 'thorough_cleaning', 
+            'status'       => 1           
+        ]);
+        Services::create([
+            'name'         => 'Thorough Cleaning - Premium',     
+            'heb_name'     => 'פרמיום',  
             'template'     => 'thorough_cleaning', 
             'status'       => 1           
         ]);
@@ -65,9 +77,9 @@ class ServiceSeed extends Seeder
             'status'       => 1                  
         ]);
         Services::create([
-            'name'         => 'P',
-            'heb_name'     => 'פ',  
-            'template'     => '',
+            'name'         => 'Floor Polishing',
+            'heb_name'     => 'פוליש\ חידוש רצפות',  
+            'template'     => 'polish',
             'status'       => 1                  
         ]);
         Services::create([
