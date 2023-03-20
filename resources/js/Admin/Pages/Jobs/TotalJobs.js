@@ -289,11 +289,11 @@ export default function TotalJobs() {
                               <div className="col-sm-2">
                                 <h1 className="page-title">Jobs</h1>
                               </div>
-                              <div className="col-sm-10">
+                              <div className="col-sm-10 mt-4">
                                 <input type="hidden" id="filter-week" />
-                                <button className="btn btn-success" onClick={(e)=>{filterJobDate('current')}}> Current </button>
-                                <button className="btn btn-success" onClick={(e)=>{filterJobDate('next')}}> Next </button>
-                                <button className="btn btn-success" onClick={(e)=>{filterJobDate('nextnext')}}> Next Next </button>
+                                <button className="btn btn-success" onClick={(e)=>{filterJobDate('current')}}> Current week</button>
+                                <button className="ml-2 btn btn-pink" onClick={(e)=>{filterJobDate('next')}}> Next week</button>
+                                <button className="ml-2 btn btn-info" onClick={(e)=>{filterJobDate('nextnext')}}> Next Next week</button>
                                </div>
                              </div>
                         </div>
