@@ -158,9 +158,9 @@ export default function PriceOffer() {
                                             <div className='mt-2 float-right headMsg'>
                                                 {
                                                     (status == 'accepted') ?
-                                                        <h4 className='btn btn-success'>Accepted</h4>
+                                                        <h4 className='btn btn-success'>{t('global.accepted')}</h4>
                                                         :
-                                                        <h4 className='btn btn-danger'>Rejected</h4>
+                                                        <h4 className='btn btn-danger'>{t('global.rejected')}</h4>
                                                 }
                                             </div>
                                         </>

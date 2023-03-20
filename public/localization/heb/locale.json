@@ -8,7 +8,9 @@
         "afternoon": "אחהצ",
         "evening": "ערב",
         "fullday": "יום שלם",
-        "night":"לילה"
+        "night":"לילה",
+        "accepted":"מקובל",
+        "rejected":"דחה"
     },
     "res_txt": "תודה עבור תגובתך",
     "meet_accept": {
@@ -289,7 +291,7 @@
             "sign_card_err": "נא הזן חתימה על הכרטיס",
             "sign_err": "בבקשה תחתום על החוזה",
             "invalid_cvv": "cvv לא חוקי",
-            "success": "תודה, על קבלת החוזה",
+            "success": "תודה על אישור ההסכם",
             "reject_title": "אתה בטוח?",
             "reject_text": "אתה רוצה לדחות את החוזה הזה!",
             "yes_reject": "כן, דחה",

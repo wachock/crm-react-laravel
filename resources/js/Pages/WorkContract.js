@@ -59,7 +59,10 @@ export default function WorkContract() {
                     swal('', res.data.error, 'error');
                 } else {
                     setStatus('un-verified');
-                    swal(t('work-contract.messages.success'), '', 'success')
+                    swal(t('work-contract.messages.success'), '', 'success');
+                    setTimeout(()=>{
+                        window.location.reload(true);
+                    },2000);
                 }
             })
     }
@@ -179,9 +182,9 @@ export default function WorkContract() {
                                     <div className='mt-2 float-right headMsg'>
                                         {
                                             (status == 'un-verified' || status == 'verified') ?
-                                                <h4 className='btn btn-success'>Accepted</h4>
+                                                <h4 className='btn btn-success'>{t('global.accepted')}</h4>
                                                 :
-                                                <h4 className='btn btn-danger'>Rejected</h4>
+                                                <h4 className='btn btn-danger'>{t('global.rejected')}</h4>
                                         }
                                     </div>
                             }
@@ -301,8 +304,13 @@ export default function WorkContract() {
                                         })}
 
                                         <br /> <span style={{ fontWeight: "600" }} className='d-block mt-2'>{t('work-contract.other_address_txt')}</span> <br />
-                                        <input type='text' name="additional_address" onChange={(e) => setAaddress(e.target.value)} placeholder={t('work-contract.placeholder_address')} className='form-control' /></td>
-                                </tr>
+                                        { contract && contract.additional_address != null ?
+                                          <input type='text'value={contract.additional_address} readOnly className='form-control' />
+                                         : 
+                                        <input type='text' name="additional_address" onChange={(e) => setAaddress(e.target.value)} placeholder={t('work-contract.placeholder_address')} className='form-control' />
+                                        }
+                                 </td>
+                                 </tr>
                                 <tr>
                                     <td style={{ width: "60%" }}>{t('work-contract.service_delivery_txt')}</td>
                                     <td>{t('work-contract.as_agreed_txt')} </td>
@@ -340,26 +348,46 @@ export default function WorkContract() {
                                 <tr>
                                     <td style={{ width: "60%" }}>{t('work-contract.card_type')}</td>
                                     <td>
+                                    { contract && contract.card_type != null ?
+                                        <input type="text" value={contract.card_type} className="form-control" readOnly />
+                                        :
                                         <select className='form-control' onChange={(e) => setCtype(e.target.value)}>
                                             <option>Please Select</option>
                                             <option value='Visa'>Visa</option>
                                             <option value='Master Card'>Master Card</option>
                                             <option value='American Express'>American Express</option>
                                         </select>
+                                    }
                                     </td>
                                 </tr>
                                 <tr>
                                     <td style={{ width: "60%" }}>{t('work-contract.card_name')}</td>
-                                    <td><input type='text' name="name_on_card" onChange={(e) => setCname(e.target.value)} className='form-control' placeholder={t('work-contract.card_name')} /></td>
+                                    <td>
+                                    { contract && contract.name_on_card != null ?
+                                      <input type="text" value={contract.name_on_card} className="form-control" readOnly/>
+                                      :
+                                    <input type='text' name="name_on_card" onChange={(e) => setCname(e.target.value)} className='form-control' placeholder={t('work-contract.card_name')} />
+                                    }
+                                    </td>
                                 </tr>
 
                                 <tr>
                                     <td style={{ width: "60%" }}>{t('work-contract.card_cvv')}</td>
-                                    <td><input type='text' name="cvv" onChange={(e) => setCvv(e.target.value)} onKeyUp={(e) => { if (e.target.value.length >= 3) e.target.value = e.target.value.slice(0, 3); }} className='form-control' placeholder={t('work-contract.card_cvv')} /></td>
+                                    <td>
+                                    { contract && contract.cvv != null ?
+                                        <input type="text" value={contract.cvv} className="form-control" readOnly/>
+                                        :
+                                        <input type='text' name="cvv" onChange={(e) => setCvv(e.target.value)} onKeyUp={(e) => { if (e.target.value.length >= 3) e.target.value = e.target.value.slice(0, 3); }} className='form-control' placeholder={t('work-contract.card_cvv')} />
+                                    }
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td style={{ width: "60%" }}>{t('work-contract.signature')}</td>
                                     <td>
+                                    { contract && contract.card_sign != null ?
+                                    <img src={contract.card_sign} />
+                                    :
+                                    <>
                                         <SignatureCanvas
                                             penColor="black"
                                             canvasProps={{ className: 'sigCanvas', width: 300, height: 115 }}
@@ -367,6 +395,9 @@ export default function WorkContract() {
                                             onEnd={handleSignatureEnd2}
                                         />
                                         <button className='btn btn-warning' onClick={clearSignature2}>{t('work-contract.btn_warning_txt')}</button>
+                                        </>
+                                    }
+                                        
                                     </td>
                                 </tr>
                                 <tr>
@@ -491,6 +522,10 @@ export default function WorkContract() {
                             <div className='col-sm-6'>
                                 <h5 className='mt-2 mb-4'>{t('work-contract.the_tenant_subtitle')}</h5>
                                 <h6>{t('work-contract.draw_signature')}</h6>
+                            { contract && contract.signature != null ?
+                                <img src={contract.signature}/>
+                                :
+                                <>
                                 <SignatureCanvas
                                     penColor="black"
                                     canvasProps={{ className: 'sigCanvas' }}
@@ -498,6 +533,8 @@ export default function WorkContract() {
                                     onEnd={handleSignatureEnd}
                                 />
                                 <button className='btn btn-warning' onClick={clearSignature}>{t('work-contract.btn_warning_txt')}</button>
+                                </>
+                            }
                             </div>
                             <div className='col-sm-6'>
                                 <div className='float-right'>

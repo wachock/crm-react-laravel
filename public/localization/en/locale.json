@@ -7,8 +7,10 @@
         "noon":"Noon",
         "afternoon":"Afternoon",
         "evening":"Evening",
-        "fullday":"Full Day"
-
+        "fullday":"Full Day",
+        "night":"Night",
+        "accepted":"Accepted",
+        "rejected":"Rejected"
 
     },
     "res_txt": "Thankyou for your response",
