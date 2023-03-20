@@ -205,6 +205,10 @@ export default function EditOffer() {
           formValues[t].other_title = document.querySelector('#other_title'+t).value;
           console.log(document.querySelector('#other_title'+t).value);
       }
+
+      if(formValues[t].frequency){
+
+      }
       
 
     }
@@ -345,7 +349,7 @@ export default function EditOffer() {
                                       <option selected value={0}> -- Please select --</option>
                                       {AllFreq && AllFreq.map((s, i) => {
                                         return (
-                                          <option name={s.name} value={s.id}> {s.name} </option>
+                                          <option cycle={s.cycle} period={s.period} name={s.name} value={s.id}> {s.name} </option>
                                         )
                                       })}
                                     </select>
