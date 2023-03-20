@@ -190,4 +190,10 @@ class DashboardController extends Controller
     public function clearNotices(){
       notifications::truncate(); 
     }
+    public function income(){
+      $tasks = Job::with('client','worker','offer')->where('status','completed')->get();
+      return response()->json([
+        'tasks' =>$tasks
+      ]);
+    }
 }

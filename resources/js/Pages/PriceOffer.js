@@ -357,6 +357,26 @@ export default function PriceOffer() {
                                 }
                             </>
 
+                            {
+                                (allTemplates.includes('polish')) ?
+                                    <>
+                                        <div className='shift-20'>
+                                            <h4 className='mt-4'>&bull; {t('price_offer.our_services.s1')}</h4>
+                                            <ul className='list-unstyled'>
+                                                <li><img src={star} /> {t('price_offer.our_services.s1_p1')}</li>
+                                                <li><img src={star} /> {t('price_offer.our_services.s1_p2')}</li>
+                                                <li><img src={star} /> {t('price_offer.our_services.s1_p3')}</li>
+                                                <li><img src={star} /> {t('price_offer.our_services.s1_p4')}</li>
+                                                <li><img src={star} /> {t('price_offer.our_services.s1_p5')}</li>
+                                                <li><img src={star} /> {t('price_offer.our_services.s1_p6')}</li>
+                                                <li><img src={star} /> {t('price_offer.our_services.s1_p7')}</li>
+                                                <li><img src={star} /> {t('price_offer.our_services.s1_p8')}</li>
+                                            </ul>
+                                        </div>
+
+                                    </> : ''
+                            }
+
 
                             <div className='shift-20'>
                                 <h4 className='mt-4'>&bull; {t('price_offer.window_any_height.title')}</h4>

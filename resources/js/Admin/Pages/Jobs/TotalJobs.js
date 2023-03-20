@@ -8,6 +8,7 @@ import { useLocation } from 'react-router-dom'
 import Moment from "moment";
 import { useNavigate } from "react-router-dom";
 import { CSVLink } from "react-csv";
+import { intlDateTimeFormatSupported } from "javascript-time-ago";
 export default function TotalJobs() {
 
     const [totalJobs, setTotalJobs] = useState([]);
@@ -308,7 +309,7 @@ export default function TotalJobs() {
                                                                 </select>
 
                                                             </td>
-                                                            <td><Link to={item.client ? `/admin/view-client/${item.client.id}` : '#'}>{
+                                                            <td style={{background:item.client.color}}><Link to={item.client ? `/admin/view-client/${item.client.id}` : '#'}>{
                                                                 item.client
                                                                     ? item.client.firstname +
                                                                     " " + item.client.lastname

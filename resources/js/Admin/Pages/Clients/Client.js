@@ -143,7 +143,7 @@ export default function Clients() {
                                             <Th onClick={(e)=>{sortTable('email')}}>Email</Th>
                                             <Th onClick={(e)=>{sortTable('address')}}>Address</Th>
                                             <Th onClick={(e)=>{sortTable('phone')}}>Phone</Th>
-                                            <Th>Status</Th>
+                                            <Th onClick={(e)=>{sortTable('status')}}>Status</Th>
                                             <Th>Action</Th>
                                         </Tr>
                                     </Thead>

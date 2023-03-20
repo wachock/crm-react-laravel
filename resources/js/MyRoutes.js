@@ -105,12 +105,7 @@ import Form101 from './Pages/Form101';
 import Languages from './Admin/Pages/Languages/language';
 import EditLanguages from './Admin/Pages/Languages/EditLanguage';
 import Notification from './Admin/Pages/Notification/Notification';
-
-
-
-
-
-
+import Income from './Admin/Pages/Income'
 
 TimeAgo.addDefaultLocale(en)
 const options = {
@@ -233,6 +228,7 @@ export default function MyRoutes() {
                      <Route exact path="notifications" element={<Notification />} />
                      <Route exact path="Languages" element={<Languages />} />
                      <Route exact path="edit-language/:id" element={<EditLanguages />} />
+                     <Route exact path="income" element={<Income />} />
 
                   </Route>
                </Route>
