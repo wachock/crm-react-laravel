@@ -25,7 +25,9 @@ export default function AddOffer() {
     rateperhour: '',
     other_title:'',
     totalamount: '',
-    template:''
+    template:'',
+    cycle:'',
+    period:''
   }])
   const [AllClients, setAllClients] = useState([]);
   const [AllServices, setAllServices] = useState([]);
@@ -47,6 +49,8 @@ export default function AddOffer() {
     }
     if (e.target.name == 'frequency') {
       newFormValues[i]['freq_name'] = e.target.options[e.target.selectedIndex].getAttribute('name');
+      newFormValues[i]['cycle'] = e.target.options[e.target.selectedIndex].getAttribute('cycle');
+      newFormValues[i]['period'] = e.target.options[e.target.selectedIndex].getAttribute('period');
     }
     setFormValues(newFormValues);
   }
@@ -62,7 +66,9 @@ export default function AddOffer() {
       rateperhour: '',
       other_title:'',
       totalamount: '',
-      template:''
+      template:'',
+      cycle:'',
+      period:''
     }])
   }
 
@@ -309,7 +315,7 @@ export default function AddOffer() {
                                       <option selected value={0}> -- Please select --</option>
                                       {AllServices && AllServices.map((s, i) => {
                                         return (
-                                          <option name={s.name} template={s.template} value={s.id}> {s.name} </option>
+                                          <option  name={s.name} template={s.template} value={s.id}> {s.name} </option>
                                         )
                                       })}
                                     </select>
@@ -328,7 +334,7 @@ export default function AddOffer() {
                                       <option selected value={0}> -- Please select --</option>
                                       {AllFreq && AllFreq.map((s, i) => {
                                         return (
-                                          <option name={s.name} value={s.id}> {s.name} </option>
+                                          <option cycle={s.cycle} period={s.period} name={s.name} value={s.id}> {s.name} </option>
                                         )
                                       })}
                                     </select>

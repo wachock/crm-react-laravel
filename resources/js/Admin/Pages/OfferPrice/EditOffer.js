@@ -23,7 +23,9 @@ export default function EditOffer() {
     rateperhour: '',
     other_title:'',
     totalamount: '',
-    template:''
+    template:'',
+    cycle:'',
+    period:''
   }])
   const [description, setDescription] = useState("");
   const [status, setStatus] = useState("");
@@ -49,6 +51,8 @@ export default function EditOffer() {
     }
     if (e.target.name == 'frequency') {
       newFormValues[i]['freq_name'] = e.target.options[e.target.selectedIndex].getAttribute('name');
+      newFormValues[i]['cycle'] = e.target.options[e.target.selectedIndex].getAttribute('cycle');
+      newFormValues[i]['period'] = e.target.options[e.target.selectedIndex].getAttribute('period');
     }
     setFormValues(newFormValues);
   }
@@ -64,7 +68,9 @@ export default function EditOffer() {
       rateperhour: '',
       other_title:'',
       totalamount: '',
-      template:''
+      template:'',
+      cycle:'',
+      period:''
     }])
   }
 

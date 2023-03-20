@@ -39,6 +39,7 @@ class ServicesController extends Controller
         $result = [];
         if(isset($services)){
             foreach ($services as $service){
+                
                 $res['name'] = ($request->lng == 'en') ? $service->name : $service->heb_name;
                 $res['id']  = $service->id;
                 $res['template'] = $service->template;

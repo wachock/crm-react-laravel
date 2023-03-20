@@ -140,14 +140,14 @@ export default function Schedule() {
                 {schedules.length > 0 ? (
                   <Table className="table table-bordered">
                     <Thead>
-                      <Tr style={{cursor:"pointer"}} >
-                        <Th onClick={(e)=>{sortTable('id')}} >ID</Th>
-                        <Th onClick={(e)=>{sortTable('[client][firstname]')}} >Client</Th>
-                        <Th onClick={(e)=>{sortTable('client.phone')}} >Contact</Th>
-                        <Th onClick={(e)=>{sortTable('client.address')}} >Address</Th>
-                        <Th onClick={(e)=>{sortTable('schedules.team.name')}} >Meeting Attender</Th>
-                        <Th onClick={(e)=>{sortTable('start_date')}}>Scheduled</Th>
-                        <Th>Booking Status</Th>
+                      <Tr>
+                        <Th style={{cursor:"pointer"}} onClick={(e)=>{sortTable('id')}} >ID</Th>
+                        <Th >Client</Th>
+                        <Th >Contact</Th>
+                        <Th >Address</Th>
+                        <Th >Meeting Attender</Th>
+                        <Th style={{cursor:"pointer"}} onClick={(e)=>{sortTable('start_date')}}>Scheduled</Th>
+                        <Th style={{cursor:"pointer"}} onClick={(e)=>{sortTable('booking_status')}}>Booking Status</Th>
                         <Th>Action</Th>
                       </Tr>
                     </Thead>

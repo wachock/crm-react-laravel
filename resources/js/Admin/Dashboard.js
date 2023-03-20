@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Sidebar from "./Layouts/Sidebar";
 import axios from "axios";
-import {  Link } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function AdminDashboard() {
     const [totalJobs, setTotalJobs] = useState([0]);
@@ -12,6 +13,7 @@ export default function AdminDashboard() {
     const [contracts, setContracts] = useState([0]);
     const [latestJobs, setlatestJobs] = useState([]);
     const [loading, setLoading] = useState("Loading...");
+    const navigate = useNavigate();
 
     const headers = {
         Accept: "application/json, text/plain, */*",
@@ -34,11 +36,16 @@ export default function AdminDashboard() {
             }
         });
     };
-    
+
+    const rowHandle = (e,id) =>{
+      e.preventDefault();
+      navigate(`/admin/view-job/${id}`);
+    }
+
     useEffect(() => {
         GetDashboardData();
     }, []);
-    
+
     const handleDelete = (id) => {
         Swal.fire({
             title: "Are you sure?",
@@ -66,6 +73,23 @@ export default function AdminDashboard() {
         });
     };
 
+    const copy = [...latestJobs];
+    const [order,setOrder] = useState('ASC');
+    const sortTable = (col) =>{
+        
+        if(order == 'ASC'){
+            const sortData = [...copy].sort((a, b) => (a[col] < b[col] ? 1 : -1));
+            setlatestJobs(sortData);
+            setOrder('DESC');
+        }
+        if(order == 'DESC'){
+            const sortData = [...copy].sort((a, b) => (a[col] < b[col] ? -1 : 1));
+            setlatestJobs(sortData);
+            setOrder('ASC');
+        }
+        
+    }
+
     return (
         <div id="container">
             <Sidebar />
@@ -84,7 +108,7 @@ export default function AdminDashboard() {
                                     <div className="dashText">
                                         <h3>{totalJobs}</h3>
                                         <p>Jobs posted</p>
-                                    </div>   
+                                    </div>
                                 </div>
                             </a>
                         </div>
@@ -110,9 +134,9 @@ export default function AdminDashboard() {
                                     <div className="dashText">
                                         <h3>{totalWorkers}</h3>
                                         <p>Workers</p>
-                                    </div>   
+                                    </div>
                                 </div>
-                            </a>  
+                            </a>
                         </div>
                         <div className="col-sm-4 col-xs-6">
                             <a href="/admin/schedule">
@@ -121,9 +145,9 @@ export default function AdminDashboard() {
                                         <i className="fa-solid fa-handshake"></i>
                                     </div>
                                     <div className="dashText">
-                                        <h3>{ totalSchedules }</h3>
-                                        <p>Meetings</p>    
-                                    </div>   
+                                        <h3>{totalSchedules}</h3>
+                                        <p>Meetings</p>
+                                    </div>
                                 </div>
                             </a>
                         </div>
@@ -133,10 +157,10 @@ export default function AdminDashboard() {
                                     <div className="dashIcon">
                                         <i className="fa-solid fa-dollar-sign"></i>
                                     </div>
-                                    <div className="dashText"> 
-                                        <h3>{ totalOffers }</h3>
-                                        <p>Offered Prices</p>  
-                                    </div>   
+                                    <div className="dashText">
+                                        <h3>{totalOffers}</h3>
+                                        <p>Offered Prices</p>
+                                    </div>
                                 </div>
                             </a>
                         </div>
@@ -147,28 +171,28 @@ export default function AdminDashboard() {
                                         <i className="fa-solid fa-file-contract"></i>
                                     </div>
                                     <div className="dashText">
-                                        <h3>{ contracts }</h3>
-                                        <p>Contracts</p>   
-                                    </div>   
+                                        <h3>{contracts}</h3>
+                                        <p>Contracts</p>
+                                    </div>
                                 </div>
                             </a>
                         </div>
                     </div>
                     <div className="latest-users">
                         <h2 className="page-title">Recent Completed Jobs</h2>
-                        <div className="boxPanel">
-                            <div className="table-responsive">
+                        <div className="boxPanel card">
+                            <div className="table-responsive card-body">
                                 {latestJobs.length > 0 ? (
                                     <table className="table table-bordered">
                                         <thead>
                                             <tr>
                                                 <th>Client Name</th>
                                                 <th>Service Name</th>
-                                                <th>Date</th>
-                                                <th>Shift</th>
+                                                <th style={{cursor:'pointer'}} onClick={e=>sortTable('date')}> Date</th>
+                                                <th style={{cursor:'pointer'}} onClick={e=>sortTable('shift')}> Shift</th>
                                                 <th>Assigned Worker</th>
-                                                <th>Status</th>
-                                                <th>Total</th>
+                                                <th style={{cursor:'pointer'}} onClick={e=>sortTable('sattus')}>Status</th>
+                                                <th style={{cursor:'pointer'}} onClick={e=>sortTable('total')}>Total</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
@@ -176,43 +200,43 @@ export default function AdminDashboard() {
                                             {latestJobs &&
                                                 latestJobs.map(
                                                     (item, index) => (
-                                                        <tr key={index}>
-                                                                <td>{
-                                                            item.client
-                                                                ? item.client.firstname +
-                                                                " " + item.client.lastname
-                                                                : "NA"
-                                                        }
-                                                        </td>
-                                                        <td>{
-                                                            item.jobservice
-                                                                ? item.jobservice.name
-                                                                : "NA"
-                                                        }</td>
-                                                        <td>
-                                                            {item.start_date}
-                                                        </td>
-                                                        <td>
-                                                            {item.shifts}
-                                                        </td>
-                                                        <td>{
-                                                            item.worker
-                                                                ? item.worker.firstname +
-                                                                " " + item.worker.lastname
-                                                                : "NA"
-                                                        }</td>
+                                                        <tr key={index} style={{cursor:'pointer'}} onClick={e=>rowHandle(e,item.id)}>
+                                                            <td>{
+                                                                item.client
+                                                                    ? item.client.firstname +
+                                                                    " " + item.client.lastname
+                                                                    : "NA"
+                                                            }
+                                                            </td>
+                                                            <td>{
+                                                                item.jobservice
+                                                                    ? item.jobservice.name
+                                                                    : "NA"
+                                                            }</td>
+                                                            <td>
+                                                                {item.start_date}
+                                                            </td>
+                                                            <td>
+                                                                {item.shifts}
+                                                            </td>
+                                                            <td>{
+                                                                item.worker
+                                                                    ? item.worker.firstname +
+                                                                    " " + item.worker.lastname
+                                                                    : "NA"
+                                                            }</td>
 
-                                                        <td
-                                                            style={{
-                                                                textTransform:
-                                                                    "capitalize",
-                                                            }}
-                                                        >
-                                                            {item.status}
-                                                        </td>
-                                                        <td>
-                                                            {item.jobservice.total} ILS
-                                                        </td>
+                                                            <td
+                                                                style={{
+                                                                    textTransform:
+                                                                        "capitalize",
+                                                                }}
+                                                            >
+                                                                {item.status}
+                                                            </td>
+                                                            <td>
+                                                                {item.jobservice.total} ILS
+                                                            </td>
                                                             <td>
                                                                 <div className="d-flex">
                                                                     <Link
@@ -228,7 +252,7 @@ export default function AdminDashboard() {
                                                                         <i className="fa fa-eye"></i>
                                                                     </Link>
 
-                                                                   
+
                                                                     <button
                                                                         className="ml-2 btn bg-red"
                                                                         onClick={() =>
@@ -240,10 +264,10 @@ export default function AdminDashboard() {
                                                                         <i className="fa fa-trash"></i>
                                                                     </button>
                                                                 </div>
-                                                                    </td>
+                                                            </td>
                                                         </tr>
                                                     )
-                                                                    )}
+                                                )}
                                         </tbody>
                                     </table>
                                 ) : (

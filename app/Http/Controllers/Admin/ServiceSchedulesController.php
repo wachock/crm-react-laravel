@@ -38,8 +38,11 @@ class ServiceSchedulesController extends Controller
         $result = [];
         if(isset($schedules)){
            foreach($schedules as $schedule){
+            
              $res['name'] = ($request->lng == 'en') ? $schedule->name : $schedule->name_heb;
              $res['id']   = $schedule->id; 
+             $res['cycle'] = $schedule->cycle;
+             $res['period'] = $schedule->period;
              array_push($result,$res);
            }
         }
