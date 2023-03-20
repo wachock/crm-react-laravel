@@ -96,6 +96,23 @@ export default function Contract() {
         e.preventDefault();
         navigate(`/admin/view-contract/${id}`);
     }
+    
+    const copy = [...contracts];
+    const [order, setOrder] = useState('ASC');
+    const sortTable = (col) => {
+
+        if (order == 'ASC') {
+            const sortData = [...copy].sort((a, b) => (a[col] < b[col] ? 1 : -1));
+            setContracts(sortData);
+            setOrder('DESC');
+        }
+        if (order == 'DESC') {
+            const sortData = [...copy].sort((a, b) => (a[col] < b[col] ? -1 : 1));
+            setContracts(sortData);
+            setOrder('ASC');
+        }
+
+    }
 
     return (
         <div id="container">
@@ -126,7 +143,7 @@ export default function Contract() {
                                                 <Th scope="col" style={{ width: "16%" }}>Address</Th>
                                                 <Th scope="col">Phone</Th>
                                                 <Th scope="col">Service Name</Th>
-                                                <Th scope="col">Status</Th>
+                                                <Th style={{cursor:'pointer'}} onClick={(e)=>sortTable('status')} scope="col">Status</Th>
                                                 <Th scope="col">Total</Th>
                                                 <Th scope="col">Job Status</Th>
                                                 <Th scope="col">Action</Th>

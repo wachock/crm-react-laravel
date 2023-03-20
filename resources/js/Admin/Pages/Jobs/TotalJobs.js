@@ -277,6 +277,8 @@ export default function TotalJobs() {
                 }
             })
     }
+
+    
    
     return (
         <div id="container">
@@ -320,7 +322,7 @@ export default function TotalJobs() {
                                     <table className="table table-bordered">
                                         <thead>
                                             <tr>
-                                                <th scope="col" onClick={(e)=>{sortTable('start_date')}}>Job Dated</th>
+                                                <th style={{cursor:'pointer'}} scope="col" onClick={(e)=>{sortTable('start_date')}}>Job Dated</th>
                                                 <th scope="col">Worker</th>
                                                 <th scope="col">Client</th>
                                                 <th scope="col">Service</th>
