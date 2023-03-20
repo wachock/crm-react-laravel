@@ -35,8 +35,8 @@ export default function income() {
                 <div className="titleBox card card-body p-3 m-3">
                     <div className="row">
                         <div className="col-sm-6">
-                            <h4 className="page-title">Total Jobs : 13</h4>
-                            <h4 className="page-title">Income : 1350</h4>
+                            <h4 className="page-title">Total Jobs : 0</h4>
+                            <h4 className="page-title">Income : 0</h4>
                             <h4 className="page-title">Outcome : 0</h4>
                         </div>
                         <div className="col-sm-6">
@@ -78,7 +78,7 @@ export default function income() {
                                                         </Td>
                                                         <Td > {item.client.firstname}{" "}{item.client.lastname}</Td>
                                                         <Td>{0}</Td>
-                                                        <Td >{item.offer.subtotal}</Td>
+                                                        <Td >{ item.offer ? item.offer.subtotal+"ILS + VAT " : ''}</Td>
                                                         <Td >{0}</Td>
                                                        
                                                     </Tr>)
