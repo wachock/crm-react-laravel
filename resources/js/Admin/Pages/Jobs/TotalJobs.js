@@ -309,7 +309,7 @@ export default function TotalJobs() {
                                                                 </select>
 
                                                             </td>
-                                                            <td style={{background:item.client.color}}><Link to={item.client ? `/admin/view-client/${item.client.id}` : '#'}>{
+                                                            <td style={item.client ? {background:item.client.color} : {}}><Link to={item.client ? `/admin/view-client/${item.client.id}` : '#'}>{
                                                                 item.client
                                                                     ? item.client.firstname +
                                                                     " " + item.client.lastname
