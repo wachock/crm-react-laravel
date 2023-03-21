@@ -277,38 +277,45 @@ export default function TotalJobs() {
                 }
             })
     }
-
-    
    
     return (
         <div id="container">
             <Sidebar />
-            <div id="content">
+            <div id="content" className="job-listing-page">
                 <div className="titleBox customer-title">
                     <div className="row">
-                        <div className="col-sm-6">
-                            <div className="row">
-                              <div className="col-sm-2">
-                                <h1 className="page-title">Jobs</h1>
-                              </div>
-                              <div className="col-sm-10 mt-4">
+                        <div className="col-sm-2 col-4">
+                            <h1 className="page-title">Jobs</h1>
+                        </div>
+                        <div className="col-8 hidden-xl">
+                            <div className="search-data"> 
+                               <input type='text' id="search-field" className="form-control" placeholder="Search" onChange={filterJobs} style={{marginRight: "0"}} />
+                            </div>
+                        </div>
+                        <div className="col-sm-6 hidden-xs">
+                            <div className="job-buttons">
                                 <input type="hidden" id="filter-week" />
                                 <button className="btn btn-success" onClick={(e)=>{filterJobDate('current')}}> Current week</button>
                                 <button className="ml-2 btn btn-pink" onClick={(e)=>{filterJobDate('next')}}> Next week</button>
-                                <button className="ml-2 btn btn-info" onClick={(e)=>{filterJobDate('nextnext')}}> Next Next week</button>
-                               </div>
-                             </div>
+                                <button className="ml-2 btn btn-primary" onClick={(e)=>{filterJobDate('nextnext')}}> Next Next week</button>
+                                <button className="ml-2 btn btn-warning addButton"  data-toggle="modal" data-target="#exampleModal">Export Time Reports</button>
+                            </div>
+                            <div classname="App" style={{ display: "none" }}>
+                                <CSVLink {...csvReport} id="csv">Export to CSV</CSVLink> 
+                            </div>
                         </div>
-                        <div className="col-sm-6">
-                            <div className="search-data">
-                                <div classname="App" style={{ display: "none" }}>
-                                    <CSVLink {...csvReport} id="csv">Export to CSV</CSVLink>
-                                </div>
-                                <button className="btn btn-success addButton"  data-toggle="modal" data-target="#exampleModal">Export Time Reports</button>
-                               <input type='text' id="search-field" className="form-control" placeholder="Search" onChange={filterJobs}/>
-                                 {/*<Link to="/admin/add-job" className="btn btn-pink addButton"><i className="btn-icon fas fa-plus-circle"></i>
-                                    Add New
-                                </Link>*/}
+                        <div className="col-12 hidden-xl">
+                            <div className="job-buttons">
+                                <input type="hidden" id="filter-week" />
+                                <button className="btn btn-success" onClick={(e)=>{filterJobDate('current')}}> Current week</button>
+                                <button className="ml-2 btn btn-pink" onClick={(e)=>{filterJobDate('next')}}> Next week</button>
+                                <button className="ml-2 btn btn-primary" onClick={(e)=>{filterJobDate('nextnext')}}> Next Next week</button> 
+                            </div>
+                            <button className="reportModal btn btn-warning"  data-toggle="modal" data-target="#exampleModal">Export Time Reports</button>
+                        </div>
+                        <div className="col-sm-4 hidden-xs">
+                            <div className="search-data"> 
+                               <input type='text' id="search-field" className="form-control" placeholder="Search" onChange={filterJobs} style={{marginRight: "0"}} />
                             </div>
                         </div>
                     </div>
@@ -322,14 +329,14 @@ export default function TotalJobs() {
                                     <table className="table table-bordered">
                                         <thead>
                                             <tr>
-                                                <th style={{cursor:'pointer'}} scope="col" onClick={(e)=>{sortTable('start_date')}}>Job Dated</th>
+                                                <th scope="col" onClick={(e)=>{sortTable('start_date')}}>Job Dated</th>
                                                 <th scope="col">Worker</th>
                                                 <th scope="col">Client</th>
                                                 <th scope="col">Service</th>
-                                                {/* <Th scope="col">Shift</Th>
+                                                <th className="hidden-xs" scope="col">Status</th>
+                                                {/* <th scope="col">Shift</th> 
                                                 <Th scope="col">Address</Th>
                                                 <Th scope="col">Complete Time</Th>
-                                                <Th scope="col">Status</Th>
                                                 <Th scope="col">Total</Th> */}
                                                 <th className='text-center' scope="col">Action</th>
                                             </tr>
@@ -340,7 +347,8 @@ export default function TotalJobs() {
                                                     return (
                                                         <tr key={index} style={{ "cursor": "pointer" }}>
                                                             <td onClick={(e) => handleNavigate(e, item.id)}>
-                                                                {Moment(item.start_date).format('DD MMM,Y')}
+                                                                {Moment(item.start_date).format('DD-MM-YYYY')}
+                                                                <span className="d-block mt-1 mBlue">{item.shifts}</span>
                                                             </td>
                                                             <td><Link to={(item.worker) ? `/admin/view-worker/${item.worker.id}` : '#'}>
                                                                 <h6>{
@@ -350,16 +358,14 @@ export default function TotalJobs() {
                                                                         : "NA"
                                                                 }</h6>
                                                             </Link>
-                                                                <div>Change Worker</div>
-                                                                <select name={item.id} className="form-control mb-3 mt-1 form-control" value={(workers[`${item.id}`]) ? workers[`${item.id}`] : ""} onChange={e => handleChange(e, index)} >
-                                                                    <option selected>select</option>
-                                                                    {item.avl_worker && item.avl_worker.map((w, i) => {
-                                                                        return (
-                                                                            <option value={w.id} key={i}> {w.firstname}  {w.lastname}</option>
-                                                                        )
-                                                                    })}
-                                                                </select>
-
+                                                            <select name={item.id} className="form-control mb-3 mt-1 form-control" value={(workers[`${item.id}`]) ? workers[`${item.id}`] : ""} onChange={e => handleChange(e, index)} >
+                                                                <option selected>select</option>
+                                                                {item.avl_worker && item.avl_worker.map((w, i) => {
+                                                                    return (
+                                                                        <option value={w.id} key={i}> {w.firstname}  {w.lastname}</option>
+                                                                    )
+                                                                })}
+                                                            </select>
                                                             </td>
                                                             <td style={item.client ? {background:item.client.color} : {}}><Link to={item.client ? `/admin/view-client/${item.client.id}` : '#'}>{
                                                                 item.client
@@ -377,10 +383,21 @@ export default function TotalJobs() {
                                                                 : 'NA'
 
                                                             }</td>
-                                                            {/* <Td onClick={(e)=>handleNavigate(e,item.id)}>
+                                                            <td className="hidden-xs" onClick={(e)=>handleNavigate(e,item.id)}
+                                                                style={{
+                                                                    textTransform:
+                                                                        "capitalize",
+                                                                }}
+                                                            >
+                                                                {item.status}
+                                                                <p>
+                                                                {(item.status=='cancel')?`(With Cancellatiom fees ${item.rate} ILS)`:''}
+                                                                </p>
+                                                            </td>
+                                                            {/* <td onClick={(e)=>handleNavigate(e,item.id)}>
                                                                 {(item.start_time != '') ? (`${item.start_time} to ${item.end_time}`) : ''}
 
-                                                            </Td>
+                                                            </td>
                                                             <Td><Link target='_blank' to={ (item.client.latitude && item.client.longitude)
                                                                  ? `https://maps.google.com/?q=${(item.client.latitude+","+item.client.longitude)}` 
                                                                  : '#' }>
@@ -400,17 +417,8 @@ export default function TotalJobs() {
                                                                         : "NA"
                                                                 }
                                                             </Td>
-                                                            <Td onClick={(e)=>handleNavigate(e,item.id)}
-                                                                style={{
-                                                                    textTransform:
-                                                                        "capitalize",
-                                                                }}
-                                                            >
-                                                                {item.status}
-                                                                <p>
-                                                                {(item.status=='cancel')?`(With Cancellatiom fees ${item.rate} ILS)`:''}
-                                                                </p>
-                                                            </Td>
+                                                            </Td>*/}
+                                                            {/* 
                                                             <Td onClick={(e)=>handleNavigate(e,item.id)}>
                                                                 {item.jobservice
                                                                    ? item.jobservice.total:'0'} ILS + VAT
