@@ -338,6 +338,7 @@ export default function TotalJobs() {
                                                 <Th scope="col">Address</Th>
                                                 <Th scope="col">Complete Time</Th>
                                                 <Th scope="col">Total</Th> */}
+                                                */}
                                                 <th className='text-center' scope="col">Action</th>
                                             </tr>
                                         </thead>
@@ -417,6 +418,8 @@ export default function TotalJobs() {
                                                                         : "NA"
                                                                 }
                                                             </Td>
+                                                            </Td>*/}
+                                                            {/* 
                                                             <Td onClick={(e)=>handleNavigate(e,item.id)}>
                                                                 {item.jobservice
                                                                    ? item.jobservice.total:'0'} ILS + VAT
