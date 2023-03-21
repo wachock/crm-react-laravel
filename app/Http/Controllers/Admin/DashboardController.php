@@ -160,6 +160,16 @@ class DashboardController extends Controller
           endif;
 
           }
+
+          if($notice->type == 'worker-reschedule'){
+
+            $job = Job::with('offer','worker')->where('id',$notice->job_id)->get()->first();
+            if(isset($job)):
+            $noticeAll[$k]->data = "<a href='/admin/view-worker/".$job->worker->id."'>".$job->worker->firstname." ".$job->worker->lastname.
+            "</a> request for reschedule the  <a href='/admin/view-job/".$job->id."'> job </a>";
+          endif;
+
+          }
         }
       }
       return response()->json([

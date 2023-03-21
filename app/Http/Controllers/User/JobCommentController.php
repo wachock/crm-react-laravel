@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Models\Job;
 use App\Models\Admin;
 use App\Models\JobComments;
+use App\Models\notifications;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -43,6 +44,7 @@ class JobCommentController extends Controller
      */
     public function store(Request $request)
     {
+       
          $validator = Validator::make($request->all(),[
             'name' =>['required'],
             'job_id' =>['required'],
@@ -61,6 +63,7 @@ class JobCommentController extends Controller
             $job = Job::with('client','worker','jobservice')->find($request->job_id);
             $job->status = $request->status;
             $job->save();
+           
 
              $admin = Admin::find(1)->first();
              \App::setLocale('en');
@@ -72,6 +75,13 @@ class JobCommentController extends Controller
                 'job'        => $job->toArray(),
 
              );
+
+             notifications::create([
+                'user_id'=>$job->worker->id,
+                'type'=>'worker-reschedule',
+                'job_id'=>$job->id,
+                'status' => 'reschedule'
+              ]);
 
              Mail::send('/WorkerPanelMail/JobStatusNotification',$data,function($messages) use ($data){
                 $messages->to($data['email']);
