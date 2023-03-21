@@ -70,8 +70,7 @@ export default function ProfileDetails({ client, offerStatus, scheduleStatus, la
 
     const [pass, setPass] = useState(null);
     const [passVal, setPassVal] = useState(null);
-    const [cvv,setCvv] = useState(null);
-    const [show,setShow] = useState('');
+   
     const viewPass = () => {
         
         if (!passVal) { window.alert('Please enter your password'); return; }
@@ -81,11 +80,9 @@ export default function ProfileDetails({ client, offerStatus, scheduleStatus, la
                 if (res.data.response == false) {
                     window.alert('Wrong password!');
                 } else {
-                   
-                    (show == 'password') ?
-                    setPass(passcode)
-                    :setCvv(or_cvv);
-                    document.querySelector('.closeb1').click();
+                    console.log(passcode);
+                    setPass(passcode);
+                    document.querySelector('.closePs').click();
                 }
             })
     }
@@ -152,7 +149,7 @@ export default function ProfileDetails({ client, offerStatus, scheduleStatus, la
                                                 <p><span>Password:</span>
                                                     {
                                                         pass == null ?
-                                                            <span onClick={(e)=>setShow('password')} style={{ cursor: 'pointer' }} data-toggle="modal" data-target="#exampleModalPass">******** &#128274;</span>
+                                                            <span  style={{ cursor: 'pointer' }} data-toggle="modal" data-target="#exampleModalPass">******** &#128274;</span>
                                                             :
                                                             <span>{pass}</span>
                                                     }
@@ -285,7 +282,7 @@ export default function ProfileDetails({ client, offerStatus, scheduleStatus, la
 
                             </div>
                             <div className="modal-footer">
-                                <button type="button" className="btn btn-secondary closeb1" data-dismiss="modal">Close</button>
+                                <button type="button" className="btn btn-secondary closePs" data-dismiss="modal">Close</button>
                                 <button type="button" onClick={viewPass} className="btn btn-primary">Submit</button>
                             </div>
                         </div>

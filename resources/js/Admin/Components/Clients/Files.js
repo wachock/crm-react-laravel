@@ -129,7 +129,7 @@ export default function files() {
                 </button>
             </div>
             {AllFiles && AllFiles.map((f, i) => {
-                console.log(f.type);
+                
                 return (
 
                     <div className="card card-widget widget-user-2" style={{ "box-shadow": "none" }}>

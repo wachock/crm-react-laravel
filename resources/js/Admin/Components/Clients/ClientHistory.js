@@ -5,11 +5,10 @@ import OfferedPrice from './OfferedPrice'
 import ScheduledMeeting from './ScheduledMeeting'
 import Files from './Files'
 import Notes from './Notes'
-
 import { Link } from 'react-router-dom';
 import CardDetails from './CardDetails'
 
-export default function ClientHistory({ contracts }) {
+export default function ClientHistory({ contracts ,latestContract,client}) {
   
   return (
     <div className='ClientHistory'>
@@ -25,7 +24,7 @@ export default function ClientHistory({ contracts }) {
             <div id="tab-offered" className="tab-pane" role="tab-panel" aria-labelledby="offered-price"><OfferedPrice/></div>
             <div id="tab-contract" className="tab-pane" role="tab-panel" aria-labelledby="rejected-tab"><Contract contracts={ contracts }/></div>
             <div id="tab-jobs" className="tab-pane" role="tab-panel" aria-labelledby="rejected-tab"><Jobs/></div>
-            <div id="tab-creditCard" className="tab-pane" role="tab-panel" aria-labelledby="creditCard-tab"><CardDetails/></div>
+            <div id="tab-creditCard" className="tab-pane" role="tab-panel" aria-labelledby="creditCard-tab"><CardDetails latestContract={latestContract} client={client}/></div>
         </div>
     </div>
   )
