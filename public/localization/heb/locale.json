@@ -366,7 +366,7 @@
         },
         "offer": {
             "title": "הצעת מחיר",
-            "ofr_id": "הצעה מס'",
+            "ofr_date":"תאריך",
             "services": "שירותים",
             "status": "סטטוס",
             "total": "סה'כ",
@@ -393,7 +393,7 @@
         },
         "contract": {
             "title": "חוזים",
-            "c_id": "חוזה מס'",
+            "c_date":"תאריך",
             "services": "שירותים",
             "status": "סטטוס",
             "total": "סה'כ",
@@ -437,7 +437,8 @@
                 "cancel_warning": "אתה בטוח?",
                 "confirm_cancel_btn": "כן, בטל עבודה",
                 "updated_msg": "איוב עודכן.",
-                "updated": "מעודכן!"
+                "updated": "מעודכן!",
+                "with_cancel":"עם דמי ביטול"
             }
         },
         "settings": {

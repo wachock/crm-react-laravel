@@ -7,6 +7,7 @@ import Comment from '../../Component/Job/Comment'
 import moment from 'moment-timezone';
 import Swal from 'sweetalert2';
 import { useTranslation } from 'react-i18next';
+import { Base64 } from "js-base64";
 
 export default function ViewJob() {
     const params = useParams();
@@ -26,7 +27,7 @@ export default function ViewJob() {
 
     const getJob = () => {
         axios
-            .post(`/api/client/view-job`,{id:params.id}, { headers })
+            .post(`/api/client/view-job`,{id:Base64.decode(params.id)}, { headers })
             .then((res) => {
                 const r = res.data.job[0];
                 setJob(r)

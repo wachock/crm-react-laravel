@@ -5,6 +5,8 @@ import axios from 'axios';
 import ReactPaginate from "react-paginate";
 import {Table, Thead, Tbody, Tr, Th, Td} from 'react-super-responsive-table'
 import { useTranslation } from 'react-i18next';
+import { Base64 } from "js-base64";
+import Moment from 'moment'
 
 export default function Contract() {
     
@@ -85,7 +87,7 @@ export default function Contract() {
                                 <Table className="table table-bordered responsiveTable">
                                     <Thead>
                                         <Tr>
-                                            <Th scope="col">{t('client.contract.c_id')}</Th>
+                                            <Th scope="col">{t('client.contract.c_date')}</Th>
                                             <Th scope="col">{t('client.contract.services')}</Th>
                                             <Th scope="col">{t('client.contract.status')}</Th>
                                             <Th scope="col">{t('client.contract.total')}</Th>
@@ -100,7 +102,7 @@ export default function Contract() {
                                             return(
 
                                         <Tr>
-                                            <Td>#{c.id}</Td>
+                                            <Td>{Moment(c.created_at).format('D MMM, Y')}</Td>
                                             <Td>
                                             {services && services.map((s,j)=>{
                                
@@ -114,7 +116,7 @@ export default function Contract() {
                                             <Td>{ c.status }</Td>
                                             <Td>{ c.offer.total } {t('global.currency')+" "+t('global.vat')}</Td>
                                             <Td>
-                                            <Link to={`/client/view-contract/${c.id}/${c.unique_hash}`} className="ml-2 btn bg-yellow"><i className="fa fa-eye"></i></Link>
+                                            <Link to={`/client/view-contract/${Base64.encode(c.id.toString())}/${c.unique_hash}`} className="ml-2 btn bg-yellow"><i className="fa fa-eye"></i></Link>
                                             </Td>
                                         </Tr>   
 

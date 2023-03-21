@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import Moment from 'moment';
 import {Table, Thead, Tbody, Tr, Th, Td} from 'react-super-responsive-table'
 import { useTranslation } from 'react-i18next';
+import { Base64 } from "js-base64";
 
 export default function ClientViewOffer() {
 
@@ -20,7 +21,7 @@ export default function ClientViewOffer() {
  
   const getOffer = () =>{
     axios
-    .post(`/api/client/view-offer`,{id:param.id},{headers})
+    .post(`/api/client/view-offer`,{id:Base64.decode(param.id)},{headers})
     .then((res)=>{
       let ar =[];
       ar.push(res.data.offer);

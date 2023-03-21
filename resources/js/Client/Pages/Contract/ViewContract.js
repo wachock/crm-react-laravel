@@ -9,6 +9,7 @@ import { useParams } from 'react-router-dom';
 import swal from 'sweetalert';
 import Moment from 'moment';
 import { useTranslation } from 'react-i18next';
+import { Base64 } from 'js-base64';
 
 export default function WorkContract() {
 
@@ -94,7 +95,7 @@ export default function WorkContract() {
 
     const getContract = () => {
         axios
-            .post(`/api/client/get-contract`, { id: param.id }, { headers })
+            .post(`/api/client/get-contract`, { id: Base64.decode(param.id) }, { headers })
             .then((res) => {
                 setContract(res.data.contract[0]);
 

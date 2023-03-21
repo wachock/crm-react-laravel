@@ -6,6 +6,7 @@ import ReactPaginate from "react-paginate";
 import Moment from 'moment';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import { Base64 } from "js-base64";
 
 export default function Schedule() {
 
@@ -91,7 +92,6 @@ export default function Schedule() {
                   <Table className="table table-bordered responsiveTable">
                     <Thead>
                       <Tr>
-                        <Th scope="col">{t('client.meeting.id')}</Th>
                         <Th scope="col">{t('client.meeting.attender')}</Th>
                         <Th scope="col">{t('client.meeting.scheduled')}</Th>
                         <Th scope="col">{t('client.meeting.status')}</Th>
@@ -104,7 +104,6 @@ export default function Schedule() {
 
                         return (
                           <Tr key={index}>
-                            <Td>#{item.id}</Td>
                             
                             <Td>
                               {
@@ -124,7 +123,7 @@ export default function Schedule() {
                               <span style={{ color: "red" }}>{"End   :" + item.end_time}</span>
                             </Td>
                             <Td>{item.booking_status}</Td>
-                            <Td><Link to={`/client/files/${item.id}`}><i className='fa fa-image' style={{"font-size":"36px"}}></i></Link></Td>
+                            <Td><Link to={`/client/files/${Base64.encode(item.id.toString())}`}><i className='fa fa-image' style={{"font-size":"36px"}}></i></Link></Td>
                           </Tr>
                         )
                       })}

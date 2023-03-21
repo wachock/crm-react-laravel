@@ -5,7 +5,8 @@ import ClientSidebar from '../../Layouts/ClientSidebar';
 import axios from 'axios';
 import {Table, Thead, Tbody, Tr, Th, Td} from 'react-super-responsive-table'
 import { useTranslation } from 'react-i18next';
-
+import { Base64 } from "js-base64";
+import Moment from 'moment'
 export default function ClientOfferPrice() {
 
     const [offers,setOffers] = useState();
@@ -97,7 +98,7 @@ export default function ClientOfferPrice() {
                                 <Table className="table table-bordered responsiveTable">
                                     <Thead>
                                         <Tr>
-                                            <Th>{t('client.offer.ofr_id')}</Th>
+                                            <Th>{t('client.offer.ofr_date')}</Th>
                                             <Th>{t('client.offer.services')}</Th>
                                             <Th>{t('client.offer.status')}</Th>
                                             <Th>{t('client.offer.total')}</Th>
@@ -110,7 +111,7 @@ export default function ClientOfferPrice() {
                                           let services = ofr.services ? JSON.parse(ofr.services):'';
                                            return ( 
                                            <Tr>
-                                            <Td>#{ ofr.id }</Td>
+                                            <Td>{ Moment(ofr.created_at).format('D MMM, Y') }</Td>
                                             <Td>
                                                 {services && services.map((s,i)=>{
                                                     return(
@@ -124,7 +125,7 @@ export default function ClientOfferPrice() {
                                             <Td>{ofr.status}</Td>
                                             <Td>{ofr.total} {t('global.currency')+" + "+t('global.vat')}</Td>
                                             <Td>
-                                               <Link to={`/client/view-offer/${ofr.id}`} className="ml-2 btn bg-yellow"><i className="fa fa-eye"></i></Link>
+                                               <Link to={`/client/view-offer/${Base64.encode(ofr.id.toString())}`} className="ml-2 btn bg-yellow"><i className="fa fa-eye"></i></Link>
                                             </Td>
                                         </Tr>     
                                         )

@@ -136,7 +136,7 @@ class DashboardController extends Controller
          
         $q = $request->q;
         $id= $request->id;
-        $result = Contract::where('client_id',$id)->with('client','offer');  
+        $result = Contract::with('client','offer');  
         if(!is_null($q)):
         
         $result = $result->orWhereHas('client',function ($qr) use ($q,$id){
@@ -158,7 +158,7 @@ class DashboardController extends Controller
         });
 
         endif;
-         $result = $result->orderBy('id', 'desc')->paginate(20);
+         $result = $result->orderBy('id', 'desc')->where('client_id',$id)->paginate(20);
         
         return response()->json([
             'contracts'=>$result

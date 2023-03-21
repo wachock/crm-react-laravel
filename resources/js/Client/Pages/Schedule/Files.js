@@ -7,6 +7,7 @@ import Moment from 'moment';
 import Swal from 'sweetalert2';
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { Base64 } from "js-base64";
 
 export default function Clientfiles() {
 
@@ -14,21 +15,21 @@ export default function Clientfiles() {
     const [file, setFile] = useState([]);
     const [AllFiles, setAllFiles] = useState([]);
     const [loading, setLoading] = useState("Loading...");
-    const {t} = useTranslation();
+    const { t } = useTranslation();
     const param = useParams();
     const cid = localStorage.getItem('client-id');
-    const meetId = param.meetId;
+    const meetId = Base64.decode(param.meetId);
     const alert = useAlert();
     const headers = {
         Accept: "application/json, text/plain, */*",
         "Content-Type": "application/json",
         Authorization: `Bearer ` + localStorage.getItem("client-token"),
     };
-    
-    const handleFileChange = (e) =>{
+
+    const handleFileChange = (e) => {
         let type = e.target.files[0].type.split('/')[1];
-        let allow = ['jpeg','png','jpg','mp4','webm'];
-        if(allow.includes(type)){
+        let allow = ['jpeg', 'png', 'jpg', 'mp4', 'webm'];
+        if (allow.includes(type)) {
             setFile(e.target.files[0]);
         } else {
             setFile([]);
@@ -46,7 +47,7 @@ export default function Clientfiles() {
         const fd = new FormData();
         fd.append('user_id', cid);
         fd.append('note', note);
-        fd.append('meeting',meetId);
+        fd.append('meeting', meetId);
         fd.append('file', file);
         fd.append('type', type);
         fd.append('role', 'client');
@@ -107,14 +108,14 @@ export default function Clientfiles() {
 
     const getFiles = () => {
         axios
-            .post(`/api/client/get-files`, { id:cid,meet_id:meetId }, { headers })
+            .post(`/api/client/get-files`, { id: cid, meet_id: meetId }, { headers })
             .then((res) => {
-                (res.data.files.length > 0)?
-                setAllFiles(res.data.files)
-                :setLoading('No file added for this meeting')
+                (res.data.files.length > 0) ?
+                    setAllFiles(res.data.files)
+                    : setLoading('No file added for this meeting')
             })
     }
-   
+
     useEffect(() => {
         getFiles();
     }, [])
@@ -130,7 +131,7 @@ export default function Clientfiles() {
                         </div>
                         <div className="col-sm-6">
                             <div className="search-data">
-                            <Link className="btn btn-pink addButton" data-toggle="modal" data-target="#exampleModal"><i class="btn-icon fas fa-plus-circle"></i>{t('client.meeting.cfiles.button')}</Link>
+                                <Link className="btn btn-pink addButton" data-toggle="modal" data-target="#exampleModal"><i class="btn-icon fas fa-plus-circle"></i>{t('client.meeting.cfiles.button')}</Link>
                             </div>
                         </div>
                     </div>
@@ -164,14 +165,30 @@ export default function Clientfiles() {
                                                         </td>
 
                                                         <td>
-                                                        <a
-                                                        href={`${item.path}`} 
-                                                        className="btn bg-yellow">
-                                                            <i className="fa fa-eye"></i>
-                                                        </a>
-                                                        <button class="ml-2 btn bg-red" onClick={(e)=>handleDelete(e,item.id)}><i class="fa fa-trash"></i></button>
+                                                            <a
+                                                                onClick={(e) => {
+                                                                    let show = document.querySelector('.showFile');
+                                                                    let showvideo = document.querySelector('.showvideo');
+                                                                    if (item.type == "image") {
+                                                                        show.setAttribute('src', item.path);
+                                                                        show.style.display = 'block'
+                                                                        showvideo.style.display = 'none'
+                                                                    }
+                                                                    else {
+                                                                        showvideo.setAttribute('src', item.path);
+                                                                        showvideo.style.display = 'block'
+                                                                        show.style.display = 'none'
+                                                                    }
+                                                                }}
+                                                                data-toggle="modal" 
+                                                                data-target="#exampleModalFile" 
+                                                               
+                                                                className="btn bg-yellow">
+                                                                <i className="fa fa-eye"></i>
+                                                            </a>
+                                                            <button class="ml-2 btn bg-red" onClick={(e) => handleDelete(e, item.id)}><i class="fa fa-trash"></i></button>
                                                         </td>
-                                                        
+
                                                     </tr>
                                                 )
                                             })}
@@ -194,11 +211,11 @@ export default function Clientfiles() {
                                         <div className="modal-body">
 
                                             <div className="row">
-                                               
+
                                                 <div className="col-sm-12">
                                                     <div className="form-group">
                                                         <label className="control-label">
-                                                        {t('client.meeting.cfiles.note_label')}
+                                                            {t('client.meeting.cfiles.note_label')}
                                                         </label>
                                                         <textarea
                                                             type="text"
@@ -216,7 +233,7 @@ export default function Clientfiles() {
                                                 <div className="col-sm-12">
                                                     <div className="form-group">
                                                         <label className="control-label">
-                                                        {t('client.meeting.cfiles.type')}
+                                                            {t('client.meeting.cfiles.type')}
                                                         </label>
                                                         <select name="filetype" className="form-control">
                                                             <option value="image">{t('client.meeting.cfiles.type_img')}</option>
@@ -228,7 +245,7 @@ export default function Clientfiles() {
                                                 <div className="col-sm-12">
                                                     <div className="form-group">
                                                         <label className="control-label">
-                                                        {t('client.meeting.cfiles.file')} *
+                                                            {t('client.meeting.cfiles.file')} *
                                                         </label>
                                                         <input
                                                             type="file"
@@ -258,6 +275,35 @@ export default function Clientfiles() {
                             </div>
 
                         </div>
+                    </div>
+                </div>
+            </div>
+            <div className="modal fade" id="exampleModalFile" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div className="modal-dialog" role="document">
+                    <div className="modal-content" style={{ width: '130%' }}>
+                        <div className="modal-header">
+                            <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div className="modal-body">
+
+                            <div className="row">
+                                <div className="col-sm-12">
+                                    <div className="form-group">
+                                        <img src="" className="showFile form-control" />
+                                        <video className="form-control showvideo" controls>
+                                            <source src="" type="video/mp4" />
+                                        </video>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
                     </div>
                 </div>
             </div>

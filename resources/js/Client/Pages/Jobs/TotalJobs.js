@@ -7,6 +7,7 @@ import { useAlert } from "react-alert";
 import {Table, Thead, Tbody, Tr, Th, Td} from 'react-super-responsive-table'
 import Moment from 'moment';
 import { useTranslation } from "react-i18next";
+import { Base64 } from "js-base64";
 
 export default function TotalJobs() {
     const [totalJobs, setTotalJobs] = useState([]);
@@ -201,13 +202,13 @@ export default function TotalJobs() {
                                                         </Td>
                                                         <Td>
                                                             {status}
-                                                            {(item.status=='cancel')?`(With Cancellation fees ${item.rate} +" "+${t('global.currency')})`:''}
+                                                            {(item.status=='cancel')?`(${t('client.jobs.view.with_cancel')} ${item.rate} + ${t('global.currency')})`:''}
                                                         </Td>
                                                         <Td>
                                                             {item.jobservice?item.jobservice.total+" "+t('global.currency')+" + "+t('global.vat'):'0'} 
                                                         </Td>
                                                         <Td>
-                                                            <Link to={`/client/view-job/${item.id}`} className="btn btn-primary">{t('client.jobs.view_btn')}</Link>
+                                                            <Link to={`/client/view-job/${Base64.encode(item.id.toString())}`} className="btn btn-primary">{t('client.jobs.view_btn')}</Link>
                                                         </Td>
                                                        
                                                     </Tr>
