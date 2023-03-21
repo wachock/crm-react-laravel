@@ -4,6 +4,8 @@ import { useParams } from 'react-router-dom';
 import Moment from 'moment';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import Notes from './Notes'
+import Files from './Files'
 
 export default function ProfileDetails({ client, offerStatus, scheduleStatus, latestContract }) {
 
@@ -107,7 +109,8 @@ export default function ProfileDetails({ client, offerStatus, scheduleStatus, la
                         <div className='ClientHistory dashBox p-4 min-414'>
                             <ul className="nav nav-tabs" role="tablist">
                                 <li className="nav-item" role="presentation"><a id="client-details" className="nav-link active" data-toggle="tab" href="#tab-client-details" aria-selected="true" role="tab">Client info</a></li>
-                                <li className="nav-item" role="presentation"><a id="card-details" className="nav-link" data-toggle="tab" href="#tab-card-details" aria-selected="false" role="tab">Card details</a></li>
+                                <li className="nav-item" role="presentation"><a id="note-details" className="nav-link" data-toggle="tab" href="#tab-note-details" aria-selected="false" role="tab">Notes</a></li>
+                                <li className="nav-item" role="presentation"><a id="files-tab" className="nav-link" data-toggle="tab" href="#tab-files" aria-selected="false" role="tab">Files</a></li>
                             </ul>
                             <div className='tab-content'>
                                 <div id="tab-client-details" className="tab-pane active show" role="tab-panel" aria-labelledby="client-details">
@@ -115,7 +118,7 @@ export default function ProfileDetails({ client, offerStatus, scheduleStatus, la
                                         <div className='col-sm-4'>
                                             <div className='form-group'>
                                                 <label>Color</label>
-                                                <span style={{ background: (client.color) ? client.color : "#000", height: "24px", width: "34px", display: "block", borderRadius: "4px" }}>&nbsp;</span>
+                                                <span style={{ background: (client.color) ? client.color : "#000", height: "24px", width: "34px", display: "block", borderRadius: "4px", border: "1px solid #e6e8eb" }}>&nbsp;</span>
                                             </div>
                                         </div>
                                         <div className='col-sm-4'>
@@ -173,6 +176,18 @@ export default function ProfileDetails({ client, offerStatus, scheduleStatus, la
                                         </div>
                                         <div className='col-sm-4'>
                                             <div className='form-group'>
+                                                <label>Floor</label>
+                                                <p>{floor}</p>
+                                            </div>
+                                        </div>
+                                        <div className='col-sm-4'>
+                                            <div className='form-group'>
+                                                <label>Apt number or Apt name</label>
+                                                <p>{Apt}</p>
+                                            </div>
+                                        </div>
+                                        <div className='col-sm-4'>
+                                            <div className='form-group'>
                                                 <label>status</label>
                                                 <p>{cstatus}</p>
                                             </div>
@@ -185,22 +200,13 @@ export default function ProfileDetails({ client, offerStatus, scheduleStatus, la
                                         </div>
                                     </div>
                                 </div>
-                                <div id="tab-card-details" className="tab-pane" role="tab-panel" aria-labelledby="card-details">
+
+                                <div id="tab-note-details" className="tab-pane" role="tab-panel" aria-labelledby="card-details">
                                     <div className='form-group'>
-                                        <ul className='list-unstyled'>
-                                            <li><strong>Card Type: </strong>{cardType}</li>
-                                            <li><strong>Name on card: </strong>{nameOnCard}</li>
-                                            <li><strong>Cvv: </strong>
-                                            { 
-                                            cvv == null && or_cvv != null? 
-                                            <span onClick={(e)=>setShow('cvv')} style={{ cursor: 'pointer' }} data-toggle="modal" data-target="#exampleModalPass">*** &#128274;</span>
-                                            :
-                                            <span>{cvv}</span>
-                                            }</li>
-                                            {/* <li><strong>Signature: </strong>{signature}</li> */}
-                                        </ul>
+                                        <Notes/>
                                     </div>
                                 </div>
+                                <div id="tab-files" className="tab-pane" role="tab-panel" aria-labelledby="rejected-tab"><Files/></div>
                             </div>
                         </div>
                     </div>
