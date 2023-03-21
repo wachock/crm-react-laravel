@@ -11,7 +11,7 @@ export default function income() {
     const [loading, setLoading] = useState("Loading...");
     const [totalTask,setTotalTask] = useState(0);
     const [income,setIncome] = useState(0);
-
+    const navigate = useNavigate();
     const headers = {
         Accept: "application/json, text/plain, */*",
         "Content-Type": "application/json",
@@ -54,6 +54,9 @@ export default function income() {
     }
     useEffect(() => {
         getTasks();
+        if(localStorage.getItem('admin-id') != 1){
+            navigate('/admin/dashboard');
+        }
     }, [])
    
     return (

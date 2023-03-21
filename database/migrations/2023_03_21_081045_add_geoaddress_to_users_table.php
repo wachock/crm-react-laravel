@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddFormToUsersTable extends Migration
+class AddGeoaddressToUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,8 +14,9 @@ class AddFormToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->longText('form_101')->nullable();
-            $table->longText('form_insurance')->nullable();
+            $table->string('geo_address')->nullable();
+            $table->string('latitude')->nullable();
+            $table->string('longitude')->nullable();
         });
     }
 
@@ -27,8 +28,9 @@ class AddFormToUsersTable extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-           $table->dropColumn('form_101');
-           $table->dropColumn('form_insurance');
+           $table->dropColumn('geo_address');
+           $table->dropColumn('latitude');
+           $table->dropColumn('longitude');
         });
     }
 }

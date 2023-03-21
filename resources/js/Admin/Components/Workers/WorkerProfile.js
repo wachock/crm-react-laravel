@@ -18,6 +18,10 @@ export default function WorkerProfile() {
     const [itemStatus, setItemStatus] = useState('');
     const [pass, setPass] = useState(null);
     const [passVal, setPassVal] = useState(null);
+    const [latitude, setLatitude] = useState(null);
+    const [longitude, setLongitude] = useState(null);
+    const [country, setCountry] = useState('Israel');
+    let cords = (latitude && longitude) ? latitude + "," + longitude : "";
     const viewPass = () => {
         if (!passVal) { window.alert('Please enter your password'); return; }
         axios
@@ -54,6 +58,9 @@ export default function WorkerProfile() {
                 setAddress(response.data.worker.address);
                 setItemStatus(response.data.worker.status);
                 setEmail(response.data.worker.email);
+                setLatitude(response.data.worker.latitude);
+                setLongitude(response.data.worker.longitude);
+                setCountry(response.data.worker.country);
             });
     };
     useEffect(() => {
@@ -69,43 +76,45 @@ export default function WorkerProfile() {
                             {/* <div className='col-sm-4'>
                             <div className='form-group'>
                                 <label className='control-label'>Email</label>
-                                <input disabled type='email' value={email} onChange={(e) => setEmail(e.target.value)} className='form-control' placeholder='Enter Email' />
+                                <p>{email}</p>
                             </div>
                         </div> */}
                             <div className='col-sm-4'>
                                 <div className='form-group'>
                                     <label className='control-label'>Phone</label>
-                                    <input type='tel' value={phone} onChange={(e) => setPhone(e.target.value)} className='form-control' disabled />
+                                    <p>{phone}</p>
                                 </div>
                             </div>
+                            { country != 'Israel' &&
                             <div className='col-sm-4'>
                                 <div className='form-group'>
                                     <label className='control-label'>Renewal of Visa</label>
-                                    <input type='text' value={renewal_date} onChange={(e) => setPhone(e.target.value)} className='form-control' disabled />
+                                     <p>{renewal_date}</p>
                                 </div>
                             </div>
+                           }
                             <div className='col-sm-4'>
                                 <div className='form-group'>
                                     <label className='control-label'>Gender</label>
-                                    <input type='text' value={gender} onChange={(e) => setPhone(e.target.value)} className='form-control' disabled />
+                                     <p>{gender}</p>
                                 </div>
                             </div>
                             <div className='col-sm-4'>
                                 <div className='form-group'>
                                     <label className='control-label'>Payment Per Hour</label>
-                                    <input type='text' value={payment_hour} onChange={(e) => setPhone(e.target.value)} className='form-control' disabled />
+                                    <p>{payment_hour}</p>
                                 </div>
                             </div>
                             <div className='col-sm-4'>
                                 <div className='form-group'>
                                     <label className='control-label'>Worker Id</label>
-                                    <input disabled type='text' value={worker_id} onChange={(e) => setLastName(e.target.value)} className='form-control' placeholder='Enter Last Name' />
+                                    <p>{worker_id}</p>
                                 </div>
                             </div>
                             <div className='col-sm-4'>
                                 <div className='form-group'>
                                     <label className='control-label'>Worker email</label>
-                                    <input disabled type='text' value={email} onChange={(e) => setLastName(e.target.value)} className='form-control' />
+                                    <p>{email}</p>
                                 </div>
                             </div>
                             <div className='col-sm-4'>
@@ -122,19 +131,20 @@ export default function WorkerProfile() {
 
                                 </div>
                             </div>
-
-                            <div className='col-sm-8'>
-                                <div className='form-group'>
-                                    <label className='control-label'>Address</label>
-                                    <input type='text' value={address} onChange={(e) => setAddress(e.target.value)} className='form-control' disabled />
-                                </div>
-                            </div>
-                            <div className='col-sm-4'>
+                             <div className='col-sm-4'>
                                 <div className='form-group'>
                                     <label className='control-label'>Status</label>
                                     <p>{itemStatus ? 'Active' : 'Inactive'}</p>
                                 </div>
                             </div>
+
+                            <div className='col-sm-8'>
+                                <div className='form-group'>
+                                    <label className='control-label'>Address</label>
+                                    <a href={`https://maps.google.com?q=${cords}`} target='_blank'><p>{address}</p></a>
+                                </div>
+                            </div>
+                           
                         </div>
                     </form>
                 </div>
