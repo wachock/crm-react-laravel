@@ -51,11 +51,11 @@ class JobController extends Controller
                  });
              });
         }
-         if($w != ''){
-          if($w == 'current'){
-              $startDate = Carbon::now()->startOfWeek()->subDays(1)->toDateString();
+         // if($w != ''){
+         //  if($w == 'current'){
+              $startDate = Carbon::now()->toDateString();
               $endDate = Carbon::now()->startOfWeek()->addDays(5)->toDateString(); 
-          }
+        //  }
            if($w == 'next'){
               $startDate = Carbon::now()->startOfWeek()->addDays(6)->toDateString();
               $endDate = Carbon::now()->startOfWeek()->addDays(12)->toDateString(); 
@@ -68,9 +68,9 @@ class JobController extends Controller
            //$jobs = $jobs->whereBetween('start_date',[$startDate, $endDate]);
            $jobs = $jobs->whereDate('start_date','>=',$startDate);
            $jobs = $jobs->whereDate('start_date','<=',$endDate);
-        }
+     //   }
 
-        $jobs = $jobs->orderBy('id', 'desc')->paginate(20);
+        $jobs = $jobs->orderBy('start_date', 'desc')->paginate(20);
         if(isset($jobs)):
         foreach($jobs as $job){
            $ava_workers = User::with('availabilities','jobs')->where('skill',  'like','%'.$job->jobservice->service_id.'%');
