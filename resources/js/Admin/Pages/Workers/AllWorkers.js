@@ -150,7 +150,7 @@ export default function AllWorkers() {
                                         <Tbody>
                                             {workers &&
                                                 workers.map((item, index) => {
-                                                    
+                                                    let cords = (item.latitude && item.longitude) ? item.latitude + "," + item.longitude : "";
                                                     return(
                                                     <Tr style={{cursor:"pointer"}}>
                                                         <Td onClick={(e)=>handleNavigate(e,item.id)}>{item.id}</Td>
@@ -158,7 +158,7 @@ export default function AllWorkers() {
                                                             <Link to={`/admin/view-worker/${item.id}`}>{item.firstname}{" "}{item.lastname}</Link> 
                                                         </Td>
                                                         <Td onClick={(e)=>handleNavigate(e,item.id)}>{item.email}</Td>
-                                                        <Td><a target="_blank" href={`https://maps.google.com?q=${item.address}`}>{ item.address }</a></Td>
+                                                        <Td><a href={`https://maps.google.com?q=${cords}`} target='_blank'>{ item.address }</a></Td>
                                                         <Td onClick={(e)=>handleNavigate(e,item.id)}>{item.phone}</Td>
                                                         <Td onClick={(e)=>handleNavigate(e,item.id)}>
                                                         {item.status == 0

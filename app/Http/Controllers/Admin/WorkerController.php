@@ -147,6 +147,8 @@ class WorkerController extends Controller
         $worker->phone         = $request->phone;
         $worker->email         = $request->email;
         $worker->address       = $request->address;
+        $worker->latitude      = $request->latitude;
+        $worker->longitude     = $request->longitude;
         $worker->renewal_visa  = $request->renewal_visa;
         $worker->gender        = $request->gender;
         $worker->payment_per_hour  = $request->payment_hour;
@@ -262,6 +264,8 @@ class WorkerController extends Controller
         $worker->phone         = $request->phone;
         $worker->email         = $request->email;
         $worker->address       = $request->address;
+        $worker->latitude      = $request->latitude;
+        $worker->longitude     = $request->longitude;
         $worker->renewal_visa  = $request->renewal_visa;
         $worker->gender        = $request->gender;
         $worker->payment_per_hour  = $request->payment_hour;
