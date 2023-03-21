@@ -2,6 +2,14 @@ import React, { useState,useEffect } from 'react'
 import { useAlert } from "react-alert";
 import { useNavigate } from "react-router-dom";
 import Sidebar from '../../Layouts/Sidebar'
+import {
+    GoogleMap,
+    LoadScript,
+    InfoWindow,
+    Marker,
+    Autocomplete,
+} from "@react-google-maps/api";
+import Geocode from "react-geocode";
 
 
 export default function AddWorker() {
@@ -28,6 +36,30 @@ export default function AddWorker() {
 
   const alert = useAlert();
   const navigate = useNavigate();
+   const [libraries] = useState(["places", "geometry"]);
+    const [latitude, setLatitude] = useState(-33.865143);
+    const [longitude, setLongitude] = useState(151.2099);
+    const [place, setPlace] = useState();
+    Geocode.setApiKey("AIzaSyDVR2fXPoEVoCNLIqagX5GQzna3feez4lI");
+    const containerStyle = {
+        width: "100%",
+        height: "300px",
+    };
+    const center = {
+        lat: latitude,
+        lng: longitude,
+    };
+
+
+    const handlePlaceChanged = () => {
+        if (place) {
+            console.log(place)
+            // setCity(place.getPlace().vicinity);
+            setAddress(place.getPlace().formatted_address);
+            setLatitude(place.getPlace().geometry.location.lat());
+            setLongitude(place.getPlace().geometry.location.lng());
+        }
+    };
 
   const handleSkills = (e) => {
         const value = e.target.value;
@@ -60,6 +92,8 @@ export default function AddWorker() {
         "skill": skill,
         "status": (!itemStatus)? 1 : parseInt(itemStatus),
         "country":country,
+        "latitude":latitude,
+        "longitude":longitude
     }
      axios
             .post(`/api/admin/workers`, data, { headers })
@@ -242,9 +276,60 @@ export default function AddWorker() {
 
                             </div>
                              
-                            <div className='form-group'>
-                                <label className='control-label'>Address</label>
-                                <input type='text' value={address} onChange={(e) => setAddress(e.target.value)} className='form-control' placeholder='Enter your address' />
+                            
+                            <div className="form-group">
+                                    <label className="control-label">Enter a location</label>
+                                    <LoadScript
+                                        googleMapsApiKey="AIzaSyDVR2fXPoEVoCNLIqagX5GQzna3feez4lI"
+                                        libraries={libraries}
+                                    >
+                                        <GoogleMap
+                                            mapContainerStyle={containerStyle}
+                                            center={center}
+                                            zoom={15}
+                                        >
+                                            <Marker
+                                                draggable={true}
+                                                onDragEnd={(e) => onMarkerDragEnd(e)}
+                                                position={{
+                                                    lat: latitude,
+                                                    lng: longitude,
+                                                }}
+                                            />
+                                            {address ? (
+                                                <InfoWindow
+                                                    onClose={(e) => onInfoWindowClose(e)}
+                                                    position={{
+                                                        lat: latitude + 0.0018,
+                                                        lng: longitude,
+                                                    }}
+                                                >
+                                                    <div>
+                                                        <span style={{ padding: 0, margin: 0 }}>
+                                                            {address}
+                                                        </span>
+                                                    </div>
+                                                </InfoWindow>
+                                            ) : (
+                                                <></>
+                                            )}
+                                            <Marker />
+                                        </GoogleMap>
+                                        <Autocomplete
+                                            onLoad={(e) => setPlace(e)}
+                                            onPlaceChanged={handlePlaceChanged}
+                                        >
+                                            <input
+                                                type="text"
+                                                placeholder="Search Your Address"
+                                                className="form-control mt-1"
+                                            />
+                                        </Autocomplete>
+                                    </LoadScript>
+                                </div>
+                            <div className='form-group' >
+                                <label className='control-label'>Full Address<small class="text-pink mb-1">&nbsp; (auto complete from google address)</small></label>
+                                <input type='text' value={address} className='form-control' placeholder='Enter your address' />
                                 {errors.address ? (
                                             <small className="text-danger mb-1">
                                                 {errors.address}
