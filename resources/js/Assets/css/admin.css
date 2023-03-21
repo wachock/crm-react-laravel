@@ -1205,6 +1205,14 @@ h1 {
   min-width: unset !important;
   margin-left: .5rem!important;
 }
+.mBlue{
+  background: brown;
+  color: #fff;
+  padding: 4px 6px;
+  border-radius: 4px;
+  font-weight: 500;
+  font-size: 12px;
+}
 .search-data{
   display: flex;
   float: right;

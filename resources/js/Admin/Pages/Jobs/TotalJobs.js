@@ -347,8 +347,8 @@ export default function TotalJobs() {
                                                     return (
                                                         <tr key={index} style={{ "cursor": "pointer" }}>
                                                             <td onClick={(e) => handleNavigate(e, item.id)}>
-                                                                {Moment(item.start_date).format('DD-MM-YYYY')}
-                                                                <span className="d-block mt-1 mBlue">{item.shifts}</span>
+                                                                <span className="d-block mb-1">{Moment(item.start_date).format('DD-MM-YYYY')}</span>
+                                                                <span className="mBlue">{item.shifts}</span>
                                                             </td>
                                                             <td><Link to={(item.worker) ? `/admin/view-worker/${item.worker.id}` : '#'}>
                                                                 <h6>{

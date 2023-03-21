@@ -669,7 +669,11 @@ footer .copyright{
     line-height: 15px;
 }
 .mBlue{
-    color: blue;
+    color: #fff;
+    font-size: 11px;
+    display: block;
+    padding: 2px 4px;
+    font-weight: normal;
 }
 .getjobslist table select{
     font-size: 12px;
