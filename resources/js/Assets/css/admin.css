@@ -1192,6 +1192,19 @@ h1 {
   border: 1px solid #ccc;
   max-width: 300px !important;
 }
+.job-buttons{
+  margin-top: 20px;
+}
+.job-buttons button{
+  font-weight: normal !important;
+  font-size: 15px !important;
+}
+.job-buttons .addButton{
+  float: none !important;
+  margin: unset !important;
+  min-width: unset !important;
+  margin-left: .5rem!important;
+}
 .search-data{
   display: flex;
   float: right;

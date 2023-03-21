@@ -20,6 +20,30 @@
     display: block;
     position: unset;
 }
+.job-listing-page .search-data{
+    margin-top: 16px;
+}
+.job-buttons{
+    display: flex;
+    margin-top: 10px;
+}
+.job-buttons button{
+    font-size: 13px !important;
+}
+.getjobslist select{
+    font-size: 11px !important;
+    height: unset !important;
+    padding: 4px !important;
+}
+.reportModal{
+    font-size: 13px;
+    margin-top: 8px;
+    display: block;
+    width: 100%;
+    background: #075182;
+    border: 1px solid #075182;
+    color: #fff;
+}
 .navbar-toggler{
     border: 1px solid #ccc;
     padding: 3px 8px;
@@ -636,8 +660,8 @@ footer .copyright{
     font-size: 12px;
     font-weight: 500;
 }
-.getjobslist table td{
-    font-size: 12px;
+.getjobslist table td, .getjobslist table tr th{
+    font-size: 11px;
 }
 .getjobslist table h6{
     font-size: 12px;
