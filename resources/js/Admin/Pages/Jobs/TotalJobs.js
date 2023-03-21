@@ -277,8 +277,6 @@ export default function TotalJobs() {
                 }
             })
     }
-
-    
    
     return (
         <div id="container">
@@ -322,12 +320,8 @@ export default function TotalJobs() {
                                     <table className="table table-bordered">
                                         <thead>
                                             <tr>
-<<<<<<< HEAD
                                                  <th scope="col">Id</th>
                                                 <th scope="col" onClick={(e)=>{sortTable('start_date')}}>Job Dated</th>
-=======
-                                                <th style={{cursor:'pointer'}} scope="col" onClick={(e)=>{sortTable('start_date')}}>Job Dated</th>
->>>>>>> c62680117b7a6c66ff89cb78b2449bcb969f0fb5
                                                 <th scope="col">Worker</th>
                                                 <th scope="col">Client</th>
                                                 <th scope="col">Service</th>
@@ -359,6 +353,7 @@ export default function TotalJobs() {
                                                                         : "NA"
                                                                 }</h6>
                                                             </Link>
+                                                                <div>Change Worker</div>
                                                                 <select name={item.id} className="form-control mb-3 mt-1 form-control" value={(workers[`${item.id}`]) ? workers[`${item.id}`] : ""} onChange={e => handleChange(e, index)} >
                                                                     <option selected>select</option>
                                                                     {item.avl_worker && item.avl_worker.map((w, i) => {
