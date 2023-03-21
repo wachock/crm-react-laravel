@@ -90,7 +90,7 @@ class DashboardController extends Controller
     public function offers(Request $request)
     {
         $id = $request->id;
-        $result = Offer::where('client_id',$id);  
+        $result = Offer::query();  
          
         if(isset($request->q)){
         $q = $request->q;
