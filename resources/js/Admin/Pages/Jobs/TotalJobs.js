@@ -338,7 +338,6 @@ export default function TotalJobs() {
                                                 <Th scope="col">Address</Th>
                                                 <Th scope="col">Complete Time</Th>
                                                 <Th scope="col">Total</Th> */}
-                                                */}
                                                 <th className='text-center' scope="col">Action</th>
                                             </tr>
                                         </thead>
