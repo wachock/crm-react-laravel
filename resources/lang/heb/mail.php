@@ -87,7 +87,7 @@ return [
         'below_txt'   =>'Click the below button to fill Form101.',
         'btn_txt'     =>'Form 101',
         'reply_txt'   =>'If you have any questions or concerns please don\'t hesitate to get in touch with us by replying to this email.',
-        'regards'     =>'Best Regards',
+        'regards'     =>'בברכה',
         'tel'         =>'Telephone'
 
     ],

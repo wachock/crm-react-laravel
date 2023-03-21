@@ -14,6 +14,7 @@ export default function OfferPrice() {
     const [loading, setLoading] = useState("Loading...");
     const [pageCount, setPageCount] = useState(0);
     const navigate = useNavigate();
+    const [copy,setCopy] = useState([]);
 
     const headers = {
         Accept: "application/json, text/plain, */*",
@@ -28,6 +29,7 @@ export default function OfferPrice() {
                 if (response.data.offers.data.length > 0) {
                     setTotalOffers(response.data.offers.data);
                     setOffers(response.data.offers.data);
+                    setCopy(response.data.offers.data);
                     setPageCount(response.data.offers.last_page);
                 } else {
                     setLoading("No offer found");
@@ -104,6 +106,22 @@ export default function OfferPrice() {
         e.preventDefault();
         navigate(`/admin/view-offer/${id}`);
     }
+   
+    const [order, setOrder] = useState('ASC');
+    const sortTable = (col) => {
+
+        if (order == 'ASC') {
+            const sortData = [...copy].sort((a, b) => (a[col] < b[col] ? 1 : -1));
+            setOffers(sortData);
+            setOrder('DESC');
+        }
+        if (order == 'DESC') {
+            const sortData = [...copy].sort((a, b) => (a[col] < b[col] ? -1 : 1));
+            setOffers(sortData);
+            setOrder('ASC');
+        }
+
+    }
 
     return (
         <div id="container">
@@ -136,8 +154,8 @@ export default function OfferPrice() {
                                                 <Th scope="col">Email</Th>
                                                 <Th scope="col">Address</Th>
                                                 <Th scope="col">Phone</Th>
-                                                <Th scope="col">Status</Th>
-                                                <Th scope="col">Total</Th>
+                                                <Th style={{cursor:'pointer'}} onClick={(e)=>sortTable('status')} scope="col">Status</Th>
+                                                <Th style={{cursor:'pointer'}} onClick={(e)=>sortTable('subtotal')} scope="col">Total</Th>
                                                 <Th scope="col">Action</Th>
                                             </Tr>
                                         </Thead>
@@ -148,13 +166,13 @@ export default function OfferPrice() {
                                                     var address = (ofr.client.geo_address) ? ofr.client.geo_address : 'NA';
                                                     var cords = (ofr.client.latitude && ofr.client.longitude)
                                                         ? ofr.client.latitude + "," + ofr.client.longitude : 'NA';
-                                                let color =  "";         
-                                                if(ofr.status == 'sent') { color = 'purple' }
-                                                else if(ofr.status == 'accepted') { color =  'green'}
-                                                else {color = 'red'}
+                                                    let color = "";
+                                                    if (ofr.status == 'sent') { color = 'purple' }
+                                                    else if (ofr.status == 'accepted') { color = 'green' }
+                                                    else { color = 'red' }
 
                                                     return (
-                                                        <Tr style={{"cursor":"pointer"}}>
+                                                        <Tr style={{ "cursor": "pointer" }}>
                                                             <Td><Link to={`/admin/view-client/${ofr.client.id}`}>
                                                                 {
                                                                     ofr.client
@@ -164,11 +182,11 @@ export default function OfferPrice() {
                                                                 }
                                                             </Link>
                                                             </Td>
-                                                            <Td onClick={(e)=>handleNavigate(e,ofr.id)}>{ofr.client.email}</Td>
+                                                            <Td onClick={(e) => handleNavigate(e, ofr.id)}>{ofr.client.email}</Td>
                                                             <Td><Link to={`https://maps.google.com?q=${cords}`}>{address}</Link></Td>
-                                                            <Td onClick={(e)=>handleNavigate(e,ofr.id)}>{ofr.client.phone}</Td>
-                                                            <Td style={{color}} onClick={(e)=>handleNavigate(e,ofr.id)}>{ofr.status}</Td>
-                                                            <Td onClick={(e)=>handleNavigate(e,ofr.id)}>{ofr.subtotal} ILS + VAT</Td>
+                                                            <Td onClick={(e) => handleNavigate(e, ofr.id)}>{ofr.client.phone}</Td>
+                                                            <Td style={{ color }} onClick={(e) => handleNavigate(e, ofr.id)}>{ofr.status}</Td>
+                                                            <Td onClick={(e) => handleNavigate(e, ofr.id)}>{ofr.subtotal} ILS + VAT</Td>
                                                             <Td>
                                                                 <div className="action-dropdown dropdown">
                                                                     <button type="button" className="btn btn-default dropdown-toggle" data-toggle="dropdown">
