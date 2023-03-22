@@ -82,7 +82,7 @@ export default function WorkerProfile() {
                             <div className='col-sm-4'>
                                 <div className='form-group'>
                                     <label className='control-label'>Phone</label>
-                                    <p>{phone}</p>
+                                    <p><a href={`tel:${phone}`}>{phone}</a></p>
                                 </div>
                             </div>
                             { country != 'Israel' &&

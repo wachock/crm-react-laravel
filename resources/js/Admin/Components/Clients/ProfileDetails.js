@@ -127,7 +127,7 @@ export default function ProfileDetails({ client, offerStatus, scheduleStatus, la
                                         <div className='col-sm-4'>
                                             <div className='form-group'>
                                                 <label>Phone</label>
-                                                <p>{phone}</p>
+                                                <p><a href={`tel:${phone}`}>{phone}</a></p>
                                             </div>
                                         </div>
                                         <div className='col-sm-4'>
