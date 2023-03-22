@@ -67,6 +67,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin-api', 'scopes:ad
     Route::post('create-job/{id}',[JobController::class,'createJob']);
     Route::post('get-client-jobs',[JobController::class,'getJobByClient'])->name('get-client-jobs');
     Route::post('get-worker-jobs',[JobController::class,'getJobWorker']);
+    Route::post('cancel-job',[JobController::class,'cancelJob']);
 
     Route::resource('job-comments', JobCommentController::class);
 
@@ -115,6 +116,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin-api', 'scopes:ad
     Route::post('get-contract', [ContractController::class, 'getContract'])->name('get-contract');
     Route::post('verify-contract',[ContractController::class,'verifyContract'])->name('verify-contract');
     Route::get('get-contract-by-client/{id}', [ContractController::class, 'getContractByClient']);
+    Route::post('cancel-contract-jobs',[ContractController::class,'cancelJob']);
 
     //TeamMembers
     Route::resource('team',TeamMemberController::class);

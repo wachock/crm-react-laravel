@@ -277,6 +277,23 @@ export default function TotalJobs() {
                 }
             })
     }
+
+    const allShifts = [
+
+            { bg: 'red', tc: 'white',  shift: 'fullday-8am-16pm' },
+            { bg: '#FFE87C', tc: '#444',  shift: 'morning1-8am-10am' },
+            { bg: '#FFAE42', tc: '#fff',  shift: 'morning2-10am-12pm' },
+            { bg: 'yellow', tc: 'green',  shift: 'morning-8am-12pm' },
+            { bg: '#79BAEC', tc: '#fff',  shift: 'noon1-12pm-14pm' },
+            { bg: '#1569C7', tc: '#fff',  shift: 'noon2-14pm-16pm' },
+            { bg: '#ADDFFF', tc: '#fff',  shift: 'noon-12pm-16pm' },
+            { bg: '#DBF9DB', tc: '#444',  shift: 'evening1-16pm-18pm' },
+            { bg: '#3EA055', tc: '#fff',  shift: 'evening2-18pm-20pm' },
+            { bg: '#B5EAAA', tc: '#fff',  shift: 'evening-16pm-20pm' },
+            { bg: '#B09FCA', tc: '#fff',  shift: 'night1-20pm-22pm' },
+            { bg: '#800080', tc: '#fff',  shift: 'night2-22pm-24pm' },
+            { bg: '#D2B9D3', tc: '#fff',  shift: 'night-20pm-24pm' },
+    ];
    
     return (
         <div id="container">
@@ -292,10 +309,11 @@ export default function TotalJobs() {
                                <input type='text' id="search-field" className="form-control" placeholder="Search" onChange={filterJobs} style={{marginRight: "0"}} />
                             </div>
                         </div>
-                        <div className="col-sm-6 hidden-xs">
+                        <div className="col-sm-7 hidden-xs">
                             <div className="job-buttons">
                                 <input type="hidden" id="filter-week" />
-                                <button className="btn btn-success" onClick={(e)=>{filterJobDate('current')}}> Current week</button>
+                                <button className="btn btn-info" onClick={(e)=>{filterJobDate('all')}} style={{background: "#858282", borderColor: "#858282"}}> All Jobs</button>
+                                <button className="ml-2 btn btn-success" onClick={(e)=>{filterJobDate('current')}}> Current week</button>
                                 <button className="ml-2 btn btn-pink" onClick={(e)=>{filterJobDate('next')}}> Next week</button>
                                 <button className="ml-2 btn btn-primary" onClick={(e)=>{filterJobDate('nextnext')}}> Next Next week</button>
                                 <button className="ml-2 btn btn-warning addButton"  data-toggle="modal" data-target="#exampleModal">Export Time Reports</button>
@@ -307,13 +325,14 @@ export default function TotalJobs() {
                         <div className="col-12 hidden-xl">
                             <div className="job-buttons">
                                 <input type="hidden" id="filter-week" />
-                                <button className="btn btn-success" onClick={(e)=>{filterJobDate('current')}}> Current week</button>
+                                <button className="btn btn-info" onClick={(e)=>{filterJobDate('all')}} style={{background: "#858282", borderColor: "#858282"}}> All Jobs</button>
+                                <button className="ml-2 btn btn-success" onClick={(e)=>{filterJobDate('current')}}> Current week</button>
                                 <button className="ml-2 btn btn-pink" onClick={(e)=>{filterJobDate('next')}}> Next week</button>
-                                <button className="ml-2 btn btn-primary" onClick={(e)=>{filterJobDate('nextnext')}}> Next Next week</button> 
+                                <button className="btn btn-primary" onClick={(e)=>{filterJobDate('nextnext')}}> Next Next week</button>
+                                <button className="ml-2 reportModal btn btn-warning"  data-toggle="modal" data-target="#exampleModal">Export Time Reports</button> 
                             </div>
-                            <button className="reportModal btn btn-warning"  data-toggle="modal" data-target="#exampleModal">Export Time Reports</button>
                         </div>
-                        <div className="col-sm-4 hidden-xs">
+                        <div className="col-sm-3 hidden-xs">
                             <div className="search-data"> 
                                <input type='text' id="search-field" className="form-control" placeholder="Search" onChange={filterJobs} style={{marginRight: "0"}} />
                             </div>
@@ -344,11 +363,18 @@ export default function TotalJobs() {
                                         <tbody>
                                             {totalJobs &&
                                                 totalJobs.map((item, index) => {
+
+                                                    let ix = allShifts.find(function(el, i){
+                                                        if(el.shift == item.shifts.replace(/ /g,'')){
+                                                           return i;
+                                                        }
+                                                    });
+                                                   
                                                     return (
                                                         <tr key={index} style={{ "cursor": "pointer" }}>
                                                             <td onClick={(e) => handleNavigate(e, item.id)}>
                                                                 <span className="d-block mb-1">{Moment(item.start_date).format('DD-MM-YYYY')}</span>
-                                                                <span className="mBlue">{item.shifts}</span>
+                                                                <span className="mBlue" style={(ix != undefined) ? {background: ix.bg, color: ix.tc} : {}}>{item.shifts}</span>
                                                             </td>
                                                             <td><Link to={(item.worker) ? `/admin/view-worker/${item.worker.id}` : '#'}>
                                                                 <h6>{
@@ -391,7 +417,7 @@ export default function TotalJobs() {
                                                             >
                                                                 {item.status}
                                                                 <p>
-                                                                {(item.status=='cancel')?`(With Cancellatiom fees ${item.rate} ILS)`:''}
+                                                                {(item.status=='cancel' && item.rate != null)?`(With Cancellatiom fees ${item.rate} ILS)`:''}
                                                                 </p>
                                                             </td>
                                                             {/* <td onClick={(e)=>handleNavigate(e,item.id)}>

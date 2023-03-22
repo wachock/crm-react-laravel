@@ -18,6 +18,9 @@ class CreateJobServicesTable extends Migration
             $table->string('job_id');
             $table->string('name');
             $table->string('job_hour');
+            $table->string('freq_name');
+            $table->string('cycle');
+            $table->string('period');
             $table->string('total');
             $table->timestamps();
         });

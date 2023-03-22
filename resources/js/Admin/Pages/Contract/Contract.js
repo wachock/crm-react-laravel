@@ -114,6 +114,37 @@ export default function Contract() {
 
     }
 
+    const cancelJob = (e,id,job) => {
+        e.preventDefault();
+        let stext = (job == 'disable') ? 'Yes, Cancel Jobs' : 'Yes, Resume Jobs'
+        Swal.fire({
+            title: 'Are you sure ?',
+            text: '',
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            cancelButtonText: 'Cancel',
+            confirmButtonText: stext,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                axios
+                    .post(`/api/admin/cancel-contract-jobs`, { id, job }, { headers })
+                    .then((response) => {
+                        Swal.fire(
+                            response.data.msg,
+                            '',
+                            "success"
+                        );
+                        setTimeout(() => {
+                            getContract();
+                        }, 1000);
+                    });
+            }
+        });
+
+    }
+
     return (
         <div id="container">
             <Sidebar />
@@ -203,6 +234,12 @@ export default function Contract() {
                                                                 <div className="dropdown-menu">
                                                                     { (c.status == 'verified') &&
                                                                     <Link to={`/admin/create-job/${c.id}`} className="dropdown-item">Create Job</Link>
+                                                                    }
+                                                                    { (c.job_status == 1 && c.status == 'verified') &&
+                                                                    <Link onClick={(e)=>cancelJob(e,c.id,'disable')} className="dropdown-item">Cancel Job</Link>
+                                                                    }
+                                                                    { (c.job_status == 0 && c.status == 'verified') &&
+                                                                    <Link onClick={(e)=>cancelJob(e,c.id,'enable')} className="dropdown-item">Resume Job</Link>
                                                                     }
                                                                     <Link to={`/admin/view-contract/${c.id}`} className="dropdown-item">View</Link>
                                                                     <button className="dropdown-item" onClick={() => handleDelete(c.id)}

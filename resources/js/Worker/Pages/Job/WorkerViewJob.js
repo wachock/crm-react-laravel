@@ -200,9 +200,9 @@ export default function WorkerViewJob() {
                                      <h2 className="text-custom">{t('worker.jobs.view.c_details')}</h2>
                                   </div>
                                   <div className='col-sm-2 col-6'>
-                                     {(job_status !='completed') && ( <button type="button" onClick={HandleMarkComplete} className="btn btn-success">{t('worker.jobs.view.completebtn')}</button>)}
+                                     {(job_status !='completed' && job_status != 'cancel') && ( <button type="button" onClick={HandleMarkComplete} className="btn btn-success">{t('worker.jobs.view.completebtn')}</button>)}
                                   </div>
-                                   {(job_status !='completed')?
+                                   {(job_status !='completed' && job_status != 'cancel')?
                                     <div className='col-sm-2 col-6'>
                                      {!isRunning && (
                                            <>

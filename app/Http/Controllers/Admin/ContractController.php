@@ -154,4 +154,19 @@ class ContractController extends Controller
         ], 200);
 
     }
+    public function cancelJob(Request $request){
+        $msg = '';
+        if($request->job == 'disable'){
+        Contract::where('id',$request->id)->update(['job_status'=>0]);
+        $msg = 'Contract Job(s) cancelled succesfully!';
+        }
+        else{ 
+        Contract::where('id',$request->id)->update(['job_status'=>1]);
+        $msg = 'Contract Job(s) resumed succesfully!';
+        }
+
+        return response()->json([
+            'msg'=>$msg
+        ]);
+    }
 }
