@@ -131,6 +131,19 @@ export default function EditWorker() {
                 setCountry(response.data.worker.country);
                 setLatitude(response.data.worker.latitude);
                 setLongitude(response.data.worker.longitude);
+                setTimeout(()=>{
+
+              
+                let skl = response.data.worker.skill.length > 0 ? JSON.parse(response.data.worker.skill) : [];
+                let el = document.querySelectorAll('.ski');
+                console.log(el);
+                el.forEach((e,i)=>{
+                    skl.includes(e.value) &&
+                    e.setAttribute('checked',true)
+                   
+                    });
+                },1000);
+               
             });
     };
      const getAvailableSkill = () => {
@@ -298,7 +311,7 @@ export default function EditWorker() {
                                         googleMapsApiKey="AIzaSyDVR2fXPoEVoCNLIqagX5GQzna3feez4lI"
                                         libraries={libraries}
                                     >
-                                        <GoogleMap
+                                       {/* <GoogleMap
                                             mapContainerStyle={containerStyle}
                                             center={center}
                                             zoom={15}
@@ -329,7 +342,7 @@ export default function EditWorker() {
                                                 <></>
                                             )}
                                             <Marker />
-                                        </GoogleMap>
+                                        </GoogleMap>*/}
                                         <Autocomplete
                                             onLoad={(e) => setPlace(e)}
                                             onPlaceChanged={handlePlaceChanged}
@@ -360,7 +373,8 @@ export default function EditWorker() {
                                 {avl_skill && avl_skill.map((item,index)=>(
                                     <div className="form-check" key={index}>
                                 <label className="form-check-label">
-                                    <input type="checkbox" className="form-check-input" name="skills" value={item.id} onChange={handleSkills} checked={skill.includes((item.id).toString())} />{item.name}
+                                    {/* CHECKED FROM API ABOVE*/}
+                                    <input type="checkbox" className="form-check-input ski" name="skills" value={item.id} onChange={handleSkills}   />{item.name}
                                 </label>
                                 </div>
 
