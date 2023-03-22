@@ -268,7 +268,7 @@ export default function WorkerMyAccount() {
                                     return (
                                         <div>
                                             {
-                                                (JSON.parse(skill).includes((item.id).toString())) ?
+                                                (skill.length > 0 && JSON.parse(skill).includes((item.id).toString())) ?
                                                     <>
                                                         <div className="form-check col-sm-12" key={index}>
                                                             <label className="form-check-label col-3 text-center">
