@@ -99,7 +99,6 @@ export default function CreateClientByJob() {
         getWorkers();
         $('#edit-work-time').modal('hide')
     }
-    console.log(services);
     const getWorkers = () => {
         axios
             .get(`/api/admin/all-workers?filter=true&service_id=${service_id}`, { headers })
@@ -213,9 +212,7 @@ export default function CreateClientByJob() {
         { value: 1, label: 'morning - 8-12pm' },
     ]
     const changeShift = (w_id, date, e) => {
-       
         let w_n = $('#worker-' + w_id).html();
-        
         let filtered = data.filter((d) => {
                 if (d.date == date && d.worker_id == w_id) {
                     return false;
@@ -224,12 +221,25 @@ export default function CreateClientByJob() {
                 }
         });
         let shifts = '';
-
+        let value =false;
+        let selected_sfifts =
         e.map((v) => {
+            if(v.label=='full day -8am-16pm'){
+                  value = true;
+                }
             if (shifts == '') {
                 shifts = v.label;
             } else {
+                if(value && [0,1,2,3,4,5,6].includes(v.value)){
+
+                   Swal.fire(
+                            "Warning!",
+                            "Worker already assigned to full Day.",
+                            "success"
+                        );
+                }else{
                 shifts = shifts + ',' + v.label;
+                }
             }
         });
        
@@ -332,7 +342,7 @@ export default function CreateClientByJob() {
                                 </Td>
                                 {week.map((element, index) => {
                                     let shifts = (wjobs[element]) ? (wjobs[element]).split(",") : [];
-                                        return ( <Td align="center" >
+                                        return ( <Td align="center" id={`shift-${w.id}-${element}`} >
                                         <span className="text-success">{person[aval[element]]}</span>
                                         
                                         {shifts.map((s,i)=>{
@@ -343,7 +353,7 @@ export default function CreateClientByJob() {
                                                 isMulti
                                                 name="colors"
                                                 options={filterOptions(colourOptions[aval[element]],shifts)}
-                                                className="basic-multi-single"
+                                                className="basic-multi-single "
                                                 isClearable={true}
                                                 classNamePrefix="select"
                                                 onChange={(e)=>changeShift(w.id,element,e)}
