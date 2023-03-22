@@ -283,7 +283,7 @@ export default function TotalJobs() {
             { bg: '#d3d3d3', tc: '#444',  shift: 'fullday-8am-16pm' },
             { bg: '#FFE87C', tc: '#444',  shift: 'morning1-8am-10am' },
             { bg: '#FFAE42', tc: '#fff',  shift: 'morning2-10am-12pm' },
-            { bg: 'yellow', tc: '#444',  shift: 'morning-8am-12pm' },
+            { bg: 'yellow',  tc: '#444',  shift: 'morning-8am-12pm' },
             { bg: '#79BAEC', tc: '#fff',  shift: 'noon1-12pm-14pm' },
             { bg: '#1569C7', tc: '#fff',  shift: 'noon2-14pm-16pm' },
             { bg: '#ADDFFF', tc: '#fff',  shift: 'noon-12pm-16pm' },
@@ -365,14 +365,15 @@ export default function TotalJobs() {
                                                 totalJobs.map((item, index) => {
 
                                                     let ix = allShifts.find(function(el, i){
-                                                        if(el.shift == item.shifts.replace(/ /g,'')){
+                                                    
+                                                        if(el.shift.replace(/ /g,'') == item.shifts.replace(/ /g,'')){
                                                            return i;
                                                         }
                                                     });
-                                                   
+                                                    
                                                     return (
                                                         <tr key={index} style={{ "cursor": "pointer" }}>
-                                                            <td onClick={(e) => handleNavigate(e, item.id)} style={(ix != undefined) ? {background: ix.bg, color: ix.tc} : {}}>
+                                                            <td onClick={(e) => handleNavigate(e, item.id)} style={(ix != undefined) ? {background: ix.bg, color: ix.tc} : {background: '#d3d3d3', color: '#444'} }>
                                                                 <span className="d-block mb-1">{Moment(item.start_date).format('DD-MM-YYYY')}</span>
                                                                 <span className="mBlue" >{item.shifts}</span>
                                                             </td>
