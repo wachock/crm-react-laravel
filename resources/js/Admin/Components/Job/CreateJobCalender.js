@@ -179,6 +179,12 @@ export default function CreateJobCalender() {
             { value: 4, label: 'noon1   -12pm-14pm' },
             { value: 5, label: 'noon2 -14pm-16pm' },
             { value: 6, label: 'noon -12pm-16pm' },
+            { value: 7, label: 'evening1 -16pm-18pm' },
+            { value: 8, label: 'evening2 -18pm-20pm' },
+            { value: 9, label: 'evening -16pm-20pm' },
+            { value: 10, label: 'night1 -20pm-22pm' },
+            { value: 11, label: 'night2 -22pm-24pm' },
+            { value: 12, label: 'night -20pm-24pm' },
         ],
         '8am-12pm': [
             { value: 0, label: 'morning1 -8am-10am' },
@@ -216,12 +222,24 @@ export default function CreateJobCalender() {
                 }
         });
         let shifts = '';
-
+        let value =false;
         e.map((v) => {
+             if(v.label=='full day -8am-16pm'){
+                  value = true;
+                }
             if (shifts == '') {
                 shifts = v.label;
             } else {
+                if(value && [0,1,2,3,4,5,6].includes(v.value)){
+
+                   Swal.fire(
+                            "Warning!",
+                            "Worker already assigned to full Day.",
+                            "success"
+                        );
+                }else{
                 shifts = shifts + ',' + v.label;
+                }
             }
         });
        

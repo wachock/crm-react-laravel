@@ -30,7 +30,7 @@ class JobController extends Controller
         $q =  $request->q;
         $w = $request->filter_week;
         $jobs = Job::with('worker', 'client','offer','jobservice');
-       
+
         if($q != ''){
             $jobs = $jobs->orWhereHas('worker',function ($qr) use ($q){
                      $qr->where(function($qr) use ($q) {
