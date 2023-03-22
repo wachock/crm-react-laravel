@@ -222,7 +222,6 @@ export default function CreateClientByJob() {
         });
         let shifts = '';
         let value =false;
-        let selected_sfifts =
         e.map((v) => {
             if(v.label=='full day -8am-16pm'){
                   value = true;
