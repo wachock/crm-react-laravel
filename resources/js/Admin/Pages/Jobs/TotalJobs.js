@@ -277,6 +277,23 @@ export default function TotalJobs() {
                 }
             })
     }
+
+    const allShifts = [
+
+            { bg: 'red', tc: 'green',  shift: 'full day-8am-16pm' },
+            { bg: 'yellow', tc: 'green',  shift: 'morning1-8am-10am' },
+            { bg: 'red', tc: 'green',  shift: 'morning 2-10am-12pm' },
+            { bg: 'yellow', tc: 'green',  shift: 'morning-8am-12pm' },
+            { bg: 'red', tc: 'green',  shift: 'noon1-12pm-14pm' },
+            { bg: 'red', tc: 'green',  shift: 'noon2-14pm-16pm' },
+            { bg: 'red', tc: 'green',  shift: 'noon-12pm-16pm' },
+            { bg: 'red', tc: 'green',  shift: 'evening1-16pm-18pm' },
+            { bg: 'red', tc: 'green',  shift: 'evening2-18pm-20pm' },
+            { bg: 'red', tc: 'green',  shift: 'evening-16pm-20pm' },
+            { bg: 'red', tc: 'green',  shift: 'night1-20pm-22pm' },
+            { bg: 'red', tc: 'green',  shift: 'night2-22pm-24pm' },
+            { bg: 'red', tc: 'green',  shift: 'night-20pm-24pm' },
+    ];
    
     return (
         <div id="container">
@@ -298,6 +315,7 @@ export default function TotalJobs() {
                                 <button className="btn btn-success" onClick={(e)=>{filterJobDate('current')}}> Current week</button>
                                 <button className="ml-2 btn btn-pink" onClick={(e)=>{filterJobDate('next')}}> Next week</button>
                                 <button className="ml-2 btn btn-primary" onClick={(e)=>{filterJobDate('nextnext')}}> Next Next week</button>
+                                <button className="ml-2 btn btn-info" onClick={(e)=>{filterJobDate('all')}}> All </button>
                                 <button className="ml-2 btn btn-warning addButton"  data-toggle="modal" data-target="#exampleModal">Export Time Reports</button>
                             </div>
                             <div classname="App" style={{ display: "none" }}>
@@ -344,11 +362,18 @@ export default function TotalJobs() {
                                         <tbody>
                                             {totalJobs &&
                                                 totalJobs.map((item, index) => {
+
+                                                    let ix = allShifts.find(function(el, i){
+                                                        if(el.shift == item.shifts.replace(/ /g,'')){
+                                                           return i;
+                                                        }
+                                                    });
+                                                   
                                                     return (
                                                         <tr key={index} style={{ "cursor": "pointer" }}>
                                                             <td onClick={(e) => handleNavigate(e, item.id)}>
                                                                 <span className="d-block mb-1">{Moment(item.start_date).format('DD-MM-YYYY')}</span>
-                                                                <span className="mBlue">{item.shifts}</span>
+                                                                <span className="mBlue" style={(ix != undefined) ? {background: ix.bg, color: ix.tc} : {}}>{item.shifts}</span>
                                                             </td>
                                                             <td><Link to={(item.worker) ? `/admin/view-worker/${item.worker.id}` : '#'}>
                                                                 <h6>{
@@ -391,7 +416,7 @@ export default function TotalJobs() {
                                                             >
                                                                 {item.status}
                                                                 <p>
-                                                                {(item.status=='cancel')?`(With Cancellatiom fees ${item.rate} ILS)`:''}
+                                                                {(item.status=='cancel' && item.rate != null)?`(With Cancellatiom fees ${item.rate} ILS)`:''}
                                                                 </p>
                                                             </td>
                                                             {/* <td onClick={(e)=>handleNavigate(e,item.id)}>

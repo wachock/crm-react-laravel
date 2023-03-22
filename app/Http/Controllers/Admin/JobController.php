@@ -52,10 +52,10 @@ class JobController extends Controller
              });
         }
          // if($w != ''){
-         //  if($w == 'current'){
+           if( (is_null($w) || $w == 'current') && $w != 'all'){
               $startDate = Carbon::now()->toDateString();
               $endDate = Carbon::now()->startOfWeek()->addDays(5)->toDateString(); 
-        //  }
+           }
            if($w == 'next'){
               $startDate = Carbon::now()->startOfWeek()->addDays(6)->toDateString();
               $endDate = Carbon::now()->startOfWeek()->addDays(12)->toDateString(); 
@@ -65,9 +65,12 @@ class JobController extends Controller
               $startDate = Carbon::now()->startOfWeek()->addDays(13)->toDateString();
               $endDate = Carbon::now()->startOfWeek()->addDays(19)->toDateString();
           }
+
            //$jobs = $jobs->whereBetween('start_date',[$startDate, $endDate]);
+           if((is_null($w) || $w == 'current') && $w != 'all'){
            $jobs = $jobs->whereDate('start_date','>=',$startDate);
            $jobs = $jobs->whereDate('start_date','<=',$endDate);
+           }
      //   }
 
         $jobs = $jobs->orderBy('start_date', 'desc')->paginate(20);
@@ -80,6 +83,9 @@ class JobController extends Controller
            $ava_workers = $ava_workers->where('status',1)->get();
            $ava_worker = array();
            foreach($ava_workers as $w){
+               // if($w == 'all')
+                //$check_worker_job =  Job::where('worker_id',$w->id)->first();
+                //else
                 $check_worker_job =  Job::where('worker_id',$w->id)->where('start_date',$job->start_date)->first();
                 if(!$check_worker_job){
                    $ava_worker[]=$w;
@@ -281,6 +287,9 @@ class JobController extends Controller
                          $s_heb_name=$ser->heb_name;
                       }
                       $s_hour=$service['jobHours'];
+                      $s_freq   = $service['freq_name'];
+                      $s_cycle  = $service['cycle'];
+                      $s_period = $service['period'];
                       $s_total=$service['totalamount'];
                       $s_id=$service['service'];
 
@@ -329,7 +338,10 @@ class JobController extends Controller
                 $service->name     = $s_name;
                 $service->heb_name = $s_heb_name;
                 $service->job_hour = $s_hour;
-                $service->total    = $s_total;
+                $service->freq_name = $s_freq;
+                $service->cycle     = $s_cycle;
+                $service->period    = $s_period;
+                $service->total     = $s_total;
                 $service->save();
             
             if($i == 0){
@@ -476,6 +488,13 @@ class JobController extends Controller
         return response()->json([
             'time'     => $time,        
             ], 200);
+    }
+    public function cancelJob(Request $request){ 
+        Job::where('id',$request->id)->update(['status'=>'cancel']);
+        return response()->json([
+            'msg'=>'Job cancelled succesfully!'
+        ]);
+
     }
     public function deleteJobTime($id){
          JobHours::find($id)->delete();

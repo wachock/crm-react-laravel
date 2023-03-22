@@ -1,6 +1,7 @@
 import React  from 'react'
 
 export default function Services({services,job}) {
+    
   return (
     <>
                     <h2 className="text-custom">Service Details</h2>
@@ -11,6 +12,12 @@ export default function Services({services,job}) {
                                     <div className='form-group'>
                                         <label className='control-label'>Services</label>
                                           <p>{services.name}</p>
+                                    </div>
+                                </div>
+                                <div className='col-sm-2'>
+                                    <div className='form-group'>
+                                        <label className='control-label'>frequency</label>
+                                          <p>{services.freq_name}</p>
                                     </div>
                                 </div>
                                 <div className='col-sm-2'>
@@ -30,7 +37,7 @@ export default function Services({services,job}) {
                                     <div className='form-group'>
                                         <label className='control-label'>Job Status</label>
                                         <p>{job.status}</p>
-                                        {(job.status=='cancel')?`(With Cancellatiom fees ${job.rate} ILS)`:''}
+                                        {(job.status=='cancel' && job.rate != null)?`(With Cancellatiom fees ${job.rate} ILS)`:''}
                                     </div>
                                 </div>
                                
