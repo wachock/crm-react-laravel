@@ -124,7 +124,6 @@ class AuthController extends Controller
         $worker->lng           = $request->lng;
         $worker->passcode     = $request->password;
         $worker->password      = Hash::make($request->password);
-        $worker->skill         = $request->skill;
         $worker->status        = $request->status;
         $worker->country       = $request->country;
         $worker->save();

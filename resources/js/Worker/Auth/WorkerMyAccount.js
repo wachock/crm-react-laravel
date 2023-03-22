@@ -45,6 +45,7 @@ export default function WorkerMyAccount() {
 
     const handleUpdate = (e) => {
         e.preventDefault();
+       
         const data = {
             "firstname": firstname,
             "lastname": lastname,
@@ -57,7 +58,6 @@ export default function WorkerMyAccount() {
             "lng": (lng != 0) ? lng : 'heb',
             "worker_id": worker_id,
             "password": password,
-            "skill": skill,
             "status": itemStatus,
             "country": country,
         }
@@ -265,10 +265,11 @@ export default function WorkerMyAccount() {
                                 <label className='control-label'>{t('worker.settings.skills')}</label>
                                 {avl_skill && avl_skill.map((item, index) => {
                                    
+                                   if(skill !== 'null' && skill!= null && skill.length > 0 ){
                                     return (
                                         <div>
-                                            {
-                                                (skill.length > 0 && JSON.parse(skill).includes((item.id).toString())) ?
+                                            {   
+                                                (JSON.parse(skill).includes((item.id).toString())) ?
                                                     <>
                                                         <div className="form-check col-sm-12" key={index}>
                                                             <label className="form-check-label col-3 text-center">
@@ -277,11 +278,11 @@ export default function WorkerMyAccount() {
                                                         </div>
                                                     </>
                                                     : ''
-                                            }
+                                    }
 
                                             {/*<input type="checkbox" className="form-check-input" name="skills" value={item.id} onChange={handleSkills} checked={skill.includes((item.id).toString())} /><span>{item.name}</span> */}
 
-                                        </div>)
+                                        </div>)}
                                 })}
                             </div>
                         </div>

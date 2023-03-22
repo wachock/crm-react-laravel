@@ -357,11 +357,15 @@ class JobController extends Controller
                     'start_time'=>$_timeShift
                  );
                 \App::setLocale($job->worker->lng);
+
+                if(!is_null($job['worker']['email'])){
                 Mail::send('/Mails/NewJobMail',$data,function($messages) use ($data){
                     $messages->to($data['email']);
                     $sub = __('mail.worker_new_job.subject')."  ".__('mail.worker_new_job.company');
                     $messages->subject($sub);
                 });
+                }
+
                 $data['job']['shifts']=$this->getShifts($worker['shifts'],$job['client']['lng']);
                 $client_mail[] = $data;
                 $client_email  =  $job['client']['email'];
@@ -382,7 +386,7 @@ class JobController extends Controller
             'start_time'=>$_timeShift
         );
         
-         
+          if(!is_null($client_email)){
          Mail::send('/Mails/NewJobClient',$client_data,function($messages) use ($client_data){
                 $messages->to($client_data['email']);
                 $id = $client_data['jobs'][0]['job']['id'];
@@ -391,6 +395,7 @@ class JobController extends Controller
                 $sub = $id."# ".__('mail.client_new_job.subject')."  ".__('mail.client_new_job.company');
                 $messages->subject($sub);
             });
+        }
 
 
         return response()->json([

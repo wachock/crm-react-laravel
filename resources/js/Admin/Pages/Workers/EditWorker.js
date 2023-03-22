@@ -76,6 +76,13 @@ export default function EditWorker() {
 
     const handleUpdate = (e) => {
         e.preventDefault();
+        
+        let skr = [];
+        let ski = document.querySelectorAll('.ski:checked');
+        ski.forEach((s,i)=>{
+            skr.push(s.value);
+        });
+       
         const data = {
         "firstname": firstname,
         "lastname": lastname,
@@ -88,7 +95,7 @@ export default function EditWorker() {
         "lng":(!lng) ? 'en' : lng,
         "worker_id": worker_id,
         "password": password,
-        "skill": skill,
+        "skill": skr,
         "status": (!itemStatus) ? 1 : parseInt(itemStatus),
         "country":country,
         "latitude":latitude,
@@ -136,7 +143,7 @@ export default function EditWorker() {
               
                 let skl = response.data.worker.skill.length > 0 ? JSON.parse(response.data.worker.skill) : [];
                 let el = document.querySelectorAll('.ski');
-                console.log(el);
+                
                 el.forEach((e,i)=>{
                     skl.includes(e.value) &&
                     e.setAttribute('checked',true)
@@ -374,7 +381,7 @@ export default function EditWorker() {
                                     <div className="form-check" key={index}>
                                 <label className="form-check-label">
                                     {/* CHECKED FROM API ABOVE*/}
-                                    <input type="checkbox" className="form-check-input ski" name="skills" value={item.id} onChange={handleSkills}   />{item.name}
+                                    <input type="checkbox" className="form-check-input ski" name="skills" value={item.id}   />{item.name}
                                 </label>
                                 </div>
 
