@@ -280,19 +280,19 @@ export default function TotalJobs() {
 
     const allShifts = [
 
-            { bg: 'red', tc: 'green',  shift: 'full day-8am-16pm' },
-            { bg: 'yellow', tc: 'green',  shift: 'morning1-8am-10am' },
-            { bg: 'red', tc: 'green',  shift: 'morning 2-10am-12pm' },
+            { bg: 'red', tc: 'white',  shift: 'full day-8am-16pm' },
+            { bg: '#FFE87C', tc: '#444',  shift: 'morning1-8am-10am' },
+            { bg: '#FFAE42', tc: '#fff',  shift: 'morning 2-10am-12pm' },
             { bg: 'yellow', tc: 'green',  shift: 'morning-8am-12pm' },
-            { bg: 'red', tc: 'green',  shift: 'noon1-12pm-14pm' },
-            { bg: 'red', tc: 'green',  shift: 'noon2-14pm-16pm' },
-            { bg: 'red', tc: 'green',  shift: 'noon-12pm-16pm' },
-            { bg: 'red', tc: 'green',  shift: 'evening1-16pm-18pm' },
-            { bg: 'red', tc: 'green',  shift: 'evening2-18pm-20pm' },
-            { bg: 'red', tc: 'green',  shift: 'evening-16pm-20pm' },
-            { bg: 'red', tc: 'green',  shift: 'night1-20pm-22pm' },
-            { bg: 'red', tc: 'green',  shift: 'night2-22pm-24pm' },
-            { bg: 'red', tc: 'green',  shift: 'night-20pm-24pm' },
+            { bg: '#79BAEC', tc: '#fff',  shift: 'noon1-12pm-14pm' },
+            { bg: '#1569C7', tc: '#fff',  shift: 'noon2-14pm-16pm' },
+            { bg: '#ADDFFF', tc: '#fff',  shift: 'noon-12pm-16pm' },
+            { bg: '#DBF9DB', tc: '#444',  shift: 'evening1-16pm-18pm' },
+            { bg: '#3EA055', tc: '#fff',  shift: 'evening2-18pm-20pm' },
+            { bg: '#B5EAAA', tc: '#fff',  shift: 'evening-16pm-20pm' },
+            { bg: '#B09FCA', tc: '#fff',  shift: 'night1-20pm-22pm' },
+            { bg: '#800080', tc: '#fff',  shift: 'night2-22pm-24pm' },
+            { bg: '#D2B9D3', tc: '#fff',  shift: 'night-20pm-24pm' },
     ];
    
     return (
@@ -309,13 +309,13 @@ export default function TotalJobs() {
                                <input type='text' id="search-field" className="form-control" placeholder="Search" onChange={filterJobs} style={{marginRight: "0"}} />
                             </div>
                         </div>
-                        <div className="col-sm-6 hidden-xs">
+                        <div className="col-sm-7 hidden-xs">
                             <div className="job-buttons">
                                 <input type="hidden" id="filter-week" />
-                                <button className="btn btn-success" onClick={(e)=>{filterJobDate('current')}}> Current week</button>
+                                <button className="btn btn-info" onClick={(e)=>{filterJobDate('all')}} style={{background: "#858282", borderColor: "#858282"}}> All Jobs</button>
+                                <button className="ml-2 btn btn-success" onClick={(e)=>{filterJobDate('current')}}> Current week</button>
                                 <button className="ml-2 btn btn-pink" onClick={(e)=>{filterJobDate('next')}}> Next week</button>
                                 <button className="ml-2 btn btn-primary" onClick={(e)=>{filterJobDate('nextnext')}}> Next Next week</button>
-                                <button className="ml-2 btn btn-info" onClick={(e)=>{filterJobDate('all')}}> All </button>
                                 <button className="ml-2 btn btn-warning addButton"  data-toggle="modal" data-target="#exampleModal">Export Time Reports</button>
                             </div>
                             <div classname="App" style={{ display: "none" }}>
@@ -325,13 +325,14 @@ export default function TotalJobs() {
                         <div className="col-12 hidden-xl">
                             <div className="job-buttons">
                                 <input type="hidden" id="filter-week" />
-                                <button className="btn btn-success" onClick={(e)=>{filterJobDate('current')}}> Current week</button>
+                                <button className="btn btn-info" onClick={(e)=>{filterJobDate('all')}} style={{background: "#858282", borderColor: "#858282"}}> All Jobs</button>
+                                <button className="ml-2 btn btn-success" onClick={(e)=>{filterJobDate('current')}}> Current week</button>
                                 <button className="ml-2 btn btn-pink" onClick={(e)=>{filterJobDate('next')}}> Next week</button>
-                                <button className="ml-2 btn btn-primary" onClick={(e)=>{filterJobDate('nextnext')}}> Next Next week</button> 
+                                <button className="btn btn-primary" onClick={(e)=>{filterJobDate('nextnext')}}> Next Next week</button>
+                                <button className="ml-2 reportModal btn btn-warning"  data-toggle="modal" data-target="#exampleModal">Export Time Reports</button> 
                             </div>
-                            <button className="reportModal btn btn-warning"  data-toggle="modal" data-target="#exampleModal">Export Time Reports</button>
                         </div>
-                        <div className="col-sm-4 hidden-xs">
+                        <div className="col-sm-3 hidden-xs">
                             <div className="search-data"> 
                                <input type='text' id="search-field" className="form-control" placeholder="Search" onChange={filterJobs} style={{marginRight: "0"}} />
                             </div>

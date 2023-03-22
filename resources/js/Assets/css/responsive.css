@@ -24,11 +24,11 @@
     margin-top: 16px;
 }
 .job-buttons{
-    display: flex;
     margin-top: 10px;
 }
 .job-buttons button{
     font-size: 13px !important;
+    margin-bottom: 7px;
 }
 .getjobslist select{
     font-size: 11px !important;
@@ -36,10 +36,7 @@
     padding: 4px !important;
 }
 .reportModal{
-    font-size: 13px;
-    margin-top: 8px;
-    display: block;
-    width: 100%;
+    min-width: 158px;
     background: #075182;
     border: 1px solid #075182;
     color: #fff;
