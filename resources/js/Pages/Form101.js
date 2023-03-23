@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect,useRef, useState } from 'react'
 import logo from "../Assets/image/logo.png";
 import check from "../Assets/image/icons/check-mark.png";
 import SignatureCanvas from 'react-signature-canvas'
@@ -187,6 +187,21 @@ export default function Form101() {
     getForm();
   }, []);
 
+ const handleFile = (data) => {
+       const reader = new FileReader()
+       reader.readAsDataURL(data)
+        reader.onload = () => {
+            setFile(reader.result);
+         }
+  }
+  const handleFile2 = (data) => {
+       const reader = new FileReader()
+       reader.readAsDataURL(data)
+        reader.onload = () => {
+            setFile2(reader.result);
+         }
+  }
+
   return (
     <div className='container'>
       <div className='form101 p-4'>
@@ -318,7 +333,7 @@ export default function Form101() {
                   <div className='col-sm-4 col-xs-6'>
                     <div className='form-group'>
                       <label className="control-label">Photocopy of ID card and appendix</label>
-                      <input type="file" name="photocopy_id_appendix" className='bid' onChange={(e) => { setFile(URL.createObjectURL(e.target.files[0])) }} style={{ display: "block" }} />
+                      <input type="file" name="photocopy_id_appendix" className='bid' onChange={(e) => { handleFile(e.target.files[0]) }} style={{ display: "block" }} />
                       <img src={(file)} className="img-fluid" style={{ maxWidth: "70px", marginTop: "10px" }} />
                     </div>
                   </div>
@@ -765,7 +780,7 @@ export default function Form101() {
                   <div className='col-sm-4'>
                     <div className='form-group'>
                       <label className='control-label'>Passport photo</label>
-                      <input type="file" onChange={e => { setFile2(URL.createObjectURL(e.target.files[0])) }} name="p-file" style={{ display: "block" }} />
+                      <input type="file" onChange={e => { handleFile2(e.target.files[0]) }} name="p-file" style={{ display: "block" }} />
                       <img src={(file2)} className="img-fluid pid" style={{ maxWidth: "70px", marginTop: "10px" }} />
                     </div>
                   </div>
