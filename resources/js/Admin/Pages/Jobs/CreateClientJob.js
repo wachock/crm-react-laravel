@@ -30,8 +30,15 @@ export default function CreateClientJob() {
                 setClient(res.data.client.firstname + ' ' + res.data.client.lastname);
                 setAddress(res.data.client.geo_address);
                 let data=[];
+                let new_data=[];
                 r.map((c)=>{
-                    Array.prototype.push.apply(data,JSON.parse(c.offer.services))
+                    
+                   new_data=JSON.parse(c.offer.services);
+                   new_data = new_data.filter((n)=>{
+                         n["c_id"] =c.id
+                         return n
+                   });
+                    Array.prototype.push.apply(data,new_data)
                 })
                 setServices(data);
             });

@@ -263,17 +263,13 @@ class JobController extends Controller
         ],200);
     }
     public function createJob(Request $request,$id){
-         if(isset($request->client_page) && $request->client_page){
-        
-         }else{
-             $job = Contract::with('offer')->find($id);
-         }
          $repeat_value='';
          $s_name='';
          $s_heb_name='';
          $s_hour='';
          $s_total='';
          $s_id=0;
+         $contract_id=0;
          foreach($request->services as $service){
                   $service_schedules = serviceSchedules::where('id','=',$service['frequency'])->first();
                   $ser = Services::where('id','=',$service['service'])->first();
@@ -292,7 +288,13 @@ class JobController extends Controller
                       $s_period = $service['period'];
                       $s_total=$service['totalamount'];
                       $s_id=$service['service'];
+                      $contract_id=$service['c_id'];
 
+         }
+         if(isset($request->client_page) && $request->client_page){
+              $job = Contract::with('offer')->find($contract_id);
+         }else{
+             $job = Contract::with('offer')->find($id);
          }
          $client_mail=array();
          $client_email='';
@@ -319,13 +321,12 @@ class JobController extends Controller
                 $new->worker_id     = $worker['worker_id'];
                 if(isset($request->client_page) && $request->client_page){
                     $new->client_id     = $id;
-                    $new->offer_id      = 0;
-                    $new->contract_id   = 0;
+                    $new->contract_id   = $contract_id;
                 }else{
                     $new->client_id     = $job->client_id;
-                    $new->offer_id      = $job->offer_id;
                     $new->contract_id   = $id;
                 }
+                $new->offer_id      = $job->offer_id;
                 $new->start_date    = $job_date;
                 $new->shifts        = $worker['shifts'];
                 $new->schedule      = $repeat_value;
