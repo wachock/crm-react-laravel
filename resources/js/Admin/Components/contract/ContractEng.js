@@ -299,18 +299,19 @@ export default function WorkContract() {
                                                 <>
                                                     <tr>
                                                         <td style={{ width: "60%" }}>Card Type</td>
-                                                        <td><span className='form-control'>{c.card_type}</span></td>
+                                                        <td><span className='form-control'>{c.card_type ? c.card_type : "NA"}</span></td>
                                                     </tr>
                                                     <tr>
                                                         <td style={{ width: "60%" }}>Name on the Card</td>
-                                                        <td><span className='form-control'>{c.name_on_card}</span></td>                            </tr>
+                                                        <td><span className='form-control'>{c.name_on_card ? c.name_on_card : "NA"}</span></td>
+                                                     </tr>
                                                     <tr>
                                                         <td style={{ width: "60%" }}>CVV</td>
-                                                        <td ><span className='form-control'>{c.cvv}</span></td>
+                                                        <td ><span className='form-control'>{c.cvv ? c.cvv : "NA"}</span></td>
                                                     </tr>
                                                     <tr>
                                                         <td style={{ width: "60%" }}>Signature on the Card</td>
-                                                        <img src={c.card_sign} className='img-fluid' alt='Company' />
+                                                        <img src={c.card_sign ? c.card_sign : "/images/NA.jpg"} className='img-fluid' alt='Company' />
                                                     </tr>
                                                 </>
 
@@ -452,7 +453,7 @@ export default function WorkContract() {
                                                 />
                                             </>)
                                                 :
-                                                <img src={c.signature} className='img-fluid' alt='Company' />
+                                                <img src={c.signature ? c.signature : "/images/NA.jpg"} className='img-fluid' alt='Company' />
 
                                         )
 

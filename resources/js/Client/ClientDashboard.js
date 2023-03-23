@@ -47,6 +47,7 @@ export default function ClientDashboard() {
         'Night'
     ];
     const getShift = (shifts) => {
+        if(shifts != null) {
         let s = (shifts).split(",");
         let check = '';
         let new_shift = '';
@@ -75,6 +76,7 @@ export default function ClientDashboard() {
         if (new_shift == 'Afternoon') return t('global.afternoon');
         if (new_shift == 'Evening') return t('global.evening');
         return new_shift;
+    }
 
     }
 

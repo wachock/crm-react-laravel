@@ -363,12 +363,12 @@ export default function TotalJobs() {
                                         <tbody>
                                             {totalJobs &&
                                                 totalJobs.map((item, index) => {
-
+ 
                                                     let ix = allShifts.find(function(el, i){
                                                     
-                                                        if(el.shift.replace(/ /g,'') == item.shifts.replace(/ /g,'')){
-                                                           return i;
-                                                        }
+                                                         //if( el.shift.replace(/ /g,'') == item.shifts.replace(/ /g,'')){
+                                                           // return i;
+                                                        // }
                                                     });
                                                     
                                                     return (

@@ -173,7 +173,7 @@ export default function AddClient() {
         };
 
         axios
-            .post(`/api/admin/clients`, {data:data,jobdata: (create_job == 1) ? jobdata : {}}, { headers })
+            .post(`/api/admin/clients`, {data:data,jobdata: (cjob == 1) ? jobdata : {}}, { headers })
             .then((response) => {
                 if (response.data.errors) {
                     setErrors(response.data.errors);
@@ -239,7 +239,7 @@ export default function AddClient() {
         }
         if(e.target.name== 'shift'){
           
-            var result = [];
+            var result = '';
             var options = e.target.options;
             var opt;
           
@@ -247,10 +247,11 @@ export default function AddClient() {
               opt = options[k];
           
               if (opt.selected) {
-                result.push(opt.value || opt.text);
+                result += opt.value+', ';
               }
             }
-            newFormValues[i]['shift'] = (result.length > 0) ? JSON.stringify(result) : '';
+           
+            newFormValues[i]['shift'] = (result);
         }
       
         setFormValues(newFormValues);
@@ -770,7 +771,7 @@ export default function AddClient() {
                                     <select
                                         className="form-control"
                                         value={cjob}
-                                        onChange={(e) => {setCjob(e.target.value); (e.target.value == '1') ? document.querySelector('.ClientJobSection').style.display = 'block' : ''; } }
+                                        onChange={(e) => {setCjob(e.target.value); (e.target.value == '1') ? document.querySelector('.ClientJobSection').style.display = 'block' : document.querySelector('.ClientJobSection').style.display = 'none'; } }
                                          >
                                         <option value="0">No</option>
                                         <option value="1">Yes</option>

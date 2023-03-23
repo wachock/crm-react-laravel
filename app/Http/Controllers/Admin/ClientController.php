@@ -6,11 +6,18 @@ use App\Http\Controllers\Controller;
 use App\Models\Client;
 use App\Models\Files;
 use App\Models\Note;
+use App\Models\Offer;
+use App\Models\serviceSchedules;
+use App\Models\Services;
 use App\Models\Contract;
+use App\Models\Job;
+use App\Models\JobHours;
+use App\Models\JobService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
+use Carbon\Carbon;
 use Image;
 use File;
 class ClientController extends Controller
@@ -68,7 +75,9 @@ class ClientController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
+        //dd($request->all());
+        
+        $validator = Validator::make($request->data, [
             'firstname' => ['required', 'string', 'max:255'],
             'phone'     => ['required'],
             'status'    => ['required'],
@@ -80,9 +89,116 @@ class ClientController extends Controller
             return response()->json(['errors' => $validator->messages()]);
         }
 
-        $input                  = $request->all();    
+        $input                  = $request->data;    
         $input['password']      = Hash::make($request->password);    
         $client                 = Client::create($input);
+
+        if(!empty($request->jobdata)){
+
+          $offer = Offer::create([
+            'client_id'=>$client->id,
+            'services'=>$request->jobdata['services'],
+            'subtotal'=>$request->jobdata['subtotal'],
+            'total'=>$request->jobdata['total'],
+            'status'=>'accepted'
+          ]);
+
+          $contract = Contract::create([
+            'offer_id'=>$offer->id,        
+            'client_id'=>$client->id,
+            'unique_hash'=>md5($client->email.$offer->id),
+            'status'=>'verified',
+          ]);
+
+          /* Create job */
+
+          $repeat_value='';
+          $s_name='';
+          $s_heb_name='';
+          $s_hour='';
+          $s_total='';
+          $s_id=0;
+          $allServices = json_decode($request->jobdata['services'],true);
+          foreach($allServices as $service){
+           
+                   $service_schedules = serviceSchedules::where('id','=',$service['frequency'])->first();
+                   $ser = Services::where('id','=',$service['service'])->first();
+ 
+                       $repeat_value=$service_schedules->period;
+                       if($service['service'] == 10){
+                          $s_name=$service['other_title'];
+                          $s_heb_name=$service['other_title'];
+                       }else{
+                          $s_name=$ser->name;
+                          $s_heb_name=$ser->heb_name;
+                       }
+                       $s_hour=$service['jobHours'];
+                       $s_freq   = $service['freq_name'];
+                       $s_cycle  = $service['cycle'];
+                       $s_period = $service['period'];
+                       $s_total=$service['totalamount'];
+                       $s_id=$service['service'];
+ 
+          
+          $client_mail=array();
+          $client_email='';
+
+        // // foreach($request->workers as $worker){
+            $count=1;
+            if($repeat_value=='w'){
+               $count=3;
+            }
+            $worker = $service['worker'];
+            $shift =  $service['shift'];
+            for($i=0;$i<$count;$i++){
+                 
+                 $date = Carbon::today();
+                 $j=0;
+                 if($i==1){
+                   $j=7;  
+                 }
+                if($i==2){
+                   $j=14;  
+                 }
+                 $job_date=$date->addDays($j)->toDateString();
+
+                 $status='scheduled';
+                 if(Job::where('start_date',$job_date)->where('worker_id',$worker)->exists()){
+                     $status='unscheduled';
+                 }
+                 $new = new Job;
+                 $new->worker_id     = $worker;
+               
+                     $new->client_id     = $client->id;
+                     $new->offer_id      = $offer->id;
+                     $new->contract_id   = $contract->id;
+                 
+                 $new->start_date    = $job_date;
+                 $new->shifts        = $shift;
+                 $new->schedule      = $repeat_value;
+                 $new->status        = $status;
+                 $new->save();
+
+                 $service           = new JobService;
+                 $service->job_id   = $new->id;
+                 $service->service_id=$s_id;
+                 $service->name     = $s_name;
+                 $service->heb_name = $s_heb_name;
+                 $service->job_hour = $s_hour;
+                 $service->freq_name = $s_freq;
+                 $service->cycle     = $s_cycle;
+                 $service->period    = $s_period;
+                 $service->total     = $s_total;
+                 $service->save();
+             
+            
+                 }
+ 
+              } 
+ 
+            }
+          /*End create job */
+        
 
         return response()->json([
             'message'       => 'Client created successfully',            
