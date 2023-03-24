@@ -3,6 +3,7 @@ import star from "../Assets/image/icons/blue-star.png";
 import SignatureCanvas from 'react-signature-canvas'
 import companySign from "../Assets/image/company-sign.png";
 import { useParams } from 'react-router-dom';
+import { Base64 } from "js-base64";
 import swal from 'sweetalert';
 import i18next from 'i18next';
 import { useTranslation } from "react-i18next";
@@ -49,7 +50,7 @@ export default function WorkerContract() {
     }
     const getWorker = () =>{
         axios
-        .post(`/api/worker-detail`,{'worker_id':param.id})
+        .post(`/api/worker-detail`,{'worker_id':Base64.decode(param.id)})
         .then((res)=>{
 
             if(res.data.worker){
