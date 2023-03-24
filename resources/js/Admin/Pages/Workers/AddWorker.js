@@ -95,11 +95,16 @@ export default function AddWorker() {
         "latitude":latitude,
         "longitude":longitude
     }
+    let sbtn = document.querySelector('.saveBtn');
+    sbtn.setAttribute('disabled',true);
+    sbtn.innerText = 'Saving..';
      axios
             .post(`/api/admin/workers`, data, { headers })
             .then((response) => {
                 if (response.data.errors) {
                     setErrors(response.data.errors);
+                    sbtn.removeAttribute('disabled');
+                    sbtn.innerText = 'Save';
                 } else {
                     alert.success("Worker has been created successfully");
                     setTimeout(() => {

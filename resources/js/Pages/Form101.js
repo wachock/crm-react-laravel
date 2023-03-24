@@ -1,4 +1,4 @@
-import React, { useEffect,useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import logo from "../Assets/image/logo.png";
 import check from "../Assets/image/icons/check-mark.png";
 import SignatureCanvas from 'react-signature-canvas'
@@ -55,7 +55,7 @@ export default function Form101() {
 
   }
   const finalSubmit = () => {
-   
+
     const Data = {
       ...data,
       "photocopy_id_appendix": (file != undefined) ? file : '',
@@ -133,7 +133,7 @@ export default function Form101() {
     if (!Data.income) { alert.error('Please choose income details'); success = false; return false; }
     if (!Data.taxDate) { alert.error('Please enter date of commencement '); success = false; return false; }
     if (!Data.signature || Data.signature == null) { alert.error('Please sign form'); success = false; return false; }
-
+    
     if (success == true) {
       axios
         .post(`/api/form101`, { id: id, data: Data })
@@ -187,19 +187,19 @@ export default function Form101() {
     getForm();
   }, []);
 
- const handleFile = (data) => {
-       const reader = new FileReader()
-       reader.readAsDataURL(data)
-        reader.onload = () => {
-            setFile(reader.result);
-         }
+  const handleFile = (data) => {
+    const reader = new FileReader()
+    reader.readAsDataURL(data)
+    reader.onload = () => {
+      setFile(reader.result);
+    }
   }
   const handleFile2 = (data) => {
-       const reader = new FileReader()
-       reader.readAsDataURL(data)
-        reader.onload = () => {
-            setFile2(reader.result);
-         }
+    const reader = new FileReader()
+    reader.readAsDataURL(data)
+    reader.onload = () => {
+      setFile2(reader.result);
+    }
   }
 
   return (
@@ -335,6 +335,17 @@ export default function Form101() {
                       <label className="control-label">Photocopy of ID card and appendix</label>
                       <input type="file" name="photocopy_id_appendix" className='bid' onChange={(e) => { handleFile(e.target.files[0]) }} style={{ display: "block" }} />
                       <img src={(file)} className="img-fluid" style={{ maxWidth: "70px", marginTop: "10px" }} />
+                      {
+                        form && form.signature != null &&  <button type="button" className="btn btn-pink m-2"
+                        onClick={(e)=>{
+                          let sf = document.querySelector('.showfile');
+                          sf.setAttribute('src',form['photocopy_id_appendix']);
+                          sf.style.width ='100%';
+                        }}
+                        data-toggle="modal" data-target="#exampleModal">
+                          view uploaded File
+                       </button>
+                      }
                     </div>
                   </div>
                   <div className='col-sm-4 col-xs-6'>
@@ -782,6 +793,17 @@ export default function Form101() {
                       <label className='control-label'>Passport photo</label>
                       <input type="file" onChange={e => { handleFile2(e.target.files[0]) }} name="p-file" style={{ display: "block" }} />
                       <img src={(file2)} className="img-fluid pid" style={{ maxWidth: "70px", marginTop: "10px" }} />
+                      {
+                        form && form.signature != null &&  <button type="button" className="btn btn-pink m-2"
+                        onClick={(e)=>{
+                          let sf = document.querySelector('.showfile');
+                          sf.setAttribute('src',form['p-file']);
+                          sf.style.width ='100%';
+                        }}
+                        data-toggle="modal" data-target="#exampleModal">
+                          view uploaded File
+                       </button>
+                      }
                     </div>
                   </div>
                   <div className='col-sm-4'>
@@ -1018,10 +1040,40 @@ export default function Form101() {
                   </div>
                 </>
             }
+            <div className='mt-4 text-center'>
+                    <button className='btn btn-success' onClick={finalSubmit}>Submit</button>
+                  </div>
 
           </p>
         </div>
 
+      </div>
+      <div className="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div className="modal-dialog" role="document">
+          <div className="modal-content">
+            <div className="modal-header">
+              <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div className="modal-body">
+
+              <div className="row">
+                <div className="col-sm-12">
+                  <div className="form-group">
+                   <img src="#" className='showfile'/>
+
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+            <div className="modal-footer">
+              
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   )
