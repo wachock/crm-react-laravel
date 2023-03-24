@@ -70,8 +70,7 @@ export default function AddClient() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-       
-        
+
         {/* Job Data*/ }
         let to = 0;
         let taxper = 17;
@@ -91,35 +90,38 @@ export default function AddClient() {
                 formValues[t].other_title = document.querySelector('#other_title' + t).value;
             }
 
-            if (formValues[t].frequency == '' || formValues[t].frequency == 0) {
-                alert.error("One of the frequency is not selected");
-                return false;
-            }
             if (formValues[t].jobHours == '') {
                 alert.error("One of the job hours value is missing");
                 return false;
             }
-            (!formValues[t].type) ? formValues[t].type = 'fixed' : '';
-            if (formValues[t].type == "hourly") {
+                        (!formValues[t].type) ? formValues[t].type = 'fixed' : '';
+                        if (formValues[t].type == "hourly") {
 
-                if (formValues[t].rateperhour == '') {
-                    alert.error("One of the rate per hour value is missing");
-                    return false;
-                }
-                formValues[t].totalamount = parseInt(formValues[t].jobHours * formValues[t].rateperhour);
-                to += parseInt(formValues[t].totalamount);
-
-                
+                            if (formValues[t].rateperhour == '') {
+                                alert.error("One of the rate per hour value is missing");
+                                return false;
+                            }
+                            formValues[t].totalamount = parseInt(formValues[t].jobHours * formValues[t].rateperhour);
+                            to += parseInt(formValues[t].totalamount);
 
 
-            } else {
+                        } else {
 
-                if (formValues[t].fixed_price == '') {
-                    alert.error("One of the job price is missing");
-                    return false;
-                }
-                formValues[t].totalamount = parseInt(formValues[t].fixed_price);
-                to += parseInt(formValues[t].fixed_price);
+                            if (formValues[t].fixed_price == '') {
+                                alert.error("One of the job price is missing");
+                                return false;
+                            }
+                            formValues[t].totalamount = parseInt(formValues[t].fixed_price);
+                            to += parseInt(formValues[t].fixed_price);
+                        }
+
+            if (formValues[t].frequency == '' || formValues[t].frequency == 0) {
+                alert.error("One of the frequency is not selected");
+                return false;
+            }
+            if (formValues[t].days.length > 0 && ( formValues[t].days.length >  formValues[t].cycle ) && formValues[t].cycle != '0') {
+                alert.error("One of the frequency days are invalid");
+                return false;
             }
 
             if (!formValues[t].worker ||  formValues[t].worker  == '' ||  formValues[t].worker == 0) {
@@ -237,9 +239,9 @@ export default function AddClient() {
         if (e.target.name == 'worker') {
             newFormValues[i]['woker_name'] = e.target.options[e.target.selectedIndex].getAttribute('name');
         }
-        if(e.target.name== 'shift'){
-          
-            var result = '';
+        if(e.target.name == 'days'){
+
+            var result = [];
             var options = e.target.options;
             var opt;
           
@@ -247,11 +249,32 @@ export default function AddClient() {
               opt = options[k];
           
               if (opt.selected) {
-                result += opt.value+', ';
+                result.push(opt.value);
               }
             }
-           
-            newFormValues[i]['shift'] = (result);
+            if(result.length > newFormValues[i]['cycle'] && newFormValues[i]['cycle'] != 0){
+               window.alert('You can select at most '+newFormValues[i]['cycle']+' day(s) for this frequency');
+            } else {
+                newFormValues[i]['days'] = result;
+            }
+
+        }
+        if(e.target.name== 'shift'){
+          
+            var result = '';
+            var sAr = [];
+            var options = e.target.options;
+            var opt;
+          
+            for (var k=0, iLen=options.length; k<iLen; k++) {
+              opt = options[k];
+              if (opt.selected) {
+                sAr.push(opt.value);
+                result += opt.value+', '
+              }
+            }
+            newFormValues[i]['shift_ar'] = sAr;
+            newFormValues[i]['shift'] = (result.replace(/,\s*$/, ""));
         }
       
         setFormValues(newFormValues);
@@ -794,10 +817,10 @@ export default function AddClient() {
                                                                 <tr>
                                                                     <th style={{ width: "15%" }}>Service</th>
                                                                     <th style={{ width: "15%" }}>Type</th>
-                                                                    <th style={{ width: "15%" }}>Frequency</th>
                                                                     <th style={{ width: "15%" }}>Job Hours</th>
                                                                     <th style={{ width: "15%" }}>Price</th>
                                                                     <th style={{ width: "15%", display: "none" }}>Rate Per Hour</th>
+                                                                    <th style={{ width: "15%" }}>Frequency</th>
                                                                     <th style={{ width: "30%" }}>Worker</th>
                                                                 </tr>
                                                             </thead>
@@ -827,17 +850,6 @@ export default function AddClient() {
                                                                             </td>
 
                                                                             <td>
-                                                                                <select name="frequency" className="form-control" value={element.frequency || ""} onChange={e => handleChange(index, e)} >
-                                                                                    <option selected value={0}> -- Please select --</option>
-                                                                                    {AllFreq && AllFreq.map((s, i) => {
-                                                                                        return (
-                                                                                            <option cycle={s.cycle} period={s.period} name={s.name} value={s.id}> {s.name} </option>
-                                                                                        )
-                                                                                    })}
-                                                                                </select>
-                                                                            </td>
-
-                                                                            <td>
                                                                                 <input type="number" name="jobHours" value={element.jobHours || ""} onChange={e => handleChange(index, e)} className="form-control jobhr" required placeholder="Enter job Hrs" />
                                                                             </td>
                                                                             <td style={(type == 'hourly') ? { "display": "none" } : {}}>
@@ -845,6 +857,28 @@ export default function AddClient() {
                                                                             </td>
                                                                             <td style={(type != 'hourly') ? { "display": "none" } : {}}>
                                                                                 <input type="text" name="rateperhour" value={element.rateperhour || ""} onChange={e => handleChange(index, e)} className="form-control jobrate" required placeholder="Enter rate P/Hr" />
+                                                                            </td>
+
+                                                                            <td>
+                                                                                <select name="frequency" className="form-control mb-2" value={element.frequency || ""} onChange={e => handleChange(index, e)} >
+                                                                                    <option selected value={0}> -- Please select --</option>
+                                                                                    {AllFreq && AllFreq.map((s, i) => {
+                                                                                        return (
+                                                                                            <option cycle={s.cycle} period={s.period} name={s.name} value={s.id}> {s.name} </option>
+                                                                                        )
+                                                                                    })}
+                                                                                </select>
+
+                                                                                <select name='days' className="form-control choosen-select" multiple data-placeholder="Choose Days" onChange={(e) => { handleChange(index, e); }}>
+                                                                                   
+                                                                                   <option value="sunday">Sunday</option>
+                                                                                   <option value="monday">Monday</option>
+                                                                                   <option value="tuesday">Tuesday</option>
+                                                                                   <option value="wednesday">Wednesday</option>
+                                                                                   <option value="thrusday">Thrusday</option>
+                                                                                   
+                                                                                </select>
+
                                                                             </td>
 
                                                                             <td>

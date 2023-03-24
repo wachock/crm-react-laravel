@@ -92,7 +92,7 @@ class ClientController extends Controller
         $input                  = $request->data;    
         $input['password']      = Hash::make($request->password);    
         $client                 = Client::create($input);
-
+        
         if(!empty($request->jobdata)){
 
           $offer = Offer::create([
@@ -112,12 +112,6 @@ class ClientController extends Controller
 
           /* Create job */
 
-          $repeat_value='';
-          $s_name='';
-          $s_heb_name='';
-          $s_hour='';
-          $s_total='';
-          $s_id=0;
           $allServices = json_decode($request->jobdata['services'],true);
           foreach($allServices as $service){
            
@@ -150,9 +144,13 @@ class ClientController extends Controller
             }
             $worker = $service['worker'];
             $shift =  $service['shift'];
+           
             for($i=0;$i<$count;$i++){
                  
-                 $date = Carbon::today();
+                (!empty($service['days'])) ?
+                $date = Carbon::today()->next($service['days'][0])
+                : $date = Carbon::today();
+
                  $j=0;
                  if($i==1){
                    $j=7;  
@@ -161,7 +159,7 @@ class ClientController extends Controller
                    $j=14;  
                  }
                  $job_date=$date->addDays($j)->toDateString();
-
+                 
                  $status='scheduled';
                  if(Job::where('start_date',$job_date)->where('worker_id',$worker)->exists()){
                      $status='unscheduled';
@@ -198,7 +196,7 @@ class ClientController extends Controller
  
             }
           /*End create job */
-        
+          
 
         return response()->json([
             'message'       => 'Client created successfully',            
