@@ -171,12 +171,12 @@ export default function WorkerMyAccount() {
                                     <label className='control-label d-block'>{t('worker.settings.gender')}</label>
                                     <div className="form-check-inline">
                                         <label className="form-check-label">
-                                            <input type="radio" className="form-check-input" value="male" onChange={(e) => setGender(e.target.value)} checked={gender === 'male'} />{t('worker.settings.male')}
+                                            <input type="radio" className="form-check-input" value="male" style={{height: "unset"}} onChange={(e) => setGender(e.target.value)} checked={gender === 'male'} />{t('worker.settings.male')}
                                         </label>
                                     </div>
                                     <div className="form-check-inline">
                                         <label className="form-check-label">
-                                            <input type="radio" className="form-check-input" value="female" onChange={(e) => setGender(e.target.value)} checked={gender === 'female'} />{t('worker.settings.female')}
+                                            <input type="radio" className="form-check-input" value="female" style={{height: "unset"}} onChange={(e) => setGender(e.target.value)} checked={gender === 'female'} />{t('worker.settings.female')}
                                         </label>
                                     </div>
                                 </div>
