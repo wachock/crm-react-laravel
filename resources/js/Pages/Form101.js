@@ -10,6 +10,29 @@ import { Checkbox } from 'rsuite';
 const data = {};
 export default function Form101() {
 
+  const [formValues, setFormValues] = useState([{name : "", idnum: "", childDob: "", custody: "", childBenefit: ""}])
+
+    let handleChange = (i, e) => {
+        let newFormValues = [...formValues];
+        newFormValues[i][e.target.name] = e.target.value;
+        setFormValues(newFormValues);
+      }
+    
+    let addFormFields = () => {
+        setFormValues([...formValues, { name : "", idnum: "", childDob: "", custody: "", childBenefit: ""}])
+      }
+    
+    let removeFormFields = (i) => {
+        let newFormValues = [...formValues];
+        newFormValues.splice(i, 1);
+        setFormValues(newFormValues)
+    }
+    
+    let handleSave = (event) => {
+        event.preventDefault();
+        alert(JSON.stringify(formValues));
+    }
+
   const [selected, setSelected] = useState("");
   const param = useParams();
   const id = Base64.decode(param.id);
@@ -362,8 +385,37 @@ export default function Form101() {
                   </div>
                   <div className='col-sm-4 col-xs-6'>
                     <div className='form-group'>
-                      <label className="control-label">Address</label>
+                      <label className='control-label'>Settlement*</label>
+                          <select className='form-control pid'>
+                            <option value='Jerusalem'>Jerusalem</option>
+                            <option value='Tel Aviv Jaffa'>Tel Aviv Jaffa</option>
+                            <option value='Haifa'>Haifa</option>
+                            <option value='Petah Tikva'>Petah Tikva</option>
+                            <option value='Beer Sheva'>Beer Sheva</option>
+                            <option value='Shefram'>Shefram</option>
+                            <option value='Rishon Lezion'>Rishon Lezion</option>
+                            <option value='Netanya'>Netanya</option>
+                            <option value='Ashkelon'>Ashkelon</option>
+                            <option value='Ramat Gan'>Ramat Gan</option>
+                          </select>
+                    </div>
+                  </div>
+                  <div className='col-sm-4 col-xs-6'>
+                    <div className='form-group'>
+                      <label className="control-label">House number*</label>
+                      <input type='text' name="houseNumber" className="form-control bid" placeholder="House number" />
+                    </div>
+                  </div>
+                  <div className='col-sm-4 col-xs-6'>
+                    <div className='form-group'>
+                      <label className="control-label">Street*</label>
                       <input type='text' onChange={(e) => handleSubmit(e)} name="bid-address" className="form-control bid" placeholder="Address" />
+                    </div>
+                  </div>
+                  <div className='col-sm-4 col-xs-6'>
+                    <div className='form-group'>
+                      <label className="control-label">Postal Code</label>
+                      <input type='text' name="houseNumber" className="form-control bid" placeholder="House number" />
                     </div>
                   </div>
                   <div className='col-sm-4 col-xs-6'>
@@ -963,7 +1015,57 @@ export default function Form101() {
           </div>
         </div>
         <div className='box-heading'>
-          <h2>C. Details of my income from this employer</h2>
+          <h2>C. Details of my children who have not yet turned 19 in the tax year</h2>
+          <form  onSubmit={handleSave}>
+          {formValues.map((element, index) => (
+            <div className="slotForm" key={index}>
+                <div className='row'>
+                    <div className='col-sm-4'>
+                        <div className='form-group'>
+                            <label className='control-label'>Name*</label>
+                            <input type='text' className='form-control' name='name' placeholder='Name' value={element.name || ""} onChange={e => handleChange(index, e)} />
+                        </div>
+                    </div>
+                    <div className='col-sm-4'>
+                        <div className='form-group'>
+                            <label className='control-label'>ID Number*</label>
+                            <input type="text" name="idnum" className='form-control' placeholder='ID Number' value={element.idnum || ""} onChange={e => handleChange(index, e)} />
+                        </div>
+                    </div>
+                    <div className='col-sm-4'>
+                        <div className='form-group'>
+                            <label className='control-label'>Date of Birth*</label>
+                            <input type="date" name="childDob" className='form-control' placeholder='Date of Birth' value={element.childDob || ""} onChange={e => handleChange(index, e)} />
+                        </div>
+                    </div>
+                    <div className='col-sm-4'>
+                        <div className='form-group'>
+                            <input type="checkbox" name="custody" value={element.custody || ""} onChange={e => handleChange(index, e)} /> The child is in my custody
+                        </div>
+                    </div>
+                    <div className='col-sm-4'>
+                        <div className='form-group'>
+                            <input type="checkbox" name="childBenefit" value={element.childBenefit || ""} onChange={e => handleChange(index, e)} /> I receive child benefit for him from the National Insurance
+                        </div>
+                    </div>
+                    <div className='col-sm-2'>
+                        <div className='form-group'>
+                            <label className='control-label'>&nbsp;</label>
+                            {
+                              index ? 
+                              <button type="button"  className="btn btn-danger remove saveBtn mt-4" onClick={() => removeFormFields(index)}>Remove</button> 
+                              : null
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+          ))}
+        </form>
+        <button className="btn btn-success button add slotBtn mb-3" type="button" onClick={() => addFormFields()}>+ Add more child</button>
+        </div>
+        <div className='box-heading'>
+          <h2>D. Details of my income from this employer</h2>
           <div className='form-group'>
             <label className='control-label'>I accept*</label>
             {
@@ -1020,6 +1122,23 @@ export default function Form101() {
           </div>
         </div>
         <div className='box-heading'>
+          <h2>D. Details of other income</h2>
+          <div className='form-group'>
+            <label className='control-label'>Do you have other income*?</label>
+            <div className='row'>
+              <div className='col-sm-6'>
+                <div className='form-group'>
+                  <input type='radio' className='form-control'/> I have no other income from salary (monthly salary, in favor of an additional position, partial salary, wages), allowance and stipend
+                </div>
+                <div className='form-group'>
+                  <input type='radio' className='form-control'/> I have no other income from salary (monthly salary, in favor of an additional position, partial salary, wages), allowance and stipend
+                </div>
+              </div>
+              <div className='col-sm-6'></div>
+            </div>
+          </div>
+        </div>
+        <div className='box-heading'>
           <h2>D. Disclaimer</h2>
           <p>I declare that the details I provided in this form are complete and correct. I know that omitting or providing incorrect information is a violation of the Income Tax Ordinance.</p>
           <p>I undertake to inform the employer of any change that will apply to my personal details and the details above within a week from the date of the change.</p>
@@ -1040,10 +1159,6 @@ export default function Form101() {
                   </div>
                 </>
             }
-            <div className='mt-4 text-center'>
-                    <button className='btn btn-success' onClick={finalSubmit}>Submit</button>
-                  </div>
-
           </p>
         </div>
 

@@ -1,6 +1,7 @@
 
 body:dir(rtl) {
     font-family: 'Noto Sans Hebrew', sans-serif !important;
+    direction: rtl;
 }
 .adminDash .dashBox p:dir(rtl){
     text-align: right;
@@ -10,7 +11,7 @@ body:dir(rtl) {
     text-align: right;
     direction: rtl;
 }
-.ifRTL{
+.ifRTL, .agg-text{
     text-align: right;
     direction: rtl;
 } 

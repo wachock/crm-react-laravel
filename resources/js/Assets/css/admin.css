@@ -1116,6 +1116,7 @@ h1 {
   font-size: 18px;
   line-height: 24px;
   font-weight: 600;
+  min-width: 120px;
 }
 .client-contract .info-list .info-text p{
   font-size: 14px;
