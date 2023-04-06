@@ -1687,4 +1687,15 @@ h1 {
 .job-listing-page .search-data input{
   margin-top: 18px;
 }
+.stooltip{
+  background: brown;
+  color: #fff;
+  padding: 1px 7px;
+  font-size: 13px;
+  border-radius: 100px;
+}
+.borderBox{
+  background: cornsilk;
+  padding: 15px;
+}
 /*******End*************/

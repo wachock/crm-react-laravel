@@ -10,28 +10,46 @@ import { Checkbox } from 'rsuite';
 const data = {};
 export default function Form101() {
 
-  const [formValues, setFormValues] = useState([{name : "", idnum: "", childDob: "", custody: "", childBenefit: ""}])
+  const [formValues, setFormValues] = useState([{name : "", idnum: "", childDob: "", custody: "", childBenefit: ""}]);
+  const [salValues, setSalValues] = useState([{name : "", address: "", file: "", typeIncome: "", mIncome: "", taxDeducted: ""}]);
 
     let handleChange = (i, e) => {
-        let newFormValues = [...formValues];
-        newFormValues[i][e.target.name] = e.target.value;
-        setFormValues(newFormValues);
-      }
+      let newFormValues = [...formValues];
+      newFormValues[i][e.target.name] = e.target.value;
+      setFormValues(newFormValues);
+    }
+    let handleChange2 = (i, e) => {
+      let newSalValues = [...salValues];
+      newSalValues[i][e.target.name] = e.target.value;
+      setSalValues(newSalValues);
+    }
     
     let addFormFields = () => {
-        setFormValues([...formValues, { name : "", idnum: "", childDob: "", custody: "", childBenefit: ""}])
-      }
+      setFormValues([...formValues, { name : "", idnum: "", childDob: "", custody: "", childBenefit: ""}])
+    }
+    let addFormFields2 = () => {
+      setSalValues([...salValues, { name : "", address: "", file: "", typeIncome: "", mIncome: "", taxDeducted: ""}])
+    }
     
     let removeFormFields = (i) => {
         let newFormValues = [...formValues];
         newFormValues.splice(i, 1);
         setFormValues(newFormValues)
     }
+    let removeFormFields2 = (i) => {
+      let newSalValues = [...salValues];
+      newSalValues.splice(i, 1);
+      setFormValues(newSalValues)
+  }
     
     let handleSave = (event) => {
         event.preventDefault();
         alert(JSON.stringify(formValues));
     }
+    let handleSave2 = (event) => {
+      event.preventDefault();
+      alert(JSON.stringify(salValues));
+  }
 
   const [selected, setSelected] = useState("");
   const param = useParams();
@@ -49,7 +67,7 @@ export default function Form101() {
     sigRef.current.clear();
     setSignature(null);
   }
-
+  
   const handleSubmit = (e) => {
 
     let country = document.querySelector('select[name="p-country"]');
@@ -208,6 +226,8 @@ export default function Form101() {
 
   useEffect(() => {
     getForm();
+    document.querySelector('#moreIncome1').checked = true;
+    document.querySelector('#cordination1').checked = true;
   }, []);
 
   const handleFile = (data) => {
@@ -224,6 +244,11 @@ export default function Form101() {
       setFile2(reader.result);
     }
   }
+  const [exIncome, setExIncome] = useState(false);
+  const [cordination, setCordination] = useState(false);
+  const [cord1, setCord1] = useState(false);
+  const [cord2, setCord2] = useState(false);
+  const [cord3, setCord3] = useState(false);
 
   return (
     <div className='container'>
@@ -1118,28 +1143,289 @@ export default function Form101() {
                   </div>
                 </>
             }
-
           </div>
         </div>
         <div className='box-heading'>
-          <h2>D. Details of other income</h2>
+          <h2>E. Details of other income</h2>
           <div className='form-group'>
             <label className='control-label'>Do you have other income*?</label>
             <div className='row'>
               <div className='col-sm-6'>
                 <div className='form-group'>
-                  <input type='radio' className='form-control'/> I have no other income from salary (monthly salary, in favor of an additional position, partial salary, wages), allowance and stipend
-                </div>
-                <div className='form-group'>
-                  <input type='radio' className='form-control'/> I have no other income from salary (monthly salary, in favor of an additional position, partial salary, wages), allowance and stipend
+                  <input type='radio' name='moreIncome' id='moreIncome1' onClick={() => setExIncome(false)} /> I have no other income from salary (monthly salary, in favor of an additional position, partial salary, wages), allowance and stipend
                 </div>
               </div>
-              <div className='col-sm-6'></div>
+              <div className='col-sm-6'>
+                <div className='form-group'>
+                  <input type='radio' name='moreIncome' id='moreIncome2' onClick={() => setExIncome(true)} /> I have additional income as detailed below
+                </div>
+              </div>
+            </div>
+            { exIncome &&
+            <>
+              <div className='form-group'>
+                <label class="control-label">Income Breakdown*</label>
+                <div className='row'>
+                  <div className='col-sm-4'>
+                    <div class="form-group">
+                      <input type="checkbox" name="breakIncome" value="A month's salary"/> A month's salary
+                    </div>
+                  </div>
+                  <div className='col-sm-4'>
+                    <div class="form-group">
+                      <input type="checkbox" name="breakIncome" value="Salary for an additional position"/> Salary for an additional position
+                    </div>
+                  </div>
+                  <div className='col-sm-4'>
+                    <div class="form-group">
+                      <input type="checkbox" name="breakIncome" value="Partial salary"/> Partial salary
+                    </div>
+                  </div>
+                  <div className='col-sm-4'>
+                    <div class="form-group">
+                      <input type="checkbox" name="breakIncome" value="Scholarship"/> Scholarship
+                    </div>
+                  </div>
+                  <div className='col-sm-4'>
+                    <div class="form-group">
+                      <input type="checkbox" name="breakIncome" value="Allowance"/> Allowance
+                    </div>
+                  </div>
+                  <div className='col-sm-4'>
+                    <div class="form-group">
+                      <input type="checkbox" name="breakIncome" value="Wages (Daily worker)"/> Wages (Daily worker)
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <label class='control-label'>Credits*</label>
+              <div className='row'>
+                <div className='col-sm-6'>
+                  <div className='form-group'>
+                   <input type='radio' name='creditPoints' /> I would like to receive credit points and tax rates against this income (section d). I do not receive them in any other income
+                  </div> 
+                </div>
+                <div className='col-sm-6'>
+                  <div className='form-group'>
+                   <input type='radio' name='creditPoints' /> I receive credit points and tax brackets on other income and therefore I am not entitled to them against this income
+                  </div> 
+                </div>
+              </div>
+              <label class='control-label'>Excretions</label>
+              <div className='row'>
+                <div className='col-sm-6'>
+                  <div className='form-group'>
+                   <input type='checkbox' name='creditPoints1' /> There are no provisions made for me to a further education fund in respect of my other income, or all employer contributions to a further education fund in respect of my other income are attached to my other income.
+                  </div> 
+                </div>
+                <div className='col-sm-6'>
+                  <div className='form-group'>
+                   <input type='checkbox' name='creditPoints2' /> There are no provisions for pension/disability insurance/compensations for my other income, or all employer contributions for pension/disability insurance/compensations for my other income are included in my other income
+                  </div> 
+                </div>
+              </div>
+              </>
+            }
+          </div>
+        </div>
+        <div className='box-heading'>
+          <h2>G. Changes during the year</h2>
+          <p>This part, which appears on the printed form 101, is not relevant because it is a computerized form</p>
+          <p>For any change that will apply to the details you filled in the form, the employer must be notified within one week of the date of the change, by filling out a new form in this system or by any means the employer allows</p>
+        </div>
+        <div className='box-heading'>
+          <h2>H. I am requesting an exemption or tax credit for the following reasons</h2>
+          <div className='row'>
+            <div className='col-sm-12'>
+              <div className='form-group'>
+                <input type='checkbox' /> 1. I am a resident of Israel
+              </div>
+            </div>
+            <div className='col-sm-12'>
+              <div className='form-group'>
+                <input type='checkbox' /> 2. I am 100% disabled / permanently blind
+              </div>
+            </div>
+            <div className='col-sm-12'>
+              <div className='form-group'>
+                <input type='checkbox' /> 3. I am a permanent resident of a qualifying settlement. Me and my first degree family members, live in the settlement and I don't have another "life center"
+              </div>
+            </div>
+            <div className='col-sm-12'>
+              <div className='form-group'>
+                <input type='checkbox' /> 4. I am a new immigrant
+              </div>
+            </div>
+            <div className='col-sm-12'>
+              <div className='form-group'>
+                <input type='checkbox' /> 5. For my spouse who lives with me and has no income in the tax year (Only if the employee or spouse has reached retirement age or he/she is disabled or blind according to section 9(5) of the ordinance)
+              </div>
+            </div>
+            <div className='col-sm-12'>
+              <div className='form-group'>
+                <input type='checkbox' /> 6. I am a parent in a single-parent family living separately from the National Insurance Institute (in accordance with section 7 below) and does not run a joint household with another individual
+              </div>
+            </div>
+            <div className='col-sm-12'>
+              <div className='form-group'>
+                <input type='checkbox' /> 7.  In respect of my children listed in part C (To be filled out only by a parent in a single-parent family who receives the children's allowance for them, or by a married woman or by a single parent)
+              </div>
+            </div>
+            <div className='col-sm-12'>
+              <div className='form-group'>
+                <input type='checkbox' /> 8. For my children (To be filled in by a parent (with the exception of a parent mentioned in paragraph 7 above), an unmarried woman whose children are not in her custody, as well as a single parent)
+              </div>
+            </div>
+            <div className='col-sm-12'>
+              <div className='form-group'>
+                <input type='checkbox' /> 9. I am a single parent to my children in my custody (listed in section 7 and 8 above)
+              </div>
+            </div>
+            <div className='col-sm-12'>
+              <div className='form-group'>
+                <input type='checkbox' /> 10. Regarding my children who are not in my possession listed in part C and I participate in their finances (To be filled out by a parent who lives separately, who is not entitled to credit points for his children, who created a PSA requiring him to pay child support)
+              </div>
+            </div>
+            <div className='col-sm-12'>
+              <div className='form-group'>
+                <input type='checkbox' /> 11. I am a parent of children with disabilities who have not yet turned 19, for whom I receive a disabled child benefit from the National Insurance Institute (My partner does not receive these credit points. My children, for whom I am requesting the credit points, have no income this year)
+              </div>
+            </div>
+            <div className='col-sm-12'>
+              <div className='form-group'>
+                <input type='checkbox' /> 12. In respect of alimony for my former spouse (To be filled in by the person who remarries)
+              </div>
+            </div>
+            <div className='col-sm-12'>
+              <div className='form-group'>
+                <input type='checkbox' /> 13. I or my partner have turned 16 and have not yet turned 18 in the tax year
+              </div>
+            </div>
+            <div className='col-sm-12'>
+              <div className='form-group'>
+                <input type='checkbox' /> 14. I am a discharged soldier / served in national service
+              </div>
+            </div>
+            <div className='col-sm-12'>
+              <div className='form-group'>
+                <input type='checkbox' /> 15. In respect of graduation for an academic degree, graduation from an internship or graduation from professional studies
+              </div>
             </div>
           </div>
         </div>
         <div className='box-heading'>
-          <h2>D. Disclaimer</h2>
+          <h2>F. Coordination number</h2>
+          <div className='row'>
+            <div className='col-sm-6'>
+              <div className='form-group'>
+                <input name='cordination' type='radio' id='cordination1' onClick={() => setCordination(false)} /> No, I don't have cordination number
+              </div>
+            </div>
+            <div className='col-sm-6'>
+              <div className='form-group'>
+                <input name='cordination' type='radio' id='cordination2' onClick={() => setCordination(true)} /> Yes, I have coordination number
+              </div>
+            </div>
+          </div>
+          { cordination &&
+          <>
+          <label className='control-label'>The reason for the request*</label>
+          <div>
+            <input name='cordRequest' type='radio' id='cordn1' onClick={() => setCord1(true)} /> I had no income from the beginning of the current tax year until I started working for this employer.
+          </div>
+          <div>
+            <input name='cordRequest' type='radio' id='cordn2' onClick={() => setCord2(true)} /> I have additional income from salary as detailed below.
+          </div>
+          <div>
+            <input name='cordRequest' type='radio' id='cordn3' onClick={() => setCord3(true)} /> The assessor approved coordination according to the attached certificate.
+          </div>
+          {cord1 &&
+          <div className='borderBox mt-3'>
+            <label className='control-label d-block'>Proof of lack of income</label>
+            <input type='file' />
+            <p className='mt-2'>Such as: border police approval for staying abroad, illness approval, etc. In the absence of proof, contact the assessor. Please note: maternity benefits and unemployment benefits are taxable income.</p>
+          </div>
+          }
+          {cord2 &&
+          <div className='borderBox mt-3'>
+            <label className='control-label'>Details of additional income (ie, in addition to income from this employer)</label>
+            <form  onSubmit={handleSave2}>
+              {salValues.map((element, index) => (
+                <div className="slotForm" key={index}>
+                    <div className='row'>
+                        <div className='col-sm-4'>
+                            <div className='form-group'>
+                                <label className='control-label'>Name*</label>
+                                <input type='text' className='form-control' name='name' placeholder='Name' value={element.name || ""} onChange={e => handleChange(index, e)} />
+                            </div>
+                        </div>
+                        <div className='col-sm-4'>
+                            <div className='form-group'>
+                                <label className='control-label'>Address*</label>
+                                <input type="text" name="address" className='form-control' placeholder='Address' value={element.address || ""} onChange={e => handleChange(index, e)} />
+                            </div>
+                        </div>
+                        <div className='col-sm-4'>
+                            <div className='form-group'>
+                                <label className='control-label'>Deduction file ID*</label>
+                                <input type="text" name="dfid" className='form-control' placeholder='Deduction file ID' value={element.file || ""} onChange={e => handleChange(index, e)} />
+                            </div>
+                        </div>
+                        <div className='col-sm-4'>
+                            <div className='form-group'>
+                                <label className='control-label'>Monthly Income (According to the slips)*</label>
+                                <input type="text" name="monthIncome" className='form-control' placeholder='Monthly Income' value={element.mIncome || ""} onChange={e => handleChange(index, e)} />
+                            </div>
+                        </div>
+                        <div className='col-sm-4'>
+                            <div className='form-group'>
+                                <label className='control-label'>The tax deducted (According to the slips)*</label>
+                                <input type="text" name="taxDeducted" className='form-control' placeholder='The tax deducted' value={element.taxDeducted || ""} onChange={e => handleChange(index, e)} />
+                            </div>
+                        </div>
+                        <div className='col-sm-4'>
+                            <div className='form-group'>
+                                <label className='control-label'>Type of income*</label>
+                                <div className='form-group'><input type="radio" name="typeOfIncome" value={element.typeIncome || ""} onChange={e => handleChange(index, e)} /> Working</div>
+                                <div className='form-group'><input type="radio" name="typeOfIncome" value={element.typeIncome || ""} onChange={e => handleChange(index, e)} /> Allowance</div>
+                                <div className='form-group'><input type="radio" name="typeOfIncome" value={element.typeIncome || ""} onChange={e => handleChange(index, e)} /> Scholarship</div>
+                                <div className='form-group'><input type="radio" name="typeOfIncome" value={element.typeIncome || ""} onChange={e => handleChange(index, e)} /> Other</div>  
+                            </div>
+                        </div>
+                        <div className='col-sm-4'>
+                            <div className='form-group'>
+                              <label className='control-label d-block'>Copy of pay slip</label>
+                                <input type="file" />
+                            </div>
+                        </div>
+                        <div className='col-sm-2'>
+                            <div className='form-group'>
+                                <label className='control-label'>&nbsp;</label>
+                                {
+                                  index ? 
+                                  <button type="button"  className="btn btn-danger remove saveBtn mt-4" onClick={() => removeFormFields2(index)}>Remove</button> 
+                                  : null
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              ))}
+            </form>
+            <button className="btn btn-success button add slotBtn mb-3" type="button" onClick={() => addFormFields2()}>+ Add Employer/Player</button>
+          </div>
+          }
+          {cord3 &&
+          <div className="borderBox mt-3">
+            <label className='control-label d-block'>Tax coordination approval by an assessor</label>
+            <input type='file'/>
+          </div>
+          }
+          </>
+          }
+        </div>
+        <div className='box-heading'>
+          <h2>G. Disclaimer</h2>
           <p>I declare that the details I provided in this form are complete and correct. I know that omitting or providing incorrect information is a violation of the Income Tax Ordinance.</p>
           <p>I undertake to inform the employer of any change that will apply to my personal details and the details above within a week from the date of the change.</p>
           <p>
