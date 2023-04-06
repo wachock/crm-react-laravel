@@ -61,7 +61,10 @@ export default function WorkerContract() {
                setSignature2(w.worker_contract);
                i18next.changeLanguage(w.lng);
                if(w.lng == 'heb'){
+                import('../Assets/css/rtl.css');
                 document.querySelector('html').setAttribute('dir','rtl');
+               } else{
+                document.querySelector('html').removeAttribute('dir');
                }
             }
         })
