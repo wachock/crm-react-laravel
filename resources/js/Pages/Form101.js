@@ -10,45 +10,56 @@ import { Checkbox } from 'rsuite';
 const data = {};
 export default function Form101() {
 
-  const [formValues, setFormValues] = useState([{name : "", idnum: "", childDob: "", custody: "", childBenefit: ""}]);
-  const [salValues, setSalValues] = useState([{name : "", address: "", file: "", typeIncome: "", mIncome: "", taxDeducted: ""}]);
+  const [formValues, setFormValues] = useState([{ name: "", idnum: "", childDob: "", custody: "", childBenefit: "" }]);
+  const [salValues, setSalValues] = useState([{ name: "", address: "", dfid: "", typeIncome: "", mIncome: "", taxDeducted: "", copy_of_pay: "" }]);
 
-    let handleChange = (i, e) => {
-      let newFormValues = [...formValues];
-      newFormValues[i][e.target.name] = e.target.value;
-      setFormValues(newFormValues);
+  let handleChildChange = (i, e) => {
+    let newFormValues = [...formValues];
+    if ((e.target.name == 'custody' || e.target.name == 'childBenefit')) {
+      (e.target.checked == true) ? e.target.value = 1 : e.target.value = '';
     }
-    let handleChange2 = (i, e) => {
-      let newSalValues = [...salValues];
-      newSalValues[i][e.target.name] = e.target.value;
-      setSalValues(newSalValues);
-    }
-    
-    let addFormFields = () => {
-      setFormValues([...formValues, { name : "", idnum: "", childDob: "", custody: "", childBenefit: ""}])
-    }
-    let addFormFields2 = () => {
-      setSalValues([...salValues, { name : "", address: "", file: "", typeIncome: "", mIncome: "", taxDeducted: ""}])
-    }
-    
-    let removeFormFields = (i) => {
-        let newFormValues = [...formValues];
-        newFormValues.splice(i, 1);
-        setFormValues(newFormValues)
-    }
-    let removeFormFields2 = (i) => {
-      let newSalValues = [...salValues];
-      newSalValues.splice(i, 1);
-      setFormValues(newSalValues)
+    newFormValues[i][e.target.name] = e.target.value;
+    setFormValues(newFormValues);
   }
-    
-    let handleSave = (event) => {
-        event.preventDefault();
-        alert(JSON.stringify(formValues));
+  let handleSalChange = (i, e) => {
+    let newSalValues = [...salValues];
+    if (e.target.name == "copy_of_pay") {
+      const reader = new FileReader()
+      reader.readAsDataURL(e.target.files[0])
+      reader.onload = () => {
+        newSalValues[i]['copy_of_pay'] = reader.result;
+      }
+    } else {
+      newSalValues[i][e.target.name] = e.target.value;
     }
-    let handleSave2 = (event) => {
-      event.preventDefault();
-      alert(JSON.stringify(salValues));
+    setSalValues(newSalValues);
+  }
+
+  let addFormFields = () => {
+    setFormValues([...formValues, { name: "", idnum: "", childDob: "", custody: "", childBenefit: "" }])
+  }
+  let addFormFields2 = () => {
+    setSalValues([...salValues, { name: "", address: "", dfid: "", typeIncome: "", mIncome: "", taxDeducted: "", copy_of_pay: "" }])
+  }
+
+  let removeFormFields = (i) => {
+    let newFormValues = [...formValues];
+    newFormValues.splice(i, 1);
+    setFormValues(newFormValues)
+  }
+  let removeFormFields2 = (i) => {
+    let newSalValues = [...salValues];
+    newSalValues.splice(i, 1);
+    setSalValues(newSalValues)
+  }
+
+  let handleSave = (event) => {
+    event.preventDefault();
+    alert(JSON.stringify(formValues));
+  }
+  let handleSave2 = (event) => {
+    event.preventDefault();
+    alert(JSON.stringify(salValues));
   }
 
   const [selected, setSelected] = useState("");
@@ -60,6 +71,14 @@ export default function Form101() {
   const [form, setForm] = useState([]);
   const sigRef = useRef();
   const [signature, setSignature] = useState(null);
+
+  const [exIncome, setExIncome] = useState(false);
+  const [cordination, setCordination] = useState(false);
+  const [cord, setCord] = useState(null);
+
+  const [cord0File, setFileCord0] = useState(null);
+  const [cord2File, setFileCord2] = useState(null);
+
   const handleSignatureEnd = () => {
     setSignature(sigRef.current.toDataURL());
   }
@@ -67,12 +86,26 @@ export default function Form101() {
     sigRef.current.clear();
     setSignature(null);
   }
-  
+
   const handleSubmit = (e) => {
 
     let country = document.querySelector('select[name="p-country"]');
     let pset = document.querySelector('select[name="p-settlement"]');
-    if (e.target.name == 'income') {
+
+    if (e.target.name == 'breakIncome') {
+
+      const ikr = {};
+      let bincm = document.querySelectorAll('input[name="breakIncome"]:checked');
+      bincm.forEach((e, i) => {
+        (i == 0) ?
+          ikr['breakIncome'] = e.value + " | "
+          : ikr['breakIncome'] += e.value + " | "
+
+      })
+      data['breakIncome'] = ikr;
+
+    }
+    else if (e.target.name == 'income') {
       const ik = {};
       let incm = document.querySelectorAll('input[name="income"]:checked');
       incm.forEach((e, i) => {
@@ -83,27 +116,66 @@ export default function Form101() {
       })
       data['income'] = ik;
 
-    } else {
-      data[e.target.name] = e.target.value;
-      if (country != null)
-        data['country'] = country.options[country.selectedIndex].value;
-      if (pset != null)
-        data['p-settlement'] = pset.options[pset.selectedIndex].value;
-      data['bid-sex'] = document.querySelector('input[name="bid-sex"]:checked').value;
-      data['p-sex'] = document.querySelector('input[name="p-sex"]:checked').value;
+    }
+    else if (e.target.name == 'excertion') {
 
+      const exr = {};
+      let exa = document.querySelectorAll('input[name="excertion"]:checked');
+      exa.forEach((e, i) => {
+        (i == 0) ?
+          exr['excertion'] = e.value + " | "
+          : exr['excertion'] += e.value + " | "
+
+      })
+      data['excertion'] = exr;
+
+    }
+    else if (e.target.name == 'taxCredit') {
+      const txc = {};
+      let tx = document.querySelectorAll('input[name="taxCredit"]:checked');
+      tx.forEach((e, i) => {
+        (i == 0) ?
+          txc['taxCredit'] = e.value + " | "
+          : txc['taxCredit'] += e.value + " | "
+
+      })
+      data['taxCredit'] = txc;
+    }
+
+    else {
+
+      data[e.target.name] = e.target.value;
+    }
+    if (country != null)
+      data['country'] = country.options[country.selectedIndex].value;
+    if (pset != null)
+      data['p-settlement'] = pset.options[pset.selectedIndex].value;
+
+    data['bid-sex'] = document.querySelector('input[name="bid-sex"]:checked').value;
+    data['p-sex'] = document.querySelector('input[name="p-sex"]:checked').value;
+    data['moreIncome'] = exIncome;
+    if (exIncome == true) {
+      let cp = document.querySelector('input[name="creditPoints"]:checked').value;
+      data['creditPoints'] = cp;
     }
 
   }
   const finalSubmit = () => {
 
+    data['cordination'] = cordination;
+    data['cord'] = cord;
+
     const Data = {
       ...data,
+      "child_form": formValues,
+      "salary_form": salValues,
       "photocopy_id_appendix": (file != undefined) ? file : '',
       "p-file": (file2 != undefined) ? file2 : '',
-      "signature": signature
+      "signature": signature,
+      "cord0_file": cord0File,
+      "cord2_file": cord2File
     }
-
+    
     let success = true;
 
     if (!Data.name) { alert.error('Please enter name'); success = false; return false; }
@@ -174,7 +246,7 @@ export default function Form101() {
     if (!Data.income) { alert.error('Please choose income details'); success = false; return false; }
     if (!Data.taxDate) { alert.error('Please enter date of commencement '); success = false; return false; }
     if (!Data.signature || Data.signature == null) { alert.error('Please sign form'); success = false; return false; }
-    
+
     if (success == true) {
       axios
         .post(`/api/form101`, { id: id, data: Data })
@@ -196,20 +268,32 @@ export default function Form101() {
       .get(`/api/get101/${id}`)
       .then((res) => {
         if (res.data.form.length > 0) {
-          let fm = JSON.parse(res.data.form[0].form_101).data;
+          if (res.data.form[0].form_101 != null) {
+            let fm = JSON.parse(res.data.form[0].form_101).data;
+            if (fm.child_form.length != 0 && fm.child != "") {
+              setFormValues(fm.child_form);
+            }
+            if (fm.salary_form.length != 0 && fm.salary_form != "") {
+              setSalValues(fm.salary_form);
+            }
+            setExIncome(fm.moreIncome);
+            setCordination(fm.cordination);
+            setCord(fm.cord);
 
-          setForm(fm);
-          for (let f in fm) {
-            if (f != '' && f != null && f != undefined) {
+            console.log(fm);
+            setForm(fm);
+            for (let f in fm) {
+              if (f != '' && f != null && f != undefined) {
 
-              let el = document.querySelector('input[name="' + f + '"]');
-              if (el != null && el.type != 'radio' && el.type != 'checkbox') {
-                el.value = fm[f];
-                el.setAttribute('readonly', true);
+                let el = document.querySelector('input[name="' + f + '"]');
+                if (el != null && el.type != 'radio' && el.type != 'checkbox') {
+                  el.value = fm[f];
+                  el.setAttribute('readonly', true);
+                }
+
               }
 
             }
-
           }
 
         } else {
@@ -226,8 +310,8 @@ export default function Form101() {
 
   useEffect(() => {
     getForm();
-    document.querySelector('#moreIncome1').checked = true;
-    document.querySelector('#cordination1').checked = true;
+    if (form.length == 0)
+      document.querySelector('#moreIncome1').checked = true;
   }, []);
 
   const handleFile = (data) => {
@@ -244,18 +328,33 @@ export default function Form101() {
       setFile2(reader.result);
     }
   }
-  const [exIncome, setExIncome] = useState(false);
-  const [cordination, setCordination] = useState(false);
-  const [cord1, setCord1] = useState(false);
-  const [cord2, setCord2] = useState(false);
-  const [cord3, setCord3] = useState(false);
+  const handleFileCord0 = (data) => {
+    const reader = new FileReader()
+    reader.readAsDataURL(data)
+    reader.onload = () => {
+      setFileCord0(reader.result);
+    }
+  }
+
+  const handleFileCord2 = (data) => {
+    const reader = new FileReader()
+    reader.readAsDataURL(data)
+    reader.onload = () => {
+      setFileCord2(reader.result);
+    }
+  }
+
+
 
   return (
     <div className='container'>
       <div className='form101 p-4'>
         {
           (form && form.signature != null) ?
+          <>
+            <a style={{color:'white'}} className='btn btn-pink float-right m-3' onClick={(e)=>{window.print()}}> Print Pdf </a>
             <span className='btn btn-success float-right m-3'>Signed</span>
+          </>
             : ''
         }
 
@@ -384,15 +483,15 @@ export default function Form101() {
                       <input type="file" name="photocopy_id_appendix" className='bid' onChange={(e) => { handleFile(e.target.files[0]) }} style={{ display: "block" }} />
                       <img src={(file)} className="img-fluid" style={{ maxWidth: "70px", marginTop: "10px" }} />
                       {
-                        form && form.signature != null &&  <button type="button" className="btn btn-pink m-2"
-                        onClick={(e)=>{
-                          let sf = document.querySelector('.showfile');
-                          sf.setAttribute('src',form['photocopy_id_appendix']);
-                          sf.style.width ='100%';
-                        }}
-                        data-toggle="modal" data-target="#exampleModal">
+                        form && form.signature != null && <button type="button" className="btn btn-pink m-2"
+                          onClick={(e) => {
+                            let sf = document.querySelector('.showfile');
+                            sf.setAttribute('src', form['photocopy_id_appendix']);
+                            sf.style.width = '100%';
+                          }}
+                          data-toggle="modal" data-target="#exampleModal">
                           view uploaded File
-                       </button>
+                        </button>
                       }
                     </div>
                   </div>
@@ -411,18 +510,18 @@ export default function Form101() {
                   <div className='col-sm-4 col-xs-6'>
                     <div className='form-group'>
                       <label className='control-label'>Settlement*</label>
-                          <select className='form-control pid'>
-                            <option value='Jerusalem'>Jerusalem</option>
-                            <option value='Tel Aviv Jaffa'>Tel Aviv Jaffa</option>
-                            <option value='Haifa'>Haifa</option>
-                            <option value='Petah Tikva'>Petah Tikva</option>
-                            <option value='Beer Sheva'>Beer Sheva</option>
-                            <option value='Shefram'>Shefram</option>
-                            <option value='Rishon Lezion'>Rishon Lezion</option>
-                            <option value='Netanya'>Netanya</option>
-                            <option value='Ashkelon'>Ashkelon</option>
-                            <option value='Ramat Gan'>Ramat Gan</option>
-                          </select>
+                      <select className='form-control pid'>
+                        <option value='Jerusalem'>Jerusalem</option>
+                        <option value='Tel Aviv Jaffa'>Tel Aviv Jaffa</option>
+                        <option value='Haifa'>Haifa</option>
+                        <option value='Petah Tikva'>Petah Tikva</option>
+                        <option value='Beer Sheva'>Beer Sheva</option>
+                        <option value='Shefram'>Shefram</option>
+                        <option value='Rishon Lezion'>Rishon Lezion</option>
+                        <option value='Netanya'>Netanya</option>
+                        <option value='Ashkelon'>Ashkelon</option>
+                        <option value='Ramat Gan'>Ramat Gan</option>
+                      </select>
                     </div>
                   </div>
                   <div className='col-sm-4 col-xs-6'>
@@ -465,7 +564,10 @@ export default function Form101() {
                     <div className='form-group'>
                       {
                         (form.length != 0 && form['bid-sex'] != null) ?
-                          <span className='text-success font-weight-bold'>{form['bid-sex']}</span>
+                          <>
+                            <label className="control-label d-block">Sex*</label>
+                            <span className='text-success font-weight-bold'>{form['bid-sex']}</span>
+                          </>
                           :
                           <>
                             <label className="control-label d-block">Sex*</label>
@@ -871,15 +973,15 @@ export default function Form101() {
                       <input type="file" onChange={e => { handleFile2(e.target.files[0]) }} name="p-file" style={{ display: "block" }} />
                       <img src={(file2)} className="img-fluid pid" style={{ maxWidth: "70px", marginTop: "10px" }} />
                       {
-                        form && form.signature != null &&  <button type="button" className="btn btn-pink m-2"
-                        onClick={(e)=>{
-                          let sf = document.querySelector('.showfile');
-                          sf.setAttribute('src',form['p-file']);
-                          sf.style.width ='100%';
-                        }}
-                        data-toggle="modal" data-target="#exampleModal">
+                        form && form.signature != null && <button type="button" className="btn btn-pink m-2"
+                          onClick={(e) => {
+                            let sf = document.querySelector('.showfile');
+                            sf.setAttribute('src', form['p-file']);
+                            sf.style.width = '100%';
+                          }}
+                          data-toggle="modal" data-target="#exampleModal">
                           view uploaded File
-                       </button>
+                        </button>
                       }
                     </div>
                   </div>
@@ -1041,53 +1143,66 @@ export default function Form101() {
         </div>
         <div className='box-heading'>
           <h2>C. Details of my children who have not yet turned 19 in the tax year</h2>
-          <form  onSubmit={handleSave}>
-          {formValues.map((element, index) => (
-            <div className="slotForm" key={index}>
+          <form onSubmit={handleSave}>
+            {formValues.map((element, index) => (
+              <div className="slotForm" key={index}>
                 <div className='row'>
-                    <div className='col-sm-4'>
-                        <div className='form-group'>
-                            <label className='control-label'>Name*</label>
-                            <input type='text' className='form-control' name='name' placeholder='Name' value={element.name || ""} onChange={e => handleChange(index, e)} />
-                        </div>
+                  <div className='col-sm-4'>
+                    <div className='form-group'>
+                      <label className='control-label'>Name*</label>
+                      <input type='text' className='form-control' readOnly={form && form.signature != null ? 'readonly' : ''} name='name' placeholder='Name' value={element.name || ""} onChange={(e) => { handleChildChange(index, e); }} />
                     </div>
-                    <div className='col-sm-4'>
-                        <div className='form-group'>
-                            <label className='control-label'>ID Number*</label>
-                            <input type="text" name="idnum" className='form-control' placeholder='ID Number' value={element.idnum || ""} onChange={e => handleChange(index, e)} />
-                        </div>
+                  </div>
+                  <div className='col-sm-4'>
+                    <div className='form-group'>
+                      <label className='control-label'>ID Number*</label>
+                      <input type="text" name="idnum" readOnly={form && form.signature != null ? 'readonly' : ''} className='form-control' placeholder='ID Number' value={element.idnum || ""} onChange={(e) => { handleChildChange(index, e); }} />
                     </div>
-                    <div className='col-sm-4'>
-                        <div className='form-group'>
-                            <label className='control-label'>Date of Birth*</label>
-                            <input type="date" name="childDob" className='form-control' placeholder='Date of Birth' value={element.childDob || ""} onChange={e => handleChange(index, e)} />
-                        </div>
+                  </div>
+                  <div className='col-sm-4'>
+                    <div className='form-group'>
+                      <label className='control-label'>Date of Birth*</label>
+                      <input type="date" name="childDob" readOnly={form && form.signature != null ? 'readonly' : ''} className='form-control' placeholder='Date of Birth' value={element.childDob || ""} onChange={(e) => { handleChildChange(index, e); }} />
                     </div>
-                    <div className='col-sm-4'>
-                        <div className='form-group'>
-                            <input type="checkbox" name="custody" value={element.custody || ""} onChange={e => handleChange(index, e)} /> The child is in my custody
-                        </div>
+                  </div>
+                  <div className='col-sm-4'>
+                    <div className='form-group'>
+                      {
+                        (element.custody == '1') ?
+                          <><input type="checkbox" checked name="custody" value={element.custody || ""} onChange={(e) => { handleChildChange(index, e); }} /> The child is in my custody</> :
+                          <><input type="checkbox" name="custody" value={element.custody || ""} onChange={(e) => { handleChildChange(index, e); }} /> The child is in my custody</>
+                      }
+
                     </div>
-                    <div className='col-sm-4'>
-                        <div className='form-group'>
-                            <input type="checkbox" name="childBenefit" value={element.childBenefit || ""} onChange={e => handleChange(index, e)} /> I receive child benefit for him from the National Insurance
-                        </div>
+                  </div>
+                  <div className='col-sm-4'>
+                    <div className='form-group'>
+                      {
+                        element.childBenefit == '1' ?
+                          <><input type="checkbox" checked name="childBenefit" value={element.childBenefit || ""} onChange={(e) => { handleChildChange(index, e);; }} /> I receive child benefit for him from the National Insurance</> :
+                          <><input type="checkbox" name="childBenefit" value={element.childBenefit || ""} onChange={(e) => { handleChildChange(index, e);; }} /> I receive child benefit for him from the National Insurance</>
+                      }
+
                     </div>
-                    <div className='col-sm-2'>
-                        <div className='form-group'>
-                            <label className='control-label'>&nbsp;</label>
-                            {
-                              index ? 
-                              <button type="button"  className="btn btn-danger remove saveBtn mt-4" onClick={() => removeFormFields(index)}>Remove</button> 
-                              : null
-                            }
-                        </div>
+                  </div>
+                  <div className='col-sm-2'>
+                    <div className='form-group'>
+                      <label className='control-label'>&nbsp;</label>
+                      {
+                        index && form.length == 0 ?
+                          <button type="button" className="btn btn-danger remove saveBtn mt-4" onClick={() => removeFormFields(index)}>Remove</button>
+                          : null
+                      }
                     </div>
+                  </div>
                 </div>
-            </div>
-          ))}
-        </form>
-        <button className="btn btn-success button add slotBtn mb-3" type="button" onClick={() => addFormFields()}>+ Add more child</button>
+              </div>
+            ))}
+          </form>
+          {
+            form.length == 0 &&
+            <button className="btn btn-success button add slotBtn mb-3" type="button" onClick={() => addFormFields()}>+ Add more child</button>
+          }
         </div>
         <div className='box-heading'>
           <h2>D. Details of my income from this employer</h2>
@@ -1134,15 +1249,18 @@ export default function Form101() {
                         <input type='checkbox' value='Wages (Daily worker)' onChange={(e) => handleSubmit(e)} name='income' /> Wages (Daily worker)
                       </div>
                     </div>
-                    <div className='col-sm-6'>
-                      <div className='form-group'>
-                        <label className='control-label'>Date of commencement of employment in the tax year*</label>
-                        <input type='date' className='form-control' onChange={(e) => handleSubmit(e)} name='taxDate' />
-                      </div>
-                    </div>
                   </div>
                 </>
             }
+            <div class="row mt-2">
+              <div className='col-sm-6'>
+                <div className='form-group'>
+                  <label className='control-label'>Date of commencement of employment in the tax year*</label>
+                  <input type='date' className='form-control' onChange={(e) => handleSubmit(e)} name='taxDate' />
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
         <div className='box-heading'>
@@ -1152,79 +1270,122 @@ export default function Form101() {
             <div className='row'>
               <div className='col-sm-6'>
                 <div className='form-group'>
-                  <input type='radio' name='moreIncome' id='moreIncome1' onClick={() => setExIncome(false)} /> I have no other income from salary (monthly salary, in favor of an additional position, partial salary, wages), allowance and stipend
+                  {
+                    form && form.signature != null && form.moreIncome == false ?
+                      <><input type='radio' checked name='moreIncome' id='moreIncome1' value="No" onClick={() => setExIncome(false)} /> I have no other income from salary (monthly salary, in favor of an additional position, partial salary, wages), allowance and stipend</> :
+                      <><input type='radio' disabled={form && form.signature != null} name='moreIncome' id='moreIncome1' value="No" onClick={() => setExIncome(false)} /> I have no other income from salary (monthly salary, in favor of an additional position, partial salary, wages), allowance and stipend</>
+                  }
+
                 </div>
               </div>
               <div className='col-sm-6'>
                 <div className='form-group'>
-                  <input type='radio' name='moreIncome' id='moreIncome2' onClick={() => setExIncome(true)} /> I have additional income as detailed below
+                  {
+                    form && form.signature != null && form.moreIncome == true ?
+                      <> <input type='radio' checked name='moreIncome' id='moreIncome2' value="Yes" onClick={() => { setExIncome(true); setTimeout(() => { document.querySelector('#cp1').checked = true; }, 200); }} /> I have additional income as detailed below</> :
+                      <> <input type='radio' disabled={form && form.signature != null} name='moreIncome' id='moreIncome2' value="Yes" onClick={() => { setExIncome(true); setTimeout(() => { document.querySelector('#cp1').checked = true; }, 200); }} /> I have additional income as detailed below</>
+                  }
+
                 </div>
               </div>
             </div>
-            { exIncome &&
-            <>
-              <div className='form-group'>
-                <label class="control-label">Income Breakdown*</label>
+            {exIncome ?
+
+              (form.length != 0 && form['breakIncome'] != null) ?
+                <>
+                  <div className='form-group'>
+                    <label class="control-label">Income Breakdown*</label>
+                    <div class="form-check">
+                      <span className='text-success font-weight-bold'>{form['breakIncome'].breakIncome}</span>
+                    </div>
+                  </div>
+
+                </>
+                :
+                <>
+                  <div className='form-group'>
+                    <label class="control-label">Income Breakdown*</label>
+                    <div className='row'>
+                      <div className='col-sm-4'>
+                        <div class="form-group">
+                          <input type="checkbox" name="breakIncome" value="A month's salary" onChange={e => handleSubmit(e)} /> A month's salary
+                        </div>
+                      </div>
+                      <div className='col-sm-4'>
+                        <div class="form-group">
+                          <input type="checkbox" name="breakIncome" value="Salary for an additional position" onChange={e => handleSubmit(e)} /> Salary for an additional position
+                        </div>
+                      </div>
+                      <div className='col-sm-4'>
+                        <div class="form-group">
+                          <input type="checkbox" name="breakIncome" value="Partial salary" onChange={e => handleSubmit(e)} /> Partial salary
+                        </div>
+                      </div>
+                      <div className='col-sm-4'>
+                        <div class="form-group">
+                          <input type="checkbox" name="breakIncome" value="Scholarship" onChange={e => handleSubmit(e)} /> Scholarship
+                        </div>
+                      </div>
+                      <div className='col-sm-4'>
+                        <div class="form-group">
+                          <input type="checkbox" name="breakIncome" value="Allowance" onChange={e => handleSubmit(e)} /> Allowance
+                        </div>
+                      </div>
+                      <div className='col-sm-4'>
+                        <div class="form-group">
+                          <input type="checkbox" name="breakIncome" value="Wages (Daily worker)" onChange={e => handleSubmit(e)} /> Wages (Daily worker)
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </> : ''
+            }
+            {exIncome ?
+              <>
+                <label class='control-label'>Credits*</label>
                 <div className='row'>
-                  <div className='col-sm-4'>
-                    <div class="form-group">
-                      <input type="checkbox" name="breakIncome" value="A month's salary"/> A month's salary
+                  <div className='col-sm-6'>
+                    <div className='form-group'>
+                      {
+                        form && form.signature != null && form.creditPoints == "donot" ?
+                          <> <input type='radio' checked name='creditPoints' id="cp1" value="donot" onChange={e => handleSubmit(e)} /> I would like to receive credit points and tax rates against this income (section d). I do not receive them in any other income</> :
+                          <><input type='radio' disabled={form && form.signature != null} name='creditPoints' id="cp1" value="donot" onChange={e => handleSubmit(e)} /> I would like to receive credit points and tax rates against this income (section d). I do not receive them in any other income</>
+                      }
+
                     </div>
                   </div>
-                  <div className='col-sm-4'>
-                    <div class="form-group">
-                      <input type="checkbox" name="breakIncome" value="Salary for an additional position"/> Salary for an additional position
-                    </div>
-                  </div>
-                  <div className='col-sm-4'>
-                    <div class="form-group">
-                      <input type="checkbox" name="breakIncome" value="Partial salary"/> Partial salary
-                    </div>
-                  </div>
-                  <div className='col-sm-4'>
-                    <div class="form-group">
-                      <input type="checkbox" name="breakIncome" value="Scholarship"/> Scholarship
-                    </div>
-                  </div>
-                  <div className='col-sm-4'>
-                    <div class="form-group">
-                      <input type="checkbox" name="breakIncome" value="Allowance"/> Allowance
-                    </div>
-                  </div>
-                  <div className='col-sm-4'>
-                    <div class="form-group">
-                      <input type="checkbox" name="breakIncome" value="Wages (Daily worker)"/> Wages (Daily worker)
+                  <div className='col-sm-6'>
+                    <div className='form-group'>
+                      {
+                        form && form.signature != null && form.creditPoints == "receive" ?
+                          <><input type='radio' checked name='creditPoints' value="receive" onChange={e => handleSubmit(e)} /> I receive credit points and tax brackets on other income and therefore I am not entitled to them against this income</> :
+                          <><input type='radio' disabled={form && form.signature != null} name='creditPoints' value="receive" onChange={e => handleSubmit(e)} /> I receive credit points and tax brackets on other income and therefore I am not entitled to them against this income</>
+                      }
                     </div>
                   </div>
                 </div>
-              </div>
-              <label class='control-label'>Credits*</label>
-              <div className='row'>
-                <div className='col-sm-6'>
-                  <div className='form-group'>
-                   <input type='radio' name='creditPoints' /> I would like to receive credit points and tax rates against this income (section d). I do not receive them in any other income
-                  </div> 
+                <label class='control-label'>Excretions</label>
+                <div className='row'>
+                  <div className='col-sm-6'>
+                    <div className='form-group'>
+                      {
+                        form && form.signature != null && form.excertion != null && form['excertion'].excertion.includes("excluded") ?
+                          <><input type='checkbox' checked name='excertion' id='excertion1' value="excluded" onChange={e => handleSubmit(e)} /> There are no provisions made for me to a further education fund in respect of my other income, or all employer contributions to a further education fund in respect of my other income are attached to my other income.</> :
+                          <><input type='checkbox' disabled={form && form.signature != null} name='excertion' id='excertion1' value="excluded" onChange={e => handleSubmit(e)} /> There are no provisions made for me to a further education fund in respect of my other income, or all employer contributions to a further education fund in respect of my other income are attached to my other income.</>
+                      }
+                    </div>
+                  </div>
+                  <div className='col-sm-6'>
+                    <div className='form-group'>
+                      {
+                        form && form.signature != null && form.excertion != null && form['excertion'].excertion.includes("included") ?
+                          <><input type='checkbox' checked name='excertion' value="included" onChange={e => handleSubmit(e)} /> There are no provisions for pension/disability insurance/compensations for my other income, or all employer contributions for pension/disability insurance/compensations for my other income are included in my other income</> :
+                          <><input type='checkbox' disabled={form && form.signature != null} name='excertion' value="included" onChange={e => handleSubmit(e)} /> There are no provisions for pension/disability insurance/compensations for my other income, or all employer contributions for pension/disability insurance/compensations for my other income are included in my other income</>
+                      }
+                    </div>
+                  </div>
                 </div>
-                <div className='col-sm-6'>
-                  <div className='form-group'>
-                   <input type='radio' name='creditPoints' /> I receive credit points and tax brackets on other income and therefore I am not entitled to them against this income
-                  </div> 
-                </div>
-              </div>
-              <label class='control-label'>Excretions</label>
-              <div className='row'>
-                <div className='col-sm-6'>
-                  <div className='form-group'>
-                   <input type='checkbox' name='creditPoints1' /> There are no provisions made for me to a further education fund in respect of my other income, or all employer contributions to a further education fund in respect of my other income are attached to my other income.
-                  </div> 
-                </div>
-                <div className='col-sm-6'>
-                  <div className='form-group'>
-                   <input type='checkbox' name='creditPoints2' /> There are no provisions for pension/disability insurance/compensations for my other income, or all employer contributions for pension/disability insurance/compensations for my other income are included in my other income
-                  </div> 
-                </div>
-              </div>
-              </>
+              </> : ''
             }
           </div>
         </div>
@@ -1238,77 +1399,151 @@ export default function Form101() {
           <div className='row'>
             <div className='col-sm-12'>
               <div className='form-group'>
-                <input type='checkbox' /> 1. I am a resident of Israel
+                {
+                  form && form.signature != null && form.taxCredit != null && form['taxCredit'].taxCredit.includes("resident") ?
+                    <><input type='checkbox' checked name="taxCredit" value="resident" onChange={e => handleSubmit(e)} /> 1. I am a resident of Israel</> :
+                    <><input type='checkbox' disabled={form && form.signature != null} name="taxCredit" value="resident" onChange={e => handleSubmit(e)} /> 1. I am a resident of Israel</>
+                }
+
               </div>
             </div>
             <div className='col-sm-12'>
               <div className='form-group'>
-                <input type='checkbox' /> 2. I am 100% disabled / permanently blind
+                {
+                  form && form.signature != null && form.taxCredit != null && form['taxCredit'].taxCredit.includes("disabled") ?
+                    <><input type='checkbox' checked name="taxCredit" value="disabled" onChange={e => handleSubmit(e)} /> 2. I am 100% disabled / permanently blind</> :
+                    <><input type='checkbox' disabled={form && form.signature != null} name="taxCredit" value="disabled" onChange={e => handleSubmit(e)} /> 2. I am 100% disabled / permanently blind</>
+                }
               </div>
             </div>
             <div className='col-sm-12'>
               <div className='form-group'>
-                <input type='checkbox' /> 3. I am a permanent resident of a qualifying settlement. Me and my first degree family members, live in the settlement and I don't have another "life center"
+                {
+                  form && form.signature != null && form.taxCredit != null && form['taxCredit'].taxCredit.includes("PermanentResident") ?
+                    <><input type='checkbox' checked name="taxCredit" value="PermanentResident" onChange={e => handleSubmit(e)} /> 3. I am a permanent resident of a qualifying settlement. Me and my first degree family members, live in the settlement and I don't have another "life center"</> :
+                    <><input type='checkbox' disabled={form && form.signature != null} name="taxCredit" value="PermanentResident" onChange={e => handleSubmit(e)} /> 3. I am a permanent resident of a qualifying settlement. Me and my first degree family members, live in the settlement and I don't have another "life center"</>
+                }
+
               </div>
             </div>
             <div className='col-sm-12'>
               <div className='form-group'>
-                <input type='checkbox' /> 4. I am a new immigrant
+                {
+                  form && form.signature != null && form.taxCredit != null && form['taxCredit'].taxCredit.includes("immigrant") ?
+                    <><input type='checkbox' checked name="taxCredit" value="immigrant" onChange={e => handleSubmit(e)} /> 4. I am a new immigrant</> :
+                    <><input type='checkbox' disabled={form && form.signature != null} name="taxCredit" value="immigrant" onChange={e => handleSubmit(e)} /> 4. I am a new immigrant</>
+                }
+
               </div>
             </div>
             <div className='col-sm-12'>
               <div className='form-group'>
-                <input type='checkbox' /> 5. For my spouse who lives with me and has no income in the tax year (Only if the employee or spouse has reached retirement age or he/she is disabled or blind according to section 9(5) of the ordinance)
+                {
+                  form && form.signature != null && form.taxCredit != null && form['taxCredit'].taxCredit.includes("spouse") ?
+                    <><input type='checkbox' checked name="taxCredit" value="spouse" onChange={e => handleSubmit(e)} /> 5. For my spouse who lives with me and has no income in the tax year (Only if the employee or spouse has reached retirement age or he/she is disabled or blind according to section 9(5) of the ordinance)</> :
+                    <><input type='checkbox' disabled={form && form.signature != null} name="taxCredit" value="spouse" onChange={e => handleSubmit(e)} /> 5. For my spouse who lives with me and has no income in the tax year (Only if the employee or spouse has reached retirement age or he/she is disabled or blind according to section 9(5) of the ordinance)</>
+                }
+
               </div>
             </div>
             <div className='col-sm-12'>
               <div className='form-group'>
-                <input type='checkbox' /> 6. I am a parent in a single-parent family living separately from the National Insurance Institute (in accordance with section 7 below) and does not run a joint household with another individual
+                {
+                  form && form.signature != null && form.taxCredit != null && form['taxCredit'].taxCredit.includes("parent") ?
+                    <><input type='checkbox' checked name="taxCredit" value="parent" onChange={e => handleSubmit(e)} /> 6. I am a parent in a single-parent family living separately from the National Insurance Institute (in accordance with section 7 below) and does not run a joint household with another individual</> :
+                    <><input type='checkbox' disabled={form && form.signature != null} name="taxCredit" value="parent" onChange={e => handleSubmit(e)} /> 6. I am a parent in a single-parent family living separately from the National Insurance Institute (in accordance with section 7 below) and does not run a joint household with another individual</>
+                }
+
               </div>
             </div>
             <div className='col-sm-12'>
               <div className='form-group'>
-                <input type='checkbox' /> 7.  In respect of my children listed in part C (To be filled out only by a parent in a single-parent family who receives the children's allowance for them, or by a married woman or by a single parent)
+                {
+                  form && form.signature != null && form.taxCredit != null && form['taxCredit'].taxCredit.includes("children") ?
+                    <><input type='checkbox' checked name="taxCredit" value="children" onChange={e => handleSubmit(e)} /> 7.  In respect of my children listed in part C (To be filled out only by a parent in a single-parent family who receives the children's allowance for them, or by a married woman or by a single parent)</> :
+                    <><input type='checkbox' disabled={form && form.signature != null} name="taxCredit" value="children" onChange={e => handleSubmit(e)} /> 7.  In respect of my children listed in part C (To be filled out only by a parent in a single-parent family who receives the children's allowance for them, or by a married woman or by a single parent)</>
+                }
+
               </div>
             </div>
             <div className='col-sm-12'>
               <div className='form-group'>
-                <input type='checkbox' /> 8. For my children (To be filled in by a parent (with the exception of a parent mentioned in paragraph 7 above), an unmarried woman whose children are not in her custody, as well as a single parent)
+                {
+                  form && form.signature != null && form.taxCredit != null && form['taxCredit'].taxCredit.includes("forchild") ?
+                    <><input type='checkbox' checked name="taxCredit" value="forchild" onChange={e => handleSubmit(e)} /> 8. For my children (To be filled in by a parent (with the exception of a parent mentioned in paragraph 7 above), an unmarried woman whose children are not in her custody, as well as a single parent)</> :
+                    <><input type='checkbox' disabled={form && form.signature != null} name="taxCredit" value="forchild" onChange={e => handleSubmit(e)} /> 8. For my children (To be filled in by a parent (with the exception of a parent mentioned in paragraph 7 above), an unmarried woman whose children are not in her custody, as well as a single parent)</>
+                }
+
               </div>
             </div>
             <div className='col-sm-12'>
               <div className='form-group'>
-                <input type='checkbox' /> 9. I am a single parent to my children in my custody (listed in section 7 and 8 above)
+                {
+                  form && form.signature != null && form.taxCredit != null && form['taxCredit'].taxCredit.includes("singleparent") ?
+                    <> <input type='checkbox' checked name="taxCredit" value="singleparent" onChange={e => handleSubmit(e)} /> 9. I am a single parent to my children in my custody (listed in section 7 and 8 above)</> :
+                    <> <input type='checkbox' disabled={form && form.signature != null} name="taxCredit" value="singleparent" onChange={e => handleSubmit(e)} /> 9. I am a single parent to my children in my custody (listed in section 7 and 8 above)</>
+                }
+
               </div>
             </div>
             <div className='col-sm-12'>
               <div className='form-group'>
-                <input type='checkbox' /> 10. Regarding my children who are not in my possession listed in part C and I participate in their finances (To be filled out by a parent who lives separately, who is not entitled to credit points for his children, who created a PSA requiring him to pay child support)
+                {
+                  form && form.signature != null && form.taxCredit != null && form['taxCredit'].taxCredit.includes("possessionChild") ?
+                    <><input type='checkbox' checked name="taxCredit" value="possessionChild" onChange={e => handleSubmit(e)} /> 10. Regarding my children who are not in my possession listed in part C and I participate in their finances (To be filled out by a parent who lives separately, who is not entitled to credit points for his children, who created a PSA requiring him to pay child support)</> :
+                    <><input type='checkbox' disabled={form && form.signature != null} name="taxCredit" value="possessionChild" onChange={e => handleSubmit(e)} /> 10. Regarding my children who are not in my possession listed in part C and I participate in their finances (To be filled out by a parent who lives separately, who is not entitled to credit points for his children, who created a PSA requiring him to pay child support)</>
+                }
+
               </div>
             </div>
             <div className='col-sm-12'>
               <div className='form-group'>
-                <input type='checkbox' /> 11. I am a parent of children with disabilities who have not yet turned 19, for whom I receive a disabled child benefit from the National Insurance Institute (My partner does not receive these credit points. My children, for whom I am requesting the credit points, have no income this year)
+                {
+                  form && form.signature != null && form.taxCredit != null && form['taxCredit'].taxCredit.includes("disabilites") ?
+                    <> <input type='checkbox' name="taxCredit" value="disabilites" onChange={e => handleSubmit(e)} /> 11. I am a parent of children with disabilities who have not yet turned 19, for whom I receive a disabled child benefit from the National Insurance Institute (My partner does not receive these credit points. My children, for whom I am requesting the credit points, have no income this year)</> :
+                    <> <input type='checkbox' disabled={form && form.signature != null} name="taxCredit" value="disabilites" onChange={e => handleSubmit(e)} /> 11. I am a parent of children with disabilities who have not yet turned 19, for whom I receive a disabled child benefit from the National Insurance Institute (My partner does not receive these credit points. My children, for whom I am requesting the credit points, have no income this year)</>
+                }
+
               </div>
             </div>
             <div className='col-sm-12'>
               <div className='form-group'>
-                <input type='checkbox' /> 12. In respect of alimony for my former spouse (To be filled in by the person who remarries)
+                {
+                  form && form.signature != null && form.taxCredit != null && form['taxCredit'].taxCredit.includes("formerspouse") ?
+                    <> <input type='checkbox' checked name="taxCredit" value="formerspouse" onChange={e => handleSubmit(e)} /> 12. In respect of alimony for my former spouse (To be filled in by the person who remarries)</> :
+                    <> <input type='checkbox' disabled={form && form.signature != null} name="taxCredit" value="formerspouse" onChange={e => handleSubmit(e)} /> 12. In respect of alimony for my former spouse (To be filled in by the person who remarries)</>
+                }
+
               </div>
             </div>
             <div className='col-sm-12'>
               <div className='form-group'>
-                <input type='checkbox' /> 13. I or my partner have turned 16 and have not yet turned 18 in the tax year
+                {
+                  form && form.signature != null && form.taxCredit != null && form['taxCredit'].taxCredit.includes("partner") ?
+                    <><input type='checkbox' checked name="taxCredit" value="partner" onChange={e => handleSubmit(e)} /> 13. I or my partner have turned 16 and have not yet turned 18 in the tax year</> :
+                    <><input type='checkbox' disabled={form && form.signature != null} name="taxCredit" value="partner" onChange={e => handleSubmit(e)} /> 13. I or my partner have turned 16 and have not yet turned 18 in the tax year</>
+                }
+
               </div>
             </div>
             <div className='col-sm-12'>
               <div className='form-group'>
-                <input type='checkbox' /> 14. I am a discharged soldier / served in national service
+                {
+                  form && form.signature != null && form.taxCredit != null && form['taxCredit'].taxCredit.includes("soldier") ?
+                    <> <input type='checkbox' checked name="taxCredit" value="soldier" onChange={e => handleSubmit(e)} /> 14. I am a discharged soldier / served in national service</> :
+                    <> <input type='checkbox' disabled={form && form.signature != null} name="taxCredit" value="soldier" onChange={e => handleSubmit(e)} /> 14. I am a discharged soldier / served in national service</>
+                }
+
               </div>
             </div>
             <div className='col-sm-12'>
               <div className='form-group'>
-                <input type='checkbox' /> 15. In respect of graduation for an academic degree, graduation from an internship or graduation from professional studies
+                {
+                  form && form.signature != null && form.taxCredit != null && form['taxCredit'].taxCredit.includes("graduation") ?
+                    <><input type='checkbox' checked name="taxCredit" value="graduation" onChange={e => handleSubmit(e)} /> 15. In respect of graduation for an academic degree, graduation from an internship or graduation from professional studies</> :
+                    <><input type='checkbox' disabled={form && form.signature != null} name="taxCredit" value="graduation" onChange={e => handleSubmit(e)} /> 15. In respect of graduation for an academic degree, graduation from an internship or graduation from professional studies</>
+                }
+
               </div>
             </div>
           </div>
@@ -1318,110 +1553,205 @@ export default function Form101() {
           <div className='row'>
             <div className='col-sm-6'>
               <div className='form-group'>
-                <input name='cordination' type='radio' id='cordination1' onClick={() => setCordination(false)} /> No, I don't have cordination number
+                {
+                  form && form.signature != null && form.cordination == false ?
+                    <><input name='cordination' type='radio' checked id='cordination1' onClick={() => setCordination(false)} /> No, I don't have cordination number</> :
+                    <><input name='cordination' type='radio' disabled={form && form.signature != null} id='cordination1' onClick={() => setCordination(false)} /> No, I don't have cordination number</>
+                }
+
               </div>
             </div>
             <div className='col-sm-6'>
               <div className='form-group'>
-                <input name='cordination' type='radio' id='cordination2' onClick={() => setCordination(true)} /> Yes, I have coordination number
+                {
+                  form && form.signature != null && form.cordination == true ?
+                    <><input name='cordination' type='radio' checked id='cordination2' onClick={() => setCordination(true)} /> Yes, I have coordination number</> :
+                    <><input name='cordination' type='radio' disabled={form && form.signature != null} id='cordination2' onClick={() => setCordination(true)} /> Yes, I have coordination number</>
+                }
+
               </div>
             </div>
           </div>
-          { cordination &&
-          <>
-          <label className='control-label'>The reason for the request*</label>
-          <div>
-            <input name='cordRequest' type='radio' id='cordn1' onClick={() => setCord1(true)} /> I had no income from the beginning of the current tax year until I started working for this employer.
-          </div>
-          <div>
-            <input name='cordRequest' type='radio' id='cordn2' onClick={() => setCord2(true)} /> I have additional income from salary as detailed below.
-          </div>
-          <div>
-            <input name='cordRequest' type='radio' id='cordn3' onClick={() => setCord3(true)} /> The assessor approved coordination according to the attached certificate.
-          </div>
-          {cord1 &&
-          <div className='borderBox mt-3'>
-            <label className='control-label d-block'>Proof of lack of income</label>
-            <input type='file' />
-            <p className='mt-2'>Such as: border police approval for staying abroad, illness approval, etc. In the absence of proof, contact the assessor. Please note: maternity benefits and unemployment benefits are taxable income.</p>
-          </div>
-          }
-          {cord2 &&
-          <div className='borderBox mt-3'>
-            <label className='control-label'>Details of additional income (ie, in addition to income from this employer)</label>
-            <form  onSubmit={handleSave2}>
-              {salValues.map((element, index) => (
-                <div className="slotForm" key={index}>
-                    <div className='row'>
-                        <div className='col-sm-4'>
+          {cordination &&
+            <>
+              <label className='control-label'>The reason for the request*</label>
+              <div>
+                {
+                  form && form.signature != null && form.cord == '0' ?
+                    <><input name='cordRequest' checked type='radio' id='cordn1' onClick={() => setCord('0')} /> I had no income from the beginning of the current tax year until I started working for this employer.</> :
+                    <> <input name='cordRequest' disabled={form && form.signature != null} type='radio' id='cordn1' onClick={() => setCord('0')} /> I had no income from the beginning of the current tax year until I started working for this employer.</>
+                }
+
+              </div>
+              <div>
+                {
+                  form && form.signature != null && form.cord == '1' ?
+                    <><input name='cordRequest' type='radio' checked id='cordn2' onClick={() => setCord('1')} /> I have additional income from salary as detailed below.</> :
+                    <> <input name='cordRequest' type='radio' disabled={form && form.signature != null} id='cordn2' onClick={() => setCord('1')} /> I have additional income from salary as detailed below.</>
+                }
+
+              </div>
+              <div>
+                {
+                  form && form.signature != null && form.cord == '2' ?
+                    <><input name='cordRequest' type='radio' checked id='cordn3' onClick={() => setCord('2')} /> The assessor approved coordination according to the attached certificate.</> :
+                    <><input name='cordRequest' type='radio' disabled={form && form.signature != null} id='cordn3' onClick={() => setCord('2')} /> The assessor approved coordination according to the attached certificate.</>
+                }
+
+              </div>
+              {cord && cord == '0' &&
+                <div className='borderBox mt-3'>
+                  <label className='control-label d-block'>Proof of lack of income</label>
+                  {
+                    form && form.signature != null && form.cord0_file != null ?
+                      <>
+                        <button type="button" className="btn btn-pink m-2"
+                          onClick={(e) => {
+                            let sf = document.querySelector('.showfile');
+                            sf.setAttribute('src', form.cord0_file);
+                            sf.style.width = '100%';
+                          }}
+                          data-toggle="modal" data-target="#exampleModal">
+                          view uploaded File
+                        </button>
+                      </> :
+                      <>
+                        <input type='file' name="cord0_file" onChange={e => { handleFileCord0(e.target.files[0]) }} />
+                      </>
+                  }
+
+                  <p className='mt-2'>Such as: border police approval for staying abroad, illness approval, etc. In the absence of proof, contact the assessor. Please note: maternity benefits and unemployment benefits are taxable income.</p>
+                </div>
+              }
+              {cord && cord == '1' &&
+                <div className='borderBox mt-3'>
+                  <label className='control-label'>Details of additional income (ie, in addition to income from this employer)</label>
+                  <form onSubmit={handleSave2}>
+                    {salValues.map((element, index) => (
+                      <div className="slotForm" key={index}>
+                        <div className='row'>
+                          <div className='col-sm-4'>
                             <div className='form-group'>
-                                <label className='control-label'>Name*</label>
-                                <input type='text' className='form-control' name='name' placeholder='Name' value={element.name || ""} onChange={e => handleChange(index, e)} />
+                              <label className='control-label'>Name*</label>
+                              <input type='text' className='form-control' name='name' readOnly={form && form.signature != null ? 'readonly' : ''} placeholder='Name' value={element.name || ""} onChange={e => handleSalChange(index, e)} />
                             </div>
-                        </div>
-                        <div className='col-sm-4'>
+                          </div>
+                          <div className='col-sm-4'>
                             <div className='form-group'>
-                                <label className='control-label'>Address*</label>
-                                <input type="text" name="address" className='form-control' placeholder='Address' value={element.address || ""} onChange={e => handleChange(index, e)} />
+                              <label className='control-label'>Address*</label>
+                              <input type="text" name="address" className='form-control' readOnly={form && form.signature != null ? 'readonly' : ''} placeholder='Address' value={element.address || ""} onChange={e => handleSalChange(index, e)} />
                             </div>
-                        </div>
-                        <div className='col-sm-4'>
+                          </div>
+                          <div className='col-sm-4'>
                             <div className='form-group'>
-                                <label className='control-label'>Deduction file ID*</label>
-                                <input type="text" name="dfid" className='form-control' placeholder='Deduction file ID' value={element.file || ""} onChange={e => handleChange(index, e)} />
+                              <label className='control-label'>Deduction file ID*</label>
+                              <input type="text" name="dfid" className='form-control' readOnly={form && form.signature != null ? 'readonly' : ''} placeholder='Deduction file ID' value={element.dfid || ""} onChange={e => handleSalChange(index, e)} />
                             </div>
-                        </div>
-                        <div className='col-sm-4'>
+                          </div>
+                          <div className='col-sm-4'>
                             <div className='form-group'>
-                                <label className='control-label'>Monthly Income (According to the slips)*</label>
-                                <input type="text" name="monthIncome" className='form-control' placeholder='Monthly Income' value={element.mIncome || ""} onChange={e => handleChange(index, e)} />
+                              <label className='control-label'>Monthly Income (According to the slips)*</label>
+                              <input type="text" name="mIncome" className='form-control' readOnly={form && form.signature != null ? 'readonly' : ''} placeholder='Monthly Income' value={element.mIncome || ""} onChange={e => handleSalChange(index, e)} />
                             </div>
-                        </div>
-                        <div className='col-sm-4'>
+                          </div>
+                          <div className='col-sm-4'>
                             <div className='form-group'>
-                                <label className='control-label'>The tax deducted (According to the slips)*</label>
-                                <input type="text" name="taxDeducted" className='form-control' placeholder='The tax deducted' value={element.taxDeducted || ""} onChange={e => handleChange(index, e)} />
+                              <label className='control-label'>The tax deducted (According to the slips)*</label>
+                              <input type="text" name="taxDeducted" className='form-control' readOnly={form && form.signature != null ? 'readonly' : ''} placeholder='The tax deducted' value={element.taxDeducted || ""} onChange={e => handleSalChange(index, e)} />
                             </div>
-                        </div>
-                        <div className='col-sm-4'>
+                          </div>
+                          <div className='col-sm-4'>
                             <div className='form-group'>
-                                <label className='control-label'>Type of income*</label>
-                                <div className='form-group'><input type="radio" name="typeOfIncome" value={element.typeIncome || ""} onChange={e => handleChange(index, e)} /> Working</div>
-                                <div className='form-group'><input type="radio" name="typeOfIncome" value={element.typeIncome || ""} onChange={e => handleChange(index, e)} /> Allowance</div>
-                                <div className='form-group'><input type="radio" name="typeOfIncome" value={element.typeIncome || ""} onChange={e => handleChange(index, e)} /> Scholarship</div>
-                                <div className='form-group'><input type="radio" name="typeOfIncome" value={element.typeIncome || ""} onChange={e => handleChange(index, e)} /> Other</div>  
+                              <label className='control-label'>Type of income*</label>
+                              {
+                                form && form.signature != null && form.salary_form[index].typeIncome == "working" ?
+                                  <div className='form-group'><input type="radio" name="typeIncome" checked value={element.typeIncome || "working"} onChange={e => handleSalChange(index, e)} /> Working</div> :
+                                  <div className='form-group'><input type="radio" name="typeIncome" disabled={form && form.signature != null} value={element.typeIncome || "working"} onChange={e => handleSalChange(index, e)} /> Working</div>
+                              }
+                              {
+                                form && form.signature != null && form.salary_form[index].typeIncome == "allowance" ?
+                                  <div className='form-group'><input type="radio" name="typeIncome" checked value={element.typeIncome || "allowance"} onChange={e => handleSalChange(index, e)} /> Allowance</div> :
+                                  <div className='form-group'><input type="radio" name="typeIncome" disabled={form && form.signature != null} value={element.typeIncome || "allowance"} onChange={e => handleSalChange(index, e)} /> Allowance</div>
+                              }
+                              {
+                                form && form.signature != null && form.salary_form[index].typeIncome == "scholarship" ?
+                                  <div className='form-group'><input type="radio" name="typeIncome" checked value={element.typeIncome || "scholarship"} onChange={e => handleSalChange(index, e)} /> Scholarship</div> :
+                                  <div className='form-group'><input type="radio" name="typeIncome" disabled={form && form.signature != null} value={element.typeIncome || "scholarship"} onChange={e => handleSalChange(index, e)} /> Scholarship</div>
+                              }
+                              {
+                                form && form.signature != null && form.salary_form[index].typeIncome == "other" ?
+                                  <div className='form-group'><input type="radio" name="typeIncome" checked value={element.typeIncome || "other"} onChange={e => handleSalChange(index, e)} /> Other</div> :
+                                  <div className='form-group'><input type="radio" name="typeIncome" disabled={form && form.signature != null} value={element.typeIncome || "other"} onChange={e => handleSalChange(index, e)} /> Other</div>
+                              }
+
                             </div>
-                        </div>
-                        <div className='col-sm-4'>
+                          </div>
+                          <div className='col-sm-4'>
                             <div className='form-group'>
                               <label className='control-label d-block'>Copy of pay slip</label>
-                                <input type="file" />
+                              {
+                                form && form.signature != null && form.salary_form[index].copy_of_pay != "" ?
+                                  <>
+                                    <button type="button" className="btn btn-pink m-2"
+                                      onClick={(e) => {
+                                        let sf = document.querySelector('.showfile');
+                                        sf.setAttribute('src', form.salary_form[index].copy_of_pay);
+                                        sf.style.width = '100%';
+                                      }}
+                                      data-toggle="modal" data-target="#exampleModal">
+                                      view uploaded File
+                                    </button>
+                                  </> :
+                                  <input type="file" name="copy_of_pay" onChange={e => { handleSalChange(index, e) }} />
+                              }
+
                             </div>
-                        </div>
-                        <div className='col-sm-2'>
+                          </div>
+                          <div className='col-sm-2'>
                             <div className='form-group'>
-                                <label className='control-label'>&nbsp;</label>
-                                {
-                                  index ? 
-                                  <button type="button"  className="btn btn-danger remove saveBtn mt-4" onClick={() => removeFormFields2(index)}>Remove</button> 
+                              <label className='control-label'>&nbsp;</label>
+                              {
+                                index && form.length == 0 ?
+                                  <button type="button" className="btn btn-danger remove saveBtn mt-4" onClick={() => removeFormFields2(index)}>Remove</button>
                                   : null
-                                }
+                              }
                             </div>
+                          </div>
                         </div>
-                    </div>
+                      </div>
+                    ))}
+                  </form>
+                  {
+
+                    form.length == 0 && <button className="btn btn-success button add slotBtn mb-3" type="button" onClick={() => addFormFields2()}>+ Add Employer/Player</button>
+                  }
                 </div>
-              ))}
-            </form>
-            <button className="btn btn-success button add slotBtn mb-3" type="button" onClick={() => addFormFields2()}>+ Add Employer/Player</button>
-          </div>
-          }
-          {cord3 &&
-          <div className="borderBox mt-3">
-            <label className='control-label d-block'>Tax coordination approval by an assessor</label>
-            <input type='file'/>
-          </div>
-          }
-          </>
+              }
+              {cord && cord == '2' &&
+                <div className="borderBox mt-3">
+                  <label className='control-label d-block'>Tax coordination approval by an assessor</label>
+                  {
+                    form && form.signature != null && form.cord2_file != null ?
+                      <>
+                        <button type="button" className="btn btn-pink m-2"
+                          onClick={(e) => {
+                            let sf = document.querySelector('.showfile');
+                            sf.setAttribute('src', form.cord0_file);
+                            sf.style.width = '100%';
+                          }}
+                          data-toggle="modal" data-target="#exampleModal">
+                          view uploaded File
+                        </button>
+                      </>
+                      :
+                      <>
+                        <input type='file' name="cord2_file" onChange={e => { handleFileCord2(e.target.files[0]) }} />
+                      </>
+                  }
+
+                </div>
+              }
+            </>
           }
         </div>
         <div className='box-heading'>
@@ -1462,7 +1792,7 @@ export default function Form101() {
               <div className="row">
                 <div className="col-sm-12">
                   <div className="form-group">
-                   <img src="#" className='showfile'/>
+                    <img src="#" className='showfile' />
 
                   </div>
                 </div>
@@ -1471,7 +1801,7 @@ export default function Form101() {
 
             </div>
             <div className="modal-footer">
-              
+
             </div>
           </div>
         </div>
