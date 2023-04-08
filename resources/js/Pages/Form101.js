@@ -6,10 +6,13 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { Base64 } from "js-base64";
 import { useAlert } from 'react-alert';
 import axios from 'axios';
+import i18next from 'i18next';
+import { useTranslation } from "react-i18next";
 import { Checkbox } from 'rsuite';
 const data = {};
 export default function Form101() {
 
+  const { t } = useTranslation();
   const [formValues, setFormValues] = useState([{ name: "", idnum: "", childDob: "", custody: "", childBenefit: "" }]);
   const [salValues, setSalValues] = useState([{ name: "", address: "", dfid: "", typeIncome: "", mIncome: "", taxDeducted: "", copy_of_pay: "" }]);
 
@@ -175,7 +178,7 @@ export default function Form101() {
       "cord0_file": cord0File,
       "cord2_file": cord2File
     }
-    
+
     let success = true;
 
     if (!Data.name) { alert.error('Please enter name'); success = false; return false; }
@@ -267,9 +270,19 @@ export default function Form101() {
     axios
       .get(`/api/get101/${id}`)
       .then((res) => {
+        i18next.changeLanguage(res.data.lng);
+        if (res.data.lng == 'heb') {
+          import('../Assets/css/rtl.css')
+          document.querySelector('html').setAttribute('dir', 'rtl')
+        }
+        else {
+          document.querySelector('html').removeAttribute('dir');
+        }
+
         if (res.data.form.length > 0) {
           if (res.data.form[0].form_101 != null) {
             let fm = JSON.parse(res.data.form[0].form_101).data;
+            console.log(fm);
             if (fm.child_form.length != 0 && fm.child != "") {
               setFormValues(fm.child_form);
             }
@@ -279,9 +292,8 @@ export default function Form101() {
             setExIncome(fm.moreIncome);
             setCordination(fm.cordination);
             setCord(fm.cord);
-
-            console.log(fm);
             setForm(fm);
+
             for (let f in fm) {
               if (f != '' && f != null && f != undefined) {
 
@@ -351,15 +363,15 @@ export default function Form101() {
       <div className='form101 p-4'>
         {
           (form && form.signature != null) ?
-          <>
-            <a style={{color:'white'}} className='btn btn-pink float-right m-3' onClick={(e)=>{window.print()}}> Print Pdf </a>
-            <span className='btn btn-success float-right m-3'>Signed</span>
-          </>
+            <>
+              <a style={{ color: 'white' }} className='btn btn-pink float-right m-3' onClick={(e) => { window.print() }}> Print Pdf </a>
+              <span className='btn btn-success float-right m-3'>Signed</span>
+            </>
             : ''
         }
 
         <img src={logo} className='img-fluid broom-logo' alt='Broom Services' />
-        <h1 className='text-center'>Form 101</h1>
+        <h1 className='text-center'>{t('form101.title')}</h1>
         <p className='text-center max600'>Employee card - and a request for tax relief and coordination by the employer according to the Income Tax Regulations (deduction from salary and wages), 1993</p>
         <p className='text-center max600'>This form will be filled out by each employee upon starting his job, as well as at the beginning of each tax year (unless the manager has approved otherwise). The form is a reference for the employer to provide tax relief and to make tax adjustments in the calculation of the employee's salary. If there is a change in the details - this must be declared within a week.</p>
         <hr />

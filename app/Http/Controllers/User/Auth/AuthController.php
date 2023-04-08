@@ -187,10 +187,12 @@ class AuthController extends Controller
 }
 
   public function get101($id){
-    $form = User::where('id',$id)->get('form_101');
+    $form = User::where('id',$id)->get()->first();
+   
     return response()->json([
         'success_code' => 200,
-        'form'=>$form
+        'lng'=>$form->lng,
+        'form'=>[["form_101" => $form->form_101]]
     ]);
 }
 
