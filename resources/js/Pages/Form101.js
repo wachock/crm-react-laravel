@@ -372,84 +372,84 @@ export default function Form101() {
 
         <img src={logo} className='img-fluid broom-logo' alt='Broom Services' />
         <h1 className='text-center'>{t('form101.title')}</h1>
-        <p className='text-center max600'>Employee card - and a request for tax relief and coordination by the employer according to the Income Tax Regulations (deduction from salary and wages), 1993</p>
-        <p className='text-center max600'>This form will be filled out by each employee upon starting his job, as well as at the beginning of each tax year (unless the manager has approved otherwise). The form is a reference for the employer to provide tax relief and to make tax adjustments in the calculation of the employee's salary. If there is a change in the details - this must be declared within a week.</p>
+        <p className='text-center max600'>{t('form101.employee_card')}</p>
+        <p className='text-center max600'>{t('form101.declare_week')}</p>
         <hr />
         <div className='agg-list'>
           <div className='icons'><img src={check} /></div>
           <div className='agg-text'>
-            <p>Fill out the form and at the bottom of the page you can Download a PDF file with the details you filled out. The file you will receive is a normal and standard Form 101.</p>
+            <p>{t('form101.notes_1')}</p>
           </div>
         </div>
         <div className='agg-list'>
           <div className='icons'><img src={check} /></div>
           <div className='agg-text'>
-            <p>Send the form by email to you and the employer.</p>
+            <p>{t('form101.notes_2')}</p>
           </div>
         </div>
         <div className='agg-list'>
           <div className='icons'><img src={check} /></div>
           <div className='agg-text'>
-            <p>Save a draft of the form and continue later.</p>
+            <p>{t('form101.notes_3')}</p>
           </div>
         </div>
         <div className='agg-list'>
           <div className='icons'><img src={check} /></div>
           <div className='agg-text'>
-            <p>The form is a free service operated by the Broom Service and not operated by the Tax Authority and is not approved by it.</p>
+            <p>{t('form101.notes_4')}</p>
           </div>
         </div>
         <div className='agg-list'>
           <div className='icons'><img src={check} /></div>
           <div className='agg-text'>
-            <p>Note! If your employer uses a different system for forms 101 - you must fill out the form there. It is recommended to check with the employer.</p>
+            <p>{t('form101.notes_5')}</p>
           </div>
         </div>
         <div className='agg-list'>
           <div className='icons'><img src={check} /></div>
           <div className='agg-text'>
-            <p>Your privacy is important to us. We do not use your information and do not transfer it to third parties.</p>
+            <p>{t('form101.notes_6')}</p>
           </div>
         </div>
         <div className='box-heading'>
-          <h2>Tax year</h2>
-          <p><strong>2023</strong> (The form can only be filled out for the current tax year. Except in the month of December, when the form can also be filled out for the next tax year and in the month of January, when the form can be filled out also for the previous tax year, for the benefit of employees who did not have time to fill out the form in time.)</p>
+          <h2>{t('form101.texYearTitle')}</h2>
+          <p><strong>{t('form101.year_2023')}</strong> {t('form101.year_2023_details')}</p>
         </div>
         <div className='box-heading'>
-          <h2>A. Employer details</h2>
+          <h2>{t('form101.employer_details')}</h2>
           <div className='row'>
             <div className='col-sm-3 col-xs-6'>
               <div className='form-group'>
-                <label className='control-label'>Name*</label>
+                <label className='control-label'>{t('form101.label_name')}*</label>
                 <input type='text' className='form-control man' onChange={(e) => handleSubmit(e)} name="name" placeholder='Name' required />
               </div>
             </div>
             <div className='col-sm-3 col-xs-6'>
               <div className='form-group'>
-                <label className='control-label'>Address</label>
+                <label className='control-label'>{t('form101.label_address')}</label>
                 <input type='text' className='form-control man' onChange={(e) => handleSubmit(e)} name="address" placeholder='Address' />
               </div>
             </div>
             <div className='col-sm-3 col-xs-6'>
               <div className='form-group'>
-                <label className='control-label'>Phone Number*</label>
+                <label className='control-label'>{t('form101.label_phNum')}*</label>
                 <input type='tel' className='form-control man' onChange={(e) => handleSubmit(e)} placeholder='Phone Number' name="phone_number" required />
               </div>
             </div>
             <div className='col-sm-3 col-xs-6'>
               <div className='form-group'>
-                <label className='control-label'>Deduction file ID</label>
+                <label className='control-label'>{t('form101.label_ddfileId')}</label>
                 <input type='text' className='form-control man' onChange={(e) => handleSubmit(e)} name="deduction_fileId" placeholder='Deduction file ID' />
               </div>
             </div>
           </div>
         </div>
         <div className='box-heading'>
-          <h2>B. Employee details</h2>
+          <h2>{t('form101.employee_details')}</h2>
           <div className='row'>
             <div className='col-sm-4 col-xs-6'>
               <div className='form-group'>
-                <label className='control-label d-block'>Identification by*</label>
+                <label className='control-label d-block'>{t('form101.idBy')}*</label>
                 {
                   (form.length != 0 && form['identification'] != null) ?
                     <span className='text-success font-weight-bold'>
@@ -458,10 +458,10 @@ export default function Form101() {
                     :
                     <>
                       <input className='mr-1' type="radio" name="identification" value="byId" id="byId" checked={selected === "byId"} onChange={(e) => { handleSubmit(e); setSelected(e.target.value); }} />
-                      <label className='mr-2' htmlFor="byId">ID</label>
+                      <label className='mr-2' htmlFor="byId">{t('form101.label_id')}</label>
 
                       <input className='mr-1' type="radio" value="passport" id="passport" checked={selected === "passport"} name="identification" onChange={(e) => { handleSubmit(e); setSelected(e.target.value); }} />
-                      <label className='mr-2' ohtmlFor="passport">Passport (for a foreign citizen)</label>
+                      <label className='mr-2' ohtmlFor="passport">{t('form101.passport_foreign')}</label>
                     </>
                 }
 
@@ -469,13 +469,13 @@ export default function Form101() {
             </div>
             <div className='col-sm-4 col-xs-6'>
               <div className='form-group'>
-                <label className='control-label'>First name*</label>
+                <label className='control-label'>{t('form101.label_firstName')}*</label>
                 <input type='text' onChange={(e) => handleSubmit(e)} name="first_name" className='form-control man' placeholder='First name' required />
               </div>
             </div>
             <div className='col-sm-4 col-xs-6'>
               <div className='form-group'>
-                <label className='control-label'>Last name*</label>
+                <label className='control-label'>{t('form101.label_lastName')}*</label>
                 <input type='text' onChange={(e) => handleSubmit(e)} name="last_name" className='form-control man' placeholder='Last name' required />
               </div>
             </div>
@@ -485,13 +485,13 @@ export default function Form101() {
                 <div className='row'>
                   <div className='col-sm-4 col-xs-6'>
                     <div className='form-group'>
-                      <label className="control-label">ID Number*</label>
+                      <label className="control-label">{t('form101.id_num')}*</label>
                       <input type='text' onChange={(e) => handleSubmit(e)} name="bid-id_number" className="form-control bid" placeholder="" required />
                     </div>
                   </div>
                   <div className='col-sm-4 col-xs-6'>
                     <div className='form-group'>
-                      <label className="control-label">Photocopy of ID card and appendix</label>
+                      <label className="control-label">{t('form101.id_photocopy')}</label>
                       <input type="file" name="photocopy_id_appendix" className='bid' onChange={(e) => { handleFile(e.target.files[0]) }} style={{ display: "block" }} />
                       <img src={(file)} className="img-fluid" style={{ maxWidth: "70px", marginTop: "10px" }} />
                       {
@@ -502,73 +502,73 @@ export default function Form101() {
                             sf.style.width = '100%';
                           }}
                           data-toggle="modal" data-target="#exampleModal">
-                          view uploaded File
+                          {t('form101.view_uploaded_file')}
                         </button>
                       }
                     </div>
                   </div>
                   <div className='col-sm-4 col-xs-6'>
                     <div className='form-group'>
-                      <label className="control-label">Date of Birth*</label>
+                      <label className="control-label">{t('form101.dob')}*</label>
                       <input type='date' onChange={(e) => handleSubmit(e)} name="bid-dob" className="form-control bid" placeholder="" required />
                     </div>
                   </div>
                   <div className='col-sm-4 col-xs-6'>
                     <div className='form-group'>
-                      <label className="control-label">Date of immigration</label>
+                      <label className="control-label">{t('form101.dom')}</label>
                       <input type='date' onChange={(e) => handleSubmit(e)} name="bid-date_of_immigration" className="form-control bid" placeholder="" />
                     </div>
                   </div>
                   <div className='col-sm-4 col-xs-6'>
                     <div className='form-group'>
-                      <label className='control-label'>Settlement*</label>
+                      <label className='control-label'>{t('form101.settlement')}*</label>
                       <select className='form-control pid'>
-                        <option value='Jerusalem'>Jerusalem</option>
-                        <option value='Tel Aviv Jaffa'>Tel Aviv Jaffa</option>
-                        <option value='Haifa'>Haifa</option>
-                        <option value='Petah Tikva'>Petah Tikva</option>
-                        <option value='Beer Sheva'>Beer Sheva</option>
-                        <option value='Shefram'>Shefram</option>
-                        <option value='Rishon Lezion'>Rishon Lezion</option>
-                        <option value='Netanya'>Netanya</option>
-                        <option value='Ashkelon'>Ashkelon</option>
-                        <option value='Ramat Gan'>Ramat Gan</option>
+                        <option value='Jerusalem'>{t('form101.jerusalem')}</option>
+                        <option value='Tel Aviv Jaffa'>{t('form101.tel_aviv')}</option>
+                        <option value='Haifa'>{t('form101.haifa')}</option>
+                        <option value='Petah Tikva'>{t('form101.petah_tikva')}</option>
+                        <option value='Beer Sheva'>{t('form101.beer_sheva')}</option>
+                        <option value='Shefram'>{t('form101.sheram')}</option>
+                        <option value='Rishon Lezion'>{t('form101.rishon_lezion')}</option>
+                        <option value='Netanya'>{t('form101.netanya')}</option>
+                        <option value='Ashkelon'>{t('form101.ashkelon')}</option>
+                        <option value='Ramat Gan'>{t('form101.ramat')}</option>
                       </select>
                     </div>
                   </div>
                   <div className='col-sm-4 col-xs-6'>
                     <div className='form-group'>
-                      <label className="control-label">House number*</label>
+                      <label className="control-label">{t('form101.ho_num')}*</label>
                       <input type='text' name="houseNumber" className="form-control bid" placeholder="House number" />
                     </div>
                   </div>
                   <div className='col-sm-4 col-xs-6'>
                     <div className='form-group'>
-                      <label className="control-label">Street*</label>
+                      <label className="control-label">{t('form101.street')}*</label>
                       <input type='text' onChange={(e) => handleSubmit(e)} name="bid-address" className="form-control bid" placeholder="Address" />
                     </div>
                   </div>
                   <div className='col-sm-4 col-xs-6'>
                     <div className='form-group'>
-                      <label className="control-label">Postal Code</label>
+                      <label className="control-label">{t('form101.postal_code')}</label>
                       <input type='text' name="houseNumber" className="form-control bid" placeholder="House number" />
                     </div>
                   </div>
                   <div className='col-sm-4 col-xs-6'>
                     <div className='form-group'>
-                      <label className="control-label">Mobile number*</label>
+                      <label className="control-label">{t('form101.mob_num')}*</label>
                       <input type='tel' onChange={(e) => handleSubmit(e)} name="bid-mobile_number" className="form-control bid" placeholder="Mobile number" required />
                     </div>
                   </div>
                   <div className='col-sm-4 col-xs-6'>
                     <div className='form-group'>
-                      <label className="control-label">Phone number</label>
+                      <label className="control-label">{t('form101.label_phNum')}</label>
                       <input type='tel' onChange={(e) => handleSubmit(e)} name="bid-phone_number" className="form-control bid" placeholder="Phone number" />
                     </div>
                   </div>
                   <div className='col-sm-4 col-xs-6'>
                     <div className='form-group'>
-                      <label className="control-label">Email*</label>
+                      <label className="control-label">{t('form101.label_email')}*</label>
                       <input type='email' onChange={(e) => handleSubmit(e)} name="bid-email" className="form-control bid" placeholder="Email" required />
                     </div>
                   </div>
@@ -577,16 +577,16 @@ export default function Form101() {
                       {
                         (form.length != 0 && form['bid-sex'] != null) ?
                           <>
-                            <label className="control-label d-block">Sex*</label>
+                            <label className="control-label d-block">{t('form101.label_sex')}*</label>
                             <span className='text-success font-weight-bold'>{form['bid-sex']}</span>
                           </>
                           :
                           <>
-                            <label className="control-label d-block">Sex*</label>
+                            <label className="control-label d-block">{t('form101.label_sex')}*</label>
                             <input className='mr-1 bidr' onChange={(e) => handleSubmit(e)} name="bid-sex" type="radio" value="Male" id="Male" checked />
-                            <label className='mr-2' htmlFor="Male">Male</label>
+                            <label className='mr-2' htmlFor="Male">{t('form101.label_male')}</label>
                             <input className='mr-1 bidr' onChange={(e) => handleSubmit(e)} name="bid-sex" type="radio" value="Female" id="Female" />
-                            <label className='mr-2' ohtmlFor="Female">Female</label>
+                            <label className='mr-2' ohtmlFor="Female">{t('form101.label_female')}</label>
                           </>
                       }
 
@@ -596,7 +596,7 @@ export default function Form101() {
                     <div className='row'>
                       <div className='col-sm-3'>
                         <div className='form-group'>
-                          <label className="control-label">Martial Status</label>
+                          <label className="control-label">{t('form101.martial_status')}</label>
                           {
                             (form.length != 0 && form['bid-martial'] != null) ?
                               <>
@@ -608,23 +608,23 @@ export default function Form101() {
                               <>
                                 <div class="form-check">
                                   <input class="form-check-input bidr" type="radio" onChange={(e) => handleSubmit(e)} name="bid-martial" id="mstatus" value="Single" />
-                                  <label class="form-check-label" for="Single">Single</label>
+                                  <label class="form-check-label" for="Single">{t('form101.status_single')}</label>
                                 </div>
                                 <div class="form-check">
                                   <input class="form-check-input bidr" type="radio" onChange={(e) => handleSubmit(e)} name="bid-martial" id="mstatus" value="Married" />
-                                  <label class="form-check-label" for="Married">Married</label>
+                                  <label class="form-check-label" for="Married">{t('form101.status_married')}</label>
                                 </div>
                                 <div class="form-check">
                                   <input class="form-check-input bidr" type="radio" onChange={(e) => handleSubmit(e)} name="bid-martial" id="mstatus" value="Divorcee" />
-                                  <label class="form-check-label" for="Divorcee">Divorcee</label>
+                                  <label class="form-check-label" for="Divorcee">{t('form101.status_divorcee')}</label>
                                 </div>
                                 <div class="form-check">
                                   <input class="form-check-input bidr" type="radio" onChange={(e) => handleSubmit(e)} name="bid-martial" id="mstatus" value="A widower" />
-                                  <label class="form-check-label" for="widower">A widower</label>
+                                  <label class="form-check-label" for="widower">{t('form101.status_widower')}</label>
                                 </div>
                                 <div class="form-check">
                                   <input class="form-check-input bidr" type="radio" onChange={(e) => handleSubmit(e)} name="bid-martial" id="mstatus" value="Separated" />
-                                  <label class="form-check-label" for="Separated">Separated</label>
+                                  <label class="form-check-label" for="Separated">{t('form101.status_separated')}</label>
                                 </div>
                               </>
 
@@ -633,7 +633,7 @@ export default function Form101() {
                       </div>
                       <div className='col-sm-3'>
                         <div className='form-group'>
-                          <label className="control-label">Israeli resident</label>
+                          <label className="control-label">{t('form101.israeli_resident')}</label>
                           {
                             (form.length != 0 && form['bid-israeli'] != null) ?
                               <>
@@ -646,11 +646,11 @@ export default function Form101() {
                               <>
                                 <div class="form-check">
                                   <input class="form-check-input bidr" type="radio" onChange={(e) => handleSubmit(e)} name="bid-israeli" id="resident" value="Yes" />
-                                  <label class="form-check-label" for="Yes">Yes</label>
+                                  <label class="form-check-label" for="Yes">{t('form101.label_yes')}</label>
                                 </div>
                                 <div class="form-check">
                                   <input class="form-check-input bidr" type="radio" onChange={(e) => handleSubmit(e)} name="bid-israeli" id="resident" value="No" />
-                                  <label class="form-check-label" for="No">No</label>
+                                  <label class="form-check-label" for="No">{t('form101.label_no')}</label>
                                 </div>
                               </>
                           }
@@ -660,7 +660,7 @@ export default function Form101() {
                       </div>
                       <div className='col-sm-3'>
                         <div className='form-group'>
-                          <label className="control-label">Member of a kibbutz / cooperative session</label>
+                          <label className="control-label">{t('form101.cop_member')}</label>
                           {
                             (form.length != 0 && form['bid-member'] != null) ?
                               <>
@@ -672,11 +672,11 @@ export default function Form101() {
                               <>
                                 <div class="form-check">
                                   <input class="form-check-input bidr" type="radio" onChange={(e) => handleSubmit(e)} name="bid-member" id="session" value="Yes" />
-                                  <label class="form-check-label" for="Yes">Yes</label>
+                                  <label class="form-check-label" for="Yes">{t('form101.label_yes')}</label>
                                 </div>
                                 <div class="form-check">
                                   <input class="form-check-input" type="radio" name="bid-member" onChange={(e) => handleSubmit(e)} id="session" value="No" />
-                                  <label class="form-check-label" for="No">No</label>
+                                  <label class="form-check-label" for="No">{t('form101.label_no')}</label>
                                 </div>
 
                               </>
@@ -686,7 +686,7 @@ export default function Form101() {
                       </div>
                       <div className='col-sm-3'>
                         <div className='form-group'>
-                          <label className="control-label">HMO member</label>
+                          <label className="control-label">{t('form101.hmo_member')}</label>
                           {
                             (form.length != 0 && form['bid-hmo'] != null) ?
                               <>
@@ -698,11 +698,11 @@ export default function Form101() {
                               <>
                                 <div class="form-check">
                                   <input class="form-check-input bidr" type="radio" onChange={(e) => handleSubmit(e)} name="bid-hmo" id="member" value="Yes" />
-                                  <label class="form-check-label" for="Yes">Yes</label>
+                                  <label class="form-check-label" for="Yes">{t('form101.label_yes')}</label>
                                 </div>
                                 <div class="form-check">
                                   <input class="form-check-input bidr" type="radio" onChange={(e) => handleSubmit(e)} name="bid-hmo" id="member" value="No" />
-                                  <label class="form-check-label" for="No">No</label>
+                                  <label class="form-check-label" for="No">{t('form101.label_no')}</label>
                                 </div>
                               </>
                           }
@@ -719,7 +719,7 @@ export default function Form101() {
                 <div className='row'>
                   <div className='col-sm-4'>
                     <div className='form-group'>
-                      <label className='control-label'>Country of the Passport</label>
+                      <label className='control-label'>{t('form101.country_passport')}</label>
                       {
                         (form.length != 0 && form['country'] != null) ?
                           <input type="text" className='form-control' value={form['country']} readOnly />
@@ -975,13 +975,13 @@ export default function Form101() {
                   </div>
                   <div className='col-sm-4'>
                     <div className='form-group'>
-                      <label className='control-label'>Passport number*</label>
+                      <label className='control-label'>{t('form101.passport_num')}*</label>
                       <input type='text' className='form-control pid' onChange={(e) => handleSubmit(e)} name="p-passport_number" placeholder='Passport Number' />
                     </div>
                   </div>
                   <div className='col-sm-4'>
                     <div className='form-group'>
-                      <label className='control-label'>Passport photo</label>
+                      <label className='control-label'>{t('form101.passport_photo')}</label>
                       <input type="file" onChange={e => { handleFile2(e.target.files[0]) }} name="p-file" style={{ display: "block" }} />
                       <img src={(file2)} className="img-fluid pid" style={{ maxWidth: "70px", marginTop: "10px" }} />
                       {
@@ -992,78 +992,78 @@ export default function Form101() {
                             sf.style.width = '100%';
                           }}
                           data-toggle="modal" data-target="#exampleModal">
-                          view uploaded File
+                          {t('form101.view_uploaded_file')}
                         </button>
                       }
                     </div>
                   </div>
                   <div className='col-sm-4'>
                     <div className='form-group'>
-                      <label className='control-label'>Date of Birth*</label>
+                      <label className='control-label'>{t('form101.dob')}*</label>
                       <input type="date" onChange={(e) => handleSubmit(e)} name="p-dob" className='form-control pid' />
                     </div>
                   </div>
                   <div className='col-sm-4'>
                     <div className='form-group'>
-                      <label className='control-label'>Settlement*</label>
+                      <label className='control-label'>{t('form101.settlement')}*</label>
                       {
                         (form.length != 0 && form['p-settlement'] != null) ?
                           <input type="text" className='form-control' value={form['p-settlement']} readOnly />
                           :
                           <select className='form-control pid' onChange={(e) => handleSubmit(e)} name="p-settlement">
-                            <option value='Jerusalem'>Jerusalem</option>
-                            <option value='Tel Aviv Jaffa'>Tel Aviv Jaffa</option>
-                            <option value='Haifa'>Haifa</option>
-                            <option value='Petah Tikva'>Petah Tikva</option>
-                            <option value='Beer Sheva'>Beer Sheva</option>
-                            <option value='Shefram'>Shefram</option>
-                            <option value='Rishon Lezion'>Rishon Lezion</option>
-                            <option value='Netanya'>Netanya</option>
-                            <option value='Ashkelon'>Ashkelon</option>
-                            <option value='Ramat Gan'>Ramat Gan</option>
+                            <option value='Jerusalem'>{t('form101.jerusalem')}</option>
+                            <option value='Tel Aviv Jaffa'>{t('form101.tel_aviv')}</option>
+                            <option value='Haifa'>{t('form101.haifa')}</option>
+                            <option value='Petah Tikva'>{t('form101.petah_tikva')}</option>
+                            <option value='Beer Sheva'>{t('form101.beer_sheva')}</option>
+                            <option value='Shefram'>{t('form101.shefram')}</option>
+                            <option value='Rishon Lezion'>{t('form101.rishon_lezion')}</option>
+                            <option value='Netanya'>{t('form101.netanya')}</option>
+                            <option value='Ashkelon'>{t('form101.ashkelon')}</option>
+                            <option value='Ramat Gan'>{t('form101.ramat')}</option>
                           </select>
                       }
                     </div>
                   </div>
                   <div className='col-sm-4'>
                     <div className='form-group'>
-                      <label className='control-label'>Street*</label>
+                      <label className='control-label'>{t('form101.street')}*</label>
                       <input type="text" className='form-control pid' onChange={(e) => handleSubmit(e)} name="p-street" placeholder='Street' required />
                     </div>
                   </div>
                   <div className='col-sm-4'>
                     <div className='form-group'>
-                      <label className='control-label'>House Number*</label>
+                      <label className='control-label'>{t('form101.ho_num')}*</label>
                       <input type="text" className='form-control pid' onChange={(e) => handleSubmit(e)} name="p-house_number" placeholder='House Number' required />
                     </div>
                   </div>
                   <div className='col-sm-4'>
                     <div className='form-group'>
-                      <label className='control-label'>Postal Code</label>
+                      <label className='control-label'>{t('form101.postal_code')}</label>
                       <input type="text" className='form-control pid' onChange={(e) => handleSubmit(e)} name="p-postal_code" placeholder='Postal Code' />
                     </div>
                   </div>
                   <div className='col-sm-4'>
                     <div className='form-group'>
-                      <label className='control-label'>Mobile number*</label>
+                      <label className='control-label'>{t('form101.mob_num')}*</label>
                       <input type="text" className='form-control pid' onChange={(e) => handleSubmit(e)} name="p-mobile_number" placeholder='Mobile number' required />
                     </div>
                   </div>
                   <div className='col-sm-4'>
                     <div className='form-group'>
-                      <label className='control-label'>Phone number</label>
+                      <label className='control-label'>{t('form101.label_phNum')}</label>
                       <input type="text" className='form-control pid' onChange={(e) => handleSubmit(e)} name="p-phone_number" placeholder='Phone number' />
                     </div>
                   </div>
                   <div className='col-sm-4'>
                     <div className='form-group'>
-                      <label className='control-label'>E-mail address*</label>
+                      <label className='control-label'>{t('form101.label_email')}*</label>
                       <input type="email" className='form-control pid' onChange={(e) => handleSubmit(e)} name="p-email" placeholder='E-mail address' required />
                     </div>
                   </div>
                   <div className='col-sm-4'>
                     <div className='form-group'>
-                      <label className="control-label">Sex</label>
+                      <label className="control-label">{t('form101.label_sex')}</label>
                       {
                         (form.length != 0 && form['p-sex'] != null) ?
                           <>
@@ -1074,11 +1074,11 @@ export default function Form101() {
                           <>
                             <div class="form-check">
                               <input class="form-check-input pidr" type="radio" onChange={(e) => handleSubmit(e)} name="p-sex" id="sex" value="Male" checked />
-                              <label class="form-check-label" for="Male">Male</label>
+                              <label class="form-check-label" for="Male">{t('form101.label_male')}</label>
                             </div>
                             <div class="form-check">
                               <input class="form-check-input pidr" type="radio" onChange={(e) => handleSubmit(e)} name="p-sex" id="sex" value="Female" />
-                              <label class="form-check-label" for="Female">Female</label>
+                              <label class="form-check-label" for="Female">{t('form101.label_female')}</label>
                             </div>
                           </>
                       }
@@ -1087,7 +1087,7 @@ export default function Form101() {
                   </div>
                   <div className='col-sm-4'>
                     <div className='form-group'>
-                      <label className="control-label">Martial Status</label>
+                      <label className="control-label">{t('form101.martial_status')}</label>
                       {
                         (form.length != 0 && form['p-martial'] != null) ?
                           <>
@@ -1099,23 +1099,23 @@ export default function Form101() {
                           <>
                             <div class="form-check">
                               <input class="form-check-input pidr" type="radio" onChange={(e) => handleSubmit(e)} name="p-martial" id="mstatus2" value="Single" />
-                              <label class="form-check-label" for="Single">Single</label>
+                              <label class="form-check-label" for="Single">{t('form101.status_single')}</label>
                             </div>
                             <div class="form-check">
                               <input class="form-check-input pidr" type="radio" onChange={(e) => handleSubmit(e)} name="p-martial" id="mstatus2" value="Married" />
-                              <label class="form-check-label" for="Married">Married</label>
+                              <label class="form-check-label" for="Married">{t('form101.status_married')}</label>
                             </div>
                             <div class="form-check">
                               <input class="form-check-input pidr" type="radio" onChange={(e) => handleSubmit(e)} name="p-martial" id="mstatus2" value="Divorcee" />
-                              <label class="form-check-label" for="Divorcee">Divorcee</label>
+                              <label class="form-check-label" for="Divorcee">{t('form101.status_divorcee')}</label>
                             </div>
                             <div class="form-check">
                               <input class="form-check-input pidr" type="radio" onChange={(e) => handleSubmit(e)} name="p-martial" id="mstatus2" value="A widower" />
-                              <label class="form-check-label" for="widower">A widower</label>
+                              <label class="form-check-label" for="widower">{t('form101.status_widower')}</label>
                             </div>
                             <div class="form-check">
                               <input class="form-check-input pidr" type="radio" onChange={(e) => handleSubmit(e)} name="p-martial" id="mstatus2" value="Separated" />
-                              <label class="form-check-label" for="Separated">Separated</label>
+                              <label class="form-check-label" for="Separated">{t('form101.status_separated')}</label>
                             </div>
                           </>
                       }
@@ -1124,7 +1124,7 @@ export default function Form101() {
                   </div>
                   <div className='col-sm-4'>
                     <div className='form-group'>
-                      <label className="control-label">HMO member</label>
+                      <label className="control-label">{t('form101.hmo_member')}</label>
                       {
                         (form.length != 0 && form['p-hmo'] != null) ?
                           <>
@@ -1135,11 +1135,11 @@ export default function Form101() {
                           <>
                             <div class="form-check">
                               <input class="form-check-input pidr" type="radio" onChange={(e) => handleSubmit(e)} name="p-hmo" id="hmoMember" value="Yes" />
-                              <label class="form-check-label" for="Yes">Yes</label>
+                              <label class="form-check-label" for="Yes">{t('form101.label_yes')}</label>
                             </div>
                             <div class="form-check">
                               <input class="form-check-input pidr" type="radio" onChange={(e) => handleSubmit(e)} name="p-hmo" id="hmoMember" value="No" />
-                              <label class="form-check-label" for="No">No</label>
+                              <label class="form-check-label" for="No">{t('form101.label_no')}</label>
                             </div>
                           </>
 
@@ -1154,26 +1154,26 @@ export default function Form101() {
           </div>
         </div>
         <div className='box-heading'>
-          <h2>C. Details of my children who have not yet turned 19 in the tax year</h2>
+          <h2>{t('form101.children_headline')}</h2>
           <form onSubmit={handleSave}>
             {formValues.map((element, index) => (
               <div className="slotForm" key={index}>
                 <div className='row'>
                   <div className='col-sm-4'>
                     <div className='form-group'>
-                      <label className='control-label'>Name*</label>
+                      <label className='control-label'>{t('form101.label_name')}*</label>
                       <input type='text' className='form-control' readOnly={form && form.signature != null ? 'readonly' : ''} name='name' placeholder='Name' value={element.name || ""} onChange={(e) => { handleChildChange(index, e); }} />
                     </div>
                   </div>
                   <div className='col-sm-4'>
                     <div className='form-group'>
-                      <label className='control-label'>ID Number*</label>
+                      <label className='control-label'>{t('form101.id_num')}*</label>
                       <input type="text" name="idnum" readOnly={form && form.signature != null ? 'readonly' : ''} className='form-control' placeholder='ID Number' value={element.idnum || ""} onChange={(e) => { handleChildChange(index, e); }} />
                     </div>
                   </div>
                   <div className='col-sm-4'>
                     <div className='form-group'>
-                      <label className='control-label'>Date of Birth*</label>
+                      <label className='control-label'>{t('form101.dob')}*</label>
                       <input type="date" name="childDob" readOnly={form && form.signature != null ? 'readonly' : ''} className='form-control' placeholder='Date of Birth' value={element.childDob || ""} onChange={(e) => { handleChildChange(index, e); }} />
                     </div>
                   </div>
@@ -1181,8 +1181,8 @@ export default function Form101() {
                     <div className='form-group'>
                       {
                         (element.custody == '1') ?
-                          <><input type="checkbox" checked name="custody" value={element.custody || ""} onChange={(e) => { handleChildChange(index, e); }} /> The child is in my custody</> :
-                          <><input type="checkbox" name="custody" value={element.custody || ""} onChange={(e) => { handleChildChange(index, e); }} /> The child is in my custody</>
+                          <><input type="checkbox" checked name="custody" value={element.custody || ""} onChange={(e) => { handleChildChange(index, e); }} /> {t('form101.child_custody')}</> :
+                          <><input type="checkbox" name="custody" value={element.custody || ""} onChange={(e) => { handleChildChange(index, e); }} /> {t('form101.child_custody')}</>
                       }
 
                     </div>
@@ -1191,8 +1191,8 @@ export default function Form101() {
                     <div className='form-group'>
                       {
                         element.childBenefit == '1' ?
-                          <><input type="checkbox" checked name="childBenefit" value={element.childBenefit || ""} onChange={(e) => { handleChildChange(index, e);; }} /> I receive child benefit for him from the National Insurance</> :
-                          <><input type="checkbox" name="childBenefit" value={element.childBenefit || ""} onChange={(e) => { handleChildChange(index, e);; }} /> I receive child benefit for him from the National Insurance</>
+                          <><input type="checkbox" checked name="childBenefit" value={element.childBenefit || ""} onChange={(e) => { handleChildChange(index, e);; }} /> {t('form101.child_insurance')}</> :
+                          <><input type="checkbox" name="childBenefit" value={element.childBenefit || ""} onChange={(e) => { handleChildChange(index, e);; }} /> {t('form101.child_insurance')}</>
                       }
 
                     </div>
@@ -1202,7 +1202,7 @@ export default function Form101() {
                       <label className='control-label'>&nbsp;</label>
                       {
                         index && form.length == 0 ?
-                          <button type="button" className="btn btn-danger remove saveBtn mt-4" onClick={() => removeFormFields(index)}>Remove</button>
+                          <button type="button" className="btn btn-danger remove saveBtn mt-4" onClick={() => removeFormFields(index)}>{t('form101.button_remove')}</button>
                           : null
                       }
                     </div>
@@ -1213,13 +1213,13 @@ export default function Form101() {
           </form>
           {
             form.length == 0 &&
-            <button className="btn btn-success button add slotBtn mb-3" type="button" onClick={() => addFormFields()}>+ Add more child</button>
+            <button className="btn btn-success button add slotBtn mb-3" type="button" onClick={() => addFormFields()}>{t('form101.button_addChild')}</button>
           }
         </div>
         <div className='box-heading'>
-          <h2>D. Details of my income from this employer</h2>
+          <h2>{t('form101.employer_income_details')}</h2>
           <div className='form-group'>
-            <label className='control-label'>I accept*</label>
+            <label className='control-label'>{t('form101.text_accept')}*</label>
             {
               (form.length != 0 && form['income'] != null) ?
                 <>
@@ -1233,32 +1233,32 @@ export default function Form101() {
                   <div className='row'>
                     <div className='col-sm-4'>
                       <div className='form-group'>
-                        <input type='checkbox' value='A month salary' onChange={(e) => handleSubmit(e)} name='income' /> A month salary
+                        <input type='checkbox' value='A month salary' onChange={(e) => handleSubmit(e)} name='income' /> {t('form101.month_salary')}
                       </div>
                     </div>
                     <div className='col-sm-4'>
                       <div className='form-group'>
-                        <input type='checkbox' value='Salary for an additional position' onChange={(e) => handleSubmit(e)} name='income' /> Salary for an additional position
+                        <input type='checkbox' value='Salary for an additional position' onChange={(e) => handleSubmit(e)} name='income' /> {t('form101.salary_ap')}
                       </div>
                     </div>
                     <div className='col-sm-4'>
                       <div className='form-group'>
-                        <input type='checkbox' value='Partial salary' onChange={(e) => handleSubmit(e)} name='income' /> Partial salary
+                        <input type='checkbox' value='Partial salary' onChange={(e) => handleSubmit(e)} name='income' /> {t('form101.partial_salary')}
                       </div>
                     </div>
                     <div className='col-sm-4'>
                       <div className='form-group'>
-                        <input type='checkbox' value='Scholarship' onChange={(e) => handleSubmit(e)} name='income' /> Scholarship
+                        <input type='checkbox' value='Scholarship' onChange={(e) => handleSubmit(e)} name='income' /> {t('form101.scholarship')}
                       </div>
                     </div>
                     <div className='col-sm-4'>
                       <div className='form-group'>
-                        <input type='checkbox' value='Allowance' onChange={(e) => handleSubmit(e)} name='income' /> Allowance
+                        <input type='checkbox' value='Allowance' onChange={(e) => handleSubmit(e)} name='income' /> {t('form101.allowance')}
                       </div>
                     </div>
                     <div className='col-sm-4'>
                       <div className='form-group'>
-                        <input type='checkbox' value='Wages (Daily worker)' onChange={(e) => handleSubmit(e)} name='income' /> Wages (Daily worker)
+                        <input type='checkbox' value='Wages (Daily worker)' onChange={(e) => handleSubmit(e)} name='income' /> {t('form101.daily_wages')}
                       </div>
                     </div>
                   </div>
@@ -1267,7 +1267,7 @@ export default function Form101() {
             <div class="row mt-2">
               <div className='col-sm-6'>
                 <div className='form-group'>
-                  <label className='control-label'>Date of commencement of employment in the tax year*</label>
+                  <label className='control-label'>{t('form101.do_commencement')}*</label>
                   <input type='date' className='form-control' onChange={(e) => handleSubmit(e)} name='taxDate' />
                 </div>
               </div>
@@ -1276,16 +1276,16 @@ export default function Form101() {
           </div>
         </div>
         <div className='box-heading'>
-          <h2>E. Details of other income</h2>
+          <h2>{t('form101.other_income_details')}</h2>
           <div className='form-group'>
-            <label className='control-label'>Do you have other income*?</label>
+            <label className='control-label'>{t('form101.if_other_income')}</label>
             <div className='row'>
               <div className='col-sm-6'>
                 <div className='form-group'>
                   {
                     form && form.signature != null && form.moreIncome == false ?
-                      <><input type='radio' checked name='moreIncome' id='moreIncome1' value="No" onClick={() => setExIncome(false)} /> I have no other income from salary (monthly salary, in favor of an additional position, partial salary, wages), allowance and stipend</> :
-                      <><input type='radio' disabled={form && form.signature != null} name='moreIncome' id='moreIncome1' value="No" onClick={() => setExIncome(false)} /> I have no other income from salary (monthly salary, in favor of an additional position, partial salary, wages), allowance and stipend</>
+                      <><input type='radio' checked name='moreIncome' id='moreIncome1' value="No" onClick={() => setExIncome(false)} /> {t('form101.if_income_no')}</> :
+                      <><input type='radio' disabled={form && form.signature != null} name='moreIncome' id='moreIncome1' value="No" onClick={() => setExIncome(false)} /> {t('form101.if_income_no')}</>
                   }
 
                 </div>
@@ -1294,8 +1294,8 @@ export default function Form101() {
                 <div className='form-group'>
                   {
                     form && form.signature != null && form.moreIncome == true ?
-                      <> <input type='radio' checked name='moreIncome' id='moreIncome2' value="Yes" onClick={() => { setExIncome(true); setTimeout(() => { document.querySelector('#cp1').checked = true; }, 200); }} /> I have additional income as detailed below</> :
-                      <> <input type='radio' disabled={form && form.signature != null} name='moreIncome' id='moreIncome2' value="Yes" onClick={() => { setExIncome(true); setTimeout(() => { document.querySelector('#cp1').checked = true; }, 200); }} /> I have additional income as detailed below</>
+                      <> <input type='radio' checked name='moreIncome' id='moreIncome2' value="Yes" onClick={() => { setExIncome(true); setTimeout(() => { document.querySelector('#cp1').checked = true; }, 200); }} /> {t('form101.if_income_yes')}</> :
+                      <> <input type='radio' disabled={form && form.signature != null} name='moreIncome' id='moreIncome2' value="Yes" onClick={() => { setExIncome(true); setTimeout(() => { document.querySelector('#cp1').checked = true; }, 200); }} /> {t('form101.if_income_yes')}</>
                   }
 
                 </div>
@@ -1306,7 +1306,7 @@ export default function Form101() {
               (form.length != 0 && form['breakIncome'] != null) ?
                 <>
                   <div className='form-group'>
-                    <label class="control-label">Income Breakdown*</label>
+                    <label class="control-label">{t('form101.income_breakdown')}*</label>
                     <div class="form-check">
                       <span className='text-success font-weight-bold'>{form['breakIncome'].breakIncome}</span>
                     </div>
@@ -1316,36 +1316,36 @@ export default function Form101() {
                 :
                 <>
                   <div className='form-group'>
-                    <label class="control-label">Income Breakdown*</label>
+                    <label class="control-label">{t('form101.income_breakdown')}*</label>
                     <div className='row'>
                       <div className='col-sm-4'>
                         <div class="form-group">
-                          <input type="checkbox" name="breakIncome" value="A month's salary" onChange={e => handleSubmit(e)} /> A month's salary
+                          <input type="checkbox" name="breakIncome" value="A month's salary" onChange={e => handleSubmit(e)} /> {t('form101.month_salary')}
                         </div>
                       </div>
                       <div className='col-sm-4'>
                         <div class="form-group">
-                          <input type="checkbox" name="breakIncome" value="Salary for an additional position" onChange={e => handleSubmit(e)} /> Salary for an additional position
+                          <input type="checkbox" name="breakIncome" value="Salary for an additional position" onChange={e => handleSubmit(e)} /> {t('form101.salary_ap')}
                         </div>
                       </div>
                       <div className='col-sm-4'>
                         <div class="form-group">
-                          <input type="checkbox" name="breakIncome" value="Partial salary" onChange={e => handleSubmit(e)} /> Partial salary
+                          <input type="checkbox" name="breakIncome" value="Partial salary" onChange={e => handleSubmit(e)} /> {t('form101.partial_salary')}
                         </div>
                       </div>
                       <div className='col-sm-4'>
                         <div class="form-group">
-                          <input type="checkbox" name="breakIncome" value="Scholarship" onChange={e => handleSubmit(e)} /> Scholarship
+                          <input type="checkbox" name="breakIncome" value="Scholarship" onChange={e => handleSubmit(e)} /> {t('form101.scholarship')}
                         </div>
                       </div>
                       <div className='col-sm-4'>
                         <div class="form-group">
-                          <input type="checkbox" name="breakIncome" value="Allowance" onChange={e => handleSubmit(e)} /> Allowance
+                          <input type="checkbox" name="breakIncome" value="Allowance" onChange={e => handleSubmit(e)} /> {t('form101.allowance')}
                         </div>
                       </div>
                       <div className='col-sm-4'>
                         <div class="form-group">
-                          <input type="checkbox" name="breakIncome" value="Wages (Daily worker)" onChange={e => handleSubmit(e)} /> Wages (Daily worker)
+                          <input type="checkbox" name="breakIncome" value="Wages (Daily worker)" onChange={e => handleSubmit(e)} /> {t('form101.daily_wages')}
                         </div>
                       </div>
                     </div>
@@ -1354,14 +1354,14 @@ export default function Form101() {
             }
             {exIncome ?
               <>
-                <label class='control-label'>Credits*</label>
+                <label class='control-label'>{t('form101.text_credits')}*</label>
                 <div className='row'>
                   <div className='col-sm-6'>
                     <div className='form-group'>
                       {
                         form && form.signature != null && form.creditPoints == "donot" ?
-                          <> <input type='radio' checked name='creditPoints' id="cp1" value="donot" onChange={e => handleSubmit(e)} /> I would like to receive credit points and tax rates against this income (section d). I do not receive them in any other income</> :
-                          <><input type='radio' disabled={form && form.signature != null} name='creditPoints' id="cp1" value="donot" onChange={e => handleSubmit(e)} /> I would like to receive credit points and tax rates against this income (section d). I do not receive them in any other income</>
+                          <> <input type='radio' checked name='creditPoints' id="cp1" value="donot" onChange={e => handleSubmit(e)} /> {t('form101.text_credit1')}</> :
+                          <><input type='radio' disabled={form && form.signature != null} name='creditPoints' id="cp1" value="donot" onChange={e => handleSubmit(e)} /> {t('form101.text_credit1')}</>
                       }
 
                     </div>
@@ -1370,20 +1370,20 @@ export default function Form101() {
                     <div className='form-group'>
                       {
                         form && form.signature != null && form.creditPoints == "receive" ?
-                          <><input type='radio' checked name='creditPoints' value="receive" onChange={e => handleSubmit(e)} /> I receive credit points and tax brackets on other income and therefore I am not entitled to them against this income</> :
-                          <><input type='radio' disabled={form && form.signature != null} name='creditPoints' value="receive" onChange={e => handleSubmit(e)} /> I receive credit points and tax brackets on other income and therefore I am not entitled to them against this income</>
+                          <><input type='radio' checked name='creditPoints' value="receive" onChange={e => handleSubmit(e)} /> {t('form101.text_credit2')}</> :
+                          <><input type='radio' disabled={form && form.signature != null} name='creditPoints' value="receive" onChange={e => handleSubmit(e)} /> {t('form101.text_credit2')}</>
                       }
                     </div>
                   </div>
                 </div>
-                <label class='control-label'>Excretions</label>
+                <label class='control-label'>{t('form101.text_excretions')}</label>
                 <div className='row'>
                   <div className='col-sm-6'>
                     <div className='form-group'>
                       {
                         form && form.signature != null && form.excertion != null && form['excertion'].excertion.includes("excluded") ?
-                          <><input type='checkbox' checked name='excertion' id='excertion1' value="excluded" onChange={e => handleSubmit(e)} /> There are no provisions made for me to a further education fund in respect of my other income, or all employer contributions to a further education fund in respect of my other income are attached to my other income.</> :
-                          <><input type='checkbox' disabled={form && form.signature != null} name='excertion' id='excertion1' value="excluded" onChange={e => handleSubmit(e)} /> There are no provisions made for me to a further education fund in respect of my other income, or all employer contributions to a further education fund in respect of my other income are attached to my other income.</>
+                          <><input type='checkbox' checked name='excertion' id='excertion1' value="excluded" onChange={e => handleSubmit(e)} /> {t('form101.text_excretion1')}</> :
+                          <><input type='checkbox' disabled={form && form.signature != null} name='excertion' id='excertion1' value="excluded" onChange={e => handleSubmit(e)} /> {t('form101.text_excretion1')}</>
                       }
                     </div>
                   </div>
@@ -1391,8 +1391,8 @@ export default function Form101() {
                     <div className='form-group'>
                       {
                         form && form.signature != null && form.excertion != null && form['excertion'].excertion.includes("included") ?
-                          <><input type='checkbox' checked name='excertion' value="included" onChange={e => handleSubmit(e)} /> There are no provisions for pension/disability insurance/compensations for my other income, or all employer contributions for pension/disability insurance/compensations for my other income are included in my other income</> :
-                          <><input type='checkbox' disabled={form && form.signature != null} name='excertion' value="included" onChange={e => handleSubmit(e)} /> There are no provisions for pension/disability insurance/compensations for my other income, or all employer contributions for pension/disability insurance/compensations for my other income are included in my other income</>
+                          <><input type='checkbox' checked name='excertion' value="included" onChange={e => handleSubmit(e)} /> {t('form101.text_excretion2')}</> :
+                          <><input type='checkbox' disabled={form && form.signature != null} name='excertion' value="included" onChange={e => handleSubmit(e)} /> {t('form101.text_excretion2')}</>
                       }
                     </div>
                   </div>
@@ -1402,19 +1402,19 @@ export default function Form101() {
           </div>
         </div>
         <div className='box-heading'>
-          <h2>G. Changes during the year</h2>
-          <p>This part, which appears on the printed form 101, is not relevant because it is a computerized form</p>
-          <p>For any change that will apply to the details you filled in the form, the employer must be notified within one week of the date of the change, by filling out a new form in this system or by any means the employer allows</p>
+          <h2>{t('form101.year_changes')}</h2>
+          <p>{t('form101.year_changes_details1')}</p>
+          <p>{t('form101.year_changes_details2')}</p>
         </div>
         <div className='box-heading'>
-          <h2>H. I am requesting an exemption or tax credit for the following reasons</h2>
+          <h2>{t('form101.exemption_headline')}</h2>
           <div className='row'>
             <div className='col-sm-12'>
               <div className='form-group'>
                 {
                   form && form.signature != null && form.taxCredit != null && form['taxCredit'].taxCredit.includes("resident") ?
-                    <><input type='checkbox' checked name="taxCredit" value="resident" onChange={e => handleSubmit(e)} /> 1. I am a resident of Israel</> :
-                    <><input type='checkbox' disabled={form && form.signature != null} name="taxCredit" value="resident" onChange={e => handleSubmit(e)} /> 1. I am a resident of Israel</>
+                    <><input type='checkbox' checked name="taxCredit" value="resident" onChange={e => handleSubmit(e)} /> {t('form101.exm1')}</> :
+                    <><input type='checkbox' disabled={form && form.signature != null} name="taxCredit" value="resident" onChange={e => handleSubmit(e)} /> {t('form101.exm1')}</>
                 }
 
               </div>
@@ -1423,8 +1423,8 @@ export default function Form101() {
               <div className='form-group'>
                 {
                   form && form.signature != null && form.taxCredit != null && form['taxCredit'].taxCredit.includes("disabled") ?
-                    <><input type='checkbox' checked name="taxCredit" value="disabled" onChange={e => handleSubmit(e)} /> 2. I am 100% disabled / permanently blind</> :
-                    <><input type='checkbox' disabled={form && form.signature != null} name="taxCredit" value="disabled" onChange={e => handleSubmit(e)} /> 2. I am 100% disabled / permanently blind</>
+                    <><input type='checkbox' checked name="taxCredit" value="disabled" onChange={e => handleSubmit(e)} /> {t('form101.exm2')}</> :
+                    <><input type='checkbox' disabled={form && form.signature != null} name="taxCredit" value="disabled" onChange={e => handleSubmit(e)} /> {t('form101.exm2')}</>
                 }
               </div>
             </div>
@@ -1432,8 +1432,8 @@ export default function Form101() {
               <div className='form-group'>
                 {
                   form && form.signature != null && form.taxCredit != null && form['taxCredit'].taxCredit.includes("PermanentResident") ?
-                    <><input type='checkbox' checked name="taxCredit" value="PermanentResident" onChange={e => handleSubmit(e)} /> 3. I am a permanent resident of a qualifying settlement. Me and my first degree family members, live in the settlement and I don't have another "life center"</> :
-                    <><input type='checkbox' disabled={form && form.signature != null} name="taxCredit" value="PermanentResident" onChange={e => handleSubmit(e)} /> 3. I am a permanent resident of a qualifying settlement. Me and my first degree family members, live in the settlement and I don't have another "life center"</>
+                    <><input type='checkbox' checked name="taxCredit" value="PermanentResident" onChange={e => handleSubmit(e)} /> {t('form101.exm3')}</> :
+                    <><input type='checkbox' disabled={form && form.signature != null} name="taxCredit" value="PermanentResident" onChange={e => handleSubmit(e)} /> {t('form101.exm3')}</>
                 }
 
               </div>
@@ -1442,8 +1442,8 @@ export default function Form101() {
               <div className='form-group'>
                 {
                   form && form.signature != null && form.taxCredit != null && form['taxCredit'].taxCredit.includes("immigrant") ?
-                    <><input type='checkbox' checked name="taxCredit" value="immigrant" onChange={e => handleSubmit(e)} /> 4. I am a new immigrant</> :
-                    <><input type='checkbox' disabled={form && form.signature != null} name="taxCredit" value="immigrant" onChange={e => handleSubmit(e)} /> 4. I am a new immigrant</>
+                    <><input type='checkbox' checked name="taxCredit" value="immigrant" onChange={e => handleSubmit(e)} /> {t('form101.exm4')}</> :
+                    <><input type='checkbox' disabled={form && form.signature != null} name="taxCredit" value="immigrant" onChange={e => handleSubmit(e)} /> {t('form101.exm4')}</>
                 }
 
               </div>
@@ -1452,8 +1452,8 @@ export default function Form101() {
               <div className='form-group'>
                 {
                   form && form.signature != null && form.taxCredit != null && form['taxCredit'].taxCredit.includes("spouse") ?
-                    <><input type='checkbox' checked name="taxCredit" value="spouse" onChange={e => handleSubmit(e)} /> 5. For my spouse who lives with me and has no income in the tax year (Only if the employee or spouse has reached retirement age or he/she is disabled or blind according to section 9(5) of the ordinance)</> :
-                    <><input type='checkbox' disabled={form && form.signature != null} name="taxCredit" value="spouse" onChange={e => handleSubmit(e)} /> 5. For my spouse who lives with me and has no income in the tax year (Only if the employee or spouse has reached retirement age or he/she is disabled or blind according to section 9(5) of the ordinance)</>
+                    <><input type='checkbox' checked name="taxCredit" value="spouse" onChange={e => handleSubmit(e)} /> {t('form101.exm5')}</> :
+                    <><input type='checkbox' disabled={form && form.signature != null} name="taxCredit" value="spouse" onChange={e => handleSubmit(e)} /> {t('form101.exm5')}</>
                 }
 
               </div>
@@ -1462,8 +1462,8 @@ export default function Form101() {
               <div className='form-group'>
                 {
                   form && form.signature != null && form.taxCredit != null && form['taxCredit'].taxCredit.includes("parent") ?
-                    <><input type='checkbox' checked name="taxCredit" value="parent" onChange={e => handleSubmit(e)} /> 6. I am a parent in a single-parent family living separately from the National Insurance Institute (in accordance with section 7 below) and does not run a joint household with another individual</> :
-                    <><input type='checkbox' disabled={form && form.signature != null} name="taxCredit" value="parent" onChange={e => handleSubmit(e)} /> 6. I am a parent in a single-parent family living separately from the National Insurance Institute (in accordance with section 7 below) and does not run a joint household with another individual</>
+                    <><input type='checkbox' checked name="taxCredit" value="parent" onChange={e => handleSubmit(e)} /> {t('form101.exm6')}</> :
+                    <><input type='checkbox' disabled={form && form.signature != null} name="taxCredit" value="parent" onChange={e => handleSubmit(e)} /> {t('form101.exm6')}</>
                 }
 
               </div>
@@ -1472,8 +1472,8 @@ export default function Form101() {
               <div className='form-group'>
                 {
                   form && form.signature != null && form.taxCredit != null && form['taxCredit'].taxCredit.includes("children") ?
-                    <><input type='checkbox' checked name="taxCredit" value="children" onChange={e => handleSubmit(e)} /> 7.  In respect of my children listed in part C (To be filled out only by a parent in a single-parent family who receives the children's allowance for them, or by a married woman or by a single parent)</> :
-                    <><input type='checkbox' disabled={form && form.signature != null} name="taxCredit" value="children" onChange={e => handleSubmit(e)} /> 7.  In respect of my children listed in part C (To be filled out only by a parent in a single-parent family who receives the children's allowance for them, or by a married woman or by a single parent)</>
+                    <><input type='checkbox' checked name="taxCredit" value="children" onChange={e => handleSubmit(e)} /> {t('form101.exm7')}</> :
+                    <><input type='checkbox' disabled={form && form.signature != null} name="taxCredit" value="children" onChange={e => handleSubmit(e)} /> {t('form101.exm7')}</>
                 }
 
               </div>
@@ -1482,8 +1482,8 @@ export default function Form101() {
               <div className='form-group'>
                 {
                   form && form.signature != null && form.taxCredit != null && form['taxCredit'].taxCredit.includes("forchild") ?
-                    <><input type='checkbox' checked name="taxCredit" value="forchild" onChange={e => handleSubmit(e)} /> 8. For my children (To be filled in by a parent (with the exception of a parent mentioned in paragraph 7 above), an unmarried woman whose children are not in her custody, as well as a single parent)</> :
-                    <><input type='checkbox' disabled={form && form.signature != null} name="taxCredit" value="forchild" onChange={e => handleSubmit(e)} /> 8. For my children (To be filled in by a parent (with the exception of a parent mentioned in paragraph 7 above), an unmarried woman whose children are not in her custody, as well as a single parent)</>
+                    <><input type='checkbox' checked name="taxCredit" value="forchild" onChange={e => handleSubmit(e)} /> {t('form101.exm8')}</> :
+                    <><input type='checkbox' disabled={form && form.signature != null} name="taxCredit" value="forchild" onChange={e => handleSubmit(e)} /> {t('form101.exm8')}</>
                 }
 
               </div>
@@ -1492,8 +1492,8 @@ export default function Form101() {
               <div className='form-group'>
                 {
                   form && form.signature != null && form.taxCredit != null && form['taxCredit'].taxCredit.includes("singleparent") ?
-                    <> <input type='checkbox' checked name="taxCredit" value="singleparent" onChange={e => handleSubmit(e)} /> 9. I am a single parent to my children in my custody (listed in section 7 and 8 above)</> :
-                    <> <input type='checkbox' disabled={form && form.signature != null} name="taxCredit" value="singleparent" onChange={e => handleSubmit(e)} /> 9. I am a single parent to my children in my custody (listed in section 7 and 8 above)</>
+                    <> <input type='checkbox' checked name="taxCredit" value="singleparent" onChange={e => handleSubmit(e)} /> {t('form101.exm9')}</> :
+                    <> <input type='checkbox' disabled={form && form.signature != null} name="taxCredit" value="singleparent" onChange={e => handleSubmit(e)} /> {t('form101.exm9')}</>
                 }
 
               </div>
@@ -1502,8 +1502,8 @@ export default function Form101() {
               <div className='form-group'>
                 {
                   form && form.signature != null && form.taxCredit != null && form['taxCredit'].taxCredit.includes("possessionChild") ?
-                    <><input type='checkbox' checked name="taxCredit" value="possessionChild" onChange={e => handleSubmit(e)} /> 10. Regarding my children who are not in my possession listed in part C and I participate in their finances (To be filled out by a parent who lives separately, who is not entitled to credit points for his children, who created a PSA requiring him to pay child support)</> :
-                    <><input type='checkbox' disabled={form && form.signature != null} name="taxCredit" value="possessionChild" onChange={e => handleSubmit(e)} /> 10. Regarding my children who are not in my possession listed in part C and I participate in their finances (To be filled out by a parent who lives separately, who is not entitled to credit points for his children, who created a PSA requiring him to pay child support)</>
+                    <><input type='checkbox' checked name="taxCredit" value="possessionChild" onChange={e => handleSubmit(e)} /> {t('form101.exm10')}</> :
+                    <><input type='checkbox' disabled={form && form.signature != null} name="taxCredit" value="possessionChild" onChange={e => handleSubmit(e)} /> {t('form101.exm10')}</>
                 }
 
               </div>
@@ -1512,8 +1512,8 @@ export default function Form101() {
               <div className='form-group'>
                 {
                   form && form.signature != null && form.taxCredit != null && form['taxCredit'].taxCredit.includes("disabilites") ?
-                    <> <input type='checkbox' name="taxCredit" value="disabilites" onChange={e => handleSubmit(e)} /> 11. I am a parent of children with disabilities who have not yet turned 19, for whom I receive a disabled child benefit from the National Insurance Institute (My partner does not receive these credit points. My children, for whom I am requesting the credit points, have no income this year)</> :
-                    <> <input type='checkbox' disabled={form && form.signature != null} name="taxCredit" value="disabilites" onChange={e => handleSubmit(e)} /> 11. I am a parent of children with disabilities who have not yet turned 19, for whom I receive a disabled child benefit from the National Insurance Institute (My partner does not receive these credit points. My children, for whom I am requesting the credit points, have no income this year)</>
+                    <> <input type='checkbox' name="taxCredit" value="disabilites" onChange={e => handleSubmit(e)} /> {t('form101.exm11')}</> :
+                    <> <input type='checkbox' disabled={form && form.signature != null} name="taxCredit" value="disabilites" onChange={e => handleSubmit(e)} /> {t('form101.exm11')}</>
                 }
 
               </div>
@@ -1522,8 +1522,8 @@ export default function Form101() {
               <div className='form-group'>
                 {
                   form && form.signature != null && form.taxCredit != null && form['taxCredit'].taxCredit.includes("formerspouse") ?
-                    <> <input type='checkbox' checked name="taxCredit" value="formerspouse" onChange={e => handleSubmit(e)} /> 12. In respect of alimony for my former spouse (To be filled in by the person who remarries)</> :
-                    <> <input type='checkbox' disabled={form && form.signature != null} name="taxCredit" value="formerspouse" onChange={e => handleSubmit(e)} /> 12. In respect of alimony for my former spouse (To be filled in by the person who remarries)</>
+                    <> <input type='checkbox' checked name="taxCredit" value="formerspouse" onChange={e => handleSubmit(e)} /> {t('form101.exm12')}</> :
+                    <> <input type='checkbox' disabled={form && form.signature != null} name="taxCredit" value="formerspouse" onChange={e => handleSubmit(e)} /> {t('form101.exm12')}</>
                 }
 
               </div>
@@ -1532,8 +1532,8 @@ export default function Form101() {
               <div className='form-group'>
                 {
                   form && form.signature != null && form.taxCredit != null && form['taxCredit'].taxCredit.includes("partner") ?
-                    <><input type='checkbox' checked name="taxCredit" value="partner" onChange={e => handleSubmit(e)} /> 13. I or my partner have turned 16 and have not yet turned 18 in the tax year</> :
-                    <><input type='checkbox' disabled={form && form.signature != null} name="taxCredit" value="partner" onChange={e => handleSubmit(e)} /> 13. I or my partner have turned 16 and have not yet turned 18 in the tax year</>
+                    <><input type='checkbox' checked name="taxCredit" value="partner" onChange={e => handleSubmit(e)} /> {t('form101.exm13')}</> :
+                    <><input type='checkbox' disabled={form && form.signature != null} name="taxCredit" value="partner" onChange={e => handleSubmit(e)} /> {t('form101.exm13')}</>
                 }
 
               </div>
@@ -1542,8 +1542,8 @@ export default function Form101() {
               <div className='form-group'>
                 {
                   form && form.signature != null && form.taxCredit != null && form['taxCredit'].taxCredit.includes("soldier") ?
-                    <> <input type='checkbox' checked name="taxCredit" value="soldier" onChange={e => handleSubmit(e)} /> 14. I am a discharged soldier / served in national service</> :
-                    <> <input type='checkbox' disabled={form && form.signature != null} name="taxCredit" value="soldier" onChange={e => handleSubmit(e)} /> 14. I am a discharged soldier / served in national service</>
+                    <> <input type='checkbox' checked name="taxCredit" value="soldier" onChange={e => handleSubmit(e)} /> {t('form101.exm14')}</> :
+                    <> <input type='checkbox' disabled={form && form.signature != null} name="taxCredit" value="soldier" onChange={e => handleSubmit(e)} /> {t('form101.exm14')}</>
                 }
 
               </div>
@@ -1552,8 +1552,8 @@ export default function Form101() {
               <div className='form-group'>
                 {
                   form && form.signature != null && form.taxCredit != null && form['taxCredit'].taxCredit.includes("graduation") ?
-                    <><input type='checkbox' checked name="taxCredit" value="graduation" onChange={e => handleSubmit(e)} /> 15. In respect of graduation for an academic degree, graduation from an internship or graduation from professional studies</> :
-                    <><input type='checkbox' disabled={form && form.signature != null} name="taxCredit" value="graduation" onChange={e => handleSubmit(e)} /> 15. In respect of graduation for an academic degree, graduation from an internship or graduation from professional studies</>
+                    <><input type='checkbox' checked name="taxCredit" value="graduation" onChange={e => handleSubmit(e)} /> {t('form101.exm15')}</> :
+                    <><input type='checkbox' disabled={form && form.signature != null} name="taxCredit" value="graduation" onChange={e => handleSubmit(e)} /> {t('form101.exm15')}</>
                 }
 
               </div>
@@ -1561,14 +1561,14 @@ export default function Form101() {
           </div>
         </div>
         <div className='box-heading'>
-          <h2>F. Coordination number</h2>
+          <h2>{t('form101.coordination_number')}</h2>
           <div className='row'>
             <div className='col-sm-6'>
               <div className='form-group'>
                 {
                   form && form.signature != null && form.cordination == false ?
-                    <><input name='cordination' type='radio' checked id='cordination1' onClick={() => setCordination(false)} /> No, I don't have cordination number</> :
-                    <><input name='cordination' type='radio' disabled={form && form.signature != null} id='cordination1' onClick={() => setCordination(false)} /> No, I don't have cordination number</>
+                    <><input name='cordination' type='radio' checked id='cordination1' onClick={() => setCordination(false)} /> {t('form101.coordination_no')}</> :
+                    <><input name='cordination' type='radio' disabled={form && form.signature != null} id='cordination1' onClick={() => setCordination(false)} /> {t('form101.coordination_no')}</>
                 }
 
               </div>
@@ -1577,8 +1577,8 @@ export default function Form101() {
               <div className='form-group'>
                 {
                   form && form.signature != null && form.cordination == true ?
-                    <><input name='cordination' type='radio' checked id='cordination2' onClick={() => setCordination(true)} /> Yes, I have coordination number</> :
-                    <><input name='cordination' type='radio' disabled={form && form.signature != null} id='cordination2' onClick={() => setCordination(true)} /> Yes, I have coordination number</>
+                    <><input name='cordination' type='radio' checked id='cordination2' onClick={() => setCordination(true)} /> {t('form101.coordination_yes')}</> :
+                    <><input name='cordination' type='radio' disabled={form && form.signature != null} id='cordination2' onClick={() => setCordination(true)} /> {t('form101.coordination_yes')}</>
                 }
 
               </div>
@@ -1586,34 +1586,34 @@ export default function Form101() {
           </div>
           {cordination &&
             <>
-              <label className='control-label'>The reason for the request*</label>
+              <label className='control-label'>{t('form101.text_reason_request')}*</label>
               <div>
                 {
                   form && form.signature != null && form.cord == '0' ?
-                    <><input name='cordRequest' checked type='radio' id='cordn1' onClick={() => setCord('0')} /> I had no income from the beginning of the current tax year until I started working for this employer.</> :
-                    <> <input name='cordRequest' disabled={form && form.signature != null} type='radio' id='cordn1' onClick={() => setCord('0')} /> I had no income from the beginning of the current tax year until I started working for this employer.</>
+                    <><input name='cordRequest' checked type='radio' id='cordn1' onClick={() => setCord('0')} /> {t('form101.no_income_beginning')}</> :
+                    <> <input name='cordRequest' disabled={form && form.signature != null} type='radio' id='cordn1' onClick={() => setCord('0')} /> {t('form101.no_income_beginning')}</>
                 }
 
               </div>
               <div>
                 {
                   form && form.signature != null && form.cord == '1' ?
-                    <><input name='cordRequest' type='radio' checked id='cordn2' onClick={() => setCord('1')} /> I have additional income from salary as detailed below.</> :
-                    <> <input name='cordRequest' type='radio' disabled={form && form.signature != null} id='cordn2' onClick={() => setCord('1')} /> I have additional income from salary as detailed below.</>
+                    <><input name='cordRequest' type='radio' checked id='cordn2' onClick={() => setCord('1')} /> {t('form101.additional_income_beginning')}</> :
+                    <> <input name='cordRequest' type='radio' disabled={form && form.signature != null} id='cordn2' onClick={() => setCord('1')} /> {t('form101.additional_income_beginning')}</>
                 }
 
               </div>
               <div>
                 {
                   form && form.signature != null && form.cord == '2' ?
-                    <><input name='cordRequest' type='radio' checked id='cordn3' onClick={() => setCord('2')} /> The assessor approved coordination according to the attached certificate.</> :
-                    <><input name='cordRequest' type='radio' disabled={form && form.signature != null} id='cordn3' onClick={() => setCord('2')} /> The assessor approved coordination according to the attached certificate.</>
+                    <><input name='cordRequest' type='radio' checked id='cordn3' onClick={() => setCord('2')} /> {t('form101.accessor_approved')}</> :
+                    <><input name='cordRequest' type='radio' disabled={form && form.signature != null} id='cordn3' onClick={() => setCord('2')} /> {t('form101.accessor_approved')}</>
                 }
 
               </div>
               {cord && cord == '0' &&
                 <div className='borderBox mt-3'>
-                  <label className='control-label d-block'>Proof of lack of income</label>
+                  <label className='control-label d-block'>{t('form101.label_income_proof')}</label>
                   {
                     form && form.signature != null && form.cord0_file != null ?
                       <>
@@ -1624,7 +1624,7 @@ export default function Form101() {
                             sf.style.width = '100%';
                           }}
                           data-toggle="modal" data-target="#exampleModal">
-                          view uploaded File
+                          {t('form101.view_uploaded_file')}
                         </button>
                       </> :
                       <>
@@ -1632,75 +1632,75 @@ export default function Form101() {
                       </>
                   }
 
-                  <p className='mt-2'>Such as: border police approval for staying abroad, illness approval, etc. In the absence of proof, contact the assessor. Please note: maternity benefits and unemployment benefits are taxable income.</p>
+                  <p className='mt-2'>{t('form101.such_proof')}</p>
                 </div>
               }
               {cord && cord == '1' &&
                 <div className='borderBox mt-3'>
-                  <label className='control-label'>Details of additional income (ie, in addition to income from this employer)</label>
+                  <label className='control-label'>{t('form101.additional_income_details')}</label>
                   <form onSubmit={handleSave2}>
                     {salValues.map((element, index) => (
                       <div className="slotForm" key={index}>
                         <div className='row'>
                           <div className='col-sm-4'>
                             <div className='form-group'>
-                              <label className='control-label'>Name*</label>
+                              <label className='control-label'>{t('form101.label_name')}*</label>
                               <input type='text' className='form-control' name='name' readOnly={form && form.signature != null ? 'readonly' : ''} placeholder='Name' value={element.name || ""} onChange={e => handleSalChange(index, e)} />
                             </div>
                           </div>
                           <div className='col-sm-4'>
                             <div className='form-group'>
-                              <label className='control-label'>Address*</label>
+                              <label className='control-label'>{t('form101.label_address')}*</label>
                               <input type="text" name="address" className='form-control' readOnly={form && form.signature != null ? 'readonly' : ''} placeholder='Address' value={element.address || ""} onChange={e => handleSalChange(index, e)} />
                             </div>
                           </div>
                           <div className='col-sm-4'>
                             <div className='form-group'>
-                              <label className='control-label'>Deduction file ID*</label>
+                              <label className='control-label'>{t('form101.label_ddfileId')}*</label>
                               <input type="text" name="dfid" className='form-control' readOnly={form && form.signature != null ? 'readonly' : ''} placeholder='Deduction file ID' value={element.dfid || ""} onChange={e => handleSalChange(index, e)} />
                             </div>
                           </div>
                           <div className='col-sm-4'>
                             <div className='form-group'>
-                              <label className='control-label'>Monthly Income (According to the slips)*</label>
+                              <label className='control-label'>{t('form101.income_to_slip')}*</label>
                               <input type="text" name="mIncome" className='form-control' readOnly={form && form.signature != null ? 'readonly' : ''} placeholder='Monthly Income' value={element.mIncome || ""} onChange={e => handleSalChange(index, e)} />
                             </div>
                           </div>
                           <div className='col-sm-4'>
                             <div className='form-group'>
-                              <label className='control-label'>The tax deducted (According to the slips)*</label>
+                              <label className='control-label'>{t('form101.tax_to_slip')}*</label>
                               <input type="text" name="taxDeducted" className='form-control' readOnly={form && form.signature != null ? 'readonly' : ''} placeholder='The tax deducted' value={element.taxDeducted || ""} onChange={e => handleSalChange(index, e)} />
                             </div>
                           </div>
                           <div className='col-sm-4'>
                             <div className='form-group'>
-                              <label className='control-label'>Type of income*</label>
+                              <label className='control-label'>{t('form101.income_to_type')}*</label>
                               {
                                 form && form.signature != null && form.salary_form[index].typeIncome == "working" ?
-                                  <div className='form-group'><input type="radio" name="typeIncome" checked value={element.typeIncome || "working"} onChange={e => handleSalChange(index, e)} /> Working</div> :
-                                  <div className='form-group'><input type="radio" name="typeIncome" disabled={form && form.signature != null} value={element.typeIncome || "working"} onChange={e => handleSalChange(index, e)} /> Working</div>
+                                  <div className='form-group'><input type="radio" name="typeIncome" checked value={element.typeIncome || "working"} onChange={e => handleSalChange(index, e)} /> {t('form101.incomeType1')}</div> :
+                                  <div className='form-group'><input type="radio" name="typeIncome" disabled={form && form.signature != null} value={element.typeIncome || "working"} onChange={e => handleSalChange(index, e)} /> {t('form101.incomeType1')}</div>
                               }
                               {
                                 form && form.signature != null && form.salary_form[index].typeIncome == "allowance" ?
                                   <div className='form-group'><input type="radio" name="typeIncome" checked value={element.typeIncome || "allowance"} onChange={e => handleSalChange(index, e)} /> Allowance</div> :
-                                  <div className='form-group'><input type="radio" name="typeIncome" disabled={form && form.signature != null} value={element.typeIncome || "allowance"} onChange={e => handleSalChange(index, e)} /> Allowance</div>
+                                  <div className='form-group'><input type="radio" name="typeIncome" disabled={form && form.signature != null} value={element.typeIncome || "allowance"} onChange={e => handleSalChange(index, e)} /> {t('form101.incomeType2')}</div>
                               }
                               {
                                 form && form.signature != null && form.salary_form[index].typeIncome == "scholarship" ?
                                   <div className='form-group'><input type="radio" name="typeIncome" checked value={element.typeIncome || "scholarship"} onChange={e => handleSalChange(index, e)} /> Scholarship</div> :
-                                  <div className='form-group'><input type="radio" name="typeIncome" disabled={form && form.signature != null} value={element.typeIncome || "scholarship"} onChange={e => handleSalChange(index, e)} /> Scholarship</div>
+                                  <div className='form-group'><input type="radio" name="typeIncome" disabled={form && form.signature != null} value={element.typeIncome || "scholarship"} onChange={e => handleSalChange(index, e)} /> {t('form101.incomeType3')}</div>
                               }
                               {
                                 form && form.signature != null && form.salary_form[index].typeIncome == "other" ?
                                   <div className='form-group'><input type="radio" name="typeIncome" checked value={element.typeIncome || "other"} onChange={e => handleSalChange(index, e)} /> Other</div> :
-                                  <div className='form-group'><input type="radio" name="typeIncome" disabled={form && form.signature != null} value={element.typeIncome || "other"} onChange={e => handleSalChange(index, e)} /> Other</div>
+                                  <div className='form-group'><input type="radio" name="typeIncome" disabled={form && form.signature != null} value={element.typeIncome || "other"} onChange={e => handleSalChange(index, e)} /> {t('form101.incomeType4')}</div>
                               }
 
                             </div>
                           </div>
                           <div className='col-sm-4'>
                             <div className='form-group'>
-                              <label className='control-label d-block'>Copy of pay slip</label>
+                              <label className='control-label d-block'>{t('form101.copyPaySlip')}</label>
                               {
                                 form && form.signature != null && form.salary_form[index].copy_of_pay != "" ?
                                   <>
@@ -1711,7 +1711,7 @@ export default function Form101() {
                                         sf.style.width = '100%';
                                       }}
                                       data-toggle="modal" data-target="#exampleModal">
-                                      view uploaded File
+                                      {t('form101.view_uploaded_file')}
                                     </button>
                                   </> :
                                   <input type="file" name="copy_of_pay" onChange={e => { handleSalChange(index, e) }} />
@@ -1724,7 +1724,7 @@ export default function Form101() {
                               <label className='control-label'>&nbsp;</label>
                               {
                                 index && form.length == 0 ?
-                                  <button type="button" className="btn btn-danger remove saveBtn mt-4" onClick={() => removeFormFields2(index)}>Remove</button>
+                                  <button type="button" className="btn btn-danger remove saveBtn mt-4" onClick={() => removeFormFields2(index)}>{t('form101.button_remove')}</button>
                                   : null
                               }
                             </div>
@@ -1735,13 +1735,13 @@ export default function Form101() {
                   </form>
                   {
 
-                    form.length == 0 && <button className="btn btn-success button add slotBtn mb-3" type="button" onClick={() => addFormFields2()}>+ Add Employer/Player</button>
+                    form.length == 0 && <button className="btn btn-success button add slotBtn mb-3" type="button" onClick={() => addFormFields2()}>{t('form101.add_employer_player')}</button>
                   }
                 </div>
               }
               {cord && cord == '2' &&
                 <div className="borderBox mt-3">
-                  <label className='control-label d-block'>Tax coordination approval by an assessor</label>
+                  <label className='control-label d-block'>{t('form101.taxCordination')}</label>
                   {
                     form && form.signature != null && form.cord2_file != null ?
                       <>
@@ -1752,7 +1752,7 @@ export default function Form101() {
                             sf.style.width = '100%';
                           }}
                           data-toggle="modal" data-target="#exampleModal">
-                          view uploaded File
+                          {t('form101.view_uploaded_file')}
                         </button>
                       </>
                       :
@@ -1767,9 +1767,9 @@ export default function Form101() {
           }
         </div>
         <div className='box-heading'>
-          <h2>G. Disclaimer</h2>
-          <p>I declare that the details I provided in this form are complete and correct. I know that omitting or providing incorrect information is a violation of the Income Tax Ordinance.</p>
-          <p>I undertake to inform the employer of any change that will apply to my personal details and the details above within a week from the date of the change.</p>
+          <h2>{t('form101.text_disclaimer')}</h2>
+          <p>{t('form101.disclaimer_details1')}</p>
+          <p>{t('form101.disclaimer_details2')}</p>
           <p>
             {
               (form && form.signature != null) ?
@@ -1781,9 +1781,9 @@ export default function Form101() {
                     ref={sigRef}
                     onEnd={handleSignatureEnd}
                   />
-                  <p><button className='btn btn-warning' onClick={clearSignature}>Clear</button></p>
+                  <p><button className='btn btn-warning' onClick={clearSignature}>{t('form101.button_clear')}</button></p>
                   <div className='mt-4 text-center'>
-                    <button className='btn btn-success' onClick={finalSubmit}>Submit</button>
+                    <button className='btn btn-success' onClick={finalSubmit}>{t('form101.button_submit')}</button>
                   </div>
                 </>
             }
