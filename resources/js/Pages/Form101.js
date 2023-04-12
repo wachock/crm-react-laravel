@@ -164,12 +164,14 @@ export default function Form101() {
 
   }
   const finalSubmit = () => {
-
+   
+    
     data['cordination'] = cordination;
     data['cord'] = cord;
 
     const Data = {
       ...data,
+      "identification":selected,
       "child_form": formValues,
       "salary_form": salValues,
       "photocopy_id_appendix": (file != undefined) ? file : '',
@@ -178,7 +180,7 @@ export default function Form101() {
       "cord0_file": cord0File,
       "cord2_file": cord2File
     }
-
+    
     let success = true;
 
     if (!Data.name) { alert.error('Please enter name'); success = false; return false; }
@@ -193,7 +195,7 @@ export default function Form101() {
       bid.forEach((e, i) => {
         if (e.value == '') {
           let name = e.name.split('-')[1];
-          if (name != undefined) {
+          if (name != undefined && name != 'date_of_immigration' && name != 'phone_number') {
             name = name.replace('_', ' ');
             alert.error('Please enter ' + name);
             success = false;
@@ -201,6 +203,7 @@ export default function Form101() {
           }
         }
       })
+      
       /* 
        COMMENTED RADIO BUTTONS NOT MANDATORY
  
@@ -216,15 +219,43 @@ export default function Form101() {
          }
        }
        })*/
+     //const [formValues, setFormValues] = useState([{ name: "", idnum: "", childDob: "", custody: "", childBenefit: "" }]);
+        for(let sv in formValues){
+  
+          if(formValues[sv].name == ''){
+            alert.error("One of the name in child details is missing");
+            success = false;
+            return false;
+          }
+          if(formValues[sv].idnum == ''){
+            alert.error("One of the Id number in child details is missing");
+            success = false;
+            return false;
+          }
+          if(formValues[sv].childDob == ''){
+            alert.error("One of date of birth in child details is missing");
+            success = false;
+            return false;
+          }
+          if(formValues[sv].custody == '' && formValues[sv].childBenefit == '' ){
+            alert.error("One of the custody/child benifit selection is missing");
+            success = false;
+            return false;
+          }
 
-    } else {
+        }
+      
+
+    } 
+
+    else {
 
       let pid = document.querySelectorAll('.pid');
       let pidr = document.querySelectorAll('.pidr');
       pid.forEach((e, i) => {
         if (e.value == '') {
           let name = e.name.split('-')[1];
-          if (name != undefined) {
+          if (name != undefined && name != 'postal_code' && name != 'phone_number' ) {
             name = name.replace('_', ' ');
             alert.error('Please enter ' + name);
             success = false;
@@ -246,10 +277,71 @@ export default function Form101() {
 
 
     }
+   
+    if(exIncome == true){
+
+      let ot = document.querySelectorAll('input[name="breakIncome"]:checked');
+      if(ot.length == 0){
+        alert.error("Please choose other income breakdown");
+        success = false;
+        return false;
+      }
+    }
+    if(cordination == true && cord == null){
+      alert.error('Please select the reason for the request in  cordination number');
+      success = false;
+      return false;
+    }
+    if(cordination == true && cord == '1'){
+      for(let sv in salValues){
+        let it = document.querySelector('input[name="typeIncome'+sv+'"]:checked');
+        salValues[sv].typeIncome = (it != null) ? it.value:'';
+
+        if(salValues[sv].name == ''){
+          alert.error("One of the name in additional income is missing");
+          success = false;
+          return false;
+        }
+
+        if(salValues[sv].address == ''){
+          alert.error("One of the address in additional income is missing");
+          success = false;
+          return false;
+        }
+
+        if(salValues[sv].dfid == ''){
+          alert.error("One of the deduction ID in additional income is missing");
+          success = false;
+          return false;
+        }
+        if(salValues[sv].mIncome == ''){
+          alert.error("One of the monthly income in additional income is missing");
+          success = false;
+          return false;
+        }
+        if(salValues[sv].taxDeducted == ''){
+          alert.error("One of the tax deduction value in additional income is missing");
+          success = false;
+          return false;
+        }
+     
+        if( salValues[sv].typeIncome == '' || salValues[sv].typeIncome == null ){
+          alert.error("One of the type of income in additional income is not selected");
+          success = false;
+          return false;
+        }
+
+      }
+    }
+  
+
+   
     if (!Data.income) { alert.error('Please choose income details'); success = false; return false; }
     if (!Data.taxDate) { alert.error('Please enter date of commencement '); success = false; return false; }
     if (!Data.signature || Data.signature == null) { alert.error('Please sign form'); success = false; return false; }
-
+    
+     
+    
     if (success == true) {
       axios
         .post(`/api/form101`, { id: id, data: Data })
@@ -282,11 +374,20 @@ export default function Form101() {
         if (res.data.form.length > 0) {
           if (res.data.form[0].form_101 != null) {
             let fm = JSON.parse(res.data.form[0].form_101).data;
-            console.log(fm);
-            if (fm.child_form.length != 0 && fm.child != "") {
+           
+            let ip = document.querySelectorAll('input');
+            let sl = document.querySelectorAll('select');
+            ip.forEach((e,i)=>{
+             e.setAttribute('readonly',true);
+            });
+            sl.forEach((e,i)=>{
+              e.setAttribute('disabled',true);
+             });
+
+            if (fm.child_form != undefined && fm.child_form.length != 0 && fm.child_form != ""  ) {
               setFormValues(fm.child_form);
             }
-            if (fm.salary_form.length != 0 && fm.salary_form != "") {
+            if (fm.salary_form != undefined && fm.salary_form.length != 0 && fm.salary_form != "") {
               setSalValues(fm.salary_form);
             }
             setExIncome(fm.moreIncome);
@@ -322,8 +423,13 @@ export default function Form101() {
 
   useEffect(() => {
     getForm();
-    if (form.length == 0)
+    if (form.length == 0){
       document.querySelector('#moreIncome1').checked = true;
+      document.querySelector('#cordination1').checked = true;
+      setSelected("byId");
+
+    } 
+
   }, []);
 
   const handleFile = (data) => {
@@ -495,7 +601,7 @@ export default function Form101() {
                       <input type="file" name="photocopy_id_appendix" className='bid' onChange={(e) => { handleFile(e.target.files[0]) }} style={{ display: "block" }} />
                       <img src={(file)} className="img-fluid" style={{ maxWidth: "70px", marginTop: "10px" }} />
                       {
-                        form && form.signature != null && <button type="button" className="btn btn-pink m-2"
+                        form && form.signature != null && form.photocopy_id_appendix != null && <button type="button" className="btn btn-pink m-2"
                           onClick={(e) => {
                             let sf = document.querySelector('.showfile');
                             sf.setAttribute('src', form['photocopy_id_appendix']);
@@ -985,7 +1091,7 @@ export default function Form101() {
                       <input type="file" onChange={e => { handleFile2(e.target.files[0]) }} name="p-file" style={{ display: "block" }} />
                       <img src={(file2)} className="img-fluid pid" style={{ maxWidth: "70px", marginTop: "10px" }} />
                       {
-                        form && form.signature != null && <button type="button" className="btn btn-pink m-2"
+                        form && form.signature != null && form['p-file'] !=null && <button type="button" className="btn btn-pink m-2"
                           onClick={(e) => {
                             let sf = document.querySelector('.showfile');
                             sf.setAttribute('src', form['p-file']);
@@ -1381,7 +1487,7 @@ export default function Form101() {
                   <div className='col-sm-6'>
                     <div className='form-group'>
                       {
-                        form && form.signature != null && form.excertion != null && form['excertion'].excertion.includes("excluded") ?
+                        form && form.signature != null && form.excertion != null && form['excertion'].excertion != undefined && form['excertion'].excertion.includes("excluded") ?
                           <><input type='checkbox' checked name='excertion' id='excertion1' value="excluded" onChange={e => handleSubmit(e)} /> {t('form101.text_excretion1')}</> :
                           <><input type='checkbox' disabled={form && form.signature != null} name='excertion' id='excertion1' value="excluded" onChange={e => handleSubmit(e)} /> {t('form101.text_excretion1')}</>
                       }
@@ -1390,7 +1496,7 @@ export default function Form101() {
                   <div className='col-sm-6'>
                     <div className='form-group'>
                       {
-                        form && form.signature != null && form.excertion != null && form['excertion'].excertion.includes("included") ?
+                        form && form.signature != null && form.excertion != null &&  form['excertion'].excertion != undefined && form['excertion'].excertion.includes("included") ?
                           <><input type='checkbox' checked name='excertion' value="included" onChange={e => handleSubmit(e)} /> {t('form101.text_excretion2')}</> :
                           <><input type='checkbox' disabled={form && form.signature != null} name='excertion' value="included" onChange={e => handleSubmit(e)} /> {t('form101.text_excretion2')}</>
                       }
@@ -1412,7 +1518,7 @@ export default function Form101() {
             <div className='col-sm-12'>
               <div className='form-group'>
                 {
-                  form && form.signature != null && form.taxCredit != null && form['taxCredit'].taxCredit.includes("resident") ?
+                  form && form.signature != null && form.taxCredit != null && form['taxCredit'].taxCredit  != undefined  && form['taxCredit'].taxCredit.includes("resident") ?
                     <><input type='checkbox' checked name="taxCredit" value="resident" onChange={e => handleSubmit(e)} /> {t('form101.exm1')}</> :
                     <><input type='checkbox' disabled={form && form.signature != null} name="taxCredit" value="resident" onChange={e => handleSubmit(e)} /> {t('form101.exm1')}</>
                 }
@@ -1422,7 +1528,7 @@ export default function Form101() {
             <div className='col-sm-12'>
               <div className='form-group'>
                 {
-                  form && form.signature != null && form.taxCredit != null && form['taxCredit'].taxCredit.includes("disabled") ?
+                  form && form.signature != null && form.taxCredit != null && form['taxCredit'].taxCredit  != undefined  && form['taxCredit'].taxCredit.includes("disabled") ?
                     <><input type='checkbox' checked name="taxCredit" value="disabled" onChange={e => handleSubmit(e)} /> {t('form101.exm2')}</> :
                     <><input type='checkbox' disabled={form && form.signature != null} name="taxCredit" value="disabled" onChange={e => handleSubmit(e)} /> {t('form101.exm2')}</>
                 }
@@ -1431,7 +1537,7 @@ export default function Form101() {
             <div className='col-sm-12'>
               <div className='form-group'>
                 {
-                  form && form.signature != null && form.taxCredit != null && form['taxCredit'].taxCredit.includes("PermanentResident") ?
+                  form && form.signature != null && form.taxCredit != null && form['taxCredit'].taxCredit  != undefined  && form['taxCredit'].taxCredit.includes("PermanentResident") ?
                     <><input type='checkbox' checked name="taxCredit" value="PermanentResident" onChange={e => handleSubmit(e)} /> {t('form101.exm3')}</> :
                     <><input type='checkbox' disabled={form && form.signature != null} name="taxCredit" value="PermanentResident" onChange={e => handleSubmit(e)} /> {t('form101.exm3')}</>
                 }
@@ -1441,7 +1547,7 @@ export default function Form101() {
             <div className='col-sm-12'>
               <div className='form-group'>
                 {
-                  form && form.signature != null && form.taxCredit != null && form['taxCredit'].taxCredit.includes("immigrant") ?
+                  form && form.signature != null && form.taxCredit != null && form['taxCredit'].taxCredit  != undefined  && form['taxCredit'].taxCredit.includes("immigrant") ?
                     <><input type='checkbox' checked name="taxCredit" value="immigrant" onChange={e => handleSubmit(e)} /> {t('form101.exm4')}</> :
                     <><input type='checkbox' disabled={form && form.signature != null} name="taxCredit" value="immigrant" onChange={e => handleSubmit(e)} /> {t('form101.exm4')}</>
                 }
@@ -1451,7 +1557,7 @@ export default function Form101() {
             <div className='col-sm-12'>
               <div className='form-group'>
                 {
-                  form && form.signature != null && form.taxCredit != null && form['taxCredit'].taxCredit.includes("spouse") ?
+                  form && form.signature != null && form.taxCredit != null && form['taxCredit'].taxCredit  != undefined  && form['taxCredit'].taxCredit.includes("spouse") ?
                     <><input type='checkbox' checked name="taxCredit" value="spouse" onChange={e => handleSubmit(e)} /> {t('form101.exm5')}</> :
                     <><input type='checkbox' disabled={form && form.signature != null} name="taxCredit" value="spouse" onChange={e => handleSubmit(e)} /> {t('form101.exm5')}</>
                 }
@@ -1461,7 +1567,7 @@ export default function Form101() {
             <div className='col-sm-12'>
               <div className='form-group'>
                 {
-                  form && form.signature != null && form.taxCredit != null && form['taxCredit'].taxCredit.includes("parent") ?
+                  form && form.signature != null && form.taxCredit != null && form['taxCredit'].taxCredit  != undefined  && form['taxCredit'].taxCredit.includes("parent") ?
                     <><input type='checkbox' checked name="taxCredit" value="parent" onChange={e => handleSubmit(e)} /> {t('form101.exm6')}</> :
                     <><input type='checkbox' disabled={form && form.signature != null} name="taxCredit" value="parent" onChange={e => handleSubmit(e)} /> {t('form101.exm6')}</>
                 }
@@ -1471,7 +1577,7 @@ export default function Form101() {
             <div className='col-sm-12'>
               <div className='form-group'>
                 {
-                  form && form.signature != null && form.taxCredit != null && form['taxCredit'].taxCredit.includes("children") ?
+                  form && form.signature != null && form.taxCredit != null && form['taxCredit'].taxCredit  != undefined  && form['taxCredit'].taxCredit.includes("children") ?
                     <><input type='checkbox' checked name="taxCredit" value="children" onChange={e => handleSubmit(e)} /> {t('form101.exm7')}</> :
                     <><input type='checkbox' disabled={form && form.signature != null} name="taxCredit" value="children" onChange={e => handleSubmit(e)} /> {t('form101.exm7')}</>
                 }
@@ -1481,7 +1587,7 @@ export default function Form101() {
             <div className='col-sm-12'>
               <div className='form-group'>
                 {
-                  form && form.signature != null && form.taxCredit != null && form['taxCredit'].taxCredit.includes("forchild") ?
+                  form && form.signature != null && form.taxCredit != null && form['taxCredit'].taxCredit  != undefined  && form['taxCredit'].taxCredit.includes("forchild") ?
                     <><input type='checkbox' checked name="taxCredit" value="forchild" onChange={e => handleSubmit(e)} /> {t('form101.exm8')}</> :
                     <><input type='checkbox' disabled={form && form.signature != null} name="taxCredit" value="forchild" onChange={e => handleSubmit(e)} /> {t('form101.exm8')}</>
                 }
@@ -1491,7 +1597,7 @@ export default function Form101() {
             <div className='col-sm-12'>
               <div className='form-group'>
                 {
-                  form && form.signature != null && form.taxCredit != null && form['taxCredit'].taxCredit.includes("singleparent") ?
+                  form && form.signature != null && form.taxCredit != null && form['taxCredit'].taxCredit  != undefined  && form['taxCredit'].taxCredit.includes("singleparent") ?
                     <> <input type='checkbox' checked name="taxCredit" value="singleparent" onChange={e => handleSubmit(e)} /> {t('form101.exm9')}</> :
                     <> <input type='checkbox' disabled={form && form.signature != null} name="taxCredit" value="singleparent" onChange={e => handleSubmit(e)} /> {t('form101.exm9')}</>
                 }
@@ -1501,7 +1607,7 @@ export default function Form101() {
             <div className='col-sm-12'>
               <div className='form-group'>
                 {
-                  form && form.signature != null && form.taxCredit != null && form['taxCredit'].taxCredit.includes("possessionChild") ?
+                  form && form.signature != null && form.taxCredit != null && form['taxCredit'].taxCredit  != undefined  && form['taxCredit'].taxCredit.includes("possessionChild") ?
                     <><input type='checkbox' checked name="taxCredit" value="possessionChild" onChange={e => handleSubmit(e)} /> {t('form101.exm10')}</> :
                     <><input type='checkbox' disabled={form && form.signature != null} name="taxCredit" value="possessionChild" onChange={e => handleSubmit(e)} /> {t('form101.exm10')}</>
                 }
@@ -1511,7 +1617,7 @@ export default function Form101() {
             <div className='col-sm-12'>
               <div className='form-group'>
                 {
-                  form && form.signature != null && form.taxCredit != null && form['taxCredit'].taxCredit.includes("disabilites") ?
+                  form && form.signature != null && form.taxCredit != null && form['taxCredit'].taxCredit  != undefined  && form['taxCredit'].taxCredit.includes("disabilites") ?
                     <> <input type='checkbox' name="taxCredit" value="disabilites" onChange={e => handleSubmit(e)} /> {t('form101.exm11')}</> :
                     <> <input type='checkbox' disabled={form && form.signature != null} name="taxCredit" value="disabilites" onChange={e => handleSubmit(e)} /> {t('form101.exm11')}</>
                 }
@@ -1521,7 +1627,7 @@ export default function Form101() {
             <div className='col-sm-12'>
               <div className='form-group'>
                 {
-                  form && form.signature != null && form.taxCredit != null && form['taxCredit'].taxCredit.includes("formerspouse") ?
+                  form && form.signature != null && form.taxCredit != null && form['taxCredit'].taxCredit  != undefined  && form['taxCredit'].taxCredit.includes("formerspouse") ?
                     <> <input type='checkbox' checked name="taxCredit" value="formerspouse" onChange={e => handleSubmit(e)} /> {t('form101.exm12')}</> :
                     <> <input type='checkbox' disabled={form && form.signature != null} name="taxCredit" value="formerspouse" onChange={e => handleSubmit(e)} /> {t('form101.exm12')}</>
                 }
@@ -1531,7 +1637,7 @@ export default function Form101() {
             <div className='col-sm-12'>
               <div className='form-group'>
                 {
-                  form && form.signature != null && form.taxCredit != null && form['taxCredit'].taxCredit.includes("partner") ?
+                  form && form.signature != null && form.taxCredit != null && form['taxCredit'].taxCredit  != undefined  && form['taxCredit'].taxCredit.includes("partner") ?
                     <><input type='checkbox' checked name="taxCredit" value="partner" onChange={e => handleSubmit(e)} /> {t('form101.exm13')}</> :
                     <><input type='checkbox' disabled={form && form.signature != null} name="taxCredit" value="partner" onChange={e => handleSubmit(e)} /> {t('form101.exm13')}</>
                 }
@@ -1541,7 +1647,7 @@ export default function Form101() {
             <div className='col-sm-12'>
               <div className='form-group'>
                 {
-                  form && form.signature != null && form.taxCredit != null && form['taxCredit'].taxCredit.includes("soldier") ?
+                  form && form.signature != null && form.taxCredit != null && form['taxCredit'].taxCredit  != undefined  && form['taxCredit'].taxCredit.includes("soldier") ?
                     <> <input type='checkbox' checked name="taxCredit" value="soldier" onChange={e => handleSubmit(e)} /> {t('form101.exm14')}</> :
                     <> <input type='checkbox' disabled={form && form.signature != null} name="taxCredit" value="soldier" onChange={e => handleSubmit(e)} /> {t('form101.exm14')}</>
                 }
@@ -1551,7 +1657,7 @@ export default function Form101() {
             <div className='col-sm-12'>
               <div className='form-group'>
                 {
-                  form && form.signature != null && form.taxCredit != null && form['taxCredit'].taxCredit.includes("graduation") ?
+                  form && form.signature != null && form.taxCredit != null && form['taxCredit'].taxCredit  != undefined  && form['taxCredit'].taxCredit.includes("graduation") ?
                     <><input type='checkbox' checked name="taxCredit" value="graduation" onChange={e => handleSubmit(e)} /> {t('form101.exm15')}</> :
                     <><input type='checkbox' disabled={form && form.signature != null} name="taxCredit" value="graduation" onChange={e => handleSubmit(e)} /> {t('form101.exm15')}</>
                 }
@@ -1677,33 +1783,34 @@ export default function Form101() {
                               <label className='control-label'>{t('form101.income_to_type')}*</label>
                               {
                                 form && form.signature != null && form.salary_form[index].typeIncome == "working" ?
-                                  <div className='form-group'><input type="radio" name="typeIncome" checked value={element.typeIncome || "working"} onChange={e => handleSalChange(index, e)} /> {t('form101.incomeType1')}</div> :
-                                  <div className='form-group'><input type="radio" name="typeIncome" disabled={form && form.signature != null} value={element.typeIncome || "working"} onChange={e => handleSalChange(index, e)} /> {t('form101.incomeType1')}</div>
+                                  <div className='form-group'><input type="radio" name={`typeIncome`+index} checked value={element.typeIncome || "working"} onChange={e => handleSalChange(index, e)} /> {t('form101.incomeType1')}</div> :
+                                  <div className='form-group'><input type="radio" name={`typeIncome`+index} disabled={form && form.signature != null} value={element.typeIncome || "working"} onChange={e => handleSalChange(index, e)} /> {t('form101.incomeType1')}</div>
                               }
                               {
                                 form && form.signature != null && form.salary_form[index].typeIncome == "allowance" ?
-                                  <div className='form-group'><input type="radio" name="typeIncome" checked value={element.typeIncome || "allowance"} onChange={e => handleSalChange(index, e)} /> Allowance</div> :
-                                  <div className='form-group'><input type="radio" name="typeIncome" disabled={form && form.signature != null} value={element.typeIncome || "allowance"} onChange={e => handleSalChange(index, e)} /> {t('form101.incomeType2')}</div>
+                                  <div className='form-group'><input type="radio" name={`typeIncome`+index} checked value={element.typeIncome || "allowance"} onChange={e => handleSalChange(index, e)} /> Allowance</div> :
+                                  <div className='form-group'><input type="radio" name={`typeIncome`+index} disabled={form && form.signature != null} value={element.typeIncome || "allowance"} onChange={e => handleSalChange(index, e)} /> {t('form101.incomeType2')}</div>
                               }
                               {
                                 form && form.signature != null && form.salary_form[index].typeIncome == "scholarship" ?
-                                  <div className='form-group'><input type="radio" name="typeIncome" checked value={element.typeIncome || "scholarship"} onChange={e => handleSalChange(index, e)} /> Scholarship</div> :
-                                  <div className='form-group'><input type="radio" name="typeIncome" disabled={form && form.signature != null} value={element.typeIncome || "scholarship"} onChange={e => handleSalChange(index, e)} /> {t('form101.incomeType3')}</div>
+                                  <div className='form-group'><input type="radio" name={`typeIncome`+index} checked value={element.typeIncome || "scholarship"} onChange={e => handleSalChange(index, e)} /> Scholarship</div> :
+                                  <div className='form-group'><input type="radio" name={`typeIncome`+index} disabled={form && form.signature != null} value={element.typeIncome || "scholarship"} onChange={e => handleSalChange(index, e)} /> {t('form101.incomeType3')}</div>
                               }
                               {
                                 form && form.signature != null && form.salary_form[index].typeIncome == "other" ?
-                                  <div className='form-group'><input type="radio" name="typeIncome" checked value={element.typeIncome || "other"} onChange={e => handleSalChange(index, e)} /> Other</div> :
-                                  <div className='form-group'><input type="radio" name="typeIncome" disabled={form && form.signature != null} value={element.typeIncome || "other"} onChange={e => handleSalChange(index, e)} /> {t('form101.incomeType4')}</div>
+                                  <div className='form-group'><input type="radio" name={`typeIncome`+index} checked value={element.typeIncome || "other"} onChange={e => handleSalChange(index, e)} /> Other</div> :
+                                  <div className='form-group'><input type="radio" name={`typeIncome`+index} disabled={form && form.signature != null} value={element.typeIncome || "other"} onChange={e => handleSalChange(index, e)} /> {t('form101.incomeType4')}</div>
                               }
 
                             </div>
                           </div>
                           <div className='col-sm-4'>
                             <div className='form-group'>
-                              <label className='control-label d-block'>{t('form101.copyPaySlip')}</label>
+                             
                               {
                                 form && form.signature != null && form.salary_form[index].copy_of_pay != "" ?
                                   <>
+                                   <label className='control-label d-block'>{t('form101.copyPaySlip')}</label>
                                     <button type="button" className="btn btn-pink m-2"
                                       onClick={(e) => {
                                         let sf = document.querySelector('.showfile');
@@ -1714,7 +1821,10 @@ export default function Form101() {
                                       {t('form101.view_uploaded_file')}
                                     </button>
                                   </> :
+                                  <>
+                                   <label className='control-label d-block'>{t('form101.copyPaySlip')}</label>
                                   <input type="file" name="copy_of_pay" onChange={e => { handleSalChange(index, e) }} />
+                                  </>
                               }
 
                             </div>
