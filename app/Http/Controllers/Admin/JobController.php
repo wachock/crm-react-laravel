@@ -271,6 +271,7 @@ class JobController extends Controller
          $s_id=0;
          $contract_id=0;
          foreach($request->services as $service){
+                 // dd($service);
                   $service_schedules = serviceSchedules::where('id','=',$service['frequency'])->first();
                   $ser = Services::where('id','=',$service['service'])->first();
 
@@ -286,8 +287,9 @@ class JobController extends Controller
                       $s_freq   = $service['freq_name'];
                       $s_cycle  = $service['cycle'];
                       $s_period = $service['period'];
-                      $s_total=$service['totalamount'];
-                      $s_id=$service['service'];
+                      $s_total  =$service['totalamount'];
+                      $s_id     =$service['service'];
+                      if(isset($request->client_page) && $request->client_page)
                       $contract_id=$service['c_id'];
 
          }
