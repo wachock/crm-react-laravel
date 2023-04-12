@@ -35,7 +35,7 @@ class AuthController extends Controller
         ])) {
 
             $Client        = Client::find(auth()->guard('client')->user()->id);
-            if($Client->status == '2'):
+            if($Client->status == 2):
 
                 $Client->token = $Client->createToken('Client', ['client'])->accessToken;
                 return response()->json($Client, 200);
