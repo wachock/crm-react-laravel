@@ -90,7 +90,7 @@ class ClientController extends Controller
         }
 
         $input                  = $request->data;    
-        $input['password']      = Hash::make($request->data->password);    
+        $input['password']      = Hash::make($input['password']);    
         $client                 = Client::create($input);
         
         if(!empty($request->jobdata)){
@@ -263,7 +263,7 @@ class ClientController extends Controller
         }
 
         $input                  = $request->data;  
-        $input['password']      = Hash::make($request->data->password);         
+        $input['password']      = Hash::make($input['password']);         
         Client::where('id', $id)->update($input);
         $client = Client::where('id',$id)->get()->first();            
 
