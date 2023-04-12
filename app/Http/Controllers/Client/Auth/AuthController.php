@@ -27,18 +27,18 @@ class AuthController extends Controller
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->messages()]);
         }
-        
+       // dd($request->all());
 
         if (Auth::guard('client')->attempt([
             'email'     => $request->email,
             'password'  => $request->password
         ])) {
 
-            $Client        = Client::find(auth()->guard('client')->user()->id);
-            if($Client->status == 2):
+            $client        = Client::find(auth()->guard('client')->user()->id);
+            if($client->status == 2):
 
-                $Client->token = $Client->createToken('Client', ['client'])->accessToken;
-                return response()->json($Client, 200);
+                $client->token = $client->createToken('Client', ['client'])->accessToken;
+                return response()->json($client, 200);
 
             else:
                 return response()->json(['errors' => ['email' => 'These credentials are not authorized to login for now. Please contact administrator.']]);
