@@ -45,8 +45,16 @@ class ScheduleController extends Controller
                 $qr->where(DB::raw('name'), 'like','%'.$q.'%');
             });
         });
- 
+         
          $result = $result->orderBy('id', 'desc')->paginate(20);
+
+         if(!empty($result)){
+            foreach($result as $i => $res){
+               if($res->client->lastname == null){
+                 $result[$i]->client->lastname = '';
+               }
+            }
+         }
  
          return response()->json([
              'schedules' => $result
@@ -243,6 +251,11 @@ class ScheduleController extends Controller
     public function show($id)
     {
         $schedule = Schedule::where('id',$id)->with('client','team')->get()->first();
+        if(!empty($schedule)){
+               if($schedule->client->lastname == null){
+                $schedule->client->lastname = '';
+            }
+         }
         return response()->json([
             'schedule' => $schedule
         ]);

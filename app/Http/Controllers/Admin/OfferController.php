@@ -39,6 +39,14 @@ class OfferController extends Controller
          });
  
          $result = $result->orderBy('id', 'desc')->paginate(20);
+
+         if(!empty($result)){
+            foreach($result as $i => $res){
+               if($res->client->lastname == null){
+                 $result[$i]->client->lastname = '';
+               }
+            }
+         }
  
         return response()->json([
             'offers'=>$result
@@ -144,6 +152,10 @@ class OfferController extends Controller
             }
             ($perhour == true) ? $offer->perhour = 1 : $offer->perhour = 0;
         }
+        if($offer['client']['lastname'] == null){
+            $offer['client']['lastname'] = "";
+        }
+      
         return response()->json([
             'offer' => $offer
         ]);

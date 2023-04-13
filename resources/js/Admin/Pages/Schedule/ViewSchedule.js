@@ -269,7 +269,7 @@ export default function ViewSchedule() {
                 <div className='dashBox maxWidthControl p-4 sch-meet'>
                     <div className='row'>
                         <div className='col-sm-8'>
-                            <h1>{client.firstname + " " + client.lastname}</h1>
+                            <h1>{client.firstname + " " + ( (client.lastname) ? client.lastname : '')}</h1>
                             <ul className='list-unstyled'>
                                 <li><i className="fas fa-mobile"></i> {client.phone}</li>
                                 <li><i className="fas fa-envelope"></i> {client.email}</li>

@@ -154,7 +154,7 @@ export default function AddClient() {
         phoneClc = phoneClc.replace(/,\s*$/, "");
         const data = {
             firstname: firstname,
-            lastname: lastname,
+            lastname: (lastname == null) ? '': lastname,
             invoicename: invoiceName,
             floor: floor,
             apt_no: Apt,

@@ -161,14 +161,21 @@ export default function Form101() {
       let cp = document.querySelector('input[name="creditPoints"]:checked').value;
       data['creditPoints'] = cp;
     }
+   
 
   }
   const finalSubmit = () => {
    
-    console.log(data);
-    return;
+   
     data['cordination'] = cordination;
     data['cord'] = cord;
+    data['bid-martial'] = document.querySelector('input[name="bid-martial"]:checked').value;
+    data['bid-israeli'] = document.querySelector('input[name="bid-israeli"]:checked').value;
+    data['bid-member'] = document.querySelector('input[name="bid-member"]:checked').value;
+    data['bid-hmo'] = document.querySelector('input[name="bid-martial"]:checked').value;
+   
+    data['p-martial'] = document.querySelector('input[name="p-martial"]:checked').value;
+    data['p-hmo'] = document.querySelector('input[name="p-hmo"]:checked').value;
 
     const Data = {
       ...data,
@@ -205,22 +212,7 @@ export default function Form101() {
         }
       })
       
-      /* 
-       COMMENTED RADIO BUTTONS NOT MANDATORY
- 
-      bidr.forEach((e,i)=>{
-         console.log(e.checked)
-         if(e.checked == false){
-           let name= e.name.split('-')[1];
-           if(name != undefined){
-           name = name.replace('_',' '); 
-           alert.error('Please choose '+name);
-           success = false;
-           return false;
-         }
-       }
-       })*/
-     //const [formValues, setFormValues] = useState([{ name: "", idnum: "", childDob: "", custody: "", childBenefit: "" }]);
+   
         for(let sv in formValues){
   
           if(formValues[sv].name == ''){
@@ -264,18 +256,6 @@ export default function Form101() {
           }
         }
       })
-      /* pidr.forEach((e,i)=>{
-         if(!e.checked){
-           let name= e.name.split('-')[1];
-           if(name != undefined){
-           name = name.replace('_',' '); 
-           alert.error('Please choose '+name);
-           success = false;
-           return false;
-         }
-       }
-       })*/
-
 
     }
    
@@ -428,7 +408,10 @@ export default function Form101() {
       document.querySelector('#moreIncome1').checked = true;
       document.querySelector('#cordination1').checked = true;
       setSelected("byId");
-
+      let io = document.querySelectorAll('#io_check');
+      io.forEach((e,i)=>{
+        e.checked = true;
+      });
     } 
 
   }, []);
@@ -462,14 +445,60 @@ export default function Form101() {
       setFileCord2(reader.result);
     }
   }
+
+  function insertAfter(referenceNode, newNode) {
+    referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
+  }
   
   const printPdf = (e) => {
-    console.log('101PrintClick');
+   
     if(form && form.signature != null){
-      if(form['photocopy_id_appendix'] != ""){
-        let idpr = "<img src='"+form["photocopy_id_appendix"]+"'>";
-        document.body.appendChild(idpr);
+      let r = document.querySelector('#exampleModal');
+
+      if(form['salary_form'] != "" && form['salary_form'] != undefined && form['salary_form'].length != 0){
+        form['salary_form'].map((s,i)=>{
+    
+          let idpr = document.createElement("div");
+          idpr.innerHTML = "<div class='m-2'><h3 style='text-align:center'>Copy of PaySlip " +(i+1)+"</h3><img src='"+s.copy_of_pay+"' style='width: -webkit-fill-available;'  class='m-4'></div>";
+          console.log(idpr);
+          insertAfter(r,idpr);
+
+        });
       }
+
+      if(form['cord'] != "" && form['cord'] == "0" && form['cord0_file'] != null){
+        let idpr = document.createElement("div");
+        idpr.innerHTML = "<div class='m-2'><h3 style='text-align:center'>Photocopy Of Income Lack Proof</h3><img src='"+form["cord0_file"]+"' style='width: -webkit-fill-available;'  class='m-4'></div>";
+        insertAfter(r,idpr);
+
+      }
+
+      if(form['cord'] != "" && form['cord'] == "0" && form['cord2_file'] != null){
+        let idpr = document.createElement("div");
+        idpr.innerHTML = "<div class='m-2'><h3 style='text-align:center'>Tax Coordination Approval</h3><img src='"+form["cord2_file"]+"' style='width: -webkit-fill-available;'  class='m-4'></div>";
+        insertAfter(r,idpr);
+
+      }
+
+      if(form['photocopy_id_appendix'] != "" && form['identification'] == "byId"){
+        let idpr = document.createElement("div");
+        idpr.innerHTML = "<div class='m-2'><h3 style='text-align:center'>Photocopy Of ID Proof</h3><img src='"+form["photocopy_id_appendix"]+"' style='width: -webkit-fill-available;' class='m-4'></div>";
+        insertAfter(r,idpr);
+
+      }
+       
+      if(form['p-file'] != "" && form['identification'] == "passport"){
+        let idpr = document.createElement("div");
+        idpr.innerHTML = "<div class='m-2'><h3 style='text-align:center'>Photocopy Of Passport</h3><img src='"+form["p-file"]+"' style='width: -webkit-fill-available;'  class='m-4'></div>";
+        insertAfter(r,idpr);
+
+      }
+      
+        setTimeout(()=>{
+          window.print();
+          window.location.reload(true);
+        },200);
+       
     }
   };
 
@@ -723,7 +752,7 @@ export default function Form101() {
                               :
                               <>
                                 <div class="form-check">
-                                  <input class="form-check-input bidr" type="radio" onChange={(e) => handleSubmit(e)} name="bid-martial" id="mstatus" value="Single" />
+                                  <input class="form-check-input bidr" type="radio" id="io_check" onChange={(e) => handleSubmit(e)} name="bid-martial"  value="Single" />
                                   <label class="form-check-label" for="Single">{t('form101.status_single')}</label>
                                 </div>
                                 <div class="form-check">
@@ -761,7 +790,7 @@ export default function Form101() {
                               :
                               <>
                                 <div class="form-check">
-                                  <input class="form-check-input bidr" type="radio" onChange={(e) => handleSubmit(e)} name="bid-israeli" id="resident" value="Yes" />
+                                  <input class="form-check-input bidr" type="radio" onChange={(e) => handleSubmit(e)} name="bid-israeli" id="io_check" value="Yes" />
                                   <label class="form-check-label" for="Yes">{t('form101.label_yes')}</label>
                                 </div>
                                 <div class="form-check">
@@ -787,7 +816,7 @@ export default function Form101() {
                               :
                               <>
                                 <div class="form-check">
-                                  <input class="form-check-input bidr" type="radio" onChange={(e) => handleSubmit(e)} name="bid-member" id="session" value="Yes" />
+                                  <input class="form-check-input bidr" type="radio" onChange={(e) => handleSubmit(e)} name="bid-member" id="io_check" value="Yes" />
                                   <label class="form-check-label" for="Yes">{t('form101.label_yes')}</label>
                                 </div>
                                 <div class="form-check">
@@ -813,7 +842,7 @@ export default function Form101() {
                               :
                               <>
                                 <div class="form-check">
-                                  <input class="form-check-input bidr" type="radio" onChange={(e) => handleSubmit(e)} name="bid-hmo" id="member" value="Yes" />
+                                  <input class="form-check-input bidr" type="radio" onChange={(e) => handleSubmit(e)} name="bid-hmo" id="io_check" value="Yes" />
                                   <label class="form-check-label" for="Yes">{t('form101.label_yes')}</label>
                                 </div>
                                 <div class="form-check">
@@ -1214,7 +1243,7 @@ export default function Form101() {
                           :
                           <>
                             <div class="form-check">
-                              <input class="form-check-input pidr" type="radio" onChange={(e) => handleSubmit(e)} name="p-martial" id="mstatus2" value="Single" />
+                              <input class="form-check-input pidr" type="radio" id="io_check" onChange={(e) => handleSubmit(e)} name="p-martial"  value="Single" />
                               <label class="form-check-label" for="Single">{t('form101.status_single')}</label>
                             </div>
                             <div class="form-check">
@@ -1250,7 +1279,7 @@ export default function Form101() {
                           </> :
                           <>
                             <div class="form-check">
-                              <input class="form-check-input pidr" type="radio" onChange={(e) => handleSubmit(e)} name="p-hmo" id="hmoMember" value="Yes" />
+                              <input class="form-check-input pidr" type="radio" onChange={(e) => handleSubmit(e)} name="p-hmo" id="io_check" value="Yes" />
                               <label class="form-check-label" for="Yes">{t('form101.label_yes')}</label>
                             </div>
                             <div class="form-check">
