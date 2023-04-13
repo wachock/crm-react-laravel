@@ -165,7 +165,8 @@ export default function Form101() {
   }
   const finalSubmit = () => {
    
-    
+    console.log(data);
+    return;
     data['cordination'] = cordination;
     data['cord'] = cord;
 

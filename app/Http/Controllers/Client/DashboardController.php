@@ -344,7 +344,8 @@ class DashboardController extends Controller
 
     }
     public function updateJobStatus(Request $request,$id){
-        $job = Job::with('client','worker','jobservice')->find($id);
+       
+        $job = Job::with('client','worker','jobservice')->find(base64_decode($id));
         $job->status = $request->status;
         $job->rate  = $request->total;
         $job->save();
