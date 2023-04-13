@@ -374,7 +374,7 @@ export default function Form101() {
         if (res.data.form.length > 0) {
           if (res.data.form[0].form_101 != null) {
             let fm = JSON.parse(res.data.form[0].form_101).data;
-           
+            console.log(fm);
             let ip = document.querySelectorAll('input');
             let sl = document.querySelectorAll('select');
             ip.forEach((e,i)=>{
@@ -461,7 +461,16 @@ export default function Form101() {
       setFileCord2(reader.result);
     }
   }
-
+  
+  const printPdf = (e) => {
+    console.log('101PrintClick');
+    if(form && form.signature != null){
+      if(form['photocopy_id_appendix'] != ""){
+        let idpr = "<img src='"+form["photocopy_id_appendix"]+"'>";
+        document.body.appendChild(idpr);
+      }
+    }
+  };
 
 
   return (
@@ -470,7 +479,7 @@ export default function Form101() {
         {
           (form && form.signature != null) ?
             <>
-              <a style={{ color: 'white' }} className='btn btn-pink float-right m-3' onClick={(e) => { window.print() }}> Print Pdf </a>
+              <a style={{ color: 'white' }} className='btn btn-pink float-right m-3' onClick={(e) =>  printPdf(e)}> Print Pdf </a>
               <span className='btn btn-success float-right m-3'>Signed</span>
             </>
             : ''

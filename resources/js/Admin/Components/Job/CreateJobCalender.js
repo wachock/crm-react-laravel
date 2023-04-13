@@ -286,13 +286,28 @@ export default function CreateJobCalender() {
                 if (options.length == 3 && new_s.length > 0 && new_s.includes((options[2].label).split("-")[1]) && new_end.includes((options[2].label).split("-")[2])) {
                     check = false;
                 }
-                 if(c_time <= 2){
-                    if(i==0||i==3||i==6){
+                
+                if(c_time <= 2 && options.length != 3){
+                   
+                    if([0,3,6,9,12].includes(i)){
                     check = false;
                     }
                 }
-                if(c_time > 2 && c_time <= 4){
-                   if(i==0||i==1||i==2||i==4||i==5){
+                if(c_time > 2 && c_time <= 4 && options.length != 3){
+                   
+                   if([0,1,2,4,5,7,8,10,11].includes(i)){
+                     check = false;
+                   }
+                }
+                if(c_time <= 2 && options.length == 3){
+                   
+                    if([2].includes(i)){
+                    check = false;
+                    }
+                }
+                if(c_time > 2 && c_time <= 4 && options.length == 3){
+                  
+                   if([0,1].includes(i)){
                      check = false;
                    }
                 }
