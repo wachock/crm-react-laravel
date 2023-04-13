@@ -61,6 +61,15 @@ class ClientController extends Controller
     public function AllClients(){
         
         $clients = Client::all();
+
+        if(!empty($clients)){
+            foreach($clients as $i => $res){
+               if($res->lastname == null){
+                 $clients[$i]->lastname = '';
+               }
+            }
+         }
+
         return response()->json([
             'clients'       => $clients,            
         ], 200);
