@@ -493,7 +493,7 @@ export default function Form101() {
         insertAfter(r,idpr);
 
       }
-      
+      document.querySelector('.pdfbtn').remove();
         setTimeout(()=>{
           window.print();
           window.location.reload(true);
@@ -509,7 +509,7 @@ export default function Form101() {
         {
           (form && form.signature != null) ?
             <>
-              <a style={{ color: 'white' }} className='btn btn-pink float-right m-3' onClick={(e) =>  printPdf(e)}> Print Pdf </a>
+              <a style={{ color: 'white' }} className='btn btn-pink float-right m-3 pdfbtn' onClick={(e) =>  printPdf(e)}> Print Pdf </a>
               <span className='btn btn-success float-right m-3'>Signed</span>
             </>
             : ''
