@@ -197,6 +197,13 @@ body:dir(rtl) {
     margin-right: 20px;
     direction: rtl;
 }
+.form101 .form-group, .form101 p, .form101 .box-heading{
+    text-align: right !important;
+    direction: rtl;
+}
+.form101 .form-check-label{
+    padding-right: 20px;
+}
 @media (max-width: 767px){
 .mobileNav .navbar-collapse.show, .mobileNav .navbar-toggler.collapsed ~ .navbar-collapse{
     left: unset;
