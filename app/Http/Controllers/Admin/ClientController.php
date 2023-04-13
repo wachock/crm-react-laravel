@@ -75,7 +75,7 @@ class ClientController extends Controller
      */
     public function store(Request $request)
     {
-        //dd($request->all());
+        
         
         $validator = Validator::make($request->data, [
             'firstname' => ['required', 'string', 'max:255'],
@@ -90,7 +90,9 @@ class ClientController extends Controller
         }
 
         $input                  = $request->data;    
-        $input['password']      = Hash::make($input['password']);    
+       
+        $input['password']      = Hash::make($input['passcode']);    
+        
         $client                 = Client::create($input);
         
         if(!empty($request->jobdata)){
@@ -263,8 +265,9 @@ class ClientController extends Controller
         }
 
         $input                  = $request->data;  
-        $input['password']      = Hash::make($input['password']);         
+        $input['password']      = Hash::make($input['passcode']);         
         Client::where('id', $id)->update($input);
+        
         $client = Client::where('id',$id)->get()->first();            
 
         if(!empty($request->jobdata)){
