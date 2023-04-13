@@ -11,6 +11,7 @@ export default function income() {
     const [loading, setLoading] = useState("Loading...");
     const [totalTask,setTotalTask] = useState(0);
     const [income,setIncome] = useState(0);
+    const [role,setRole] = useState();
     const navigate = useNavigate();
     const headers = {
         Accept: "application/json, text/plain, */*",
@@ -52,9 +53,17 @@ export default function income() {
         e.preventDefault();
         getTasks(duration);
     }
+    const getAdmin = () =>{
+        axios
+        .get(`/api/admin/details`,{ headers })
+        .then((res)=>{
+            setRole(res.data.success.role);
+        });
+    };
     useEffect(() => {
         getTasks();
-        if(localStorage.getItem('admin-id') != 1){
+        getAdmin();
+        if(role == 'member'){
             navigate('/admin/dashboard');
         }
     }, [])

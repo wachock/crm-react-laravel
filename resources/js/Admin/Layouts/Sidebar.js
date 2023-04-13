@@ -1,24 +1,34 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useAlert } from "react-alert";
 import { useNavigate } from "react-router-dom";
 import logo from "../../Assets/image/sample.svg";
 import { NavLink } from 'react-router-dom';
+import axios from "axios";
 
 export default function Sidebar() {
 
     const alert = useAlert();
     const name = localStorage.getItem("admin-name");
     const navigate = useNavigate();
+    const [role,setRole] = useState();
+   const  headers= {
+        "Accept": "application/json, text/plain, */*",
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ` + localStorage.getItem("admin-token"),
+    }
 
+    const getAdmin = () =>{
+        axios
+        .get(`/api/admin/details`,{ headers })
+        .then((res)=>{
+            setRole(res.data.success.role);
+        });
+    };
     const HandleLogout = (e) => {
         fetch("/api/admin/logout", {
             method: "POST",
-            headers: {
-                "Accept": "application/json, text/plain, */*",
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ` + localStorage.getItem("admin-token"),
-            },
+             headers ,
         }).then((res) => {
             if (res.status === 200) {
                 localStorage.removeItem("admin-token");
@@ -34,6 +44,9 @@ export default function Sidebar() {
         navigate("/admin/login");
         alert.success("Logged Out Successfully");
     };
+    useEffect(()=>{
+        getAdmin();
+    },[]);
 
     return (
         <div id="column-left">
@@ -67,11 +80,11 @@ export default function Sidebar() {
                     <NavLink to="/admin/jobs"><i className="fa-solid fa-briefcase"></i>Jobs</NavLink>
                 </li>
                 {
-                    localStorage.getItem('admin-id') == 1?
+                    role !== 'member' &&
                     <li className="list-group-item">
                         <NavLink to="/admin/income"><i className="fa-solid fa-ils"></i>Income / Outcome</NavLink>
                     </li> 
-                    :''
+                
                 }
                 <li className="list-group-item">
                     <NavLink to="/admin/notifications"><i className="fa-solid fa-briefcase"></i>Notifications</NavLink>
@@ -87,9 +100,12 @@ export default function Sidebar() {
                         <div id="fence2" className="collapse" aria-labelledby="fencehead2" data-parent="#fence">
                             <div className="card-body">
                                 <ul className='list-group'>
+                                {
+                                    role !== 'member' &&
                                     <li className='list-group-item'>
                                         <Link to="/admin/manage-team"><i className="fa fa-angle-right"></i> Manage team</Link>
                                     </li>
+                                }
                                     <li className='list-group-item'>
                                         <Link to="/admin/services"><i className="fa fa-angle-right"></i> Services</Link>
                                     </li>

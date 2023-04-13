@@ -74,8 +74,10 @@ class TeamMemberController extends Controller
         if($validator->fails()){
             return response()->json(['errors'=>$validator->messages()]);
         }
-        $request->password = Hash::make($request->password);
-        Admin::create($request->input());
+        $input = $request->input();
+        $input['password'] = Hash::make($input['password']);
+
+        Admin::create($input);
         return response()->json([
             'message'=>'Team member added successfully'
         ]);
