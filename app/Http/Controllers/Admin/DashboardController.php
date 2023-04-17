@@ -11,6 +11,9 @@ use App\Models\Schedule;
 use App\Models\Contract;
 use App\Models\notifications;
 use App\Models\Admin;
+use App\Models\Services;
+use App\Models\JobService;
+use App\Models\serviceSchedules;
 use App\Models\ManageTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -241,6 +244,121 @@ class DashboardController extends Controller
         'income'=>$inc,
       ]);
     }
+
+    public function import(){
+      $csvFile = fopen('/home/xsid/Downloads/Broom Service - Sheet4 (3).csv','r');
+      fgetcsv($csvFile);
+      $csv = [];
+      while(($csvData = fgetcsv($csvFile)) !== FALSE){
+        $row = array_map("utf8_encode", $csvData);
+        $csv[$row[0]][] = $row;
+      }
+      if(!empty($csv)){
+        foreach($csv as $cid => $csr){
+          $total = 0;
+          $servAr = [];$oid = [];$coid = [];
+
+          $client  = Client::where('id',$cid)->get()->first();
+          foreach($csr as $k => $cs):
+         
+          $serv = Services::where('id',$cs[2])->get()->toarray();
+          $serv = (!empty($serv)) ? $serv[0] : null;
+
+            if($serv != null):
+           
+            $period = ( substr((string)$cs[3],0,1) == 1 ) ? substr((string)$cs[3],1)  : $cs[3];
+            $freq = serviceSchedules::where('period',$period)->get()->first()->toArray();
+            $total += $cs[5];
+            $service = [
+                "service"=>$cs[2],
+                "name"=> $serv['name'],
+                "type" => "fixed",
+                "freq_name"=>$freq['name'], 
+                "frequency"=> $freq['id'],
+                "fixed_price"=> $cs[5],
+                "jobHours"=> $cs[6],
+                "rateperhour" =>"",
+                "other_title"=> "",
+                "totalamount"=> $cs[5],
+                "template"=> $serv['template'],
+                "cycle"=> $freq['cycle'],
+                "period"=>$cs[3]
+          ];
+          $servAr[] = $service; 
+
+            endif;
+            endforeach;
+           $tax = (17 / 100) * $total;
+           $ofr = [
+
+            'client_id'=>$cid,
+            'services'=>json_encode($servAr),
+            'subtotal'=>$total,
+            'total'=>$total+$tax,
+            'status'=>'accepted'
+
+          ];
+
+          $offer = Offer::create($ofr);
+          $oid[] = $offer->id;
+          $hash = md5($client->email.$offer->id); 
+          $cont = [
+            'offer_id'=>$offer->id,        
+            'client_id'=>$cid,
+            'unique_hash'=>$hash,
+            'status'=>'verified',
+          ];
+
+          $contract = Contract::create($cont);
+          $coid[] = $contract->id;
+        
+          foreach($csr as $i => $ncs):
+         
+          $jobA = [
+
+            'client_id'=>$cid,        
+            'offer_id'=>$oid[0],
+            'contract_id'=>$coid[0],
+            'worker_id'=>$ncs[1],
+            'start_date'=>$ncs[4],
+            'schedule_id'=>$ncs[2],
+            'schedule'=>$ncs[3],
+            'shifts'=>str_replace('/',',',$ncs[7]),
+            'status'=>'scheduled'
+
+          ];
+        
+          $job = Job::create($jobA);
+
+          $period = ( substr((string)$ncs[3],0,1) == 1 ) ? substr((string)$ncs[3],1)  : $ncs[3];
+          $freq = serviceSchedules::where('period',$period)->get()->first()->toArray();
+          $s = Services::where('id',$ncs[2])->get()->first();
+
+          preg_match_all('!\d+!', $ncs[3], $cycle);
+    
+          $jh = new JobService();
+          $jh->job_id = $job->id;
+          $jh->name = $s->name;
+          $jh->job_hour = $ncs[6];
+          $jh->freq_name =$freq['name'];
+          $jh->cycle = $cycle[0][0];
+          $jh->period = $period;
+          $jh->total = $total;
+          $jh->heb_name = $s->heb_name;
+          $jh->service_id = $ncs[2];
+
+          $jh->save();
+
+          endforeach;
+        
+         
+        }
+        echo "Record Created";
+      }
+      
+
+      
+  }
 
    
 }

@@ -50,7 +50,7 @@ export default function WorkContract() {
             status: 'un-verified',
             signature: signature,
             card_sign: signature2
-        }
+        } 
 
         axios
             .post(`/api/client/accept-contract`, data)

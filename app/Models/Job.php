@@ -22,6 +22,7 @@ class Job extends Model
         'instruction',
         'address',
         'start_time',
+        'shifts',
         'end_time',
         'rate',
         'invoice_no',

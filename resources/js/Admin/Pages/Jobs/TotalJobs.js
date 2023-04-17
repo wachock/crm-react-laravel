@@ -366,9 +366,9 @@ export default function TotalJobs() {
  
                                                     let ix = allShifts.find(function(el, i){
                                                     
-                                                         if( el.shift.replace(/ /g,'') == item.shifts.replace(/ /g,'')){
-                                                            return i;
-                                                         }
+                                                          if( el.shift.replace(/ /g,'') == item.shifts.replace(/ /g,'')){
+                                                             return i;
+                                                          }
                                                     });
                                                     
                                                     return (

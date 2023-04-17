@@ -55,7 +55,7 @@ export default function AddOffer() {
     setFormValues(newFormValues);
   }
   let addFormFields = () => {
-    setFormValues([...formValues, {
+    setFormValues([...formValues, { 
       service: "",
       name: "",
       type: "",

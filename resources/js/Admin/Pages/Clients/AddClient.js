@@ -138,7 +138,7 @@ export default function AddClient() {
 
 
         let tax = (taxper / 100) * to;
-        const jobdata = {
+        const jobdata = { 
             status: 'sent',
             subtotal: to,
             total: to + tax,

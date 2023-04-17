@@ -361,7 +361,7 @@ class JobController extends Controller
                  );
                 \App::setLocale($job->worker->lng);
 
-                if(!is_null($job['worker']['email'])){
+                if(!is_null($job['worker']['email']) && $job['worker']['email'] != 'null'){
                 Mail::send('/Mails/NewJobMail',$data,function($messages) use ($data){
                     $messages->to($data['email']);
                     $sub = __('mail.worker_new_job.subject')."  ".__('mail.worker_new_job.company');
