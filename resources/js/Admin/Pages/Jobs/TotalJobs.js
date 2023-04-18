@@ -306,7 +306,7 @@ export default function TotalJobs() {
                         </div>
                         <div className="col-8 hidden-xl">
                             <div className="search-data"> 
-                               <input type='text' id="search-field" className="form-control" placeholder="Search" onChange={filterJobs} style={{marginRight: "0"}} />
+                               <input type='password' id="search-field" className="form-control" placeholder="Search" onChange={filterJobs} style={{marginRight: "0"}} />
                             </div>
                         </div>
                         <div className="col-sm-7 hidden-xs">

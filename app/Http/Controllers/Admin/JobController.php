@@ -65,13 +65,13 @@ class JobController extends Controller
               $startDate = Carbon::now()->startOfWeek()->addDays(13)->toDateString();
               $endDate = Carbon::now()->startOfWeek()->addDays(19)->toDateString();
           }
-
-           //$jobs = $jobs->whereBetween('start_date',[$startDate, $endDate]);
-           if((is_null($w) || $w == 'current') && $w != 'all'){
-           $jobs = $jobs->whereDate('start_date','>=',$startDate);
-           $jobs = $jobs->whereDate('start_date','<=',$endDate);
-           }
-     //   }
+      
+        if($w == 'all'){
+            $jobs = $jobs;
+        } else{
+            $jobs = $jobs->whereDate('start_date','>=',$startDate);
+            $jobs = $jobs->whereDate('start_date','<=',$endDate);
+        }
 
         $jobs = $jobs->orderBy('start_date', 'desc')->paginate(20);
         if(isset($jobs)):
@@ -83,9 +83,6 @@ class JobController extends Controller
            $ava_workers = $ava_workers->where('status',1)->get();
            $ava_worker = array();
            foreach($ava_workers as $w){
-               // if($w == 'all')
-                //$check_worker_job =  Job::where('worker_id',$w->id)->first();
-                //else
                 $check_worker_job =  Job::where('worker_id',$w->id)->where('start_date',$job->start_date)->first();
                 if(!$check_worker_job){
                    $ava_worker[]=$w;

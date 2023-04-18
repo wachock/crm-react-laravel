@@ -246,7 +246,7 @@ class DashboardController extends Controller
     }
 
     public function import(){
-      $csvFile = fopen('/home/xsid/Downloads/Broom Service - Sheet4 (3).csv','r');
+      $csvFile = fopen('/home/xsid/Documents/broomservice-_jobs-update.csv','r');
       fgetcsv($csvFile);
       $csv = [];
       while(($csvData = fgetcsv($csvFile)) !== FALSE){
