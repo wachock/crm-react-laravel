@@ -9,6 +9,7 @@ use App\Models\Client;
 use App\Models\Offer;
 use App\Models\Schedule;
 use App\Models\Contract;
+use App\Models\JobService;
 use App\Models\WorkerAvialibilty;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -21,7 +22,7 @@ class CronController extends Controller
     public function WeeklyJob(){
         $startDate = Carbon::now()->startOfWeek()->subDays(1);
         $endDate = Carbon::now()->startOfWeek()->addDays(5);
-        $jobs = Job::query()->with('offer','contract')->whereBetween('start_date',[$startDate, $endDate]);
+        $jobs = Job::query()->with('offer','contract','jobservice')->whereBetween('start_date',[$startDate, $endDate]);
         $jobs = $jobs->whereHas('contract', function ($query) {
                     $query->where('job_status', '=',1);
                 })->get();
@@ -46,7 +47,7 @@ class CronController extends Controller
                  $date = Carbon::parse($job->start_date);
                  $newDate = $date->addMonths(2);
              }
-             if($job->schedule == '4m'){
+             if($job->schedule == '3m'){
                  $date = Carbon::parse($job->start_date);
                  $newDate = $date->addMonths(3);
              }
@@ -59,15 +60,34 @@ class CronController extends Controller
             $new->start_time    = $job->start_time;
             $new->end_time      = $job->end_time;
             $new->schedule      = $job->schedule;
+            $new->schedule_id   = $job->schedule_id;
+            $new->shifts        = $job->shifts;
             if($this->checkWorker($job)){
                  $new->status='scheduled';
             }else{
                  $new->status        = 'unscheduled';
             }
             
-
+    
             $new->save();
-                
+
+            $jserv = ($job->jobservice->toArray());
+            $jobSer = [];
+            foreach($jserv as $k => $v):
+             unset($v['id']);
+             unset($v['created_at']);
+             unset($v['updated_at']);
+             $v['job_id'] = $new->id;
+              $jobSer[$k] = $v;
+            endforeach;
+             
+             if(!empty($jobSer)):
+             foreach($jobSer as $jser):
+                JobService::create($jser);
+             endforeach;
+            endif;
+           
+    
         }
         // $this->sendUnscheduledMail();
         echo "Job Updated Successfully.";

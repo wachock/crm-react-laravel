@@ -246,7 +246,7 @@ class DashboardController extends Controller
     }
 
     public function import(){
-      $csvFile = fopen('/home/xsid/Documents/broomservice-_jobs-update.csv','r');
+      $csvFile = fopen(storage_path().'/app/public/broomservice-_jobs-update.csv','r');
       fgetcsv($csvFile);
       $csv = [];
       while(($csvData = fgetcsv($csvFile)) !== FALSE){
@@ -313,41 +313,54 @@ class DashboardController extends Controller
           $coid[] = $contract->id;
         
           foreach($csr as $i => $ncs):
-         
-          $jobA = [
+             $count = 1;
+             if( str_contains($ncs[3],'w') ){
+               $count = 3;
+             }
+                for($a = 1; $a <= $count; $a++){
 
-            'client_id'=>$cid,        
-            'offer_id'=>$oid[0],
-            'contract_id'=>$coid[0],
-            'worker_id'=>$ncs[1],
-            'start_date'=>$ncs[4],
-            'schedule_id'=>$ncs[2],
-            'schedule'=>$ncs[3],
-            'shifts'=>str_replace('/',',',$ncs[7]),
-            'status'=>'scheduled'
+                  $date = Carbon::createFromDate($ncs[4]);
+                    $j=0;
+                    if($a==2){ $j=7; }
+                    if($a==3){ $j=14; }
+                  $job_date=$date->addDays($j)->toDateString();
 
-          ];
-        
-          $job = Job::create($jobA);
+                  $d = 
+                  $jobA = [
 
-          $period = ( substr((string)$ncs[3],0,1) == 1 ) ? substr((string)$ncs[3],1)  : $ncs[3];
-          $freq = serviceSchedules::where('period',$period)->get()->first()->toArray();
-          $s = Services::where('id',$ncs[2])->get()->first();
+                    'client_id'=>$cid,        
+                    'offer_id'=>$oid[0],
+                    'contract_id'=>$coid[0],
+                    'worker_id'=>$ncs[1],
+                    'start_date'=>$job_date,
+                    'schedule_id'=>$ncs[2],
+                    'schedule'=>$ncs[3],
+                    'shifts'=>str_replace('/',',',$ncs[7]),
+                    'status'=>'scheduled'
 
-          preg_match_all('!\d+!', $ncs[3], $cycle);
-    
-          $jh = new JobService();
-          $jh->job_id = $job->id;
-          $jh->name = $s->name;
-          $jh->job_hour = $ncs[6];
-          $jh->freq_name =$freq['name'];
-          $jh->cycle = $cycle[0][0];
-          $jh->period = $period;
-          $jh->total = $total;
-          $jh->heb_name = $s->heb_name;
-          $jh->service_id = $ncs[2];
+                  ];
+                
+                  $job = Job::create($jobA);
 
-          $jh->save();
+                    $period = ( substr((string)$ncs[3],0,1) == 1 ) ? substr((string)$ncs[3],1)  : $ncs[3];
+                    $freq = serviceSchedules::where('period',$period)->get()->first()->toArray();
+                    $s = Services::where('id',$ncs[2])->get()->first();
+
+                    preg_match_all('!\d+!', $ncs[3], $cycle);
+              
+                    $jh = new JobService();
+                    $jh->job_id = $job->id;
+                    $jh->name = $s->name;
+                    $jh->job_hour = $ncs[6];
+                    $jh->freq_name =$freq['name'];
+                    $jh->cycle = $cycle[0][0];
+                    $jh->period = $period;
+                    $jh->total = $ncs[5];
+                    $jh->heb_name = $s->heb_name;
+                    $jh->service_id = $ncs[2];
+
+                    $jh->save();
+                }
 
           endforeach;
         

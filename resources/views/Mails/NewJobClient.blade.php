@@ -42,11 +42,16 @@
 				<tr>
 					<td style="border: 1px solid #dee2e6;font-size: 14px;padding: 8px">{{ \Carbon\Carbon::parse($job['job']['start_date'])->format('M d Y') }}</td>
 					<td style="border: 1px solid #dee2e6;font-size: 14px;padding: 8px">{{ $job["job"]['worker']['firstname'] }} {{ $job["job"]['worker']['lastname'] }}</td>
-					<td style="border: 1px solid #dee2e6;font-size: 14px;padding: 8px">@if($lng == 'heb')
-						{{ $job["job"]['jobservice']['heb_name'] }}
-					@else
-				          {{ $job["job"]['jobservice']['name'] }}
-				    @endif
+					<td style="border: 1px solid #dee2e6;font-size: 14px;padding: 8px">
+					
+					@foreach($job["job"]['jobservice'] as $js)
+					      @if($lng == 'heb')
+					           {{ $js['heb_name'].', ' }}
+						  @else
+						       {{ $js['name'].', ' }}
+						  @endif;
+					@endforeach;
+
 				      </td>
 					<td style="border: 1px solid #dee2e6;font-size: 14px;padding: 8px">{{ $job['job']['shifts'] }} </td>
 					<td style="border: 1px solid #dee2e6;font-size: 14px;padding: 8px">{{ $job['start_time'] }} </td>

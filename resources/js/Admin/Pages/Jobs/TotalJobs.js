@@ -361,10 +361,10 @@ export default function TotalJobs() {
                                                 totalJobs.map((item, index) => {
  
                                                     let ix = allShifts.find(function(el, i){
-                                                    
+                                                          if(item.shifts != null){
                                                           if( el.shift.replace(/ /g,'') == item.shifts.replace(/ /g,'')){
                                                              return i;
-                                                          }
+                                                          }}
                                                     });
                                                     
                                                     return (
@@ -400,10 +400,16 @@ export default function TotalJobs() {
                                                             </td>
                                                             <td onClick={(e) => handleNavigate(e, item.id)}>{
                                                                 
-                                                                (item.jobservice) ?
-                                                                    item.jobservice == '10' 
-                                                                        ? item.jobservice.other_title :item.jobservice.name 
-                                                                : 'NA'
+                                                                    item.jobservice && item.jobservice.map((js,i)=>{
+                                                                        return (
+                                                                            (js) ?
+                                                                                js == '10' 
+                                                                                    ? js.other_title+' ' :js.name+ ' ' 
+                                                                            : 'NA'
+                                                                        );
+                                                                    })
+                                                                
+                                                               
 
                                                             }</td>
                                                             <td className="hidden-xs" onClick={(e)=>handleNavigate(e,item.id)}

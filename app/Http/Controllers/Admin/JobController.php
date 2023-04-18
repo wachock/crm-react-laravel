@@ -76,7 +76,9 @@ class JobController extends Controller
         $jobs = $jobs->orderBy('start_date', 'desc')->paginate(20);
         if(isset($jobs)):
         foreach($jobs as $job){
-           $ava_workers = User::with('availabilities','jobs')->where('skill',  'like','%'.$job->jobservice->service_id.'%');
+            $serv = $job->jobservice;
+            foreach($serv as $sk => $js){
+           $ava_workers = User::with('availabilities','jobs')->where('skill',  'like','%'.$js->service_id.'%');
            $ava_workers = $ava_workers->whereHas('availabilities', function ($query) use ($job) {
                     $query->where('date', '=',$job->start_date);
                 });
@@ -89,10 +91,11 @@ class JobController extends Controller
                 }
            }
            $job->avl_worker=$ava_worker;
+          }
         }
 
         endif;
-
+        // dd($jobs);
         return response()->json([
             'jobs'       => $jobs,        
         ], 200);
@@ -329,6 +332,7 @@ class JobController extends Controller
                 $new->start_date    = $job_date;
                 $new->shifts        = $worker['shifts'];
                 $new->schedule      = $repeat_value;
+                $new->schedule_id   = $s_id;
                 $new->status        = $status;
                 $new->save();
 
@@ -344,7 +348,7 @@ class JobController extends Controller
                 $service->total     = $s_total;
                 $service->save();
             
-            if($i == 0){
+           /* if($i == 0){
                  $job = Job::with('client','worker','jobservice')->where('id',$new->id)->first();
                   $_timeShift = $worker['shifts'];
                  if($_timeShift != ''){
@@ -371,12 +375,12 @@ class JobController extends Controller
                 $client_email  =  $job['client']['email'];
                 $client_name  =  $job['client']['firstname'].' '.$job['client']['lastname'];
                 $client_lng    = $job['client']['lng'];
-             } 
+             } */
 
            }
         }
       
-       
+       /*
         \App::setLocale($client_lng);
         $client_data = array(
             'email'=>$client_email,
@@ -395,7 +399,7 @@ class JobController extends Controller
                 $sub = $id."# ".__('mail.client_new_job.subject')."  ".__('mail.client_new_job.company');
                 $messages->subject($sub);
             });
-        }
+        }*/
 
 
         return response()->json([
