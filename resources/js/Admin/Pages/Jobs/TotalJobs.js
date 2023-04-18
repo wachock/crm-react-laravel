@@ -304,11 +304,7 @@ export default function TotalJobs() {
                         <div className="col-sm-2 col-4">
                             <h1 className="page-title">Jobs</h1>
                         </div>
-                        <div className="col-8 hidden-xl">
-                            <div className="search-data"> 
-                               <input type='password' id="search-field" className="form-control" placeholder="Search" onChange={filterJobs} style={{marginRight: "0"}} />
-                            </div>
-                        </div>
+                       
                         <div className="col-sm-7 hidden-xs">
                             <div className="job-buttons">
                                 <input type="hidden" id="filter-week" />
