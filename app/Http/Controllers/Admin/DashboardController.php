@@ -246,29 +246,36 @@ class DashboardController extends Controller
     }
 
     public function import(){
-      $csvFile = fopen(storage_path().'/app/public/broomservice-_jobs-update.csv','r');
+      $csvFile = fopen(storage_path().'/app/public/Broom Service - jobs.csv','r');
+      //$csvFile = fopen('/home/xsid/Downloads/Broom Service - jobs.csv','r');
       fgetcsv($csvFile);
       $csv = [];
       while(($csvData = fgetcsv($csvFile)) !== FALSE){
         $row = array_map("utf8_encode", $csvData);
-        $csv[$row[0]][] = $row;
+        $csv[$row[0]][$row[2]][] = $row;
       }
+   
       if(!empty($csv)){
         foreach($csv as $cid => $csr){
+        
           $total = 0;
           $servAr = [];$oid = [];$coid = [];
 
           $client  = Client::where('id',$cid)->get()->first();
-          foreach($csr as $k => $cs):
-         
-          $serv = Services::where('id',$cs[2])->get()->toarray();
-          $serv = (!empty($serv)) ? $serv[0] : null;
+          foreach($csr as $k => $sep):
+        
+            $cs = $csr[$k][0];
+            $serv = Services::where('id',$k)->get()->toarray();
+            $serv = (!empty($serv)) ? $serv[0] : null;
 
             if($serv != null):
            
             $period = ( substr((string)$cs[3],0,1) == 1 ) ? substr((string)$cs[3],1)  : $cs[3];
-            $freq = serviceSchedules::where('period',$period)->get()->first()->toArray();
-            $total += $cs[5];
+            $freq = serviceSchedules::where('period',$period)->get()->first();
+
+            if(!is_null($freq)):
+            $freq = $freq->toArray();
+            $total += (int)$cs[5];
             $service = [
                 "service"=>$cs[2],
                 "name"=> $serv['name'],
@@ -287,7 +294,10 @@ class DashboardController extends Controller
           $servAr[] = $service; 
 
             endif;
-            endforeach;
+            endif;
+            
+          endforeach;
+         
            $tax = (17 / 100) * $total;
            $ofr = [
 
@@ -312,7 +322,9 @@ class DashboardController extends Controller
           $contract = Contract::create($cont);
           $coid[] = $contract->id;
         
-          foreach($csr as $i => $ncs):
+          foreach($csr as $i => $ncs1):
+          foreach($ncs1 as $ncs):
+         
              $count = 1;
              if( str_contains($ncs[3],'w') ){
                $count = 3;
@@ -343,7 +355,9 @@ class DashboardController extends Controller
                   $job = Job::create($jobA);
 
                     $period = ( substr((string)$ncs[3],0,1) == 1 ) ? substr((string)$ncs[3],1)  : $ncs[3];
-                    $freq = serviceSchedules::where('period',$period)->get()->first()->toArray();
+                    $freq = serviceSchedules::where('period',$period)->get()->first();
+                    if(!is_null($freq)):
+                    $freq = $freq->toArray();
                     $s = Services::where('id',$ncs[2])->get()->first();
 
                     preg_match_all('!\d+!', $ncs[3], $cycle);
@@ -360,12 +374,13 @@ class DashboardController extends Controller
                     $jh->service_id = $ncs[2];
 
                     $jh->save();
+                    endif;
                 }
 
           endforeach;
-        
-         
-        }
+          endforeach;
+     
+    }
         echo "Record Created";
       }
       
