@@ -49,39 +49,47 @@ export default function Services({ services, job }) {
     if (status == "re-scheduled") { status = t("j_status.re-scheduled"); }
     if (status == "cancel") { status = t("j_status.cancel"); }
     return (
+
         <>
             <h2 className="text-custom">Service Details</h2>
             <div className='dashBox p-4 mb-3'>
-                <form>
-                    <div className='row'>
-                        <div className='col-sm-3'>
-                            <div className='form-group'>
-                                <label className='control-label'>{t('client.jobs.view.services')}</label>
-                                <p>{(c_lng == 'en') ? services.name : services.heb_name}</p>
-                            </div>
-                        </div>
-                        <div className='col-sm-3'>
-                            <div className='form-group'>
-                                <label className='control-label'>{t('client.jobs.view.c_time')}</label>
-                                <p>{services ? services.job_hour : 'NA'} {t('client.jobs.view.hour_s')}</p>
-                            </div>
-                        </div>
-                        <div className='col-sm-3'>
-                            <div className='form-group'>
-                                <label className='control-label'>{t('client.jobs.view.shift')}</label>
-                                <p>{(job.shifts) ? getShift(job.shifts) : ''}</p>
-                            </div>
-                        </div>
-                        <div className='col-sm-3'>
-                            <div className='form-group'>
-                                <label className='control-label'>{t('client.jobs.view.job_status')}</label>
-                                <p>{status}</p>
-                                {(job.status == 'cancel') ? `(With Cancellatiom fees ${job.rate} ILS)` : ''}
-                            </div>
-                        </div>
+                {
+                    services && services.map((s, i) => {
+                        return (
+                            <form>
+                                <div className='row'>
+                                    <div className='col-sm-3'>
+                                        <div className='form-group'>
+                                            <label className='control-label'>{t('client.jobs.view.services')}</label>
+                                            <p>{(c_lng == 'en') ? s.name : s.heb_name}</p>
+                                        </div>
+                                    </div>
+                                    <div className='col-sm-3'>
+                                        <div className='form-group'>
+                                            <label className='control-label'>{t('client.jobs.view.c_time')}</label>
+                                            <p>{s ? s.job_hour : 'NA'} {t('client.jobs.view.hour_s')}</p>
+                                        </div>
+                                    </div>
+                                    <div className='col-sm-3'>
+                                        <div className='form-group'>
+                                            <label className='control-label'>{t('client.jobs.view.shift')}</label>
+                                            <p>{(job.shifts) ? getShift(job.shifts) : ''}</p>
+                                        </div>
+                                    </div>
+                                    <div className='col-sm-3'>
+                                        <div className='form-group'>
+                                            <label className='control-label'>{t('client.jobs.view.job_status')}</label>
+                                            <p>{status}</p>
+                                            {(job.status == 'cancel') ? `(With Cancellatiom fees ${job.rate} ILS)` : ''}
+                                        </div>
+                                    </div>
 
-                    </div>
-                </form>
+                                </div>
+                            </form>
+                        )
+                    })
+                }
+
             </div>
         </>
     )

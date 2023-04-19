@@ -108,7 +108,7 @@ export default function WorkerTotalJobs() {
                                                 totalJobs.map((item, index) => {
 
                                                     //let services =  (item.offer.services) ? JSON.parse(item.offer.services) : [];
-                          
+                                                    let total = 0;
                                                     return(
                                                     <Tr key={index}>
                                                         <Td>
@@ -122,10 +122,15 @@ export default function WorkerTotalJobs() {
                                                         }
                                                         </Td>
                                                         <Td>{
-                                                           (w_lng=='en')
-                                                           ? (item.jobservice.name)
-                                                           :
-                                                           (item.jobservice.heb_name)
+                                                            item.jobservice && item.jobservice.map((js,i)=>{
+                                                                total += parseInt(js.total);
+                                                                return (
+                                                                    (w_lng=='en')
+                                                                    ? (js.name)
+                                                                    :
+                                                                    (js.heb_name)
+                                                                )
+                                                            })
                                                         
                                                         }</Td>
                                                         <Td>

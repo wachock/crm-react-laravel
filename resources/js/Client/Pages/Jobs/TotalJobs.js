@@ -4,7 +4,7 @@ import axios from "axios";
 import Sidebar from "../../Layouts/ClientSidebar";
 import { Link } from "react-router-dom";
 import { useAlert } from "react-alert";
-import {Table, Thead, Tbody, Tr, Th, Td} from 'react-super-responsive-table'
+import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table'
 import Moment from 'moment';
 import { useTranslation } from "react-i18next";
 import { Base64 } from "js-base64";
@@ -17,8 +17,8 @@ export default function TotalJobs() {
     const [AllServices, setAllServices] = useState([]);
     const [AllWorkers, setAllWorkers] = useState([]);
     const alert = useAlert();
-    const cid = localStorage.getItem('client-id'); 
-     const {t,i18n } = useTranslation();
+    const cid = localStorage.getItem('client-id');
+    const { t, i18n } = useTranslation();
     const c_lng = i18n.language;
     const headers = {
         Accept: "application/json, text/plain, */*",
@@ -27,7 +27,7 @@ export default function TotalJobs() {
     };
 
     const getJobs = () => {
-        axios.post("/api/client/jobs", {cid},{ headers }).then((response) => {
+        axios.post("/api/client/jobs", { cid }, { headers }).then((response) => {
             if (response.data.jobs.length > 0) {
                 setTotalJobs(response.data.jobs);
                 setPageCount(response.data.jobs.last_page);
@@ -36,7 +36,7 @@ export default function TotalJobs() {
             }
         });
     };
-   
+
     useEffect(() => {
         getJobs();
     }, []);
@@ -54,43 +54,43 @@ export default function TotalJobs() {
                 }
             });
     };
-     const show_shift = [
+    const show_shift = [
         "Full Day",
         "Morning",
         'Afternoon',
         'Evening',
         'Night'
     ];
-    const getShift = (shifts) =>{
+    const getShift = (shifts) => {
         let s = (shifts).split(",");
-        let check='';
-        let new_shift='';
-            show_shift.map((p)=>{
-                     if(p == 'Afternoon'){
-                        check ='noon';
-                     }else{
-                         check =p;
-                     }
-                     s.map((sh)=>{
-                        if(sh.includes(check.toLowerCase())){
-                            if(new_shift==''){
-                                new_shift=p;
-                            }else{
-                                if(!new_shift.includes(p)){
-                                    new_shift=t('global.'+(new_shift).toLowerCase())+' | '+t('global.'+p.toLowerCase());
-                                 }
-                            }
-                            
+        let check = '';
+        let new_shift = '';
+        show_shift.map((p) => {
+            if (p == 'Afternoon') {
+                check = 'noon';
+            } else {
+                check = p;
+            }
+            s.map((sh) => {
+                if (sh.includes(check.toLowerCase())) {
+                    if (new_shift == '') {
+                        new_shift = p;
+                    } else {
+                        if (!new_shift.includes(p)) {
+                            new_shift = t('global.' + (new_shift).toLowerCase()) + ' | ' + t('global.' + p.toLowerCase());
                         }
-                     })
+                    }
+
+                }
             })
-            if(new_shift == 'Full Day') return t('global.fullday');
-            if(new_shift == 'Morning') return t('global.morning');
-            if(new_shift == 'Noon') return t('global.noon');
-            if(new_shift == 'Afternoon') return t('global.afternoon');
-            if(new_shift == 'Evening') return t('global.evening');
-            return new_shift;
-       
+        })
+        if (new_shift == 'Full Day') return t('global.fullday');
+        if (new_shift == 'Morning') return t('global.morning');
+        if (new_shift == 'Noon') return t('global.noon');
+        if (new_shift == 'Afternoon') return t('global.afternoon');
+        if (new_shift == 'Evening') return t('global.evening');
+        return new_shift;
+
     }
 
 
@@ -106,7 +106,7 @@ export default function TotalJobs() {
                         <div className="col-sm-6">
                             <div className="search-data">
                                 <input type='text' className="form-control" placeholder={t('client.search')} />
-                            </div> 
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -119,8 +119,8 @@ export default function TotalJobs() {
                                         <Thead>
                                             <Tr>
                                                 <Th scope="col">{t('client.jobs.job_date')}</Th>
-                                                <Th scope="col" style={{ display:'none' }}>{t('client.jobs.worker_name')}</Th>
-                                                <Th scope="col" style={{ display:'none' }}>{t('client.jobs.client_name')}</Th>
+                                                <Th scope="col" style={{ display: 'none' }}>{t('client.jobs.worker_name')}</Th>
+                                                <Th scope="col" style={{ display: 'none' }}>{t('client.jobs.client_name')}</Th>
                                                 <Th scope="col">{t('client.jobs.service_name')}</Th>
                                                 <Th scope="col">{t('client.jobs.shift')}</Th>
                                                 <Th scope="col">{t('client.jobs.address')}</Th>
@@ -131,88 +131,98 @@ export default function TotalJobs() {
                                             </Tr>
                                         </Thead>
                                         <Tbody>
-                                        {totalJobs &&
+                                            {totalJobs &&
                                                 totalJobs.map((item, index) => {
-
+                                                    
                                                     //let services =  (item.offer.services) ? JSON.parse(item.offer.services) : [];
                                                     let address = (item.client.geo_address) ? (item.client.geo_address) : 0;
                                                     let Ad = [];
-                                                    if(address){
+                                                    let total = 0;
+                                                    if (address) {
                                                         let ar = address.split('\n');
-                                                        for (let a in ar){
+                                                        for (let a in ar) {
                                                             Ad.push(
-                                                                <span>{ ar[a] }<br/></span>
+                                                                <span>{ar[a]}<br /></span>
                                                             )
-                                        
+
                                                         }
-                                                    
+
                                                     }
                                                     let status = item.status;
-                                                        if (status == "not-started") { status = t("j_status.not-started"); }
-                                                        if (status == "progress") { status = t("j_status.progress"); }
-                                                        if (status == "completed") { status = t("j_status.completed"); }
-                                                        if (status == "scheduled") { status = t("j_status.scheduled"); }
-                                                        if (status == "unscheduled") { status = t("j_status.unscheduled"); }
-                                                        if (status == "re-scheduled") { status = t("j_status.re-scheduled"); }
-                                                        if (status == "cancel") { status = t("j_status.cancel"); }
-                                                    return(
-                                                    <Tr key={index}>
-                                                        <Td>
-                                                           {Moment(item.start_date).format('DD MMM,Y')}
-                                                        </Td>
-                                                        <Td style={{ display:'none' }}>
-                                                            <h6>{
-                                                                item.worker
-                                                                    ? item.worker.firstname +
-                                                                    " " + item.worker.lastname
+                                                    if (status == "not-started") { status = t("j_status.not-started"); }
+                                                    if (status == "progress") { status = t("j_status.progress"); }
+                                                    if (status == "completed") { status = t("j_status.completed"); }
+                                                    if (status == "scheduled") { status = t("j_status.scheduled"); }
+                                                    if (status == "unscheduled") { status = t("j_status.unscheduled"); }
+                                                    if (status == "re-scheduled") { status = t("j_status.re-scheduled"); }
+                                                    if (status == "cancel") { status = t("j_status.cancel"); }
+                                                    return (
+                
+                                                        <Tr key={index}>
+                                                            <Td>
+                                                                {Moment(item.start_date).format('DD MMM,Y')}
+                                                            </Td>
+                                                            <Td style={{ display: 'none' }}>
+                                                                <h6>{
+                                                                    item.worker
+                                                                        ? item.worker.firstname +
+                                                                        " " + item.worker.lastname
+                                                                        : "NA"
+                                                                }</h6>
+
+
+                                                            </Td>
+                                                            <Td style={{ display: 'none' }}>{
+                                                                item.client
+                                                                    ? item.client.firstname +
+                                                                    " " + item.client.lastname
                                                                     : "NA"
-                                                            }</h6>
-                                                            
-                                                           
-                                                        </Td>
-                                                        <Td style={{ display:'none' }}>{
-                                                            item.client
-                                                                ? item.client.firstname +
-                                                                " " + item.client.lastname
-                                                                : "NA"
-                                                        }
-                                                        </Td>
-                                                        <Td>{
-                                                           (c_lng=='en')
-                                                                     ? (item.jobservice.name)
-                                                                     :
-                                                                    (item.jobservice.heb_name)
-                                                        }</Td>
-                                                        <Td>
-                                                             {getShift(item.shifts)}
-                                                           
-                                                        </Td>
-                                                        <Td>{
-                                                            Ad
-                                                        }
-                                                        </Td>
-                                                        <Td>
-                                                            {
-                                                            item.end_time && item.start_time ?
-                                                            parseFloat(`${item.end_time}.replace(":", ".")`)
-                                                             - parseFloat(`${item.start_time}.replace(":", ".")`)
-                                                             +" Hours"
-                                                             :"NA"
                                                             }
-                                                        </Td>
-                                                        <Td>
-                                                            {status}
-                                                            {(item.status=='cancel')?`(${t('client.jobs.view.with_cancel')} ${item.rate} + ${t('global.currency')})`:''}
-                                                        </Td>
-                                                        <Td>
-                                                            {item.jobservice?item.jobservice.total+" "+t('global.currency')+" + "+t('global.vat'):'0'} 
-                                                        </Td>
-                                                        <Td>
-                                                            <Link to={`/client/view-job/${Base64.encode(item.id.toString())}`} className="btn btn-primary">{t('client.jobs.view_btn')}</Link>
-                                                        </Td>
-                                                       
-                                                    </Tr>
-                                                )})}
+                                                            </Td>
+                                                            <Td>{
+                                                                item.jobservice && item.jobservice.map((js, i) => {
+                                                                   
+                                                                    total += parseInt(js.total);
+                                                                    return (
+                                                                        (c_lng == 'en')
+                                                                            ? (js.name + " ")
+                                                                            :
+                                                                            (js.heb_name + " ")
+                                                                    )
+                                                                })
+
+                                                            }</Td>
+                                                            <Td>
+                                                                {getShift(item.shifts)}
+
+                                                            </Td>
+                                                            <Td>{
+                                                                Ad
+                                                            }
+                                                            </Td>
+                                                            <Td>
+                                                                {
+                                                                    item.end_time && item.start_time ?
+                                                                        parseFloat(`${item.end_time}.replace(":", ".")`)
+                                                                        - parseFloat(`${item.start_time}.replace(":", ".")`)
+                                                                        + " Hours"
+                                                                        : "NA"
+                                                                }
+                                                            </Td>
+                                                            <Td>
+                                                                {status}
+                                                                {(item.status == 'cancel') ? `(${t('client.jobs.view.with_cancel')} ${item.rate} + ${t('global.currency')})` : ''}
+                                                            </Td>
+                                                            <Td>
+                                                                {total + " " + t('global.currency') + " + " + t('global.vat') }
+                                                            </Td>
+                                                            <Td>
+                                                                <Link to={`/client/view-job/${Base64.encode(item.id.toString())}`} className="btn btn-primary">{t('client.jobs.view_btn')}</Link>
+                                                            </Td>
+
+                                                        </Tr>
+                                                    )
+                                                })}
                                         </Tbody>
                                     </Table>
                                 ) : (

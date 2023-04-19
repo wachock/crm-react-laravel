@@ -4,6 +4,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table'
 import { useTranslation } from "react-i18next";
+import { Base64 } from "js-base64";
 
 export default function ClientDashboard() {
 
@@ -175,7 +176,7 @@ export default function ClientDashboard() {
                                                         if (status == "unscheduled") { status = t("j_status.unscheduled"); }
                                                         if (status == "re-scheduled") { status = t("j_status.re-scheduled"); }
                                                         if (status == "cancel") { status = t("j_status.cancel"); }
-
+                                                        let total = 0;
                                                         return (
                                                             <Tr key={index}>
                                                                 <Td style={{ display: 'none' }}>{
@@ -186,10 +187,16 @@ export default function ClientDashboard() {
                                                                 }
                                                                 </Td>
                                                                 <Td>{
-                                                                    (c_lng == 'en')
-                                                                        ? (item.jobservice.name)
-                                                                        :
-                                                                        (item.jobservice.heb_name)
+                                                                    item.jobservice && item.jobservice.map((js,i)=>{
+                                                                        total += parseInt(js.total);
+                                                                        return(
+                                                                            (c_lng == 'en')
+                                                                            ? (js.name)
+                                                                            :
+                                                                            (js.heb_name)
+                                                                        )
+                                                                    })
+                                                                   
                                                                 }</Td>
                                                                 <Td>
                                                                     {status}
@@ -209,13 +216,13 @@ export default function ClientDashboard() {
                                                                     {(item.status == 'cancel') ? `(With Cancellatiom fees ${item.rate} ${t('global.currency')} )` : ''}
                                                                 </Td>
                                                                 <Td>
-                                                                    {item.jobservice ? item.jobservice.total + " " + t('global.currency') : ''}
+                                                                    {total + " " + t('global.currency')}
                                                                 </Td>
                                                                 <Td>
                                                                     <div className="d-flex">
 
                                                                         <Link
-                                                                            to={`/client/view-job/${item.id}`}
+                                                                            to={`/client/view-job/${Base64.encode(item.id.toString())}`}
                                                                             className="ml-2 btn bg-yellow"
                                                                         >
                                                                             <i className="fa fa-eye"></i>
