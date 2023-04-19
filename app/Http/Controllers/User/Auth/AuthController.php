@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
-
+use PDF;
 class AuthController extends Controller
 {
     
@@ -195,9 +195,19 @@ class AuthController extends Controller
         'form'=>[["form_101" => $form->form_101]]
     ]);
 }
-
-    public function pdf101(){
+    
+    public function demopdf101(){
+    
         return view('pdf101');
+    }
+
+    public function pdf101($id){
+    
+        $user = User::find(base64_decode($id));
+        $form = json_decode($user->form_101,true);
+        //echo "<pre>";print_r($form);die;
+        $pdf = PDF::loadView('pdf101', compact('form'));
+        return $pdf->stream('form101_'.$user->id.'.pdf');
     }
 
     

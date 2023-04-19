@@ -355,7 +355,7 @@ export default function Form101() {
         if (res.data.form.length > 0) {
           if (res.data.form[0].form_101 != null) {
             let fm = JSON.parse(res.data.form[0].form_101).data;
-            console.log(fm);
+            
             let ip = document.querySelectorAll('input');
             let sl = document.querySelectorAll('select');
             ip.forEach((e,i)=>{
@@ -451,7 +451,8 @@ export default function Form101() {
   }
   
   const printPdf = (e) => {
-   
+    window.location.href=(`/pdf/${param.id}`);
+   /*
     if(form && form.signature != null){
       let r = document.querySelector('#exampleModal');
 
@@ -499,7 +500,8 @@ export default function Form101() {
           window.location.reload(true);
         },200);
        
-    }
+    }*/
+    
   };
 
 
