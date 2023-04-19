@@ -172,7 +172,7 @@ export default function Form101() {
     data['bid-martial'] = document.querySelector('input[name="bid-martial"]:checked').value;
     data['bid-israeli'] = document.querySelector('input[name="bid-israeli"]:checked').value;
     data['bid-member'] = document.querySelector('input[name="bid-member"]:checked').value;
-    data['bid-hmo'] = document.querySelector('input[name="bid-martial"]:checked').value;
+    data['bid-hmo'] = document.querySelector('input[name="bid-hmo"]:checked').value;
    
     data['p-martial'] = document.querySelector('input[name="p-martial"]:checked').value;
     data['p-hmo'] = document.querySelector('input[name="p-hmo"]:checked').value;
@@ -686,7 +686,7 @@ export default function Form101() {
                   <div className='col-sm-4 col-xs-6'>
                     <div className='form-group'>
                       <label className="control-label">{t('form101.ho_num')}*</label>
-                      <input type='text' name="houseNumber" className="form-control bid" placeholder="House number" />
+                      <input type='text' name="bid-house_number" className="form-control bid" placeholder="House number" />
                     </div>
                   </div>
                   <div className='col-sm-4 col-xs-6'>
@@ -698,7 +698,7 @@ export default function Form101() {
                   <div className='col-sm-4 col-xs-6'>
                     <div className='form-group'>
                       <label className="control-label">{t('form101.postal_code')}</label>
-                      <input type='text' name="houseNumber" className="form-control bid" placeholder="House number" />
+                      <input type='text' name="bid-postal_code" className="form-control bid" placeholder="Postal Code" />
                     </div>
                   </div>
                   <div className='col-sm-4 col-xs-6'>
@@ -844,11 +844,11 @@ export default function Form101() {
                               :
                               <>
                                 <div class="form-check">
-                                  <input class="form-check-input bidr" type="radio" onChange={(e) => handleSubmit(e)} name="bid-hmo" id="io_check" value="Yes" />
+                                  <input class="form-check-input bidr" type="radio" onChange={(e) => handleSubmit(e)} name="bid-hmo" id="member" value="Yes" />
                                   <label class="form-check-label" for="Yes">{t('form101.label_yes')}</label>
                                 </div>
                                 <div class="form-check">
-                                  <input class="form-check-input bidr" type="radio" onChange={(e) => handleSubmit(e)} name="bid-hmo" id="member" value="No" />
+                                  <input class="form-check-input bidr" type="radio" onChange={(e) => handleSubmit(e)} name="bid-hmo" id="io_check"  value="No" />
                                   <label class="form-check-label" for="No">{t('form101.label_no')}</label>
                                 </div>
                               </>
@@ -1281,11 +1281,11 @@ export default function Form101() {
                           </> :
                           <>
                             <div class="form-check">
-                              <input class="form-check-input pidr" type="radio" onChange={(e) => handleSubmit(e)} name="p-hmo" id="io_check" value="Yes" />
+                              <input class="form-check-input pidr" type="radio" onChange={(e) => handleSubmit(e)} name="p-hmo" id="hmoMember" value="Yes" />
                               <label class="form-check-label" for="Yes">{t('form101.label_yes')}</label>
                             </div>
                             <div class="form-check">
-                              <input class="form-check-input pidr" type="radio" onChange={(e) => handleSubmit(e)} name="p-hmo" id="hmoMember" value="No" />
+                              <input class="form-check-input pidr" type="radio" onChange={(e) => handleSubmit(e)} name="p-hmo" id="io_check"  value="No" />
                               <label class="form-check-label" for="No">{t('form101.label_no')}</label>
                             </div>
                           </>

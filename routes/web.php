@@ -15,7 +15,7 @@ use App\Http\Controllers\User\Auth\AuthController;
 */
 Route::get('/import',[DashboardController::class,'import']);
 Route::get('/pdf/{id}',[AuthController::class,'pdf101']);
-Route::get('/demopdf/',[AuthController::class,'demopdf101']);
+
 // Auth::routes();
 Route::any( '/{path?}', function(){
     return view( 'index' );

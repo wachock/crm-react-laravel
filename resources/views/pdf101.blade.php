@@ -163,54 +163,54 @@
 <p style="position:absolute;top:315px;left:418px;white-space:nowrap" class="ft10">יטרפ םש</p>
 <p style="position:absolute;top:315px;left:248px;white-space:nowrap" class="ft10">הדיל ךיראת</p>
 <p style="position:absolute;top:400px;left:88px;white-space:nowrap" class="ft10">םילוח תפוקב רבח</p>
-<p style="position:absolute;top:416px;left:173px;white-space:nowrap" class="ft110">אל&#160;<img src='./images/unchecked.png' style="display: inline;width: 12px;position: relative;top:1px;left:1px" /></p>
-<p style="position:absolute;top:436px;left:110px;white-space:nowrap" class="ft110">הפוקה םש ,ןכ&#160;<img src='./images/unchecked.png' style="display: inline;width: 12px;position: relative;top:1px;left:1px" /></p>
+<p style="position:absolute;top:416px;left:173px;white-space:nowrap" class="ft110">אל&#160;<img src={{ ( (isset($f['bid-hmo'])) && $f['bid-hmo'] == "Yes" || (isset($f['p-hmo'])) && $f['p-hmo']=="Yes" ) ? './images/checked.png' : './images/unchecked.png' }} style="display: inline;width: 12px;position: relative;top:1px;left:1px" /></p>
+<p style="position:absolute;top:436px;left:110px;white-space:nowrap" class="ft110">הפוקה םש ,ןכ&#160;<img src={{ ( (isset($f['bid-hmo'])) && $f['bid-hmo'] == "No" || (isset($f['p-hmo'])) && $f['p-hmo']=="No" ) ? './images/checked.png' : './images/unchecked.png' }} style="display: inline;width: 12px;position: relative;top:1px;left:1px" /></p>
 <p style="position:absolute;top:459px;left:210px;white-space:nowrap" class="ft10">דיינ ןופלט רפסמ</p>
 <p style="position:absolute;top:458px;left:468px;white-space:nowrap" class="ft10">ןופלט רפסמ</p>
 <p style="position:absolute;top:387px;left:312px;white-space:nowrap" class="ft18">רפסמ</p>
 <p style="position:absolute;top:400px;left:232px;white-space:nowrap" class="ft10">יפותיש בשומ/ץוביק רבח</p>
-<p style="position:absolute;top:419px;left:274px;white-space:nowrap" class="ft110">&#160;&#160;&#160;&#160;ןכ&#160;<img src='./images/unchecked.png' style="display: inline;width: 12px;position: relative;top:1px;left:1px" /></p>
-<p style="position:absolute;top:438px;left:277px;white-space:nowrap" class="ft110">אל&#160;<img src='./images/unchecked.png' style="display: inline;width: 12px;position: relative;top:1px;left:1px" /></p>
+<p style="position:absolute;top:419px;left:274px;white-space:nowrap" class="ft110">&#160;&#160;&#160;&#160;ןכ&#160;<img src={{ ( (isset($f['bid-member'])) && $f['bid-member'] == "Yes" || (isset($f['p-member'])) && $f['p-member']=="Yes") ? './images/checked.png' : './images/unchecked.png' }} style="display: inline;width: 12px;position: relative;top:1px;left:1px" /></p>
+<p style="position:absolute;top:438px;left:277px;white-space:nowrap" class="ft110">אל&#160;<img src={{ ( (isset($f['bid-member'])) && $f['bid-member'] == "No" || (isset($f['p-member'])) && $f['p-member']=="No") ? './images/checked.png' : './images/unchecked.png' }} style="display: inline;width: 12px;position: relative;top:1px;left:1px" /></p>
 <p style="position:absolute;top:400px;left:381px;white-space:nowrap" class="ft10">לארשי בשות</p>
-<p style="position:absolute;top:419px;left:397px;white-space:nowrap" class="ft125">&#160;&#160;ןכ&#160;<img src='./images/unchecked.png' style="display: inline;width: 12px;position: relative;top:1px;left:-2px" /><br/>אל&#160;<img src='./images/unchecked.png' style="display: inline;width: 12px;position: relative;top:1px;left:-1px" /></p>
+<p style="position:absolute;top:419px;left:397px;white-space:nowrap" class="ft125">&#160;&#160;ןכ&#160;<img src={{ $f['bid-israeli']=='Yes' ? './images/checked.png' : './images/unchecked.png' }} style="display: inline;width: 12px;position: relative;top:1px;left:-2px" /><br/>אל&#160;<img src={{ $f['bid-israeli']=='No' ? './images/checked.png' : './images/unchecked.png' }} style="display: inline;width: 12px;position: relative;top:1px;left:-1px" /></p>
 <p style="position:absolute;top:400px;left:563px;white-space:nowrap" class="ft10">&#160;יתחפשמ&#160;בצמ</p>
-<p style="position:absolute;top:417px;left:474px;white-space:nowrap" class="ft110">ה/שורג&#160;<img src='./images/unchecked.png' style="display: inline;width: 12px;position: relative;top:1px;left:-43px" />&#160; &#160; &#160; &#160; &#160; &#160; &#160;הא/יושנ&#160;<img src='./images/unchecked.png' style="display: inline;width: 12px;position: relative;top:1px;left:-43px" />&#160; &#160; &#160; &#160; &#160; &#160; &#160;ה/קוור&#160;<img src='./images/unchecked.png' style="display: inline;width: 12px;position: relative;top:1px;left:-2px" /></p>
+<p style="position:absolute;top:417px;left:474px;white-space:nowrap" class="ft110">ה/שורג&#160;<img src={{ ($f['bid-martial'] == 'Divorcee' || $f['p-martial'] == 'Divorcee' ) ? './images/checked.png' : './images/unchecked.png' }} style="display: inline;width: 12px;position: relative;top:1px;left:-43px" />&#160; &#160; &#160; &#160; &#160; &#160; &#160;הא/יושנ&#160;<img src={{ ($f['bid-martial'] == 'Married' || $f['p-martial'] == 'Married' ) ? './images/checked.png' : './images/unchecked.png' }} style="display: inline;width: 12px;position: relative;top:1px;left:-43px" />&#160; &#160; &#160; &#160; &#160; &#160; &#160;ה/קוור&#160;<img src={{ ($f['bid-martial'] == 'Single' || $f['p-martial'] == 'Single' ) ? './images/checked.png' : './images/unchecked.png' }} style="display: inline;width: 12px;position: relative;top:1px;left:-2px" /></p>
 <p style="position:absolute;top:438px;left:457px;white-space:nowrap" class="ft10">(ש&#34;פ רושיא ףרצל הבוח)</p>
 <p style="position:absolute;top:439px;left:589px;white-space:nowrap" class="ft17">&#160;</p>
-<p style="position:absolute;top:437px;left:591px;white-space:nowrap" class="ft110">ה/דורפ&#160;<img src='./images/unchecked.png' style="display: inline;width: 12px;position: relative;top:1px;left:-20px" /> &#160; &#160; &#160; ה/ןמלא&#160;<img src='./images/unchecked.png' style="display: inline;width: 12px;position: relative;top:1px;left:-2px" /></p>
-<p style="position:absolute;top:419px;left:763px;white-space:nowrap" class="ft110">רכז&#160;<img src='./images/unchecked.png' style="display: inline;width: 12px;position: relative;top:1px" /></p>
-<p style="position:absolute;top:439px;left:752px;white-space:nowrap" class="ft110">הבקנ&#160;<img src='./images/checked.png' style="display: inline;width: 12px;position: relative;top:1px" /></p>
+<p style="position:absolute;top:437px;left:591px;white-space:nowrap" class="ft110">ה/דורפ&#160;<img src={{ ($f['bid-martial'] == 'Separated' || $f['p-martial'] == 'Separated' ) ? './images/checked.png' : './images/unchecked.png' }} style="display: inline;width: 12px;position: relative;top:1px;left:-20px" /> &#160; &#160; &#160; ה/ןמלא&#160;<img src={{ ($f['bid-martial'] == 'A widower' || $f['p-martial'] == 'A widower' ) ? './images/checked.png' : './images/unchecked.png' }} style="display: inline;width: 12px;position: relative;top:1px;left:-2px" /></p>
+<p style="position:absolute;top:419px;left:763px;white-space:nowrap" class="ft110">רכז&#160;<img src={{ $f['bid-sex']=="Male" ?  './images/checked.png' : './images/unchecked.png' }} style="display: inline;width: 12px;position: relative;top:1px" /></p>
+<p style="position:absolute;top:439px;left:752px;white-space:nowrap" class="ft110">הבקנ&#160;<img src={{ $f['bid-sex']=="Female" ?  './images/checked.png' : './images/unchecked.png' }} style="display: inline;width: 12px;position: relative;top:1px" /></p>
 <p style="position:absolute;top:400px;left:764px;white-space:nowrap" class="ft10">ןימ</p>
 <p style="position:absolute;top:1050px;left:184px;white-space:nowrap;letter-spacing: 5px" class="ft115">14071988</p>
-<p style="position:absolute;top:373px;left:315px;white-space:nowrap" class="ft116">32</p>
+<p style="position:absolute;top:373px;left:315px;white-space:nowrap" class="ft116">{{  ($f['identification'] == 'byId') ? ( (isset($f['bid-house_number'])) ? $f['bid-house_number'] : '') :  ( (isset($f['p-house_number'])) ? $f['p-house_number'] : '' ) }}</p>
 <p style="position:absolute;top:127px;left:340px;font-size: 22px;letter-spacing: 2px;white-space:nowrap" class="ft117">2&#160;0&#160;2&#160;3</p>
-<p style="position:absolute;top:253px;left:48px;white-space:nowrap;letter-spacing:5px;" class="ft118">987654993</p>
+<p style="position:absolute;top:253px;left:48px;white-space:nowrap;letter-spacing:5px;" class="ft118">{{ (isset($f['deduction_fileId'])) ? $f['deduction_fileId'] : ''}}</p>
 <p style="position:absolute;top:1081px;left:757px;white-space:nowrap" class="ft119">RU |&#160;</p>
 <p style="position:absolute;top:1081px;left:780px;white-space:nowrap" class="ft120">היסור</p>
-<p style="position:absolute;top:477px;left:125px;white-space:nowrap" class="ft116">972525413246</p>
-<p style="position:absolute;top:337px;left:48px;white-space:nowrap;letter-spacing:5px;" class="ft118">15071997</p>
-<p style="position:absolute;top:337px;left:365px;white-space:nowrap" class="ft118">Sohrab</p>
-<p style="position:absolute;top:477px;left:374px;white-space:nowrap" class="ft116">972525413246</p>
+<p style="position:absolute;top:477px;left:125px;white-space:nowrap" class="ft116">{{ $f['identification'] == "byId"  ? (isset($f['bid-mobile_number']) ? $f['bid-mobile_number'] : '') : ( isset($f['p-mobile_number']) ? $f['p-mobile_number'] : '' ) }}</p>
+<p style="position:absolute;top:337px;left:48px;white-space:nowrap;letter-spacing:5px;" class="ft118">{{ ($f['identification'] == 'byId') ? Carbon\Carbon::parse($f['bid-date_of_immigration'])->format('d m Y') : Carbon\Carbon::parse($f['p-date_of_immigration'])->format('d m Y') }}</p>
+<p style="position:absolute;top:337px;left:365px;white-space:nowrap" class="ft118">{{ ($f['first_name']) ? $f['first_name'] : ''}}</p>
+<p style="position:absolute;top:477px;left:374px;white-space:nowrap" class="ft116">{{ $f['identification'] == "byId"  ? (isset($f['bid-phone_number']) ? $f['bid-phone_number'] : '') : ( isset($f['p-phone_number']) ? $f['p-phone_number'] : '' ) }}</p>
 <p style="position:absolute;top:585px;left:525px;white-space:nowrap;letter-spacing: 5px" class="ft118">987654993</p>
 <p style="position:absolute;top:373px;left:445px;white-space:nowrap" class="ft121">ירוד</p>
 <p style="position:absolute;top:373px;left:472px;white-space:nowrap" class="ft115">-</p>
 <p style="position:absolute;top:373px;left:477px;white-space:nowrap" class="ft121">א</p>
 <p style="position:absolute;top:1050px;left:374px;white-space:nowrap" class="ft115">Maya</p>
 <p style="position:absolute;top:442px;left:74px;white-space:nowrap" class="ft120">יבכמ</p>
-<p style="position:absolute;top:477px;left:566px;white-space:nowrap" class="ft116">website.design1008@gmail.com</p>
-<p style="position:absolute;top:374px;left:48px;white-space:nowrap;letter-spacing: 5px;" class="ft116">1223344</p>
+<p style="position:absolute;top:477px;left:566px;white-space:nowrap" class="ft116">{{ $f['identification'] == 'byId' ? $f['bid-email'] : $f['p-email']}}</p>
+<p style="position:absolute;top:374px;left:48px;white-space:nowrap;letter-spacing: 5px;" class="ft116">{{ ($f['identification']=="byId") ? ( isset($f['bid-postal_code']) ? $f['bid-postal_code'] : '') : ( isset($f[p-postal_code]) ? $f['p-postal_code'] : '') }}</p>
 <p style="position:absolute;top:1050px;left:559px;white-space:nowrap" class="ft115">V</p>
 <p style="position:absolute;top:570px;left:50px;white-space:nowrap;letter-spacing: 5px" class="ft118">07062023</p>
 <p style="position:absolute;top:585px;left:705px;white-space:nowrap" class="ft117">Omar</p>
 <p style="position:absolute;top:374px;left:211px;white-space:nowrap" class="ft122">םערפש</p>
-<p style="position:absolute;top:337px;left:544px;white-space:nowrap" class="ft118">Khan</p>
-<p style="position:absolute;top:256px;left:688px;white-space:nowrap" class="ft118">Sohrab</p>
-<p style="position:absolute;top:337px;left:662px;white-space:nowrap;letter-spacing:5px;" class="ft118">987654993</p>
+<p style="position:absolute;top:337px;left:544px;white-space:nowrap" class="ft118">{{ (isset($f['last_name'])) ? $f['last_name'] : ''}}</p>
+<p style="position:absolute;top:256px;left:688px;white-space:nowrap" class="ft118">{{ $f['name'] }}</p>
+<p style="position:absolute;top:337px;left:662px;white-space:nowrap;letter-spacing:5px;" class="ft118">{{ isset($f['deduction_fileId']) ? $f['deduction_fileId'] : ''}}</p>
 <p style="position:absolute;top:585px;left:388px;white-space:nowrap;letter-spacing: 5px" class="ft118">01012018</p>
 <p style="position:absolute;top:1093px;left:690px;white-space:nowrap;letter-spacing: 5px" class="ft119">987654993</p>
-<p style="position:absolute;top:256px;left:354px;white-space:nowrap" class="ft118">A-278,Saurabh Vihar, Jaitpur</p>
-<p style="position:absolute;top:256px;left:204px;white-space:nowrap" class="ft115">972525413246</p>
-<p style="position:absolute;top:337px;left:184px;white-space:nowrap;letter-spacing:5px;" class="ft118">16071996</p>
+<p style="position:absolute;top:256px;left:354px;white-space:nowrap" class="ft118">{{ (isset($f['address'])) ? $f['address'] : ''}}</p>
+<p style="position:absolute;top:256px;left:204px;white-space:nowrap" class="ft115">{{ (isset($f['phone_number'])) ? $f['phone_number'] : '' }}</p>
+<p style="position:absolute;top:337px;left:184px;white-space:nowrap;letter-spacing:5px;" class="ft118">@php ($f['identification'] == 'byId') ? $dob = $f['bid-dob'] : $dob = $f['p-dob']; $_dob = Carbon\Carbon::parse($dob)->format('d m Y'); @endphp {{ $_dob }}</p>
 </div>
 </body>
 </html>
