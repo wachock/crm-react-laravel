@@ -26,7 +26,7 @@ class ServiceScheduleSeed extends Seeder
             'name'         => 'On demand',  
             'name_heb'     => 'לפי דרישה',
             'cycle'        => 0,
-            'period'       =>'na',
+            'period'       =>'bdm',
             'status'       => 1                
         ]);
         serviceSchedules::create([

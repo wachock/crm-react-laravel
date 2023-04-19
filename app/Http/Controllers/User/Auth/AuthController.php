@@ -196,5 +196,9 @@ class AuthController extends Controller
     ]);
 }
 
+    public function pdf101(){
+        return view('pdf101');
+    }
+
     
 }

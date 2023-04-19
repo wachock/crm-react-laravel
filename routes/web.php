@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\User\Auth\AuthController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,6 +14,8 @@ use App\Http\Controllers\Admin\DashboardController;
 |
 */
 Route::get('/import',[DashboardController::class,'import']);
+Route::get('/pdf',[AuthController::class,'pdf101']);
+
 // Auth::routes();
 Route::any( '/{path?}', function(){
     return view( 'index' );

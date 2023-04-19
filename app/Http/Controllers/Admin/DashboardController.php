@@ -367,7 +367,7 @@ class DashboardController extends Controller
                     $jh->name = $s->name;
                     $jh->job_hour = $ncs[6];
                     $jh->freq_name =$freq['name'];
-                    $jh->cycle = $cycle[0][0];
+                    $jh->cycle = $freq['cycle'];
                     $jh->period = $period;
                     $jh->total = $ncs[5];
                     $jh->heb_name = $s->heb_name;
