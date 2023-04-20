@@ -13,7 +13,7 @@ const data = {};
 export default function Form101() {
 
   const { t } = useTranslation();
-  const [formValues, setFormValues] = useState([{ name: "", idnum: "", childDob: "", custody: "", childBenefit: "" }]);
+  const [formValues, setFormValues] = useState([]);
   const [salValues, setSalValues] = useState([{ name: "", address: "", dfid: "", typeIncome: "", mIncome: "", taxDeducted: "", copy_of_pay: "" }]);
 
   let handleChildChange = (i, e) => {
@@ -212,7 +212,7 @@ export default function Form101() {
         }
       })
       
-   
+        if(formValues.length > 0){
         for(let sv in formValues){
   
           if(formValues[sv].name == ''){
@@ -237,6 +237,7 @@ export default function Form101() {
           }
 
         }
+      }
       
 
     } 
@@ -1347,11 +1348,12 @@ export default function Form101() {
                   <div className='col-sm-2'>
                     <div className='form-group'>
                       <label className='control-label'>&nbsp;</label>
-                      {
+                      <button type="button" className="btn btn-danger remove saveBtn mt-4" onClick={() => removeFormFields(index)}>{t('form101.button_remove')}</button>
+                      {/*
                         index && form.length == 0 ?
-                          <button type="button" className="btn btn-danger remove saveBtn mt-4" onClick={() => removeFormFields(index)}>{t('form101.button_remove')}</button>
+                          
                           : null
-                      }
+                    */}
                     </div>
                   </div>
                 </div>

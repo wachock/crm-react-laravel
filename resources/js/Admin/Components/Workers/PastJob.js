@@ -97,7 +97,9 @@ export default function PastJob() {
                                         </thead>
                                         <tbody>
                                             {jobs &&
-                                                jobs.map((item, index) => (
+                                                jobs.map((item, index) => {
+                                                    let total = 0;
+                                                    return(
                                                     <tr key={index}>
                                                         <td>{item.id}</td>
                                                         <td>
@@ -109,9 +111,15 @@ export default function PastJob() {
                                                             }
                                                         </td>
                                                         <td>{
-                                                            item.jobservice
-                                                                ? item.jobservice.name
+                                                            item.jobservice && item.jobservice.map((js,i)=>{
+                                                              total += parseInt(js.total);
+                                                              return(
+                                                                js.name
+                                                                ? js.name
                                                                 : "NA"
+                                                              )    
+                                                            })
+                                                           
                                                             }</td>
                                                         <td>
                                                             {item.start_date}
@@ -120,9 +128,7 @@ export default function PastJob() {
                                                             {item.shifts}
                                                         </td>
                                                         <td>
-                                                            {item.jobservice
-                                                                ? item.jobservice.total
-                                                                : "NA"}
+                                                            {total} ILS + VAT
                                                         </td>
                                                        <td
                                                             style={{
@@ -160,7 +166,7 @@ export default function PastJob() {
                                                             </div>
                                                         </td>
                                                     </tr>
-                                                ))}
+                                                )})}
                                         </tbody>
                                     </table>
                                 ) : (

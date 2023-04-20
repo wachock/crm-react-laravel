@@ -45,13 +45,21 @@ export default function Jobs() {
                 <tbody>       
                     { jobs && jobs.map((j,i)=>{
                        // let services = (j.offer.services) ? JSON.parse(j.offer.services) : [];
-                        
+                        let total = 0;
+                      
                         return(
                         <tr>
-                            <td>#{j.job_id}</td>
-                            <td>{
-                             (j.jobservice)?j.jobservice.name:'NA'
-                            }
+                            <td>#{j.id}</td>
+                            <td>
+                                {
+                                    
+                                    j.jobservice && j.jobservice.map((js,i)=>{
+                                     
+                                         total += parseInt(js.total);
+                                       return (js.name)? js.name+" ":'NA'
+                                    })
+                                }
+                             
                             </td>
                             <td>{
                                j.worker 
@@ -59,7 +67,7 @@ export default function Jobs() {
                                 +" "+ j.worker.lastname
                                 :"NA" 
                              }</td>
-                            <td> {(j.jobservice)? j.jobservice.total : 0 } ILS + VAT</td>
+                            <td> {total } ILS + VAT</td>
                             <td>{Moment(j.created_at).format('DD MMM,Y')}</td>
                             <td>{j.status}</td>
                             <td>
