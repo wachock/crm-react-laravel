@@ -67,13 +67,14 @@ class JobController extends Controller
           }
       
         if($w == 'all'){
-            $jobs = $jobs;
+            $jobs = $jobs->orderBy('start_date', 'desc')->paginate(20);
         } else{
             $jobs = $jobs->whereDate('start_date','>=',$startDate);
             $jobs = $jobs->whereDate('start_date','<=',$endDate);
+            $pcount = Job::count();
+            $jobs = $jobs->orderBy('start_date', 'desc')->paginate($pcount);
         }
-
-        $jobs = $jobs->orderBy('start_date', 'desc')->paginate(20);
+     
         if(isset($jobs)):
         foreach($jobs as $job){
             $serv = $job->jobservice;
