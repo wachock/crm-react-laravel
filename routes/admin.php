@@ -68,6 +68,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin-api', 'scopes:ad
     Route::post('get-client-jobs',[JobController::class,'getJobByClient'])->name('get-client-jobs');
     Route::post('get-worker-jobs',[JobController::class,'getJobWorker']);
     Route::post('cancel-job',[JobController::class,'cancelJob']);
+    Route::get('job-worker/{id}',[JobController::class,'AvlWorker']);
 
     Route::resource('job-comments', JobCommentController::class);
 

@@ -76,7 +76,7 @@ class JobController extends Controller
         }
      
         if(isset($jobs)):
-        foreach($jobs as $job){
+        foreach($jobs as $job){/*
             $serv = $job->jobservice;
             foreach($serv as $sk => $js){
            $ava_workers = User::with('availabilities','jobs')->where('skill',  'like','%'.$js->service_id.'%');
@@ -92,7 +92,7 @@ class JobController extends Controller
                 }
            }
            $job->avl_worker=$ava_worker;
-          }
+          }*/
         }
 
         endif;
@@ -103,6 +103,32 @@ class JobController extends Controller
 
 
     }
+    public function AvlWorker($id){
+      $job = Job::where('id',$id)->get()->first();
+      $serv = $job->jobservice;
+      $ava_worker = array();
+      foreach($serv as $sk => $js){
+      $ava_workers = User::with('availabilities','jobs')->where('skill',  'like','%'.$js->service_id.'%');
+           $ava_workers = $ava_workers->whereHas('availabilities', function ($query) use ($job) {
+                    $query->where('date', '=',$job->start_date);
+                });
+           $ava_workers = $ava_workers->where('status',1)->get()->toArray();
+          
+           foreach($ava_workers as $w){
+                $check_worker_job =  Job::where('worker_id',$w['id'])->where('start_date',$job->start_date)->get()->toArray();
+                if(!$check_worker_job){
+                   $ava_worker[]=$w;
+                }
+           }
+        }
+           //$job->avl_worker=$ava_worker;
+        return response()->json([
+            'aworker'       => $ava_worker,        
+        ], 200);
+
+     
+    }
+
     public function getAllJob(){
         $jobs = Job::get();;
         return response()->json([
@@ -561,12 +587,14 @@ class JobController extends Controller
                 'email'=> $job['worker']['email'],
                 'job'  => $job->toArray(),
              );
+             if( isset($job['worker']['email']) && $job['worker']['email'] != null && $job['worker']['email'] != 'Null'):
             \App::setLocale($job->worker->lng);
             Mail::send('/Mails/NewJobMail',$data,function($messages) use ($data){
                 $messages->to($data['email']);
                 $sub = __('mail.worker_new_job.subject')."  ".__('mail.worker_new_job.company');
                 $messages->subject($sub);
             });
+        endif;
             return true;
 
     }

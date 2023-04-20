@@ -131,15 +131,31 @@ export default function TotalJobs() {
     }
 
     const [workers, setWorkers] = useState([]);
+    const [Aworker,setAworker] = useState();
     const handleChange = (e, index) => {
+        const id = (e.target.name);
+        axios
+        .get(`/api/admin/job-worker/${id}`,{ headers })
+        .then((res)=>{
+            if(res.data.aworker.length > 0){
+                setAworker(res.data.aworker);
+            }else {
+                setAworker([]);
+            }
+            console.log(res.data.aworker);
+        })
+        
+       
+    }
+    const upWorker=(e,index) =>{
+
         let newWorkers = [...workers];
         newWorkers[e.target.name] = e.target.value;
         setWorkers(newWorkers);
         let up = e.target.parentNode.parentNode.lastChild.lastChild;
         setTimeout(() => {
             up.click();
-        }, 500)
-
+        }, 500);
     }
 
     const handleform = (job_id, e) => {
@@ -381,9 +397,9 @@ export default function TotalJobs() {
                                                                         : "NA"
                                                                 }</h6>
                                                             </Link>
-                                                            <select name={item.id} className="form-control mb-3 mt-1 form-control" value={(workers[`${item.id}`]) ? workers[`${item.id}`] : ""} onChange={e => handleChange(e, index)} >
+                                                            <select name={item.id} className="form-control mb-3 mt-1" value={(workers[`${item.id}`]) ? workers[`${item.id}`] : ""} onFocus={e => handleChange(e, index)} onChange={(e)=>upWorker(e,index)} >
                                                                 <option selected>select</option>
-                                                                {item.avl_worker && item.avl_worker.map((w, i) => {
+                                                                {Aworker && Aworker.map((w, i) => {
                                                                     return (
                                                                         <option value={w.id} key={i}> {w.firstname}  {w.lastname}</option>
                                                                     )
