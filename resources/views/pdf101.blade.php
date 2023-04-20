@@ -2,11 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
 <title></title>
-
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
- <br/>
 <style type="text/css">
-<!--
 	p {margin: 0; padding: 0;}	.ft10{font-size:12px;font-family:firefly, DejaVu Sans, Times;color:#231f20;}
 	.ft11{font-size:11px;font-family:firefly, DejaVu Sans, Times;color:#231f20;}
 	.ft12{font-size:16px;font-family:firefly, DejaVu Sans, Times;color:#231f20;}
@@ -33,11 +30,25 @@
 	.ft123{font-size:13px;line-height:25px;font-family:firefly, DejaVu Sans, Times;color:#231f20;}
 	.ft124{font-size:13px;line-height:24px;font-family:firefly, DejaVu Sans, Times;color:#231f20;}
 	.ft125{font-size:14px;line-height:19px;font-family:firefly, DejaVu Sans, Times;color:#231f20;}
--->
+	p {margin: 0; padding: 0;}	.ft30{font-size:22px;font-family:firefly, DejaVu Sans, Times;color:#000000;}
+	p {margin: 0; padding: 0;}	.ft20{font-size:13px;font-family:firefly, DejaVu Sans, Times;color:#231f20;}
+	.ft21{font-size:13px;font-family:firefly, DejaVu Sans, Times;color:#231f20;}
+	.ft22{font-size:19px;font-family:firefly, DejaVu Sans, Times;color:#231f20;}
+	.ft23{font-size:14px;font-family:firefly, DejaVu Sans, Times;color:#231f20;}
+	.ft24{font-size:11px;font-family:firefly, DejaVu Sans, Times;color:#231f20;}
+	.ft25{font-size:16px;font-family:firefly, DejaVu Sans, Times;color:#231f20;}
+	.ft26{font-size:10px;font-family:firefly, DejaVu Sans, Times;color:#231f20;}
+	.ft27{font-size:10px;font-family:firefly, DejaVu Sans, Times;color:#231f20;}
+	.ft28{font-size:13px;font-family:firefly, DejaVu Sans, Times;color:#231f20;}
+	.ft29{font-size:8px;font-family:firefly, DejaVu Sans, Times;color:#231f20;}
+	.ft210{font-size:14px;font-family:firefly, DejaVu Sans, Times;color:#231f20;}
+	.ft211{font-size:12px;font-family:firefly, DejaVu Sans, Times;color:#231f20;}
+	.ft212{font-size:12px;font-family:firefly, DejaVu Sans, Times;color:#231f20;}
+	.ft213{font-size:13px;font-family:Helvetica;color:#044585;}
 </style>
 </head>
-<body bgcolor="#A0A0A0" vlink="blue" link="blue">
-<div id="page1-div" style="position:relative;width:892px;height:1262px;margin: 0 auto">
+<body>
+<div id="page1-div" style="position:relative;width:100%;height:1262px;">
 <img width="892" height="1262" src="./images/target001.png" alt="background image"/>
 <p style="position:absolute;top:46px;left:172px;white-space:nowrap" class="ft10">2&#160;ךותמ&#160;1&#160;ףד</p>
 <p style="position:absolute;top:111px;left:257px;white-space:nowrap" class="ft10">1993&#160;- ג&#34;נשתה ,(הדובע רכשמו תרוכשממ יוכינ) הסנכה סמ תונקת יפל</p>
@@ -212,36 +223,8 @@
 <p style="position:absolute;top:256px;left:204px;white-space:nowrap" class="ft115">{{ (isset($f['phone_number'])) ? $f['phone_number'] : '' }}</p>
 <p style="position:absolute;top:337px;left:184px;white-space:nowrap;letter-spacing:5px;" class="ft118">@php ($f['identification'] == 'byId') ? $dob = $f['bid-dob'] : $dob = $f['p-dob']; $_dob = Carbon\Carbon::parse($dob)->format('d m Y'); @endphp {{ $_dob }}</p>
 </div>
-</body>
-</html>
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
-<head>
-<title></title>
 
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
- <br/>
-<style type="text/css">
-<!--
-	p {margin: 0; padding: 0;}	.ft20{font-size:13px;font-family:firefly, DejaVu Sans, Times;color:#231f20;}
-	.ft21{font-size:13px;font-family:firefly, DejaVu Sans, Times;color:#231f20;}
-	.ft22{font-size:19px;font-family:firefly, DejaVu Sans, Times;color:#231f20;}
-	.ft23{font-size:14px;font-family:firefly, DejaVu Sans, Times;color:#231f20;}
-	.ft24{font-size:11px;font-family:firefly, DejaVu Sans, Times;color:#231f20;}
-	.ft25{font-size:16px;font-family:firefly, DejaVu Sans, Times;color:#231f20;}
-	.ft26{font-size:10px;font-family:firefly, DejaVu Sans, Times;color:#231f20;}
-	.ft27{font-size:10px;font-family:firefly, DejaVu Sans, Times;color:#231f20;}
-	.ft28{font-size:13px;font-family:firefly, DejaVu Sans, Times;color:#231f20;}
-	.ft29{font-size:8px;font-family:firefly, DejaVu Sans, Times;color:#231f20;}
-	.ft210{font-size:14px;font-family:firefly, DejaVu Sans, Times;color:#231f20;}
-	.ft211{font-size:12px;font-family:firefly, DejaVu Sans, Times;color:#231f20;}
-	.ft212{font-size:12px;font-family:firefly, DejaVu Sans, Times;color:#231f20;}
-	.ft213{font-size:13px;font-family:Helvetica;color:#044585;}
--->
-</style>
-</head>
-<body bgcolor="#A0A0A0" vlink="blue" link="blue">
-<div id="page2-div" style="position:relative;width:892px;height:1262px;margin: 0 auto">
+<div id="page2-div" style="position:relative;width:100%;height:1262px;margin: 0 auto">
 <img width="892" height="1262" src="./images/target002.png" alt="background image"/>
 <p style="position:absolute;top:23px;left:43px;white-space:nowrap" class="ft20">101 &#160; &#160;&#160;2&#160;ךותמ&#160;2&#160;ףד</p>
 <p style="position:absolute;top:23px;left:260px;white-space:nowrap" class="ft20">תוהז רפסמ</p>
@@ -402,25 +385,11 @@
 <p style="position:absolute;top:969px;left:236px;white-space:nowrap" class="ft213">18/04/2023</p>
 <p style="position:absolute;top:27px;left:145px;white-space:nowrap;letter-spacing: 5px" class="ft213">987654993</p>
 </div>
-</body>
-</html>
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
-<head>
-<title></title>
 
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
- <br/>
-<style type="text/css">
-<!--
-	p {margin: 0; padding: 0;}	.ft30{font-size:22px;font-family:firefly, DejaVu Sans, Times;color:#000000;}
--->
-</style>
-</head>
-<body bgcolor="#A0A0A0" vlink="blue" link="blue">
-<div id="page3-div" style="position:relative;width:892px;height:1263px;margin: 0 auto">
+<!-- <div id="page3-div" style="position:relative;width:100%;height:1263px;margin: 0 auto">
 <img width="892" height="1263" src="" alt="background image ID"/>
 <p style="position:absolute;top:55px;left:239px;white-space:nowrap" class="ft30">חפסו תוהז תדועת םוליצ | ת/דבועה יטרפ .ב</p>
-</div>
+</div> -->
+
 </body>
 </html>
