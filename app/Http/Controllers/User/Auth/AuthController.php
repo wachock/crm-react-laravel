@@ -203,6 +203,9 @@ class AuthController extends Controller
         $f = $form['data'];
         //echo "<pre>";print_r($form);die;
         $pdf = PDF::loadView('pdf101', compact('f'));
+        $paper_size = array(0,0,800,1000);
+        $pdf->set_paper($paper_size);
+        
         return $pdf->stream('form101_'.$user->id.'.pdf');
     }
 
