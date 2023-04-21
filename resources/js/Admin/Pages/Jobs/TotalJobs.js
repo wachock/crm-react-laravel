@@ -76,13 +76,14 @@ export default function TotalJobs() {
     const handlePageClick = async (data) => {
         let currentPage = data.selected + 1;
         axios
-            .get("/api/admin/jobs?page=" + currentPage, { headers })
+            .get("/api/admin/jobs?page=" + currentPage+"&filter_week=all", { headers })
             .then((response) => {
                 if (response.data.jobs.data.length > 0) {
                     setTotalJobs(response.data.jobs.data);
                     setPageCount(response.data.jobs.last_page);
                 } else {
                     setLoading("No Job found");
+                    setTotalJobs([]);
                 }
             });
     };

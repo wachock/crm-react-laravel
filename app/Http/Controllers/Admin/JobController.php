@@ -76,27 +76,8 @@ class JobController extends Controller
         }
      
         if(isset($jobs)):
-        foreach($jobs as $job){/*
-            $serv = $job->jobservice;
-            foreach($serv as $sk => $js){
-           $ava_workers = User::with('availabilities','jobs')->where('skill',  'like','%'.$js->service_id.'%');
-           $ava_workers = $ava_workers->whereHas('availabilities', function ($query) use ($job) {
-                    $query->where('date', '=',$job->start_date);
-                });
-           $ava_workers = $ava_workers->where('status',1)->get();
-           $ava_worker = array();
-           foreach($ava_workers as $w){
-                $check_worker_job =  Job::where('worker_id',$w->id)->where('start_date',$job->start_date)->first();
-                if(!$check_worker_job){
-                   $ava_worker[]=$w;
-                }
-           }
-           $job->avl_worker=$ava_worker;
-          }*/
-        }
-
         endif;
-        // dd($jobs);
+      
         return response()->json([
             'jobs'       => $jobs,        
         ], 200);
@@ -375,7 +356,7 @@ class JobController extends Controller
                 $service->total     = $s_total;
                 $service->save();
             
-           /* if($i == 0){
+            if($i == 0){
                  $job = Job::with('client','worker','jobservice')->where('id',$new->id)->first();
                   $_timeShift = $worker['shifts'];
                  if($_timeShift != ''){
@@ -402,12 +383,12 @@ class JobController extends Controller
                 $client_email  =  $job['client']['email'];
                 $client_name  =  $job['client']['firstname'].' '.$job['client']['lastname'];
                 $client_lng    = $job['client']['lng'];
-             } */
+             } 
 
            }
         }
       
-       /*
+       
         \App::setLocale($client_lng);
         $client_data = array(
             'email'=>$client_email,
@@ -426,7 +407,7 @@ class JobController extends Controller
                 $sub = $id."# ".__('mail.client_new_job.subject')."  ".__('mail.client_new_job.company');
                 $messages->subject($sub);
             });
-        }*/
+        }
 
 
         return response()->json([
