@@ -74,7 +74,7 @@
          <p style="position:absolute;top:1134px;left:438px;white-space:nowrap" class="ft10">י&#160;ו&#160;נ&#160;י&#160;ש&#160;ה&#160;&#160;&#160;י&#160;ט&#160;ר&#160;פ</p>
          <p style="position:absolute;top:1134px;left:67px;white-space:nowrap" class="ft10">ת/דבועה תמיתח</p>
          <p style="position:absolute;top:1134px;left:193px;white-space:nowrap" class="ft10">העדוהה ךיראת</p>
-         <p style="position:absolute;top:1159px;left:217px;white-space:nowrap" class="ft124">/ &#160; &#160; /<br/>/ &#160; &#160; /<br/>/ &#160; &#160; /</p>
+         <p style="position:absolute;top:1145px;left:217px;white-space:nowrap" class="ft124">/ &#160; &#160; /<br/>/ &#160; &#160; /<br/>/ &#160; &#160; /</p>
          <p style="position:absolute;top:551px;left:725px;white-space:nowrap" class="ft10">םש</p>
          <p style="position:absolute;top:551px;left:424px;white-space:nowrap" class="ft10">הדיל&#160;ךיראת</p>
          <p style="position:absolute;top:551px;left:568px;white-space:nowrap" class="ft10">תוהז רפסמ</p>
@@ -85,19 +85,19 @@
          <p style="position:absolute;top:535px;left:252px;white-space:nowrap" class="ft18">(2)</p>
          <p style="position:absolute;top:536px;left:273px;white-space:nowrap" class="ft110">שדוח תרוכשמ&#160;<img src='./images/unchecked.png' style="display: inline;width: 12px;position: relative;top:1px;left:1px" /></p>
          <p style="position:absolute;top:547px;left:195px;white-space:nowrap" class="ft18">(3)</p>
-         <p style="position:absolute;top:554px;left:204px;white-space:nowrap" class="ft110">תפסונ&#160;הרשמ דעב תרוכשמ&#160;<img src='./images/unchecked.png' style="display: inline;width: 12px;position: relative;top:1px;left:1px" /></p>
+         <p style="position:absolute;top:554px;left:202px;white-space:nowrap" class="ft110">תפסונ&#160;הרשמ דעב תרוכשמ&#160;<img src='./images/unchecked.png' style="display: inline;width: 12px;position: relative;top:1px;left:1px" /></p>
          <p style="position:absolute;top:570px;left:245px;white-space:nowrap" class="ft17">(4)</p>
-         <p style="position:absolute;top:572px;left:263px;white-space:nowrap" class="ft110">תיקלח תרוכשמ&#160;<img src='./images/unchecked.png' style="display: inline;width: 12px;position: relative;top:1px;left:1px" /></p>
+         <p style="position:absolute;top:572px;left:265px;white-space:nowrap" class="ft110">תיקלח תרוכשמ&#160;<img src='./images/unchecked.png' style="display: inline;width: 12px;position: relative;top:1px;left:1px" /></p>
          <p style="position:absolute;top:589px;left:205px;white-space:nowrap" class="ft18">(5)</p>
          <p style="position:absolute;top:590px;left:226px;white-space:nowrap" class="ft110">(ימוי דבוע)&#160;הדובע רכש&#160;<img src='./images/unchecked.png' style="display: inline;width: 12px;position: relative;top:1px;left:1px" /></p>
          <p style="position:absolute;top:607px;left:303px;white-space:nowrap" class="ft18">(6)</p>
-         <p style="position:absolute;top:608px;left:316px;white-space:nowrap" class="ft110">הבצק&#160;<img src='./images/checked.png' style="display: inline;width: 12px;position: relative;top:1px;left:1px" /></p>
+         <p style="position:absolute;top:608px;left:318px;white-space:nowrap" class="ft110">הבצק&#160;<img src='./images/checked.png' style="display: inline;width: 12px;position: relative;top:1px;left:1px" /></p>
          <p style="position:absolute;top:625px;left:3104px;white-space:nowrap" class="ft18">(1)</p>
-         <p style="position:absolute;top:626px;left:318px;white-space:nowrap" class="ft110">הגלמ&#160;<img src='./images/unchecked.png' style="display: inline;width: 12px;position: relative;top:1px;left:1px" /></p>
+         <p style="position:absolute;top:626px;left:320px;white-space:nowrap" class="ft110">הגלמ&#160;<img src='./images/unchecked.png' style="display: inline;width: 12px;position: relative;top:1px;left:1px" /></p>
          <p style="position:absolute;top:500px;left:42px;white-space:nowrap" class="ft12"><b>הז קיסעממ ייתוסנכה לע םיטרפ .ד</b></p>
-         <p style="position:absolute;top:502px;left:326px;white-space:nowrap" class="ft111">(תוהז תדועת&#160;חפס &#160;י“פע)</p>
+         <p style="position:absolute;top:502px;left:300px;white-space:nowrap" class="ft111">(תוהז תדועת&#160;חפס &#160;י“פע)</p>
          <p style="position:absolute;top:499px;left:503px;white-space:nowrap" class="ft12"><b>&#160;</b></p>
-         <p style="position:absolute;top:499px;left:456px;white-space:nowrap" class="ft112"><b>הנש&#160;19&#160;םהל&#160;ואלמ םרט סמה תנשבש יידלי לע םיטרפ .ג</b></p>
+         <p style="position:absolute;top:499px;left:433px;white-space:nowrap" class="ft112"><b>הנש&#160;19&#160;םהל&#160;ואלמ םרט סמה תנשבש יידלי לע םיטרפ .ג</b></p>
          <p style="position:absolute;top:516px;left:520px;white-space:nowrap" class="ft10">ךתקזחב אצמנ דליה םא&#160;1&#160;רוטב</p>
          <p style="position:absolute;top:516px;left:691px;white-space:nowrap" class="ft10">&#160;&#160;:דליה םש דיל&#160;√</p>
          <p style="position:absolute;top:514px;left:771px;white-space:nowrap" class="ft113"><b>י</b></p>
@@ -140,15 +140,15 @@
          <p style="position:absolute;top:752px;left:140px;white-space:nowrap" class="ft110">הבצק&#160;<img src={{ (!empty($f['breakIncome'])) ? ((str_contains((string)$f['breakIncome']['breakIncome'],'Allowance')) ? './images/checked.png' :  './images/unchecked.png'): './images/unchecked.png'  }} style="display: inline;width: 12px;position: relative;top:1px;left:1px" /></p>
          <p style="position:absolute;top:768px;left:129px;white-space:nowrap" class="ft18">(1)</p>
          <p style="position:absolute;top:769px;left:142px;white-space:nowrap" class="ft110">הגלמ&#160;<img src={{ (!empty($f['breakIncome'])) ? ((str_contains((string)$f['breakIncome']['breakIncome'],'Wages (Daily worker)')) ? './images/checked.png' :  './images/unchecked.png'): './images/unchecked.png'  }} style="display: inline;width: 12px;position: relative;top:1px;left:1px" /></p>
-         <p style="position:absolute;top:213px;left:581px;white-space:nowrap" class="ft10">(קיסעמה י&#34;ע יולימל)&#160;</p>
-         <p style="position:absolute;top:211px;left:691px;white-space:nowrap" class="ft12"><b>קיסעמה יטרפ .א</b></p>
+         <p style="position:absolute;top:208px;left:581px;white-space:nowrap" class="ft10">(קיסעמה י&#34;ע יולימל)&#160;</p>
+         <p style="position:absolute;top:203px;left:691px;white-space:nowrap" class="ft12"><b>קיסעמה יטרפ .א</b></p>
          <p style="position:absolute;top:234px;left:787px;white-space:nowrap" class="ft10">םש</p>
          <p style="position:absolute;top:234px;left:585px;white-space:nowrap" class="ft10">תבותכ</p>
          <p style="position:absolute;top:235px;left:100px;white-space:nowrap" class="ft10">םייוכינ קית רפסמ</p>
          <p style="position:absolute;top:235px;left:248px;white-space:nowrap" class="ft10">ןופלט רפסמ</p>
-         <p style="position:absolute;top:286px;left:185px;white-space:nowrap" class="ft10">&#160;שי תוהז תדועת רפסמ ןיאש ימל .םיטרפב םייוניש ויה םא קר םוליצ ףרצל שי ,רבעב ףרוצ םא .</p>
-         <p style="position:absolute;top:284px;left:689px;white-space:nowrap" class="ft12"><b>ת/דבועה יטרפ .ב</b></p>
-         <p style="position:absolute;top:301px;left:109px;white-space:nowrap" class="ft10">(הריגההו ןיסולכואה תושר ידי לע ונתנש לארשיב הייהש ןוישר / רושיאו ןוכרד םוליצ ףרצל. חפס &#160;ללוכ תוהז תדועת םוליצ ףרצל שי)&#160;</p>
+         <p style="position:absolute;top:277px;left:185px;white-space:nowrap" class="ft10">&#160;שי תוהז תדועת רפסמ ןיאש ימל .םיטרפב םייוניש ויה םא קר םוליצ ףרצל שי ,רבעב ףרוצ םא .</p>
+         <p style="position:absolute;top:278px;left:689px;white-space:nowrap" class="ft12"><b>ת/דבועה יטרפ .ב</b></p>
+         <p style="position:absolute;top:295px;left:109px;white-space:nowrap" class="ft10">(הריגההו ןיסולכואה תושר ידי לע ונתנש לארשיב הייהש ןוישר / רושיאו ןוכרד םוליצ ףרצל. חפס &#160;ללוכ תוהז תדועת םוליצ ףרצל שי)&#160;</p>
          <p style="position:absolute;top:387px;left:215px;white-space:nowrap" class="ft18">בושי/ריע</p>
          <p style="position:absolute;top:387px;left:442px;white-space:nowrap" class="ft18">הנוכש/בוחר</p>
          <p style="position:absolute;top:387px;left:92px;white-space:nowrap" class="ft18">דוקימ</p>
@@ -170,16 +170,16 @@
          <p style="position:absolute;top:387px;left:312px;white-space:nowrap" class="ft18">רפסמ</p>
          <p style="position:absolute;top:400px;left:232px;white-space:nowrap" class="ft10">יפותיש בשומ/ץוביק רבח</p>
          <p style="position:absolute;top:419px;left:274px;white-space:nowrap" class="ft110">&#160;&#160;&#160;&#160;ןכ&#160;<img src={{ ( (isset($f['bid-member'])) && $f['bid-member'] == "Yes" || (isset($f['p-member'])) && $f['p-member']=="Yes") ? './images/checked.png' : './images/unchecked.png' }} style="display: inline;width: 12px;position: relative;top:1px;left:1px" /></p>
-         <p style="position:absolute;top:438px;left:277px;white-space:nowrap" class="ft110">אל&#160;<img src={{ ( (isset($f['bid-member'])) && $f['bid-member'] == "No" || (isset($f['p-member'])) && $f['p-member']=="No") ? './images/checked.png' : './images/unchecked.png' }} style="display: inline;width: 12px;position: relative;top:1px;left:1px" /></p>
+         <p style="position:absolute;top:438px;left:284px;white-space:nowrap" class="ft110">אל&#160;<img src={{ ( (isset($f['bid-member'])) && $f['bid-member'] == "No" || (isset($f['p-member'])) && $f['p-member']=="No") ? './images/checked.png' : './images/unchecked.png' }} style="display: inline;width: 12px;position: relative;top:1px;left:1px" /></p>
          <p style="position:absolute;top:400px;left:381px;white-space:nowrap" class="ft10">לארשי בשות</p>
-         <p style="position:absolute;top:419px;left:397px;white-space:nowrap" class="ft125">&#160;&#160;ןכ&#160;<img src={{ $f['bid-israeli']=='Yes' ? './images/checked.png' : './images/unchecked.png' }} style="display: inline;width: 12px;position: relative;top:1px;left:-2px" /><br/>אל&#160;<img src={{ $f['bid-israeli']=='No' ? './images/checked.png' : './images/unchecked.png' }} style="display: inline;width: 12px;position: relative;top:1px;left:-1px" /></p>
+         <p style="position:absolute;top:410px;left:397px;white-space:nowrap" class="ft125">&#160;&#160;ןכ&#160;<img src={{ $f['bid-israeli']=='Yes' ? './images/checked.png' : './images/unchecked.png' }} style="display: inline;width: 12px;position: relative;top:1px;left:-2px" /><br/>אל&#160;<img src={{ $f['bid-israeli']=='No' ? './images/checked.png' : './images/unchecked.png' }} style="display: inline;width: 12px;position: relative;top:1px;left:1px" /></p>
          <p style="position:absolute;top:400px;left:563px;white-space:nowrap" class="ft10">&#160;יתחפשמ&#160;בצמ</p>
-         <p style="position:absolute;top:417px;left:474px;white-space:nowrap" class="ft110">ה/שורג&#160;<img src={{ ($f['bid-martial'] == 'Divorcee' || $f['p-martial'] == 'Divorcee' ) ? './images/checked.png' : './images/unchecked.png' }} style="display: inline;width: 12px;position: relative;top:1px;left:-43px" />&#160; &#160; &#160; &#160; &#160; &#160; &#160;הא/יושנ&#160;<img src={{ ($f['bid-martial'] == 'Married' || $f['p-martial'] == 'Married' ) ? './images/checked.png' : './images/unchecked.png' }} style="display: inline;width: 12px;position: relative;top:1px;left:-43px" />&#160; &#160; &#160; &#160; &#160; &#160; &#160;ה/קוור&#160;<img src={{ ($f['bid-martial'] == 'Single' || $f['p-martial'] == 'Single' ) ? './images/checked.png' : './images/unchecked.png' }} style="display: inline;width: 12px;position: relative;top:1px;left:-2px" /></p>
+         <p style="position:absolute;top:417px;left:457px;white-space:nowrap" class="ft110">ה/שורג&#160; &#160; &#160; &#160; &#160; &#160;<img src={{ ($f['bid-martial'] == 'Divorcee' || $f['p-martial'] == 'Divorcee' ) ? './images/checked.png' : './images/unchecked.png' }} style="display: inline;width: 12px;position: relative;top:1px;left:-43px" /> &#160; &#160;הא/יושנ<img src={{ ($f['bid-martial'] == 'Married' || $f['p-martial'] == 'Married' ) ? './images/checked.png' : './images/unchecked.png' }} style="display: inline;width: 12px;position: relative;top:1px;left:5px" />&#160; &#160; &#160; &#160; &#160; &#160; &#160;ה/קוור&#160;<img src={{ ($f['bid-martial'] == 'Single' || $f['p-martial'] == 'Single' ) ? './images/checked.png' : './images/unchecked.png' }} style="display: inline;width: 12px;position: relative;top:1px;left:-2px" /></p>
          <p style="position:absolute;top:438px;left:457px;white-space:nowrap" class="ft10">(ש&#34;פ רושיא ףרצל הבוח)</p>
          <p style="position:absolute;top:439px;left:589px;white-space:nowrap" class="ft17">&#160;</p>
-         <p style="position:absolute;top:437px;left:591px;white-space:nowrap" class="ft110">ה/דורפ&#160;<img src={{ ($f['bid-martial'] == 'Separated' || $f['p-martial'] == 'Separated' ) ? './images/checked.png' : './images/unchecked.png' }} style="display: inline;width: 12px;position: relative;top:1px;left:-20px" /> &#160; &#160; &#160; ה/ןמלא&#160;<img src={{ ($f['bid-martial'] == 'A widower' || $f['p-martial'] == 'A widower' ) ? './images/checked.png' : './images/unchecked.png' }} style="display: inline;width: 12px;position: relative;top:1px;left:-2px" /></p>
-         <p style="position:absolute;top:419px;left:763px;white-space:nowrap" class="ft110">רכז&#160;<img src={{ $f['bid-sex']=="Male" ?  './images/checked.png' : './images/unchecked.png' }} style="display: inline;width: 12px;position: relative;top:1px" /></p>
-         <p style="position:absolute;top:439px;left:752px;white-space:nowrap" class="ft110">הבקנ&#160;<img src={{ $f['bid-sex']=="Female" ?  './images/checked.png' : './images/unchecked.png' }} style="display: inline;width: 12px;position: relative;top:1px" /></p>
+         <p style="position:absolute;top:437px;left:591px;white-space:nowrap" class="ft110">ה/דורפ&#160;<img src={{ ($f['bid-martial'] == 'Separated' || $f['p-martial'] == 'Separated' ) ? './images/checked.png' : './images/unchecked.png' }} style="display: inline;width: 12px;position: relative;top:1px;left:1px" /> &#160; &#160; &#160; ה/ןמלא&#160;<img src={{ ($f['bid-martial'] == 'A widower' || $f['p-martial'] == 'A widower' ) ? './images/checked.png' : './images/unchecked.png' }} style="display: inline;width: 12px;position: relative;top:1px;left:-2px" /></p>
+         <p style="position:absolute;top:415px;left:763px;white-space:nowrap" class="ft110">רכז&#160;<img src={{ $f['bid-sex']=="Male" ?  './images/checked.png' : './images/unchecked.png' }} style="display: inline;width: 12px;position: relative;top:1px" /></p>
+         <p style="position:absolute;top:435px;left:752px;white-space:nowrap" class="ft110">הבקנ&#160;<img src={{ $f['bid-sex']=="Female" ?  './images/checked.png' : './images/unchecked.png' }} style="display: inline;width: 12px;position: relative;top:1px" /></p>
          <p style="position:absolute;top:400px;left:764px;white-space:nowrap" class="ft10">ןימ</p>
          <p style="position:absolute;top:1050px;left:184px;white-space:nowrap;letter-spacing: 5px" class="ft115">14071988</p>
          <p style="position:absolute;top:373px;left:315px;white-space:nowrap" class="ft116">{{  ($f['identification'] == 'byId') ? ( (isset($f['bid-house_number'])) ? $f['bid-house_number'] : '') :  ( (isset($f['p-house_number'])) ? $f['p-house_number'] : '' ) }}</p>
@@ -235,22 +235,22 @@
          <p style="position:absolute;top:23px;left:43px;white-space:nowrap" class="ft20">101 &#160; &#160;&#160;2&#160;ךותמ&#160;2&#160;ףד</p>
          <p style="position:absolute;top:23px;left:260px;white-space:nowrap" class="ft20">תוהז רפסמ</p>
          <p style="position:absolute;top:884px;left:798px;white-space:nowrap" class="ft21"><b>3</b></p>
-         <p style="position:absolute;top:880px;left:769px;white-space:nowrap" class="ft22"><img src='./images/unchecked.png' style="display: inline;width: 12px;position: relative;top:1px;left:1px" /></p>
+         <p style="position:absolute;top:887px;left:769px;white-space:nowrap" class="ft22"><img src='./images/unchecked.png' style="display: inline;width: 12px;position: relative;top:1px;left:1px" /></p>
          <p style="position:absolute;top:883px;left:502px;white-space:nowrap" class="ft23">.ףרוצמ רושיא יפל םואית רשיא המושה דיקפ</p>
-         <p style="position:absolute;top:714px;left:769px;white-space:nowrap" class="ft22"><img src='./images/unchecked.png' style="display: inline;width: 12px;position: relative;top:1px;left:1px" /></p>
+         <p style="position:absolute;top:724px;left:769px;white-space:nowrap" class="ft22"><img src='./images/unchecked.png' style="display: inline;width: 12px;position: relative;top:1px;left:1px" /></p>
          <p style="position:absolute;top:715px;left:267px;white-space:nowrap" class="ft23">.הז קיסעמ לצא יתדובע תליחתל דע תיחכונה סמה תנש תליחתמ הסנכה יל התיה אל</p>
          <p style="position:absolute;top:717px;left:798px;white-space:nowrap" class="ft21"><b>1</b></p>
          <p style="position:absolute;top:733px;left:727px;white-space:nowrap" class="ft24">:תורעה</p>
          <p style="position:absolute;top:733px;left:119px;white-space:nowrap" class="ft24">&#160;.המושה דיקפל&#160;תונפל&#160;שי החכוה רדעהב .ב&#34;ויכו&#160;הלחמ רושיא ,ל&#34;וחב הייהש&#160;ןיגב תולובגה תרטשמ רושיא&#160;:ןוגכ החכוה איצמהל&#160;שי .1</p>
          <p style="position:absolute;top:745px;left:521px;white-space:nowrap" class="ft24">.תבייח הסנכה&#160;םניה הלטבא ימדו הדיל&#160;ימד .2</p>
-         <p style="position:absolute;top:56px;left:370px;white-space:nowrap" class="ft24">(םיאתמה עובירב&#160;√&#160; י/ןמס)</p>
-         <p style="position:absolute;top:52px;left:491px;white-space:nowrap" class="ft25"><b>&#160;תואבה תוביסהמ סממ יוכיז וא רוטפ ת/שקבמ ינא .ח</b></p>
+         <p style="position:absolute;top:56px;left:290px;white-space:nowrap" class="ft24">(םיאתמה עובירב&#160;√&#160; י/ןמס)</p>
+         <p style="position:absolute;top:52px;left:420px;white-space:nowrap" class="ft25"><b>&#160;תואבה תוביסהמ סממ יוכיז וא רוטפ ת/שקבמ ינא .ח</b></p>
          <p style="position:absolute;top:1004px;left:340px;white-space:nowrap" class="ft21"><b>101&#160;&#160;ספוט יולימל רבסה ירבד</b></p>
-         <p style="position:absolute;top:1020px;left:240px;white-space:nowrap" class="ft26">.ב&#34;ויכו הגלימ ,תוומ וא השירפ בקע קנעמ ,הבציק ,הדובע תסנכה&#160;<b>&#34;תרוכשמ&#34;</b>&#160;.תרוכשמ םלשמה םדא&#160;<b>&#34;קיסעמ&#34;</b>&#160; &#160; &#160;.תרוכשמ לבקמה דיחי&#160;<b>&#34;דבוע&#34;&#160;&#160;(1)</b></p>
+         <p style="position:absolute;top:1020px;left:190px;white-space:nowrap" class="ft26">.ב&#34;ויכו הגלימ ,תוומ וא השירפ בקע קנעמ ,הבציק ,הדובע תסנכה&#160;<b>&#34;תרוכשמ&#34;</b>&#160;.תרוכשמ םלשמה םדא&#160;<b>&#34;קיסעמ&#34;</b>&#160; &#160; &#160;.תרוכשמ לבקמה דיחי&#160;<b>&#34;דבוע&#34;&#160;&#160;(1)</b></p>
          <p style="position:absolute;top:1032px;left:380px;white-space:nowrap" class="ft26">.רקוחל וא טנדוטסל &#160;ןתינש םולשתמ רוטפ וא סרפ ,קנעמ תוברל&#160;<b>&#34;הגלמ&#34;</b>&#160; .תרוכשמ תלבק תוברל&#160;<b>&#34;הדובע&#34;</b></p>
          <p style="position:absolute;top:1044px;left:452px;white-space:nowrap" class="ft27"><b>&#160;</b>.שדוחב םוי&#160;18&#160;- מ תוחפ אל לש הדובע דעב תרוכשמ&#160;&#160;-</p>
          <p style="position:absolute;top:1044px;left:728px;white-space:nowrap" class="ft27"><b>&#160;שדוח&#160;תרוכשמ&#160;&#160;&#160;(2)</b></p>
-         <p style="position:absolute;top:1056px;left:50px;white-space:nowrap" class="ft26">בשחת וב הדובעה םוקמ תא רוחבל יאשר דבועה .רחא םוקממ סמב תבייחה הבצקל ףסונב וא/ו תרוכשמל ףסונ ,םויב תועש&#160;5&#160;- מ רתוי לש הדובע דעב תרוכשמ&#160;&#160;-&#160;<b>&#160;תפסונ הרשמ דעב תרוכשמ&#160;&#160;&#160;(3)</b></p>
+         <p style="position:absolute;top:1056px;left:0px;white-space:nowrap" class="ft26">בשחת וב הדובעה םוקמ תא רוחבל יאשר דבועה .רחא םוקממ סמב תבייחה הבצקל ףסונב וא/ו תרוכשמל ףסונ ,םויב תועש&#160;5&#160;- מ רתוי לש הדובע דעב תרוכשמ&#160;&#160;-&#160;<b>&#160;תפסונ הרשמ דעב תרוכשמ&#160;&#160;&#160;(3)</b></p>
          <p style="position:absolute;top:1068px;left:497px;white-space:nowrap" class="ft27"><b>&#160;</b>.&#34;תפסונ הרשמ דעב תרוכשמ&#34;כ ותרוכשמ</p>
          <p style="position:absolute;top:1080px;left:171px;white-space:nowrap" class="ft26">.עובשב תועש&#160;8-מ תוחפ ךא םויל תועש&#160;5-מ רתוי ךשמב הדובע דעב תרוכשמ וא םויל תוחפ וא תועש&#160;5&#160;לש הדובע דעב תרוכשמ&#160;&#160;&#160;-</p>
          <p style="position:absolute;top:1080px;left:722px;white-space:nowrap" class="ft27"><b>&#160;תיקלח&#160;תרוכשמ&#160;&#160;&#160;(4)</b></p>
@@ -260,16 +260,16 @@
          <p style="position:absolute;top:1116px;left:573px;white-space:nowrap" class="ft27"><b>&#160;</b>.םייוכינה חול יפל סמ</p>
          <p style="position:absolute;top:1128px;left:377px;white-space:nowrap" class="ft26">.הרוטפ הלוכש םיריאש תבצקו ימואל חוטיבמ הרוטפ הבצק לע חוודל ןיא&#160;&#160;-</p>
          <p style="position:absolute;top:1128px;left:762px;white-space:nowrap" class="ft27"><b>&#160;הבצק&#160;&#160;&#160;(6)</b></p>
-         <p style="position:absolute;top:1140px;left:270px;white-space:nowrap" class="ft26">.קיסעמה ימולשת לכמ תונקתה יפל יברימ סמ תוכנל שיו םייוכינה חול יפל סמ תוכנלמ עונמ קיסעמה -&#160;<b>וז תצבשמ אלימ אל דבועה םא&#160;</b>&#160;&#160;&#160;<b>(7)</b></p>
-         <p style="position:absolute;top:1152px;left:272px;white-space:nowrap" class="ft26">.קיסעמה ימולשת לכמ תונקתה יפל יברימ סמ תוכנל שיו םייוכינה חול יפל סמ תוכנלמ עונמ קיסעמה -&#160;&#160; &#160;<b>וז תצבשמ אלימ דבועה םא&#160;</b>&#160;&#160;&#160;<b>(8)</b></p>
-         <p style="position:absolute;top:1164px;left:127px;white-space:nowrap" class="ft26">.המושה דיקפמ סמ םואית רושיא יפל לועפל וא תונקתה יפל סמ תוכנלו תומלתשה ןרקל תושרפהה ימוכס תא תרוכשמל ףרצל קיסעמה לע -&#160;<b>וז תצבשמ אלימ אל דבועה םא&#160;</b>&#160;&#160;&#160;<b>(9)</b></p>
-         <p style="position:absolute;top:1176px;left:114px;white-space:nowrap" class="ft26">.ש&#34;פמ סמ םואית רושיא יפל לועפל וא תונקתה יפל סמ תוכנלו הדובע רשוכ ןדבואל/הבצקל תושרפהה ימוכס תא תרוכשמל ףרצל קיסעמה לע -&#160;<b>וז תצבשמ אלימ אל דבועה םא(10)</b></p>
-         <p style="position:absolute;top:1188px;left:431px;white-space:nowrap" class="ft26">.(דבלב ש&#34;פ רושיא י&#34;פע) דורפ ,ןמלא ,שורג ,קוור :<b>הלאמ דחא אוה תירוה דח החפשמב הרוה(11)</b></p>
-         <p style="position:absolute;top:1200px;left:103px;white-space:nowrap" class="ft26">.ינשה הרוהה יטרפ אלב ןיסולכואה םשרמב םושר דליהש וא רטפנ דליה לש ינשה הרוההשו םינש&#160;19&#160;ול ואלמ םרט סמה תנשבש דלי ול היהש תירוה דח החפשמב הרוה -&#160;<b>דיחי&#160;הרוה&#160;(12)</b></p>
-         <p style="position:absolute;top:1212px;left:468px;white-space:nowrap" class="ft26">.ןיינעה יפל ,ח“סא קוחל&#160;11&#160;ףיעס וא הדוקפל&#160;11&#160;ףיעס וילע לחש בושי -&#160;<b>הכזמ&#160;בושי&#160;(13)</b></p>
+         <p style="position:absolute;top:1140px;left:230px;white-space:nowrap" class="ft26">.קיסעמה ימולשת לכמ תונקתה יפל יברימ סמ תוכנל שיו םייוכינה חול יפל סמ תוכנלמ עונמ קיסעמה -&#160;<b>וז תצבשמ אלימ אל דבועה םא&#160;</b>&#160;&#160;&#160;<b>(7)</b></p>
+         <p style="position:absolute;top:1152px;left:240px;white-space:nowrap" class="ft26">.קיסעמה ימולשת לכמ תונקתה יפל יברימ סמ תוכנל שיו םייוכינה חול יפל סמ תוכנלמ עונמ קיסעמה -&#160;&#160; &#160;<b>וז תצבשמ אלימ דבועה םא&#160;</b>&#160;&#160;&#160;<b>(8)</b></p>
+         <p style="position:absolute;top:1164px;left:70px;white-space:nowrap" class="ft26">.המושה דיקפמ סמ םואית רושיא יפל לועפל וא תונקתה יפל סמ תוכנלו תומלתשה ןרקל תושרפהה ימוכס תא תרוכשמל ףרצל קיסעמה לע -&#160;<b>וז תצבשמ אלימ אל דבועה םא&#160;</b>&#160;&#160;&#160;<b>(9)</b></p>
+         <p style="position:absolute;top:1176px;left:62px;white-space:nowrap" class="ft26">.ש&#34;פמ סמ םואית רושיא יפל לועפל וא תונקתה יפל סמ תוכנלו הדובע רשוכ ןדבואל/הבצקל תושרפהה ימוכס תא תרוכשמל ףרצל קיסעמה לע -&#160;<b>וז תצבשמ אלימ אל דבועה םא(10)</b></p>
+         <p style="position:absolute;top:1188px;left:401px;white-space:nowrap" class="ft26">.(דבלב ש&#34;פ רושיא י&#34;פע) דורפ ,ןמלא ,שורג ,קוור :<b>הלאמ דחא אוה תירוה דח החפשמב הרוה(11)</b></p>
+         <p style="position:absolute;top:1200px;left:53px;white-space:nowrap" class="ft26">.ינשה הרוהה יטרפ אלב ןיסולכואה םשרמב םושר דליהש וא רטפנ דליה לש ינשה הרוההשו םינש&#160;19&#160;ול ואלמ םרט סמה תנשבש דלי ול היהש תירוה דח החפשמב הרוה -&#160;<b>דיחי&#160;הרוה&#160;(12)</b></p>
+         <p style="position:absolute;top:1212px;left:450px;white-space:nowrap" class="ft26">.ןיינעה יפל ,ח“סא קוחל&#160;11&#160;ףיעס וא הדוקפל&#160;11&#160;ףיעס וילע לחש בושי -&#160;<b>הכזמ&#160;בושי&#160;(13)</b></p>
          <p style="position:absolute;top:908px;left:744px;white-space:nowrap" class="ft25"><b>הרהצה .י</b></p>
-         <p style="position:absolute;top:927px;left:49px;letter-spacing: -0.2px;white-space:nowrap" class="ft28"><b>&#160;תדוקפ לע הריבע הניה םינוכנ אל םיטרפ תריסמ וא הטמשהש יל עודי .םינוכנו&#160;םיאלמ םניה הז ספוטב יתרסמש םיטרפה יכ ה/ריהצמ ינא</b></p>
-         <p style="position:absolute;top:944px;left:73px;white-space:nowrap" class="ft28"><b>.יונישה ךיראתמ םימי עובש ךות ליעלד םיטרפבו םיישיאה ייטרפב לוחיש יוניש לכ לע קיסעמל&#160;עידוהל ת/בייחתמ ינא&#160;.הסנכה סמ</b></p>
+         <p style="position:absolute;top:927px;left:49px;letter-spacing: -0.5px;white-space:nowrap" class="ft28"><b>&#160;תדוקפ לע הריבע הניה םינוכנ אל םיטרפ תריסמ וא הטמשהש יל עודי .םינוכנו&#160;םיאלמ םניה הז ספוטב יתרסמש םיטרפה יכ ה/ריהצמ ינא</b></p>
+         <p style="position:absolute;top:944px;left:73px;white-space:nowrap;letter-spacing: -0.2px;" class="ft28"><b>.יונישה ךיראתמ םימי עובש ךות ליעלד םיטרפבו םיישיאה ייטרפב לוחיש יוניש לכ לע קיסעמל&#160;עידוהל ת/בייחתמ ינא&#160;.הסנכה סמ</b></p>
          <p style="position:absolute;top:982px;left:261px;white-space:nowrap" class="ft20">ךיראת</p>
          <p style="position:absolute;top:982px;left:74px;white-space:nowrap" class="ft20">ת/שקבמה תמיתח</p>
          <p style="position:absolute;top:693px;left:354px;white-space:nowrap" class="ft25"><b>&#160;</b></p>
@@ -301,10 +301,10 @@
          <p style="position:absolute;top:639px;left:558px;white-space:nowrap" class="ft20">.תוריש&#160;םויס/רורחש&#160;תדועת&#160;לש םוליצ ףרוצמ</p>
          <p style="position:absolute;top:623px;left:766px;white-space:nowrap" class="ft22"><img src='./images/unchecked.png' style="display: inline;width: 12px;position: relative;top:1px;left:1px" /></p>
          <p style="position:absolute;top:624px;left:788px;white-space:nowrap" class="ft21"><b>14</b></p>
-         <p style="position:absolute;top:76px;left:766px;white-space:nowrap" class="ft22"><img src='./images/unchecked.png' style="display: inline;width: 12px;position: relative;top:1px;left:1px" /></p>
+         <p style="position:absolute;top:81px;left:766px;white-space:nowrap" class="ft22"><img src='./images/unchecked.png' style="display: inline;width: 12px;position: relative;top:1px;left:1px" /></p>
          <p style="position:absolute;top:79px;left:794px;white-space:nowrap" class="ft21"><b>1</b></p>
          <p style="position:absolute;top:77px;left:643px;white-space:nowrap" class="ft23">.לארשי ת/בשות ינא</p>
-         <p style="position:absolute;top:99px;left:766px;white-space:nowrap" class="ft22"><img src='./images/unchecked.png' style="display: inline;width: 12px;position: relative;top:1px;left:1px" /></p>
+         <p style="position:absolute;top:104px;left:766px;white-space:nowrap" class="ft22"><img src='./images/unchecked.png' style="display: inline;width: 12px;position: relative;top:1px;left:1px" /></p>
          <p style="position:absolute;top:102px;left:794px;white-space:nowrap" class="ft21"><b>2</b></p>
          <p style="position:absolute;top:102px;left:94px;white-space:nowrap" class="ft20">.1.1.94&#160;רחאל האצוהש רוויע תדועת/המושה דיקפ/רצואה/ןוחטיבה דרשמ רושיא ףרוצמ</p>
          <p style="position:absolute;top:100px;left:558px;white-space:nowrap" class="ft23">&#160;.תותימצל ת/רוויע /&#160;100%&#160;הכנ ינא</p>
@@ -317,7 +317,7 @@
          <p style="position:absolute;top:578px;left:335px;white-space:nowrap" class="ft20">.ןיד קספ ףרוצמ .תינשב אשינש ימ י&#34;ע אלומי</p>
          <p style="position:absolute;top:579px;left:574px;white-space:nowrap" class="ft24">&#160;</p>
          <p style="position:absolute;top:576px;left:577px;white-space:nowrap" class="ft23">.רבעשל יגוז תב/ןבל תונוזמ ןיגב</p>
-         <p style="position:absolute;top:496px;left:766px;white-space:nowrap" class="ft22"><img src='./images/unchecked.png' style="display: inline;width: 12px;position: relative;top:1px;left:1px" /></p>
+         <p style="position:absolute;top:502px;left:766px;white-space:nowrap" class="ft22"><img src='./images/unchecked.png' style="display: inline;width: 12px;position: relative;top:1px;left:1px" /></p>
          <p style="position:absolute;top:501px;left:788px;white-space:nowrap" class="ft21"><b>10</b></p>
          <p style="position:absolute;top:498px;left:346px;white-space:nowrap" class="ft23">.םתלכלכב ת/ףתתשמ ינאו ג קלחב םיטרופמה יתקזחב םניאש יידלי ןיגב</p>
          <p style="position:absolute;top:515px;left:149px;white-space:nowrap" class="ft20">.תונוזמ םולשתב ותוא בייחמה ד&#34;ספ איצמה רשא ,וידלי ןיגב יוכיז תודוקנל יאכז וניאש ,דרפנב יחה הרוה י&#34;ע אלומי</p>
@@ -329,10 +329,10 @@
          <p style="position:absolute;top:474px;left:681px;white-space:nowrap" class="ft23">דיחי הרוה ינא</p>
          <p style="position:absolute;top:255px;left:388px;white-space:nowrap" class="ft23">.סמה תנשב תוסנכה הל/ול ןיאו ימיע ת/ררוגתמה יגוז תב/ןב ןיגב</p>
          <p style="position:absolute;top:272px;left:183px;white-space:nowrap" class="ft20">.<b>הדוקפל (5)9&#160;ףיעס י&#34;פע</b>&#160;ת/רוויע וא הכנ איה/אוהש וא השירפ ליגל ה/עיגה גוזה תב/ןב וא ת/דבועה םא קר</p>
-         <p style="position:absolute;top:256px;left:766px;white-space:nowrap" class="ft22"><img src='./images/unchecked.png' style="display: inline;width: 12px;position: relative;top:1px;left:1px" /></p>
+         <p style="position:absolute;top:261px;left:766px;white-space:nowrap" class="ft22"><img src='./images/unchecked.png' style="display: inline;width: 12px;position: relative;top:1px;left:1px" /></p>
          <p style="position:absolute;top:258px;left:794px;white-space:nowrap" class="ft21"><b>5</b></p>
          <p style="position:absolute;top:182px;left:794px;white-space:nowrap" class="ft21"><b>4</b></p>
-         <p style="position:absolute;top:180px;left:768px;white-space:nowrap" class="ft22"><img src='./images/unchecked.png' style="display: inline;width: 12px;position: relative;top:1px;left:1px" /></p>
+         <p style="position:absolute;top:185px;left:768px;white-space:nowrap" class="ft22"><img src='./images/unchecked.png' style="display: inline;width: 12px;position: relative;top:1px;left:1px" /></p>
          <p style="position:absolute;top:180px;left:479px;white-space:nowrap" class="ft23">&#160; &#160;.</p>
          <p style="position:absolute;top:180px;left:613px;white-space:nowrap" class="ft23">ךיראתמ &#160;ה/שדח הלוע ינא</p>
          <p style="position:absolute;top:201px;left:279px;white-space:nowrap" class="ft23">.</p>
@@ -348,8 +348,8 @@
          <p style="position:absolute;top:160px;left:291px;white-space:nowrap" class="ft23">.ףסונ &#34;םייח זכרמ&#34; יל ןיאו</p>
          <p style="position:absolute;top:160px;left:662px;white-space:nowrap" class="ft23">בושייב םיררוגתמ</p>
          <p style="position:absolute;top:139px;left:794px;white-space:nowrap" class="ft21"><b>3</b></p>
-         <p style="position:absolute;top:140px;left:766px;white-space:nowrap" class="ft22"><img src='./images/unchecked.png' style="display: inline;width: 12px;position: relative;top:1px;left:1px" /></p>
-         <p style="position:absolute;top:290px;left:766px;white-space:nowrap" class="ft22"><img src='./images/unchecked.png' style="display: inline;width: 12px;position: relative;top:1px;left:1px" /></p>
+         <p style="position:absolute;top:145px;left:766px;white-space:nowrap" class="ft22"><img src='./images/unchecked.png' style="display: inline;width: 12px;position: relative;top:1px;left:1px" /></p>
+         <p style="position:absolute;top:295px;left:766px;white-space:nowrap" class="ft22"><img src='./images/unchecked.png' style="display: inline;width: 12px;position: relative;top:1px;left:1px" /></p>
          <p style="position:absolute;top:292px;left:43px;white-space:nowrap;font-size: 11.5px" class="ft20">&#160;םניגבו&#160;ותקזחב&#160;םיאצמנה&#160;,וידלי&#160;רובע&#160;יוכיז&#160;תודוקנ&#160;שקבמו&#160;דרפנב&#160;יחה&#160;רומאכ&#160;הרוה&#160;י&#34;ע&#160;קר&#160;אלומי</p>
          <p style="position:absolute;top:290px;left:506px;white-space:nowrap" class="ft23">&#160;.דרפנב&#160;יחה</p>
          <p style="position:absolute;top:292px;left:577px;white-space:nowrap" class="ft29">&#160;</p>
@@ -360,29 +360,29 @@
          <p style="position:absolute;top:539px;left:766px;white-space:nowrap" class="ft22"><img src='./images/unchecked.png' style="display: inline;width: 12px;position: relative;top:1px;left:1px" /></p>
          <p style="position:absolute;top:540px;left:787px;white-space:nowrap" class="ft21"><b>11</b></p>
          <p style="position:absolute;top:539px;left:43px;white-space:nowrap" class="ft20">&#160;ףרוצמ</p>
-         <p style="position:absolute;top:536px;left:46px;white-space:nowrap" class="ft23">&#160;.ימואל&#160;חוטיבל&#160;דסומהמ&#160;הכנ&#160;דלי&#160;תלמג&#160;ת/לבקמ&#160;ינא&#160;םניגב&#160;,םינש&#160;19&#160;םהל&#160;ואלמ&#160;םרטש&#160;תולבגומ&#160;םע&#160;םידלי&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;ל&#160;הרוה&#160;ינא</p>
+         <p style="position:absolute;top:541px;left:46px;white-space:nowrap" class="ft23">&#160;.ימואל&#160;חוטיבל&#160;דסומהמ&#160;הכנ&#160;דלי&#160;תלמג&#160;ת/לבקמ&#160;ינא&#160;םניגב&#160;,םינש&#160;19&#160;םהל&#160;ואלמ&#160;םרטש&#160;תולבגומ&#160;םע&#160;םידלי&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;ל&#160;הרוה&#160;ינא</p>
          <p style="position:absolute;top:556px;left:45px;white-space:nowrap;font-size: 10.5px" class="ft20">.תיחכונה&#160;הנשב&#160;תוסנכה&#160;ןיא&#160;,יוכיזה&#160;תודוקנ&#160;תא&#160;שקבמ&#160;ינא&#160;םניגב&#160;,יידליל&#160;.הלא&#160;יוכיז&#160;תודוקנ&#160;לבקמ&#160;וניא&#160;יגוז&#160;ןב&#160;.תיחכונ&#160;הנשל&#160;ימואל&#160;חוטיבל&#160;דסומהמ&#160;הכנ&#160;דלי&#160;תלמג&#160;רושיא</p>
          <p style="position:absolute;top:416px;left:794px;white-space:nowrap" class="ft21"><b>8</b></p>
          <p style="position:absolute;top:435px;left:527px;white-space:nowrap" class="ft20">. &#160; &#160; &#160; &#160; &#160; &#160; &#160;סמה תנשב ודלונש םידלי רפסמ&#160;<img src='./images/unchecked.png' style="display: inline;width: 12px;position: relative;top:1px;left:1px" /></p>
          <p style="position:absolute;top:452px;left:378px;white-space:nowrap" class="ft20">. &#160; &#160; &#160; &#160; &#160; &#160; &#160;סמה תנשב םינש&#160;5&#160;דע תחא הנש םהל ואלמיש םידלי רפסמ&#160;<img src='./images/unchecked.png' style="display: inline;width: 12px;position: relative;top:1px;left:1px" /></p>
-         <p style="position:absolute;top:414px;left:766px;white-space:nowrap" class="ft22"><img src='./images/unchecked.png' style="display: inline;width: 12px;position: relative;top:1px;left:1px" /></p>
+         <p style="position:absolute;top:420px;left:766px;white-space:nowrap" class="ft22"><img src='./images/unchecked.png' style="display: inline;width: 12px;position: relative;top:1px;left:1px" /></p>
          <p style="position:absolute;top:417px;left:150px;white-space:nowrap" class="ft20">.</p>
          <p style="position:absolute;top:414px;left:153px;white-space:nowrap" class="ft26">(12)</p>
          <p style="position:absolute;top:417px;left:98px;white-space:nowrap" class="ft20">דיחי הרוה ןכו התקזחב םניא הידליש האושנ אל השא ,(ליעל&#160;7&#160;הקספב ןמיס רשא הרוה טעמל) הרוה י&#34;ע אלומי&#160;</p>
          <p style="position:absolute;top:417px;left:703px;white-space:nowrap" class="ft23">.יידלי ןיגב</p>
-         <p style="position:absolute;top:360px;left:748px;white-space:nowrap" class="ft20"><img src='./images/unchecked.png' style="display: inline;width: 12px;position: relative;top:1px;left:1px" /></p>
+         <p style="position:absolute;top:365px;left:767px;white-space:nowrap" class="ft20"><img src='./images/unchecked.png' style="display: inline;width: 12px;position: relative;top:1px;left:1px" /></p>
          <p style="position:absolute;top:359px;left:528px;white-space:nowrap" class="ft20">. &#160; &#160; &#160; &#160; &#160; &#160; &#160;סמה תנשב ודלונש םידלי רפסמ</p>
-         <p style="position:absolute;top:378px;left:748px;white-space:nowrap" class="ft20"><img src='./images/unchecked.png' style="display: inline;width: 12px;position: relative;top:1px;left:1px" /></p>
-         <p style="position:absolute;top:376px;left:385px;white-space:nowrap" class="ft20"><img src='./images/unchecked.png' style="display: inline;width: 12px;position: relative;top:1px;left:1px" /></p>
+         <p style="position:absolute;top:383px;left:767px;white-space:nowrap" class="ft20"><img src='./images/unchecked.png' style="display: inline;width: 12px;position: relative;top:1px;left:1px" /></p>
+         <p style="position:absolute;top:376px;left:385px;white-space:nowrap" class="ft20"><img src='./images/unchecked.png' style="display: inline;width: 12px;position: relative;top:8px;left:22px" /></p>
          <p style="position:absolute;top:376px;left:85px;white-space:nowrap" class="ft20">. &#160; &#160; &#160; &#160; &#160; &#160; סמה תנשב םינש&#160;18&#160;םהל ואלמיש םידלי רפסמ</p>
          <p style="position:absolute;top:377px;left:379px;white-space:nowrap" class="ft20">. &#160; &#160; &#160; &#160; &#160; &#160; &#160;סמה תנשב םינש&#160;5&#160;דע תחא הנש םהל ואלמיש םידלי רפסמ</p>
-         <p style="position:absolute;top:359px;left:385px;white-space:nowrap" class="ft20"><img src='./images/unchecked.png' style="display: inline;width: 12px;position: relative;top:1px;left:1px" /></p>
+         <p style="position:absolute;top:359px;left:385px;white-space:nowrap" class="ft20"><img src='./images/unchecked.png' style="display: inline;width: 12px;position: relative;top:8px;left:22px" /></p>
          <p style="position:absolute;top:358px;left:20px;white-space:nowrap" class="ft20">. &#160; &#160; &#160; &#160; &#160; &#160; סמה תנשב םינש&#160;17&#160;דע םינש&#160;13&#160;םהל ואלמיש םידלי רפסמ</p>
-         <p style="position:absolute;top:436px;left:385px;white-space:nowrap" class="ft20"><img src='./images/unchecked.png' style="display: inline;width: 12px;position: relative;top:1px;left:1px" /></p>
+         <p style="position:absolute;top:436px;left:385px;white-space:nowrap" class="ft20"><img src='./images/unchecked.png' style="display: inline;width: 12px;position: relative;top:8px;left:22px" /></p>
          <p style="position:absolute;top:435px;left:24px;white-space:nowrap" class="ft20">. &#160; &#160; &#160; &#160; &#160; &#160; סמה תנשב םינש&#160;12&#160;דע םינש&#160;6&#160;םהל ואלמיש םידלי רפסמ</p>
-         <p style="position:absolute;top:394px;left:749px;white-space:nowrap" class="ft20"><img src='./images/unchecked.png' style="display: inline;width: 12px;position: relative;top:1px;left:1px" /></p>
+         <p style="position:absolute;top:399px;left:767px;white-space:nowrap" class="ft20"><img src='./images/unchecked.png' style="display: inline;width: 12px;position: relative;top:1px;left:1px" /></p>
          <p style="position:absolute;top:394px;left:397px;white-space:nowrap" class="ft20">. &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; &#160;סמה&#160;תנשב םינש&#160;12&#160;דע םינש&#160;6&#160;םהל&#160;ואלמיש םידלי רפסמ</p>
-         <p style="position:absolute;top:325px;left:766px;white-space:nowrap" class="ft22"><img src='./images/unchecked.png' style="display: inline;width: 12px;position: relative;top:1px;left:1px" /></p>
+         <p style="position:absolute;top:330px;left:766px;white-space:nowrap" class="ft22"><img src='./images/unchecked.png' style="display: inline;width: 12px;position: relative;top:1px;left:1px" /></p>
          <p style="position:absolute;top:326px;left:794px;white-space:nowrap" class="ft21"><b>7</b></p>
          <p style="position:absolute;top:325px;left:528px;white-space:nowrap" class="ft23">.ג קלחב םיטרופמה יתקזחבש יידלי ןיגב</p>
          <p style="position:absolute;top:340px;left:207px;white-space:nowrap" class="ft23">.</p>
@@ -397,8 +397,8 @@
            
       </style>
       <div id="page3-div" class="last-page" style="position:relative;margin: 0 auto;text-align:center;padding:5%">
-         <img width="50%" height="50%" src={{ $f['identification']=="byId" ? $f['photocopy_id_appendix']: $f['p-file']}} alt="image ID"/>
-         <p style="position:absolute;top:55px;left:239px;white-space:nowrap" class="ft30">חפסו תוהז תדועת םוליצ | ת/דבועה יטרפ .ב</p>
+         <img style="max-width: 750px;margin: 0 auto;display: block" width="100%" src={{ $f['identification']=="byId" ? $f['photocopy_id_appendix']: $f['p-file']}} alt="image ID"/>
+         <p style="position:absolute;top:255px;left:239px;white-space:nowrap" class="ft30">חפסו תוהז תדועת םוליצ | ת/דבועה יטרפ .ב</p>
       </div>
    </body>
 </html>
