@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ServiceScheduleSeed::class);
         $this->call(CountrySeeder::class);
         $this->call(TimeSeed::class);
-        $this->call(LanguageSeed::class);
+        //$this->call(LanguageSeed::class);
         
     }
 }
