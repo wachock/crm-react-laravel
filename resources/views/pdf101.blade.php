@@ -388,8 +388,8 @@
          <p style="position:absolute;top:340px;left:207px;white-space:nowrap" class="ft23">.</p>
          <p style="position:absolute;top:340px;left:137px;white-space:nowrap" class="ft26">(12)</p>
          <p style="position:absolute;top:342px;left:159px;white-space:nowrap" class="ft20">דיחי הרוה י&#34;ע וא האושנ השא י&#34;ע וא ,םניגב םידליה תבצק תא לבקמש תירוה דח החפשמב הרוה י&#34;ע קר אלומי</p>
-         <p style="position:absolute;top:969px;left:236px;white-space:nowrap" class="ft213">18/04/2023</p>
-         <p style="position:absolute;top:27px;left:145px;white-space:nowrap;letter-spacing: 5px" class="ft213">987654993</p>
+         <p style="position:absolute;top:969px;left:236px;white-space:nowrap" class="ft213">{{ Carbon\Carbon::parse( $f['signed_on'] )->format('d/m/Y') }}</p>
+         <p style="position:absolute;top:27px;left:145px;white-space:nowrap;letter-spacing: 5px" class="ft213">987654993</p> 
       </div>
       <style type="text/css">
         
