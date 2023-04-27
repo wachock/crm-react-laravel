@@ -418,12 +418,13 @@ export default function TotalJobs() {
                                                             <td onClick={(e) => handleNavigate(e, item.id)}>{
                                                                 
                                                                     item.jobservice && item.jobservice.map((js,i)=>{
+                                                                       
                                                                         return (
-                                                                            (js) ?
-                                                                                js == '10' 
-                                                                                    ? js.other_title+' ' :js.name+ ' ' 
-                                                                            : 'NA'
-                                                                        );
+                                                                            (item.client.lng  == 'en')
+                                                                                ? (js.name + " ")
+                                                                                :
+                                                                                (js.heb_name + " ")
+                                                                        )
                                                                     })
                                                                 
                                                                

@@ -32,6 +32,7 @@ export default function EditClient() {
     const [color, setColor] = useState("");
     const [status, setStatus] = useState("");
     const [errors, setErrors] = useState([]);
+    const [paymentMethod,setPaymentMethod] = useState("");
     let allPhones = [];
     const alert = useAlert();
     const params = useParams();
@@ -174,6 +175,7 @@ export default function EditClient() {
             email: email,
             phone: phoneClc,
             password: passcode,
+            payment_method: paymentMethod,
             status: (!status) ?  0 : parseInt(status),
         };
 
@@ -214,6 +216,7 @@ export default function EditClient() {
                 setZip(response.data.client.zipcode);
                 setStatus(response.data.client.status);
                 setAddress(response.data.client.geo_address);
+                setPaymentMethod(response.data.client.payment_method);
                 if(response.data.client.color) {
                  let clr = document.querySelectorAll('input[name="swatch_demo"]');
                  clr.forEach((e,i)=>{
@@ -740,6 +743,21 @@ export default function EditClient() {
                                         ""
                                     )}
                                 </div>
+
+                                <div className="form-group">
+                                    <label className="control-label">Payment Method</label>
+
+                                    <select
+                                        className="form-control"
+                                        value={paymentMethod}
+                                        onChange={(e) => { setPaymentMethod(e.target.value); }}
+                                    >
+                                        <option value="cc" selected={paymentMethod == "cc"}>Credit Card</option>
+                                        <option value="mt" selected={paymentMethod == "mt"}>Money Transfer</option>
+                                        <option value="cheque" selected={paymentMethod == "cheque"}>By Cheque</option>
+                                    </select>
+                                </div>
+
                                 <div className="form-group">
                                     <label className="control-label">Language</label>
 

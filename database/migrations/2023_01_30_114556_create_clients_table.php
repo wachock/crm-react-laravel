@@ -36,6 +36,7 @@ class CreateClientsTable extends Migration
             $table->string('email')->unique();
             $table->integer('status')->default(0);
             $table->string('password');
+            $table->string('payment_method')->default('cc');
             $table->string('avatar')->nullable();
             $table->rememberToken();
             $table->timestamps();

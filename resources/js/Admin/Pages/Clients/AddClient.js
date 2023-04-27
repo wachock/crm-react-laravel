@@ -34,6 +34,7 @@ export default function AddClient() {
     const [city, setCity] = useState("");
     const alert = useAlert();
     const [cjob,setCjob] = useState();
+    const [paymentMethod,setPaymentMethod] = useState("cc");
     const navigate = useNavigate();
 
     const [libraries] = useState(["places", "geometry"]);
@@ -171,6 +172,7 @@ export default function AddClient() {
             email: email,
             phone: phoneClc,
             password: passcode,
+            payment_method: paymentMethod,
             status: (!status) ? 0 : parseInt(status),
         };
 
@@ -704,6 +706,21 @@ export default function AddClient() {
                                         ""
                                     )}
                                 </div>
+
+                                <div className="form-group">
+                                    <label className="control-label">Payment Method</label>
+
+                                    <select
+                                        className="form-control"
+                                        value={paymentMethod}
+                                        onChange={(e) => {  setPaymentMethod(e.target.value); }}
+                                    >
+                                        <option value="cc">Credit Card</option>
+                                        <option value="mt">Money Transfer</option>
+                                        <option value="cheque">By Cheque</option>
+                                    </select>
+                                </div>
+
                                 <div className="form-group">
                                     <label className="control-label">Language</label>
 

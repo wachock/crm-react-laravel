@@ -88,6 +88,13 @@ class ServiceSeed extends Seeder
             'template'     => 'thorough_cleaning', 
             'status'       => 1           
         ]);
+        Services::create([
+            'name'         => 'General Cleaning',     
+            'heb_name'     => 'ניקיון כללי',  
+            'template'     => 'regular', 
+            'status'       => 1           
+        ]);
+        
 
     }
 }

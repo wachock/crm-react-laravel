@@ -199,7 +199,9 @@ export default function AdminDashboard() {
                                         <tbody>
                                             {latestJobs &&
                                                 latestJobs.map(
-                                                    (item, index) => (
+                                                    (item, index) => { 
+                                                        let total = 0;
+                                                        return (
                                                         <tr key={index} style={{cursor:'pointer'}} onClick={e=>rowHandle(e,item.id)}>
                                                             <td>{
                                                                 item.client
@@ -209,9 +211,17 @@ export default function AdminDashboard() {
                                                             }
                                                             </td>
                                                             <td>{
-                                                                item.jobservice
-                                                                    ? item.jobservice.name
-                                                                    : "NA"
+                                                                item.jobservice && item.jobservice.map((js,i)=>{
+
+                                                                    total += parseInt(js.total);
+                                                                        return (
+                                                                            (item.client.lng  == 'en')
+                                                                                ? (js.name + " ")
+                                                                                :
+                                                                                (js.heb_name + " ")
+                                                                        )
+                                                                })
+                                                               
                                                             }</td>
                                                             <td>
                                                                 {item.start_date}
@@ -235,7 +245,7 @@ export default function AdminDashboard() {
                                                                 {item.status}
                                                             </td>
                                                             <td>
-                                                                {item.jobservice.total} ILS
+                                                                {total} ILS
                                                             </td>
                                                             <td>
                                                                 <div className="d-flex">
@@ -266,7 +276,7 @@ export default function AdminDashboard() {
                                                                 </div>
                                                             </td>
                                                         </tr>
-                                                    )
+                                                    )}
                                                 )}
                                         </tbody>
                                     </table>

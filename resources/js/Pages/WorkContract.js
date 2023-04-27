@@ -360,6 +360,29 @@ export default function WorkContract() {
                                     }
                                     </td>
                                 </tr>
+
+                                <tr>
+                                    <td style={{ width: "60%" }}>{t('work-contract.card_number')}</td>
+                                    <td>
+                                    { contract && contract.name_on_card != null ?
+                                      <input type="text" value={contract.name_on_card} className="form-control" readOnly/>
+                                      :
+                                    <input type='text' name="name_on_card" onChange={(e) => setCname(e.target.value)} className='form-control' placeholder={t('work-contract.card_number')} />
+                                    }
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style={{ width: "60%" }}>{t('work-contract.card_expiry')}</td>
+                                    <td>
+                                    { contract && contract.name_on_card != null ?
+                                      <input type="text" value={contract.name_on_card} className="form-control" readOnly/>
+                                      :
+                                    <input type='text' name="name_on_card" onChange={(e) => setCname(e.target.value)} className='form-control' placeholder={t('work-contract.card_expiry')} />
+                                    }
+                                    </td>
+                                </tr>
+
                                 <tr>
                                     <td style={{ width: "60%" }}>{t('work-contract.card_name')}</td>
                                     <td>
