@@ -24,7 +24,13 @@
 			</tr>
 		</table>
 		<h1 style="text-align: center;">{{__('mail.client_new_job.hi')}}, {{ $name }}</h1>
-		<p style="text-align: center;line-height: 30px">{{__('mail.client_new_job.greetings')}} {{__('mail.client_new_job.from')}} {{__('mail.client_new_job.company')}}. {{__('mail.client_new_job.content')}}</p>
+		
+		@if($lng == 'heb')
+		<p style="text-align: center;line-height: 30px">{{__('mail.client_new_job.greetings')}} {{__('mail.client_new_job.from')}}{{__('mail.client_new_job.company')}}. {{__('mail.client_new_job.content')}}</p>
+		@else
+        <p style="text-align: center;line-height: 30px">{{__('mail.client_new_job.greetings')}} {{__('mail.client_new_job.from')}} {{__('mail.client_new_job.company')}}. {{__('mail.client_new_job.content')}}</p>
+		@endif
+
 		<table cellpadding="0" cellspacing="0" width="100%">
 			 <thead>
 				<tr>

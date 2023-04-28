@@ -46,7 +46,7 @@ class ScheduleController extends Controller
             });
         });
          
-         $result = $result->orderBy('id', 'desc')->paginate(20);
+         $result = $result->orderBy('created_at', 'desc')->paginate(20);
 
          if(!empty($result)){
             foreach($result as $i => $res){
@@ -351,7 +351,7 @@ class ScheduleController extends Controller
     }
     public function ClientSchedules(Request $request){
         
-        $schedules = Schedule::with('team')->where('client_id',$request->id)->orderBy('id','desc')->get();
+        $schedules = Schedule::with('team')->where('client_id',$request->id)->orderBy('created_at','desc')->get();
         return response()->json([
             'schedules'=>$schedules
         ]); 

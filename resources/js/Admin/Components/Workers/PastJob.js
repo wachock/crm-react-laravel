@@ -77,6 +77,45 @@ export default function PastJob() {
             }
         });
     };
+
+    const copy = [...jobs];
+    const [order,setOrder] = useState('ASC');
+    const sortTable = (e,col) =>{
+        
+
+        let n = e.target.nodeName;
+
+        if (n == "TH") {
+            let q = e.target.querySelector('span');
+            if (q.innerHTML === "↑") {
+                q.innerHTML = "↓";
+            } else {
+                q.innerHTML = "↑";
+            }
+
+        } else {
+            let q = e.target;
+            if (q.innerHTML === "↑") {
+                q.innerHTML = "↓";
+            } else {
+                q.innerHTML = "↑";
+            }
+        }
+
+
+        if(order == 'ASC'){
+            const sortData = [...copy].sort((a, b) => (a[col] < b[col] ? 1 : -1));
+            setJobs(sortData);
+            setOrder('DESC');
+        }
+        if(order == 'DESC'){
+            const sortData = [...copy].sort((a, b) => (a[col] < b[col] ? -1 : 1));
+            setJobs(sortData);
+            setOrder('ASC');
+        }
+        
+    }
+
   return (
     <div className="boxPanel">
          <div className="boxPanel">
@@ -85,13 +124,13 @@ export default function PastJob() {
                                     <table className="table table-bordered">
                                         <thead>
                                             <tr>
-                                               <th>ID</th>
+                                               <th onClick={(e)=>sortTable(e,'id')} style={{cursor:'pointer'}} >ID  <span className='arr'> &darr; </span></th>
                                                 <th>Client Name</th>
                                                 <th>Service Name</th>
-                                                <th>Date</th>
-                                                <th>Shift</th>
+                                                <th onClick={(e)=>sortTable(e,'start_date')} style={{cursor:'pointer'}}>Date  <span className='arr'> &darr; </span></th>
+                                                <th onClick={(e)=>sortTable(e,'shifts')} style={{cursor:'pointer'}}>Shift  <span className='arr'> &darr; </span></th>
                                                 <th>Total</th>
-                                                <th>Status</th>
+                                                <th onClick={(e)=>sortTable(e,'status')} style={{cursor:'pointer'}}>Status  <span className='arr'> &darr; </span></th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>

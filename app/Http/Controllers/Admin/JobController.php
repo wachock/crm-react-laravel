@@ -67,12 +67,12 @@ class JobController extends Controller
           }
       
         if($w == 'all'){
-            $jobs = $jobs->orderBy('start_date', 'desc')->paginate(20);
+            $jobs = $jobs->orderBy('created_at', 'desc')->paginate(20);
         } else{
             $jobs = $jobs->whereDate('start_date','>=',$startDate);
             $jobs = $jobs->whereDate('start_date','<=',$endDate);
             $pcount = Job::count();
-            $jobs = $jobs->orderBy('start_date', 'desc')->paginate($pcount);
+            $jobs = $jobs->orderBy('created_at', 'desc')->paginate($pcount);
         }
      
         if(isset($jobs)):
@@ -223,7 +223,7 @@ class JobController extends Controller
 
     public function getJobByClient(Request $request){
        
-       $jobs = Job::with('offer','worker','jobservice')->where('client_id',$request->cid)->get();
+       $jobs = Job::with('offer','worker','jobservice')->where('client_id',$request->cid)->orderBy('start_date', 'desc')->get();
        return response()->json([
         'jobs' => $jobs
     ]);
@@ -239,7 +239,7 @@ class JobController extends Controller
             $jobs            = $jobs->where('status', '!=','completed');
           }
 
-        $jobs = $jobs->orderBy('id', 'desc')->paginate(20);
+        $jobs = $jobs->orderBy('created_at', 'desc')->paginate(20);
 
         return response()->json([
             'jobs' => $jobs

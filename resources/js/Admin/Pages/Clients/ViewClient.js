@@ -92,7 +92,7 @@ export default function ViewClient() {
           <div className='card mt-3'>
             <div className='card-body'>
               <ClientHistory
-              contracts={contracts}
+              contracts={contracts} setContracts={setContracts}
               latestContract={latestContract}
               client={client}
               />

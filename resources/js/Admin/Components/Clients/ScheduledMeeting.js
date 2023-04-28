@@ -58,6 +58,42 @@ export default function ScheduledMeeting() {
         });
     };
    
+    const copy = [...schedules];
+    const [order,setOrder] = useState('ASC');
+    const sortTable = (e,col) =>{
+        
+        let n = e.target.nodeName;
+
+        if (n == "TH") {
+            let q = e.target.querySelector('span');
+            if (q.innerHTML === "↑") {
+                q.innerHTML = "↓";
+            } else {
+                q.innerHTML = "↑";
+            }
+
+        } else {
+            let q = e.target;
+            if (q.innerHTML === "↑") {
+                q.innerHTML = "↓";
+            } else {
+                q.innerHTML = "↑";
+            }
+        }
+
+        if(order == 'ASC'){
+            const sortData = [...copy].sort((a, b) => (a[col] < b[col] ? 1 : -1));
+            setSchedules(sortData);
+            setOrder('DESC');
+        }
+        if(order == 'DESC'){
+            const sortData = [...copy].sort((a, b) => (a[col] < b[col] ? -1 : 1));
+            setSchedules(sortData);
+            setOrder('ASC');
+        }
+        
+    }
+
   return (
     <div className="boxPanel">
         <div className="table-responsive"> 
@@ -65,10 +101,10 @@ export default function ScheduledMeeting() {
             <table className="table table-bordered">
                 <thead>
                     <tr>
-                        <th>ID</th>
+                        <th onClick={(e)=>{ sortTable(e,'id') }} style={{cursor:'pointer'}}>ID <span className='arr'> &darr; </span></th>
                         <th>Meeting Attender</th>
-                        <th>Scheduled</th>
-                        <th>Status</th>
+                        <th onClick={(e)=>{ sortTable(e,'start_date') }} style={{cursor:'pointer'}} >Scheduled <span className='arr'> &darr; </span></th>
+                        <th onClick={(e)=>{ sortTable(e,'booking_status') }} style={{cursor:'pointer'}}>Status <span className='arr'> &darr; </span></th>
                         <th>Action</th>
                     </tr>
                 </thead>

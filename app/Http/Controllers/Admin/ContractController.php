@@ -37,7 +37,7 @@ class ContractController extends Controller
              });
          });
  
-         $result = $result->orderBy('id', 'desc')->paginate(20);
+         $result = $result->orderBy('created_at', 'desc')->paginate(20);
  
         return response()->json([
             'contracts'=>$result
@@ -147,7 +147,7 @@ class ContractController extends Controller
     public function getContractByClient($id)
     {
         
-        $contracts = Contract::with('offer')->where('client_id',$id)->where('status','verified')->get();
+        $contracts = Contract::with('offer')->where('client_id',$id)->where('status','verified')->orderBy('created_at','desc')->get();
         $client  = Client::find($id);
         return response()->json([
             'contract'     => $contracts,

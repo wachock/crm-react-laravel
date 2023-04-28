@@ -75,8 +75,28 @@ export default function Services() {
     };
     const copy = [...services];
     const [order,setOrder] = useState('ASC');
-    const sortTable = (col) =>{
+    const sortTable = (e,col) =>{
         
+        let n = e.target.nodeName;
+
+        if (n == "TH") {
+            let q = e.target.querySelector('span');
+            if (q.innerHTML === "↑") {
+                q.innerHTML = "↓";
+            } else {
+                q.innerHTML = "↑";
+            }
+
+        } else {
+            let q = e.target;
+            if (q.innerHTML === "↑") {
+                q.innerHTML = "↓";
+            } else {
+                q.innerHTML = "↑";
+            }
+        }
+
+
         if(order == 'ASC'){
             const sortData = [...copy].sort((a, b) => (a[col] < b[col] ? 1 : -1));
             setServices(sortData);
@@ -128,10 +148,10 @@ export default function Services() {
                                         <Table className="table table-bordered">
                                             <Thead>
                                                 <Tr>
-                                                    <Th scope="col" >ID</Th>
-                                                    <Th scope="col" >Service - En </Th>
-                                                    <Th scope="col" >Service - Heb </Th>
-                                                    <Th scope="col" >Status</Th>
+                                                    <Th scope="col" style={{cursor:"pointer"}} onClick={(e)=>{sortTable(e,'id')}} >ID <span className="arr"> &darr;</span></Th>
+                                                    <Th scope="col" style={{cursor:"pointer"}} onClick={(e)=>{sortTable(e,'name')}}>Service - En <span className="arr"> &darr;</span></Th>
+                                                    <Th scope="col" style={{cursor:"pointer"}} onClick={(e)=>{sortTable(e,'heb_name')}}>Service - Heb <span className="arr"> &darr;</span></Th>
+                                                    <Th scope="col" style={{cursor:"pointer"}} onClick={(e)=>{sortTable(e,'status')}}>Status <span className="arr"> &darr;</span></Th>
                                                     <Th scope="col">Action</Th>
                                                 </Tr>
                                             </Thead>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import logo from "../../Assets/image/sample.svg";
 import i18next from "i18next";
 export default function ClientLogin() {
@@ -6,6 +6,7 @@ export default function ClientLogin() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [errors, setErrors] = useState([]);
+    const [dir,setDir] = useState([]);
 
     const HandleLogin = (e) => {
         e.preventDefault();
@@ -29,7 +30,12 @@ export default function ClientLogin() {
             }
         });
     };
-   
+
+    useEffect(()=>{
+        let d = document.querySelector('html').getAttribute('dir');
+        (d == 'rtl') ? setDir('heb'): setDir('en');
+    },[]);
+
     return (
            <div id="loginPage">
             <div className="container adminLogin">
@@ -44,7 +50,7 @@ export default function ClientLogin() {
                             <image xlinkHref={logo} width="250" height="94"></image>
                         </svg>
                     </div>
-                    <h1 className="page-title">Client Login</h1>
+                    <h1 className="page-title">{dir == 'heb' ? 'לקוחות רשומים' : 'Client Login' }</h1>
                     <form>
                         <div className="form-group">
                             <div className="input-group mt-2">

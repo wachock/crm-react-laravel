@@ -99,7 +99,28 @@ export default function Contract() {
     
     const copy = [...contracts];
     const [order, setOrder] = useState('ASC');
-    const sortTable = (col) => {
+    const sortTable = (e,col) => {
+        
+        let n = e.target.nodeName;
+        if(n != "SELECT"){
+        if (n == "TH") {
+            let q = e.target.querySelector('span');
+            if (q.innerHTML === "↑") {
+                q.innerHTML = "↓";
+            } else {
+                q.innerHTML = "↑";
+            }
+
+        } else {
+            let q = e.target;
+            if (q.innerHTML === "↑") {
+                q.innerHTML = "↓";
+            } else {
+                q.innerHTML = "↑";
+            }
+        }
+    }
+
 
         if (order == 'ASC') {
             const sortData = [...copy].sort((a, b) => (a[col] < b[col] ? 1 : -1));
@@ -159,6 +180,12 @@ export default function Contract() {
                                 <input type='text' className="mr-0 form-control" onChange={filterContracts} placeholder="Search" />
                             </div>
                         </div>
+                        <div className='col-sm-6 hidden-xl mt-4'>
+                          <select className='form-control' onChange={e => sortTable(e,e.target.value)}>
+                          <option selected>-- Sort By--</option>
+                           <option value="status">Status</option>
+                          </select>
+                        </div>
                     </div>
                 </div>
                 <div className="card">
@@ -174,7 +201,7 @@ export default function Contract() {
                                                 <Th scope="col" style={{ width: "16%" }}>Address</Th>
                                                 <Th scope="col">Phone</Th>
                                                 <Th scope="col">Service Name</Th>
-                                                <Th style={{cursor:'pointer'}} onClick={(e)=>sortTable('status')} scope="col">Status</Th>
+                                                <Th style={{cursor:'pointer'}} onClick={(e)=>sortTable(e,'status')} scope="col">Status <span className='arr'> &darr; </span></Th>
                                                 <Th scope="col">Total</Th>
                                                 <Th scope="col">Job Status</Th>
                                                 <Th scope="col">Action</Th>

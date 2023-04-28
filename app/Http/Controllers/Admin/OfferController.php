@@ -38,7 +38,7 @@ class OfferController extends Controller
              });
          });
  
-         $result = $result->orderBy('id', 'desc')->paginate(20);
+         $result = $result->orderBy('created_at', 'desc')->paginate(20);
 
          if(!empty($result)){
             foreach($result as $i => $res){
@@ -222,7 +222,7 @@ class OfferController extends Controller
 
     public function ClientOffers(Request $request){
          
-        $offers = Offer::with('client')->where('client_id',$request->id)->orderBy('id','desc')->get();
+        $offers = Offer::with('client')->where('client_id',$request->id)->orderBy('created_at','desc')->get();
         return response()->json([
             'offers' => $offers
         ]);

@@ -23,7 +23,13 @@
 			</tr>
 		</table>
 		<h1 style="text-align: center;">{{__('mail.form_101.hi')}}, {{$firstname}} {{$lastname }}</h1>
-		<p style="text-align: center;line-height: 30px">{{__('mail.form_101.greetings')}} {{__('mail.form_101.from')}} {{__('mail.form_101.company')}}. {{__('mail.form_101.content')}}</p>
+		
+		@if($lng == 'heb')
+		<p style="text-align: center;line-height: 30px">{{__('mail.form_101.greetings')}} {{__('mail.form_101.from')}}{{__('mail.form_101.company')}}. {{__('mail.form_101.content')}}</p>
+		@else
+        <p style="text-align: center;line-height: 30px">{{__('mail.form_101.greetings')}} {{__('mail.form_101.from')}} {{__('mail.form_101.company')}}. {{__('mail.form_101.content')}}</p>
+		@endif
+
 		<p style="text-align: center;">{{__('mail.form_101.below_txt')}}</p>
 		<div style="text-align: center;">
 			<a href='{{ url("form101/".base64_encode($id))}}' style="background: #ef6c6b;color: #fff;border: 1px solid #ef6c6b;font-size: 16px;padding: 10px 24px;border-radius: 4px;cursor: pointer;text-decoration: none;margin-top: 25px;margin-bottom: 25px">{{__('mail.form_101.btn_txt')}}</a> 

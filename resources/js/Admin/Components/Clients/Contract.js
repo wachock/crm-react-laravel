@@ -1,9 +1,9 @@
-import React from 'react'
+import React,{ useState } from 'react'
 import { Link } from "react-router-dom";
 import Moment from 'moment';
 
-export default function Contract({ contracts }) {
-
+export default function Contract({ contracts , setContracts}) {
+    
     const headers = {
         Accept: "application/json, text/plain, */*",
         "Content-Type": "application/json",
@@ -37,6 +37,42 @@ export default function Contract({ contracts }) {
         });
     };
 
+    const copy = [...contracts];
+    const [order,setOrder] = useState('ASC');
+    const sortTable = (e,col) =>{
+        
+        let n = e.target.nodeName;
+
+        if (n == "TH") {
+            let q = e.target.querySelector('span');
+            if (q.innerHTML === "↑") {
+                q.innerHTML = "↓";
+            } else {
+                q.innerHTML = "↑";
+            }
+
+        } else {
+            let q = e.target;
+            if (q.innerHTML === "↑") {
+                q.innerHTML = "↓";
+            } else {
+                q.innerHTML = "↑";
+            }
+        }
+
+        if(order == 'ASC'){
+            const sortData = [...copy].sort((a, b) => (a[col] < b[col] ? 1 : -1));
+            setContracts(sortData);
+            setOrder('DESC');
+        }
+        if(order == 'DESC'){
+            const sortData = [...copy].sort((a, b) => (a[col] < b[col] ? -1 : 1));
+            setContracts(sortData);
+            setOrder('ASC');
+        }
+        
+    }
+
   return (
     <div className="boxPanel">
         <div className="table-responsive"> 
@@ -48,7 +84,7 @@ export default function Contract({ contracts }) {
                         <th>Service Name</th>
                         <th>Total Price</th>
                         <th>Date Created</th>
-                        <th>Status</th>
+                        <th onClick={(e)=>sortTable(e,'status')} style={{cursor:'pointer'}}>Status  <span className='arr'> &darr; </span></th>
                         <th>Action</th>
                     </tr>
                 </thead>

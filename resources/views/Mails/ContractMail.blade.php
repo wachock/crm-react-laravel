@@ -26,7 +26,13 @@
 			</tr>
 		</table>
 		<h1 style="text-align: center;">{{__('mail.contract.hi')}}, {{$client['firstname']}} {{$client['lastname']}}</h1>
-		<p style="text-align: center;line-height: 30px">{{__('mail.contract.greetings')}} {{__('mail.contract.from')}} {{__('mail.contract.company')}}. {{__('mail.contract.content')}}</p>
+		
+		@if($client['lng'] == 'heb')
+		<p style="text-align: center;line-height: 30px">{{__('mail.contract.greetings')}} {{__('mail.contract.from')}}{{__('mail.contract.company')}}. {{__('mail.contract.content')}}</p>
+		@else
+        <p style="text-align: center;line-height: 30px">{{__('mail.contract.greetings')}} {{__('mail.contract.from')}} {{__('mail.contract.company')}}. {{__('mail.contract.content')}}</p>
+		@endif
+
 		<p style="text-align: center;">{{__('mail.contract.below_txt')}}</p>
 		<div style="text-align: center;">
 			<a href='{{ url("work-contract/".$contract_id)}}' style="background: #ef6c6b;color: #fff;border: 1px solid #ef6c6b;font-size: 16px;padding: 10px 24px;border-radius: 4px;cursor: pointer;text-decoration: none;margin-top: 25px;margin-bottom: 25px">{{__('mail.contract.btn_txt')}}</a> 

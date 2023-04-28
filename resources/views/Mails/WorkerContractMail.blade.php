@@ -24,7 +24,11 @@
 			</tr>
 		</table>
 		<h1 style="text-align: center;">{{__('mail.worker_contract.hi')}}, {{ $firstname }} {{ $lastname }}</h1>
-		<p style="text-align: center;line-height: 30px">{{__('mail.worker_contract.greetings')}} {{__('mail.worker_contract.from')}} {{__('mail.worker_contract.company')}}. {{__('mail.worker_contract.content')}}</p>
+		@if($lng == 'heb')
+		<p style="text-align: center;line-height: 30px">{{__('mail.worker_contract.greetings')}} {{__('mail.worker_contract.from')}}{{__('mail.worker_contract.company')}}. {{__('mail.worker_contract.content')}}</p>
+		@else
+        <p style="text-align: center;line-height: 30px">{{__('mail.worker_contract.greetings')}} {{__('mail.worker_contract.from')}} {{__('mail.worker_contract.company')}}. {{__('mail.worker_contract.content')}}</p>
+		@endif
 		<p style="text-align: center;">{{__('mail.worker_contract.below_txt')}}</p>
 		<div style="text-align: center;">
 			<a href='{{ url("worker-contract/".base64_encode($worker_id))}}' style="background: #ef6c6b;color: #fff;border: 1px solid #ef6c6b;font-size: 16px;padding: 10px 24px;border-radius: 4px;cursor: pointer;text-decoration: none;margin-top: 25px;margin-bottom: 25px">{{__('mail.worker_contract.btn_txt')}}</a> 

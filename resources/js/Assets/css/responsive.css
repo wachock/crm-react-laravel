@@ -13,7 +13,7 @@
 }
 }
 @media (max-width: 767px){
-.hidden-xs{
+.hidden-xs,.arr{
     display: none;
 }
 .crt-jb.responsiveTable tbody tr td:last-child .tdBefore{
@@ -680,4 +680,13 @@ footer .copyright{
 .ofrTitle{ 
     background: #70809014!important;
     color: #1b3f79;
+}
+
+.arr{
+    font-size: 26px;
+    font-weight: bolder;
+    position: absolute;
+    margin-inline-start: 10px;
+    margin-top: -9px;
+    cursor: pointer;
 }

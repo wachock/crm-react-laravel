@@ -26,8 +26,13 @@
 			</tr>
 		</table>
 		<h1 style="text-align: center;">{{__('mail.offer.hi')}}, {{$client['firstname']}} {{$client['lastname']}}</h1>
-		<p style="text-align: center;">{{__('mail.offer.greetings')}} {{__('mail.offer.from')}} {{__('mail.offer.company')}}. {{__('mail.offer.price_offer')}} <span style="color:#0130c6;font-weight:700;">{{__('mail.offer.service_s')}} {{$service_names}}</span> . {{__('mail.offer.approve_txt')}}</p>
-	
+		
+		@if($client['lng'] == 'heb')
+		<p style="text-align: center;">{{__('mail.offer.greetings')}} {{__('mail.offer.from')}}{{__('mail.offer.company')}}. {{__('mail.offer.price_offer')}} <span style="color:#0130c6;font-weight:700;">{{__('mail.offer.service_s')}} {{$service_names}}</span> . {{__('mail.offer.approve_txt')}}</p>
+	    @else
+        <p style="text-align: center;">{{__('mail.offer.greetings')}} {{__('mail.offer.from')}} {{__('mail.offer.company')}}. {{__('mail.offer.price_offer')}} <span style="color:#0130c6;font-weight:700;">{{__('mail.offer.service_s')}} {{$service_names}}</span> . {{__('mail.offer.approve_txt')}}</p>
+		@endif
+
 		<p style="text-align: center;margin-bottom: 20px">{{__('mail.offer.below_txt')}}</p>
 		<div style="text-align: center;">
 			<a href='{{ url("price-offer/".base64_encode($id))}}' target="_blank" style="text-decoration: none;background: #ef6c6b;color: #fff;border: 1px solid #ef6c6b;font-size: 16px;padding: 10px 24px;border-radius: 4px;cursor: pointer">{{__('mail.offer.btn_txt')}}</a> 

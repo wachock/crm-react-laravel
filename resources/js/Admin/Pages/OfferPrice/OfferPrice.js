@@ -108,7 +108,27 @@ export default function OfferPrice() {
     }
    
     const [order, setOrder] = useState('ASC');
-    const sortTable = (col) => {
+    const sortTable = (e,col) => {
+        
+        let n = e.target.nodeName;
+        if( n != "SELECT"){
+        if (n == "TH") {
+            let q = e.target.querySelector('span');
+            if (q.innerHTML === "↑") {
+                q.innerHTML = "↓";
+            } else {
+                q.innerHTML = "↑";
+            }
+
+        } else {
+            let q = e.target;
+            if (q.innerHTML === "↑") {
+                q.innerHTML = "↓";
+            } else {
+                q.innerHTML = "↑";
+            }
+        }
+    }
 
         if (order == 'ASC') {
             const sortData = [...copy].sort((a, b) => (a[col] < b[col] ? 1 : -1));
@@ -138,6 +158,15 @@ export default function OfferPrice() {
                                 <Link to="/admin/add-offer" className="btn btn-pink addButton"><i class="btn-icon fas fa-plus-circle"></i>Add New</Link>
                             </div>
                         </div>
+
+                        <div className='col-sm-6 hidden-xl mt-4'>
+                          <select className='form-control' onChange={e => sortTable(e,e.target.value)}>
+                          <option selected>-- Sort By--</option>
+                           <option value="subtotal">Total</option>
+                           <option value="status">Status</option>
+                          </select>
+                        </div>
+
                     </div>
                 </div>
                 <div className="card">
@@ -154,8 +183,8 @@ export default function OfferPrice() {
                                                 <Th scope="col">Email</Th>
                                                 <Th scope="col">Address</Th>
                                                 <Th scope="col">Phone</Th>
-                                                <Th style={{cursor:'pointer'}} onClick={(e)=>sortTable('status')} scope="col">Status</Th>
-                                                <Th style={{cursor:'pointer'}} onClick={(e)=>sortTable('subtotal')} scope="col">Total</Th>
+                                                <Th style={{cursor:'pointer'}} onClick={(e)=>sortTable(e,'status')} scope="col">Status <span className='arr'> &darr; </span></Th>
+                                                <Th style={{cursor:'pointer'}} onClick={(e)=>sortTable(e,'subtotal')} scope="col">Total <span className='arr'> &darr; </span></Th>
                                                 <Th scope="col">Action</Th>
                                             </Tr>
                                         </Thead>

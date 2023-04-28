@@ -98,8 +98,28 @@ export default function Clients() {
 
     const copy = [...clients];
     const [order,setOrder] = useState('ASC');
-    const sortTable = (col) =>{
+    const sortTable = (e,col) =>{
         
+        let n = e.target.nodeName;
+        if(n != "SELECT"){
+        if (n == "TH") {
+            let q = e.target.querySelector('span');
+            if (q.innerHTML === "↑") {
+                q.innerHTML = "↓";
+            } else {
+                q.innerHTML = "↑";
+            }
+
+        } else {
+            let q = e.target;
+            if (q.innerHTML === "↑") {
+                q.innerHTML = "↓";
+            } else {
+                q.innerHTML = "↑";
+            }
+        }
+    }
+
         if(order == 'ASC'){
             const sortData = [...copy].sort((a, b) => (a[col] < b[col] ? 1 : -1));
             setClients(sortData);
@@ -129,6 +149,17 @@ export default function Clients() {
                                 <Link to="/admin/add-client" className="btn btn-pink addButton"><i className="btn-icon fas fa-plus-circle"></i>Add New</Link>
                             </div>
                         </div>
+                        <div className='col-sm-6 hidden-xl mt-4'>
+                          <select className='form-control' onChange={e => sortTable(e,e.target.value)}>
+                          <option selected>-- Sort By--</option>
+                           <option value="id">ID</option>
+                           <option value="firstname">Client Name</option>
+                           <option value="address">Address</option>
+                           <option value="email">Email</option>
+                           <option value="phone">Phone</option>
+                           <option value="status">Status</option>
+                          </select>
+                        </div>
                     </div>
                 </div>
                 <div className="card">
@@ -138,12 +169,12 @@ export default function Clients() {
                                 <Table className='table table-bordered'>
                                     <Thead>
                                         <Tr style={{cursor:'pointer'}}>
-                                            <Th onClick={(e)=>{sortTable('id')}} >ID</Th>
-                                            <Th onClick={(e)=>{sortTable('firstname')}}>Client Name</Th>
-                                            <Th onClick={(e)=>{sortTable('email')}}>Email</Th>
-                                            <Th onClick={(e)=>{sortTable('address')}}>Address</Th>
-                                            <Th onClick={(e)=>{sortTable('phone')}}>Phone</Th>
-                                            <Th onClick={(e)=>{sortTable('status')}}>Status</Th>
+                                            <Th onClick={(e)=>{sortTable(e,'id')}} >ID  <span className='arr'> &darr; </span></Th>
+                                            <Th onClick={(e)=>{sortTable(e,'firstname')}}>Client Name  <span className='arr'> &darr; </span></Th>
+                                            <Th onClick={(e)=>{sortTable(e,'email')}}>Email  <span className='arr'> &darr; </span></Th>
+                                            <Th onClick={(e)=>{sortTable(e,'address')}}>Address  <span className='arr'> &darr; </span></Th>
+                                            <Th onClick={(e)=>{sortTable(e,'phone')}}>Phone  <span className='arr'> &darr; </span></Th>
+                                            <Th onClick={(e)=>{sortTable(e,'status')}}>Status  <span className='arr'> &darr; </span></Th>
                                             <Th>Action</Th>
                                         </Tr>
                                     </Thead>

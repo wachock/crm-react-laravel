@@ -101,8 +101,28 @@ export default function Schedule() {
 
   const copy = [...schedules];
   const [order,setOrder] = useState('ASC');
-  const sortTable = (col) =>{
+  const sortTable = (e,col) =>{
       
+    let n = e.target.nodeName;
+      if( n != "SELECT"){
+        if (n == "TH") {
+            let q = e.target.querySelector('span');
+            if (q.innerHTML === "↑") {
+                q.innerHTML = "↓";
+            } else {
+                q.innerHTML = "↑";
+            }
+
+        } else {
+            let q = e.target;
+            if (q.innerHTML === "↑") {
+                q.innerHTML = "↓";
+            } else {
+                q.innerHTML = "↑";
+            }
+        }
+      }
+
       if(order == 'ASC'){
           const sortData = [...copy].sort((a, b) => (a[col] < b[col] ? 1 : -1));
           setSchedules(sortData);
@@ -131,6 +151,15 @@ export default function Schedule() {
                 <input type='text' className="form-control" onChange={filterSchedules} placeholder="Search" />
               </div>
             </div>
+            <div className='col-sm-6 hidden-xl mt-4'>
+              <select className='form-control' onChange={e => sortTable(e,e.target.value)}>
+              <option selected>-- Sort By--</option>
+                <option value="id">ID</option>
+                <option value="start_date">Scheduled</option>
+                <option value="booking_status">Status</option>
+              </select>
+            </div>
+
           </div>
         </div>
         <div className="card">
@@ -141,13 +170,13 @@ export default function Schedule() {
                   <Table className="table table-bordered">
                     <Thead>
                       <Tr>
-                        <Th style={{cursor:"pointer"}} onClick={(e)=>{sortTable('id')}} >ID</Th>
+                        <Th style={{cursor:"pointer"}} onClick={(e)=>{sortTable(e,'id')}} >ID <span className='arr'> &darr; </span></Th>
                         <Th >Client</Th>
                         <Th >Contact</Th>
                         <Th >Address</Th>
                         <Th >Meeting Attender</Th>
-                        <Th style={{cursor:"pointer"}} onClick={(e)=>{sortTable('start_date')}}>Scheduled</Th>
-                        <Th style={{cursor:"pointer"}} onClick={(e)=>{sortTable('booking_status')}}>Booking Status</Th>
+                        <Th style={{cursor:"pointer"}} onClick={(e)=>{sortTable(e,'start_date')}}>Scheduled <span className='arr'> &darr; </span></Th>
+                        <Th style={{cursor:"pointer"}} onClick={(e)=>{sortTable(e,'booking_status')}}>Booking Status <span className='arr'> &darr; </span></Th>
                         <Th>Action</Th>
                       </Tr>
                     </Thead>

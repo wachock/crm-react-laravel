@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useParams,useNavigate } from 'react-router-dom';
 
 export default function OfferedPrice() {
+    
     const [offers,setOffers]          = useState([]);
     const [loading,setLoading]        = useState("Loading..");
     const param = useParams();
@@ -59,6 +60,45 @@ export default function OfferedPrice() {
     useEffect(()=>{
         getOffers();
     },[]);
+
+    const copy = [...offers];
+    const [order,setOrder] = useState('ASC');
+    const sortTable = (e,col) =>{
+        
+        let n = e.target.nodeName;
+
+        if (n == "TH") {
+            let q = e.target.querySelector('span');
+            if (q.innerHTML === "↑") {
+                q.innerHTML = "↓";
+            } else {
+                q.innerHTML = "↑";
+            }
+
+        } else {
+            let q = e.target;
+            if (q.innerHTML === "↑") {
+                q.innerHTML = "↓";
+            } else {
+                q.innerHTML = "↑";
+            }
+        }
+
+        
+        if(order == 'ASC'){
+            const sortData = [...copy].sort((a, b) => (a[col] < b[col] ? 1 : -1));
+            setOffers(sortData);
+            setOrder('DESC');
+        }
+        if(order == 'DESC'){
+            const sortData = [...copy].sort((a, b) => (a[col] < b[col] ? -1 : 1));
+            setOffers(sortData);
+            setOrder('ASC');
+        }
+        
+    }
+
+
   return (
     <div className="boxPanel">
         <div className="table-responsive"> 
@@ -69,7 +109,7 @@ export default function OfferedPrice() {
                         <th>Client</th>
                         <th>Address</th>
                         <th>Phone</th>
-                        <th>Status</th>
+                        <th onClick={(e)=>sortTable(e,'status')} style={{cursor:'pointer'}}>Status <span className='arr'> &darr; </span></th>
                         <th>Total</th>
                         <th>Action</th>
                     </tr>

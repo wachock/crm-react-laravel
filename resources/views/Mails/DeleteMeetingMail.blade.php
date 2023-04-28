@@ -28,9 +28,13 @@
 			</tr>
 		</table>
 		<h1 style="text-align: center;">{{__('mail.cancel_meeting.hi')}}, {{$client['firstname']}} {{$client['lastname']}}</h1>
-
+        
+		@if($client['lng'] == 'heb')
+		<p style="text-align: center;">{{__('mail.cancel_meeting.greetings')}} {{__('mail.cancel_meeting.from')}}{{__('mail.cancel_meeting.company')}}. {{__('mail.cancel_meeting.appointment')}}
+		@else
 		<p style="text-align: center;">{{__('mail.cancel_meeting.greetings')}} {{__('mail.cancel_meeting.from')}} {{__('mail.cancel_meeting.company')}}. {{__('mail.cancel_meeting.appointment')}}
-		
+		@endif
+
 		@if(!empty($team['name'])) 
 		{{__('mail.cancel_meeting.with')}}      <span style="color:#0130c6;font-weight:700;">{{$team['name']}}</span>
 		 @endif

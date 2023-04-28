@@ -256,8 +256,28 @@ export default function TotalJobs() {
     };
     const copy = [...totalJobs];
     const [order,setOrder] = useState('ASC');
-    const sortTable = (col) =>{
+    const sortTable = (e,col) =>{
         
+        let n = e.target.nodeName;
+        if(n != "SELECT"){
+        if (n == "TH") {
+            let q = e.target.querySelector('span');
+            if (q.innerHTML === "↑") {
+                q.innerHTML = "↓";
+            } else {
+                q.innerHTML = "↑";
+            }
+
+        } else {
+            let q = e.target;
+            if (q.innerHTML === "↑") {
+                q.innerHTML = "↓";
+            } else {
+                q.innerHTML = "↑";
+            }
+        }
+    }
+ 
         if(order == 'ASC'){
             const sortData = [...copy].sort((a, b) => (a[col] < b[col] ? 1 : -1));
             setTotalJobs(sortData);
@@ -355,6 +375,15 @@ export default function TotalJobs() {
                                <input type='text' id="search-field" className="form-control" placeholder="Search" onChange={filterJobs} style={{marginRight: "0"}} />
                             </div>
                         </div>
+
+                        <div className='col-sm-6 hidden-xl mt-4'>
+                          <select className='form-control' onChange={e => sortTable(e,e.target.value)}>
+                          <option selected>-- Sort By--</option>
+                           <option value="start_date">Job Date</option>
+                           <option value="status">Status</option>
+                          </select>
+                        </div>
+
                     </div>
                 </div>
                 <div className="card">
@@ -366,15 +395,11 @@ export default function TotalJobs() {
                                     <table className="table table-bordered">
                                         <thead>
                                             <tr>
-                                                <th scope="col" onClick={(e)=>{sortTable('start_date')}}>Job Dated</th>
-                                                <th scope="col" onClick={(e)=>{sortTable('worker.firstname')}}>Worker</th>
-                                                <th scope="col" onClick={(e)=>{sortTable('client.firstname')}}>Client</th>
-                                                <th scope="col" onClick={(e)=>{sortTable('jobservice.name')}}>Service</th>
-                                                <th className="hidden-xs" onClick={(e)=>{sortTable('status')}} scope="col">Status</th>
-                                                {/* <th scope="col">Shift</th> 
-                                                <Th scope="col">Address</Th>
-                                                <Th scope="col">Complete Time</Th>
-                                                <Th scope="col">Total</Th> */}
+                                                <th scope="col" onClick={(e)=>{sortTable(e,'start_date')}} style={{ "cursor": "pointer" }}>Job Date <span className="arr"> &darr; </span></th>
+                                                <th scope="col" >Worker</th>
+                                                <th scope="col" >Client</th>
+                                                <th scope="col" >Service</th>
+                                                <th className="hidden-xs" onClick={(e)=>{sortTable(e,'status')}} style={{ "cursor": "pointer" }} scope="col">Status <span className="arr"> &darr; </span></th>
                                                 <th className='text-center' scope="col">Action</th>
                                             </tr>
                                         </thead>
