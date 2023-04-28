@@ -48,7 +48,7 @@ deploy_production:
     - ssh-add <(echo "$SSH_PRIVATE_KEY")
     - mkdir -p ~/.ssh
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
-    - ~/.composer/vendor/bin/dep deploy
+    - ~/.composer/vendor/bin/dep deploy -l 1
   environment:
     name: production
     url: http://broom-service.n2rtech.com/
