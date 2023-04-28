@@ -27,9 +27,13 @@
 			</tr>
 		</table>
 		<h1 style="text-align: center;">{{__('mail.meeting.hi')}}, {{$client['firstname']}} {{$client['lastname']}}</h1>
+       
+		@if($client['lng'] == 'heb')
+		<p style="text-align: center;">{{__('mail.meeting.greetings')}} {{__('mail.meeting.from')}}{{__('mail.meeting.company')}}. {{__('mail.meeting.appointment')}}
+		@else 
+		<p style="text-align: center;">{{__('mail.meeting.greetings')}} {{__('mail.meeting.from')}} {{__('mail.meeting.company')}}. {{__('mail.meeting.appointment')}}
+		@endif
 
-		<p style="text-align: center;">{{__('mail.meeting.greetings')}} {{__('mail.meeting.from')}} {{" "}} {{__('mail.meeting.company')}}. {{__('mail.meeting.appointment')}}
-		
 		@if(!empty($team['name'])) 
 		{{__('mail.meeting.with')}}      <span style="color:#0130c6;font-weight:700;">{{ $client['lng'] == 'heb' ? $team['heb_name'] : $team['name']}}</span>
 		 @endif

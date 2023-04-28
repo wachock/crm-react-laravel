@@ -370,7 +370,7 @@ class JobController extends Controller
                  );
                 \App::setLocale($job->worker->lng);
 
-                if(!is_null($job['worker']['email']) && $job['worker']['email'] != 'null'){
+                if(!is_null($job['worker']['email']) && $job['worker']['email'] != 'Null'){
                 Mail::send('/Mails/NewJobMail',$data,function($messages) use ($data){
                     $messages->to($data['email']);
                     $sub = __('mail.worker_new_job.subject')."  ".__('mail.worker_new_job.company');
@@ -398,7 +398,7 @@ class JobController extends Controller
             'start_time'=>$_timeShift
         );
         
-          if(!is_null($client_email)){
+          if(!is_null($client_email) && $client_email != 'Null'){
          Mail::send('/Mails/NewJobClient',$client_data,function($messages) use ($client_data){
                 $messages->to($client_data['email']);
                 $id = $client_data['jobs'][0]['job']['id'];
@@ -564,6 +564,7 @@ class JobController extends Controller
     }
     public function sendWorkerEmail($job_id){
             $job = Job::with('client','worker','jobservice')->where('id',$job_id)->first();
+
              $data = array(
                 'email'=> $job['worker']['email'],
                 'job'  => $job->toArray(),

@@ -87,6 +87,13 @@ export default function WorkContractRHS() {
                                                         <input className='btn btn-success' value='Verified' />
                                                     </div>
                                                 </div>
+
+                                                <div className='col-sm-6'>
+                                                    <div className='mt-2 float-left'>
+                                                        <Link to={`/admin/create-job/${c.id}`} className="btn btn-pink" >Create Job</Link>
+                                                    </div>
+                                                </div>
+
                                             </>
                                         )
                                     }
@@ -107,7 +114,7 @@ export default function WorkContractRHS() {
                             <div className="between">
                                 <p>{t('work-contract.between')}</p>
                                 <p>{t('work-contract.broom_service')}</p>
-                                <p>{t('work-contract.from')}</p>
+
                             </div>
                             <div className="first">
                                 <h2 className="mb-4 text-right">{t('work-contract.first_party_title')}</h2>
@@ -120,14 +127,14 @@ export default function WorkContractRHS() {
                                 <ul className="list-inline customRTL">
                                     <li className="list-inline-item ml-2">{t('work-contract.street_and_number')} <span>{client.geo_address ? client.geo_address : 'NA'}</span>
                                     </li>
-                                    <li className="list-inline-item">{t('work-contract.floor')} <span>{client.floor ? client.floor : 'NA'}</span>
-                                    </li>
+                                    {/* <li className="list-inline-item">{t('work-contract.floor')} <span>{client.floor ? client.floor : 'NA'}</span>
+                                    </li>*/}
                                 </ul>
                                 <ul className="list-inline customRTL">
-                                    <li className="list-inline-item ml-2">{t('work-contract.apt_number')} <span>{client.apt_no ? client.apt_no : 'NA'}</span>
+                                    {/*<li className="list-inline-item ml-2">{t('work-contract.apt_number')} <span>{client.apt_no ? client.apt_no : 'NA'}</span>
                                     </li>
                                     <li className="list-inline-item">{t('work-contract.enterance_code')} <span>{client.entrence_code ? client.entrence_code : 'NA'}</span>
-                                    </li>
+                                </li>*/}
                                 </ul>
                                 <ul className="list-inline customRTL">
                                     <li className="list-inline-item ml-2">{t('work-contract.telephone')} <span>{client.phone ? client.phone : 'NA'}</span>
@@ -207,8 +214,8 @@ export default function WorkContractRHS() {
 
                                                 {services && services.map((s, i) => {
                                                     return (
-                                                       
-                                                            <p>{(s.service != '10') ? s.name: s.other_title }</p>
+
+                                                        <p>{(s.service != '10') ? s.name : s.other_title}</p>
                                                     )
                                                 })}
 
@@ -269,7 +276,7 @@ export default function WorkContractRHS() {
                                             <Td style={{ width: "60%" }}>{t('work-contract.consideration_txt')}</Td>
                                             <Td>
                                                 {services && services.map((s, i) => {
-                                                    return <p>{s.totalamount + t('work-contract.ils') + " + " + t('work-contract.vat') + " " + t('work-contract.for') + " " + ((s.service != '10') ? s.name: s.other_title) + ", " + s.freq_name}</p>
+                                                    return <p>{s.totalamount + t('work-contract.ils') + " + " + t('work-contract.vat') + " " + t('work-contract.for') + " " + ((s.service != '10') ? s.name : s.other_title) + ", " + s.freq_name}</p>
                                                 })}
                                             </Td>
                                         </Tr>

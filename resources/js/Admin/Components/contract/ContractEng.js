@@ -56,14 +56,14 @@ export default function WorkContract() {
 
     return (
         <>
-           
+
             <div className='container'>
                 <Sidebar />
                 <div className='send-offer client-contract'>
                     <div className='maxWidthControl dashBox mb-4'>
                         <div className='row mb-3'>
                             <div className='col-sm-6'>
-                                <svg width="250" height="94" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">       
+                                <svg width="250" height="94" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
                                     <image xlinkHref={logo} width="250" height="94"></image>
                                 </svg>
                             </div>
@@ -82,9 +82,15 @@ export default function WorkContract() {
                                 } else if (c.status == 'verified') {
                                     return (
                                         <>
-                                            <div className='col-sm-6'>
+                                            <div className='col-sm-3'>
                                                 <div className='mt-2 float-right'>
                                                     <input className='btn btn-success' value='Verified' />
+                                                </div>
+                                            </div>
+
+                                            <div className='col-sm-3'>
+                                                <div className='mt-2 float-left'>
+                                                    <Link to={`/admin/create-job/${c.id}`} className="btn btn-pink" >Create Job</Link>
                                                 </div>
                                             </div>
                                         </>
@@ -100,7 +106,7 @@ export default function WorkContract() {
                         <div className='between'>
                             <p>Between:</p>
                             <p>Broom Service L.M. Ltd Private Company no. 515184208</p>
-                            <p>From 69 Jerusalem st. , Bat Yam (Hereinafter: the Company)</p>
+
                         </div>
                         <div className='first'>
                             <h2 className='mb-4'>Of the First Party</h2>
@@ -110,11 +116,11 @@ export default function WorkContract() {
                             </ul>
                             <ul className='list-inline'>
                                 <li className='list-inline-item'>Street and Number: <span>{client.geo_address ? client.geo_address : 'NA'}</span></li>
-                                <li className='list-inline-item'>Floor: <span>{client.floor ? client.floor : 'NA'}</span></li>
+                                {/* <li className='list-inline-item'>Floor: <span>{client.floor ? client.floor : 'NA'}</span></li>*/}
                             </ul>
                             <ul className='list-inline'>
-                                <li className='list-inline-item'>Apt Number: <span>{client.apt_no ? client.apt_no : 'NA'}</span></li>
-                                <li className='list-inline-item'>Enterance Code: <span>{client.entrence_code ? client.entrence_code : 'NA'}</span></li>
+                                {/*<li className='list-inline-item'>Apt Number: <span>{client.apt_no ? client.apt_no : 'NA'}</span></li>
+                                <li className='list-inline-item'>Enterance Code: <span>{client.entrence_code ? client.entrence_code : 'NA'}</span></li>*/}
                             </ul>
                             <ul className='list-inline'>
                                 <li className='list-inline-item'>Telephone: <span>{client.phone ? client.phone : 'NA'}</span></li>
@@ -185,7 +191,7 @@ export default function WorkContract() {
                                         <td>
                                             {services && services.map((s, i) => {
                                                 return (
-                                                        <p>{(s.service != '10') ? s.name: s.other_title }</p>
+                                                    <p>{(s.service != '10') ? s.name : s.other_title}</p>
                                                 )
                                             })}
                                         </td>
@@ -230,7 +236,7 @@ export default function WorkContract() {
                                         <td>
                                             {services && services.map((s, i) => {
                                                 return (
-                                                   <p>{ s.freq_name}</p>
+                                                    <p>{s.freq_name}</p>
                                                 )
                                             })}
                                         </td>
@@ -238,9 +244,9 @@ export default function WorkContract() {
                                     <tr>
                                         <td style={{ width: "60%" }}>Consideration the Tenant will pay the Company, including the payment method and/or payment date<br />Prices does not include vat**</td>
                                         <td>
-                                        {services && services.map((s, i) => {
-                                                return <p>{s.totalamount + t('work-contract.ils') + " + " + t('work-contract.vat') + " " + t('work-contract.for') +" "+((s.service != '10') ? s.name: s.other_title)  + ", " + s.freq_name}</p>
-                                         })}
+                                            {services && services.map((s, i) => {
+                                                return <p>{s.totalamount + t('work-contract.ils') + " + " + t('work-contract.vat') + " " + t('work-contract.for') + " " + ((s.service != '10') ? s.name : s.other_title) + ", " + s.freq_name}</p>
+                                            })}
 
                                         </td>
                                     </tr>
@@ -304,7 +310,7 @@ export default function WorkContract() {
                                                     <tr>
                                                         <td style={{ width: "60%" }}>Name on the Card</td>
                                                         <td><span className='form-control'>{c.name_on_card ? c.name_on_card : "NA"}</span></td>
-                                                     </tr>
+                                                    </tr>
                                                     <tr>
                                                         <td style={{ width: "60%" }}>CVV</td>
                                                         <td ><span className='form-control'>{c.cvv ? c.cvv : "NA"}</span></td>

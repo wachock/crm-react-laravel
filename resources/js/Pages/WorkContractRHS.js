@@ -58,7 +58,7 @@ export default function WorkContractRHS() {
                 <div className="between">
                     <p>Between:</p>
                     <p>Broom Service L.M. Ltd Private Company no. 515184208</p>
-                    <p>From 69 Jerusalem st. , Bat Yam (Hereinafter: the Company)</p>
+                   
                 </div>
                 <div className="first">
                     <h2 className="mb-4 text-right">Of the First Party</h2>

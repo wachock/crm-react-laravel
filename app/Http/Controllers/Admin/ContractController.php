@@ -45,6 +45,7 @@ class ContractController extends Controller
 
     }
 
+
     public function clientContracts(Request $request){
        
         $contracts = Contract::where('client_id',$request->id)->with('offer')->orderBy('id','desc')->paginate(20);

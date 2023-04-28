@@ -197,7 +197,7 @@ export default function WorkContract() {
                     <div className='between'>
                         <p>{t('work-contract.between')}</p>
                         <p>{t('work-contract.broom_service')}</p>
-                        <p style={{ whiteSpace: 'pre-wrap' }}>{t('work-contract.from')}</p>
+                        
                     </div>
                     <div className='first'>
                         <h2 className='mb-4'>{t('work-contract.first_party_title')}</h2>
@@ -213,17 +213,17 @@ export default function WorkContract() {
                                     </ul>
                                     <ul className='list-inline'>
                                         <li className='list-inline-item ml-2'>{t('work-contract.street_and_number')} <span>{cl.geo_address}</span></li>
-                                        <li className='list-inline-item'>{t('work-contract.floor')} <span>{cl.floor}</span></li>
+                                       {/* <li className='list-inline-item'>{t('work-contract.floor')} <span>{cl.floor}</span></li>*/}
                                     </ul>
                                     <ul className='list-inline'>
-                                        <li className='list-inline-item ml-2'>{t('work-contract.apt_number')} <span>{cl.apt_no}</span></li>
-                                        <li className='list-inline-item'>{t('work-contract.enterance_code')} <span>{cl.entrence_code}</span></li>
+                                        {/*<li className='list-inline-item ml-2'>{t('work-contract.apt_number')} <span>{cl.apt_no}</span></li>
+                                        <li className='list-inline-item'>{t('work-contract.enterance_code')} <span>{cl.entrence_code}</span></li>*/}
                                     </ul>
                                     <ul className='list-inline'>
                                         <li className='list-inline-item ml-2'>{t('work-contract.telephone')} <span>{cl.phone}</span></li>
                                         <li className='list-inline-item'>{t('work-contract.email')} <span>{cl.email}</span></li>
                                     </ul>
-                                    <p style={{ textAlign: 'center' }}>{t('work-contract.from')}</p>
+                                  
                                 </>
                             )
 
