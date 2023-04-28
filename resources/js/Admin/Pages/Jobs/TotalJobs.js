@@ -310,6 +310,11 @@ export default function TotalJobs() {
             { bg: '#B09FCA', tc: '#fff',  shift: 'night1-20pm-22pm' },
             { bg: '#800080', tc: '#fff',  shift: 'night2-22pm-24pm' },
             { bg: '#D2B9D3', tc: '#fff',  shift: 'night-20pm-24pm' },
+
+            { bg: 'yellow',  tc: '#444',  shift: 'morning' },
+            { bg: '#79BAEC', tc: '#fff',  shift: 'noon' },
+            { bg: '#DBF9DB', tc: '#444',  shift: 'evening' },
+            { bg: '#B09FCA', tc: '#fff',  shift: 'night' }
     ];
    
     return (
@@ -378,12 +383,15 @@ export default function TotalJobs() {
                                                 totalJobs.map((item, index) => {
  
                                                     let ix = allShifts.find(function(el, i){
+                                                       
                                                           if(item.shifts != null){
+                                                          
                                                           if( el.shift.replace(/ /g,'') == item.shifts.replace(/ /g,'')){
-                                                             return i;
+                                                           
+                                                             return allShifts.indexOf(el.shift);
                                                           }}
                                                     });
-                                                    
+                                                  
                                                     return (
                                                         <tr key={index} style={{ "cursor": "pointer" }}>
                                                             <td onClick={(e) => handleNavigate(e, item.id)} style={(ix != undefined) ? {background: ix.bg, color: ix.tc} : {background: '#d3d3d3', color: '#444'} }>
