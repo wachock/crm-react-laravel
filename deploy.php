@@ -16,7 +16,8 @@ add('writable_dirs', []);
 
 host('38.242.196.238')
     ->set('remote_user', 'root')
-    ->set('deploy_path', '/var/www/php81/broom-service-new');
+    ->set('deploy_path', '/var/www/php81/broom-service-new')
+    ->set('keep_releases', 2);
 
 // Hooks
 
