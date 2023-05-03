@@ -274,6 +274,7 @@ class ClientController extends Controller
         }
 
         $input                  = $request->data;  
+        if((isset($input['passcode']) && $input['passcode'] != null))
         $input['password']      = Hash::make($input['passcode']);         
         Client::where('id', $id)->update($input);
         
