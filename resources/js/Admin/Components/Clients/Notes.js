@@ -19,13 +19,15 @@ export default function notes() {
 
    
     const handleNote = (e) =>{
-       
+    
       e.preventDefault();
+      let imp = document.querySelector('input[name="important"]');
       const data ={
         'note':note,
         'user_id':param.id,
         'team_id':localStorage.getItem('admin-id'),
         'role':'client',
+        'important':imp.checked
       }
       
       axios
@@ -125,6 +127,10 @@ export default function notes() {
                         </div>
                         <div className="col-sm-12">
                         {
+                            (n.important == 1) &&  <span className="hpoint">&#9755;</span>
+                        }
+                       
+                        {
                           (n.note) ? n.note : 'NA'
                         }
                         </div>
@@ -162,6 +168,19 @@ export default function notes() {
                                             required
                                             placeholder="Enter Note"
                                         ></textarea>
+
+                                    </div>
+                                </div>
+                                    
+                            </div>
+
+                            <div className="row">
+                                <div className="col-sm-12">
+                                    <div className="form-group">
+                                        <label className="control-label">
+                                        Mark if Important
+                                        </label>
+                                       <input type='checkbox' name='important' style={{'height':'auto','margin-inline':'5px'}}/> 
 
                                     </div>
                                 </div>

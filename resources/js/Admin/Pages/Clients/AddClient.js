@@ -718,6 +718,7 @@ export default function AddClient() {
                                         <option value="cc">Credit Card</option>
                                         <option value="mt">Money Transfer</option>
                                         <option value="cheque">By Cheque</option>
+                                        <option value="cash">By Cash</option>
                                     </select>
                                 </div>
 

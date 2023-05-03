@@ -199,6 +199,8 @@ export default function OfferPrice() {
                                                     if (ofr.status == 'sent') { color = 'purple' }
                                                     else if (ofr.status == 'accepted') { color = 'green' }
                                                     else { color = 'red' }
+                                                    
+                                                    let phone = (ofr.client.phone != undefined ) ? ofr.client.phone.split(',') : [];
 
                                                     return (
                                                         <Tr style={{ "cursor": "pointer" }}>
@@ -213,7 +215,18 @@ export default function OfferPrice() {
                                                             </Td>
                                                             <Td onClick={(e) => handleNavigate(e, ofr.id)}>{ofr.client.email}</Td>
                                                             <Td><Link to={`https://maps.google.com?q=${cords}`}>{address}</Link></Td>
-                                                            <Td onClick={(e) => handleNavigate(e, ofr.id)}>{ofr.client.phone}</Td>
+                                                          
+                                                             <Td>
+                                                                {
+                                                                    phone && phone.map((p,i)=>{
+                                                                        return(
+                                                                            (phone.length > 1)?
+                                                                            <a href={`tel:${p}`}>{ p } | </a>
+                                                                            : <a href={`tel:${p}`}>{ p } </a>
+                                                                        )
+                                                                    })
+                                                                }
+                                                             </Td>
                                                             <Td style={{ color }} onClick={(e) => handleNavigate(e, ofr.id)}>{ofr.status}</Td>
                                                             <Td onClick={(e) => handleNavigate(e, ofr.id)}>{ofr.subtotal} ILS + VAT</Td>
                                                             <Td>

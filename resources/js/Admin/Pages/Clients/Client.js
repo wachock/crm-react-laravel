@@ -192,7 +192,8 @@ export default function Clients() {
                                                 if (item.status == 2)
                                                     status = "Customer";
                                                
-                                               
+                                                let phone = (item.phone) ? item.phone.toString().split(",") : [];
+
                                                 return (
                                                     <Tr style={{ "cursor": "pointer" }}>
                                                         <Td onClick={(e) => handleNavigate(e, item.id)}>{item.id}</Td>
@@ -201,7 +202,20 @@ export default function Clients() {
                                                         </Td>
                                                         <Td onClick={(e) => handleNavigate(e, item.id)}>{item.email}</Td>
                                                         <Td><a href={`https://maps.google.com?q=${cords}`} target='_blank'>{address}</a></Td>
-                                                        <Td onClick={(e) => handleNavigate(e, item.id)}>{(item.phone) ? item.phone.toString().split(",").join(' | ') : ''}</Td>
+                                                        {/*<Td><a  href={`tel:${item.phone.toString().split(",").join(' | ')}`}>{(item.phone) ? item.phone.toString().split(",").join(' | ') : ''}</a></Td>*/}
+                                                        
+                                                        <Td>
+                                                            {
+                                                                phone && phone.map((p,i)=>{
+                                                                  return(
+                                                                    (phone.length > 1) ?
+                                                                    <a href={`tel:${p}`}>{ p } | </a> 
+                                                                    : <a href={`tel:${p}`}>{ p }</a>
+                                                                  )
+                                                                })
+                                                            }
+                                                        </Td>
+                                                       
                                                         <Td onClick={(e) => handleNavigate(e, item.id)}>
                                                             {
                                                                 status

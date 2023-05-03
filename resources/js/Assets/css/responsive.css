@@ -690,3 +690,7 @@ footer .copyright{
     margin-top: -9px;
     cursor: pointer;
 }
+.hpoint{
+    font-size: 20px;
+    margin-inline-end: 4px;
+}

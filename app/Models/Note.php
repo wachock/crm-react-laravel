@@ -12,7 +12,8 @@ class Note extends Model
         'note',
         'user_id',
         'role',
-        'team_id'
+        'team_id',
+        'important'
     ];
 
     public function team(){

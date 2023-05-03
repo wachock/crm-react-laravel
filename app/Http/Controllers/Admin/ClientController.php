@@ -487,6 +487,7 @@ class ClientController extends Controller
             'note'   =>$request->note,
             'user_id'=>$request->user_id,
             'team_id'=>$request->team_id,
+            'important'=>$request->important
         ]);
         return response()->json(['message'=>'Note added']);
     }

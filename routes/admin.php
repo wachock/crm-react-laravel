@@ -25,7 +25,7 @@ use App\Http\Controllers\Admin\TeamMemberController;
 use App\Http\Controllers\Admin\ScheduleController;
 use App\Http\Controllers\Admin\ContractController;
 use App\Http\Controllers\Admin\CronController;
-
+use App\Http\Controllers\Admin\InvoiceController;
 
 
 /*
@@ -152,8 +152,13 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin-api', 'scopes:ad
 
     //Income 
     Route::post('income',[DashboardController::class,'income'])->name('income');
-    
-    
+
+    //Invoice
+    Route::post('add-invoice',[InvoiceController::class,'AddInvoice']);
+    Route::get('invoices',[InvoiceController::class,'index']);
+    Route::get('get-invoice/{id}',[InvoiceController::class,'getInvoice']);
+    Route::post('update-invoice/{id}',[InvoiceController::class,'updateInvoice']);
+
     //Notifications
     Route::get('head-notice',[DashboardController::class,'headNotice'])->name('head-notice');
     Route::post('notice',[DashboardController::class,'Notice'])->name('notice');

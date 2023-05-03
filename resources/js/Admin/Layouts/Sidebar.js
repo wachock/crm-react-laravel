@@ -79,6 +79,9 @@ export default function Sidebar() {
                 <li className="list-group-item">
                     <NavLink to="/admin/jobs"><i className="fa-solid fa-briefcase"></i>Jobs</NavLink>
                 </li>
+                <li className="list-group-item">
+                        <NavLink to="/admin/invoices"><i className="fas fa-file-invoice"></i>Invoices</NavLink>
+                 </li> 
                 {
                     role !== 'member' &&
                     <li className="list-group-item">
