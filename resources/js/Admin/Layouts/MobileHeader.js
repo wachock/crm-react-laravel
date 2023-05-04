@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import logo from "../../Assets/image/sample.svg";
 import bars from "../../Assets/image/icons/bars.svg";
 import { useAlert } from "react-alert";
@@ -9,15 +9,17 @@ export default function MobileHeader() {
     const alert = useAlert();
     const name = localStorage.getItem("admin-name");
     const navigate = useNavigate();
+    const [role,setRole] = useState();
+    const  headers= {
+        "Accept": "application/json, text/plain, */*",
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ` + localStorage.getItem("admin-token"),
+    }
 
     const HandleLogout = (e) => {
         fetch("/api/admin/logout", {
             method: "POST",
-            headers: {
-                "Accept": "application/json, text/plain, */*",
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ` + localStorage.getItem("admin-token"),
-            },
+             headers ,
         }).then((res) => {
             if (res.status === 200) {
                 localStorage.removeItem("admin-token");
@@ -33,6 +35,16 @@ export default function MobileHeader() {
         navigate("/admin/login");
         alert.success("Logged Out Successfully");
     };
+    const getAdmin = () =>{
+        axios
+        .get(`/api/admin/details`,{ headers })
+        .then((res)=>{
+            setRole(res.data.success.role);
+        });
+    };
+    useEffect(()=>{
+        getAdmin();
+    },[]);
 
   return (
     <div className='mobileNav hidden-xl'>
@@ -72,6 +84,15 @@ export default function MobileHeader() {
                     <li className='nav-item'>
                         <a href="/admin/jobs"><i className="fa-solid fa-briefcase"></i>Jobs</a>
                     </li>
+                    {
+                    role !== 'member' &&
+                    <li className='nav-item'>
+                        <a href="/admin/income"><i className="fa-solid fa-ils"></i>Income / Outcome</a>
+                    </li>
+                    }
+                    <li className='nav-item'>
+                        <a href="/admin/notifications"><i className="fa-solid fa-briefcase"></i>Notifications</a>
+                    </li>
                     <li className="nav-item">
                         <div id="fence" className='fence commonDropdown'>
                             <div id="fencehead1">
@@ -82,9 +103,11 @@ export default function MobileHeader() {
                             <div id="fence1" className="collapse" aria-labelledby="fencehead1" data-parent="#fence">
                                 <div className="card-body">
                                     <ul className='list-group'>
+                                        {role !== 'member' &&
                                         <li className='list-group-item'>
                                             <a href="/admin/manage-team"><i className="fa fa-angle-right"></i> Manage team</a>
                                         </li>
+                                        }
                                         <li className='list-group-item'>
                                             <a href="/admin/services"><i className="fa fa-angle-right"></i> Services</a>
                                         </li>
