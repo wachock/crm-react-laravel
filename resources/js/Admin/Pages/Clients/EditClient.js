@@ -755,6 +755,7 @@ export default function EditClient() {
                                         <option value="cc" selected={paymentMethod == "cc"}>Credit Card</option>
                                         <option value="mt" selected={paymentMethod == "mt"}>Money Transfer</option>
                                         <option value="cheque" selected={paymentMethod == "cheque"}>By Cheque</option>
+                                        <option value="cash" selected={paymentMethod == "cash"}>By Cash</option>
                                     </select>
                                 </div>
 

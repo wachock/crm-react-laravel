@@ -19,6 +19,7 @@ class Notes extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('team_id');
             $table->enum('role',['client','worker']);
+            $table->string('important')->nullable();
             $table->timestamps();
         });
     }

@@ -246,8 +246,8 @@ class DashboardController extends Controller
     }
 
     public function import(){
-      die('DIE Apply');
-      //$csvFile = fopen(storage_path().'/app/public/Broom Service - jobs.csv','r');
+     // die('DIE Apply');
+      $csvFile = fopen(storage_path().'/app/public/Broom Service - jobs.csv','r');
       fgetcsv($csvFile);
       $csv = [];
       while(($csvData = fgetcsv($csvFile)) !== FALSE){

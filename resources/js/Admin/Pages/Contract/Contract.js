@@ -221,6 +221,8 @@ export default function Contract() {
                                                 if(c.status == 'un-verified' || c.status == 'not-signed') { color = 'purple' }
                                                 else if(c.status == 'verified') { color =  'green'}
                                                 else {color = 'red'}
+                                                
+                                                let phone = (c.client.phone != undefined) ? c.client.phone.split(',') : [];
 
                                                 return (
 
@@ -238,7 +240,18 @@ export default function Contract() {
                                                             {address}
 
                                                         </Link></Td>
-                                                        <Td onClick={(e)=>handleNavigate(e,c.id)}>{c.client.phone}</Td>
+                                                        <Td>
+                                                                {
+                                                                    phone && phone.map((p,i)=>{
+                                                                        return(
+                                                                            (phone.length > 1)?
+                                                                            <a href={`tel:${p}`}>{ p } | </a>
+                                                                            : <a href={`tel:${p}`}>{ p } </a>
+                                                                        )
+                                                                    })
+                                                                }
+                                                             </Td>
+                                                       
                                                         <Td onClick={(e)=>handleNavigate(e,c.id)}>
                                                             {services && services.map((s, j) => {
                                                                

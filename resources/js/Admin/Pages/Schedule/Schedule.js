@@ -191,7 +191,9 @@ export default function Schedule() {
                         if(item.booking_status == 'pending') { color = 'purple' }
                         else if(item.booking_status == 'confirmed' || item.booking_status == 'completed') { color =  'green'}
                         else {color = 'red'}
-                            
+                        
+                        let phone = (item.client.phone != undefined) ? item.client.phone.split(',') : [];
+
                         return (
                           <Tr style={{"cursor":"pointer"}}>
                             <Td onClick={(e)=>handleNavigate(e,item.client.id,item.id)}>{item.id}</Td>
@@ -202,11 +204,15 @@ export default function Schedule() {
                                   : 'NA'
                               }
                             </Link></Td>
-                            <Td onClick={(e)=>handleNavigate(e,item.client.id,item.id)}>
+                            <Td>
                               {
-                                item.client
-                                  ? item.client.phone
-                                  : 'NA'
+                               phone && phone.map((p,i)=>{
+                                 return (
+                                   (phone.length > 1) ? 
+                                   <a href={`tel:${p}`}>{p} | </a>
+                                   :  <a href={`tel:${p}`}>{p} </a>
+                                 )
+                               })
                               }
                             </Td>
                             <Td><Link to={`https://maps.google.com?q=${cords}`} target="_blank">{address}</Link></Td>

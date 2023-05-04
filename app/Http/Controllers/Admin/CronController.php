@@ -20,8 +20,8 @@ use Carbon\Carbon;
 class CronController extends Controller
 {
     public function WeeklyJob(){
-        $startDate = Carbon::now()->startOfWeek()->subDays(1);
-        $endDate = Carbon::now()->startOfWeek()->addDays(5);
+        $startDate = Carbon::now()->startOfWeek(Carbon::SUNDAY)->subDays(1);
+        $endDate = Carbon::now()->startOfWeek(Carbon::SUNDAY)->addDays(5);
         $jobs = Job::query()->with('offer','contract','jobservice')->whereBetween('start_date',[$startDate, $endDate]);
         $jobs = $jobs->whereHas('contract', function ($query) {
                     $query->where('job_status', '=',1);
@@ -120,7 +120,7 @@ class CronController extends Controller
                 return  $availabiltities;
     }
     public function sendUnscheduledMail(){
-        $startDate = Carbon::now()->startOfWeek()->addDays(6);
+        $startDate = Carbon::now()->startOfWeek(Carbon::SUNDAY)->addDays(6);
         $endDate = $startDate ->addDays(6);
         $jobs = Job::query()->with('offer','contract')->where('status','unscheduled')->whereBetween('start_date',[$startDate, $endDate]);
         $jobs = $jobs->whereHas('contract', function ($query) {

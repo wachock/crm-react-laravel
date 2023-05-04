@@ -182,6 +182,7 @@ export default function AllWorkers() {
                                             {workers &&
                                                 workers.map((item, index) => {
                                                     let cords = (item.latitude && item.longitude) ? item.latitude + "," + item.longitude : "";
+                                                   
                                                     return(
                                                     <Tr style={{cursor:"pointer"}}>
                                                         <Td onClick={(e)=>handleNavigate(e,item.id)}>{item.id}</Td>
@@ -190,7 +191,7 @@ export default function AllWorkers() {
                                                         </Td>
                                                         <Td onClick={(e)=>handleNavigate(e,item.id)}>{item.email}</Td>
                                                         <Td><a href={`https://maps.google.com?q=${cords}`} target='_blank'>{ item.address }</a></Td>
-                                                        <Td onClick={(e)=>handleNavigate(e,item.id)}>{item.phone}</Td>
+                                                        <Td><a href={`tel:${item.phone}`}>{item.phone}</a></Td>
                                                         <Td onClick={(e)=>handleNavigate(e,item.id)}>
                                                         {item.status == 0
                                                                 ? "Inactive"

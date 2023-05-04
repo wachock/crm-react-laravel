@@ -274,6 +274,7 @@ class ClientController extends Controller
         }
 
         $input                  = $request->data;  
+        if((isset($input['passcode']) && $input['passcode'] != null))
         $input['password']      = Hash::make($input['passcode']);         
         Client::where('id', $id)->update($input);
         
@@ -487,6 +488,7 @@ class ClientController extends Controller
             'note'   =>$request->note,
             'user_id'=>$request->user_id,
             'team_id'=>$request->team_id,
+            'important'=>$request->important
         ]);
         return response()->json(['message'=>'Note added']);
     }

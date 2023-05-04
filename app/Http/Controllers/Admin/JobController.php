@@ -54,16 +54,16 @@ class JobController extends Controller
          // if($w != ''){
            if( (is_null($w) || $w == 'current') && $w != 'all'){
               $startDate = Carbon::now()->toDateString();
-              $endDate = Carbon::now()->startOfWeek()->addDays(5)->toDateString(); 
+              $endDate = Carbon::now()->startOfWeek(Carbon::SUNDAY)->addDays(5)->toDateString(); 
            }
            if($w == 'next'){
-              $startDate = Carbon::now()->startOfWeek()->addDays(6)->toDateString();
-              $endDate = Carbon::now()->startOfWeek()->addDays(12)->toDateString(); 
+              $startDate = Carbon::now()->startOfWeek(Carbon::SUNDAY)->addDays(6)->toDateString();
+              $endDate = Carbon::now()->startOfWeek(Carbon::SUNDAY)->addDays(12)->toDateString(); 
              
           }
            if($w == 'nextnext'){
-              $startDate = Carbon::now()->startOfWeek()->addDays(13)->toDateString();
-              $endDate = Carbon::now()->startOfWeek()->addDays(19)->toDateString();
+              $startDate = Carbon::now()->startOfWeek(Carbon::SUNDAY)->addDays(13)->toDateString();
+              $endDate = Carbon::now()->startOfWeek(Carbon::SUNDAY)->addDays(19)->toDateString();
           }
       
         if($w == 'all'){
@@ -77,7 +77,7 @@ class JobController extends Controller
      
         if(isset($jobs)):
         endif;
-      
+        
         return response()->json([
             'jobs'       => $jobs,        
         ], 200);
