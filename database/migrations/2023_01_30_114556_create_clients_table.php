@@ -18,7 +18,6 @@ class CreateClientsTable extends Migration
             $table->string('firstname');
             $table->string('lastname')->nullable();
             $table->string('invoicename')->nullable();
-
             $table->string('city')->nullable();
             $table->string('street_n_no')->nullable();
             $table->string('floor')->nullable();
@@ -36,6 +35,7 @@ class CreateClientsTable extends Migration
             $table->string('email')->unique();
             $table->integer('status')->default(0);
             $table->string('password');
+            $table->longText('extra')->nullable();
             $table->string('payment_method')->default('cc');
             $table->string('avatar')->nullable();
             $table->rememberToken();

@@ -3,6 +3,9 @@ import Sidebar from "./Layouts/Sidebar";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import UserIcon from "../Assets/image/icons/user-client.jpeg";
+import Jobs from './Components/Dashboard/jobs';
+import Pendings from './Components/Dashboard/pendings';
 
 export default function AdminDashboard() {
     const [totalJobs, setTotalJobs] = useState([0]);
@@ -12,7 +15,10 @@ export default function AdminDashboard() {
     const [totalSchedules, setTotalSchedules] = useState([0]);
     const [contracts, setContracts] = useState([0]);
     const [latestJobs, setlatestJobs] = useState([]);
+    const [income,setIncome] = useState(0);
     const [loading, setLoading] = useState("Loading...");
+    const [latestClient,setLatestClients] = useState([]);
+    const [pageCount,setPageCount] = useState(0);
     const navigate = useNavigate();
 
     const headers = {
@@ -21,7 +27,7 @@ export default function AdminDashboard() {
         Authorization: `Bearer ` + localStorage.getItem("admin-token"),
     };
 
-    const GetDashboardData = () => {
+    const getCompletedJobs = () => {
         axios.get("/api/admin/dashboard", { headers }).then((response) => {
             setTotalJobs(response.data.total_jobs);
             setTotalClients(response.data.total_clients);
@@ -41,10 +47,6 @@ export default function AdminDashboard() {
       e.preventDefault();
       navigate(`/admin/view-job/${id}`);
     }
-
-    useEffect(() => {
-        GetDashboardData();
-    }, []);
 
     const handleDelete = (id) => {
         Swal.fire({
@@ -90,6 +92,39 @@ export default function AdminDashboard() {
         
     }
 
+    const getIncome = (duration) => {
+        axios
+            .post('/api/admin/income', {duration},{ headers })
+            .then((res) => {
+                if (res.data.tasks.length > 0) {
+                    setIncome(res.data.income);
+                } else {
+                    setIncome(0);
+                    setLoading('No Completed Tasks found.');
+                }
+            });
+    }
+
+    const latestClients = () => {
+        axios
+        .get(`/api/admin/latest-clients`,{ headers })
+        .then((res)=>{
+            if(res.data.clients.data.length > 0) {
+                setLatestClients(res.data.clients.data);
+                setPageCount(response.data.clients.last_page);
+            } else{
+                setPageCount(0);
+                setLoading('No client found!');
+            }
+        })
+    }
+
+    useEffect(() => {
+        getCompletedJobs();
+        getIncome();
+        latestClients();
+    }, []);
+    
     return (
         <div id="container">
             <Sidebar />
@@ -103,7 +138,7 @@ export default function AdminDashboard() {
                             <a href="/admin/jobs">
                                 <div className="dashBox">
                                     <div className="dashIcon">
-                                        <i class="fa-solid fa-suitcase"></i>
+                                        <i className="fa-solid fa-suitcase"></i>
                                     </div>
                                     <div className="dashText">
                                         <h3>{totalJobs}</h3>
@@ -178,113 +213,53 @@ export default function AdminDashboard() {
                             </a>
                         </div>
                     </div>
-                    <div className="latest-users">
-                        <h2 className="page-title">Recent Completed Jobs</h2>
-                        <div className="boxPanel card">
-                            <div className="table-responsive card-body">
-                                {latestJobs.length > 0 ? (
-                                    <table className="table table-bordered">
-                                        <thead>
-                                            <tr>
-                                                <th>Client Name</th>
-                                                <th>Service Name</th>
-                                                <th style={{cursor:'pointer'}} onClick={e=>sortTable('date')}> Date</th>
-                                                <th style={{cursor:'pointer'}} onClick={e=>sortTable('shift')}> Shift</th>
-                                                <th>Assigned Worker</th>
-                                                <th style={{cursor:'pointer'}} onClick={e=>sortTable('sattus')}>Status</th>
-                                                <th style={{cursor:'pointer'}} onClick={e=>sortTable('total')}>Total</th>
-                                                <th>Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {latestJobs &&
-                                                latestJobs.map(
-                                                    (item, index) => { 
-                                                        let total = 0;
-                                                        return (
-                                                        <tr key={index} style={{cursor:'pointer'}} onClick={e=>rowHandle(e,item.id)}>
-                                                            <td>{
-                                                                item.client
-                                                                    ? item.client.firstname +
-                                                                    " " + item.client.lastname
-                                                                    : "NA"
-                                                            }
-                                                            </td>
-                                                            <td>{
-                                                                item.jobservice && item.jobservice.map((js,i)=>{
+                    <div className="row">
+                        <div className="col-sm-9">
+                            <div className="view-applicant">
+                                <h2 className="page-title">Jobs Schedule</h2>
+                                <div className="ClientHistory">
+                                     <Jobs />
+                                     <Pendings/>
+                                </div>
+                            </div> 
+                            <h2 className="page-title">Income/Outcome</h2>
+                            <div className="inoutEarning boxPanel card p-3">
+                                <div className="row">
+                                    <div className="col-sm-6">
+                                        <h4>Income <span style={{color: "green"}}>{ income } ILS</span></h4>
+                                        <h4>Outcome <span style={{color: "purple"}}>{ 0 } ILS</span></h4>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-sm-3">
+                            <h2 className="page-title pt-0">Recent Users</h2>
+                            <div className="boxPanel card">
+                               
+                               {
+                                 latestClient && latestClient.map((c,i)=>{
+                                    return (
+                                         
+                                        <div className="list-group-item d-flex  align-items-center border-top-0 border-left-0 border-right-0">
+                                        <div className="mr-2">
+                                            <img className="img-profile rounded-circle" src={UserIcon} alt="User Today" style={{width: "3rem", height: "3rem"}} />
+                                        </div>
+                                        <div className="users">
+                                            <div className="font-weight-semibold user-add">{ c.firstname+" "+c.lastname}</div>
+                                            <small className="text-muted"> Client</small>
+                                        </div>
+                                        <div className="ml-auto">
+                                            <Link to={`/admin/view-client/${c.id}`} className="btn btn-sm btn-warning">View</Link>
+                                        </div>
+                                    </div>
 
-                                                                    total += parseInt(js.total);
-                                                                        return (
-                                                                            (item.client.lng  == 'en')
-                                                                                ? (js.name + " ")
-                                                                                :
-                                                                                (js.heb_name + " ")
-                                                                        )
-                                                                })
-                                                               
-                                                            }</td>
-                                                            <td>
-                                                                {item.start_date}
-                                                            </td>
-                                                            <td>
-                                                                {item.shifts}
-                                                            </td>
-                                                            <td>{
-                                                                item.worker
-                                                                    ? item.worker.firstname +
-                                                                    " " + item.worker.lastname
-                                                                    : "NA"
-                                                            }</td>
-
-                                                            <td
-                                                                style={{
-                                                                    textTransform:
-                                                                        "capitalize",
-                                                                }}
-                                                            >
-                                                                {item.status}
-                                                            </td>
-                                                            <td>
-                                                                {total} ILS
-                                                            </td>
-                                                            <td>
-                                                                <div className="d-flex">
-                                                                    <Link
-                                                                        to={`/admin/edit-job/${item.id}`}
-                                                                        className="btn bg-purple d-none"
-                                                                    >
-                                                                        <i className="fa fa-edit"></i>
-                                                                    </Link>
-                                                                    <Link
-                                                                        to={`/admin/view-job/${item.id}`}
-                                                                        className="ml-2 btn bg-yellow"
-                                                                    >
-                                                                        <i className="fa fa-eye"></i>
-                                                                    </Link>
+                                    )
+                                 })
+                               }
+                               
 
 
-                                                                    <button
-                                                                        className="ml-2 btn bg-red"
-                                                                        onClick={() =>
-                                                                            handleDelete(
-                                                                                item.id
-                                                                            )
-                                                                        }
-                                                                    >
-                                                                        <i className="fa fa-trash"></i>
-                                                                    </button>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    )}
-                                                )}
-                                        </tbody>
-                                    </table>
-                                ) : (
-                                    <p className="text-center mt-5">
-                                        {loading}
-                                    </p>
-                                )}
                             </div>
                         </div>
                     </div>

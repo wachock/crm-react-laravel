@@ -26,7 +26,7 @@ class JobController extends Controller
      */
     public function index(Request $request)
     {   
-        
+       
         $q =  $request->q;
         $w = $request->filter_week;
         $jobs = Job::with('worker', 'client','offer','jobservice');
@@ -65,9 +65,19 @@ class JobController extends Controller
               $startDate = Carbon::now()->startOfWeek(Carbon::SUNDAY)->addDays(13)->toDateString();
               $endDate = Carbon::now()->startOfWeek(Carbon::SUNDAY)->addDays(19)->toDateString();
           }
+          if($w == 'today'){
+            $startDate = Carbon::today()->toDateString();
+            $endDate = Carbon::today()->toDateString();
+            
+        }
       
-        if($w == 'all'){
+      
+        if($w == 'all' ){
             $jobs = $jobs->orderBy('created_at', 'desc')->paginate(20);
+        } else if($request->p == 1){
+            $jobs = $jobs->whereDate('start_date','>=',$startDate);
+            $jobs = $jobs->whereDate('start_date','<=',$endDate);
+            $jobs = $jobs->orderBy('created_at', 'desc')->paginate(5);
         } else{
             $jobs = $jobs->whereDate('start_date','>=',$startDate);
             $jobs = $jobs->whereDate('start_date','<=',$endDate);

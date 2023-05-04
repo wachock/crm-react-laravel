@@ -33,8 +33,9 @@ export default function AddClient() {
     const [errors, setErrors] = useState([]);
     const [city, setCity] = useState("");
     const alert = useAlert();
-    const [cjob,setCjob] = useState();
-    const [paymentMethod,setPaymentMethod] = useState("cc");
+    const [cjob, setCjob] = useState();
+    const [extra, setExtra] = useState([{ "email": "", "name": "", "phone": "" }]);
+    const [paymentMethod, setPaymentMethod] = useState("cc");
     const navigate = useNavigate();
 
     const [libraries] = useState(["places", "geometry"]);
@@ -75,87 +76,87 @@ export default function AddClient() {
         {/* Job Data*/ }
         let to = 0;
         let taxper = 17;
-        if( cjob == 1){
-       
-        for (let t in formValues) {
+        if (cjob == 1) {
 
-            if (formValues[t].service == '' || formValues[t].service == 0) {
-                alert.error("One of the service is not selected");
-                return false;
+            for (let t in formValues) {
+
+                if (formValues[t].service == '' || formValues[t].service == 0) {
+                    alert.error("One of the service is not selected");
+                    return false;
+                }
+
+                let ot = document.querySelector('#other_title' + t);
+
+                if (formValues[t].service == '10' && ot != undefined) {
+                    if (formValues[t].other_title == '') { alert.error('Other title cannot be blank'); return false; }
+                    formValues[t].other_title = document.querySelector('#other_title' + t).value;
+                }
+
+                if (formValues[t].jobHours == '') {
+                    alert.error("One of the job hours value is missing");
+                    return false;
+                }
+                (!formValues[t].type) ? formValues[t].type = 'fixed' : '';
+                if (formValues[t].type == "hourly") {
+
+                    if (formValues[t].rateperhour == '') {
+                        alert.error("One of the rate per hour value is missing");
+                        return false;
+                    }
+                    formValues[t].totalamount = parseInt(formValues[t].jobHours * formValues[t].rateperhour);
+                    to += parseInt(formValues[t].totalamount);
+
+
+                } else {
+
+                    if (formValues[t].fixed_price == '') {
+                        alert.error("One of the job price is missing");
+                        return false;
+                    }
+                    formValues[t].totalamount = parseInt(formValues[t].fixed_price);
+                    to += parseInt(formValues[t].fixed_price);
+                }
+
+                if (formValues[t].frequency == '' || formValues[t].frequency == 0) {
+                    alert.error("One of the frequency is not selected");
+                    return false;
+                }
+                if (formValues[t].days.length > 0 && (formValues[t].days.length > formValues[t].cycle) && formValues[t].cycle != '0') {
+                    alert.error("One of the frequency days are invalid");
+                    return false;
+                }
+
+                if (!formValues[t].worker || formValues[t].worker == '' || formValues[t].worker == 0) {
+                    alert.error("One of the worker is not selected");
+                    return false;
+                }
+                if (!formValues[t].shift || formValues[t].shift == '') {
+                    alert.error("One of the shift is not selected");
+                    return false;
+                }
+
             }
-
-            let ot = document.querySelector('#other_title' + t);
-
-            if (formValues[t].service == '10' && ot != undefined) {
-                if (formValues[t].other_title == '') { alert.error('Other title cannot be blank'); return false; }
-                formValues[t].other_title = document.querySelector('#other_title' + t).value;
-            }
-
-            if (formValues[t].jobHours == '') {
-                alert.error("One of the job hours value is missing");
-                return false;
-            }
-                        (!formValues[t].type) ? formValues[t].type = 'fixed' : '';
-                        if (formValues[t].type == "hourly") {
-
-                            if (formValues[t].rateperhour == '') {
-                                alert.error("One of the rate per hour value is missing");
-                                return false;
-                            }
-                            formValues[t].totalamount = parseInt(formValues[t].jobHours * formValues[t].rateperhour);
-                            to += parseInt(formValues[t].totalamount);
-
-
-                        } else {
-
-                            if (formValues[t].fixed_price == '') {
-                                alert.error("One of the job price is missing");
-                                return false;
-                            }
-                            formValues[t].totalamount = parseInt(formValues[t].fixed_price);
-                            to += parseInt(formValues[t].fixed_price);
-                        }
-
-            if (formValues[t].frequency == '' || formValues[t].frequency == 0) {
-                alert.error("One of the frequency is not selected");
-                return false;
-            }
-            if (formValues[t].days.length > 0 && ( formValues[t].days.length >  formValues[t].cycle ) && formValues[t].cycle != '0') {
-                alert.error("One of the frequency days are invalid");
-                return false;
-            }
-
-            if (!formValues[t].worker ||  formValues[t].worker  == '' ||  formValues[t].worker == 0) {
-                alert.error("One of the worker is not selected");
-                return false;
-            }
-            if (!formValues[t].shift || formValues[t].shift  == '') {
-                alert.error("One of the shift is not selected");
-                return false;
-            }
-
         }
-    }
 
 
         let tax = (taxper / 100) * to;
-        const jobdata = { 
+        const jobdata = {
             status: 'sent',
             subtotal: to,
             total: to + tax,
             services: JSON.stringify(formValues),
         }
-    
+
         {/*Client Data */ }
         var phoneClc = '';
-        var phones = document.querySelectorAll('input[name="phone[]"]');
+        var phones = document.querySelectorAll('.pphone');
         phones.forEach((p, i) => {
             phoneClc += p.value + ',';
         });
         phoneClc = phoneClc.replace(/,\s*$/, "");
         const data = {
             firstname: firstname,
-            lastname: (lastname == null) ? '': lastname,
+            lastname: (lastname == null) ? '' : lastname,
             invoicename: invoiceName,
             floor: floor,
             apt_no: Apt,
@@ -173,11 +174,12 @@ export default function AddClient() {
             phone: phoneClc,
             password: passcode,
             payment_method: paymentMethod,
+            extra:(JSON.stringify(extra)),
             status: (!status) ? 0 : parseInt(status),
         };
 
         axios
-            .post(`/api/admin/clients`, {data:data,jobdata: (cjob == 1) ? jobdata : {}}, { headers })
+            .post(`/api/admin/clients`, { data: data, jobdata: (cjob == 1) ? jobdata : {} }, { headers })
             .then((response) => {
                 if (response.data.errors) {
                     setErrors(response.data.errors);
@@ -213,7 +215,7 @@ export default function AddClient() {
         template: '',
         cycle: '',
         period: '',
-       
+
     }])
     const [AllClients, setAllClients] = useState([]);
     const [AllServices, setAllServices] = useState([]);
@@ -241,44 +243,44 @@ export default function AddClient() {
         if (e.target.name == 'worker') {
             newFormValues[i]['woker_name'] = e.target.options[e.target.selectedIndex].getAttribute('name');
         }
-        if(e.target.name == 'days'){
+        if (e.target.name == 'days') {
 
             var result = [];
             var options = e.target.options;
             var opt;
-          
-            for (var k=0, iLen=options.length; k<iLen; k++) {
-              opt = options[k];
-          
-              if (opt.selected) {
-                result.push(opt.value);
-              }
+
+            for (var k = 0, iLen = options.length; k < iLen; k++) {
+                opt = options[k];
+
+                if (opt.selected) {
+                    result.push(opt.value);
+                }
             }
-            if(result.length > newFormValues[i]['cycle'] && newFormValues[i]['cycle'] != 0){
-               window.alert('You can select at most '+newFormValues[i]['cycle']+' day(s) for this frequency');
+            if (result.length > newFormValues[i]['cycle'] && newFormValues[i]['cycle'] != 0) {
+                window.alert('You can select at most ' + newFormValues[i]['cycle'] + ' day(s) for this frequency');
             } else {
                 newFormValues[i]['days'] = result;
             }
 
         }
-        if(e.target.name== 'shift'){
-          
+        if (e.target.name == 'shift') {
+
             var result = '';
             var sAr = [];
             var options = e.target.options;
             var opt;
-          
-            for (var k=0, iLen=options.length; k<iLen; k++) {
-              opt = options[k];
-              if (opt.selected) {
-                sAr.push(opt.value);
-                result += opt.value+', '
-              }
+
+            for (var k = 0, iLen = options.length; k < iLen; k++) {
+                opt = options[k];
+                if (opt.selected) {
+                    sAr.push(opt.value);
+                    result += opt.value + ', '
+                }
             }
             newFormValues[i]['shift_ar'] = sAr;
             newFormValues[i]['shift'] = (result.replace(/,\s*$/, ""));
         }
-      
+
         setFormValues(newFormValues);
     }
     let addFormFields = () => {
@@ -387,19 +389,42 @@ export default function AddClient() {
     ];
 
     const handleOther = (e) => {
-   
+
         let el = e.target.parentNode.lastChild;
         if (e.target.value == 10) {
-         
-          el.style.display = 'block'
-          el.style.marginBlock = "8px";
-          el.style.width="150%";
-          
+
+            el.style.display = 'block'
+            el.style.marginBlock = "8px";
+            el.style.width = "150%";
+
         } else {
-         
-          el.style.display = 'none'
+
+            el.style.display = 'none'
         }
-      }
+    }
+
+    const handleAlternate = (i, e) => {
+        let extraValues = [...extra];
+        extraValues[i][e.target.name] = e.target.value;
+        setExtra(extraValues);
+
+    }
+
+    let addExtras = (e) => {
+        e.preventDefault();
+        setExtra([...extra, {
+            email: "",
+            name: "",
+            phone: ""
+        }])
+    }
+
+    let removeExtras = (e, i) => {
+        e.preventDefault();
+        let extraValues = [...extra];
+        extraValues.splice(i, 1);
+        setExtra(extraValues)
+    }
 
     return (
         <div id="container">
@@ -472,7 +497,7 @@ export default function AddClient() {
                                     <div className="col-sm-6">
                                         <div className="form-group">
                                             <label className="control-label">
-                                                Email *
+                                               Primary Email *
                                             </label>
                                             <input
                                                 type="email"
@@ -519,19 +544,19 @@ export default function AddClient() {
                                         </div>
                                     </div>
 
-                                    <div className="col-sm-5 phone">
+                                    <div className="col-sm-6 phone">
                                         <div className="form-group">
                                             <label className="control-label">
-                                                Phone
+                                                Primary Phone
                                             </label>
                                             <input
                                                 type="tel"
                                                 value={phone}
-                                                name={'phone[]'}
+                                                name={'phone'}
                                                 onChange={(e) =>
                                                     setPhone(e.target.value)
                                                 }
-                                                className="form-control"
+                                                className="form-control pphone"
                                                 placeholder="Phone"
                                             />
                                             {errors.phone ? (
@@ -544,9 +569,88 @@ export default function AddClient() {
                                         </div>
 
                                     </div>
-                                    <div className="col-sm-1">
-                                        <button className="mt-25 btn btn-success" onClick={addPhone}> + </button>
-                                    </div>
+                                    
+                                    {
+                                        extra && extra.map((ex, i) => {
+
+                                            return (
+                                                <>
+                                                    <div className="col-sm-4">
+                                                        <div className="form-group">
+                                                            <label className="control-label">
+                                                                Alternate Email
+                                                            </label>
+                                                            <input
+                                                                type="tel"
+                                                                value={ex.email || ''}
+                                                                name='email'
+                                                                onChange={(e) =>
+                                                                    handleAlternate(i, e)
+                                                                }
+                                                                className="form-control"
+                                                                placeholder="email"
+                                                            />
+                                                        </div>
+                                                    </div>
+
+                                                    <div className="col-sm-4">
+                                                        <div className="form-group">
+                                                            <label className="control-label">
+                                                                Person Name
+                                                            </label>
+                                                            <input
+                                                                type="tel"
+                                                                value={ex.name || ''}
+                                                                name='name'
+                                                                onChange={(e) =>
+                                                                    handleAlternate(i, e)
+                                                                }
+                                                                className="form-control"
+                                                                placeholder="person name"
+                                                            />
+                                                        </div>
+                                                    </div>
+
+                                                    <div className="col-sm-3">
+                                                        <div className="form-group">
+                                                            <label className="control-label">
+                                                                Alternate phone
+                                                            </label>
+                                                            <input
+                                                                type="tel"
+                                                                value={ex.phone || ''}
+                                                                name='phone'
+                                                                onChange={(e) =>
+                                                                    handleAlternate(i, e)
+                                                                }
+                                                                className="form-control"
+                                                                placeholder="Phone"
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-sm-1">
+
+                                                        {
+                                                            (i == 0) ?
+                                                                <>
+
+                                                                    <button className="mt-25 btn btn-success" onClick={(e) => { addExtras(e) }}> + </button>
+
+                                                                </>
+                                                                : <>
+                                                                    <button className="mt-25 btn bg-red" onClick={(e) => { removeExtras(e, i) }}> <i className="fa fa-minus"></i> </button>
+                                                                </>
+                                                        }
+                                                    </div>
+
+                                                </>
+                                            )
+
+                                        })
+                                    }
+
+
+
                                 </div>
                                 <div className="form-group">
                                     <label className="control-label">Enter a location</label>
@@ -713,7 +817,7 @@ export default function AddClient() {
                                     <select
                                         className="form-control"
                                         value={paymentMethod}
-                                        onChange={(e) => {  setPaymentMethod(e.target.value); }}
+                                        onChange={(e) => { setPaymentMethod(e.target.value); }}
                                     >
                                         <option value="cc">Credit Card</option>
                                         <option value="mt">Money Transfer</option>
@@ -806,23 +910,23 @@ export default function AddClient() {
                                         ""
                                     )}
                                 </div>
-                               
+
                                 <div className="form-group mt-35">
                                     <label className="control-label">Create Job</label>
                                     <select
                                         className="form-control"
                                         value={cjob}
-                                        onChange={(e) => {setCjob(e.target.value); (e.target.value == '1') ? document.querySelector('.ClientJobSection').style.display = 'block' : document.querySelector('.ClientJobSection').style.display = 'none'; } }
-                                         >
+                                        onChange={(e) => { setCjob(e.target.value); (e.target.value == '1') ? document.querySelector('.ClientJobSection').style.display = 'block' : document.querySelector('.ClientJobSection').style.display = 'none'; }}
+                                    >
                                         <option value="0">No</option>
                                         <option value="1">Yes</option>
                                     </select>
                                 </div>
-                              
-                             
-                             
-                                 {/* Create Job */}
-                                <div className="ClientJobSection" style={{display:'none'}}>
+
+
+
+                                {/* Create Job */}
+                                <div className="ClientJobSection" style={{ display: 'none' }}>
                                     <div className='row'>
                                         <div className='col-sm-12'>
 
@@ -888,13 +992,13 @@ export default function AddClient() {
                                                                                 </select>
 
                                                                                 <select name='days' className="form-control choosen-select" multiple data-placeholder="Choose Days" onChange={(e) => { handleChange(index, e); }}>
-                                                                                   
-                                                                                   <option value="sunday">Sunday</option>
-                                                                                   <option value="monday">Monday</option>
-                                                                                   <option value="tuesday">Tuesday</option>
-                                                                                   <option value="wednesday">Wednesday</option>
-                                                                                   <option value="thrusday">Thrusday</option>
-                                                                                   
+
+                                                                                    <option value="sunday">Sunday</option>
+                                                                                    <option value="monday">Monday</option>
+                                                                                    <option value="tuesday">Tuesday</option>
+                                                                                    <option value="wednesday">Wednesday</option>
+                                                                                    <option value="thrusday">Thrusday</option>
+
                                                                                 </select>
 
                                                                             </td>
@@ -904,7 +1008,7 @@ export default function AddClient() {
                                                                                     <option selected value={0}>--Please select--</option>
                                                                                     {
                                                                                         worker && worker.map((w, i) => {
-                                                                                            return (<option name={w.firstname+" "+w.lastname} value={w.id}>{w.firstname + " " + w.lastname}</option>)
+                                                                                            return (<option name={w.firstname + " " + w.lastname} value={w.id}>{w.firstname + " " + w.lastname}</option>)
                                                                                         })
                                                                                     }
 
