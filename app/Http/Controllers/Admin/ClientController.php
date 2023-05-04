@@ -76,6 +76,24 @@ class ClientController extends Controller
 
     }
 
+    public function latestClients(){
+        
+        $clients = Client::latest()->paginate(5);
+
+        if(!empty($clients)){
+            foreach($clients as $i => $res){
+               if($res->lastname == null){
+                 $clients[$i]->lastname = '';
+               }
+            }
+         }
+
+        return response()->json([
+            'clients'       => $clients,            
+        ], 200);
+
+    }
+
     /**
      * Store a newly created resource in storage.
      *

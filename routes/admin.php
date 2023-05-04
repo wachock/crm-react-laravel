@@ -59,6 +59,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin-api', 'scopes:ad
 
     // Admin Dashboard Api
     Route::get('dashboard', [DashboardController::class, 'dashboard']);
+    Route::get('pending-data/{for}', [DashboardController::class, 'pendingData']);
+    Route::get('latest-clients', [ClientController::class, 'latestClients']);
 
     // Jobs Api
     Route::resource('jobs', JobController::class);

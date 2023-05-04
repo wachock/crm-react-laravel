@@ -32,7 +32,7 @@ class DashboardController extends Controller
         $total_offers    = Offer::count();
         $total_schedules  = Schedule::count();
         $total_contracts  = Contract::count();
-        $latest_jobs     = Job::with('client','service','worker','jobservice')->where('status','completed')->orderBy('id', 'desc')->take(10)->get();
+        $latest_jobs     = Job::with('client','service','worker','jobservice')->where('status','completed')->orderBy('created_at', 'desc')->paginate(5);
 
         return response()->json([
             'total_workers'      => $total_workers,
@@ -245,8 +245,34 @@ class DashboardController extends Controller
       ]);
     }
 
+    public function pendingData($for){
+
+       if($for == 'meetings'){
+        $meetings = Schedule::where('booking_status','pending')->with('client','team')->paginate(5);
+        return response()->json([
+          'data' => $meetings,
+        ]);
+       }
+
+       if($for == 'offers'){
+        $offers = Offer::where('status','sent')->with('client','service')->paginate(5);
+        return response()->json([
+          'data' => $offers,
+        ]);
+       }
+
+       if($for == 'contracts'){
+        $contracts = Contract::where('status','un-verified')->orWhere('status','not-signed')->with('client','offer')->paginate(5);
+        return response()->json([
+          'data' => $contracts,
+        ]);
+       }
+
+
+    }
+
     public function import(){
-     // die('DIE Apply');
+      die('DIE Apply');
       $csvFile = fopen(storage_path().'/app/public/Broom Service - jobs.csv','r');
       fgetcsv($csvFile);
       $csv = [];
