@@ -361,7 +361,7 @@ export default function WorkContract() {
                                     </td>
                                 </tr>
 
-                                <tr>
+                                {/*<tr>
                                     <td style={{ width: "60%" }}>{t('work-contract.card_number')}</td>
                                     <td>
                                     { contract && contract.name_on_card != null ?
@@ -381,7 +381,7 @@ export default function WorkContract() {
                                     <input type='text' name="name_on_card" onChange={(e) => setCname(e.target.value)} className='form-control' placeholder={t('work-contract.card_expiry')} />
                                     }
                                     </td>
-                                </tr>
+                                </tr>*/}
 
                                 <tr>
                                     <td style={{ width: "60%" }}>{t('work-contract.card_name')}</td>
