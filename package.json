@@ -50,7 +50,7 @@
         "moment": "^2.29.4",
         "moment-timezone": "^0.5.40",
         "multiselect-react-dropdown": "^2.0.25",
-        "primereact": "^9.3.1",
+        "primereact": "^5.0.2",
         "react-alert": "^7.0.3",
         "react-alert-template-basic": "^1.0.2",
         "react-bootstrap": "^2.7.0",
