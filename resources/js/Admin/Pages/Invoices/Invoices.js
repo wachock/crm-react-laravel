@@ -61,6 +61,8 @@ export default function Invoices() {
                                         <Tr>
                                             <Th scope="col" style={{ cursor: "pointer" }}  >#Invoice     <span className="arr"> &darr;</span></Th>
                                             <Th scope="col" style={{ cursor: "pointer" }}  >Amount       <span className="arr"> &darr;</span></Th>
+                                            <Th scope="col" style={{ cursor: "pointer" }}  >Paid Amount       <span className="arr"> &darr;</span></Th>
+                                            <Th scope="col" style={{ cursor: "pointer" }}  >Pending Amount       <span className="arr"> &darr;</span></Th>
                                             <Th scope="col" style={{ cursor: "pointer" }}  >Total Tax    <span className="arr"> &darr;</span></Th>
                                             <Th scope="col" style={{ cursor: "pointer" }}  >Created Date <span className="arr"> &darr;</span></Th>
                                             <Th scope="col" style={{ cursor: "pointer" }}  >Due Date <span className="arr"> &darr;</span></Th>
@@ -79,6 +81,8 @@ export default function Invoices() {
                                                     <Tr>
                                                         <Td>#{item.id}</Td>
                                                         <Td>{item.amount}</Td>
+                                                        <Td>{item.paid_amount}</Td>
+                                                        <Td>{Math.abs(item.amount-item.paid_amount)}</Td>
                                                         <Td>{item.total_tax}</Td>
                                                         <Td>{Moment(item.created_at).format('DD, MMM Y')}</Td>
                                                         <Td>{(item.due_date != null) ? item.due_date : 'NA'}</Td>

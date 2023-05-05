@@ -5,6 +5,10 @@ import axios from 'axios';
 import Moment from 'moment';
 import { useAlert } from 'react-alert';
 import { useNavigate } from "react-router-dom";
+import { MultiSelect } from 'primereact/multiselect';
+import "primereact/resources/themes/lara-light-indigo/theme.css";
+import "primereact/resources/primereact.min.css";
+
 
 export default function AddInvoce() {
 
@@ -16,6 +20,9 @@ export default function AddInvoce() {
     const [taxper, setTaxPer] = useState();
     const [taxAmount, setTaxAmount] = useState();
     const [services, setServices] = useState();
+    const [selectedJobs, setSelectedJobs] = useState(null);
+    const [lng,setLng] = useState();
+
     const headers = {
         Accept: "application/json, text/plain, */*",
         "Content-Type": "application/json",
@@ -36,80 +43,149 @@ export default function AddInvoce() {
                 setClients(res.data.clients);
             });
     }
-    
+
     const clientJobs = (cid) => {
+        setSelectedJobs(null);
+        setCjobs([]);
         axios
             .post(`/api/admin/get-client-jobs`, { cid }, { headers })
             .then((res) => {
-                setCjobs(res.data.jobs);
+                let jar = [];
+                const j = res.data.jobs;
+
+                if (j.length > 0) {
+                    for (let i in j) {
+                        let n = Moment(j[i].start_date).format('DD - MMM') + " | " + j[i].shifts;
+                        jar.push(
+                            { name: n, code: j[i].id },
+                        );
+                    }
+                    setCjobs(jar);
+                }
+
             })
     }
 
-    const getServices = (id) => {
+    function onlyUnique(value, index, array) {
+        return array.indexOf(value) === index;
+    }
+
+
+    const getServices = (sel) => {
+
+
+        let r_code = [];
+        sel && sel.map((s, i) => {
+            r_code.push(s.code);
+        })
+        let codes = r_code.filter(onlyUnique);
+
         axios
-            .get(`/api/admin/jobs/${id}`, { headers })
+            .post(`/api/admin/invoice-jobs`, { codes }, { headers })
             .then((res) => {
-                let r = res.data.job.jobservice;
-                setjServices(r);
-                setTimeout(() => {
-                    document.querySelector('.subtotal').value = r[0].total;
-                    document.querySelector('.total').innerHTML = r[0].total;
-                    document.querySelector('.price').value = r[0].total;
-                    document.querySelector('.job_hour').value = r[0].job_hour;
-                    setSubtotal(r[0].total);
-                }, 500);
+
+                let resp = res.data.services;
+                if (resp.length > 0) {
+                    setjServices(resp);
+                    setTimeout(()=>{
+                        let st = 0;
+                        for(let r in resp){
+                            $('.job_hour'+r).val(resp[r].job_hour);
+                            $('.price'+r).val(resp[r].total);
+                            st += parseFloat(resp[r].total);
+                        }
+                        $('.subtotal').val(st);
+                        document.querySelector('.total').innerHTML = (st);
+                    },500);
+                }
 
             })
+
     }
+
+    const changePrice = (e) => {
+
+        setTimeout(()=>{
+
+            let pa = document.querySelectorAll('input[name="price"]');
+            let st = 0;
+            pa.forEach((e,i)=>{
+              if( e.value == null ){ e.value = 0 }
+              st += parseFloat(e.value);
+            });
+            $('.subtotal').val(st);
+            document.querySelector('.total').innerHTML = (st);
+            let t = $('.taxper').val();
+            let tx = (t != undefined) ? t: 0; 
+            changeTax(tx);
+
+        },200);
+    }
+
     const changeTax = (tax) => {
 
         let sub = document.querySelector('.subtotal').value;
-        document.querySelector('.total').value = 0;
-        if (sub == '') { window.alert('Please enter subtotal'); return; }
+        document.querySelector('.total').innerHTML = 0;
+        if (sub == '') { alert.error('Please enter subtotal'); return; }
         let ta = Math.ceil(((tax / 100) * sub));
         setTaxAmount(ta);
         document.querySelector('.total').innerHTML = parseFloat(ta) + parseFloat(sub);
 
     }
-    
+
 
     const handleSubmit = (e) => {
         e.preventDefault();
-    if( customer == null ) { alert.error('Please select customer'); return;}
-    if( jservices == null) { alert.error('Please select job'); return;}
-    
-    const sdata = [{
-        'service': jservices[0].name,
-        'description': $('.description').val(),
-        'job_hour': $('.job_hour').val(),
-        'price': $('.price').val(),
-    }];
+
+        if(lng == undefined) { window.alert('client language is not set!'); return; }
+
+        if (customer == null) { alert.error('Please select customer'); return; }
+        if (jservices == null) { alert.error('Please select job'); return; }
        
-    const data = {
-        customer: customer,
-        job:job,
-        services:(JSON.stringify(sdata)),
-        due_date:(dueDate != undefined) ? dueDate : '',
-        subtotal:parseFloat(subtotal),
-        taxper:(taxper != undefined) ? taxper : 0,
-        total_tax:(taxAmount != undefined) ? parseFloat(taxAmount) : 0,
-        amount:parseFloat($('.total').text()),
-        status:'sent'
+        const sdata = [];
+        jservices.forEach((js,i)=>{
+
+          sdata.push(
+            {
+                'service':  ( js.name != undefined ) ? ( ( lng == 'en') ? js.name : js.heb_name) : js.service,
+                'description': $('.description'+i).val(),
+                'job_hour': $('.job_hour'+i).val(),
+                'price': $('.price'+i).val(),
+            }
+          )
+        });
+      
+
+        const data = {
+            customer: customer,
+            job:JSON.stringify(selectedJobs),
+            services: (JSON.stringify(sdata)),
+            due_date: (dueDate != undefined) ? dueDate : '',
+            subtotal: parseFloat(  $('.subtotal').val() ),
+            taxper: (taxper != undefined) ? taxper : 0,
+            total_tax: (taxAmount != undefined) ? parseFloat(taxAmount) : 0,
+            amount: parseFloat($('.total').text()),
+            status: 'pending'
+
+        }
+
+        axios.post(`/api/admin/add-invoice`, { data }, { headers })
+            .then((res) => {
+                alert.success('Invoice created successfully');
+                setTimeout(() => {
+                    navigate('/admin/invoices');
+                }, 1000);
+            })
 
     }
-   
-    axios.post(`/api/admin/add-invoice`,{ data },{ headers })
-    .then((res)=>{
-       alert.success('Invoice created successfully');
-       setTimeout(()=>{
-         navigate('/admin/invoices');
-       },1000);
-    })
 
-    }
 
     useEffect(() => {
         getCustomers();
+        setTimeout(()=>{
+            const cus = $('.cus').val();
+            axios.get(`/api/admin/clients/${1}`,{ headers }).then((res)=>{ setLng(res.data.client.lng )});
+           },1000);
     }, []);
 
     return (
@@ -142,7 +218,17 @@ export default function AddInvoce() {
                                         <label className="control-label">
                                             Job
                                         </label>
-                                        <select className='form-control' onChange={(e) => { setJob(e.target.value); getServices(e.target.value); }}>
+                                        <MultiSelect
+                                            value={selectedJobs}
+                                            onChange={(e) => { setSelectedJobs(e.value); getServices(e.target.value); }}
+                                            options={cjobs}
+                                            optionLabel="name"
+                                            placeholder="Select Jobs"
+                                            maxSelectedLabels={3}
+                                            className="w-full md:w-20rem form-control"
+                                        />
+
+                                        {/* <select className='form-control' onChange={(e) => { setJob(e.target.value); getServices(e.target.value); }}>
                                             <option value={0}>-- select job --</option>
                                             {
                                                 cjobs && cjobs.map((j, i) => {
@@ -151,7 +237,7 @@ export default function AddInvoce() {
                                                     )
                                                 })
                                             }
-                                        </select>
+                                        </select>*/}
 
                                     </div>
                                 </div>
@@ -161,7 +247,13 @@ export default function AddInvoce() {
 
                                         return (
                                             <>
-                                                <div className="row col-sm-12">
+
+                                                <div className="row col-sm-12" style={{"margin":"3px"}}>
+
+                                                    <div className=''>
+                                                        <span className="hpoint">&#9755;</span>
+                                                    </div>
+
                                                     <div className='col-sm-3'>
                                                         <div className="form-group">
                                                             <label className="control-label">
@@ -186,7 +278,7 @@ export default function AddInvoce() {
                                                             </label>
                                                             <textarea
                                                                 name="description"
-                                                                className="form-control description"
+                                                                className={`form-control description`+i}
                                                                 placeholder="Description"
 
                                                             />
@@ -201,14 +293,14 @@ export default function AddInvoce() {
                                                             <input
                                                                 type="number"
                                                                 name="hours"
-                                                                className="form-control job_hour"
+                                                                className={`form-control job_hour`+i}
                                                                 placeholder="Job Hours"
                                                                 required
                                                             />
 
                                                         </div>
                                                     </div>
-                                                    <div className='col-sm-3'>
+                                                    <div className='col-sm-2'>
                                                         <div className="form-group">
                                                             <label className="control-label">
                                                                 Price
@@ -216,7 +308,8 @@ export default function AddInvoce() {
                                                             <input
                                                                 type="number"
                                                                 name="price"
-                                                                className="form-control price"
+                                                                onChange = {(e)=>changePrice(e)}
+                                                                className={`form-control price`+i}
                                                                 placeholder="Price"
                                                                 required
                                                             />
@@ -224,78 +317,78 @@ export default function AddInvoce() {
                                                         </div>
                                                     </div>
                                                 </div>
-
-
-                                                <div className="col-sm-12">
-                                                    <div className="form-group">
-                                                        <label className="control-label">
-                                                            Due Date
-                                                        </label>
-                                                        <input
-                                                            type="date"
-                                                            onChange={(e) =>
-                                                                setDueDate(e.target.value)
-                                                            }
-                                                            name="dueDate"
-                                                            className="form-control"
-                                                            placeholder="Enter cycle count"
-                                                            required
-                                                        />
-
-                                                    </div>
-                                                </div>
-
-                                                <div className="col-sm-12">
-                                                    <div className="form-group">
-                                                        <label className="control-label">
-                                                            Subtotal
-                                                        </label>
-                                                        <input
-                                                            type="number"
-                                                            onChange={(e) =>
-                                                                setSubtotal(e.target.value)
-                                                            }
-                                                            className="form-control subtotal"
-                                                            placeholder="Subtotal"
-                                                            required
-                                                        />
-
-                                                    </div>
-                                                </div>
-
-                                                <div className="col-sm-12">
-                                                    <div className="form-group">
-                                                        <label className="control-label">
-                                                            Tax percentage
-                                                        </label>
-                                                        <input
-                                                            type="number"
-                                                            onChange={(e) => {
-                                                                setTaxPer(e.target.value);
-                                                                changeTax(e.target.value);
-                                                            }
-
-                                                            }
-                                                            className="form-control"
-                                                            placeholder="Tax %"
-                                                            required
-                                                        />
-
-                                                    </div>
-                                                </div>
-
-                                                <div className="col-sm-12">
-                                                    <div className="form-group">
-                                                        
-                                                            <h5>Total Payable Amount : <span className="total"></span></h5>
-                                                        
-                                                    </div>
-                                                </div>
                                             </>
                                         )
                                     })
 
                                 }
+
+                                <div className="col-sm-12">
+                                    <div className="form-group">
+                                        <label className="control-label">
+                                            Due Date
+                                        </label>
+                                        <input
+                                            type="date"
+                                            onChange={(e) =>
+                                                setDueDate(e.target.value)
+                                            }
+                                            name="dueDate"
+                                            className="form-control"
+                                            placeholder="Enter cycle count"
+                                            required
+                                        />
+
+                                    </div>
+                                </div>
+
+                                <div className="col-sm-12">
+                                    <div className="form-group">
+                                        <label className="control-label">
+                                            Subtotal
+                                        </label>
+                                        <input
+                                            type="number"
+                                            onChange={(e) =>
+                                                setSubtotal(e.target.value)
+                                            }
+                                            className="form-control subtotal"
+                                            placeholder="Subtotal"
+                                            required
+                                        />
+
+                                    </div>
+                                </div>
+
+                                <div className="col-sm-12">
+                                    <div className="form-group">
+                                        <label className="control-label">
+                                            Tax percentage
+                                        </label>
+                                        <input
+                                            type="number"
+                                            onChange={(e) => {
+                                                setTaxPer(e.target.value);
+                                                changeTax(e.target.value);
+                                            }
+
+                                            }
+                                            className="form-control taxper"
+                                            placeholder="Tax %"
+                                            required
+                                        />
+
+                                    </div>
+                                </div>
+
+                                <div className="col-sm-12">
+                                    <div className="form-group">
+
+                                        <h5>Total Payable Amount : <span className="total"></span></h5>
+
+                                    </div>
+                                </div>
+
 
 
                                 <div className="form-group text-center col-sm-12">

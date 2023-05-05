@@ -19,13 +19,25 @@
       <!-- partial:index.partial.html -->
       <div class="container">
          <div class="row">
+         
             <div class="span4">
                <img src="./images/sample.png" class="img-rounded logo" style="width:70%">
                <address>
                   <strong>Brom Service L.M. Ltd.</strong><br>
                   H.P. 515184208<br>
                   <strong>Phone:</strong>+91-124-111111<br>
-                  <strong>Email:</strong> <a href="office@broomservice.co.il">office@broomservice.co.il</a>
+                  <strong>Email:</strong> <a href="office@broomservice.co.il">office@broomservice.co.il</a><br>
+                 
+                  <strong>
+                     @if($invoice->status == 'paid') 
+                      <span class='form-control btn btn-success' style="line-height:18px;margin-top:15px;width:200px">{{ $invoice->status }}</span>
+                     @elseif( $invoice->status == 'partially paid' )
+                     <span class='form-control btn btn-warning' style="line-height:18px;margin-top:15px;width:200px">{{ $invoice->status }}</span>
+                     @else
+                     <span class='form-control btn btn-danger' style="line-height:18px;margin-top:15px;width:200px">{{ $invoice->status }}</span>
+                     @endif 
+                  </strong>
+
                </address>
             </div>
             <div class="span4 well">
@@ -85,6 +97,11 @@
                      @endforeach
                      <tr>
                         <td colspan="4"></td>
+                     </tr>
+                     <tr>
+                        <td colspan="2">&nbsp;</td>
+                        <td><strong>Subtotal</strong></td>
+                        <td><strong>{{ $invoice->subtotal}} ILS</strong></td>
                      </tr>
                      <tr>
                         <td colspan="2">&nbsp;</td>

@@ -463,11 +463,8 @@ export default function TotalJobs() {
                                                                
 
                                                             }</td>
-                                                            <td className="hidden-xs" onClick={(e)=>handleNavigate(e,item.id)}
-                                                                style={{
-                                                                    textTransform:
-                                                                        "capitalize",
-                                                                }}
+                                                            <td style={ item.status.includes('cancel') ? {color:'red',textTransform:"capitalize"} : {textTransform:"capitalize"}} className="hidden-xs" onClick={(e)=>handleNavigate(e,item.id)}
+                                                              
                                                             >
                                                                 {item.status}
                                                                 <p>

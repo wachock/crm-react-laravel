@@ -17,6 +17,9 @@ class Invoices extends Model
         'customer',
         'job',
         'services',
+        'paid_amount',
+        'mode',
+        'txn_id',
         'status'
     ];
 
