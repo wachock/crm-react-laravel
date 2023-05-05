@@ -5,9 +5,7 @@ import axios from 'axios';
 import Moment from 'moment';
 import { useAlert } from 'react-alert';
 import { useNavigate } from "react-router-dom";
-import { MultiSelect } from 'primereact/multiselect';
-import "primereact/resources/themes/lara-light-indigo/theme.css";
-import "primereact/resources/primereact.min.css";
+import Select from 'react-select';
 
 
 export default function AddInvoce() {
@@ -57,7 +55,7 @@ export default function AddInvoce() {
                     for (let i in j) {
                         let n = Moment(j[i].start_date).format('DD - MMM') + " | " + j[i].shifts;
                         jar.push(
-                            { name: n, code: j[i].id },
+                            {  value: j[i].id, label: n },
                         );
                     }
                     setCjobs(jar);
@@ -73,13 +71,13 @@ export default function AddInvoce() {
 
     const getServices = (sel) => {
 
-
+       
         let r_code = [];
         sel && sel.map((s, i) => {
-            r_code.push(s.code);
+            r_code.push(s.value);
         })
         let codes = r_code.filter(onlyUnique);
-
+        
         axios
             .post(`/api/admin/invoice-jobs`, { codes }, { headers })
             .then((res) => {
@@ -218,7 +216,17 @@ export default function AddInvoce() {
                                         <label className="control-label">
                                             Job
                                         </label>
-                                        <MultiSelect
+                                        <Select
+                                                isMulti
+                                                name="colors"
+                                                options={cjobs}
+                                                className="basic-multi-single"
+                                                isClearable={true}
+                                                value={selectedJobs}
+                                                classNamePrefix="select"
+                                                onChange={(e) => { setSelectedJobs(e); getServices(e); }}
+                                            />
+                                        {/*<MultiSelect
                                             value={selectedJobs}
                                             onChange={(e) => { setSelectedJobs(e.value); getServices(e.target.value); }}
                                             options={cjobs}
@@ -228,7 +236,7 @@ export default function AddInvoce() {
                                             className="w-full md:w-20rem form-control"
                                         />
 
-                                        {/* <select className='form-control' onChange={(e) => { setJob(e.target.value); getServices(e.target.value); }}>
+                                         <select className='form-control' onChange={(e) => { setJob(e.target.value); getServices(e.target.value); }}>
                                             <option value={0}>-- select job --</option>
                                             {
                                                 cjobs && cjobs.map((j, i) => {
