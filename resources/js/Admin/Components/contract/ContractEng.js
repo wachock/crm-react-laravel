@@ -277,7 +277,7 @@ export default function WorkContract() {
                                                         <td style={{ width: "60%" }}>Name on the Card</td>
                                                         <td><input type='text' name="name_on_card" onChange={(e) => setCname(e.target.value)} className='form-control' placeholder='Name on the Card' /></td>
                                                     </tr>
-                                                    <tr>
+                                                    {/*<tr>
                                                         <td style={{ width: "60%" }}>Valid Through:</td>
                                                         <td>
                                                             <div className='d-flex'>
@@ -285,7 +285,7 @@ export default function WorkContract() {
                                                                 <input type='number' name="year" onChange={(e) => setCy(e.target.value)} onKeyUp={(e) => { if (e.target.value.length >= 2) e.target.value = e.target.value.slice(0, 2); }} className='ml-2 form-control' placeholder='YY' />
                                                             </div>
                                                         </td>
-                                                    </tr>
+                                                    </tr>*/}
                                                     <tr>
                                                         <td style={{ width: "60%" }}>CVV</td>
                                                         <td><input type='text' name="cvv" onChange={(e) => setCvv(e.target.value)} onKeyUp={(e) => { if (e.target.value.length >= 3) e.target.value = e.target.value.slice(0, 3); }} className='form-control' placeholder='CVV' /></td>
