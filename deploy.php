@@ -13,10 +13,18 @@ add('shared_dirs', []);
 add('writable_dirs', []);
 
 // Hosts
-
-host('38.242.196.238')
+host('production')
+    ->set('hostname','13.126.49.2' )
+    ->set('branch', 'main')
     ->set('remote_user', 'root')
-    ->set('deploy_path', '/var/www/php81/broom-service-new');
+    ->set('deploy_path', '/var/www/html');
+
+host('development')
+    ->set('hostname','38.242.196.238' )
+    ->set('branch', 'main')
+    ->set('remote_user', 'root')
+    ->set('deploy_path', '/var/www/php81/broom-service-new')
+    ->set('keep_releases', 2);
 
 // Hooks
 
