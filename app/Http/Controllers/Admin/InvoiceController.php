@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Invoices;
+use App\Models\Job;
 
 class InvoiceController extends Controller
 {
@@ -33,5 +34,19 @@ class InvoiceController extends Controller
         return response()->json([
             'msg' => 'Invoice Updated successfully'
         ]);
+    }
+    public function invoiceJobs( Request $request){
+        $codes = $request->codes;
+        if(!empty($codes)){
+            $jservices = [];
+            foreach($codes as $code){
+                $job = Job::where('id',$code)->with('jobservice')->get()->first();
+                $service = $job->jobservice[0]->toarray();
+                $jservices[] = $service;
+            }
+            return response()->json([
+                'services' => $jservices
+            ]);
+        }
     }
 }

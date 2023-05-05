@@ -5,6 +5,9 @@ import axios from 'axios';
 import Moment from 'moment';
 import { useAlert } from 'react-alert';
 import { useNavigate, useParams } from "react-router-dom";
+import { MultiSelect } from 'primereact/multiselect';
+import "primereact/resources/themes/lara-light-indigo/theme.css";
+import "primereact/resources/primereact.min.css";
 
 export default function EditInvoce() {
 
@@ -18,6 +21,13 @@ export default function EditInvoce() {
     const [taxper, setTaxPer] = useState();
     const [taxAmount, setTaxAmount] = useState();
     const [services, setServices] = useState();
+    const [selectedJobs, setSelectedJobs] = useState(null);
+    const [lng,setLng] = useState();
+
+    const [paidAmount,setPaidAmount] = useState();
+    const [mode,setMode] = useState();
+    const [txn,setTxn] = useState();
+    
     const headers = {
         Accept: "application/json, text/plain, */*",
         "Content-Type": "application/json",
@@ -40,47 +50,114 @@ export default function EditInvoce() {
             });
     }
     
+   
     const clientJobs = (cid) => {
+        setSelectedJobs(null);
+        setCjobs([]);
         axios
             .post(`/api/admin/get-client-jobs`, { cid }, { headers })
             .then((res) => {
-                setCjobs(res.data.jobs);
+                let jar = [];
+                const j = res.data.jobs;
+
+                if (j.length > 0) {
+                    for (let i in j) {
+                        let n = Moment(j[i].start_date).format('DD - MMM') + " | " + j[i].shifts;
+                        jar.push(
+                            { name: n, code: j[i].id },
+                        );
+                    }
+                    setCjobs(jar);
+                    
+                }
+              
             })
     }
+    
+    function onlyUnique(value, index, array) {
+        return array.indexOf(value) === index;
+    }
 
-    const getServices = (id) => {
-      
+
+    const getServices = (sel) => {
+
+
+        let r_code = [];
+        sel && sel.map((s, i) => {
+            r_code.push(s.code);
+        })
+        let codes = r_code.filter(onlyUnique);
+       
         axios
-            .get(`/api/admin/jobs/${id}`, { headers })
+            .post(`/api/admin/invoice-jobs`, { codes }, { headers })
             .then((res) => {
-                let r = res.data.job.jobservice;
-                setjServices(r);
-                setTimeout(() => {
-                    changeTax();
-                    document.querySelector('.subtotal').value = r[0].total;
-                    document.querySelector('.tax_per').value = '';
-                    document.querySelector('.total').innerHTML = r[0].total;
-                    document.querySelector('.price').value = r[0].total;
-                    document.querySelector('.job_hour').value = r[0].job_hour;
-                    setSubtotal(r[0].total);
-                }, 500);
+
+                let resp = res.data.services;
+                if (resp.length > 0) {
+                    setjServices(resp);
+                    setTimeout(()=>{
+                        let st = 0;
+                        for(let r in resp){
+                            $('.job_hour'+r).val(resp[r].job_hour);
+                            $('.price'+r).val(resp[r].total);
+                            st += parseFloat(resp[r].total);
+                        }
+                        $('.subtotal').val(st);
+                        document.querySelector('.total').innerHTML = (st);
+                    },500);
+                }
 
             })
+
     }
+
+    const changePrice = (e) => {
+
+        setTimeout(()=>{
+
+            let pa = document.querySelectorAll('input[name="price"]');
+            let st = 0;
+            pa.forEach((e,i)=>{
+              if( e.value == null ){ e.value = 0 }
+              st += parseFloat(e.value);
+            });
+            $('.subtotal').val(st);
+            document.querySelector('.total').innerHTML = (st);
+            let t = $('.taxper').val();
+            let tx = (t != undefined) ? t: 0; 
+            changeTax(tx);
+
+        },200);
+    }
+
+
     const loadService = (r) => {
        
         const rs = JSON.parse(r.services);
         setjServices(rs); 
+
+        if(rs.length > 0 ){
         setTimeout(() => {
+        rs.forEach((e,i)=>{
+            document.querySelector('.price'+i).value = e.price;
+            document.querySelector('.description'+i).innerText = e.description;
+            document.querySelector('.job_hour'+i).value = e.job_hour;
+        })
+
         document.querySelector('.subtotal').value = r.subtotal;
         document.querySelector('.tax_per').value = r.taxper;
         document.querySelector('.total').innerHTML = r.amount;
-        document.querySelector('.price').value = rs[0].price;
-        document.querySelector('.description').innerText = rs[0].description;
-        document.querySelector('.job_hour').value = rs[0].job_hour;
+        document.querySelector('input[name="dueDate"]').value = r.due_date;
         setSubtotal(r.subtotal);
-
+        setSelectedJobs(JSON.parse(r.job));
+        setTaxAmount(r.total_tax);
+        setPaidAmount(r.paid_amount);
+        setMode(r.mode);
+        setTxn(r.txn_id);
+        setAmount(r.amount);
+       
         },500);
+    }
     }
 
     const changeTax = () => {
@@ -88,34 +165,41 @@ export default function EditInvoce() {
         let sub = document.querySelector('.subtotal').value;
         let tax = document.querySelector('.tax_per').value;
         document.querySelector('.total').value = 0;
-        if (sub == '') { window.alert('Please enter subtotal'); return; }
+        if (sub == '') { alert.error('Please enter subtotal'); return; }
         let ta = Math.ceil(((tax / 100) * sub));
         setTaxAmount(ta);
         setSubtotal(sub);
         document.querySelector('.total').innerHTML = parseFloat(ta) + parseFloat(sub);
 
     }
-    
-
+   
+  
     const handleSubmit = (e) => {
         e.preventDefault();
-   
-    
-    const sdata = [{
-        'service': (jservices[0].service != undefined ?  jservices[0].service : jservices[0].name),
-        'description': $('.description').val(),
-        'job_hour': $('.job_hour').val(),
-        'price': $('.price').val(),
-    }];
        
+        if(lng == undefined) { window.alert('client language is not set!'); return; }
+
+        const sdata = [];
+        jservices.forEach((js,i)=>{
+            
+          sdata.push(
+            {
+                'service': ( js.name != undefined ) ? ( ( lng == 'en') ? js.name : js.heb_name) : js.service,
+                'description': $('.description'+i).val(),
+                'job_hour': $('.job_hour'+i).val(),
+                'price': $('.price'+i).val(),
+            }
+          )
+        });
+     
     const data = {
 
         customer: customer,
-        job:job,
+        job:JSON.stringify(selectedJobs),
         services:(JSON.stringify(sdata)),
         due_date:(dueDate != undefined) ? dueDate : '',
-        subtotal:parseFloat(subtotal),
-        taxper:(taxper != undefined) ? taxper : 0,
+        subtotal: parseFloat(  $('.subtotal').val() ),
+        taxper: $('.tax_per').val(),
         total_tax:(taxAmount != undefined) ? parseFloat(taxAmount) : 0,
         amount:parseFloat($('.total').text()),
         status:'sent'
@@ -144,17 +228,56 @@ export default function EditInvoce() {
         })
     }
 
+    const handlePayment = () =>{
+        if(paidAmount == null ){ window.alert('Please enter amount'); return; }
+
+        const m = document.querySelector('.mode').value;
+        const stat = (parseInt(paidAmount) >= parseInt(amount)) ? 'paid' : 'partially paid';
+      
+        const data = {
+            'paid_amount':paidAmount,
+            'mode':m,
+            'txn_id':txn,
+            'status':stat
+        }
+        axios.post(`/api/admin/update-invoice/${invoice.id}`,{ data },{ headers })
+        .then((res)=>{
+            document.querySelector('.closeb1').click();
+           setTimeout(()=>{
+            alert.success(res.data.msg);
+           },1000);
+        })
+      
+    }
+
     useEffect(() => {
         getCustomers();
         getInvoice();
+        setTimeout(()=>{
+         const cus = $('.cus').val();
+         axios.get(`/api/admin/clients/${1}`,{ headers }).then((res)=>{ setLng(res.data.client.lng )});
+        },1000);
+        
     }, []);
 
     return (
         <div id="container">
             <Sidebar />
             <div id="content">
-                <div className="edit-customer">
-                    <h1 className="page-title addEmployer">Edit Invoice</h1>
+            <div className="titleBox customer-title">
+                    <div className="row">
+                        <div className="col-sm-6">
+                            <h1 className="page-title">Edit Invoices</h1>
+                        </div>
+                        <div className="col-sm-6">
+                            <button
+                                 data-toggle="modal" data-target="#exampleModal"
+                                className="ml-2 btn btn-success addButton">
+                                <i className="btn-icon fas fa-plus-circle"></i>
+                                Payment
+                            </button>
+                        </div>
+                    </div>
                     <div className="card card-body">
                         <form>
                             <div className="row">
@@ -163,7 +286,8 @@ export default function EditInvoce() {
                                         <label className="control-label">
                                             Customer
                                         </label>
-                                        <select className='form-control' onChange={(e) => { setCustomer(e.target.value); clientJobs(e.target.value) }}>
+                                       
+                                        <select className='form-control cus' onChange={(e) => { setCustomer(e.target.value); clientJobs(e.target.value) }}>
                                             <option value={0}>-- select customer --</option>
                                             {
                                                 clients && clients.map((c, i) => {
@@ -179,7 +303,16 @@ export default function EditInvoce() {
                                         <label className="control-label">
                                             Job
                                         </label>
-                                        <select className='form-control' onChange={(e) => { setJob(e.target.value); getServices(e.target.value); }}>
+                                        <MultiSelect
+                                            value={selectedJobs}
+                                            onChange={(e) => { setSelectedJobs(e.value); getServices(e.target.value); }}
+                                            options={cjobs}
+                                            optionLabel="name"
+                                            placeholder="Select Jobs"
+                                            maxSelectedLabels={3}
+                                            className="w-full md:w-20rem form-control"
+                                        />
+                                        {/*<select className='form-control' onChange={(e) => { setJob(e.target.value); getServices(e.target.value); }}>
                                             <option value={0}>-- select job --</option>
                                             {
                                                 cjobs && cjobs.map((j, i) => {
@@ -188,7 +321,7 @@ export default function EditInvoce() {
                                                     )
                                                 })
                                             }
-                                        </select>
+                                        </select>*/}
 
                                     </div>
                                 </div>
@@ -223,7 +356,7 @@ export default function EditInvoce() {
                                                             </label>
                                                             <textarea
                                                                 name="description"
-                                                                className="form-control description"
+                                                                className={`form-control description`+i}
                                                                 placeholder="Description"
 
                                                             ></textarea>
@@ -238,7 +371,7 @@ export default function EditInvoce() {
                                                             <input
                                                                 type="number"
                                                                 name="hours"
-                                                                className="form-control job_hour"
+                                                                className={`form-control job_hour`+i}
                                                                 placeholder="Job Hours"
                                                                 required
                                                             />
@@ -253,7 +386,8 @@ export default function EditInvoce() {
                                                             <input
                                                                 type="number"
                                                                 name="price"
-                                                                className="form-control price"
+                                                                onChange={e=>changePrice(e)}
+                                                                className={`form-control price`+i}
                                                                 placeholder="Price"
                                                                 required
                                                             />
@@ -261,6 +395,11 @@ export default function EditInvoce() {
                                                         </div>
                                                     </div>
                                                 </div>
+                                                </>
+                                                )
+                                    })
+
+                                }
 
 
                                                 <div className="col-sm-12">
@@ -315,7 +454,7 @@ export default function EditInvoce() {
                                                             }
 
                                                             }
-                                                            className="form-control tax_per"
+                                                            className="form-control tax_per taxper"
                                                             placeholder="Tax %"
                                                             required
                                                         />
@@ -329,12 +468,7 @@ export default function EditInvoce() {
                                                             <h5>Total Payable Amount : <span className="total"></span></h5>
                                                         
                                                     </div>
-                                                </div>
-                                            </>
-                                        )
-                                    })
-
-                                }
+                                                </div>                                    
 
 
                                 <div className="form-group text-center col-sm-12">
@@ -347,6 +481,88 @@ export default function EditInvoce() {
                                 </div>
                             </div>
                         </form>
+                    </div>
+                </div>
+            </div>
+            <div className="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModal" aria-hidden="true">
+                <div className="modal-dialog" role="document">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h5 className="modal-title" id="exampleModal">Add Payment</h5>
+                            <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div className="modal-body">
+
+                            <div className="row">
+                                <div className="col-sm-12">
+                                    <div className="form-group">
+                                        <label className="control-label">
+                                            Amount
+                                        </label>
+                                        <input
+                                            type="text"
+                                             value={paidAmount}
+                                                onChange={(e) =>
+                                                    setPaidAmount(e.target.value)
+                                                }
+                                            className="form-control"
+                                            required
+                                            placeholder="Enter Amount"
+                                        ></input>
+
+                                    </div>
+                                </div>
+                                    
+                            </div>
+
+                            <div className="row">
+                                <div className="col-sm-12">
+                                    <div className="form-group">
+                                        <label className="control-label">
+                                        Payment Mode
+                                        </label>
+                                        <select   name='mode' className='form-control mode'>
+                                         <option  value='mt'     selected={ mode == 'mt' }>Bank Transfer</option>
+                                         <option  value='cash'   selected={ mode == 'cash' }>By Cash</option>
+                                         <option  value='cc'     selected={ mode == 'cc' }>Credit Card</option>
+                                         <option  value='cheque' selected={ mode == 'cheque' }>By Cheque</option>
+                                        </select>
+
+                                    </div>
+                                </div>
+                                    
+                            </div>
+                            
+                            <div className="row">
+                                <div className="col-sm-12">
+                                    <div className="form-group">
+                                        <label className="control-label">
+                                            Transaction / Refrence ID
+                                        </label>
+                                        <input
+                                            type="text"
+                                             value={txn}
+                                            onChange={(e) =>
+                                                setTxn(e.target.value)
+                                            }
+                                            className="form-control"
+                                            required
+                                            placeholder="Enter Transaction / Refrence ID"
+                                        ></input>
+
+                                    </div>
+                                </div>
+                                    
+                            </div>
+
+
+                        </div>
+                        <div className="modal-footer">
+                            <button type="button" className="btn btn-secondary closeb1" data-dismiss="modal">Close</button>
+                            <button type="button" onClick={handlePayment} className="btn btn-primary">Save Payment</button>
+                        </div>
                     </div>
                 </div>
             </div>

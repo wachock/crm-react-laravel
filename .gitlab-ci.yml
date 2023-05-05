@@ -10,9 +10,9 @@ variables:
   DB_USERNAME: root
 
 stages:
-  - sonartest
   - test
-  - deploy
+  - deploy_staging
+  - deploy_production
 
 sonarqube-check:
   image: 
@@ -40,17 +40,33 @@ unit_test:
     - php artisan migrate:fresh --seed 
     - vendor/bin/phpunit
 
-deploy_production:
-  stage: deploy
+deploy_development:
+  stage: deploy_staging
   script:
     - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
     - eval $(ssh-agent -s)
     - ssh-add <(echo "$SSH_PRIVATE_KEY")
     - mkdir -p ~/.ssh
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
-    - ~/.composer/vendor/bin/dep deploy -l 1
+    - ~/.composer/vendor/bin/dep deploy development
   environment:
     name: production
     url: http://broom-service.n2rtech.com/
+  only:
+    - development
+
+deploy_production:
+  stage: deploy_production
+  script:
+    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+    - eval $(ssh-agent -s)
+    - ssh-add <(echo "$SSH_PRIVATE_KEY_LIVE")
+    - mkdir -p ~/.ssh
+    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+
+    - ~/.composer/vendor/bin/dep deploy production
+  environment:
+    name: production
+    url: https://crm.broomservice.co.il/
   only:
     - main

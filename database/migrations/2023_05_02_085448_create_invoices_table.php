@@ -21,7 +21,10 @@ class CreateInvoicesTable extends Migration
             $table->string('total_tax')->nullable();
             $table->string('due_date')->nullable();
             $table->string('customer');
-            $table->string('job');
+            $table->longText('job');
+            $table->string('paid_amount')->nullable();
+            $table->string('txn_id')->nullable();
+            $table->string('mode')->nullable();
             $table->longText('services');
             $table->string('status');
             $table->timestamps();

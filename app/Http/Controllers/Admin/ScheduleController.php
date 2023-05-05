@@ -94,7 +94,7 @@ class ScheduleController extends Controller
         curl_setopt($ch, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $access_token));
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
         $data = json_decode(curl_exec($ch), true);
-        
+      
         $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         if ($http_code != 200)
             throw new Exception('Error : Failed to get timezone');
@@ -105,7 +105,7 @@ class ScheduleController extends Controller
    public function CreateCalendarEvent($calendar_id, $summary, $all_day, $event_time, $event_timezone, $access_token,$description)
     {
         $url_events = 'https://www.googleapis.com/calendar/v3/calendars/' . $calendar_id . '/events';
-    
+      
         $curlPost = array('summary' => $summary);
     
         if ($all_day == 1) {
@@ -136,7 +136,7 @@ class ScheduleController extends Controller
     }
     public function PushEvent($event_title,$event_date,$time_bw,$c_email,$cnct)
     {
-
+       
         $description = "Between ".$time_bw." <br>".$c_email." <br> ".$cnct;
         $date=date($event_date);
         $str = str_replace('/', '-', $date);
@@ -146,16 +146,18 @@ class ScheduleController extends Controller
         $application_secret = env('GSEC');
         $rcode = env('RTOKEN');
         $calendar_id = env('CAL_ID');
+      
 
         $data = $this->GetAccessTokenRefresh($application_id , $application_secret, $rcode);
         $access_token = $data->access_token;
-    
+     
         $user_timezone = $this->GetUserCalendarTimezone($access_token);
         
         $full_day_event = 1;
         $event_time = ['event_date' => $dt];
         
         $event_id = $this->CreateCalendarEvent($calendar_id, $event_title, $full_day_event, $event_time, $user_timezone, $access_token,$description);
+       
         if($event_id != ""){
 
             //success event create
@@ -198,7 +200,7 @@ class ScheduleController extends Controller
         $time_bw     = $request->start_time. " - ".$request->end_time;
         $c_email     = $schedule->client->email;
         $cnct        = (!empty($schedule->client->phone)) ? $schedule->client->phone : 'phone N/A';
-        //$this->PushEvent($event_title,$event_date,$time_bw,$c_email,$cnct);
+        $this->PushEvent($event_title,$event_date,$time_bw,$c_email,$cnct);
         $this->sendMeetingMail($schedule);
         return response()->json([
             'message' => 'Metting scheduled  successfully'

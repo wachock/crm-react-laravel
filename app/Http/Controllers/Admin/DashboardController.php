@@ -246,7 +246,7 @@ class DashboardController extends Controller
     }
 
     public function pendingData($for){
-
+       
        if($for == 'meetings'){
         $meetings = Schedule::where('booking_status','pending')->with('client','team')->paginate(5);
         return response()->json([
