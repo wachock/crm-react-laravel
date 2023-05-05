@@ -14,7 +14,7 @@ add('writable_dirs', []);
 
 // Hosts
 host('production')
-    ->set('hostname','13.126.49.2' )
+    ->set('hostname','104.248.17.6' )
     ->set('branch', 'main')
     ->set('remote_user', 'root')
     ->set('deploy_path', '/var/www/html');
