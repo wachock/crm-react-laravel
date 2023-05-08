@@ -132,7 +132,7 @@ export default function TotalJobs() {
     }
 
     const [workers, setWorkers] = useState([]);
-    const [Aworker,setAworker] = useState();
+    const [Aworker,setAworker] = useState([]);
     const handleChange = (e, index) => {
         const id = (e.target.name);
         axios
@@ -143,7 +143,7 @@ export default function TotalJobs() {
             }else {
                 setAworker([]);
             }
-            console.log(res.data.aworker);
+           
         })
         
        
@@ -433,11 +433,14 @@ export default function TotalJobs() {
                                                             </Link>
                                                             <select name={item.id} className="form-control mb-3 mt-1" value={(workers[`${item.id}`]) ? workers[`${item.id}`] : ""} onFocus={e => handleChange(e, index)} onChange={(e)=>upWorker(e,index)} >
                                                                 <option selected>select</option>
-                                                                {Aworker && Aworker.map((w, i) => {
+                                                                { ( Aworker.length > 0  ) ?
+                                                                Aworker && Aworker.map((w, i) => {
                                                                     return (
                                                                         <option value={w.id} key={i}> {w.firstname}  {w.lastname}</option>
                                                                     )
-                                                                })}
+                                                                }):
+                                                                <option>No worker Match</option>
+                                                                }
                                                             </select>
                                                             </td>
                                                             <td style={item.client ? {background:item.client.color} : {}}><Link to={item.client ? `/admin/view-client/${item.client.id}` : '#'}>{

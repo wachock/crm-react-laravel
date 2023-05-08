@@ -234,9 +234,9 @@ export default function EditInvoce() {
       
         const data = {
             'paid_amount':paidAmount,
-            'mode':m,
+            'mode':paidAmount > 0 ? m : '',
             'txn_id':txn,
-            'status':stat
+            'status':paidAmount > 0 ? stat : 'pending'
         }
         axios.post(`/api/admin/update-invoice/${invoice.id}`,{ data },{ headers })
         .then((res)=>{

@@ -38,6 +38,10 @@
                      @endif 
                   </strong>
 
+                  <strong>
+                     <a href="/generate-payment/{{base64_encode($invoice->id)}}" target="_blank" class='form-control btn btn-primary' style="line-height:18px;margin-top:15px;width:200px;cursor:pointer;">Pay Now</a>
+                  </strong>
+
                </address>
             </div>
             <div class="span4 well">

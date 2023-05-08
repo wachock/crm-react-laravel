@@ -20,6 +20,8 @@ class Invoices extends Model
         'paid_amount',
         'mode',
         'txn_id',
+        'session_id',
+        'callback',
         'status'
     ];
 

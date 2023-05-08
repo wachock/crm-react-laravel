@@ -222,5 +222,9 @@ class AuthController extends Controller
        // return view('InvoicePdf',compact('invoice'));
     }
 
+    public function recordInvoice(Request $request){
+        dd($request->all());
+    }
+
     
 }
