@@ -22,8 +22,6 @@ class CreateJobServicesTable extends Migration
             $table->string('cycle');
             $table->string('period');
             $table->string('total');
-            $table->string('heb_name');
-            $table->string('service_id');
             $table->string('pay_status')->default(0);
             $table->string('order_status')->default(0);
             $table->timestamps();
