@@ -226,26 +226,6 @@ export default function AddInvoce() {
                                                 classNamePrefix="select"
                                                 onChange={(e) => { setSelectedJobs(e); getServices(e); }}
                                             />
-                                        {/*<MultiSelect
-                                            value={selectedJobs}
-                                            onChange={(e) => { setSelectedJobs(e.value); getServices(e.target.value); }}
-                                            options={cjobs}
-                                            optionLabel="name"
-                                            placeholder="Select Jobs"
-                                            maxSelectedLabels={3}
-                                            className="w-full md:w-20rem form-control"
-                                        />
-
-                                         <select className='form-control' onChange={(e) => { setJob(e.target.value); getServices(e.target.value); }}>
-                                            <option value={0}>-- select job --</option>
-                                            {
-                                                cjobs && cjobs.map((j, i) => {
-                                                    return (
-                                                        <option value={j.id}>{Moment(j.start_date).format('DD, MMM') + " | " + j.shifts}</option>
-                                                    )
-                                                })
-                                            }
-                                        </select>*/}
 
                                     </div>
                                 </div>

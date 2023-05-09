@@ -200,7 +200,7 @@ export default function EditInvoce() {
         taxper: $('.tax_per').val(),
         total_tax:(taxAmount != undefined) ? parseFloat(taxAmount) : 0,
         amount:parseFloat($('.total').text()),
-        status:'sent'
+        status:'pending'
 
     }
    
@@ -311,25 +311,6 @@ export default function EditInvoce() {
                                                 classNamePrefix="select"
                                                 onChange={(e) => { setSelectedJobs(e); getServices(e); }}
                                             />
-                                       {/* <MultiSelect
-                                            value={selectedJobs}
-                                            onChange={(e) => { setSelectedJobs(e.value); getServices(e.target.value); }}
-                                            options={cjobs}
-                                            optionLabel="name"
-                                            placeholder="Select Jobs"
-                                            maxSelectedLabels={3}
-                                            className="w-full md:w-20rem form-control"
-                                        />
-                                        <select className='form-control' onChange={(e) => { setJob(e.target.value); getServices(e.target.value); }}>
-                                            <option value={0}>-- select job --</option>
-                                            {
-                                                cjobs && cjobs.map((j, i) => {
-                                                    return (
-                                                        <option value={j.id} selected={ invoice.job == j.id}>{Moment(j.start_date).format('DD, MMM') + " | " + j.shifts}</option>
-                                                    )
-                                                })
-                                            }
-                                        </select>*/}
 
                                     </div>
                                 </div>
