@@ -225,4 +225,7 @@ class InvoiceController extends Controller
         return view('thanks',compact('invoice','pm'));
     
     } 
+    public function deleteInvoice($id){
+        Invoices::where('id',$id)->delete();
+    }
 }
