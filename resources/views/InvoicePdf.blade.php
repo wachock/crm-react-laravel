@@ -39,10 +39,12 @@
                      <span class='form-control btn btn-danger' style="line-height:18px;margin-top:15px;width:200px">{{ __('invoice.pdf.pending') }}</span>
                      @endif 
                   </strong>
-
+                  
+                  @if($invoice->status != 'paid') 
                   <strong>
                      <a href="/generate-payment/{{base64_encode($invoice->id)}}" target="_blank" class='form-control btn btn-primary' style="line-height:18px;margin-top:15px;width:200px;cursor:pointer;">{{ __('invoice.pdf.paynow') }}</a>
                   </strong>
+                  @endif
 
                </address>
             </div>
