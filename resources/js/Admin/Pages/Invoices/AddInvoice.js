@@ -145,6 +145,7 @@ export default function AddInvoce() {
 
           sdata.push(
             {
+                'id':js.id,
                 'service':  ( js.name != undefined ) ? ( ( lng == 'en') ? js.name : js.heb_name) : js.service,
                 'description': $('.description'+i).val(),
                 'job_hour': $('.job_hour'+i).val(),

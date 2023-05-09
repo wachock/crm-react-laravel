@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Invoices;
 use App\Models\Job;
+use App\Models\JobService;
 
 class InvoiceController extends Controller
 {
@@ -17,6 +18,15 @@ class InvoiceController extends Controller
 
     }
     public function AddInvoice( Request $request ){
+        
+       
+        $services = json_decode($request->data['services']);
+       
+        if(!empty($services)){
+            foreach($services as $s){
+                JobService::where('id',$s->id)->update(['order_status'=>1]);
+            }
+        }
         Invoices::create($request->data);
         
         return response()->json([
@@ -188,8 +198,16 @@ class InvoiceController extends Controller
              'callback' => $re->CallBackJSON,
              'paid_amount' => $cb->Total,
              'status' => 'paid',
-             'txn_id' => $re->TransactionID
+             'txn_id' => $re->TransactionID,
            ];
+
+        $services = json_decode($invoice->services);
+    
+        if(!empty($services)){
+            foreach($services as $s){
+                JobService::where('id',$s->id)->update(['pay_status'=>1]);
+            }
+        }
        
         Invoices::where('id',$id)->update($args);
         } else {
@@ -202,7 +220,7 @@ class InvoiceController extends Controller
     }
 
     public function displayThanks(Request $request){
-        $invoice = Invoices::where('id',base64_decode($request->cb))->get()->first();
+        $invoice = Invoices::where('id',base64_decode($request->cb))->with('client')->get()->first();
         $pm = json_decode($invoice->callback)->Total;
         return view('thanks',compact('invoice','pm'));
     
