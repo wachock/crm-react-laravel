@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Invoices;
 use App\Models\Job;
 use App\Models\JobService;
-
+use PDF;
 class InvoiceController extends Controller
 {
     public function index(){
@@ -58,6 +58,18 @@ class InvoiceController extends Controller
                 'services' => $jservices
             ]);
         }
+    }
+
+    public function viewInvoice($gid){
+        $id = base64_decode($gid); 
+        $invoice = Invoices::where('id',$id)->with('client')->get()->first();
+        $pdf = PDF::loadView('InvoicePdf', compact('invoice'));
+       // $pdf->set('isRemoteEnabled',true);
+        // $paper_size = array(0,0,0,1000);
+         //$pdf->set_paper('A4');
+        
+        return $pdf->stream('invoice_'.$id.'.pdf');
+       // return view('InvoicePdf',compact('invoice'));
     }
 
     public function generatePayment($nid){

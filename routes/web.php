@@ -16,7 +16,7 @@ use App\Http\Controllers\User\Auth\AuthController;
 */
 Route::get('/import',[DashboardController::class,'import']);
 Route::get('/pdf/{id}',[AuthController::class,'pdf101']);
-Route::get('/view-invoice/{id}',[AuthController::class,'viewInvoice']);
+Route::get('/view-invoice/{id}',[InvoiceController::class,'viewInvoice']);
 Route::get('/generate-payment/{id}',[InvoiceController::class,'generatePayment']);
 Route::get('/record-invoice',[InvoiceController::class,'recordInvoice']);
 Route::get('/thanks',[InvoiceController::class,'displayThanks'])->name('thanks');

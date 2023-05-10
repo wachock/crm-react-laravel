@@ -18,9 +18,10 @@ return [
        'hours'=>'Hours',
        'amount'=>'Amount',
        'subtotal'=>'Subtotal',
-       'tax'=>'Tax',
+       'tax'=>'VAT',
        'total'=>'Total',
        'offline_payment'=>'Offline Payment',
+       'mailsubject'=>'Job Invoice'
    ],
    'thanks' => [
         'head_txt'=>'YOUR PAYMENT HAS BEEN RECEIVED',

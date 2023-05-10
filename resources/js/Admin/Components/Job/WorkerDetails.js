@@ -1,4 +1,5 @@
 import React  from 'react'
+import { Base64 } from 'js-base64'
 
 export default function WorkerDetails({worker, job}) {
 
@@ -32,14 +33,20 @@ export default function WorkerDetails({worker, job}) {
                                         <p>{worker.address}</p>
                                     </div>
                                 </div>
-                                {(job.invoice_url) ?
                                 <div className='col-sm-2'>
                                     <div className='form-group'>
-                                        <a className='btn btn-success' target='_blank' href={job.invoice_url}>view invoice</a>
-                                    </div>
-                                </div>
-                                :''
+                                    {
+                                (job.order != null) &&
+                              
+                                 <a className='btn btn-warning mb-2' target='_blank' href={job.order.doc_url}>view Order</a>
                                 }
+                                {
+                                (job.invoice_no) &&
+                              
+                                 <a className='btn btn-success' target='_blank' href={`/view-invoice/${Base64.encode(job.invoice_no)}`}>view invoice</a>
+                                }
+                                 </div>
+                                </div>
                                
                         </div>
                 </form>

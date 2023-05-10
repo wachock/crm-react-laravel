@@ -42,7 +42,7 @@
                   
                   @if($invoice->status != 'paid') 
                   <strong>
-                     <a href="/generate-payment/{{base64_encode($invoice->id)}}" target="_blank" class='form-control btn btn-primary' style="line-height:18px;margin-top:15px;width:200px;cursor:pointer;">{{ __('invoice.pdf.paynow') }}</a>
+                     <a href="{{ url('/generate-payment').'/'.base64_encode($invoice->id) }}" target="_blank" class='form-control btn btn-primary' style="line-height:18px;margin-top:15px;width:200px;cursor:pointer;">{{ __('invoice.pdf.paynow') }}</a>
                   </strong>
                   @endif
 
@@ -89,8 +89,10 @@
                   <thead>
                      <tr>
                         <th>{{ __('invoice.pdf.service') }}</th>
+                        @if( $services[0]->description != null)
                         <th>{{ __('invoice.pdf.description') }}</th>
-                        <th>{{ __('invoice.pdf.hours') }}</th>
+                        @endif
+                        <th @if($services[0]->description == null) colspan="2" @endif>{{ __('invoice.pdf.hours') }}</th>
                         <th>{{ __('invoice.pdf.amount') }}</th>
                      </tr>
                   </thead>
@@ -98,8 +100,10 @@
                      @foreach($services as $s)
                      <tr>
                         <td>{{ $s->service }}</td>
+                        @if( $services[0]->description != null)
                         <td>{{ $s->description }}</td>
-                        <td>{{ $s->job_hour }}</td>
+                        @endif
+                        <td @if( $services[0]->description == null) colspan="2" @endif>{{ $s->job_hour }}</td>
                         <td>{{ $s->price }} ILS</td>
                      </tr>
                      @endforeach
@@ -114,7 +118,7 @@
                      <tr>
                         <td colspan="2">&nbsp;</td>
                         <td><strong>{{ __('invoice.pdf.tax') }}</strong></td>
-                        <td><strong>{{ $invoice->total_tax}} ILS</strong></td>
+                        <td><strong>{{ $invoice->taxper}} %</strong></td>
                      </tr>
                      <tr>
                         <td colspan="2">&nbsp;</td>

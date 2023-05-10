@@ -55,6 +55,9 @@ class Job extends Model
     public function hours(){
         return $this->hasMany(JobHours::class,'job_id');
     }
+    public function order(){
+        return $this->hasOne(Order::class,'job_id');
+    }
 
 
 }

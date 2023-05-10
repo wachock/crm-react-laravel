@@ -209,22 +209,5 @@ class AuthController extends Controller
         $pdf->set_paper($paper_size);
         
         return $pdf->stream('form101_'.$user['id'].'.pdf');
-    }
-    public function viewInvoice($gid){
-        $id = base64_decode($gid); 
-        $invoice = Invoices::where('id',$id)->with('client')->get()->first();
-        $pdf = PDF::loadView('InvoicePdf', compact('invoice'));
-       // $pdf->set('isRemoteEnabled',true);
-        // $paper_size = array(0,0,0,1000);
-         //$pdf->set_paper('A4');
-        
-        return $pdf->stream('invoice_'.$id.'.pdf');
-       // return view('InvoicePdf',compact('invoice'));
-    }
-
-    public function recordInvoice(Request $request){
-        dd($request->all());
-    }
-
-    
+    }    
 }

@@ -10,11 +10,15 @@ use App\Models\Contract;
 use App\Models\serviceSchedules;
 use App\Models\WorkerAvialibilty;
 use App\Models\JobHours;
+use App\Models\JobService;
+use App\Models\Order;
+use App\Models\Invoices;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Mail;
+use Helper;
 
 class JobController extends Controller
 {
@@ -88,7 +92,7 @@ class JobController extends Controller
     public function update(Request $request, $id)
     {
          $job = Job::with('client','worker','jobservice')->find($id);
-         //$this->invoice($id);
+         $this->invoice($id);
          $job->status ='completed';
          $job->save();
           $admin = Admin::find(1)->first();
@@ -100,11 +104,11 @@ class JobController extends Controller
 
              );
 
-             Mail::send('/WorkerPanelMail/JobStatusNotification',$data,function($messages) use ($data){
-                $messages->to($data['email']);
-                $sub = __('mail.job_status.subject');
-                $messages->subject($sub);
-              });
+            //  Mail::send('/WorkerPanelMail/JobStatusNotification',$data,function($messages) use ($data){
+            //     $messages->to($data['email']);
+            //     $sub = __('mail.job_status.subject');
+            //     $messages->subject($sub);
+            //   });
 
         return response()->json([
             'message'        => 'job completed',            
@@ -187,22 +191,29 @@ class JobController extends Controller
             ], 200);
     }
 
+   
+
     public function invoice($id){
 
-        $job = Job::where('id',$id)->with('offer','worker')->get()->first();
-        $services = json_decode($job->offer->services);
+        $job = Job::where('id',$id)->with('jobservice','client')->get()->first();
+        $services = json_decode($job->jobservice);
         $items = []; 
         if(isset($services)){
             foreach($services as $service){
               $itm = [
                 "description" => $service->name,
-                "unitprice"   => $service->totalamount,
+                "unitprice"   => 0.01,
                 "quantity"    => 1,
               ];
               array_push($items,$itm);
             }
+            JobService::where('id',$service->id)->update(['order_status'=>1]);
         }
-        
+        $invoice  = 1;
+        if( str_contains($job->schedule,'w') ){ 
+            $invoice = 0;
+        }
+       
         $url = "https://api.icount.co.il/api/v3.php/doc/create";
         $params = Array(
 
@@ -210,21 +221,18 @@ class JobController extends Controller
         "user" => env('ICOUNT_USERNAME'),
         "pass" => env('ICOUNT_PASS'),
         "doctype" => "order",
-        "client_name" => "Broom Service", 
-        "email" => "office@broomservice.co.il", 
-        "lang" => $job->worker->lng,
+        "client_name" => "test user", 
+        "client_address" => $job->client->geo_address,
+        "email" => $job->client->email, 
+        "lang" => $job->client->lng,
         "currency_code" => "ILS",
         
         "items" => $items,
-        
-        "cc" => Array(
-        "sum" => $job->offer->total,
-        "card_type" => "VISA",
-        ),
+    
 
         "send_email" => 1, 
         "email_to_client" => 1, 
-        "email_to" => $job->worker->email, 
+        "email_to" => $job->client->email, 
         );
 
             $ch = curl_init($url);
@@ -234,13 +242,67 @@ class JobController extends Controller
             $response = curl_exec($ch);
             $info = curl_getinfo($ch);
 
-            if(!$info["http_code"] || $info["http_code"]!=200) throw new Exception("HTTP Error");
+            if(!$info["http_code"] || $info["http_code"]!=200) die("HTTP Error");
             $json = json_decode($response, true);
-            if(!$json["status"]) throw new Exception($json["reason"]);
-            job::where('id',$id)->update([
-                'invoice_no'    =>$json['docnum'],
-                'invoice_url'   =>$json['doc_url']
-            ]
-            );
+            
+            if(!$json["status"]) die($json["reason"]);
+           
+            Order::create([
+                'order_id'=>$json['docnum'],
+                'doc_url' =>$json['doc_url'],
+                'job_id'=>$id,
+                'response' => $response,
+                'invoice_status'=>( $invoice == 1) ? 1 : 0,
+            ]);
+
+            if( $invoice == 1 ){
+
+                $i_job = ['value'=>$id, 'label'=>$job->shifts];
+                $ise = [];
+                $stotal = 0;
+                if(isset($services)){
+                    foreach($services as $service){
+
+                      $stotal += (int)$service->total;
+                      $i_se = [
+
+                        "id"          => $service->id,
+                        "service"     => $service->name,
+                        "description" => "",
+                        "job_hour"    => $service->job_hour,
+                        "price"       => $service->total,
+                      ];
+                      array_push($ise,$i_se);
+                    }
+                    JobService::where('id',$service->id)->update(['order_status'=>2]);
+                }
+
+                $vatper   = 17;
+                $vatprice = ($vatper/100) * $stotal;
+
+                $inv = [
+                    'customer'  =>$job->client->id,
+                    'job'       =>json_encode($i_job),
+                    'services'  =>json_encode($ise),
+                    'due_date'  => \Carbon\Carbon::now()->endOfMonth()->toDateString(),
+                    'subtotal'  =>$stotal,
+                    'taxper'    =>$vatper,
+                    'total_tax' =>$vatprice,
+                    'amount'    =>(int)$stotal + (int)$vatprice,
+                    'status'    =>'pending'
+                ];
+
+               
+
+                $in = Invoices::create($inv);
+                job::where('id',$id)->update([
+                    'invoice_no'    =>$in->id,
+                ]);
+                Helper::sendInvoiceToClient($in->id);
+
+            }//invoice
+
+
+           
     }
 }

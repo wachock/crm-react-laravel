@@ -153,6 +153,7 @@ export default function EditInvoce() {
         setMode(r.mode);
         setTxn(r.txn_id);
         setAmount(r.amount);
+        setDueDate(r.due_date);
        
         },500);
     }
