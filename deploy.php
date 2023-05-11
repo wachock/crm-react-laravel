@@ -21,7 +21,7 @@ host('production')
 
 host('development')
     ->set('hostname','38.242.196.238' )
-    ->set('branch', 'main')
+    ->set('branch', 'development')
     ->set('remote_user', 'root')
     ->set('deploy_path', '/var/www/php81/broom-service-new')
     ->set('keep_releases', 2);

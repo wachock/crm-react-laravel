@@ -29,6 +29,70 @@ export default function Invoices() {
             })
     }
 
+    const copy = [...invoices];
+    const [order,setOrder] = useState('ASC');
+    const sortTable = (e,col) =>{
+        
+        let n = e.target.nodeName;
+        if(n != "SELECT"){
+        if (n == "TH") {
+            let q = e.target.querySelector('span');
+            if (q.innerHTML === "↑") {
+                q.innerHTML = "↓";
+            } else {
+                q.innerHTML = "↑";
+            }
+
+        } else {
+            let q = e.target;
+            if (q.innerHTML === "↑") {
+                q.innerHTML = "↓";
+            } else {
+                q.innerHTML = "↑";
+            }
+        }
+    }
+ 
+        if(order == 'ASC'){
+            const sortData = [...copy].sort((a, b) => (a[col] < b[col] ? 1 : -1));
+            setInvoices(sortData);
+            setOrder('DESC');
+        }
+        if(order == 'DESC'){
+            const sortData = [...copy].sort((a, b) => (a[col] < b[col] ? -1 : 1));
+            setInvoices(sortData);
+            setOrder('ASC');
+        }
+        
+    }
+
+    const handleDelete = (id) => {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, Delete Invoice!",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                axios
+                    .get(`/api/admin/delete-invoice/${id}`, { headers })
+                    .then((response) => {
+                        Swal.fire(
+                            "Deleted!",
+                            "Invoice has been deleted.",
+                            "success"
+                        );
+                        setTimeout(() => {
+                            getInvoices();
+                        }, 1000);
+                    });
+            }
+        });
+    };
+
     useEffect(() => {
         getInvoices();
     }, []);
@@ -59,16 +123,16 @@ export default function Invoices() {
                                 <Table className="table table-bordered">
                                     <Thead>
                                         <Tr>
-                                            <Th scope="col" style={{ cursor: "pointer" }}  >#Invoice     <span className="arr"> &darr;</span></Th>
-                                            <Th scope="col" style={{ cursor: "pointer" }}  >Amount       <span className="arr"> &darr;</span></Th>
-                                            <Th scope="col" style={{ cursor: "pointer" }}  >Paid Amount       <span className="arr"> &darr;</span></Th>
-                                            <Th scope="col" style={{ cursor: "pointer" }}  >Pending Amount       <span className="arr"> &darr;</span></Th>
-                                            <Th scope="col" style={{ cursor: "pointer" }}  >Total Tax    <span className="arr"> &darr;</span></Th>
-                                            <Th scope="col" style={{ cursor: "pointer" }}  >Created Date <span className="arr"> &darr;</span></Th>
-                                            <Th scope="col" style={{ cursor: "pointer" }}  >Due Date <span className="arr"> &darr;</span></Th>
-                                            <Th scope="col" style={{ cursor: "pointer" }}  >Customer   </Th>
-                                            <Th scope="col" style={{ cursor: "pointer" }}  >Services     <span className="arr"> &darr;</span></Th>
-                                            <Th scope="col" style={{ cursor: "pointer" }}  >Status       <span className="arr"> &darr;</span></Th>
+                                            <Th scope="col" style={{ cursor: "pointer" }} onClick={(e)=>{sortTable(e,'id')}}  >    #Invoice     <span className="arr"> &darr;</span></Th>
+                                            <Th scope="col" style={{ cursor: "pointer" }} onClick={(e)=>{sortTable(e,'amount')}}  >Amount       <span className="arr"> &darr;</span></Th>
+                                            <Th scope="col" style={{ cursor: "pointer" }} onClick={(e)=>{sortTable(e,'paid_amount')}} >Paid Amount       <span className="arr"> &darr;</span></Th>
+                                            <Th scope="col" >Pending Amount  </Th>
+                                            <Th scope="col" style={{ cursor: "pointer" }}   onClick={(e)=>{sortTable(e,'total_tax')}} >Total Tax         <span className="arr"> &darr;</span></Th>
+                                            <Th scope="col" style={{ cursor: "pointer" }}   onClick={(e)=>{sortTable(e,'created_at')}}  >Created Date      <span className="arr"> &darr;</span></Th>
+                                            <Th scope="col" style={{ cursor: "pointer" }}   onClick={(e)=>{sortTable(e,'due_date')}} >Due Date          <span className="arr"> &darr;</span></Th>
+                                            <Th scope="col"  >Customer   </Th>
+                                            {/*<Th scope="col" style={{ cursor: "pointer" }}  >Services          <span className="arr"> &darr;</span></Th>*/}
+                                            <Th scope="col" style={{ cursor: "pointer" }}  onClick={(e)=>{sortTable(e,'status')}}  >Status            <span className="arr"> &darr;</span></Th>
                                             <Th scope="col">Action</Th>
                                         </Tr>
                                     </Thead>
@@ -81,14 +145,14 @@ export default function Invoices() {
                                                     <Tr>
                                                         <Td>#{item.id}</Td>
                                                         <Td>{item.amount}</Td>
-                                                        <Td>{item.paid_amount}</Td>
+                                                        <Td>{ (item.paid_amount != null) ? item.paid_amount : 0}</Td>
                                                         <Td>{Math.abs(item.amount-item.paid_amount)}</Td>
                                                         <Td>{item.total_tax}</Td>
                                                         <Td>{Moment(item.created_at).format('DD, MMM Y')}</Td>
                                                         <Td>{(item.due_date != null) ? item.due_date : 'NA'}</Td>
                                                         <Td>{item.client.firstname + " " + item.client.lastname}</Td>
 
-                                                        <Td>
+                                                       {/*<Td>
                                                             {
                                                                 services && services.map((s, i) => {
                                                                     return (
@@ -97,7 +161,7 @@ export default function Invoices() {
                                                                 })
                                                             }
 
-                                                        </Td>
+                                                        </Td>*/}
                                                         <Td>
                                                             {item.status}
                                                         </Td>
@@ -109,7 +173,7 @@ export default function Invoices() {
                                                                 <div className="dropdown-menu">
                                                                     <a target="_blank" href={`/view-invoice/${Base64.encode(item.id.toString())}`} className="dropdown-item">View Pdf</a>
                                                                     <Link to={`/admin/edit-invoice/${item.id}`} className="dropdown-item">Edit</Link>
-                                                                    <button className="dropdown-item"
+                                                                    <button  onClick={e=>handleDelete(item.id)} className="dropdown-item"
                                                                     >Delete</button>
                                                                 </div>
                                                             </div>

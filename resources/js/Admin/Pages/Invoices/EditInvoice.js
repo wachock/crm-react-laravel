@@ -5,9 +5,7 @@ import axios from 'axios';
 import Moment from 'moment';
 import { useAlert } from 'react-alert';
 import { useNavigate, useParams } from "react-router-dom";
-import { MultiSelect } from 'primereact/multiselect';
-import "primereact/resources/themes/lara-light-indigo/theme.css";
-import "primereact/resources/primereact.min.css";
+import Select from 'react-select';
 
 export default function EditInvoce() {
 
@@ -64,7 +62,7 @@ export default function EditInvoce() {
                     for (let i in j) {
                         let n = Moment(j[i].start_date).format('DD - MMM') + " | " + j[i].shifts;
                         jar.push(
-                            { name: n, code: j[i].id },
+                            { label: n, value: j[i].id },
                         );
                     }
                     setCjobs(jar);
@@ -84,7 +82,7 @@ export default function EditInvoce() {
 
         let r_code = [];
         sel && sel.map((s, i) => {
-            r_code.push(s.code);
+            r_code.push(s.value);
         })
         let codes = r_code.filter(onlyUnique);
        
@@ -155,6 +153,7 @@ export default function EditInvoce() {
         setMode(r.mode);
         setTxn(r.txn_id);
         setAmount(r.amount);
+        setDueDate(r.due_date);
        
         },500);
     }
@@ -184,6 +183,7 @@ export default function EditInvoce() {
             
           sdata.push(
             {
+                'id':js.id,
                 'service': ( js.name != undefined ) ? ( ( lng == 'en') ? js.name : js.heb_name) : js.service,
                 'description': $('.description'+i).val(),
                 'job_hour': $('.job_hour'+i).val(),
@@ -202,7 +202,7 @@ export default function EditInvoce() {
         taxper: $('.tax_per').val(),
         total_tax:(taxAmount != undefined) ? parseFloat(taxAmount) : 0,
         amount:parseFloat($('.total').text()),
-        status:'sent'
+        status:'pending'
 
     }
    
@@ -236,9 +236,9 @@ export default function EditInvoce() {
       
         const data = {
             'paid_amount':paidAmount,
-            'mode':m,
+            'mode':paidAmount > 0 ? m : '',
             'txn_id':txn,
-            'status':stat
+            'status':paidAmount > 0 ? stat : 'pending'
         }
         axios.post(`/api/admin/update-invoice/${invoice.id}`,{ data },{ headers })
         .then((res)=>{
@@ -303,25 +303,16 @@ export default function EditInvoce() {
                                         <label className="control-label">
                                             Job
                                         </label>
-                                        <MultiSelect
-                                            value={selectedJobs}
-                                            onChange={(e) => { setSelectedJobs(e.value); getServices(e.target.value); }}
-                                            options={cjobs}
-                                            optionLabel="name"
-                                            placeholder="Select Jobs"
-                                            maxSelectedLabels={3}
-                                            className="w-full md:w-20rem form-control"
-                                        />
-                                        {/*<select className='form-control' onChange={(e) => { setJob(e.target.value); getServices(e.target.value); }}>
-                                            <option value={0}>-- select job --</option>
-                                            {
-                                                cjobs && cjobs.map((j, i) => {
-                                                    return (
-                                                        <option value={j.id} selected={ invoice.job == j.id}>{Moment(j.start_date).format('DD, MMM') + " | " + j.shifts}</option>
-                                                    )
-                                                })
-                                            }
-                                        </select>*/}
+                                        <Select
+                                                isMulti
+                                                name="colors"
+                                                options={cjobs}
+                                                className="basic-multi-single"
+                                                isClearable={true}
+                                                value={selectedJobs}
+                                                classNamePrefix="select"
+                                                onChange={(e) => { setSelectedJobs(e); getServices(e); }}
+                                            />
 
                                     </div>
                                 </div>

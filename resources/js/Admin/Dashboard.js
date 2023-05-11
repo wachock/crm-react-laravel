@@ -19,8 +19,10 @@ export default function AdminDashboard() {
     const [loading, setLoading] = useState("Loading...");
     const [latestClient,setLatestClients] = useState([]);
     const [pageCount,setPageCount] = useState(0);
-    const navigate = useNavigate();
+    const [role,setRole] = useState('');
 
+    const navigate = useNavigate();
+    
     const headers = {
         Accept: "application/json, text/plain, */*",
         "Content-Type": "application/json",
@@ -119,10 +121,19 @@ export default function AdminDashboard() {
         })
     }
 
+    const getAdmin = () =>{
+        axios
+        .get(`/api/admin/details`,{ headers })
+        .then((res)=>{
+            setRole(res.data.success.role);
+        });
+    };
+
     useEffect(() => {
         getCompletedJobs();
         getIncome();
         latestClients();
+        getAdmin();
     }, []);
     
     return (
@@ -222,6 +233,9 @@ export default function AdminDashboard() {
                                      <Pendings/>
                                 </div>
                             </div> 
+                            { 
+                            (role && role == 'superadmin') &&
+                            <>
                             <h2 className="page-title">Income/Outcome</h2>
                             <div className="inoutEarning boxPanel card p-3">
                                 <div className="row">
@@ -232,6 +246,8 @@ export default function AdminDashboard() {
                                     
                                 </div>
                             </div>
+                            </>
+                            }
                         </div>
                         <div className="col-sm-3">
                             <h2 className="page-title pt-0">Recent Users</h2>

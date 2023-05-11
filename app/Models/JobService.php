@@ -17,6 +17,8 @@ class JobService extends Model
     'period',
     'total',
     'heb_name',
-    'service_id'
+    'service_id',
+    'pay_status',
+    'order_status'
    ];
 }

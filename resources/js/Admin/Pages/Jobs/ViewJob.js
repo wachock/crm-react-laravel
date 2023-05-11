@@ -85,9 +85,12 @@ export default function ViewJob() {
                             <div className="col-sm-6">
                                 <div className='cdiv' style={{display:'none'}}>
                                 {
+                                    (job.status != 'completed' ) ? 
+
                                     (job.status == 'cancel') ?
                                         <h4 className='text-danger float-right font-weight-bold mt-2'> Cancelled </h4>
-                                        : <button className='btn btn-danger float-right mt-2' onClick={(e) => cancelJob(e)}>Cancel</button>
+                                        :  <button className='btn btn-danger float-right mt-2' onClick={(e) => cancelJob(e)}>Cancel</button>
+                                    :<h4 className='text-success float-right font-weight-bold mt-2'> Completed </h4>
                                 }
                                 </div>
 

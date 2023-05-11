@@ -26,6 +26,8 @@ class CreateInvoicesTable extends Migration
             $table->string('txn_id')->nullable();
             $table->string('mode')->nullable();
             $table->longText('services');
+            $table->longText('session_id')->nullable();
+            $table->longText('callback')->nullable();
             $table->string('status');
             $table->timestamps();
         });
