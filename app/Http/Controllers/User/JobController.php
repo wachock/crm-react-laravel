@@ -92,7 +92,7 @@ class JobController extends Controller
     public function update(Request $request, $id)
     {
          $job = Job::with('client','worker','jobservice')->find($id);
-         $this->invoice($id);
+         //$this->invoice($id);
          $job->status ='completed';
          $job->save();
           $admin = Admin::find(1)->first();
@@ -154,6 +154,11 @@ class JobController extends Controller
         ], 200);
     }
     public function JobStartTime(Request $request){
+        $job = Job::find($request->job_id);
+        if($job->status != 'progress'){
+            $job->status = 'progress';
+            $job->save();
+        }
         $time = new JobHours();
         $time->job_id=$request->job_id;
         $time->worker_id=$request->worker_id;
@@ -191,9 +196,21 @@ class JobController extends Controller
             ], 200);
     }
 
+    public function jobOrderGenerate(){
+      
+        $jobs = Job::where(['status'=>'progress','isOrdered'=>0])->get();
+
+        if(!empty($jobs)){
+            foreach($jobs as $job){
+                $this->order($job->id);
+            }
+        }
+
+    }
+
    
 
-    public function invoice($id){
+    public function order($id){
 
         $job = Job::where('id',$id)->with('jobservice','client')->get()->first();
         $services = json_decode($job->jobservice);
@@ -253,56 +270,108 @@ class JobController extends Controller
                 'job_id'=>$id,
                 'response' => $response,
                 'invoice_status'=>( $invoice == 1) ? 1 : 0,
-            ]);
+            ]);   
+            Job::where('id',$id)->update(['isOrdered'=>1]);        
+    }
 
-            if( $invoice == 1 ){
-
-                $i_job = ['value'=>$id, 'label'=>$job->shifts];
-                $ise = [];
-                $stotal = 0;
-                if(isset($services)){
-                    foreach($services as $service){
-
-                      $stotal += (int)$service->total;
-                      $i_se = [
-
-                        "id"          => $service->id,
-                        "service"     => $service->name,
-                        "description" => "",
-                        "job_hour"    => $service->job_hour,
-                        "price"       => $service->total,
-                      ];
-                      array_push($ise,$i_se);
-                    }
-                    JobService::where('id',$service->id)->update(['order_status'=>2]);
-                }
-
-                $vatper   = 17;
-                $vatprice = ($vatper/100) * $stotal;
-
-                $inv = [
-                    'customer'  =>$job->client->id,
-                    'job'       =>json_encode($i_job),
-                    'services'  =>json_encode($ise),
-                    'due_date'  => \Carbon\Carbon::now()->endOfMonth()->toDateString(),
-                    'subtotal'  =>$stotal,
-                    'taxper'    =>$vatper,
-                    'total_tax' =>$vatprice,
-                    'amount'    =>(int)$stotal + (int)$vatprice,
-                    'status'    =>'pending'
-                ];
-
-               
-
-                $in = Invoices::create($inv);
-                job::where('id',$id)->update([
-                    'invoice_no'    =>$in->id,
-                ]);
-                Helper::sendInvoiceToClient($in->id);
-
-            }//invoice
-
-
+    public function jobInvoiceGenerate(){
+         $orders = Order::where('invoice_status',1)->get();
+         if(!empty($orders)){
+            foreach($orders as $od){
+                echo "<pre>";
+                print_r($od->job_id);
+            }
+         }   
            
     }
+
+    public function invoice($id){
+        
+        $job = Job::where('id',$id)->with('jobservice','client')->get()->first();
+        $services = json_decode($job->jobservice);
+
+        $i_job = ['value'=>$id, 'label'=>$job->shifts];
+        $ise = [];
+        $stotal = 0;
+
+        if(isset($services)){
+            foreach($services as $service){
+
+            $stotal += (int)$service->total;
+            $i_se = [
+
+                "description" => $service->name,
+                "unitprice"   => 0.01,
+                "quantity"    => 1,
+            ];
+            array_push($ise,$i_se);
+            }
+            JobService::where('id',$service->id)->update(['order_status'=>2]);
+        }
+        
+        $order = Order::where('job_id',$id)->get();
+        $o_res = json_decode($order->response);
+
+        $url = "https://api.icount.co.il/api/v3.php/doc/create";
+        $params = Array(
+
+            "cid"            => env('ICOUNT_COMPANYID'),
+            "user"           => env('ICOUNT_USERNAME'),
+            "pass"           => env('ICOUNT_PASS'),
+
+            "doctype"        =>  "invoice",
+            "client_id"      => $ores->client_id,
+            "client_name"    => "test user", 
+            "client_address" => $job->client->geo_address,
+            "email"          => $job->client->email, 
+            "lang"           => $job->client->lng,
+            "currency_code"  => "ILS",
+            "doc_lang"       =>$job->client->lng,
+            "items"          => $ise,
+            "duedate"        => \Carbon\Carbon::now()->endOfMonth()->toDateString(),
+    
+            "send_email"      => 1, 
+            "email_to_client" => 1, 
+            "email_to"        => $job->client->email, 
+        );
+
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($params, null, '&'));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        $response = curl_exec($ch);
+        $info = curl_getinfo($ch);
+
+        if(!$info["http_code"] || $info["http_code"]!=200) throw new Exception("HTTP Error");
+        $json = json_decode($response, true);
+        if(!$json["status"]) throw new Exception($json["reason"]);
+        echo "Created invoice/receipt #".$json["docnum"];
+
+       /* $vatper   = 17;
+        $vatprice = ($vatper/100) * $stotal;
+
+        $inv = [
+            'customer'  =>$job->client->id,
+            'job'       =>json_encode($i_job),
+            'services'  =>json_encode($ise),
+            'due_date'  => \Carbon\Carbon::now()->endOfMonth()->toDateString(),
+            'subtotal'  =>$stotal,
+            'taxper'    =>$vatper,
+            'total_tax' =>$vatprice,
+            'amount'    =>(int)$stotal + (int)$vatprice,
+            'status'    =>'pending'
+        ];
+
+    
+
+        $in = Invoices::create($inv);
+        job::where('id',$id)->update([
+            'invoice_no'    =>$in->id,
+        ]);
+        Helper::sendInvoiceToClient($in->id);*/
+
+
+
+    }
+
 }

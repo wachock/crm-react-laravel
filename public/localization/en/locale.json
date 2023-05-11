@@ -300,7 +300,9 @@
             "reject":"Reject",
             "reject_msg":"Contract has been rejected"
 
-        }
+        },
+        "add_card_txt":"Validate Credit Card ( charge of 1 ILS is aplicable )*",
+        "add_card_btn":"Validate Card Securely"
     },
     "j_status":{
 

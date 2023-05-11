@@ -30,7 +30,7 @@ class ClientEmailController extends Controller
             $str .= $s['name'];
          }
 
-       } 
+       }  
        $schedule->service_names = $str; 
        return response()->json([
            'schedule' => $schedule
@@ -169,6 +169,17 @@ class ClientEmailController extends Controller
        ],200);
     }
     
+  }
+  public function saveCard(Request $request){
+    $args = [
+      'card_number' => $request->cdata['card_number'],
+      'valid'       => $request->cdata['valid'],
+      'card_token'  => $request->cdata['card_token'],
+    ];
+    Contract::where('unique_hash',$request->cdata['unique_hash'])->update($args);
+    return response()->json([
+      'message'=>"Card validated successfully"
+     ],200);
   }
 
   public function RejectContract(Request $request){

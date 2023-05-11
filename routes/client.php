@@ -33,6 +33,7 @@ Route::group(['prefix' => 'client', 'middleware' => ['auth:client-api', 'scopes:
    Route::post('get-files',[DashboardController::class,'getfiles'])->name('get-files');
    Route::post('delete-file',[DashboardController::class,'deletefile'])->name('delete-file');
 
+    
     //job APis
     Route::post('jobs',[DashboardController::class,'listJobs'])->name('jobs');
     Route::post('view-job',[DashboardController::class,'viewJob'])->name('view-job');
@@ -63,7 +64,7 @@ Route::group(['prefix' => 'client'], function () {
      Route::post('accept-contract',[ClientEmailController::class,'AcceptContract'])->name('accept-contract');
      Route::post('reject-contract',[ClientEmailController::class,'RejectContract'])->name('reject-contract');
      Route::post('get-service-template',[ClientEmailController::class,'serviceTemplate'])->name('get-service-template');
- 
+     Route::post('save-card',[ClientEmailController::class,'saveCard'])->name('save-card');
 });
 
 
