@@ -753,7 +753,7 @@ export default function WorkContract() {
                                             <div className="col-sm-12">
                                                 <div className="form-group">
                                                     <label className="control-label">
-                                                       Card Number
+                                                       { t('work-contract.card_number') }
                                                     </label>
                                                     <input
                                                         type="number"
@@ -776,10 +776,10 @@ export default function WorkContract() {
                                             <div className="col-sm-12">
                                                 <div className="form-group">
                                                     <label className="control-label">
-                                                        Card Expire Year
+                                                    { t('work-contract.card_ex_year') }
                                                     </label>
                                                     <select id='date-dropdown' className='form-control' onChange={e=>setExy(e.target.value)}>
-                                                    <option value="0">--select expire year--</option>
+                                                    <option value="0">{ t('work-contract.select_year') }</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -787,10 +787,10 @@ export default function WorkContract() {
                                             <div className="col-sm-12">
                                                 <div className="form-group">
                                                     <label className="control-label">
-                                                        Card Expire Month
+                                                    { t('work-contract.card_ex_month') }
                                                     </label>
                                                     <select className='form-control' onChange={e=>setExm(e.target.value)}>
-                                                      <option value="0">--select expire month--</option>
+                                                      <option value="0">{ t('work-contract.select_month') }</option>
                                                       <option value="01" >01</option>
                                                       <option value="02" >02</option>
                                                       <option value="03" >03</option>
@@ -813,7 +813,7 @@ export default function WorkContract() {
                                     </div>
                                     <div className="modal-footer">
                                         <button type="button" className="btn btn-secondary closeb" data-dismiss="modal">{t('client.jobs.view.close')}</button>
-                                        <button type="button" onClick={e=>handleCard(e)} className="btn btn-primary msbtn">Submit</button>
+                                        <button type="button" onClick={e=>handleCard(e)} className="btn btn-primary msbtn">{ t('work-contract.model_submit') }</button>
                                     </div>
                                 </div>
                             </div>

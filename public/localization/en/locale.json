@@ -298,11 +298,24 @@
             "yes_reject":"Yes, Reject",
             "cancel":"Cancel",
             "reject":"Reject",
-            "reject_msg":"Contract has been rejected"
+            "reject_msg":"Contract has been rejected",
+            "card_msg":"Please enter card number",
+            "card_msg2":"Please enter valid card",
+            "card_month":"Please select expire month",
+            "card_year":"Please select expire year",
+            "please_wait":"Please wait..",
+            "card_success":"Thanks, card is validated successfully, Now you can sign contract!"
+
 
         },
         "add_card_txt":"Validate Credit Card ( charge of 1 ILS is aplicable )*",
-        "add_card_btn":"Validate Card Securely"
+        "add_card_btn":"Validate Card Securely",
+        "model_title":"Add Credit Card",
+        "card_ex_year":"Card Expire Year",
+        "card_ex_month":"Card Expire Month",
+        "select_year":"-- select expire year --",
+        "select_month":"-- select expire month --",
+        "model_submit":"Submit"
     },
     "j_status":{
 
