@@ -217,9 +217,10 @@ class JobController extends Controller
         $items = []; 
         if(isset($services)){
             foreach($services as $service){
+                
               $itm = [
-                "description" => $service->name,
-                "unitprice"   => 0.01,
+                "description" => $service->name." - ".\Carbon\Carbon::today()->format('d, M Y'),
+                "unitprice"   => 1,
                 "quantity"    => 1,
               ];
               array_push($items,$itm);
@@ -259,119 +260,130 @@ class JobController extends Controller
             $response = curl_exec($ch);
             $info = curl_getinfo($ch);
 
-            if(!$info["http_code"] || $info["http_code"]!=200) die("HTTP Error");
+            //if(!$info["http_code"] || $info["http_code"]!=200) die("HTTP Error");
             $json = json_decode($response, true);
-            
-            if(!$json["status"]) die($json["reason"]);
+           
+           // if(!$json["status"]) die($json["reason"]);
            
             Order::create([
                 'order_id'=>$json['docnum'],
                 'doc_url' =>$json['doc_url'],
                 'job_id'=>$id,
                 'response' => $response,
+                'items' => json_encode($items),
+                'status' => 'Open',
                 'invoice_status'=>( $invoice == 1) ? 1 : 0,
             ]);   
             Job::where('id',$id)->update(['isOrdered'=>1]);        
     }
 
     public function jobInvoiceGenerate(){
+       
          $orders = Order::where('invoice_status',1)->get();
          if(!empty($orders)){
             foreach($orders as $od){
-                echo "<pre>";
-                print_r($od->job_id);
+                $this->invoice($od->job_id,$od->id);
             }
          }   
            
     }
 
-    public function invoice($id){
+    public function invoice($id, $oid){
         
-        $job = Job::where('id',$id)->with('jobservice','client')->get()->first();
-        $services = json_decode($job->jobservice);
-
-        $i_job = ['value'=>$id, 'label'=>$job->shifts];
-        $ise = [];
-        $stotal = 0;
-
-        if(isset($services)){
-            foreach($services as $service){
-
-            $stotal += (int)$service->total;
-            $i_se = [
-
-                "description" => $service->name,
-                "unitprice"   => 0.01,
-                "quantity"    => 1,
-            ];
-            array_push($ise,$i_se);
-            }
-            JobService::where('id',$service->id)->update(['order_status'=>2]);
-        }
+        $job = Job::where('id',$id)->with('jobservice','client','contract','order')->get()->first();
+        $services = json_decode($job->order->items);
         
-        $order = Order::where('job_id',$id)->get();
+        if( str_contains($job->schedule,'w') == false) {
+        
+        $subtotal = (int)$services[0]->unitprice;
+        $tax = (17/100) * $subtotal;
+        $total = $tax+$subtotal;
+      
+        $order = Order::where('job_id',$id)->get()->first();
         $o_res = json_decode($order->response);
+       
+        $p_method = $job->client->payment_method;
+        $contract = $job->contract;
+        $doctype  = ($contract->card_token != null && $p_method == 'cc') ? "invrec" : "invoice";  
+        $due      = \Carbon\Carbon::now()->endOfMonth()->toDateString();
 
         $url = "https://api.icount.co.il/api/v3.php/doc/create";
         $params = Array(
 
-            "cid"            => env('ICOUNT_COMPANYID'),
-            "user"           => env('ICOUNT_USERNAME'),
-            "pass"           => env('ICOUNT_PASS'),
+                "cid"            => env('ICOUNT_COMPANYID'),
+                "user"           => env('ICOUNT_USERNAME'),
+                "pass"           => env('ICOUNT_PASS'),
 
-            "doctype"        =>  "invoice",
-            "client_id"      => $ores->client_id,
-            "client_name"    => "test user", 
-            "client_address" => $job->client->geo_address,
-            "email"          => $job->client->email, 
-            "lang"           => $job->client->lng,
-            "currency_code"  => "ILS",
-            "doc_lang"       =>$job->client->lng,
-            "items"          => $ise,
-            "duedate"        => \Carbon\Carbon::now()->endOfMonth()->toDateString(),
-    
-            "send_email"      => 1, 
-            "email_to_client" => 1, 
-            "email_to"        => $job->client->email, 
+                "doctype"        => $doctype,
+                "client_id"      => $o_res->client_id,
+                "client_name"    => "test user", 
+                "client_address" => $job->client->geo_address,
+                "email"          => $job->client->email, 
+                "lang"           => $job->client->lng,
+                "currency_code"  => "ILS",
+                "doc_lang"       => $job->client->lng,
+                "items"          => $services,
+                "duedate"        => $due,
+                "based_on"       =>['docnum'=>$order->order_id,'doctype'=>'order'],
+                
+                "send_email"      => 0, 
+                "email_to_client" => 0, 
+                "email_to"        => $job->client->email, 
+                
         );
+        if($doctype == "invrec"){
 
+            $ex = explode('-',$contract->valid);
+            $cc = ['cc'=>[
+                "sum" => $total,
+                "card_type" => $contract->card_type,
+                "card_number" => substr($contract->card_number,12), 
+                "exp_year" => $ex[0],
+                "exp_month" => $ex[1],
+                "holder_id" => "",
+                "holder_name" => $contract->name_on_card,
+                "confirmation_code" => ""
+            ]];
+
+            $_params = array_merge($params,$cc);
+
+        } else {
+            $_params = $params;
+        }
+      
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($params, null, '&'));
+        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($_params, null, '&'));
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         $response = curl_exec($ch);
         $info = curl_getinfo($ch);
-
-        if(!$info["http_code"] || $info["http_code"]!=200) throw new Exception("HTTP Error");
+        
+        //if(!$info["http_code"] || $info["http_code"]!=200) die("HTTP Error");
         $json = json_decode($response, true);
-        if(!$json["status"]) throw new Exception($json["reason"]);
-        echo "Created invoice/receipt #".$json["docnum"];
+      
+        //if(!$json["status"]) die($json["reason"]);
 
-       /* $vatper   = 17;
-        $vatprice = ($vatper/100) * $stotal;
-
-        $inv = [
-            'customer'  =>$job->client->id,
-            'job'       =>json_encode($i_job),
-            'services'  =>json_encode($ise),
-            'due_date'  => \Carbon\Carbon::now()->endOfMonth()->toDateString(),
-            'subtotal'  =>$stotal,
-            'taxper'    =>$vatper,
-            'total_tax' =>$vatprice,
-            'amount'    =>(int)$stotal + (int)$vatprice,
-            'status'    =>'pending'
-        ];
-
-    
-
-        $in = Invoices::create($inv);
         job::where('id',$id)->update([
-            'invoice_no'    =>$in->id,
+            'invoice_no'    =>$json["docnum"],
+            'invoice_url'   =>$json["doc_url"],
+            'isOrdered'     => 2
         ]);
-        Helper::sendInvoiceToClient($in->id);*/
+        $invoice = [
+            'invoice_id' => $json['docnum'],
+            'job_id'     => $id,
+            'amount'     => $total,
+            'customer'   => $job->client->id,
+            'doc_url'    => $json['doc_url'],
+            'due_date'   => $due,
+            'status'     => 'pending'
+        ];
+        $inv = Invoices::create($invoice);
+        JobService::where('id',$job->jobservice[0]->id)->update(['order_status'=>2]);
+        Order::where('id',$oid)->update(['invoice_status'=>2]);
+        Helper::sendInvoicePayToClient($id, $json["doc_url"], $json["docnum"],$inv->id);
 
-
-
+    }
+     
     }
 
 }

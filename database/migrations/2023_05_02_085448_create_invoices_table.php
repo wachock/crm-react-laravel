@@ -15,17 +15,13 @@ class CreateInvoicesTable extends Migration
     {
         Schema::create('invoices', function (Blueprint $table) {
             $table->id();
+            $table->string('invoice_id');
+            $table->string('job_id');
             $table->string('amount');
-            $table->string('subtotal');
-            $table->string('taxper')->nullable();
-            $table->string('total_tax')->nullable();
+            $table->longText('doc_url');
+            $table->unsignedBigInteger('customer');
             $table->string('due_date')->nullable();
-            $table->string('customer');
-            $table->longText('job');
-            $table->string('paid_amount')->nullable();
             $table->string('txn_id')->nullable();
-            $table->string('mode')->nullable();
-            $table->longText('services');
             $table->longText('session_id')->nullable();
             $table->longText('callback')->nullable();
             $table->string('status');

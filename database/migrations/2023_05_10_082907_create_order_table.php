@@ -19,6 +19,8 @@ class CreateOrderTable extends Migration
             $table->string('job_id');
             $table->longText('doc_url');
             $table->longText('response');
+            $table->longText('items');
+            $table->string('status');
             $table->string('invoice_status');
             $table->timestamps();
         });

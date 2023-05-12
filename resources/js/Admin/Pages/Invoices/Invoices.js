@@ -105,14 +105,14 @@ export default function Invoices() {
                         <div className="col-sm-6">
                             <h1 className="page-title">Manage Invoices</h1>
                         </div>
-                        <div className="col-sm-6">
+                        {/*<div className="col-sm-6">
                             <Link
                                 to="/admin/add-invoice"
                                 className="ml-2 btn btn-pink addButton">
                                 <i className="btn-icon fas fa-plus-circle"></i>
                                 Create Invoice
                             </Link>
-                        </div>
+                        </div>*/}
                     </div>
                 </div>
                 <div className="card">
@@ -125,13 +125,9 @@ export default function Invoices() {
                                         <Tr>
                                             <Th scope="col" style={{ cursor: "pointer" }} onClick={(e)=>{sortTable(e,'id')}}  >    #Invoice     <span className="arr"> &darr;</span></Th>
                                             <Th scope="col" style={{ cursor: "pointer" }} onClick={(e)=>{sortTable(e,'amount')}}  >Amount       <span className="arr"> &darr;</span></Th>
-                                            <Th scope="col" style={{ cursor: "pointer" }} onClick={(e)=>{sortTable(e,'paid_amount')}} >Paid Amount       <span className="arr"> &darr;</span></Th>
-                                            <Th scope="col" >Pending Amount  </Th>
-                                            <Th scope="col" style={{ cursor: "pointer" }}   onClick={(e)=>{sortTable(e,'total_tax')}} >Total Tax         <span className="arr"> &darr;</span></Th>
                                             <Th scope="col" style={{ cursor: "pointer" }}   onClick={(e)=>{sortTable(e,'created_at')}}  >Created Date      <span className="arr"> &darr;</span></Th>
                                             <Th scope="col" style={{ cursor: "pointer" }}   onClick={(e)=>{sortTable(e,'due_date')}} >Due Date          <span className="arr"> &darr;</span></Th>
                                             <Th scope="col"  >Customer   </Th>
-                                            {/*<Th scope="col" style={{ cursor: "pointer" }}  >Services          <span className="arr"> &darr;</span></Th>*/}
                                             <Th scope="col" style={{ cursor: "pointer" }}  onClick={(e)=>{sortTable(e,'status')}}  >Status            <span className="arr"> &darr;</span></Th>
                                             <Th scope="col">Action</Th>
                                         </Tr>
@@ -144,24 +140,10 @@ export default function Invoices() {
                                                 return (
                                                     <Tr>
                                                         <Td>#{item.id}</Td>
-                                                        <Td>{item.amount}</Td>
-                                                        <Td>{ (item.paid_amount != null) ? item.paid_amount : 0}</Td>
-                                                        <Td>{Math.abs(item.amount-item.paid_amount)}</Td>
-                                                        <Td>{item.total_tax}</Td>
+                                                        <Td>{item.amount} ILS</Td>
                                                         <Td>{Moment(item.created_at).format('DD, MMM Y')}</Td>
-                                                        <Td>{(item.due_date != null) ? item.due_date : 'NA'}</Td>
-                                                        <Td>{item.client.firstname + " " + item.client.lastname}</Td>
-
-                                                       {/*<Td>
-                                                            {
-                                                                services && services.map((s, i) => {
-                                                                    return (
-                                                                        (services.length > 1) ? s.service + " | " : s.service
-                                                                    )
-                                                                })
-                                                            }
-
-                                                        </Td>*/}
+                                                        <Td>{(item.due_date != null) ? Moment(item.due_date).format('DD, MMM Y') : 'NA'}</Td>
+                                                        <Td><Link to={`/admin/view-client/${item.client.id}`}>{item.client.firstname + " " + item.client.lastname}</Link></Td>
                                                         <Td>
                                                             {item.status}
                                                         </Td>
@@ -171,8 +153,8 @@ export default function Invoices() {
                                                                     <i className="fa fa-ellipsis-vertical"></i>
                                                                 </button>
                                                                 <div className="dropdown-menu">
-                                                                    <a target="_blank" href={`/view-invoice/${Base64.encode(item.id.toString())}`} className="dropdown-item">View Pdf</a>
-                                                                    <Link to={`/admin/edit-invoice/${item.id}`} className="dropdown-item">Edit</Link>
+                                                                    <a target="_blank" href={item.doc_url} className="dropdown-item">View Invoice</a>
+                                                                    {/*<Link to={`/admin/edit-invoice/${item.id}`} className="dropdown-item">Edit</Link>*/}
                                                                     <button  onClick={e=>handleDelete(item.id)} className="dropdown-item"
                                                                     >Delete</button>
                                                                 </div>

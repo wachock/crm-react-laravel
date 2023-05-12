@@ -14,6 +14,8 @@ class Order extends Model
         'job_id',
         'doc_url',
         'response',
+        'items',
+        'status',
         'invoice_status'
     ];
 }

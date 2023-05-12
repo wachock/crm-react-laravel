@@ -33,6 +33,14 @@ export default function WorkerDetails({worker, job}) {
                                         <p>{worker.address}</p>
                                     </div>
                                 </div>
+                                {
+                                (job.order != null) && <div className='col-sm-8'>
+                                    <div className='form-group'>
+                                        <label className='control-label'>Order Status</label>
+                                        <p style={ {color:"green","font-size":"17px"} }><b>{job.order.status}</b></p>
+                                    </div>
+                                </div>
+                                }
                                 <div className='col-sm-2'>
                                     <div className='form-group'>
                                     {
@@ -41,9 +49,9 @@ export default function WorkerDetails({worker, job}) {
                                  <a className='btn btn-warning mb-2' target='_blank' href={job.order.doc_url}>view Order</a>
                                 }
                                 {
-                                (job.invoice_no) &&
+                                (job.invoice_url) &&
                               
-                                 <a className='btn btn-success' target='_blank' href={`/view-invoice/${Base64.encode(job.invoice_no)}`}>view invoice</a>
+                                 <a className='btn btn-success' target='_blank' href={job.invoice_url}>view invoice</a>
                                 }
                                  </div>
                                 </div>

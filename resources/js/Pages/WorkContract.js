@@ -153,13 +153,13 @@ export default function WorkContract() {
     const handleCard = (e) => {
 
         e.preventDefault();
-        if (!card) { window.alert("Please enter card number"); return false; }
-        if (card.length < 16) { window.alert("Please enter valid card"); return false; }
-        if (exm == '0') { window.alert("Please select expire month"); return false; }
-        if (exy == '0') { window.alert("Please select expire year"); return false; }
+        if (!card) { window.alert( t('work-contract.messages.card_msg')); return false; }
+        if (card.length < 16) { window.alert( t('work-contract.messages.card_msg2')); return false; }
+        if (exy == '0') { window.alert( t('work-contract.messages.card_year')); return false; }
+        if (exm == '0') { window.alert( t('work-contract.messages.card_month')); return false; }
         const msbtn = document.querySelector('.msbtn');
         msbtn.setAttribute('disabled',true);
-        msbtn.innerHTML = 'Please wait..';
+        msbtn.innerHTML =  t('work-contract.messages.please_wait');
 
         const cardVal={
             "TerminalNumber": "0882016016",
@@ -181,7 +181,7 @@ export default function WorkContract() {
         .then(function (response) {
          if(response.data.HasError == true){ window.alert(response.data.ReturnMessage);
          msbtn.removeAttribute('disabled');
-         msbtn.innerHTML = 'Submit';
+         msbtn.innerHTML =  t('work-contract.model_submit') ;
          return;
         }
          const vd = response.data;
@@ -254,7 +254,7 @@ export default function WorkContract() {
             .then(function (res) {
                 if(res.data.HasError == true) { window.alert(response.data.ReturnMessage); 
                     msbtn.removeAttribute('disabled');
-                    msbtn.innerHTML = 'Submit';
+                    msbtn.innerHTML = t('work-contract.model_submit') ;
                     return;
                 }
                  
@@ -269,7 +269,7 @@ export default function WorkContract() {
                 post(`/api/client/save-card`,{ cdata })
                 .then((re)=>{
                    document.querySelector('.closeb').click();
-                   swal('Thanks, card is validated successfully, Now you can sign contract!', '', 'success');
+                   swal( t('work-contract.messages.card_success'), '', 'success');
                    setSubmit(true);
                 })
               
@@ -277,7 +277,6 @@ export default function WorkContract() {
 
         });
 
-       // console.log(cardVal);
     }
 
     useEffect(() => {

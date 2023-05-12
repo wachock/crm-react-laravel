@@ -9,16 +9,12 @@ class Invoices extends Model
 {
     use HasFactory;
     protected $fillable = [
+        'invoice_id',
+        'job_id',
         'amount',
-        'subtotal',
-        'taxper',
-        'total_tax',
+        'doc_url',
         'due_date',
         'customer',
-        'job',
-        'services',
-        'paid_amount',
-        'mode',
         'txn_id',
         'session_id',
         'callback',
