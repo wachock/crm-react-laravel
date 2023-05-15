@@ -179,11 +179,13 @@ class InvoiceController extends Controller
     }
     public function recordInvoice(Request $request){
        
-        $id =base64_decode($request->cb);
-        
+        $id = base64_decode($request->cb);
+       
         $invoice = Invoices::where('id',$id)->get()->first();
-        $job = Job::where('id',$invoice->job_id)->with('order')->get()->first();
-
+        $job = Job::where('id',$invoice->job_id)->with('order','client')->get()->first();
+        $isreceipt = 0;
+        if($job->client->payment_method != 'cc'){ $isreceipt = 1; }
+       
         $docnum = $job->order->order_id;
         $sid = $invoice->session_id;
         $key = env('ZCREDIT_KEY');
@@ -248,9 +250,10 @@ class InvoiceController extends Controller
             $r_info = curl_getinfo($ch);
 
             //if(!$info["http_code"] || $info["http_code"]!=200) die("HTTP Error");
-            $json = json_decode($response, true);
+           // $json = json_decode($response, true);
         Order::where('id',$job->order->id)->update(['status'=>'Closed']);
         Invoices::where('id',$id)->update($args);
+        
         } else {
             die('Something went wrong ! Please contact Administrator !');
         }

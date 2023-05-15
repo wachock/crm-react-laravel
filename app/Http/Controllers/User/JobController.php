@@ -292,7 +292,8 @@ class JobController extends Controller
         
         $job = Job::where('id',$id)->with('jobservice','client','contract','order')->get()->first();
         $services = json_decode($job->order->items);
-        
+        $total = 0;
+
         if( str_contains($job->schedule,'w') == false) {
         
         $subtotal = (int)$services[0]->unitprice;
@@ -326,8 +327,8 @@ class JobController extends Controller
                 "duedate"        => $due,
                 "based_on"       =>['docnum'=>$order->order_id,'doctype'=>'order'],
                 
-                "send_email"      => 0, 
-                "email_to_client" => 0, 
+                "send_email"      => 1, 
+                "email_to_client" => 1, 
                 "email_to"        => $job->client->email, 
                 
         );
@@ -380,9 +381,86 @@ class JobController extends Controller
         $inv = Invoices::create($invoice);
         JobService::where('id',$job->jobservice[0]->id)->update(['order_status'=>2]);
         Order::where('id',$oid)->update(['invoice_status'=>2]);
-        Helper::sendInvoicePayToClient($id, $json["doc_url"], $json["docnum"],$inv->id);
+       // Helper::sendInvoicePayToClient($id, $json["doc_url"], $json["docnum"],$inv->id);
 
-    }
+
+    } // demand services invoices
+
+      /* Auto payment */
+     /*
+      $curl = curl_init();
+
+      curl_setopt_array($curl, array(
+        CURLOPT_URL => 'https://pci.zcredit.co.il/ZCreditWS/api/Transaction/CommitFullTransaction',
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => '',
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 0,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => 'POST',
+        CURLOPT_POSTFIELDS =>'{
+        "TerminalNumber": '.env("ZCREDIT_TERMINALNUMBER").',
+        "Password": '.env("ZCREDIT_TERMINALPASSWORD").',
+        "Track2": "",
+        "CardNumber": '.$job->contract->card_token.',
+        "CVV": "",
+        "ExpDate_MMYY": "",
+        "TransactionSum": '.$total.',
+        "NumberOfPayments": "1",
+        "FirstPaymentSum": "0",
+        "OtherPaymentsSum": "0",
+        "TransactionType": "01",
+        "CurrencyType": "1",
+        "CreditType": "1",
+        "J": "0",
+        "IsCustomerPresent": "true",
+        "AuthNum": "",
+        "HolderID": "",
+        "ExtraData": "",
+        "CustomerName":'.$job->client->firstname." ".$job->client->lastname.',
+        "CustomerAddress": '.$job->client->geo_address.',
+        "CustomerEmail": "",
+        "PhoneNumber": "",
+        "ItemDescription": "",
+        "ObeligoAction": "",
+        "OriginalZCreditReferenceNumber": "",
+        "TransactionUniqueIdForQuery": "",
+        "TransactionUniqueID": "",
+        "UseAdvancedDuplicatesCheck": "",
+        "ZCreditInvoiceReceipt": {
+          "Type": "0",
+          "RecepientName": "",
+          "RecepientCompanyID": "",
+          "Address": "",
+          "City": "",
+          "ZipCode": "",
+          "PhoneNum": "",
+          "FaxNum": "",
+          "TaxRate": "17",
+          "Comment": "",
+          "ReceipientEmail": "",
+          "EmailDocumentToReceipient": "",
+          "ReturnDocumentInResponse": "",
+          "Items": [
+            {
+              "ItemDescription": "Item name",
+              "ItemQuantity": "2",
+              "ItemPrice": "0.5",
+              "IsTaxFree": "false"
+            }
+          ]
+        }
+      }',
+        CURLOPT_HTTPHEADER => array(
+          'Content-Type: application/json'
+        ),
+      ));
+      
+      $response = curl_exec($curl);
+      
+      curl_close($curl);
+      */
      
     }
 
