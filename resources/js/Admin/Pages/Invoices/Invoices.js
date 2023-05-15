@@ -129,6 +129,7 @@ export default function Invoices() {
                                             <Th scope="col" style={{ cursor: "pointer" }}   onClick={(e)=>{sortTable(e,'due_date')}} >Due Date          <span className="arr"> &darr;</span></Th>
                                             <Th scope="col"  >Customer   </Th>
                                             <Th scope="col" style={{ cursor: "pointer" }}  onClick={(e)=>{sortTable(e,'status')}}  >Status            <span className="arr"> &darr;</span></Th>
+                                            <Th scope="col"  >Transaction ID/Ref.</Th>
                                             <Th scope="col">Action</Th>
                                         </Tr>
                                     </Thead>
@@ -146,6 +147,9 @@ export default function Invoices() {
                                                         <Td><Link to={`/admin/view-client/${item.client.id}`}>{item.client.firstname + " " + item.client.lastname}</Link></Td>
                                                         <Td>
                                                             {item.status}
+                                                        </Td>
+                                                        <Td>
+                                                            {item.txn_id ? item.txn_id : 'NA'}
                                                         </Td>
                                                         <Td>
                                                             <div className="action-dropdown dropdown">

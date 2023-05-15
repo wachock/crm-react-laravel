@@ -16,6 +16,7 @@ class Invoices extends Model
         'due_date',
         'customer',
         'txn_id',
+        'type',
         'session_id',
         'callback',
         'status'
