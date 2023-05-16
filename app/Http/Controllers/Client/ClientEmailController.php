@@ -8,6 +8,7 @@ use App\Models\Schedule;
 use App\Models\Offer;
 use App\Models\Services;
 use App\Models\Contract;
+use App\Models\ClientCard;
 use App\Models\notifications;
 use Mail;
 
@@ -172,11 +173,16 @@ class ClientEmailController extends Controller
   }
   public function saveCard(Request $request){
     $args = [
+      'client_id'   => $request->cdata['cid'],
+      'card_type'   => $request->cdata['card_type'],  
       'card_number' => $request->cdata['card_number'],
       'valid'       => $request->cdata['valid'],
+      'cvv'         => $request->cdata['cvv'],
       'card_token'  => $request->cdata['card_token'],
     ];
-    Contract::where('unique_hash',$request->cdata['unique_hash'])->update($args);
+    
+    ClientCard::create($args);
+   // Contract::where('unique_hash',$request->cdata['unique_hash'])->update($args);
     return response()->json([
       'message'=>"Card validated successfully"
      ],200);
@@ -212,9 +218,9 @@ class ClientEmailController extends Controller
       $offer = Contract::where('unique_hash',$request->token)->get()->last();
       $goffer = Offer::where('id',$offer->offer_id)->with('client')->get();
       $cid = $goffer[0]->client_id;
-
-      $exist_card = Contract::where('client_id',$cid)->where('card_token','!=',null)->get()->first();
-  
+      
+      $exist_card = ClientCard::where('client_id',$cid)->where('card_token','!=',null)->get()->first();
+     
       if(isset($exist_card->card_token)){ $offer->add_card = 0; }
       else {$offer->add_card = 1; }
 

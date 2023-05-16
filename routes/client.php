@@ -41,6 +41,7 @@ Route::group(['prefix' => 'client', 'middleware' => ['auth:client-api', 'scopes:
 
     // My Account Api
     Route::get('my-account', [DashboardController::class, 'getAccountDetails']);
+    Route::get('get-card', [DashboardController::class, 'getCard']);
     Route::post('my-account', [DashboardController::class, 'saveAccountDetails']);
 
     // Change Password Api

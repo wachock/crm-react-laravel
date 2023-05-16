@@ -262,7 +262,7 @@ export default function WorkContract() {
                                         return (
                                             (c.status == "not-signed") ?
                                                 <>
-                                                    <tr>
+                                                    {/*<tr>
                                                         <td style={{ width: "60%" }}>Card Type:</td>
                                                         <td>
                                                             <select className='form-control' onChange={(e) => setCtype(e.target.value)}>
@@ -272,7 +272,7 @@ export default function WorkContract() {
                                                                 <option value='American Express'>American Express</option>
                                                             </select>
                                                         </td>
-                                                    </tr>
+                                                     </tr>*/}
                                                     <tr>
                                                         <td style={{ width: "60%" }}>Name on the Card</td>
                                                         <td><input type='text' name="name_on_card" onChange={(e) => setCname(e.target.value)} className='form-control' placeholder='Name on the Card' /></td>
@@ -285,11 +285,11 @@ export default function WorkContract() {
                                                                 <input type='number' name="year" onChange={(e) => setCy(e.target.value)} onKeyUp={(e) => { if (e.target.value.length >= 2) e.target.value = e.target.value.slice(0, 2); }} className='ml-2 form-control' placeholder='YY' />
                                                             </div>
                                                         </td>
-                                                    </tr>*/}
+                                                    </tr>
                                                     <tr>
                                                         <td style={{ width: "60%" }}>CVV</td>
                                                         <td><input type='text' name="cvv" onChange={(e) => setCvv(e.target.value)} onKeyUp={(e) => { if (e.target.value.length >= 3) e.target.value = e.target.value.slice(0, 3); }} className='form-control' placeholder='CVV' /></td>
-                                                    </tr>
+                                                    </tr>*/}
                                                     <tr>
                                                         <td>Signature on the Card</td>
                                                         <td> <SignatureCanvas
@@ -303,18 +303,18 @@ export default function WorkContract() {
                                                 </>
                                                 :
                                                 <>
-                                                    <tr>
+                                                  {/* <tr>
                                                         <td style={{ width: "60%" }}>Card Type</td>
                                                         <td><span className='form-control'>{c.card_type ? c.card_type : "NA"}</span></td>
-                                                    </tr>
+                                                </tr>*/}
                                                     <tr>
                                                         <td style={{ width: "60%" }}>Name on the Card</td>
                                                         <td><span className='form-control'>{c.name_on_card ? c.name_on_card : "NA"}</span></td>
                                                     </tr>
-                                                    <tr>
+                                                    {/*<tr>
                                                         <td style={{ width: "60%" }}>CVV</td>
                                                         <td ><span className='form-control'>{c.cvv ? c.cvv : "NA"}</span></td>
-                                                    </tr>
+                                                    </tr>*/}
                                                     <tr>
                                                         <td style={{ width: "60%" }}>Signature on the Card</td>
                                                         <img src={c.card_sign ? c.card_sign : "/images/NA.jpg"} className='img-fluid' alt='Company' />

@@ -285,11 +285,13 @@
         "draw_signature": "Draw Signature with mouse or touch",
         "the_company": "The Company",
         "accept_contract": "Accept Contract",
+        "please_select":"Please select",
         "messages":{
             "card_type_err":"Please select card type",
             "card_holder_err":"Please enter card holder name",
-            "cvv_err":"Please select card cvv",
+            "cvv_err":"Please enter card cvv",
             "sign_card_err":"Please enter signature on the card",
+            "add_card_err":"Please add card before sign contract!",
             "sign_err":"Please sign the contract",
             "invalid_cvv":"Invalid cvv",
             "success":"Thanks, for accepting contract",
@@ -304,7 +306,7 @@
             "card_month":"Please select expire month",
             "card_year":"Please select expire year",
             "please_wait":"Please wait..",
-            "card_success":"Thanks, card is validated successfully, Now you can sign contract!"
+            "card_success":"Thanks, card is added successfully, Now you can sign contract!"
 
 
         },
@@ -465,6 +467,7 @@
             "title":"Settings",
             "my_account":"My Account",
             "change_pass":"Change Password",
+            "card_tab":"Card Details",
             "f_nm":"Your FirstName",
             "l_nm":"Your LastName",
             "inm":"Your InvoiceName",

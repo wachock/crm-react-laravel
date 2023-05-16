@@ -10,6 +10,7 @@ use App\Models\Schedule;
 use App\Models\Contract;
 use App\Models\Files;
 use App\Models\Client;
+use App\Models\ClientCard;
 use App\Models\notifications;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -326,6 +327,14 @@ class DashboardController extends Controller
 
         return response()->json([
             'message'       => 'Password changed successfully',
+        ], 200);
+    }
+
+    public function getCard(){
+         $id = Auth::user()->id;
+         $res = ClientCard::where('client_id',$id)->get()->first();
+         return response()->json([
+            'res'       => $res,
         ], 200);
     }
 
