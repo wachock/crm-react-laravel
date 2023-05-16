@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Validator;
 use Mail;
 use Helper;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Config;
 
 class JobController extends Controller
 {
@@ -200,11 +201,45 @@ class JobController extends Controller
 
     public function jobOrderGenerate(){
       
-        $jobs = Job::where(['status'=>'progress','isOrdered'=>0])->get();
-
+        $jobs = Job::where(['start_date'=>Carbon::today()->format('Y-m-d'),'isOrdered'=>0])->get();
+        $_shifts = [
+            'fullday-8am-16pm'   => '08:30:00-16:00:00',
+            'morning'            => '08:30:00-10:00:10',
+            'morning1-8am-10am'  => '08:30:00-10:00:00',
+            'morning2-10am-12pm' => '10:30:00-12:00:00',
+            'morning-8am-12pm'   => '08:30:00-12:00:00',
+            'noon'               => '12:30:00-14:00:00',
+            'noon1-12pm-14pm'    => '12:30:00-14:00:00',
+            'noon2-14pm-16pm'    => '14:30:00-16:00:00',
+            'noon-12pm-16pm'     => '12:30:00-16:00:00',
+            'evening'            => '16:30:00-18:00:00',
+            'evening1-16pm-18pm' => '16:30:00-18:00:00',
+            'evening2-18pm-20pm' => '18:30:00-20:00:00',
+            'evening-16pm-20pm'  => '16:30:00-20:00:00',
+            'night'              => '20:30:00-22:00:00',
+            'night1-20pm-22pm'   => '20:30:00-22:00:00',
+            'night2-22pm-24pm'   => '22:30:00-24:00:00',
+            'night-20pm-24pm'    => '20:30:00-24:00:00',
+        ];
+       
         if(!empty($jobs)){
             foreach($jobs as $job){
-                $this->order($job->id);
+
+                $t     = $_shifts[ str_replace(' ','',$job->shifts) ];
+                $et    = explode('-',$t);
+               
+                $_start = Carbon::today()->format('Y-m-d '.$et[0]);
+                $_end   = Carbon::today()->format('Y-m-d '.$et[1]);
+                $_now   = Carbon::now()->format('Y-m-d H:i:s');
+                
+                $start  =  Carbon::createFromFormat('Y-m-d H:i:s', $_start);
+                $end    =  Carbon::createFromFormat('Y-m-d H:i:s',  $_end);
+                $now    =  Carbon::createFromFormat('Y-m-d H:i:s',  $_now);
+               
+                if( ($start->lt($now) ) && ($end->gt($now))  ){
+                    $this->order($job->id);
+                }
+    
             }
         }
 
@@ -213,7 +248,7 @@ class JobController extends Controller
    
 
     public function order($id){
-
+    
         $job = Job::where('id',$id)->with('jobservice','client')->get()->first();
         $services = json_decode($job->jobservice);
         $items = []; 
@@ -254,6 +289,7 @@ class JobController extends Controller
         "email_to_client" => 1, 
         "email_to" => $job->client->email, 
         );
+       
 
             $ch = curl_init($url);
             curl_setopt($ch, CURLOPT_POST, 1);
@@ -261,11 +297,11 @@ class JobController extends Controller
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
             $response = curl_exec($ch);
             $info = curl_getinfo($ch);
-
+         
             //if(!$info["http_code"] || $info["http_code"]!=200) die("HTTP Error");
             $json = json_decode($response, true);
            
-           // if(!$json["status"]) die($json["reason"]);
+           //if(!$json["status"]) die($json["reason"]);
            
             Order::create([
                 'order_id'=>$json['docnum'],

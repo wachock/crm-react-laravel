@@ -211,6 +211,13 @@ class ClientEmailController extends Controller
 
       $offer = Contract::where('unique_hash',$request->token)->get()->last();
       $goffer = Offer::where('id',$offer->offer_id)->with('client')->get();
+      $cid = $goffer[0]->client_id;
+
+      $exist_card = Contract::where('client_id',$cid)->where('card_token','!=',null)->get()->first();
+  
+      if(isset($exist_card->card_token)){ $offer->add_card = 0; }
+      else {$offer->add_card = 1; }
+
       return response()->json([
         'offer' => $goffer,
         'contract'=>$offer,
