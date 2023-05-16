@@ -182,11 +182,12 @@ class ClientEmailController extends Controller
     ];
     
     ClientCard::create($args);
-   // Contract::where('unique_hash',$request->cdata['unique_hash'])->update($args);
     return response()->json([
       'message'=>"Card validated successfully"
      ],200);
   }
+
+  
 
   public function RejectContract(Request $request){
      
@@ -234,5 +235,6 @@ class ClientEmailController extends Controller
     $template = Services::where('id',$request->id)->get('template')->first();
     return response()->json(['template'=>$template]);
   }
+  
 }
 

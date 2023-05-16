@@ -48,6 +48,8 @@ Route::group(['prefix' => 'client', 'middleware' => ['auth:client-api', 'scopes:
     Route::post('change-password', [DashboardController::class, 'changePassword']);
 
     Route::resource('job-comments', JobCommentController::class);
+    Route::post('update-card',[DashboardController::class,'updateCard'])->name('update-card');
+   
   
 });
 
@@ -66,6 +68,8 @@ Route::group(['prefix' => 'client'], function () {
      Route::post('reject-contract',[ClientEmailController::class,'RejectContract'])->name('reject-contract');
      Route::post('get-service-template',[ClientEmailController::class,'serviceTemplate'])->name('get-service-template');
      Route::post('save-card',[ClientEmailController::class,'saveCard'])->name('save-card');
+   
+    
 });
 
 

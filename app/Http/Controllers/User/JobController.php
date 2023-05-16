@@ -218,8 +218,8 @@ class JobController extends Controller
             'evening-16pm-20pm'  => '16:30:00-20:00:00',
             'night'              => '20:30:00-22:00:00',
             'night1-20pm-22pm'   => '20:30:00-22:00:00',
-            'night2-22pm-24pm'   => '22:30:00-24:00:00',
-            'night-20pm-24pm'    => '20:30:00-24:00:00',
+            'night2-22pm-24pm'   => '22:30:00-00:00:00',
+            'night-20pm-24pm'    => '20:30:00-00:00:00',
         ];
        
         if(!empty($jobs)){

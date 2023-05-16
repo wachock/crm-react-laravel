@@ -306,7 +306,8 @@
             "card_month":"Please select expire month",
             "card_year":"Please select expire year",
             "please_wait":"Please wait..",
-            "card_success":"Thanks, card is added successfully, Now you can sign contract!"
+            "card_success":"Thanks, card is added successfully, Now you can sign contract!",
+            "card_success_panel":"Thanks, card is updated successfully"
 
 
         },
@@ -317,7 +318,8 @@
         "card_ex_month":"Card Expire Month",
         "select_year":"-- select expire year --",
         "select_month":"-- select expire month --",
-        "model_submit":"Submit"
+        "model_submit":"Submit",
+        "edit_btn":"Edit Card"
     },
     "j_status":{
 

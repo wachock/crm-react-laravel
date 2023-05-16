@@ -127,8 +127,7 @@ export default function card() {
                   }
               });
 
-              console.log(txnData);
-              return;
+             
 
               var txnConfig = {
                   method: 'post',
@@ -150,21 +149,20 @@ export default function card() {
 
                       const cdata = {
 
-                          "cid": localStorage.getItem('client-id'),
+                          "cid": card.id,
                           "card_type": ctype,
-                          "card_number": card,
+                          "card_number": ncard,
                           "valid": exy + "-" + exm,
                           "card_token": res.data.Token,
                           "cvv": cvv.substring(0, 3),
                       }
-                      console.log(cdata);
-                      return;
+                     
                       axios.
-                          post(`/api/client/save-card`, { cdata })
+                          post(`/api/client/update-card`, { cdata },{ headers })
                           .then((re) => {
                               document.querySelector('.closeb').click();
-                              swal(t('work-contract.messages.card_success'), '', 'success');
-                              setSubmit(true);
+                              swal(t('work-contract.messages.card_success_panel'), '', 'success');
+                              getCard();
                           })
 
                   })
@@ -195,7 +193,7 @@ export default function card() {
     return (
         <div className='card'>
             <div className='card-body'>
-                <button className="btn btn-pink float-right"  data-toggle="modal" data-target="#exampleModal"> Edit Card</button>
+                { card.id != undefined && <button className="btn btn-pink float-right"  data-toggle="modal" data-target="#exampleModal"> {t('work-contract.edit_btn')}</button>}
                 <form>
                     <div className='form-group'>
                         <label className='control-label'>{t('work-contract.card_type')} : </label>
@@ -220,12 +218,13 @@ export default function card() {
                 <div className="modal-dialog" role="document">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <h5 className="modal-title" id="exampleModalLabel">Add credit card</h5>
+                            <h5 className="modal-title" id="exampleModalLabel">{t('work-contract.model_title')}</h5>
                             <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div className="modal-body">
+                       <center> <p style={{"color":"red"}}>{t('work-contract.add_card_txt')}</p></center>
 
                             <div className="row">
 

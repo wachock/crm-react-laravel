@@ -338,6 +338,24 @@ class DashboardController extends Controller
         ], 200);
     }
 
+    public function updateCard(Request $request){
+
+        $args = [
+          'card_type'   => $request->cdata['card_type'],  
+          'card_number' => $request->cdata['card_number'],
+          'valid'       => $request->cdata['valid'],
+          'cvv'         => $request->cdata['cvv'],
+          'card_token'  => $request->cdata['card_token'],
+        ];
+        
+        ClientCard::where('id', $request->cdata['cid'])->update($args);
+        return response()->json([
+          'message'=>"Card validated successfully"
+         ],200);
+    
+    }
+
+
     //JOBS
     public function listJobs(Request $request){
         $jobs = Job::where('client_id',$request->cid)->with('offer','client','worker','jobservice')->get();;
