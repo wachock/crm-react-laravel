@@ -164,7 +164,7 @@ export default function Oders() {
                                                             {item.status}
                                                         </Td>
                                                         <Td>
-                                                            { item.invoice_status == 0 ? "Not Generated": " Generated" }
+                                                            { item.invoice_status == 0 ? "Not Generated": "Generated" }
                                                         </Td>
                                                         <Td>
                                                             <div className="action-dropdown dropdown">

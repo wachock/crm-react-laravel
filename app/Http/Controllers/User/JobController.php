@@ -545,7 +545,7 @@ class JobController extends Controller
             'due_date'   => $due,
             'txn_id'     => ( (isset($pres)) && $pres->HasError == false && $doctype == 'invrec' ) ? $pres->ReferenceNumber : '',
             'callback'   => ( (isset($pres)) && $pres->HasError == false && $doctype == 'invrec') ? $pre : '',
-            'status'     => ( (isset($pres))  && $pres->HasError == false && $doctype == 'invrec') ? 'paid' : ( (isset($pres)) ? $pres->ReturnMessage : 'manual payment'),
+            'status'     => ( (isset($pres))  && $pres->HasError == false && $doctype == 'invrec') ? 'Paid' : ( (isset($pres)) ? $pres->ReturnMessage : 'Unpaid'),
         ];
         
         $inv = Invoices::create($invoice);
