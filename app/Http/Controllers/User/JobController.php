@@ -516,7 +516,7 @@ class JobController extends Controller
         //if(!$info["http_code"] || $info["http_code"]!=200) die("HTTP Error");
         $json = json_decode($response, true);
       
-        if(!$json["status"]) die($json["reason"]);
+       // if(!$json["status"]) die($json["reason"]);
       
        // Helper::sendInvoicePayToClient($id, $json["doc_url"], $json["docnum"],$inv->id);
 
@@ -581,7 +581,7 @@ class JobController extends Controller
             $date = Carbon::parse($job->start_date);
             $newDate = $date->addMonths(3);
         }
-
+        
         $today = Carbon::today()->format('Y-m-d');
     
         if( $today == $newDate->format('Y-m-d') ){
@@ -691,7 +691,7 @@ public function scheduledInvoice($id, $oid){
               'due_date'   => $due,
               'txn_id'     => ( (isset($pres)) && $pres->HasError == false && $doctype == 'invrec' ) ? $pres->ReferenceNumber : '',
               'callback'   => ( (isset($pres)) && $pres->HasError == false && $doctype == 'invrec') ? $pre : '',
-              'status'     => ( (isset($pres))  && $pres->HasError == false && $doctype == 'invrec') ? 'paid' : ( (isset($pres)) ? $pres->ReturnMessage : 'manual payment'),
+              'status'     => ( (isset($pres))  && $pres->HasError == false && $doctype == 'invrec') ? 'Paid' : ( (isset($pres)) ? $pres->ReturnMessage : 'Unpaid'),
           ];
           
           $inv = Invoices::create($invoice);
