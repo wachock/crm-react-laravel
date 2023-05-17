@@ -176,7 +176,8 @@ export default function Invoices() {
                                         <Thead>
                                             <Tr>
                                                 <Th scope="col" style={{ cursor: "pointer" }} onClick={(e) => { sortTable(e, 'id') }}  >    #Invoice ID     <span className="arr"> &darr;</span></Th>
-                                                <Th scope="col" style={{ cursor: "pointer" }} onClick={(e) => { sortTable(e, 'amount') }}  >Amount       <span className="arr"> &darr;</span></Th>
+                                                <Th scope="col" style={{ cursor: "pointer" }} onClick={(e) => { sortTable(e, 'amount') }}  >Total Amount       <span className="arr"> &darr;</span></Th>
+                                                <Th scope="col" style={{ cursor: "pointer" }} onClick={(e) => { sortTable(e, 'amount') }}  >Paid Amount       <span className="arr"> &darr;</span></Th>
                                                 <Th scope="col" style={{ cursor: "pointer" }} onClick={(e) => { sortTable(e, 'created_at') }}  >Created Date      <span className="arr"> &darr;</span></Th>
                                                 <Th scope="col" style={{ cursor: "pointer" }} onClick={(e) => { sortTable(e, 'due_date') }} >Due Date          <span className="arr"> &darr;</span></Th>
                                                 <Th scope="col"  >Customer   </Th>
@@ -194,6 +195,7 @@ export default function Invoices() {
                                                         <Tr>
                                                             <Td>#{item.invoice_id}</Td>
                                                             <Td>{item.amount} ILS</Td>
+                                                            <Td>{item.paid_amount} ILS</Td>
                                                             <Td>{Moment(item.created_at).format('DD, MMM Y')}</Td>
                                                             <Td>{(item.due_date != null) ? Moment(item.due_date).format('DD, MMM Y') : 'NA'}</Td>
                                                             <Td><Link to={`/admin/view-client/${item.client.id}`}>{item.client.firstname + " " + item.client.lastname}</Link></Td>
@@ -212,7 +214,7 @@ export default function Invoices() {
                                                                     <div className="dropdown-menu">
                                                                         <a target="_blank" href={item.doc_url} className="dropdown-item">View Invoice</a>
                                                                         {
-                                                                            !item.txn_id && <button onClick={(e) => {setPayID(item.id);setAmount(item.amount)}} data-toggle="modal" data-target="#exampleModal" className="dropdown-item"
+                                                                            item.status != 'Paid' && <button onClick={(e) => {setPayID(item.id);setAmount(item.amount)}} data-toggle="modal" data-target="#exampleModal" className="dropdown-item"
                                                                             >Add Payment</button>
                                                                         }
                                                                         <button onClick={e => handleDelete(item.id)} className="dropdown-item"
@@ -297,24 +299,6 @@ export default function Invoices() {
                                 <div className="col-sm-12">
                                     <div className="form-group">
                                         <label className="control-label">
-                                        Payment Mode
-                                        </label>
-                                        <select   name='mode' className='form-control mode'>
-                                         <option  value='mt'    >Bank Transfer</option>
-                                         <option  value='cash' >By Cash</option>
-                                         <option  value='cc'     >Credit Card</option>
-                                         <option  value='cheque' >By Cheque</option>
-                                        </select>
-
-                                    </div>
-                                </div>
-                                    
-                            </div>
-                            
-                            <div className="row">
-                                <div className="col-sm-12">
-                                    <div className="form-group">
-                                        <label className="control-label">
                                             Transaction / Refrence ID
                                         </label>
                                         <input
@@ -333,7 +317,24 @@ export default function Invoices() {
                                     
                             </div>
 
+                            <div className="row">
+                                <div className="col-sm-12">
+                                    <div className="form-group">
+                                        <label className="control-label">
+                                        Payment Mode
+                                        </label>
+                                        <select   name='mode' className='form-control mode'>
+                                         <option  value='mt'    >Bank Transfer</option>
+                                         <option  value='cash' >By Cash</option>
+                                         <option  value='cc'     >Credit Card</option>
+                                         <option  value='cheque' >By Cheque</option>
+                                        </select>
 
+                                    </div>
+                                </div>
+                                    
+                            </div>
+                            
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn btn-secondary closeb1" data-dismiss="modal">Close</button>

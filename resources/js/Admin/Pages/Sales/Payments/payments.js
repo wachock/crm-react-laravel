@@ -119,7 +119,8 @@ export default function Payments() {
                                             <Th scope="col" style={{ cursor: "pointer" }} onClick={(e)=>{sortTable(e,'created_at')}} >Payment Method   <span className="arr"> &darr;</span></Th>
                                             <Th scope="col"  >Transaction ID   </Th>
                                             <Th scope="col"  >Customer   </Th>
-                                            <Th scope="col" style={{ cursor: "pointer" }}  onClick={(e)=>{sortTable(e,'status')}}>Amount <span className="arr"> &darr;</span></Th>
+                                            <Th scope="col" style={{ cursor: "pointer" }}  onClick={(e)=>{sortTable(e,'status')}}>Total Amount <span className="arr"> &darr;</span></Th>
+                                            <Th scope="col" style={{ cursor: "pointer" }}  onClick={(e)=>{sortTable(e,'status')}}>Paid Amount <span className="arr"> &darr;</span></Th>
                                             <Th scope="col">Date</Th>
                                         </Tr>
                                     </Thead>
@@ -137,6 +138,7 @@ export default function Payments() {
                                                         </Td>
                                                         <Td><Link to={`/admin/view-client/${item.client.id}`}>{item.client.firstname + " " + item.client.lastname}</Link></Td>
                                                         <Td>{item.amount} ILS</Td>
+                                                        <Td>{item.paid_amount} ILS</Td>
                                                         <Td>{ Moment(item.created_at).format('DD, MMM Y')}</Td>
                                                     </Tr>
                                                 )
