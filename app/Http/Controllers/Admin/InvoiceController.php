@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
+use App\Models\Client;
 use Illuminate\Http\Request;
 use App\Models\Invoices;
 use App\Models\Job;
+use App\Models\Order;
 use App\Models\JobService;
+use Barryvdh\DomPDF\PDF as DomPDFPDF;
 use PDF;
 class InvoiceController extends Controller
 {
@@ -64,29 +67,32 @@ class InvoiceController extends Controller
         $id = base64_decode($gid); 
         $invoice = Invoices::where('id',$id)->with('client')->get()->first();
         $pdf = PDF::loadView('InvoicePdf', compact('invoice'));
-       // $pdf->set('isRemoteEnabled',true);
-        // $paper_size = array(0,0,0,1000);
-         //$pdf->set_paper('A4');
         
         return $pdf->stream('invoice_'.$id.'.pdf');
-       // return view('InvoicePdf',compact('invoice'));
     }
 
     public function generatePayment($nid){
-
+        
         $id = base64_decode($nid);
-        $invoice  = Invoices::where('id',$id)->with('client')->get()->first();
-        $_services = json_decode($invoice->services);
-        $client = $invoice->client;
+        $invoice = Invoices::where('id',$id)->get()->first();
+        $job  = Job::where('id',$invoice->job_id)->with('client','jobservice','order')->get()->first();
+        $_services = json_decode($job->order->items);
+        $client = $job->client;
+        
+        $subtotal = (int)$_services[0]->unitprice;
+        $tax = (17/100) * $subtotal;
+        $total = $tax+$subtotal;
+        
         $services = array();
+       
         foreach( $_services as $serv ){
            $services[] = [
             
-            "Amount"       => $serv->price,
+            "Amount"       => $total,
             "Currency"     => "ILS",
-            "Name"         => $serv->service,
-            "Description"  =>  $serv->description, 
-            "Quantity"     =>  1,
+            "Name"         => $serv->description,
+            "Description"  => '', 
+            "Quantity"     =>  $serv->quantity,
             "Image"        =>  "" ,
             "IsTaxFree"    =>  "false",
             "AdjustAmount" => "false"
@@ -94,7 +100,7 @@ class InvoiceController extends Controller
            ];
         }
         $se = json_encode($services);
-
+       
         $username = '0882016016';
         $password = 'Z0882016016';
 
@@ -173,9 +179,15 @@ class InvoiceController extends Controller
             return redirect($re->Data->SessionUrl);
     }
     public function recordInvoice(Request $request){
-      
+       
         $id = base64_decode($request->cb);
+       
         $invoice = Invoices::where('id',$id)->get()->first();
+        $job = Job::where('id',$invoice->job_id)->with('order','client')->get()->first();
+        $isreceipt = 0;
+        if($job->client->payment_method != 'cc'){ $isreceipt = 1; }
+       
+        $docnum = $job->order->order_id;
         $sid = $invoice->session_id;
         $key = env('ZCREDIT_KEY');
        
@@ -208,20 +220,41 @@ class InvoiceController extends Controller
         if(!empty($cb)){
            $args = [
              'callback' => $re->CallBackJSON,
-             'paid_amount' => $cb->Total,
              'status' => 'paid',
              'txn_id' => $re->TransactionID,
            ];
 
-        $services = json_decode($invoice->services);
+        // $services = json_decode($invoice->services);
     
-        if(!empty($services)){
-            foreach($services as $s){
-                JobService::where('id',$s->id)->update(['pay_status'=>1]);
-            }
-        }
-       
+        // if(!empty($services)){
+        //     foreach($services as $s){
+        //         JobService::where('id',$s->id)->update(['pay_status'=>1]);
+        //     }
+        // }
+      
+        $url = "https://api.icount.co.il/api/v3.php/doc/close";
+        $params = Array(
+
+        "cid"  => env('ICOUNT_COMPANYID'),
+        "user" => env('ICOUNT_USERNAME'),
+        "pass" => env('ICOUNT_PASS'),
+        "doctype" => "order",
+        "docnum"  => $docnum,
+        "based_on"=> $docnum
+        );
+
+            $ch = curl_init($url);
+            curl_setopt($ch, CURLOPT_POST, 1);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($params, null, '&'));
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            $rec = curl_exec($ch);
+            $r_info = curl_getinfo($ch);
+
+            //if(!$info["http_code"] || $info["http_code"]!=200) die("HTTP Error");
+           // $json = json_decode($response, true);
+        Order::where('id',$job->order->id)->update(['status'=>'Closed']);
         Invoices::where('id',$id)->update($args);
+        
         } else {
             die('Something went wrong ! Please contact Administrator !');
         }
@@ -240,4 +273,23 @@ class InvoiceController extends Controller
     public function deleteInvoice($id){
         Invoices::where('id',$id)->delete();
     }
+
+    /*Orders Apis */
+
+    public function getOrders(){
+
+        $orders = Order::with('job','client')->paginate(20);
+        return response()->json([
+            'orders' =>$orders
+        ]);
+    }
+
+    public function getPayments(){
+
+        $payments = Invoices::where('status','Paid')->orWhere('status','Partial Paid')->with('job','client')->paginate(20);
+        return response()->json([
+            'pay' =>$payments
+        ]);
+    }
+
 }

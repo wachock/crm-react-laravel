@@ -292,7 +292,7 @@ export default function WorkContractRHS() {
                                             return (
                                                 (c.status == "not-signed") ?
                                                     <>
-                                                        <Tr>
+                                                        {/*<Tr>
                                                             <Td style={{ width: "60%" }}>{t('work-contract.card_type')}</Td>
                                                             <Td>
                                                                 <select className='form-control' onChange={(e) => setCtype(e.target.value)}>
@@ -302,16 +302,16 @@ export default function WorkContractRHS() {
                                                                     <option value='American Express'>American Express</option>
                                                                 </select>
                                                             </Td>
-                                                        </Tr>
+                                                         </Tr>*/}
                                                         <Tr>
                                                             <Td style={{ width: "60%" }}>{t('work-contract.card_name')}</Td>
                                                             <Td><input type='text' name="name_on_card" onChange={(e) => setCname(e.target.value)} className='form-control' placeholder={t('work-contract.card_name')} /></Td>
                                                         </Tr>
 
-                                                        <Tr>
+                                                        {/*<Tr>
                                                             <Td style={{ width: "60%" }}>{t('work-contract.card_cvv')}</Td>
                                                             <Td><input type='text' name="cvv" onChange={(e) => setCvv(e.target.value)} onKeyUp={(e) => { if (e.target.value.length >= 3) e.target.value = e.target.value.slice(0, 3); }} className='form-control' placeholder={t('work-contract.card_cvv')} /></Td>
-                                                        </Tr>
+                                                        </Tr>*/}
                                                         <Tr>
                                                             <td>{t('work-contract.signature')}</td>
                                                             <td> <SignatureCanvas
@@ -325,18 +325,18 @@ export default function WorkContractRHS() {
                                                     </>
                                                     :
                                                     <>
-                                                        <Tr>
+                                                       {/* <Tr>
                                                             <Td style={{ width: "60%" }}>{t('work-contract.card_type')}</Td>
                                                             <Td><span className='form-control'>{c.card_type}</span></Td>
-                                                        </Tr>
+                                                        </Tr>*/}
                                                         <Tr>
                                                             <Td style={{ width: "60%" }}>{t('work-contract.card_name')}</Td>
                                                             <Td><span className='form-control'>{c.name_on_card}</span></Td>
                                                         </Tr>
-                                                        <Tr>
+                                                       {/* <Tr>
                                                             <Td style={{ width: "60%" }}>{t('work-contract.card_cvv')}</Td>
                                                             <Td ><span className='form-control'>{c.cvv}</span></Td>
-                                                        </Tr>
+                                                        </Tr>*/}
                                                         <Tr>
                                                             <Td style={{ width: "60%" }}>{t('work-contract.card_cvv')}</Td>
                                                             <img src={c.card_sign} className='img-fluid' alt='Company' />

@@ -12,13 +12,11 @@ class Contract extends Model
         'offer_id',        
         'client_id',
         'additional_address',
-        'card_type',
-        'card_number',
-        'valid',
         'name_on_card',
         'cvv',
         'unique_hash',
         'signature',
+        'card_sign',
         'status',
     ];
 

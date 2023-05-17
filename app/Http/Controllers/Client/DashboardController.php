@@ -10,6 +10,7 @@ use App\Models\Schedule;
 use App\Models\Contract;
 use App\Models\Files;
 use App\Models\Client;
+use App\Models\ClientCard;
 use App\Models\notifications;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -328,6 +329,47 @@ class DashboardController extends Controller
             'message'       => 'Password changed successfully',
         ], 200);
     }
+
+    public function getCard(){
+         $id = Auth::user()->id;
+         $res = ClientCard::where('client_id',$id)->get();
+         return response()->json([
+            'res'       => $res,
+        ], 200);
+    }
+
+    public function updateCard(Request $request){
+        
+        if(isset( $request->cdata['cid'] )):
+            $args = [
+            'card_type'   => $request->cdata['card_type'],  
+            'card_number' => $request->cdata['card_number'],
+            'valid'       => $request->cdata['valid'],
+            'cvv'         => $request->cdata['cvv'],
+            'card_token'  => $request->cdata['card_token'],
+            ];
+            
+            ClientCard::where('id', $request->cdata['cid'])->update($args);
+
+        else :
+            $args = [
+                'card_type'   => $request->cdata['card_type'],  
+                'client_id'   => Auth::user()->id,
+                'card_number' => $request->cdata['card_number'],
+                'valid'       => $request->cdata['valid'],
+                'cvv'         => $request->cdata['cvv'],
+                'card_token'  => $request->cdata['card_token'],
+              ];
+              
+              ClientCard::create($args);
+        endif;
+
+        return response()->json([
+          'message'=>"Card validated successfully"
+         ],200);
+    
+    }
+
 
     //JOBS
     public function listJobs(Request $request){

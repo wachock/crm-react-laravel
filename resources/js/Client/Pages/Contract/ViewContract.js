@@ -278,7 +278,7 @@ export default function WorkContract() {
                                     <td colSpan="2">{t('work-contract.hereby_permit_txt')}</td>
                                     {/* <td>&nbsp;</td> */}
                                 </tr>
-                                <tr>
+                               {/* <tr>
                                     <td style={{ width: "60%" }}>{t('work-contract.card_type')}</td>
                                     <td>
                                     { contract && contract.card_type != null ?
@@ -292,7 +292,7 @@ export default function WorkContract() {
                                         </select>
                                     }
                                     </td>
-                                </tr>
+                                </tr>*/}
                                 <tr>
                                     <td style={{ width: "60%" }}>{t('work-contract.card_name')}</td>
                                     <td>
@@ -304,7 +304,7 @@ export default function WorkContract() {
                                     </td>
                                 </tr>
 
-                                <tr>
+                                {/*<tr>
                                     <td style={{ width: "60%" }}>{t('work-contract.card_cvv')}</td>
                                     <td>
                                     { contract && contract.cvv != null ?
@@ -313,7 +313,8 @@ export default function WorkContract() {
                                         <input type='text' name="cvv" onChange={(e) => setCvv(e.target.value)} onKeyUp={(e) => { if (e.target.value.length >= 3) e.target.value = e.target.value.slice(0, 3); }} className='form-control' placeholder={t('work-contract.card_cvv')} />
                                     }
                                     </td>
-                                </tr>
+                                </tr>*/}
+                                
                                 <tr>
                                     <td style={{ width: "60%" }}>{t('work-contract.signature')}</td>
                                     <td>

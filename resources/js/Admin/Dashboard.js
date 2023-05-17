@@ -113,7 +113,7 @@ export default function AdminDashboard() {
         .then((res)=>{
             if(res.data.clients.data.length > 0) {
                 setLatestClients(res.data.clients.data);
-                setPageCount(response.data.clients.last_page);
+                setPageCount(res.data.clients.last_page);
             } else{
                 setPageCount(0);
                 setLoading('No client found!');

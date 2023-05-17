@@ -9,23 +9,26 @@ class Invoices extends Model
 {
     use HasFactory;
     protected $fillable = [
+        'invoice_id',
+        'job_id',
         'amount',
-        'subtotal',
-        'taxper',
-        'total_tax',
+        'paid_amount',
+        'doc_url',
         'due_date',
         'customer',
-        'job',
-        'services',
-        'paid_amount',
-        'mode',
         'txn_id',
+        'type',
         'session_id',
         'callback',
+        'pay_method',
         'status'
     ];
 
     public function client(){
         return $this->belongsTo(Client::class,'customer');
     }
+    public function job(){
+        return $this->belongsTo(Job::class,'job_id');
+    }
+   
 }

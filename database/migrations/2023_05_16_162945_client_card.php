@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateOrderTable extends Migration
+class ClientCard extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,14 @@ class CreateOrderTable extends Migration
      */
     public function up()
     {
-        Schema::create('order', function (Blueprint $table) {
+        Schema::create('client_card', function (Blueprint $table) {
             $table->id();
-            $table->string('order_id');
-            $table->string('job_id');
             $table->unsignedBigInteger('client_id');
-            $table->longText('doc_url');
-            $table->longText('response');
-            $table->longText('items');
-            $table->string('status');
-            $table->string('invoice_status');
+            $table->string('card_number');
+            $table->string('card_type');
+            $table->longText('valid');
+            $table->longText('cvv');
+            $table->longText('card_token');
             $table->timestamps();
         });
     }
@@ -34,6 +32,6 @@ class CreateOrderTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('order');
+        //
     }
 }

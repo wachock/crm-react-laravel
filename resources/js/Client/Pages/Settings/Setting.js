@@ -1,6 +1,7 @@
 import React from 'react'
 import Acc from '../../../Client/Component/Settings/Acc'
 import ChangePass from '../../../Client/Component/Settings/ChangePass'
+import Card from '../../../Client/Component/Settings/card'
 import Sidebar from '../../Layouts/ClientSidebar'
 import { useTranslation } from 'react-i18next'
 
@@ -19,6 +20,9 @@ export default function Setting() {
                     <li className="nav-item" role="presentation">
                         <a id="password-tab" className="nav-link" data-toggle="tab" href="#tab-password" aria-selected="false" role="tab">{t('client.settings.change_pass')}</a>
                     </li>
+                    <li className="nav-item" role="presentation">
+                        <a id="card-tab" className="nav-link" data-toggle="tab" href="#tab-card" aria-selected="false" role="tab">{t('client.settings.card_tab')}</a>
+                    </li>
                 </ul>
                 <div className="tab-content">
                     <div id="tab-account" className="tab-pane active show" role="tab-panel" aria-labelledby="account-tab">
@@ -26,6 +30,9 @@ export default function Setting() {
                     </div>
                     <div id="tab-password" className="tab-pane" role="tab-panel" aria-labelledby="password-tab">
                         <ChangePass/>
+                    </div>
+                    <div id="tab-card" className="tab-pane" role="tab-panel" aria-labelledby="card-tab">
+                        <Card/>
                     </div>
                 </div>
             </div>

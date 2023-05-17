@@ -82,10 +82,14 @@ export default function jobs() {
         axios
         .get(`/api/admin/dashboard`,{ headers })
         .then((response)=>{
-            if (response.data.latest_jobs.length > 0) {
-                setlatestJobs(response.data.latest_jobs);
+           
+            if (response.data.latest_jobs.data.length > 0) {
+                setlatestJobs(response.data.latest_jobs.data);
+                setPageCount(response.data.latest_jobs.last_page);
             } else {
                 setLoading("No completed job found");
+                setlatestJobs([]);
+                setPageCount(0);
             }
         })
     }

@@ -29,6 +29,7 @@ class CreateJobsTable extends Migration
             $table->text('shifts')->nullable();
             $table->text('comment')->nullable();
             $table->unsignedBigInteger('rate')->nullable();
+            $table->string('isOrdered')->default(0);
             $table->string('invoice_no')->nullable();
             $table->longText('invoice_url')->nullable();
             $table->enum('status', ['not-started', 'progress', 'completed','scheduled','unscheduled','re-scheduled','cancel'])->default('unscheduled');

@@ -12,8 +12,19 @@ class Order extends Model
     protected $fillable = [
         'order_id',
         'job_id',
+        'client_id',
         'doc_url',
         'response',
+        'items',
+        'status',
         'invoice_status'
     ];
+
+    public function job(){
+        return $this->belongsTo(Job::class,'job_id');
+    }
+    public function client(){
+        return $this->belongsTo(Client::class,'client_id');
+    }
+   
 }

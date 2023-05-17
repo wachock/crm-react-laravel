@@ -7,9 +7,10 @@ use App\Models\Client;
 use App\Models\Services;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
-use Mail;
+use Illuminate\Support\Facades\Mail;
 
 class OfferController extends Controller
 {
@@ -119,7 +120,7 @@ class OfferController extends Controller
           
             $offer['service_names'] = $s_names;
         
-        \App::setLocale($offer['client']['lng']);
+        App::setLocale($offer['client']['lng']);
         Mail::send('/Mails/OfferMail',$offer,function($messages) use ($offer){
             $messages->to($offer['client']['email']);
             ($offer['client']['lng'] == 'en') ?

@@ -26,6 +26,7 @@ class CronController extends Controller
         $jobs = $jobs->whereHas('contract', function ($query) {
                     $query->where('job_status', '=',1);
                 })->get();
+               
         foreach($jobs as $job){
              if($job->schedule == 'w'){
                  $date = Carbon::parse($job->start_date);
@@ -51,6 +52,8 @@ class CronController extends Controller
                  $date = Carbon::parse($job->start_date);
                  $newDate = $date->addMonths(3);
              }
+             if(isset($newDate)){
+            
             $new = new Job();
             $new->client_id     = $job->client_id;
             $new->worker_id     = $job->worker_id;
@@ -86,6 +89,7 @@ class CronController extends Controller
                 JobService::create($jser);
              endforeach;
             endif;
+        }
            
     
         }
