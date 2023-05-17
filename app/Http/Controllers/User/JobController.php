@@ -258,18 +258,19 @@ class JobController extends Controller
                 
               $itm = [
                 "description" => $service->name." - ".\Carbon\Carbon::today()->format('d, M Y'),
-                "unitprice"   => 1,
+                "unitprice"   => $service->total,
                 "quantity"    => 1,
               ];
               array_push($items,$itm);
             }
             JobService::where('id',$service->id)->update(['order_status'=>1]);
         }
+     
         $invoice  = 1;
         if( str_contains($job->schedule,'w') ){ 
             $invoice = 0;
         }
-       
+        $name     =  ($job->client->invoicename != null) ? $job->client->invoicename : $job->client->firstname." ".$job->client->lastname;
         $url = "https://api.icount.co.il/api/v3.php/doc/create";
         $params = Array(
 
@@ -277,7 +278,7 @@ class JobController extends Controller
         "user" => env('ICOUNT_USERNAME'),
         "pass" => env('ICOUNT_PASS'),
         "doctype" => "order",
-        "client_name" => "test user", 
+        "client_name" => $name, 
         "client_address" => $job->client->geo_address,
         "email" => $job->client->email, 
         "lang" => $job->client->lng,
@@ -463,7 +464,7 @@ class JobController extends Controller
         $o_res = json_decode($order->response);
      
         $due      = \Carbon\Carbon::now()->endOfMonth()->toDateString();
-
+        $name     =  ($job->client->invoicename != null) ? $job->client->invoicename : $job->client->firstname." ".$job->client->lastname;
         $url = "https://api.icount.co.il/api/v3.php/doc/create";
         $params = Array(
 
@@ -473,7 +474,7 @@ class JobController extends Controller
 
                 "doctype"        => $doctype,
                 "client_id"      => $o_res->client_id,
-                "client_name"    => "test user", 
+                "client_name"    => $name, 
                 "client_address" => $job->client->geo_address,
                 "email"          => $job->client->email, 
                 "lang"           => $job->client->lng,
@@ -614,7 +615,7 @@ public function scheduledInvoice($id, $oid){
         $o_res = json_decode($order->response);
      
         $due      = \Carbon\Carbon::now()->endOfMonth()->toDateString();
-
+        $name     =  ($job->client->invoicename != null) ? $job->client->invoicename : $job->client->firstname." ".$job->client->lastname;
         $url = "https://api.icount.co.il/api/v3.php/doc/create";
         $params = Array(
 
@@ -624,7 +625,7 @@ public function scheduledInvoice($id, $oid){
 
                 "doctype"        => $doctype,
                 "client_id"      => $o_res->client_id,
-                "client_name"    => "test user", 
+                "client_name"    => $name, 
                 "client_address" => $job->client->geo_address,
                 "email"          => $job->client->email, 
                 "lang"           => $job->client->lng,

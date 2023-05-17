@@ -19,9 +19,9 @@ export default function Invoices() {
     };
 
     const [payId,setPayID] = useState(0);
-    const [paidAmount,setPaidAmount] = useState();
+    const [paidAmount,setPaidAmount] = useState('');
     const [amount,setAmount]         = useState();
-    const [txn,setTxn]               = useState();
+    const [txn,setTxn]               = useState('');
 
     const getInvoices = () => {
         axios
@@ -89,10 +89,10 @@ export default function Invoices() {
     };
 
     const handlePayment = () => {
-        if (paidAmount == null) { window.alert('Please enter amount'); return; }
+        if (paidAmount == '') { window.alert('Please enter amount'); return; }
 
         const m = document.querySelector('.mode').value;
-        const stat = (parseInt(paidAmount) >= parseInt(amount)) ? 'Paid' : 'Partially Paid';
+        const stat = ((paidAmount) >= (amount)) ? 'Paid' : 'Partially Paid';
         const pm = {
                 'cc' : 'Credit Card',
                 'mt' : 'Bank Transfer',
@@ -105,12 +105,13 @@ export default function Invoices() {
             'txn_id': txn,
             'status': paidAmount > 0 ? stat : 'Unpaid',
         }
+       
       
         axios.post(`/api/admin/update-invoice/${payId}`, { data }, { headers })
             .then((res) => {
                 document.querySelector('.closeb1').click();
-                getInvoices();
-                setPaidAmount();
+                getInvoices('');
+                setPaidAmount('');
                 setPayID(0);
              
             })
@@ -183,6 +184,7 @@ export default function Invoices() {
                                                 <Th scope="col"  >Customer   </Th>
                                                 <Th scope="col" style={{ cursor: "pointer" }} onClick={(e) => { sortTable(e, 'status') }}  >Status            <span className="arr"> &darr;</span></Th>
                                                 <Th scope="col"  >Transaction ID/Ref.</Th>
+                                                <Th scope="col"  >Payment Mode</Th>
                                                 <Th scope="col">Action</Th>
                                             </Tr>
                                         </Thead>
@@ -204,6 +206,9 @@ export default function Invoices() {
                                                             </Td>
                                                             <Td>
                                                                 {item.txn_id ? item.txn_id : 'NA'}
+                                                            </Td>
+                                                            <Td>
+                                                                {item.pay_method ? item.pay_method : 'Credit Card'}
                                                             </Td>
                                                             <Td>
                                                                 <div className="action-dropdown dropdown">
