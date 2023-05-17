@@ -3,6 +3,7 @@ import { useAlert } from "react-alert";
 import Moment from 'moment';
 import { useTranslation } from "react-i18next";
 import axios from "axios";
+import { daDK } from "rsuite/esm/locales";
 
 export default function card() {
 
@@ -55,7 +56,8 @@ export default function card() {
           "CardNumber": ncard,
           "ExpDate_MMYY": exm + exy.substring(2, 4)
       }
-    
+      //console.log(cardVal);
+      //return
       var config = {
           method: 'post',
           url: 'https://pci.zcredit.co.il/ZCreditWS/api/Transaction/ValidateCard',

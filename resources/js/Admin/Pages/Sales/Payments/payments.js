@@ -7,11 +7,11 @@ import axios from "axios";
 import Moment from 'moment';
 import { Base64 } from "js-base64";
 
-export default function Orders() {
+export default function Payments() {
 
     const [loading, setLoading] = useState("Loading...");
     const [pageCount, setPageCount] = useState(0);
-    const [orders, setOrders]   = useState([]);
+    const [pay, setPay]   = useState([]);
     const headers = {
         Accept: "application/json, text/plain, */*",
         "Content-Type": "application/json",
@@ -20,19 +20,19 @@ export default function Orders() {
 
     const getOrders = () => {
         axios
-            .get('/api/admin/orders', { headers })
+            .get('/api/admin/payments', { headers })
             .then((res) => {
-                if (res.data.orders.data.length > 0) {
-                    setOrders(res.data.orders.data);
-                    setPageCount(res.data.orders.last_page);
+                if (res.data.pay.data.length > 0) {
+                    setPay(res.data.pay.data);
+                    setPageCount(res.data.pay.last_page);
                 } else {
-                    setOrders([]);
-                    setLoading('No Order Found');
+                    setPay([]);
+                    setLoading('No Payments Found');
                 }
             })
     }
 
-    const copy = [...orders];
+    const copy = [...pay];
     const [order,setOrder] = useState('ASC');
     const sortTable = (e,col) =>{
         
@@ -58,54 +58,28 @@ export default function Orders() {
  
         if(order == 'ASC'){
             const sortData = [...copy].sort((a, b) => (a[col] < b[col] ? 1 : -1));
-            setOrders(sortData);
+            setPay(sortData);
             setOrder('DESC');
         }
         if(order == 'DESC'){
             const sortData = [...copy].sort((a, b) => (a[col] < b[col] ? -1 : 1));
-            setOrders(sortData);
+            setPay(sortData);
             setOrder('ASC');
         }
         
     }
 
-    const handleDelete = (id) => {
-        Swal.fire({
-            title: "Are you sure?",
-            text: "You won't be able to revert this!",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, Delete Order!",
-        }).then((result) => {
-            if (result.isConfirmed) {
-                axios
-                    .get(`/api/admin/delete-oders/${id}`, { headers })
-                    .then((response) => {
-                        Swal.fire(
-                            "Deleted!",
-                            "Order has been deleted.",
-                            "success"
-                        );
-                        setTimeout(() => {
-                            getOrders();
-                        }, 1000);
-                    });
-            }
-        });
-    };
 
     const handlePageClick = async (data) => {
         let currentPage = data.selected + 1;
         axios
-            .get("/api/admin/orders?page=" + currentPage, { headers })
+            .get("/api/admin/payments?page=" + currentPage, { headers })
             .then((response) => {
-                if (response.data.orders.data.length > 0) {
-                    setOrders(response.data.orders.data);
-                    setPageCount(response.data.orders.last_page);
+                if (response.data.pay.data.length > 0) {
+                    setPay(response.data.pay.data);
+                    setPageCount(response.data.pay.last_page);
                 } else {
-                    setLoading("No Order Found");
+                    setLoading("No Payment Found");
                 }
             });
     };
@@ -120,7 +94,7 @@ export default function Orders() {
                 <div className="titleBox customer-title">
                     <div className="row">
                         <div className="col-sm-6">
-                            <h1 className="page-title">Manage Orders</h1>
+                            <h1 className="page-title">Manage Payments</h1>
                         </div>
                         {/*<div className="col-sm-6">
                             <Link
@@ -136,58 +110,44 @@ export default function Orders() {
                     <div className="card-body">
                         <div className="boxPanel">
                             <div className="table-responsive">
-                            { orders.length > 0 ?(
+                            { pay.length > 0 ?(
                                 <Table className="table table-bordered">
                                     <Thead>
                                         <Tr>
-                                            <Th scope="col" style={{ cursor: "pointer" }} onClick={(e)=>{sortTable(e,'id')}}  > #Order ID           <span className="arr"> &darr;</span></Th>
-                                            <Th scope="col" >Job </Th>
-                                            <Th scope="col" style={{ cursor: "pointer" }} onClick={(e)=>{sortTable(e,'created_at')}} >Created Date   <span className="arr"> &darr;</span></Th>
+                                            <Th scope="col" style={{ cursor: "pointer" }} onClick={(e)=>{sortTable(e,'id')}}  > #payment           <span className="arr"> &darr;</span></Th>
+                                            <Th scope="col" >#Invoice </Th>
+                                            <Th scope="col" style={{ cursor: "pointer" }} onClick={(e)=>{sortTable(e,'created_at')}} >Payment Method   <span className="arr"> &darr;</span></Th>
+                                            <Th scope="col"  >Transaction ID   </Th>
                                             <Th scope="col"  >Customer   </Th>
-                                            <Th scope="col" style={{ cursor: "pointer" }}  onClick={(e)=>{sortTable(e,'status')}}>Status            <span className="arr"> &darr;</span></Th>
-                                            <Th scope="col">Invoice Status</Th>
-                                            <Th scope="col">Action</Th>
+                                            <Th scope="col" style={{ cursor: "pointer" }}  onClick={(e)=>{sortTable(e,'status')}}>Amount <span className="arr"> &darr;</span></Th>
+                                            <Th scope="col">Date</Th>
                                         </Tr>
                                     </Thead>
                                     <Tbody>
-                                        {orders &&
-                                            orders.map((item, index) => {
-                                                let services = (item.items != undefined && item.items != null) ? JSON.parse(item.items) : []
-
+                                        {pay &&
+                                            pay.map((item, index) => {
+                                               
                                                 return (
                                                     <Tr>
-                                                        <Td>#{item.order_id}</Td>
-                                                        <Td><Link to={`/admin/view-job/${item.job.id}`}>{ Moment(item.job.start_date).format('DD-MM-Y')+ " | "+item.job.shifts  }</Link></Td>
-                                                        <Td>{ Moment(item.created_at).format('DD, MMM Y')}</Td>
+                                                        <Td>#{item.id}</Td>
+                                                        <Td><a href={item.doc_url} target="_blank">{item.invoice_id}</a></Td>
+                                                        <Td>{ item.callback != null ? 'Credit Card' : item.pay_method }</Td>
+                                                        <Td>
+                                                            {item.txn_id ? item.txn_id : 'NA'}
+                                                        </Td>
                                                         <Td><Link to={`/admin/view-client/${item.client.id}`}>{item.client.firstname + " " + item.client.lastname}</Link></Td>
-                                                        <Td>
-                                                            {item.status}
-                                                        </Td>
-                                                        <Td>
-                                                            { item.invoice_status == 0 ? "Not Generated": "Generated" }
-                                                        </Td>
-                                                        <Td>
-                                                            <div className="action-dropdown dropdown">
-                                                                <button type="button" className="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                                                    <i className="fa fa-ellipsis-vertical"></i>
-                                                                </button>
-                                                                <div className="dropdown-menu">
-                                                                    <a target="_blank" href={item.doc_url} className="dropdown-item">View Order</a>
-                                                                    <button  onClick={e=>handleDelete(item.id)} className="dropdown-item"
-                                                                    >Delete</button>
-                                                                </div>
-                                                            </div>
-                                                        </Td>
+                                                        <Td>{item.amount} ILS</Td>
+                                                        <Td>{ Moment(item.created_at).format('DD, MMM Y')}</Td>
                                                     </Tr>
                                                 )
                                             })}
                                     </Tbody>
                                 </Table>)
                                 :(
-                                    <div className="form-control text-center"> No Order Found</div>
+                                    <div className="form-control text-center"> No Payment Found</div>
                                 )}
 
-                               {orders.length > 0 ? (
+                               {pay.length > 0 ? (
                                 <ReactPaginate
                                     previousLabel={"Previous"}
                                     nextLabel={"Next"}

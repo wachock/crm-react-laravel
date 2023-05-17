@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Models\Job;
 use App\Models\Admin;
+use App\Models\ClientCard;
 use App\Models\User;
 use App\Models\Contract;
 use App\Models\serviceSchedules;
@@ -316,7 +317,7 @@ class JobController extends Controller
             Job::where('id',$id)->update(['isOrdered'=>1]);        
     }
 
-    public function commitPayment( $services , $id,){
+    public function commitPayment( $services , $id, $token){
 
         $job = Job::where('id',$id)->with('jobservice','client','contract','order')->get()->first();
         $pitems = [];
@@ -343,7 +344,7 @@ class JobController extends Controller
         "TerminalNumber": "'.env("ZCREDIT_TERMINALNUMBER").'",
         "Password": "'.env("ZCREDIT_TERMINALPASSWORD").'",
         "Track2": "",
-        "CardNumber": "'.$job->contract->card_token.'",
+        "CardNumber": "'.$token.'",
         "CVV": "",
         "ExpDate_MMYY": "",
         "TransactionSum": "'.$total.'",
@@ -448,7 +449,8 @@ class JobController extends Controller
           
         $p_method = $job->client->payment_method;
         $contract = $job->contract; 
-        $doctype  = ($contract->card_token != null && $p_method == 'cc') ? "invrec" : "invoice"; 
+        $card = ClientCard::where('client_id',$job->client_id)->get()->first();
+        $doctype  = ($card != null && $card->card_token != null && $p_method == 'cc') ? "invrec" : "invoice"; 
     
 
         if( str_contains($job->schedule,'w') == false ) {
@@ -488,11 +490,11 @@ class JobController extends Controller
         );
         if($doctype == "invrec"){
 
-            $ex = explode('-',$contract->valid);
+            $ex = explode('-',$card->valid);
             $cc = ['cc'=>[
                 "sum" => $total,
-                "card_type" => $contract->card_type,
-                "card_number" => substr($contract->card_number,12), 
+                "card_type" => $card->card_type,
+                "card_number" => substr($card->card_number,12), 
                 "exp_year" => $ex[0],
                 "exp_month" => $ex[1],
                 "holder_id" => "",
@@ -523,7 +525,7 @@ class JobController extends Controller
     
     /* Auto payment */
         if( $doctype == 'invrec'){
-          $pres = $this->commitPayment($services, $id);
+          $pres = $this->commitPayment($services, $id, $card->card_token);
           $pre = json_encode($pres);
         }
 
@@ -539,6 +541,8 @@ class JobController extends Controller
             'invoice_id' => $json['docnum'],
             'job_id'     => $id,
             'amount'     => $total,
+            'paid_amount'=> $total,
+            'pay_method' => 'Credit Card',
             'customer'   => $job->client->id,
             'doc_url'    => $json['doc_url'],
             'type'       => $doctype,
@@ -581,7 +585,7 @@ class JobController extends Controller
             $date = Carbon::parse($job->start_date);
             $newDate = $date->addMonths(3);
         }
-        
+    
         $today = Carbon::today()->format('Y-m-d');
     
         if( $today == $newDate->format('Y-m-d') ){
@@ -597,11 +601,11 @@ public function scheduledInvoice($id, $oid){
         $job = Job::where(['id'=>$id , 'status' => 'progress'])->with('jobservice','client','contract','order')->get()->first();
         $services = json_decode($job->order->items);
         $total = 0;
-        
+        $card = ClientCard::where('client_id',$job->client_id)->get()->first();
         $p_method = $job->client->payment_method;
         $contract = $job->contract; 
-        $doctype  = ($contract->card_token != null && $p_method == 'cc') ? "invrec" : "invoice"; 
-
+        $doctype  = ($card != null && $card->card_token != null && $p_method == 'cc') ? "invrec" : "invoice"; 
+       
         $subtotal = (int)$services[0]->unitprice;
         $tax = (17/100) * $subtotal;
         $total = $tax+$subtotal;
@@ -637,11 +641,11 @@ public function scheduledInvoice($id, $oid){
         );
         if($doctype == "invrec"){
 
-            $ex = explode('-',$contract->valid);
+            $ex = explode('-',$card->valid);
             $cc = ['cc'=>[
                 "sum" => $total,
-                "card_type" => $contract->card_type,
-                "card_number" => substr($contract->card_number,12), 
+                "card_type" => $card->card_type,
+                "card_number" => substr($card->card_number,12), 
                 "exp_year" => $ex[0],
                 "exp_month" => $ex[1],
                 "holder_id" => "",
@@ -665,11 +669,11 @@ public function scheduledInvoice($id, $oid){
         //if(!$info["http_code"] || $info["http_code"]!=200) die("HTTP Error");
         $json = json_decode($response, true);
       
-        if(!$json["status"]) die($json["reason"]);
+        //if(!$json["status"]) die($json["reason"]);
 
         /* Auto payment */
         if( $doctype == 'invrec'){
-            $pres = $this->commitPayment($services, $id);
+            $pres = $this->commitPayment($services, $id, $card->card_token);
             $pre = json_encode($pres);
           }
   
@@ -685,6 +689,8 @@ public function scheduledInvoice($id, $oid){
               'invoice_id' => $json['docnum'],
               'job_id'     => $id,
               'amount'     => $total,
+              'paid_amount'=> $total,
+              'pay_method' => 'Credit Card',
               'customer'   => $job->client->id,
               'doc_url'    => $json['doc_url'],
               'type'       => $doctype,

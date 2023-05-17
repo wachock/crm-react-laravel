@@ -163,9 +163,11 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin-api', 'scopes:ad
     Route::post('update-invoice/{id}',[InvoiceController::class,'updateInvoice']);
     Route::post('invoice-jobs',[InvoiceController::class,'invoiceJobs']);
     Route::get('delete-invoice/{id}',[InvoiceController::class,'deleteInvoice']);
+    Route::get('payments',[InvoiceController::class,'getPayments']);
 
     //Orders
     Route::get('orders',[InvoiceController::class,'getOrders']);
+
 
     //Notifications
     Route::get('head-notice',[DashboardController::class,'headNotice'])->name('head-notice');

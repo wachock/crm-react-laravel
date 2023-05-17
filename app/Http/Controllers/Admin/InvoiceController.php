@@ -284,4 +284,12 @@ class InvoiceController extends Controller
         ]);
     }
 
+    public function getPayments(){
+
+        $payments = Invoices::where('status','Paid')->with('job','client')->paginate(20);
+        return response()->json([
+            'pay' =>$payments
+        ]);
+    }
+
 }

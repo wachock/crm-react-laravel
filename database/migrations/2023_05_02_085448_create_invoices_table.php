@@ -18,10 +18,12 @@ class CreateInvoicesTable extends Migration
             $table->string('invoice_id');
             $table->string('job_id');
             $table->string('amount');
+            $table->string('paid_amount');
             $table->longText('doc_url');
             $table->string('type');
             $table->unsignedBigInteger('customer');
             $table->string('due_date')->nullable();
+            $table->string('pay_method')->nullable();
             $table->string('txn_id')->nullable();
             $table->longText('session_id')->nullable();
             $table->longText('callback')->nullable();
