@@ -316,7 +316,7 @@
         "select_year":"-- בחר שנת תפוגה --",
         "select_month":"-- בחר חודש תפוגה --",
         "model_submit":"שלח",
-        "edit_btn":"ערוך כרטיס"
+        "edit_btn":"הוסף/ערוך כרטיס"
     },
     "j_status": {
         "not-started": "לא התחיל",

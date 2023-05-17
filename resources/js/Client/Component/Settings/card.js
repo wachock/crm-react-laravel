@@ -24,6 +24,7 @@ export default function card() {
             .get(`/api/client/get-card`, { headers })
             .then((res) => {
                 setCard(res.data.res);
+            
             })
     }
 
@@ -149,7 +150,7 @@ export default function card() {
 
                       const cdata = {
 
-                          "cid": card.id,
+                          "cid": (card.length > 0) ?  card[0].id: '',
                           "card_type": ctype,
                           "card_number": ncard,
                           "valid": exy + "-" + exm,
@@ -184,35 +185,43 @@ export default function card() {
         }
     }, []);
 
-
+ 
     let exp = '';
-    if (card.valid != undefined) {
-        let vl = card.valid.split('-');
+    if (card.length > 0) {
+        let vl = card[0].valid.split('-');
         exp = " " + vl[1] + " / " + vl[0].substring(2, 4);
     }
     return (
         <div className='card'>
+            
             <div className='card-body'>
-                { card.id != undefined && <button className="btn btn-pink float-right"  data-toggle="modal" data-target="#exampleModal"> {t('work-contract.edit_btn')}</button>}
+                {  <button className="btn btn-pink float-right"  data-toggle="modal" data-target="#exampleModal"> {t('work-contract.edit_btn')}</button>}
+               {
+                card.length > 0 ? (
+        
                 <form>
                     <div className='form-group'>
                         <label className='control-label'>{t('work-contract.card_type')} : </label>
-                        <span>{card.card_type != undefined ? " " + card.card_type : 'NA'}</span>
+                        <span>{card[0].card_type }</span>
                     </div>
                     <div className='form-group'>
                         <label className='control-label'>{t('work-contract.card_number')} : </label>
-                        <span> {card.card_number != undefined ? card.card_number : 'NA'}</span>
+                        <span> {card[0].card_number }</span>
                     </div>
                     <div className='form-group'>
                         <label className='control-label'> {t('work-contract.card_expiry')} : </label>
-                        <span>{card.valid != undefined ? exp : 'NA'}</span>
+                        <span>{exp }</span>
                     </div>
                     <div className='form-group'>
                         <label className='control-label'> {t('work-contract.card_cvv')} : </label>
-                        <span> {card.cvv != undefined ? card.cvv : 'NA'}</span>
+                        <span> {card[0].cvv}</span>
                     </div>
 
-                </form>
+                </form>)
+                :(
+                    <div>No card added</div>
+                )
+                }
             </div>
             <div className="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div className="modal-dialog" role="document">
