@@ -79,9 +79,31 @@ export default function Sidebar() {
                 <li className="list-group-item">
                     <NavLink to="/admin/jobs"><i className="fa-solid fa-briefcase"></i>Jobs</NavLink>
                 </li>
-                <li className="list-group-item">
-                        <NavLink to="/admin/invoices"><i className="fas fa-file-invoice"></i>Invoices</NavLink>
-                 </li> 
+                 <li className="list-group-item">
+                    <div id="myFencePay" className='fence commonDropdown'>
+                        <div id="fenceheadpay">
+                            <a href="#" className="text-left btn btn-header-link" data-toggle="collapse" data-target="#fencepay" aria-expanded="true" aria-controls="fencepay">
+                                <i className="fas fa-file-invoice"></i> Sales <i className="fa-solid fa-angle-down"></i>
+                            </a>
+                        </div>
+                        <div id="fencepay" className="collapse" aria-labelledby="fenceheadpay" data-parent="#fencepay">
+                            <div className="card-body">
+                                <ul className='list-group'>
+                                    <li className='list-group-item'>
+                                        <Link to="/admin/orders"><i className="fa fa-angle-right"></i> Orders </Link>
+                                    </li>
+                                    <li className='list-group-item'>
+                                        <Link to="/admin/invoices"><i className="fa fa-angle-right"></i> Invoices </Link>
+                                    </li>
+                                    <li className='list-group-item'>
+                                        <Link to="/admin/payments"><i className="fa fa-angle-right"></i> Payments </Link>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                 
                 {
                     role !== 'member' &&
                     <li className="list-group-item">

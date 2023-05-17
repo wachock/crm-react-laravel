@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
+use App\Models\Client;
 use Illuminate\Http\Request;
 use App\Models\Invoices;
 use App\Models\Job;
@@ -272,4 +273,15 @@ class InvoiceController extends Controller
     public function deleteInvoice($id){
         Invoices::where('id',$id)->delete();
     }
+
+    /*Orders Apis */
+
+    public function getOrders(){
+
+        $orders = Order::with('job','client')->paginate(20);
+        return response()->json([
+            'orders' =>$orders
+        ]);
+    }
+
 }

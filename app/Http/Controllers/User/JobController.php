@@ -307,6 +307,7 @@ class JobController extends Controller
                 'order_id'=>$json['docnum'],
                 'doc_url' =>$json['doc_url'],
                 'job_id'=>$id,
+                'client_id'=>$job->client->id,
                 'response' => $response,
                 'items' => json_encode($items),
                 'status' => 'Open',
@@ -441,7 +442,7 @@ class JobController extends Controller
 
     public function invoice($id, $oid){
         
-        $job = Job::where(['id'=>$id , 'status' => 'progress'])->with('jobservice','client','contract','order')->get()->first();
+        $job = Job::where(['id'=>$id])->with('jobservice','client','contract','order')->get()->first();
         $services = json_decode($job->order->items);
         $total = 0;
           
@@ -480,8 +481,8 @@ class JobController extends Controller
                 "duedate"        => $due,
                 "based_on"       =>['docnum'=>$order->order_id,'doctype'=>'order'],
                 
-                "send_email"      => 0, 
-                "email_to_client" => 0, 
+                "send_email"      => 1, 
+                "email_to_client" => 1, 
                 "email_to"        => $job->client->email, 
                 
         );
@@ -555,7 +556,7 @@ class JobController extends Controller
     } // demand services invoices
 
      else {
-
+       
         if($job->schedule == 'w'){
             $date = Carbon::parse($job->start_date);
             $newDate = $date->addDays(7);

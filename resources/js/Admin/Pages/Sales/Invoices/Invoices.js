@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Sidebar from "../../Layouts/Sidebar";
+import Sidebar from "../../../Layouts/Sidebar";
 import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table'
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -119,11 +119,11 @@ export default function Invoices() {
                     <div className="card-body">
                         <div className="boxPanel">
                             <div className="table-responsive">
-
+                            { invoices.length > 0 ?(
                                 <Table className="table table-bordered">
                                     <Thead>
                                         <Tr>
-                                            <Th scope="col" style={{ cursor: "pointer" }} onClick={(e)=>{sortTable(e,'id')}}  >    #Invoice     <span className="arr"> &darr;</span></Th>
+                                            <Th scope="col" style={{ cursor: "pointer" }} onClick={(e)=>{sortTable(e,'id')}}  >    #Invoice ID     <span className="arr"> &darr;</span></Th>
                                             <Th scope="col" style={{ cursor: "pointer" }} onClick={(e)=>{sortTable(e,'amount')}}  >Amount       <span className="arr"> &darr;</span></Th>
                                             <Th scope="col" style={{ cursor: "pointer" }}   onClick={(e)=>{sortTable(e,'created_at')}}  >Created Date      <span className="arr"> &darr;</span></Th>
                                             <Th scope="col" style={{ cursor: "pointer" }}   onClick={(e)=>{sortTable(e,'due_date')}} >Due Date          <span className="arr"> &darr;</span></Th>
@@ -140,7 +140,7 @@ export default function Invoices() {
 
                                                 return (
                                                     <Tr>
-                                                        <Td>#{item.id}</Td>
+                                                        <Td>#{item.invoice_id}</Td>
                                                         <Td>{item.amount} ILS</Td>
                                                         <Td>{Moment(item.created_at).format('DD, MMM Y')}</Td>
                                                         <Td>{(item.due_date != null) ? Moment(item.due_date).format('DD, MMM Y') : 'NA'}</Td>
@@ -168,7 +168,10 @@ export default function Invoices() {
                                                 )
                                             })}
                                     </Tbody>
-                                </Table>
+                                </Table>)
+                                :(
+                                    <div className="form-control text-center"> No Invoice Found</div>
+                                )}
 
 
                             </div>
