@@ -105,6 +105,7 @@ import Form101 from './Pages/Form101';
 import Languages from './Admin/Pages/Languages/language';
 import EditLanguages from './Admin/Pages/Languages/EditLanguage';
 import Notification from './Admin/Pages/Notification/Notification';
+import Leads from './Admin/Pages/Leads/Leads';
 import Income from './Admin/Pages/Income'
 import Invoices from './Admin/Pages/Sales/Invoices/Invoices';
 import AddInvoice from './Admin/Pages/Sales/Invoices/AddInvoice';
@@ -231,6 +232,7 @@ export default function MyRoutes() {
                      <Route exact path="add-time" element={<AddTime />} />
                      <Route exact path="edit-time/:id" element={<EditTime />} />
                      <Route exact path="notifications" element={<Notification />} />
+                     <Route exact path="leads" element={<Leads />} />
                      <Route exact path="Languages" element={<Languages />} />
                      <Route exact path="edit-language/:id" element={<EditLanguages />} />
                      <Route exact path="income" element={<Income />} />

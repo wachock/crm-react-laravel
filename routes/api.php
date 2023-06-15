@@ -6,6 +6,8 @@ use App\Http\Controllers\User\Auth\AuthController;
 use App\Http\Controllers\User\JobController;
 use App\Http\Controllers\User\DashboardController;
 use App\Http\Controllers\User\JobCommentController;
+use App\Http\Controllers\ChatBotController;
+use App\Http\Controllers\FacebookLeads;
 /*
 |--------------------------------------------------------------------------
 | Employee API Routes
@@ -54,7 +56,5 @@ Route::group( ['middleware' => ['auth:api','scopes:user'] ],function(){
     Route::get('details',[AuthController::class, 'details']); 
     Route::post('update_details/{id}',[AuthController::class, 'updateWorker']); 
    
-
-
 
 });
